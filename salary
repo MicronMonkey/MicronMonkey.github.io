@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>m光光猴薪情平台 v6 終極完全體</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #f8fafc; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        .tab-active { background-color: #2563eb; color: white; }
+        .heatmap-cell { transition: all 0.2s; }
+        .heatmap-cell:hover { transform: scale(1.05); filter: brightness(0.95); }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-8 bg-gradient-to-r from-slate-900 to-blue-950 text-white p-6 rounded-2xl shadow-md border border-blue-900/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center font-black text-2xl shadow-inner text-white border border-blue-400/30">m</div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight">光光猴薪情平台 <span class="text-xs font-normal bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold px-2 py-0.5 rounded-sm ml-2">v6 終極完全體</span></h1>
+                    <p class="text-slate-400 text-xs mt-1">獨立 API 數據遮罩與高級統計引擎：內建勝率計算、達標熱力圖、晉升趨勢線與異常警告</p>
+                </div>
+            </div>
+            <div id="connectionStatus" class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs px-3 py-1 rounded-full border border-amber-500/30 self-start md:self-center">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                雲端數據連線中...
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+            <div class="space-y-6 lg:col-span-1">
+                <div class="bg-gradient-to-b from-slate-800 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-slate-700/50">
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動對比：我在猴群哪個位置？</h3>
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-slate-300 mb-1">您的職等 (如: E2, T3)</label>
+                            <input id="myGrade" type="text" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden uppercase" placeholder="e.g. E2">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-1">總工作年資 (年)</label>
+                            <input id="myExp" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden" placeholder="e.g. 4.5">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-1">月薪 (萬元，不含加班費)</label>
+                            <input id="mySalary" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden" placeholder="e.g. 9.2">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <button onclick="locateMe()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded transition-colors cursor-pointer text-center">開始定位</button>
+                            <button onclick="clearLocation()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 p-2 rounded transition-colors cursor-pointer text-center">清除定位</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="percentileCard" class="hidden bg-linear-to-br from-indigo-900 to-slate-950 text-white p-5 rounded-2xl shadow-md border border-indigo-500/30">
+                    <h3 class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">💡 猴群生存落點報告</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-[11px] text-slate-400">同職等勝率 (Grade Percentile)</p>
+                            <div class="flex items-baseline gap-1 mt-0.5">
+                                <span id="pctGradeRes" class="text-3xl font-black text-amber-400">--%</span>
+                                <span class="text-slate-400 text-[11px]" id="pctGradeLabel">領先該職等</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-slate-400">相似年資勝率 (±2年資產圈)</p>
+                            <div class="flex items-baseline gap-1 mt-0.5">
+                                <span id="pctExpRes" class="text-3xl font-black text-sky-400">--%</span>
+                                <span class="text-slate-400 text-[11px]">同資歷同仁</span>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 border-t border-slate-800 pt-2 italic">※ 數據基於目前全體自發問卷樣本計算</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200/60">
+                    <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-1.5">⚙️ 全域範圍控制</h3>
+                    <div class="space-y-4 text-xs">
+                        <div>
+                            <label class="block text-slate-600 font-medium mb-1">團隊類型過濾</label>
+                            <select id="filterTeam" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700" onchange="updateCharts()">
+                                <option value="All">全部類型 (Global & Site)</option>
+                                <option value="Global team">Global team</option>
+                                <option value="Site team">Site team</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-600 font-medium mb-1 flex justify-between">
+                                <span>年資區間篩選</span>
+                                <span id="expRangeLabel" class="text-blue-600 font-bold">0 - 25 年</span>
+                            </label>
+                            <div class="space-y-2 mt-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-400 w-6">Min:</span>
+                                    <input id="filterExpMin" type="range" min="0" max="25" value="0" class="w-full accent-blue-600" oninput="updateExpSliders(); updateCharts();">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-400 w-6">Max:</span>
+                                    <input id="filterExpMax" type="range" min="0" max="25" value="25" class="w-full accent-blue-600" oninput="updateExpSliders(); updateCharts();">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 space-y-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">實線代表該職等的回歸趨勢線。斜率越高，代表年資隨職等晉升的含金量越高。</p>
+                        </div>
+                        <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
+                            <button id="tabAll" onclick="changeSeriesTab('All')" class="px-3 py-1.5 rounded-md tab-active cursor-pointer">全體</button>
+                            <button id="tabE" onclick="changeSeriesTab('E')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">E系</button>
+                            <button id="tabT" onclick="changeSeriesTab('T')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">T系</button>
+                            <button id="tabM" onclick="changeSeriesTab('M')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">M系</button>
+                        </div>
+                    </div>
+                    <div class="relative h-85"><canvas id="mainScatterChart"></canvas></div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                    <h3 class="text-sm font-bold text-slate-800 mb-1">🔥 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)</h3>
+                    <p class="text-xs text-slate-400 mb-4">方格內的數值代表「平均所需工作年資（年）」，顏色愈深代表在該職等越需要時間熬資歷；空白代表無樣本或該職等無法達到此薪資門檻。</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center border-collapse text-xs min-w-[500px]">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                    <th class="p-3 text-left">目標月薪級距</th>
+                                    <th class="p-3">E1 職等</th>
+                                    <th class="p-3">E2 職等</th>
+                                    <th class="p-3">E3 職等</th>
+                                    <th class="p-3">E4/M1+ 職等</th>
+                                    <th class="p-3">T系/其餘職等</th>
+                                </tr>
+                            </thead>
+                            <tbody id="heatmapTableBody" class="divide-y divide-slate-100 font-medium">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標)</h3>
+                        <p class="text-xs text-slate-400 mb-3">(已防呆：自動屏蔽少於2筆數據之職等，滑鼠移入看中位與平均數)</p>
+                        <div class="relative h-72"><canvas id="boxSalaryChart"></canvas></div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs">
+                        <h3 class="text-sm font-bold text-slate-800 mb-1">📊 各職等參與調查人數 (數據母體分佈)</h3>
+                        <p class="text-xs text-slate-400 mb-3">展示各級職等在本次自發表單回應中的覆蓋率</p>
+                        <div class="relative h-72"><canvas id="sampleCountChart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="bg-white rounded-2xl border border-slate-200/70 shadow-xs overflow-hidden mb-8">
+            <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-stretch sm:items-center bg-slate-50/50 gap-4">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">📋 數據清單快速檢視</h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 系統已根據統計學 IQR 範圍標記偏離常態的極端值，但本平台尊重自由填寫，不作人為屏蔽刪除。</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                    <div>
+                        <select id="tableFilterSeries" class="bg-white border border-slate-200 rounded p-2 w-full outline-hidden" onchange="renderTable()">
+                            <option value="All">所有職系 (E/T/M...)</option>
+                            <option value="E">E系</option>
+                            <option value="T">T系</option>
+                            <option value="M">M系</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select id="tableFilterTeam" class="bg-white border border-slate-200 rounded p-2 w-full outline-hidden" onchange="renderTable()">
+                            <option value="All">所有團隊類型</option>
+                            <option value="Global team">Global team</option>
+                            <option value="Site team">Site team</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-xs bg-blue-100 text-blue-700 px-3 py-2 rounded-md font-bold w-full text-center" id="tableRowCount">顯示 0 筆</span>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto max-h-80 text-xs">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                            <th class="p-3">職等 (GJS)</th>
+                            <th class="p-3">總工作年資</th>
+                            <th class="p-3">月薪 (萬元)</th>
+                            <th class="p-3">團隊類型</th>
+                            <th class="p-3">部門</th>
+                            <th class="p-3">數據健康度狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="text-slate-600 divide-y divide-slate-100"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbxGnHalm0urE4uh4qspGrdgXcGUWOQnML83Fuaocb1nwgbAlKP1WALEr9uzt1iTXxzegg/exec";
+        
+        let rawData = [];
+        let currentSeriesTab = "All"; 
+        let myLocationPoint = null;   
+        let outliersSet = new Set(); // 記錄被判定為極端常態異常的資料物件索引
+
+        const gradeColors = {
+            'EA': '#38bdf8', 'EB': '#0284c7', 'E1': '#fbbf24', 'E2': '#f59e0b', 
+            'E3': '#10b981', 'E4': '#8b5cf6', 'T1': '#ec4899', 'T2': '#f43f5e', 'M1': '#14b8a6'
+        };
+        const defaultColor = '#94a3b8';
+
+        let chartScatter = null, chartBoxSalary = null, chartSampleCount = null;
+
+        function updateExpSliders() {
+            let minVal = parseFloat(document.getElementById('filterExpMin').value);
+            let maxVal = parseFloat(document.getElementById('filterExpMax').value);
+            if (minVal > maxVal) {
+                document.getElementById('filterExpMin').value = maxVal;
+                minVal = maxVal;
+            }
+            document.getElementById('expRangeLabel').innerText = minVal + " - " + maxVal + " 年";
+        }
+
+        function changeSeriesTab(series) {
+            currentSeriesTab = series;
+            ['tabAll', 'tabE', 'tabT', 'tabM'].forEach(id => {
+                document.getElementById(id).className = "px-3 py-1.5 rounded-md text-slate-600 cursor-pointer";
+            });
+            document.getElementById('tab' + series).className = "px-3 py-1.5 rounded-md tab-active cursor-pointer";
+            updateCharts();
+        }
+
+        async function initPlatform() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error();
+                const jsonData = await response.json();
+
+                rawData = jsonData.map((item, index) => {
+                    const keys = Object.keys(item);
+                    return {
+                        id: index,
+                        grade: (item[keys[1]] || '').toString().trim().toUpperCase(),
+                        experience: parseFloat(item[keys[2]]),
+                        salary: parseFloat(item[keys[3]]),
+                        team_type: (item[keys[4]] || '未填寫').toString().trim(),
+                        department: (item[keys[5]] || '未填寫').toString().trim()
+                    };
+                }).filter(item => item.grade && !isNaN(item.experience) && !isNaN(item.salary));
+
+                // ⚠️ 執行數據清洗演算法：計算四分位距 (IQR) 並標記可疑值
+                calculateOutliers();
+                
+                document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30";
+                document.getElementById('connectionStatus').innerText = "● 數據同步完成";
+                
+                updateCharts();
+            } catch (e) {
+                document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs px-3 py-1 rounded-full border border-rose-500/30";
+                document.getElementById('connectionStatus').innerText = "● 連線失敗";
+            }
+        }
+
+        function calculateOutliers() {
+            const gradeGroups = {};
+            rawData.forEach(item => {
+                if (!gradeGroups[item.grade]) gradeGroups[item.grade] = [];
+                gradeGroups[item.grade].push(item.salary);
+            });
+
+            const bounds = {};
+            Object.keys(gradeGroups).forEach(g => {
+                const salaries = gradeGroups[g].sort((a,b)=>a-b);
+                const q1 = salaries[Math.floor(salaries.length * 0.25)];
+                const q3 = salaries[Math.floor(salaries.length * 0.75)];
+                const iqr = q3 - q1;
+                bounds[g] = {
+                    low: q1 - 1.5 * iqr,
+                    high: q3 + 1.5 * iqr
+                };
+            });
+
+            rawData.forEach(item => {
+                const bound = bounds[item.grade];
+                if (bound && (item.salary < bound.low || item.salary > bound.high)) {
+                    outliersSet.add(item.id);
+                }
+            });
+        }
+
+        function locateMe() {
+            const g = document.getElementById('myGrade').value.trim().toUpperCase();
+            const e = parseFloat(document.getElementById('myExp').value);
+            const s = parseFloat(document.getElementById('mySalary').value);
+
+            if(!g || isNaN(e) || isNaN(s)) {
+                alert("請完整輸入職等、年資與薪水！");
+                return;
+            }
+            myLocationPoint = { grade: g, experience: e, salary: s };
+            
+            // 📊 核心計算：即時勝率百分位報告 (Percentile)
+            calculatePercentileReport(g, e, s);
+            updateCharts();
+        }
+
+        function calculatePercentileReport(myG, myE, myS) {
+            // 1. 同職等勝率
+            const sameGradeSalaries = rawData.filter(i => i.grade === myG).map(i => i.salary).sort((a,b)=>a-b);
+            let gradePct = 0;
+            if (sameGradeSalaries.length > 0) {
+                const countLower = sameGradeSalaries.filter(s => s < myS).length;
+                gradePct = Math.round((countLower / sameGradeSalaries.length) * 100);
+            }
+
+            // 2. 相似年資勝率 (年資正負2年內)
+            const sameExpSalaries = rawData.filter(i => Math.abs(i.experience - myE) <= 2).map(i => i.salary).sort((a,b)=>a-b);
+            let expPct = 0;
+            if (sameExpSalaries.length > 0) {
+                const countLowerExp = sameExpSalaries.filter(s => s < myS).length;
+                expPct = Math.round((countLowerExp / sameExpSalaries.length) * 100);
+            }
+
+            document.getElementById('pctGradeRes').innerText = gradePct + "%";
+            document.getElementById('pctGradeLabel').innerText = `領先 ${myG} 職等同仁`;
+            document.getElementById('pctExpRes').innerText = expPct + "%";
+            document.getElementById('percentileCard').classList.remove('hidden');
+        }
+
+        function clearLocation() {
+            myLocationPoint = null;
+            document.getElementById('myGrade').value = '';
+            document.getElementById('myExp').value = '';
+            document.getElementById('mySalary').value = '';
+            document.getElementById('percentileCard').classList.add('hidden');
+            updateCharts();
+        }
+
+        function updateCharts() {
+            const filterTeam = document.getElementById('filterTeam').value;
+            const expMin = parseFloat(document.getElementById('filterExpMin').value);
+            const expMax = parseFloat(document.getElementById('filterExpMax').value);
+
+            const chartsFilteredData = rawData.filter(item => {
+                const tMatch = filterTeam === 'All' || item.team_type === filterTeam;
+                const eMatch = item.experience >= expMin && item.experience <= expMax;
+                return tMatch && eMatch;
+            });
+
+            renderScatterWithRegression(chartsFilteredData);
+            renderBoxAndSampleCharts(chartsFilteredData);
+            renderHeatmapMatrix(chartsFilteredData);
+            renderTable();
+        }
+
+        // 📈 核心優化：繪製散點圖並利用最小平方法繪製線性擬合回歸趨勢線
+        function renderScatterWithRegression(dataPool) {
+            const activeData = dataPool.filter(item => {
+                return currentSeriesTab === 'All' || item.grade.startsWith(currentSeriesTab);
+            });
+
+            const datasetsMap = {};
+            const gradePointsMap = {};
+
+            activeData.forEach(item => {
+                if (!datasetsMap[item.grade]) {
+                    datasetsMap[item.grade] = {
+                        type: 'scatter',
+                        label: '職等: ' + item.grade + ' 數據點',
+                        data: [],
+                        backgroundColor: gradeColors[item.grade] || defaultColor,
+                        pointRadius: 4.5,
+                        order: 10
+                    };
+                    gradePointsMap[item.grade] = [];
+                }
+                datasetsMap[item.grade].data.push({ x: item.experience, y: item.salary });
+                gradePointsMap[item.grade].push({ x: item.experience, y: item.salary });
+            });
+
+            const finalDatasets = Object.values(datasetsMap);
+
+            // 🛠️ 趨勢線擬合：為回覆樣本數 > 2 筆的職等自動生成一條一元一次方程式回回歸線線
+            Object.keys(gradePointsMap).forEach(g => {
+                const pts = gradePointsMap[g];
+                if (pts.length > 2) {
+                    const n = pts.length;
+                    let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+                    pts.forEach(p => {
+                        sumX += p.x; sumY += p.y;
+                        sumXY += (p.x * p.y); sumXX += (p.x * p.x);
+                    });
+                    
+                    const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+                    const intercept = (sumY - slope * sumX) / n;
+
+                    // 找出年資的起點與終點以繪製實線
+                    const xValues = pts.map(p => p.x);
+                    const minX = Math.min(...xValues);
+                    const maxX = Math.max(...xValues);
+
+                    finalDatasets.push({
+                        type: 'line',
+                        label: g + ' 晉升薪資趨勢線',
+                        data: [
+                            { x: minX, y: slope * minX + intercept },
+                            { x: maxX, y: slope * maxX + intercept }
+                        ],
+                        borderColor: gradeColors[g] || defaultColor,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        fill: false,
+                        showLine: true,
+                        order: 5 // 排在散點點上方
+                    });
+                }
+            });
+
+            // 📍 如果有定位點，給予 order: 1 的絕對置頂渲染權限
+            if (myLocationPoint) {
+                finalDatasets.push({
+                    type: 'scatter',
+                    label: '📍 我的最高座標點 (' + myLocationPoint.grade + ')',
+                    data: [{ x: myLocationPoint.experience, y: myLocationPoint.salary }],
+                    backgroundColor: '#f59e0b',
+                    borderColor: '#ffffff',
+                    borderWidth: 3,
+                    pointRadius: 13,
+                    pointStyle: 'star',
+                    order: 1 
+                });
+            }
+
+            if (chartScatter) {
+                chartScatter.data.datasets = finalDatasets;
+                chartScatter.update();
+            } else {
+                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), {
+                    data: { datasets: finalDatasets },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { type: 'linear', position: 'bottom', title: { display: true, text: '總工作年資 (年)' } },
+                            y: { title: { display: true, text: '月薪 (萬元)' } }
+                        }
+                    }
+                });
+            }
+        }
+
+        function renderBoxAndSampleCharts(dataPool) {
+            const groups = {};
+            dataPool.forEach(i => {
+                if(!groups[i.grade]) groups[i.grade] = [];
+                groups[i.grade].push(i.salary);
+            });
+
+            const validLabels = [];
+            const boxData = [];
+            const sampleCounts = [];
+            const hoverMeta = {};
+
+            Object.keys(groups).sort().forEach(g => {
+                const sList = groups[g];
+                const count = sList.length;
+
+                if (count > 2) { 
+                    validLabels.push(g);
+                    sampleCounts.push(count);
+
+                    const min = Math.min(...sList);
+                    const max = Math.max(...sList);
+                    boxData.push([min, max]);
+
+                    const avg = sList.reduce((a,b)=>a+b, 0) / count;
+                    const sorted = [...sList].sort((a,b)=>a-b);
+                    const mid = Math.floor(count/2);
+                    const med = count % 2 !== 0 ? sorted[mid] : (sorted[mid-1]+sorted[mid])/2;
+
+                    hoverMeta[g] = { min, max, avg: avg.toFixed(1), med: med.toFixed(1) };
+                }
+            });
+
+            if (chartBoxSalary) {
+                chartBoxSalary.data.labels = validLabels;
+                chartBoxSalary.data.datasets[0].data = boxData;
+                chartBoxSalary.update();
+            } else {
+                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: validLabels,
+                        datasets: [{ label: '薪資範圍 (地板~天花板)', data: boxData, backgroundColor: '#2563eb', borderRadius: 4 }]
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const meta = hoverMeta[context.label];
+                                        return `地板: ${meta.min}萬 | 中位數: ${meta.med}萬 | 平均: ${meta.avg}萬 | 天花板: ${meta.max}萬`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (chartSampleCount) {
+                chartSampleCount.data.labels = validLabels;
+                chartSampleCount.data.datasets[0].data = sampleCounts;
+                chartSampleCount.update();
+            } else {
+                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: validLabels,
+                        datasets: [{ label: '已收集問卷樣本數 (人)', data: sampleCounts, backgroundColor: '#10b981', borderRadius: 4 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        // 🔥 2. 達標薪資年資熱力矩陣渲染引擎
+        function renderHeatmapMatrix(dataPool) {
+            const tiers = [
+                { label: "6.0 - 8.0 萬元", minS: 6.0, maxS: 8.0 },
+                { label: "8.0 - 10.0 萬元", minS: 8.0, maxS: 10.0 },
+                { label: "10.0 - 12.0 萬元", minS: 10.0, maxS: 12.0 },
+                { label: "12.0 萬元以上", minS: 12.0, maxS: 999.0 }
+            ];
+
+            const tbody = document.getElementById('heatmapTableBody');
+            tbody.innerHTML = '';
+
+            tiers.forEach(tier => {
+                const row = document.createElement('tr');
+                
+                let tdHtml = `<td class="p-3 text-left bg-slate-50 font-bold text-slate-700">${tier.label}</td>`;
+                
+                // 定義我們要交叉對比的職等分欄
+                const targetGrades = ['E1', 'E2', 'E3', 'E4_M1', 'OTHERS'];
+                
+                targetGrades.forEach(category => {
+                    const matches = dataPool.filter(item => {
+                        const sMatch = item.salary >= tier.minS && item.salary < tier.maxS;
+                        let gMatch = false;
+                        if (category === 'E1') gMatch = item.grade === 'E1';
+                        else if (category === 'E2') gMatch = item.grade === 'E2';
+                        else if (category === 'E3') gMatch = item.grade === 'E3';
+                        else if (category === 'E4_M1') gMatch = (item.grade === 'E4' || item.grade === 'M1' || item.grade === 'M2');
+                        else gMatch = !['E1','E2','E3','E4','M1','M2'].includes(item.grade);
+                        return sMatch && gMatch;
+                    });
+
+                    if (matches.length > 0) {
+                        const avgExp = matches.reduce((sum, i) => sum + i.experience, 0) / matches.length;
+                        // 根據熬年資的時間長短調配深淺藍色背景
+                        let alpha = Math.min(0.1 + (avgExp / 12) * 0.7, 0.8);
+                        tdHtml += `<td class="p-3 heatmap-cell font-bold text-slate-900 border" style="background-color: rgba(37, 99, 235, ${alpha})">${avgExp.toFixed(1)} 年 <span class="text-[10px] font-normal text-slate-500 block">(${matches.length}筆)</span></td>`;
+                    } else {
+                        tdHtml += `<td class="p-3 bg-slate-50 text-slate-300 border font-normal">--</td>`;
+                    }
+                });
+
+                row.innerHTML = tdHtml;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderTable() {
+            const fSeries = document.getElementById('tableFilterSeries').value;
+            const fTeam = document.getElementById('tableFilterTeam').value;
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = '';
+
+            const tableFiltered = rawData.filter(item => {
+                const sMatch = fSeries === 'All' || item.grade.startsWith(fSeries);
+                const tMatch = fTeam === 'All' || item.team_type === fTeam;
+                return sMatch && tMatch;
+            });
+
+            tableFiltered.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // ⚠️ 如果被 IQR 判定為可疑資料，資料列渲染淡紅色底色
+                const isOutlier = outliersSet.has(item.id);
+                if (isOutlier) {
+                    row.className = "bg-rose-50/70 hover:bg-rose-100/80 transition-colors border-b border-slate-200 text-rose-9量";
+                } else {
+                    row.className = "hover:bg-slate-50 transition-colors border-b border-slate-100";
+                }
+
+                row.innerHTML = `
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-bold" style="background-color: ${gradeColors[item.grade] || defaultColor}">${item.grade}</span></td>
+                    <td class="p-3 font-medium">${item.experience} 年</td>
+                    <td class="p-3 font-bold ${isOutlier ? 'text-rose-700' : 'text-slate-800'}">${item.salary} 萬</td>
+                    <td class="p-3 text-slate-500">${item.team_type}</td>
+                    <td class="p-3 text-slate-400">${item.department}</td>
+                    <td class="p-3 font-bold">${isOutlier ? '⚠️ 偏離常態(可疑值)' : '✅ 正常常態'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.getElementById('tableRowCount').innerText = '顯示 ' + tableFiltered.length + ' 筆';
+        }
+
+        window.onload = initPlatform;
+    </script>
+</body>
+</html>
