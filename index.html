@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>m光光猴薪情平台 v12.2 純粹數據版</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #f8fafc; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        .tab-active { background-color: #0066cc; color: white; border-color: #0066cc; }
+        .btn-series-active { background-color: #0066cc; color: white; border-color: #0066cc; box-shadow: 0 2px 4px rgba(0,102,204,0.25); }
+        .heatmap-cell { transition: all 0.2s; }
+        .heatmap-cell:hover { transform: scale(1.02); filter: brightness(0.95); }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <!-- 💎 完美高仿美光 Micron 科技 Logo -->
+                <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-200 shrink-0">
+                    <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 25 L37 25 L47 75 L32 75 Z" fill="#0066cc" />
+                        <path d="M44 25 L59 25 L69 75 L54 75 Z" fill="#0066cc" />
+                        <path d="M59 25 C72 25, 82 38, 85 55 L89 75 L74 75 L71 60 C69 50, 64 42, 56 42 Z" fill="#0066cc" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                        光光猴薪情平台 <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase">v12.2 純粹數據版</span>
+                    </h1>
+                    <p class="text-slate-400 text-xs mt-0.5">圖例合併靠右，橫向條件面板，參與人數降序洗牌，並植入抗卡死保護機制</p>
+                </div>
+            </div>
+            <div id="connectionStatus" class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs px-3 py-1 rounded-full border border-amber-500/30 self-start md:self-center">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                API 雲端數據連線中...
+            </div>
+        </header>
+
+        <!-- 🚀 TOP PANEL SECTION：指標與橫式一字型控制面板 🚀 -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6 items-stretch">
+            <!-- 📊 目前調查總人數指標看板 -->
+            <div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+                <p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 目前總調查人數 (母體樣本)</p>
+                <p id="totalGlobalCount" class="text-3xl font-black mt-1">連線中...</p>
+            </div>
+
+            <!-- ⚙️ 條件篩選面板 (橫式一字型置頂排版) -->
+            <div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-center">
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
+                    <div>
+                        <label class="block text-slate-500 font-bold mb-1">1. 職等群篩選 (Series)</label>
+                        <select id="filterSeries" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
+                            <option value="All" selected>全部職系 (E*, T*, M*, D*...)</option>
+                            <option value="E">E系 (工程師/管理職)</option>
+                            <option value="T">T系 (技術員/副工程師)</option>
+                            <option value="M">M系 (主管職)</option>
+                            <option value="D">D系 (設計職系)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-500 font-bold mb-1">2. 職等快速過濾 (GJS)</label>
+                        <select id="filterGrade" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
+                            <option value="All" selected>全部職等 (動態載入)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-500 font-bold mb-1">3. 團隊類型</label>
+                        <select id="filterTeam" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
+                            <option value="All" selected>全部類型 (Global & Site)</option>
+                            <option value="Global team">Global team</option>
+                            <option value="Site team">Site team</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-500 font-bold mb-1 flex justify-between">
+                            <span>4. 年資篩選範圍</span>
+                            <span id="expRangeLabel" class="text-blue-600 font-bold">0 - 25 年</span>
+                        </label>
+                        <div class="space-y-1 mt-1">
+                            <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Min:</span><input id="filterExpMin" type="range" min="0" max="25" value="0" class="w-full accent-blue-600" oninput="updateExpSliders(); updateCharts();"></div>
+                            <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Max:</span><input id="filterExpMax" type="range" min="0" max="25" value="25" class="w-full accent-blue-600" oninput="updateExpSliders(); updateCharts();"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🚀 核心雙大圖表強制置頂展示 🚀 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- 各職等薪水廣度分佈 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                <h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標)</h3>
+                <p class="text-xs text-slate-400 mb-3">(自動屏蔽少於2筆數據之職等，柱體已直秀高低標數值，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+                <div class="relative h-80"><canvas id="boxSalaryChart"></canvas></div>
+            </div>
+            <!-- 各職等參與人數 (🚀 核心優化：橫軸照填答人數降序洗牌排列) -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                <h3 class="text-sm font-bold text-slate-800 mb-1">📊 各職等參與調查人數 (數據母體分佈)</h3>
+                <p class="text-xs text-slate-400 mb-3">（🚀 橫軸已按照「填答參與人數多到少」降序自動排序，頂端直秀人數）</p>
+                <div class="relative h-80"><canvas id="sampleCountChart"></canvas></div>
+            </div>
+        </div>
+
+        <!-- 下層圖表與明細區 -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+            <!-- Left Corner Panel：互動定位對比 -->
+            <div class="space-y-6 lg:col-span-1">
+                <div class="bg-gradient-to-b from-slate-800 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-slate-700/50">
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動對比：我在猴群哪個位置？</h3>
+                    <div class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-slate-300 mb-1">您的職等 (如: E2, T3)</label>
+                            <input id="myGrade" type="text" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden uppercase" placeholder="e.g. E2">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-1">總工作年資 (年)</label>
+                            <input id="myExp" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden" placeholder="e.g. 4.5">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-1">月薪 (萬元，不含加班費)</label>
+                            <input id="mySalary" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden" placeholder="e.g. 9.2">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 pt-1">
+                            <button onclick="locateMe()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded transition-colors cursor-pointer text-center">開始定位</button>
+                            <button onclick="clearLocation()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 p-2 rounded transition-colors cursor-pointer text-center">清除定位</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 📊 薪資勝率百分位報告卡片 -->
+                <div id="percentileCard" class="hidden bg-linear-to-br from-slate-900 to-blue-950 text-white p-5 rounded-2xl shadow-md border border-blue-500/20">
+                    <h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2">📊 薪資勝率百分位報告</h3>
+                    <div class="space-y-4 text-xs">
+                        <div>
+                            <p class="text-[11px] text-slate-400">同職等勝率 (Grade Percentile)</p>
+                            <div class="flex items-baseline gap-1 mt-0.5">
+                                <span id="pctGradeRes" class="text-3xl font-black text-amber-400">--%</span>
+                                <span class="text-slate-400 text-[11px]" id="pctGradeLabel">領先該職等同仁</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-slate-400">相似年資勝率 (±2年資產圈)</p>
+                            <div class="flex items-baseline gap-1 mt-0.5">
+                                <span id="pctExpRes" class="text-3xl font-black text-sky-400">--%</span>
+                                <span class="text-slate-400 text-[11px]">同資歷同仁</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel：散點擬合圖與熱力圖 -->
+            <div class="lg:col-span-3 space-y-6">
+                <!-- 散點圖 + 🚀 圖例二合一合併、靠右垂直排版 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">🚀 點選右側「職等二合一圖例」可同步整合開啟或隱藏該職等的散點與實線。</p>
+                        </div>
+                        <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
+                            <button id="tabAll" onclick="changeSeriesTab('All')" class="px-3 py-1.5 rounded-md tab-active cursor-pointer">全體</button>
+                            <button id="tabE" onclick="changeSeriesTab('E')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">E系</button>
+                            <button id="tabT" onclick="changeSeriesTab('T')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">T系</button>
+                            <button id="tabM" onclick="changeSeriesTab('M')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">M系</button>
+                            <button id="tabD" onclick="changeSeriesTab('D')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">D系</button>
+                        </div>
+                    </div>
+                    <div class="relative h-85"><canvas id="mainScatterChart"></canvas></div>
+                </div>
+
+                <!-- ⏳ 「熬出頭時間軸」熱力矩陣圖 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                    <h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)</h3>
+                    <p class="text-xs text-slate-400 mb-4">橫向已全面自動帶出所有資料點足夠 (筆數 > 2) 的具體職等欄位 (如 EA, EB, E1, E2, E3, E4 等)。</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center border-collapse text-xs min-w-[650px] border">
+                            <thead>
+                                <tr id="heatmapHeaderRow" class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                    <th class="p-3 text-left bg-slate-200">目標月薪級距</th>
+                                </tr>
+                            </thead>
+                            <tbody id="heatmapTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📋 原始清單與按紐快速切換 -->
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden mb-8">
+            <div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 紅底代表系統稽核出的極端偏離值。請點擊下方按鈕進行快選。</p>
+                    </div>
+                    <div class="flex items-center sm:justify-end">
+                        <span class="text-xs bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-bold w-full sm:w-auto text-center shadow-2xs" id="tableRowCount">顯示 0 筆</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4 text-xs">
+                    <!-- 職系按鈕 -->
+                    <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs">
+                        <span class="text-slate-400 font-medium px-2">職系：</span>
+                        <button id="btnSecAll" onclick="changeTableSeries('All')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全體職系</button>
+                        <button id="btnSecE" onclick="changeTableSeries('E')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">E系</button>
+                        <button id="btnSecT" onclick="changeTableSeries('T')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">T系</button>
+                        <button id="btnSecM" onclick="changeTableSeries('M')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">M系</button>
+                        <button id="btnSecD" onclick="changeTableSeries('D')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">D系</button>
+                    </div>
+
+                    <!-- 團隊按鈕 -->
+                    <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs">
+                        <span class="text-slate-400 font-medium px-2">團隊：</span>
+                        <button id="btnTeamAll" onclick="changeTableTeam('All')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全部團隊</button>
+                        <button id="btnTeamGlobal" onclick="changeTableTeam('Global team')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Global team</button>
+                        <button id="btnTeamSite" onclick="changeTableTeam('Site team')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Site team</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto max-h-80 text-xs">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                            <th class="p-3">職等 (GJS)</th>
+                            <th class="p-3">總工作年資</th>
+                            <th class="p-3">月薪 (萬元)</th>
+                            <th class="p-3">團隊類型</th>
+                            <th class="p-3">部門</th>
+                            <th class="p-3">常態健康度狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="text-slate-600 divide-y divide-slate-100"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbxGnHalm0urE4uh4qspGrdgXcGUWOQnML83Fuaocb1nwgbAlKP1WALEr9uzt1iTXxzegg/exec";
+        
+        let rawData = [];
+        let currentSeriesTab = "All"; 
+        let myLocationPoint = null;   
+        let outliersSet = new Set(); 
+        let currentTableSeries = "All";
+        let currentTableTeam = "All";
+
+        const gradeColors = {
+            'EA': '#38bdf8', 'EB': '#0284c7', 'E1': '#fbbf24', 'E2': '#f59e0b', 
+            'E3': '#10b981', 'E4': '#8b5cf6', 'T1': '#ec4899', 'T2': '#f43f5e', 'M1': '#14b8a6',
+            'D1': '#a855f7', 'D2': '#6366f1'
+        };
+        const defaultColor = '#94a3b8';
+
+        let chartScatter = null, chartBoxSalary = null, chartSampleCount = null;
+
+        // 🚀 核心修復外掛：加入極度嚴格的 yScale 防護，避免資料未就緒時搶跑繪圖而卡死
+        const boxPlotCustomLabelsPlugin = {
+            id: 'boxPlotCustomLabelsPlugin',
+            afterDatasetsDraw(chart, args, pluginOptions) {
+                const { ctx, scales: { y } } = chart;
+                // 強制安全防護：如果 Y 軸尚未初始化，直接退出不畫，避免當機
+                if (!y || typeof y.getPixelForValue !== 'function') return;
+
+                if (chart.canvas.id === 'boxSalaryChart' && chart.config.type === 'bar') {
+                    chart.data.datasets.forEach((dataset, datasetIndex) => {
+                        const meta = chart.getDatasetMeta(datasetIndex);
+                        meta.data.forEach((bar, index) => {
+                            const label = chart.data.labels[index];
+                            const metaInfo = chart.config.options.plugins.tooltip.callbacks.customMeta && 
+                                             chart.config.options.plugins.tooltip.callbacks.customMeta(label);
+                            
+                            if (metaInfo && !isNaN(metaInfo.avg)) {
+                                ctx.save();
+                                ctx.fillStyle = '#1e293b';
+                                ctx.font = 'bold 10px sans-serif';
+                                ctx.textAlign = 'center';
+
+                                // 天花板數字
+                                ctx.fillText(metaInfo.max + "萬", bar.x, bar.y - 6);
+                                // 地板數字
+                                ctx.fillText(metaInfo.min + "萬", bar.x, bar.base + 12);
+
+                                // 平均值橫槓
+                                const avgY = y.getPixelForValue(parseFloat(metaInfo.avg));
+                                if (!isNaN(avgY)) {
+                                    ctx.strokeStyle = '#ef4444'; 
+                                    ctx.lineWidth = 3;
+                                    ctx.beginPath();
+                                    ctx.moveTo(bar.x - bar.width / 2, avgY);
+                                    ctx.lineTo(bar.x + bar.width / 2, avgY);
+                                    ctx.stroke();
+
+                                    ctx.fillStyle = '#ef4444';
+                                    ctx.textAlign = 'left';
+                                    ctx.fillText(" 均:" + metaInfo.avg, bar.x + bar.width / 2 + 2, avgY + 3);
+                                }
+                                ctx.restore();
+                            }
+                        });
+                    });
+                }
+
+                // 參與調查人數：在長條圖頂部印出數據
+                if (chart.canvas.id === 'sampleCountChart' && chart.config.type === 'bar') {
+                    chart.data.datasets.forEach((dataset, datasetIndex) => {
+                        const meta = chart.getDatasetMeta(datasetIndex);
+                        meta.data.forEach((bar, index) => {
+                            const dataValue = chart.data.datasets[datasetIndex].data[index];
+                            if (dataValue !== undefined) {
+                                ctx.save();
+                                ctx.fillStyle = '#0f766e';
+                                ctx.font = 'bold 11px sans-serif';
+                                ctx.textAlign = 'center';
+                                ctx.fillText(dataValue + "人", bar.x, bar.y - 6);
+                                ctx.restore();
+                            }
+                        });
+                    });
+                }
+            }
+        };
+
+        Chart.register(boxPlotCustomLabelsPlugin);
+
+        function updateExpSliders() {
+            let minVal = parseFloat(document.getElementById('filterExpMin').value);
+            let maxVal = parseFloat(document.getElementById('filterExpMax').value);
+            if (minVal > maxVal) {
+                document.getElementById('filterExpMin').value = maxVal;
+                minVal = maxVal;
+            }
+            document.getElementById('expRangeLabel').innerText = minVal + " - " + maxVal + " 年";
+        }
+
+        function changeSeriesTab(series) {
+            currentSeriesTab = series;
+            ['tabAll', 'tabE', 'tabT', 'tabM', 'tabD'].forEach(id => {
+                document.getElementById(id).className = "px-3 py-1.5 rounded-md text-slate-600 cursor-pointer";
+            });
+            document.getElementById('tab' + series).className = "px-3 py-1.5 rounded-md tab-active cursor-pointer";
+            updateCharts();
+        }
+
+        // 🚀 控制清單的按鈕切換邏輯 (職系)
+        function changeTableSeries(series) {
+            currentTableSeries = series;
+            ['btnSecAll', 'btnSecE', 'btnSecT', 'btnSecM', 'btnSecD'].forEach(id => {
+                document.getElementById(id).classList.remove('btn-series-active');
+            });
+            document.getElementById('btnSec' + series).classList.add('btn-series-active');
+            renderTable();
+        }
+
+        // 🚀 控制清單的按鈕切換邏輯 (團隊)
+        function changeTableTeam(team) {
+            currentTableTeam = team;
+            ['btnTeamAll', 'btnTeamGlobal', 'btnTeamSite'].forEach(id => {
+                document.getElementById(id).classList.remove('btn-series-active');
+            });
+            let targetId = 'btnTeamAll';
+            if(team === 'Global team') targetId = 'btnTeamGlobal';
+            if(team === 'Site team') targetId = 'btnTeamSite';
+            document.getElementById(targetId).classList.add('btn-series-active');
+            renderTable();
+        }
+
+        async function initPlatform() {
+            // 資料擷取與介面渲染分離，徹底防範「連線失敗」的誤報卡死
+            try {
+                const response = await fetch(API_URL, { redirect: "follow" });
+                if (!response.ok) throw new Error("HTTP Error " + response.status);
+                const jsonData = await response.json();
+
+                rawData = jsonData.map((item, index) => {
+                    const keys = Object.keys(item);
+                    return {
+                        id: index,
+                        grade: (item[keys[1]] || '').toString().trim().toUpperCase(),
+                        experience: parseFloat(item[keys[2]]),
+                        salary: parseFloat(item[keys[3]]),
+                        team_type: (item[keys[4]] || '未填寫').toString().trim(),
+                        department: (item[keys[5]] || '未填寫').toString().trim()
+                    };
+                }).filter(item => item.grade && !isNaN(item.experience) && !isNaN(item.salary));
+            } catch (e) {
+                console.error("API 載入失敗:", e);
+                document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs px-3 py-1 rounded-full border border-rose-500/30";
+                document.getElementById('connectionStatus').innerText = "● 連線失敗: 請確認權限";
+                return; // 強制中斷，不往下畫圖
+            }
+
+            // 確保資料抓取完成後，才進行圖表繪製
+            try {
+                document.getElementById('totalGlobalCount').innerText = rawData.length + " 筆";
+
+                const gradesSet = new Set(rawData.map(i => i.grade));
+                const sortedGrades = Array.from(gradesSet).sort();
+                const filterGradeSel = document.getElementById('filterGrade');
+                filterGradeSel.innerHTML = '<option value="All">全部職等 (動態載入)</option>';
+                sortedGrades.forEach(g => {
+                    const opt = document.createElement('option');
+                    opt.value = g; opt.innerText = g;
+                    filterGradeSel.appendChild(opt);
+                });
+
+                calculateOutliers();
+                
+                document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30";
+                document.getElementById('connectionStatus').innerText = "● 數據同步完成";
+                
+                updateCharts();
+            } catch (e) {
+                console.error("圖表渲染錯誤:", e);
+            }
+        }
+
+        function calculateOutliers() {
+            const gradeGroups = {};
+            rawData.forEach(item => {
+                if (!gradeGroups[item.grade]) gradeGroups[item.grade] = [];
+                gradeGroups[item.grade].push(item.salary);
+            });
+            const bounds = {};
+            Object.keys(gradeGroups).forEach(g => {
+                const s = gradeGroups[g].sort((a,b)=>a-b);
+                const q1 = s[Math.floor(s.length * 0.25)];
+                const q3 = s[Math.floor(s.length * 0.75)];
+                const iqr = q3 - q1;
+                bounds[g] = { low: q1 - 1.5 * iqr, high: q3 + 1.5 * iqr };
+            });
+            rawData.forEach(item => {
+                const bound = bounds[item.grade];
+                if (bound && (item.salary < bound.low || item.salary > bound.high)) {
+                    outliersSet.add(item.id);
+                }
+            });
+        }
+
+        function locateMe() {
+            const g = document.getElementById('myGrade').value.trim().toUpperCase();
+            const e = parseFloat(document.getElementById('myExp').value);
+            const s = parseFloat(document.getElementById('mySalary').value);
+            if(!g || isNaN(e) || isNaN(s)) return alert("請完整輸入資訊！");
+            
+            myLocationPoint = { grade: g, experience: e, salary: s };
+            
+            const sameG = rawData.filter(i => i.grade === g).map(i => i.salary).sort((a,b)=>a-b);
+            const gPct = sameG.length ? Math.round((sameG.filter(x => x < s).length / sameG.length) * 100) : 50;
+            const sameE = rawData.filter(i => Math.abs(i.experience - e) <= 2).map(i => i.salary).sort((a,b)=>a-b);
+            const ePct = sameE.length ? Math.round((sameE.filter(x => x < s).length / sameE.length) * 100) : 50;
+
+            document.getElementById('pctGradeRes').innerText = gPct + "%";
+            document.getElementById('pctGradeLabel').innerText = `領先 ${g} 職等同仁`;
+            document.getElementById('pctExpRes').innerText = ePct + "%";
+            document.getElementById('percentileCard').classList.remove('hidden');
+            updateCharts();
+        }
+
+        function clearLocation() {
+            myLocationPoint = null;
+            document.getElementById('myGrade').value = '';
+            document.getElementById('myExp').value = '';
+            document.getElementById('mySalary').value = '';
+            document.getElementById('percentileCard').classList.add('hidden');
+            updateCharts();
+        }
+
+        let globalBoxMeta = {};
+
+        function updateCharts() {
+            const filterSeriesEl = document.getElementById('filterSeries');
+            if(!filterSeriesEl) return; // UI 防護
+
+            const filterSeries = filterSeriesEl.value;
+            const filterGrade = document.getElementById('filterGrade').value;
+            const filterTeam = document.getElementById('filterTeam').value;
+            const expMin = parseFloat(document.getElementById('filterExpMin').value);
+            const expMax = parseFloat(document.getElementById('filterExpMax').value);
+
+            const pool = rawData.filter(item => {
+                const sMatch = filterSeries === 'All' || item.grade.startsWith(filterSeries);
+                const gMatch = filterGrade === 'All' || item.grade === filterGrade;
+                const tMatch = filterTeam === 'All' || item.team_type === filterTeam;
+                const eMatch = item.experience >= expMin && item.experience <= expMax;
+                return sMatch && gMatch && tMatch && eMatch;
+            });
+
+            // 已刪除 kpiCount 的呼叫，避免報錯
+
+            if (pool.length >= 0) {
+                renderScatter(pool);
+                renderBoxAndSampleCharts(pool);
+                renderHeatmapMatrix(pool);
+                renderTable();
+            }
+        }
+
+        function renderScatter(pool) {
+            const active = pool.filter(i => currentSeriesTab === 'All' || i.grade.startsWith(currentSeriesTab));
+            const gradePointsMap = {};
+
+            active.forEach(item => {
+                if (!gradePointsMap[item.grade]) gradePointsMap[item.grade] = [];
+                gradePointsMap[item.grade].push({ x: item.experience, y: item.salary });
+            });
+
+            const datasets = [];
+            Object.keys(gradePointsMap).sort().forEach(g => {
+                // 1. 散點 Dataset
+                datasets.push({
+                    type: 'scatter', 
+                    label: g, 
+                    data: gradePointsMap[g], 
+                    backgroundColor: gradeColors[g] || defaultColor, 
+                    pointRadius: 4.5, 
+                    idTag: g, 
+                    order: 10
+                });
+                
+                // 2. 趨勢擬合線 Dataset
+                if (gradePointsMap[g].length > 2) {
+                    const pts = gradePointsMap[g];
+                    const n = pts.length;
+                    let sX = 0, sY = 0, sXY = 0, sXX = 0;
+                    pts.forEach(p => { sX += p.x; sY += p.y; sXY += (p.x*p.y); sXX += (p.x*p.x); });
+                    const slope = (n * sXY - sX * sY) / (n * sXX - sX * sX);
+                    const intercept = (sY - slope * sX) / n;
+                    const xVals = pts.map(p => p.x);
+                    const minX = Math.min(...xVals);
+                    const maxX = Math.max(...xVals);
+
+                    datasets.push({
+                        type: 'line', 
+                        label: g + '_line', 
+                        data: [{ x: minX, y: slope * minX + intercept }, { x: maxX, y: slope * maxX + intercept }],
+                        borderColor: gradeColors[g] || defaultColor, 
+                        borderWidth: 2, 
+                        pointRadius: 0, 
+                        fill: false, 
+                        showLine: true, 
+                        idTag: g, 
+                        order: 5
+                    });
+                }
+            });
+
+            if (myLocationPoint) {
+                datasets.push({ type: 'scatter', label: '📍 我的最高座標點', data: [{ x: myLocationPoint.experience, y: myLocationPoint.salary }], backgroundColor: '#f59e0b', borderColor: '#FF0000', borderWidth: 3, pointRadius: 13, pointStyle: 'star', idTag: 'mine', order: 1 });
+            }
+
+            if (chartScatter) { 
+                chartScatter.data.datasets = datasets; 
+                chartScatter.update(); 
+            } else { 
+                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), { 
+                    data: { datasets }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: {
+                            legend: {
+                                position: 'right', // 🚀 圖例統一移動到右側
+                                labels: {
+                                    // 隱藏 _line 的圖例標籤，達成「二合一」效果
+                                    filter: function(item, chartData) {
+                                        return !item.text.endsWith('_line');
+                                    }
+                                },
+                                onClick: function(e, legendItem, legend) {
+                                    const targetLabel = legendItem.text;
+                                    const ci = legend.chart;
+                                    // 同步切換「點」和「線」的顯示狀態
+                                    ci.data.datasets.forEach((dataset) => {
+                                        if (dataset.idTag === targetLabel) {
+                                            dataset.hidden = !dataset.hidden;
+                                        }
+                                    });
+                                    ci.update();
+                                }
+                            }
+                        },
+                        scales: { 
+                            x: { type: 'linear', title: { display: true, text: '總工作年資 (年)' } }, 
+                            y: { title: { display: true, text: '月薪 (萬元)' } } 
+                        } 
+                    } 
+                }); 
+            }
+        }
+
+        // 🚀 核心優化：橫軸照填答人數「多到少」進行降序洗牌排列
+        function renderBoxAndSampleCharts(pool) {
+            const groups = {}; pool.forEach(i => { if(!groups[i.grade]) groups[i.grade] = []; groups[i.grade].push(i.salary); });
+            
+            const metaList = [];
+            Object.keys(groups).forEach(g => {
+                const sList = groups[g], count = sList.length;
+                if (count > 2) {
+                    const avg = sList.reduce((a,b)=>a+b, 0) / count;
+                    const sorted = [...sList].sort((a,b)=>a-b), mid = Math.floor(count/2);
+                    metaList.push({
+                        grade: g, count: count, min: Math.min(...sList), max: Math.max(...sList),
+                        avg: avg.toFixed(1), med: (count % 2 !== 0 ? sorted[mid] : (sorted[mid-1]+sorted[mid])/2).toFixed(1)
+                    });
+                }
+            });
+
+            // 🚀 降序重新洗牌
+            metaList.sort((a, b) => b.count - a.count);
+
+            const sortedLabels = metaList.map(m => m.grade);
+            const sortedBoxData = metaList.map(m => [m.min, m.max]);
+            const sortedCounts = metaList.map(m => m.count);
+            
+            globalBoxMeta = {};
+            metaList.forEach(m => { globalBoxMeta[m.grade] = m; });
+
+            if (chartBoxSalary) { 
+                chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.update(); 
+            } else { 
+                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '薪資區間 (低標~高標)', data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: function(label) { return globalBoxMeta[label]; }, label: function(c) { const m = globalBoxMeta[c.label]; return `最低: ${m.min}萬 | 中位: ${m.med}萬 | 平均: ${m.avg}萬 | 最高: ${m.max}萬`; } } } } } }); 
+            }
+
+            if (chartSampleCount) { 
+                chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.update(); 
+            } else { 
+                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '覆蓋樣本數 (人)', data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } }); 
+            }
+        }
+
+        function renderHeatmapMatrix(pool) {
+            const tiers = [ { l: "6.0 - 8.0 萬元", min: 6, max: 8 }, { l: "8.0 - 10.0 萬元", min: 8, max: 10 }, { l: "10.0 - 12.0 萬元", min: 10, max: 12 }, { l: "12.0 萬元以上", min: 12, max: 999 } ];
+            
+            const gradeCounts = {};
+            pool.forEach(i => { gradeCounts[i.grade] = (gradeCounts[i.grade] || 0) + 1; });
+            const activeGrades = Object.keys(gradeCounts).filter(g => gradeCounts[g] > 2).sort();
+
+            const headerRow = document.getElementById('heatmapHeaderRow');
+            headerRow.innerHTML = '<th class="p-3 text-left bg-slate-200">目標月薪級距</th>';
+            activeGrades.forEach(g => {
+                headerRow.innerHTML += `<th class="p-3 bg-slate-100">${g} 職等</th>`;
+            });
+            if(activeGrades.length === 0) {
+                headerRow.innerHTML += '<th class="p-3 text-slate-400 font-normal">目前無符合條件之職等 (筆數需 > 2)</th>';
+            }
+
+            const tbody = document.getElementById('heatmapTableBody'); tbody.innerHTML = '';
+            
+            tiers.forEach(t => {
+                let html = `<td class="p-3 text-left bg-slate-50 font-bold text-slate-700">${t.l}</td>`;
+                
+                if(activeGrades.length === 0) {
+                    html += `<td class="p-3 text-slate-300">--</td>`;
+                }
+
+                activeGrades.forEach(g => {
+                    const matches = pool.filter(i => i.grade === g && i.salary >= t.min && i.salary < t.max);
+                    if (matches.length > 0) {
+                        const avgExp = matches.reduce((sum, i) => sum + i.experience, 0) / matches.length;
+                        html += `<td class="p-3 heatmap-cell font-bold border" style="background-color: rgba(0, 102, 204, ${Math.min(0.1 + avgExp/12, 0.75)})">${avgExp.toFixed(1)} 年 <span class="text-[10px] font-normal text-slate-500 block">(${matches.length}筆)</span></td>`;
+                    } else { 
+                        html += `<td class="p-3 bg-slate-50/50 text-slate-300 border font-normal">--</td>`; 
+                    }
+                });
+                const row = document.createElement('tr'); row.innerHTML = html; tbody.appendChild(row);
+            });
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('dataTableBody'); tbody.innerHTML = '';
+
+            const filtered = rawData.filter(i => {
+                const sMatch = currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries);
+                const tMatch = currentTableTeam === 'All' || i.team_type === currentTableTeam;
+                return sMatch && tMatch;
+            });
+
+            filtered.forEach(item => {
+                const isOut = outliersSet.has(item.id), row = document.createElement('tr');
+                row.className = isOut ? "bg-rose-50/80 text-rose-900 border-b border-slate-200" : "hover:bg-slate-50 border-b border-slate-100";
+                row.innerHTML = `
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-bold" style="background-color: ${gradeColors[item.grade] || defaultColor}">${item.grade}</span></td>
+                    <td class="p-3 font-medium">${item.experience} 年</td>
+                    <td class="p-3 font-bold">${item.salary} 萬</td>
+                    <td class="p-3 text-slate-500">${item.team_type}</td>
+                    <td class="p-3 text-slate-400">${item.department}</td>
+                    <td class="p-3 font-bold">${isOut ? '⚠️ 偏離常態(極端值)' : '✅ 正常常態'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.getElementById('tableRowCount').innerText = '顯示 ' + filtered.length + ' 筆';
+        }
+
+        window.onload = initPlatform;
+    </script>
+</body>
+</html>
