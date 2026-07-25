@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>m光光猴薪情平台 v1</title>
+    <title>m光光猴薪情平台 v2</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Chart.js -->
@@ -12,6 +12,7 @@
         body { background-color: #f8fafc; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
         .tab-active { background-color: #0066cc; color: white; border-color: #0066cc; }
         .btn-series-active { background-color: #0066cc; color: white; border-color: #0066cc; box-shadow: 0 2px 4px rgba(0,102,204,0.25); }
+        .btn-grade-active { background-color: #0284c7; color: white; border-color: #0284c7; font-weight: bold; }
         .heatmap-cell { transition: all 0.2s; }
         .heatmap-cell:hover { transform: scale(1.02); filter: brightness(0.95); }
     </style>
@@ -32,7 +33,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                        光光猴薪情平台 <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase">v1</span>
+                        光光猴薪情平台 <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase">v2 Pro</span>
                     </h1>
                     <p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p>
                 </div>
@@ -100,20 +101,20 @@
                 <p class="text-xs text-slate-400 mb-3">(自動屏蔽少於2筆數據之職等，柱體已直秀高低標數值，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
                 <div class="relative h-80"><canvas id="boxSalaryChart"></canvas></div>
             </div>
-            <!-- 各職等參與人數 (🚀 核心優化：橫軸照填答人數降序洗牌排列) -->
+            <!-- 各職等參與人數 (🚀 核心優化：手機端與窄螢幕自動關閉 autoSkip，完整秀出 E1, E2, E3...) -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
                 <h3 class="text-sm font-bold text-slate-800 mb-1">📊 各職等參與調查人數 (數據母體分佈)</h3>
-                <p class="text-xs text-slate-400 mb-3">（🚀 橫軸已按照「填答參與人數多到少」降序自動排序，頂端直秀人數）</p>
+                <p class="text-xs text-slate-400 mb-3">（🚀 已修復排版：橫軸已按照 D->T->E->M 順序排列）</p>
                 <div class="relative h-80"><canvas id="sampleCountChart"></canvas></div>
             </div>
         </div>
 
         <!-- 下層圖表與明細區 -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-            <!-- Left Corner Panel：互動定位對比 -->
+            <!-- Left Corner Panel：互動定位對比 & 🚀 考績分紅估算器 -->
             <div class="space-y-6 lg:col-span-1">
                 <div class="bg-gradient-to-b from-slate-800 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-slate-700/50">
-                    <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動對比：我在猴群哪個位置？</h3>
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動定位：我在猴群哪個位置？</h3>
                     <div class="space-y-3 text-xs">
                         <div>
                             <label class="block text-slate-300 mb-1">您的職等 (如: E2, T3)</label>
@@ -125,11 +126,47 @@
                         </div>
                         <div>
                             <label class="block text-slate-300 mb-1">月薪 (萬元，不含加班費)</label>
-                            <input id="mySalary" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden" placeholder="e.g. 9.2">
+                            <input id="mySalary" type="number" step="0.1" oninput="calculateBonus()" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-hidden" placeholder="e.g. 9.2">
                         </div>
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <button onclick="locateMe()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded transition-colors cursor-pointer text-center">開始定位</button>
                             <button onclick="clearLocation()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 p-2 rounded transition-colors cursor-pointer text-center">清除定位</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🚀【新增亮點】考績分紅與總年薪推估器 🎁 -->
+                <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-2xl shadow-md border border-indigo-500/30">
+                    <h3 class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-2 flex items-center gap-1">
+                        🎁 考績分紅與預估年薪計算器
+                    </h3>
+                    <p class="text-[11px] text-slate-400 mb-3">公式：保障14個月薪 + (14個月 × 18% × 公司績效% × 個人績效%)</p>
+                    
+                    <div class="space-y-3 text-xs">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-slate-300 mb-1">公司績效 (%)</label>
+                                <input id="compPerf" type="number" value="200" step="10" oninput="calculateBonus()" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-amber-300 font-bold outline-none text-center">
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 mb-1">個人績效 (%)</label>
+                                <input id="userPerf" type="number" value="100" step="10" oninput="calculateBonus()" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-emerald-400 font-bold outline-none text-center">
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-3 rounded-xl border border-indigo-500/20 space-y-2 mt-2">
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">保障底薪 (14個月):</span>
+                                <span id="baseAnnualVal" class="font-bold text-slate-200">0 萬元</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">預估考績分紅:</span>
+                                <span id="bonusVal" class="font-bold text-emerald-400">0 萬元</span>
+                            </div>
+                            <div class="border-t border-slate-800 pt-1.5 flex justify-between items-center text-xs">
+                                <span class="font-bold text-amber-300">🚀 預估總年薪:</span>
+                                <span id="totalAnnualVal" class="text-base font-black text-amber-400">0 萬元</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,6 +191,16 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ⚖️【新增亮點】相鄰職等升等跳升潛力預估 🚀 -->
+                <div id="promoCard" class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-amber-500/20">
+                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                        ⚡ 職等晉升薪資跳升預估 (ROI)
+                    </h3>
+                    <div id="promoContent" class="text-xs space-y-2 text-slate-300">
+                        <!-- 動態填入 -->
+                    </div>
+                </div>
             </div>
 
             <!-- Right Panel：散點擬合圖與熱力圖 -->
@@ -176,10 +223,10 @@
                     <div class="relative h-85"><canvas id="mainScatterChart"></canvas></div>
                 </div>
 
-                <!-- ⏳ 「熬出頭時間軸」熱力矩陣圖 -->
+                <!-- ⏳ 「熬出頭時間軸」熱力矩陣圖 (🚀 核心優化：擴充 4-6萬, 12-14萬, 14-16萬, 16萬以上級距) -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
                     <h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)</h3>
-                    <p class="text-xs text-slate-400 mb-4">橫向已全面自動帶出所有資料點足夠 (筆數 > 2) 的具體職等欄位 (如 EA, EB, E1, E2, E3, E4 等)。</p>
+                    <p class="text-xs text-slate-400 mb-4">（🚀 已細化薪資級距，且橫向職等已按照 D->T->E->M 順序排列）</p>
                     <div class="overflow-x-auto">
                         <table class="w-full text-center border-collapse text-xs min-w-[650px] border">
                             <thead>
@@ -194,36 +241,56 @@
             </div>
         </div>
 
-        <!-- 📋 原始清單與按紐快速切換 -->
+        <!-- 📋 原始清單與按鈕快速切換 (🚀 核心優化：新增二級具體職等按鈕列 + 搜尋列 + CSV 匯出) -->
         <section class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden mb-8">
             <div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
-                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2">
+                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
                     <div>
-                        <h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視</h3>
-                        <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 紅底代表系統稽核出的極端偏離值。請點擊下方按鈕進行快選。</p>
+                        <h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視與搜尋</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 紅底代表系統稽核出的極端偏離值。支援二級職等連動過濾與模糊搜尋。</p>
                     </div>
-                    <div class="flex items-center sm:justify-end">
-                        <span class="text-xs bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-bold w-full sm:w-auto text-center shadow-2xs" id="tableRowCount">顯示 0 筆</span>
+                    <div class="flex items-center gap-2">
+                        <!-- 🚀【新增亮點】下載 CSV 數據按鈕 -->
+                        <button onclick="exportCSV()" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow-2xs">
+                            📥 匯出 CSV
+                        </button>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-3 py-2 rounded-xl font-bold text-center shadow-2xs shrink-0" id="tableRowCount">顯示 0 筆</span>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-4 text-xs">
-                    <!-- 職系按鈕 -->
-                    <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs">
-                        <span class="text-slate-400 font-medium px-2">職系：</span>
-                        <button id="btnSecAll" onclick="changeTableSeries('All')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全體職系</button>
-                        <button id="btnSecE" onclick="changeTableSeries('E')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">E系</button>
-                        <button id="btnSecT" onclick="changeTableSeries('T')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">T系</button>
-                        <button id="btnSecM" onclick="changeTableSeries('M')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">M系</button>
-                        <button id="btnSecD" onclick="changeTableSeries('D')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">D系</button>
+                <!-- 搜尋列與按鈕過濾區 -->
+                <div class="space-y-3 text-xs">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- 職系按鈕 -->
+                        <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs">
+                            <span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+                            <button id="btnSecAll" onclick="changeTableSeries('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全體</button>
+                            <button id="btnSecE" onclick="changeTableSeries('E')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">E系</button>
+                            <button id="btnSecT" onclick="changeTableSeries('T')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">T系</button>
+                            <button id="btnSecM" onclick="changeTableSeries('M')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">M系</button>
+                            <button id="btnSecD" onclick="changeTableSeries('D')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">D系</button>
+                        </div>
+
+                        <!-- 團隊按鈕 -->
+                        <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs">
+                            <span class="text-slate-400 font-medium px-2 shrink-0">團隊：</span>
+                            <button id="btnTeamAll" onclick="changeTableTeam('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全部</button>
+                            <button id="btnTeamGlobal" onclick="changeTableTeam('Global team')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Global</button>
+                            <button id="btnTeamSite" onclick="changeTableTeam('Site team')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Site</button>
+                        </div>
+
+                        <!-- 🚀【新增亮點】關鍵字/部門模糊搜尋框 -->
+                        <div class="flex-1 min-w-[200px]">
+                            <input id="tableSearchInput" type="text" oninput="renderTable()" placeholder="🔍 搜尋部門、職等或團隊..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-blue-500 shadow-2xs">
+                        </div>
                     </div>
 
-                    <!-- 團隊按鈕 -->
-                    <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs">
-                        <span class="text-slate-400 font-medium px-2">團隊：</span>
-                        <button id="btnTeamAll" onclick="changeTableTeam('All')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全部團隊</button>
-                        <button id="btnTeamGlobal" onclick="changeTableTeam('Global team')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Global team</button>
-                        <button id="btnTeamSite" onclick="changeTableTeam('Site team')" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Site team</button>
+                    <!-- 🚀【核心優化】二級具體職等快速選擇按鈕 (E1, E2, E3, M1...) -->
+                    <div id="subGradeButtonGroup" class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-2xs">
+                        <span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
+                        <div id="subGradeButtons" class="flex flex-wrap items-center gap-1.5">
+                            <button onclick="changeTableSubGrade('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all">全部職等</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,6 +321,7 @@
         let myLocationPoint = null;   
         let outliersSet = new Set(); 
         let currentTableSeries = "All";
+        let currentTableSubGrade = "All";
         let currentTableTeam = "All";
 
         const gradeColors = {
@@ -265,12 +333,32 @@
 
         let chartScatter = null, chartBoxSalary = null, chartSampleCount = null;
 
-        // 🚀 核心修復外掛：加入極度嚴格的 yScale 防護，避免資料未就緒時搶跑繪圖而卡死
+        // 🚀【核心優化】全域職等排序邏輯 D -> T -> E -> M (支援 EA, EB)
+        function compareGrades(gradeA, gradeB) {
+            function getVal(g) {
+                if(!g) return 9999;
+                const p = g.charAt(0).toUpperCase();
+                const s = g.substring(1).toUpperCase();
+                let w = 9000;
+                if(p==='D') w = 1000;
+                else if(p==='T') w = 2000;
+                else if(p==='E') w = 3000;
+                else if(p==='M') w = 4000;
+                
+                let sw = 0;
+                if(s==='A') sw = -2;
+                else if(s==='B') sw = -1;
+                else sw = parseInt(s) || 0;
+                
+                return w + sw;
+            }
+            return getVal(gradeA) - getVal(gradeB);
+        }
+
         const boxPlotCustomLabelsPlugin = {
             id: 'boxPlotCustomLabelsPlugin',
             afterDatasetsDraw(chart, args, pluginOptions) {
                 const { ctx, scales: { y } } = chart;
-                // 強制安全防護：如果 Y 軸尚未初始化，直接退出不畫，避免當機
                 if (!y || typeof y.getPixelForValue !== 'function') return;
 
                 if (chart.canvas.id === 'boxSalaryChart' && chart.config.type === 'bar') {
@@ -287,12 +375,9 @@
                                 ctx.font = 'bold 10px sans-serif';
                                 ctx.textAlign = 'center';
 
-                                // 天花板數字
                                 ctx.fillText(metaInfo.max + "萬", bar.x, bar.y - 6);
-                                // 地板數字
                                 ctx.fillText(metaInfo.min + "萬", bar.x, bar.base + 12);
 
-                                // 平均值橫槓
                                 const avgY = y.getPixelForValue(parseFloat(metaInfo.avg));
                                 if (!isNaN(avgY)) {
                                     ctx.strokeStyle = '#ef4444'; 
@@ -312,7 +397,6 @@
                     });
                 }
 
-                // 參與調查人數：在長條圖頂部印出數據
                 if (chart.canvas.id === 'sampleCountChart' && chart.config.type === 'bar') {
                     chart.data.datasets.forEach((dataset, datasetIndex) => {
                         const meta = chart.getDatasetMeta(datasetIndex);
@@ -353,17 +437,53 @@
             updateCharts();
         }
 
-        // 🚀 控制清單的按鈕切換邏輯 (職系)
+        // 🚀 控制清單的按鈕切換邏輯 (職系) + 動態更新二級職等按鈕
         function changeTableSeries(series) {
             currentTableSeries = series;
+            currentTableSubGrade = "All"; // 重置二級職等選擇
             ['btnSecAll', 'btnSecE', 'btnSecT', 'btnSecM', 'btnSecD'].forEach(id => {
                 document.getElementById(id).classList.remove('btn-series-active');
             });
             document.getElementById('btnSec' + series).classList.add('btn-series-active');
+            
+            updateSubGradeButtons();
             renderTable();
         }
 
-        // 🚀 控制清單的按鈕切換邏輯 (團隊)
+        // 🚀【核心優化】動態生成二級職等按鈕 (E1, E2, E3, M1...)
+        function updateSubGradeButtons() {
+            const container = document.getElementById('subGradeButtons');
+            container.innerHTML = '';
+
+            const allGradesInSeries = Array.from(new Set(
+                rawData
+                    .filter(i => currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries))
+                    .map(i => i.grade)
+            )).sort(compareGrades);
+
+            // 全部職等按鈕
+            const allBtn = document.createElement('button');
+            allBtn.innerText = '全部';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentTableSubGrade === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeTableSubGrade('All');
+            container.appendChild(allBtn);
+
+            // 各個別職等按鈕
+            allGradesInSeries.forEach(g => {
+                const btn = document.createElement('button');
+                btn.innerText = g;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentTableSubGrade === g ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeTableSubGrade(g);
+                container.appendChild(btn);
+            });
+        }
+
+        function changeTableSubGrade(grade) {
+            currentTableSubGrade = grade;
+            updateSubGradeButtons();
+            renderTable();
+        }
+
         function changeTableTeam(team) {
             currentTableTeam = team;
             ['btnTeamAll', 'btnTeamGlobal', 'btnTeamSite'].forEach(id => {
@@ -377,7 +497,6 @@
         }
 
         async function initPlatform() {
-            // 資料擷取與介面渲染分離，徹底防範「連線失敗」的誤報卡死
             try {
                 const response = await fetch(API_URL, { redirect: "follow" });
                 if (!response.ok) throw new Error("HTTP Error " + response.status);
@@ -398,15 +517,14 @@
                 console.error("API 載入失敗:", e);
                 document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs px-3 py-1 rounded-full border border-rose-500/30";
                 document.getElementById('connectionStatus').innerText = "● 連線失敗: 請確認權限";
-                return; // 強制中斷，不往下畫圖
+                return;
             }
 
-            // 確保資料抓取完成後，才進行圖表繪製
             try {
                 document.getElementById('totalGlobalCount').innerText = rawData.length + " 筆";
 
                 const gradesSet = new Set(rawData.map(i => i.grade));
-                const sortedGrades = Array.from(gradesSet).sort();
+                const sortedGrades = Array.from(gradesSet).sort(compareGrades);
                 const filterGradeSel = document.getElementById('filterGrade');
                 filterGradeSel.innerHTML = '<option value="All">全部職等 (動態載入)</option>';
                 sortedGrades.forEach(g => {
@@ -416,6 +534,7 @@
                 });
 
                 calculateOutliers();
+                updateSubGradeButtons();
                 
                 document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30";
                 document.getElementById('connectionStatus').innerText = "● 數據同步完成";
@@ -448,6 +567,30 @@
             });
         }
 
+        // 🚀【核心亮點】考績分紅與總年薪實時計算器
+        function calculateBonus() {
+            const monthSalary = parseFloat(document.getElementById('mySalary').value) || 0;
+            const compPerf = (parseFloat(document.getElementById('compPerf').value) || 200) / 100;
+            const userPerf = (parseFloat(document.getElementById('userPerf').value) || 100) / 100;
+
+            if (monthSalary <= 0) {
+                document.getElementById('baseAnnualVal').innerText = "0 萬元";
+                document.getElementById('bonusVal').innerText = "0 萬元";
+                document.getElementById('totalAnnualVal').innerText = "0 萬元";
+                return;
+            }
+
+            // 保障底薪 14 個月
+            const baseAnnual = monthSalary * 14;
+            // 考績分紅公式：14 * 18% * 公司績效 * 個人績效
+            const bonus = baseAnnual * 0.18 * compPerf * userPerf;
+            const totalAnnual = baseAnnual + bonus;
+
+            document.getElementById('baseAnnualVal').innerText = baseAnnual.toFixed(1) + " 萬元";
+            document.getElementById('bonusVal').innerText = bonus.toFixed(1) + " 萬元 (" + (bonus / monthSalary).toFixed(1) + "個月)";
+            document.getElementById('totalAnnualVal').innerText = totalAnnual.toFixed(1) + " 萬元";
+        }
+
         function locateMe() {
             const g = document.getElementById('myGrade').value.trim().toUpperCase();
             const e = parseFloat(document.getElementById('myExp').value);
@@ -465,7 +608,52 @@
             document.getElementById('pctGradeLabel').innerText = `領先 ${g} 職等同仁`;
             document.getElementById('pctExpRes').innerText = ePct + "%";
             document.getElementById('percentileCard').classList.remove('hidden');
+
+            // 🚀【新增亮點】計算升等跳升潛力
+            calculatePromotionPotential(g, s);
+
+            calculateBonus();
             updateCharts();
+        }
+
+        // 🚀【新增亮點】相鄰職等升等 ROI 試算
+        function calculatePromotionPotential(myGrade, mySalary) {
+            const promoCard = document.getElementById('promoCard');
+            const promoContent = document.getElementById('promoContent');
+
+            // 抓出可能的下一職等 (如 E2 -> E3)
+            const series = myGrade.replace(/[0-9]/g, '');
+            const numMatch = myGrade.match(/\d+/);
+            if (!numMatch) {
+                promoCard.classList.add('hidden');
+                return;
+            }
+            const nextLevelNum = parseInt(numMatch[0]) + 1;
+            const nextGrade = series + nextLevelNum;
+
+            const nextGradeData = rawData.filter(i => i.grade === nextGrade).map(i => i.salary);
+            if (nextGradeData.length === 0) {
+                promoCard.classList.add('hidden');
+                return;
+            }
+
+            const nextAvg = nextGradeData.reduce((a,b)=>a+b, 0) / nextGradeData.length;
+            const diff = nextAvg - mySalary;
+            const pct = (diff / mySalary) * 100;
+
+            promoContent.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span>當前職等: <b class="text-white">${myGrade}</b></span>
+                    <span>下一職等: <b class="text-amber-300">${nextGrade}</b></span>
+                </div>
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700 mt-1">
+                    <p class="text-[11px] text-slate-400">${nextGrade} 職等平均月薪：<b class="text-white">${nextAvg.toFixed(1)} 萬</b></p>
+                    <p class="text-xs font-bold ${diff >= 0 ? 'text-emerald-400' : 'text-rose-400'} mt-1">
+                        ${diff >= 0 ? '▲ 預期升等月薪增幅：+' + diff.toFixed(1) + ' 萬 (+' + pct.toFixed(1) + '%)' : '▼ 您的當前薪資已高於下一職等平均'}
+                    </p>
+                </div>
+            `;
+            promoCard.classList.remove('hidden');
         }
 
         function clearLocation() {
@@ -474,6 +662,8 @@
             document.getElementById('myExp').value = '';
             document.getElementById('mySalary').value = '';
             document.getElementById('percentileCard').classList.add('hidden');
+            document.getElementById('promoCard').classList.add('hidden');
+            calculateBonus();
             updateCharts();
         }
 
@@ -481,7 +671,7 @@
 
         function updateCharts() {
             const filterSeriesEl = document.getElementById('filterSeries');
-            if(!filterSeriesEl) return; // UI 防護
+            if(!filterSeriesEl) return;
 
             const filterSeries = filterSeriesEl.value;
             const filterGrade = document.getElementById('filterGrade').value;
@@ -496,8 +686,6 @@
                 const eMatch = item.experience >= expMin && item.experience <= expMax;
                 return sMatch && gMatch && tMatch && eMatch;
             });
-
-            // 已刪除 kpiCount 的呼叫，避免報錯
 
             if (pool.length >= 0) {
                 renderScatter(pool);
@@ -517,8 +705,7 @@
             });
 
             const datasets = [];
-            Object.keys(gradePointsMap).sort().forEach(g => {
-                // 1. 散點 Dataset
+            Object.keys(gradePointsMap).sort(compareGrades).forEach(g => {
                 datasets.push({
                     type: 'scatter', 
                     label: g, 
@@ -529,7 +716,6 @@
                     order: 10
                 });
                 
-                // 2. 趨勢擬合線 Dataset
                 if (gradePointsMap[g].length > 2) {
                     const pts = gradePointsMap[g];
                     const n = pts.length;
@@ -571,9 +757,8 @@
                         maintainAspectRatio: false, 
                         plugins: {
                             legend: {
-                                position: 'right', // 🚀 圖例統一移動到右側
+                                position: 'right',
                                 labels: {
-                                    // 隱藏 _line 的圖例標籤，達成「二合一」效果
                                     filter: function(item, chartData) {
                                         return !item.text.endsWith('_line');
                                     }
@@ -581,7 +766,6 @@
                                 onClick: function(e, legendItem, legend) {
                                     const targetLabel = legendItem.text;
                                     const ci = legend.chart;
-                                    // 同步切換「點」和「線」的顯示狀態
                                     ci.data.datasets.forEach((dataset) => {
                                         if (dataset.idTag === targetLabel) {
                                             dataset.hidden = !dataset.hidden;
@@ -600,7 +784,7 @@
             }
         }
 
-        // 🚀 核心優化：橫軸照填答人數「多到少」進行降序洗牌排列
+        // 🚀【核心修復／優化 1】手機端 x 軸關閉 autoSkip，確保 E1, E2, E3 完整顯示不被省略
         function renderBoxAndSampleCharts(pool) {
             const groups = {}; pool.forEach(i => { if(!groups[i.grade]) groups[i.grade] = []; groups[i.grade].push(i.salary); });
             
@@ -617,8 +801,7 @@
                 }
             });
 
-            // 🚀 降序重新洗牌
-            metaList.sort((a, b) => b.count - a.count);
+            metaList.sort((a, b) => compareGrades(a.grade, b.grade));
 
             const sortedLabels = metaList.map(m => m.grade);
             const sortedBoxData = metaList.map(m => [m.min, m.max]);
@@ -628,24 +811,73 @@
             metaList.forEach(m => { globalBoxMeta[m.grade] = m; });
 
             if (chartBoxSalary) { 
-                chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.update(); 
+                chartBoxSalary.data.labels = sortedLabels; 
+                chartBoxSalary.data.datasets[0].data = sortedBoxData; 
+                chartBoxSalary.update(); 
             } else { 
-                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '薪資區間 (低標~高標)', data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: function(label) { return globalBoxMeta[label]; }, label: function(c) { const m = globalBoxMeta[c.label]; return `最低: ${m.min}萬 | 中位: ${m.med}萬 | 平均: ${m.avg}萬 | 最高: ${m.max}萬`; } } } } } }); 
+                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { 
+                    type: 'bar', 
+                    data: { labels: sortedLabels, datasets: [{ label: '薪資區間 (低標~高標)', data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: function(label) { return globalBoxMeta[label]; }, label: function(c) { const m = globalBoxMeta[c.label]; return `最低: ${m.min}萬 | 中位: ${m.med}萬 | 平均: ${m.avg}萬 | 最高: ${m.max}萬`; } } } },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    autoSkip: false, // 🚀 強制不跳過任何職等標籤
+                                    maxRotation: 45,
+                                    minRotation: 0,
+                                    font: { size: 10 }
+                                }
+                            }
+                        }
+                    } 
+                }); 
             }
 
             if (chartSampleCount) { 
-                chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.update(); 
+                chartSampleCount.data.labels = sortedLabels; 
+                chartSampleCount.data.datasets[0].data = sortedCounts; 
+                chartSampleCount.update(); 
             } else { 
-                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '覆蓋樣本數 (人)', data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } }); 
+                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { 
+                    type: 'bar', 
+                    data: { labels: sortedLabels, datasets: [{ label: '覆蓋樣本數 (人)', data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    autoSkip: false, // 🚀 修復手機端：強制不跳過任何職等 (E1, E2, E3...)
+                                    maxRotation: 45,
+                                    minRotation: 0,
+                                    font: { size: 10 }
+                                }
+                            }
+                        }
+                    } 
+                }); 
             }
         }
 
+        // 🚀【核心優化 2】擴充熬出頭時間軸薪資級距：4-6萬, 8-10萬, 10-12萬, 12-14萬, 14-16萬, 16萬以上
         function renderHeatmapMatrix(pool) {
-            const tiers = [ { l: "6.0 - 8.0 萬元", min: 6, max: 8 }, { l: "8.0 - 10.0 萬元", min: 8, max: 10 }, { l: "10.0 - 12.0 萬元", min: 10, max: 12 }, { l: "12.0 萬元以上", min: 12, max: 999 } ];
+            const tiers = [ 
+                { l: "4.0 - 6.0 萬元", min: 4, max: 6 }, 
+                { l: "6.0 - 8.0 萬元", min: 6, max: 8 }, 
+                { l: "8.0 - 10.0 萬元", min: 8, max: 10 }, 
+                { l: "10.0 - 12.0 萬元", min: 10, max: 12 },
+                { l: "12.0 - 14.0 萬元", min: 12, max: 14 },
+                { l: "14.0 - 16.0 萬元", min: 14, max: 16 },
+                { l: "16.0 萬元以上", min: 16, max: 999 } 
+            ];
             
             const gradeCounts = {};
             pool.forEach(i => { gradeCounts[i.grade] = (gradeCounts[i.grade] || 0) + 1; });
-            const activeGrades = Object.keys(gradeCounts).filter(g => gradeCounts[g] > 2).sort();
+            const activeGrades = Object.keys(gradeCounts).filter(g => gradeCounts[g] > 2).sort(compareGrades);
 
             const headerRow = document.getElementById('heatmapHeaderRow');
             headerRow.innerHTML = '<th class="p-3 text-left bg-slate-200">目標月薪級距</th>';
@@ -678,13 +910,23 @@
             });
         }
 
+        // 🚀【核心優化 3】數據清單快速檢視：支援二級職等 (E1, E2...) + 關鍵字模糊搜尋
         function renderTable() {
             const tbody = document.getElementById('dataTableBody'); tbody.innerHTML = '';
+            const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
 
             const filtered = rawData.filter(i => {
                 const sMatch = currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries);
+                const subGMatch = currentTableSubGrade === 'All' || i.grade === currentTableSubGrade;
                 const tMatch = currentTableTeam === 'All' || i.team_type === currentTableTeam;
-                return sMatch && tMatch;
+                
+                // 關鍵字模糊搜尋 (部門、職等、團隊)
+                const searchMatch = !searchKeyword || 
+                    i.department.toLowerCase().includes(searchKeyword) ||
+                    i.grade.toLowerCase().includes(searchKeyword) ||
+                    i.team_type.toLowerCase().includes(searchKeyword);
+
+                return sMatch && subGMatch && tMatch && searchMatch;
             });
 
             filtered.forEach(item => {
@@ -701,6 +943,39 @@
                 tbody.appendChild(row);
             });
             document.getElementById('tableRowCount').innerText = '顯示 ' + filtered.length + ' 筆';
+        }
+
+        // 🚀【新增亮點】下載 CSV 數據功能
+        function exportCSV() {
+            const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
+            const filtered = rawData.filter(i => {
+                const sMatch = currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries);
+                const subGMatch = currentTableSubGrade === 'All' || i.grade === currentTableSubGrade;
+                const tMatch = currentTableTeam === 'All' || i.team_type === currentTableTeam;
+                const searchMatch = !searchKeyword || 
+                    i.department.toLowerCase().includes(searchKeyword) ||
+                    i.grade.toLowerCase().includes(searchKeyword) ||
+                    i.team_type.toLowerCase().includes(searchKeyword);
+                return sMatch && subGMatch && tMatch && searchMatch;
+            });
+
+            if (filtered.length === 0) return alert("無資料可匯出！");
+
+            let csvContent = "data:text/csv;charset=utf-8,﻿"; // ﻿ 避免 Excel 中文亂碼
+            csvContent += "職等,總工作年資(年),月薪(萬元),團隊類型,部門,健康度\n";
+
+            filtered.forEach(item => {
+                const isOut = outliersSet.has(item.id) ? "極端值" : "正常";
+                csvContent += `"${item.grade}",${item.experience},${item.salary},"${item.team_type}","${item.department}","${isOut}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `micron_salary_filtered_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         window.onload = initPlatform;
