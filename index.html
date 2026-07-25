@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>m光光猴薪情平台 v4</title>
+    <title>m光光猴薪情平台 v8 Ultimate</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -15,10 +15,11 @@
         .btn-grade-active { background-color: #0284c7; color: white; border-color: #0284c7; font-weight: bold; }
         .heatmap-cell { transition: all 0.2s; }
         .heatmap-cell:hover { transform: scale(1.02); filter: brightness(0.95); }
-        
-        /* Modal Styles */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); z-index: 50; backdrop-filter: blur(4px); justify-content: center; items-center; align-items: center; }
+        .mode-btn-active { background-image: linear-gradient(to right, #3b82f6, #8b5cf6); color: white; box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39); border-color: transparent; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); z-index: 50; backdrop-filter: blur(4px); justify-content: center; align-items: center; }
         .modal.active { display: flex; }
+        /* Table Sort Icon */
+        th.sortable:hover { background-color: #e2e8f0; cursor: pointer; transition: background 0.2s; }
     </style>
 </head>
 <body class="p-4 md:p-8 relative">
@@ -27,7 +28,6 @@
         <!-- Header -->
         <header class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                <!-- 💎 完美高仿美光 Micron 科技 Logo -->
                 <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-200 shrink-0">
                     <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22 25 L37 25 L47 75 L32 75 Z" fill="#0066cc" />
@@ -37,337 +37,521 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                        光光猴薪情平台 <span class="text-[10px] font-bold bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase">v4</span>
+                        光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v8 Ultimate</span>
                     </h1>
                     <p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center">
-                <div id="connectionStatus" class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs px-3 py-1.5 rounded-full border border-amber-500/30">
-                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                    API 連線中...
+            
+            <div class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center w-full md:w-auto">
+                <div id="statusContainer" class="relative overflow-hidden inline-flex items-center gap-2 bg-slate-800 text-slate-300 text-xs px-4 py-2 rounded-full border border-slate-700 w-full sm:w-64 transition-colors">
+                    <div id="loadingBar" class="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-blue-600 to-emerald-500 transition-all duration-300" style="width: 5%;"></div>
+                    <div class="relative z-10 flex items-center justify-center w-full gap-2 font-bold drop-shadow-md">
+                        <span id="loadingDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span id="loadingText" class="tracking-wide">連線初始化中...</span>
+                    </div>
                 </div>
-                <button onclick="openFormModal()" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center gap-1 cursor-pointer">
-                    📝 匿名貢獻薪水
-                </button>
+                
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="openFormModal()" class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer border border-slate-600">
+                        📝 貢獻日常薪情
+                    </button>
+                    <button onclick="openBonusModal()" class="flex-1 sm:flex-none bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer">
+                        🎁 貢獻 2025 開獎
+                    </button>
+                </div>
             </div>
         </header>
 
-        <!-- 🚀 TOP PANEL SECTION：指標與橫式一字型控制面板 🚀 -->
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6 items-stretch">
-            <!-- 📊 目前調查總人數指標看板 -->
-            <div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
-                <p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 總調查人數 (母體樣本)</p>
-                <p id="totalGlobalCount" class="text-3xl font-black mt-1">連線中...</p>
-            </div>
-
-            <!-- ⚙️ 條件篩選面板 -->
-            <div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
-                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
-                    <div>
-                        <label class="block text-slate-500 font-bold mb-1">1. 職等群篩選 (Series)</label>
-                        <select id="filterSeries" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
-                            <option value="All" selected>全部職系 (E*, T*, M*, D*...)</option>
-                            <option value="E">E系 (工程師)</option>
-                            <option value="T">T系 (技術員)</option>
-                            <option value="M">M系 (主管職)</option>
-                            <option value="D">D系 (操作員)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-slate-500 font-bold mb-1">2. 職等快速過濾 (GJS)</label>
-                        <select id="filterGrade" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
-                            <option value="All" selected>全部職等</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-slate-500 font-bold mb-1">3. 團隊類型</label>
-                        <select id="filterTeam" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
-                            <option value="All" selected>全部類型 (Global & Site)</option>
-                            <option value="Global team">Global team</option>
-                            <option value="Site team">Site team</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-slate-500 font-bold mb-1 flex justify-between">
-                            <span>4. 年資篩選範圍</span>
-                            <span id="expRangeLabel" class="text-blue-600 font-bold">0 - 25 年</span>
-                        </label>
-                        <div class="space-y-1 mt-1">
-                            <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Min:</span><input id="filterExpMin" type="range" min="0" max="25" value="0" class="w-full accent-blue-600 cursor-pointer" oninput="updateExpSliders(); updateCharts();"></div>
-                            <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Max:</span><input id="filterExpMax" type="range" min="0" max="25" value="25" class="w-full accent-blue-600 cursor-pointer" oninput="updateExpSliders(); updateCharts();"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- 🚀 核心雙模式切換 🚀 -->
+        <div class="flex flex-wrap items-center gap-3 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
+            <button id="btnMode1" onclick="switchMode(1)" class="flex-1 py-3 px-6 rounded-xl font-bold text-sm transition-all mode-btn-active">
+                📊 日常薪情模式 (Base Salary)
+            </button>
+            <button id="btnMode2" onclick="switchMode(2)" class="flex-1 py-3 px-6 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent">
+                🎁 2025 開獎模式 (Bonus & RSU)
+            </button>
         </div>
 
-        <!-- 🚀 核心雙大圖表強制置頂展示 🚀 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <!-- 各職等薪水廣度分佈 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標)</h3>
-                <p class="text-xs text-slate-400 mb-3">(自動屏蔽少於2筆數據，柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
-                <div class="relative h-80"><canvas id="boxSalaryChart"></canvas></div>
-            </div>
-            <!-- 各職等參與人數 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="text-sm font-bold text-slate-800 mb-1">📊 各職等參與調查人數 (數據母體分佈)</h3>
-                <p class="text-xs text-slate-400 mb-3">（🚀 橫軸已按照 D->T->E->M 層級嚴格順序排列）</p>
-                <div class="relative h-80"><canvas id="sampleCountChart"></canvas></div>
-            </div>
-        </div>
-
-        <!-- 下層圖表與明細區 -->
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-            <!-- Left Corner Panel：互動定位對比、考績分紅估算器 -->
-            <div class="space-y-6 lg:col-span-1">
-                <!-- 互動定位器 -->
-                <div class="bg-gradient-to-b from-slate-800 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-slate-700/50 relative overflow-hidden">
-                    <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動定位：我在猴群哪個位置？</h3>
-                    <div class="space-y-3 text-xs relative z-10">
-                        <div>
-                            <label class="block text-slate-300 mb-1">您的職等 (如: E2, T3)</label>
-                            <input id="myGrade" type="text" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none uppercase" placeholder="e.g. E2">
-                        </div>
-                        <div>
-                            <label class="block text-slate-300 mb-1">總工作年資 (年)</label>
-                            <input id="myExp" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none" placeholder="e.g. 4.5">
-                        </div>
-                        <div>
-                            <label class="block text-slate-300 mb-1">月薪 (萬元，不含加班費)</label>
-                            <input id="mySalary" type="number" step="0.1" oninput="calculateBonus()" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none" placeholder="e.g. 9.2">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 pt-1">
-                            <button onclick="locateMe()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded transition-colors cursor-pointer text-center">開始定位</button>
-                            <button onclick="clearLocation()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 p-2 rounded transition-colors cursor-pointer text-center">清除定位</button>
-                        </div>
-                    </div>
+        <!-- ========================================== -->
+        <!-- MODE 1: 日常薪情模式 (BASE SALARY) -->
+        <!-- ========================================== -->
+        <div id="mode1Container" class="space-y-6 block animate-[fadeIn_0.5s_ease-out]">
+            <!-- TOP PANEL -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+                <div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+                    <p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 總調查人數 (母體樣本)</p>
+                    <p id="totalGlobalCount" class="text-3xl font-black mt-1">連線中...</p>
                 </div>
-
-                <!-- 📊 薪資勝率百分位報告卡片 -->
-                <div id="percentileCard" class="hidden bg-gradient-to-br from-slate-900 to-blue-950 text-white p-5 rounded-2xl shadow-md border border-blue-500/20">
-                    <h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2">📊 薪資勝率百分位報告</h3>
-                    <div class="space-y-4 text-xs">
+                <div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
                         <div>
-                            <p class="text-[11px] text-slate-400">同職等勝率 (Grade Percentile)</p>
-                            <div class="flex items-baseline gap-1 mt-0.5">
-                                <span id="pctGradeRes" class="text-3xl font-black text-amber-400">--%</span>
-                                <span class="text-slate-400 text-[11px]" id="pctGradeLabel">領先該職等同仁</span>
-                            </div>
+                            <label class="block text-slate-500 font-bold mb-1">1. 職等群篩選 (Series)</label>
+                            <select id="filterSeries" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
+                                <option value="All" selected>全部職系 (E*, T*, M*, D*...)</option>
+                                <option value="E">E系 (工程師)</option>
+                                <option value="T">T系 (技術員)</option>
+                                <option value="M">M系 (主管職)</option>
+                                <option value="D">D系 (操作員)</option>
+                            </select>
                         </div>
                         <div>
-                            <p class="text-[11px] text-slate-400">相似年資勝率 (±2年資產圈)</p>
-                            <div class="flex items-baseline gap-1 mt-0.5">
-                                <span id="pctExpRes" class="text-3xl font-black text-sky-400">--%</span>
-                                <span class="text-slate-400 text-[11px]">同資歷同仁</span>
+                            <label class="block text-slate-500 font-bold mb-1">2. 職等快速過濾 (GJS)</label>
+                            <select id="filterGrade" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
+                                <option value="All" selected>全部職等</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-500 font-bold mb-1">3. 團隊類型</label>
+                            <select id="filterTeam" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" onchange="updateCharts()">
+                                <option value="All" selected>全部類型 (Global & Site)</option>
+                                <option value="Global team">Global team</option>
+                                <option value="Site team">Site team</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-500 font-bold mb-1 flex justify-between">
+                                <span>4. 年資篩選範圍</span>
+                                <span id="expRangeLabel" class="text-blue-600 font-bold">0 - 25 年</span>
+                            </label>
+                            <div class="space-y-1 mt-1">
+                                <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Min:</span><input id="filterExpMin" type="range" min="0" max="25" value="0" class="w-full accent-blue-600 cursor-pointer" oninput="updateExpSliders(); updateCharts();"></div>
+                                <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Max:</span><input id="filterExpMax" type="range" min="0" max="25" value="25" class="w-full accent-blue-600 cursor-pointer" oninput="updateExpSliders(); updateCharts();"></div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- 🚀 薪資天花板雷達警示 (動態顯示) -->
-                    <div id="ceilingAlert" class="hidden mt-4 bg-rose-500/20 text-rose-300 border border-rose-500/50 p-2.5 rounded-lg text-[11px] font-bold shadow-inner">
-                        🚨 薪資天花板預警：您的月薪已達該職等 PR90 以上，單純年度調薪空間嚴重受限，強烈建議積極爭取升等！
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標)</h3>
+                    <p class="text-xs text-slate-400 mb-3">(自動屏蔽少於2筆數據，柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+                    <div class="relative h-80"><canvas id="boxSalaryChart"></canvas></div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-800 mb-1">📊 各職等參與調查人數 (數據母體分佈)</h3>
+                    <p class="text-xs text-slate-400 mb-3">（🚀 橫軸已按照 D->T->E->M 層級嚴格順序排列）</p>
+                    <div class="relative h-80"><canvas id="sampleCountChart"></canvas></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <div class="space-y-6 lg:col-span-1">
+                    <div class="bg-gradient-to-b from-slate-800 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-slate-700/50 relative overflow-hidden">
+                        <h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動定位：我在猴群哪個位置？</h3>
+                        <div class="space-y-3 text-xs relative z-10">
+                            <div><label class="block text-slate-300 mb-1">您的職等 (如: E2, T3)</label><input id="myGrade" type="text" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none uppercase" placeholder="e.g. E2"></div>
+                            <div><label class="block text-slate-300 mb-1">總工作年資 (年)</label><input id="myExp" type="number" step="0.1" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none" placeholder="e.g. 4.5"></div>
+                            <div><label class="block text-slate-300 mb-1">月薪 (萬元，不含加班費)</label><input id="mySalary" type="number" step="0.1" oninput="calculateBonus()" class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none" placeholder="e.g. 9.2"></div>
+                            <div class="grid grid-cols-2 gap-2 pt-1"><button onclick="locateMe()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded transition-colors cursor-pointer text-center">開始定位</button><button onclick="clearLocation()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 p-2 rounded transition-colors cursor-pointer text-center">清除定位</button></div>
+                        </div>
+                    </div>
+                    
+                    <div id="percentileCard" class="hidden bg-gradient-to-br from-slate-900 to-blue-950 text-white p-5 rounded-2xl shadow-md border border-blue-500/20">
+                        <h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2">📊 薪資勝率百分位報告</h3>
+                        <div class="space-y-4 text-xs">
+                            <div><p class="text-[11px] text-slate-400">同職等勝率 (Grade Percentile)</p><div class="flex items-baseline gap-1 mt-0.5"><span id="pctGradeRes" class="text-3xl font-black text-amber-400">--%</span><span class="text-slate-400 text-[11px]" id="pctGradeLabel">領先該職等同仁</span></div></div>
+                            <div><p class="text-[11px] text-slate-400">相似年資勝率 (±2年資產圈)</p><div class="flex items-baseline gap-1 mt-0.5"><span id="pctExpRes" class="text-3xl font-black text-sky-400">--%</span><span class="text-slate-400 text-[11px]">同資歷同仁</span></div></div>
+                        </div>
+                    </div>
+
+                    <div id="promoCard" class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-amber-500/20">
+                        <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">⚡ 職等晉升薪資跳升預估 (ROI)</h3>
+                        <div id="promoContent" class="text-xs space-y-2 text-slate-300"></div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-2xl shadow-md border border-indigo-500/30">
+                        <h3 class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-2 flex items-center gap-1">🎁 考績分紅與預估年薪計算器</h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div><label class="block text-slate-300 mb-1">公司績效 (%)</label><input id="compPerf" type="number" value="200" step="10" oninput="calculateBonus()" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-amber-300 font-bold outline-none text-center"></div>
+                                <div><label class="block text-slate-300 mb-1">個人績效 (%)</label><input id="userPerf" type="number" value="100" step="10" oninput="calculateBonus()" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-emerald-400 font-bold outline-none text-center"></div>
+                            </div>
+                            <div class="bg-slate-950/80 p-3 rounded-xl border border-indigo-500/20 space-y-2 mt-2">
+                                <div class="flex justify-between items-center text-[11px]"><span class="text-slate-400">保障底薪 (14個月):</span><span id="baseAnnualVal" class="font-bold text-slate-200">0 萬元</span></div>
+                                <div class="flex justify-between items-center text-[11px]"><span class="text-slate-400">預估考績分紅:</span><span id="bonusVal" class="font-bold text-emerald-400">0 萬元</span></div>
+                                <div class="border-t border-slate-800 pt-1.5 flex justify-between items-center text-xs"><span class="font-bold text-amber-300">🚀 預估總年薪:</span><span id="totalAnnualVal" class="text-base font-black text-amber-400">0 萬元</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- ⚖️ 相鄰職等升等跳升潛力預估 -->
-                <div id="promoCard" class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-amber-500/20">
-                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-                        ⚡ 職等晉升薪資跳升預估 (ROI)
-                    </h3>
-                    <div id="promoContent" class="text-xs space-y-2 text-slate-300"></div>
-                </div>
+                <div class="lg:col-span-3 space-y-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">🚀 圖表高度增倍，圖例與標點精緻化，點選圖例可開啟/隱藏該職等。</p>
+                            </div>
+                            <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
+                                <button id="tabAll" onclick="changeSeriesTab('All')" class="px-3 py-1.5 rounded-md tab-active cursor-pointer">全體</button>
+                                <button id="tabE" onclick="changeSeriesTab('E')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">E系</button>
+                                <button id="tabT" onclick="changeSeriesTab('T')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">T系</button>
+                                <button id="tabM" onclick="changeSeriesTab('M')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">M系</button>
+                                <button id="tabD" onclick="changeSeriesTab('D')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">D系</button>
+                            </div>
+                        </div>
+                        <!-- 🚀 調整高度 2倍 (600px) -->
+                        <div class="relative h-[600px]"><canvas id="mainScatterChart"></canvas></div>
+                    </div>
 
-                <!-- 🎁 考績分紅推估器 -->
-                <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-2xl shadow-md border border-indigo-500/30">
-                    <h3 class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-2 flex items-center gap-1">
-                        🎁 考績分紅與預估年薪計算器
-                    </h3>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)</h3>
+                        <p class="text-xs text-slate-400 mb-4">（🚀 橫向職等已按照 D->T->E->M 嚴格層級順序排列）</p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-center border-collapse text-xs min-w-[650px] border">
+                                <thead><tr id="heatmapHeaderRow" class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200"><th class="p-3 text-left bg-slate-200">目標月薪級距</th></tr></thead>
+                                <tbody id="heatmapTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List -->
+            <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+                <div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+                    <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視與搜尋</h3>
+                            <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="exportCSV()" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm">📥 匯出 CSV</button>
+                            <span class="text-xs bg-blue-100 text-blue-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="tableRowCount">顯示 0 筆</span>
+                        </div>
+                    </div>
                     <div class="space-y-3 text-xs">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-slate-300 mb-1">公司績效 (%)</label>
-                                <input id="compPerf" type="number" value="200" step="10" oninput="calculateBonus()" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-amber-300 font-bold outline-none text-center">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+                                <button id="btnSecAll" onclick="changeTableSeries('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全體</button>
+                                <button id="btnSecE" onclick="changeTableSeries('E')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">E系</button>
+                                <button id="btnSecT" onclick="changeTableSeries('T')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">T系</button>
+                                <button id="btnSecM" onclick="changeTableSeries('M')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">M系</button>
+                                <button id="btnSecD" onclick="changeTableSeries('D')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">D系</button>
                             </div>
-                            <div>
-                                <label class="block text-slate-300 mb-1">個人績效 (%)</label>
-                                <input id="userPerf" type="number" value="100" step="10" oninput="calculateBonus()" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-emerald-400 font-bold outline-none text-center">
+                            <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-400 font-medium px-2 shrink-0">團隊：</span>
+                                <button id="btnTeamAll" onclick="changeTableTeam('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全部</button>
+                                <button id="btnTeamGlobal" onclick="changeTableTeam('Global team')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Global</button>
+                                <button id="btnTeamSite" onclick="changeTableTeam('Site team')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Site</button>
+                            </div>
+                            <div class="flex-1 min-w-[200px]">
+                                <input id="tableSearchInput" type="text" oninput="renderTable()" placeholder="🔍 搜尋部門、職等或團隊..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-blue-500 shadow-sm">
                             </div>
                         </div>
-                        <div class="bg-slate-950/80 p-3 rounded-xl border border-indigo-500/20 space-y-2 mt-2">
-                            <div class="flex justify-between items-center text-[11px]">
-                                <span class="text-slate-400">保障底薪 (14個月):</span>
-                                <span id="baseAnnualVal" class="font-bold text-slate-200">0 萬元</span>
-                            </div>
-                            <div class="flex justify-between items-center text-[11px]">
-                                <span class="text-slate-400">預估考績分紅:</span>
-                                <span id="bonusVal" class="font-bold text-emerald-400">0 萬元</span>
-                            </div>
-                            <div class="border-t border-slate-800 pt-1.5 flex justify-between items-center text-xs">
-                                <span class="font-bold text-amber-300">🚀 預估總年薪:</span>
-                                <span id="totalAnnualVal" class="text-base font-black text-amber-400">0 萬元</span>
+                        <div id="subGradeButtonGroup" class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
+                            <div id="subGradeButtons" class="flex flex-wrap items-center gap-1.5">
+                                <button onclick="changeTableSubGrade('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all">全部職等</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Right Panel：散點擬合圖與熱力圖 -->
-            <div class="lg:col-span-3 space-y-6">
-                <!-- 散點圖 -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線</h3>
-                            <p class="text-xs text-slate-400 mt-0.5">🚀 點選圖例可整合開啟或隱藏該職等的散點與實線。</p>
-                        </div>
-                        <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
-                            <button id="tabAll" onclick="changeSeriesTab('All')" class="px-3 py-1.5 rounded-md tab-active cursor-pointer">全體</button>
-                            <button id="tabE" onclick="changeSeriesTab('E')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">E系</button>
-                            <button id="tabT" onclick="changeSeriesTab('T')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">T系</button>
-                            <button id="tabM" onclick="changeSeriesTab('M')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">M系</button>
-                            <button id="tabD" onclick="changeSeriesTab('D')" class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer">D系</button>
-                        </div>
-                    </div>
-                    <div class="relative h-85"><canvas id="mainScatterChart"></canvas></div>
+                <div class="overflow-x-auto max-h-80 text-xs">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
+                            <tr>
+                                <th class="p-3 sortable" onclick="sortM1Table('grade')">職等 (GJS) ↕</th>
+                                <th class="p-3 sortable" onclick="sortM1Table('experience')">總工作年資 ↕</th>
+                                <th class="p-3 sortable" onclick="sortM1Table('salary')">月薪 (萬元) ↕</th>
+                                <th class="p-3 sortable" onclick="sortM1Table('team_type')">團隊類型 ↕</th>
+                                <th class="p-3 sortable" onclick="sortM1Table('department')">部門 ↕</th>
+                                <th class="p-3">常態狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody" class="text-slate-600 divide-y divide-slate-100"></tbody>
+                    </table>
                 </div>
-
-                <!-- 熱力矩陣圖 -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)</h3>
-                    <p class="text-xs text-slate-400 mb-4">（🚀 橫向職等已按照 D->T->E->M 嚴格層級順序排列）</p>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-center border-collapse text-xs min-w-[650px] border">
-                            <thead>
-                                <tr id="heatmapHeaderRow" class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
-                                    <th class="p-3 text-left bg-slate-200">目標月薪級距</th>
-                                </tr>
-                            </thead>
-                            <tbody id="heatmapTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
 
-        <!-- 📋 原始清單區 -->
-        <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
-            <div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
-                <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視與搜尋</h3>
-                        <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 紅底代表系統稽核出的極端偏離值。</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="exportCSV()" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm">
-                            📥 匯出 CSV
-                        </button>
-                        <span class="text-xs bg-blue-100 text-blue-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="tableRowCount">顯示 0 筆</span>
-                    </div>
+        <!-- ========================================== -->
+        <!-- MODE 2: 2025 開獎模式 (BONUS & RSU) -->
+        <!-- ========================================== -->
+        <div id="mode2Container" class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]">
+            <!-- TOP PANEL -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+                <div class="lg:col-span-1 bg-gradient-to-br from-purple-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+                    <p class="text-xs font-medium text-purple-200 uppercase tracking-wider">🎁 開獎調查人數 (2025)</p>
+                    <p id="totalGlobalCount2" class="text-3xl font-black mt-1">連線中...</p>
                 </div>
-
-                <!-- 搜尋與過濾區 -->
-                <div class="space-y-3 text-xs">
-                    <div class="flex flex-wrap items-center gap-3">
-                        <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
-                            <span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
-                            <button id="btnSecAll" onclick="changeTableSeries('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全體</button>
-                            <button id="btnSecE" onclick="changeTableSeries('E')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">E系</button>
-                            <button id="btnSecT" onclick="changeTableSeries('T')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">T系</button>
-                            <button id="btnSecM" onclick="changeTableSeries('M')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">M系</button>
-                            <button id="btnSecD" onclick="changeTableSeries('D')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">D系</button>
+                <div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                        <div>
+                            <label class="block text-slate-500 font-bold mb-1">1. 職等群 (Series)</label>
+                            <select id="m2FilterSeries" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" onchange="updateM2Charts()"><option value="All">全部職系</option><option value="E">E系</option><option value="T">T系</option><option value="M">M系</option><option value="D">D系</option></select>
                         </div>
-                        <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
-                            <span class="text-slate-400 font-medium px-2 shrink-0">團隊：</span>
-                            <button id="btnTeamAll" onclick="changeTableTeam('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全部</button>
-                            <button id="btnTeamGlobal" onclick="changeTableTeam('Global team')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Global</button>
-                            <button id="btnTeamSite" onclick="changeTableTeam('Site team')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">Site</button>
+                        <div>
+                            <label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label>
+                            <select id="m2FilterPromo" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" onchange="updateM2Charts()"><option value="All">全部 (升遷+未升遷)</option><option value="Yes">✅ 有升遷 (Promoted)</option><option value="No">❌ 未升遷 (Normal)</option></select>
                         </div>
-                        <div class="flex-1 min-w-[200px]">
-                            <input id="tableSearchInput" type="text" oninput="renderTable()" placeholder="🔍 搜尋部門、職等或團隊..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-blue-500 shadow-sm">
-                        </div>
-                    </div>
-                    <div id="subGradeButtonGroup" class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
-                        <span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
-                        <div id="subGradeButtons" class="flex flex-wrap items-center gap-1.5">
-                            <button onclick="changeTableSubGrade('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all">全部職等</button>
+                        <div>
+                            <label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
+                            <select id="m2FilterPerf" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" onchange="updateM2Charts()"><option value="All">全部考績</option></select>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="overflow-x-auto max-h-80 text-xs">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
-                            <th class="p-3">職等 (GJS)</th>
-                            <th class="p-3">總工作年資</th>
-                            <th class="p-3">月薪 (萬元)</th>
-                            <th class="p-3">團隊類型</th>
-                            <th class="p-3">部門</th>
-                            <th class="p-3">常態狀態</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dataTableBody" class="text-slate-600 divide-y divide-slate-100"></tbody>
-                </table>
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Locate Me Bonus -->
+                <div class="space-y-6 lg:col-span-1">
+                    <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-5 rounded-2xl shadow-sm border border-purple-500/30">
+                        <h3 class="text-sm font-bold text-fuchsia-300 mb-3">📍 2025 開獎定位器</h3>
+                        <p class="text-[10px] text-slate-300 mb-3">檢驗您的 Package 在同類人中是好是壞。</p>
+                        <div class="space-y-3 text-xs">
+                            <input id="m2MyGrade" type="text" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 uppercase outline-none" placeholder="職等 e.g. E2">
+                            <select id="m2MyPromo" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-white outline-none">
+                                <option value="No">未升遷 (❌ 無)</option><option value="Yes">有升遷 (✅ 有)</option>
+                            </select>
+                            <input id="m2MyPerf" type="text" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" placeholder="考績 e.g. 3 或 Meets">
+                            <input id="m2MyRaise" type="number" step="0.1" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" placeholder="調薪幅度 (%) e.g. 4.5">
+                            <input id="m2MyRsu" type="number" step="1" class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" placeholder="RSU 數量 (美金) e.g. 5000">
+                            
+                            <div class="grid grid-cols-2 gap-2 pt-1"><button onclick="locateM2()" class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded font-bold">檢驗 PR 值</button><button onclick="clearM2()" class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded">清除</button></div>
+                        </div>
+                    </div>
+
+                    <div id="m2PctCard" class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-fuchsia-500/30">
+                        <h3 class="text-xs font-bold text-fuchsia-400 mb-3">📊 2025 開獎勝率報告</h3>
+                        <p id="m2TargetGroup" class="text-[10px] text-slate-400 mb-3 border-b border-slate-700 pb-2">比對母體：...</p>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-slate-300">調薪幅度 PR值</span><span id="m2PctRaise" class="text-2xl font-black text-amber-400">--%</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-slate-300">RSU 美金 PR值</span><span id="m2PctRsu" class="text-2xl font-black text-emerald-400">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="lg:col-span-3 space-y-6">
+                    <!-- Chart 1: RSU Box Chart -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-sm font-bold text-slate-800 mb-1">📦 2025 各職等 RSU 分發力道 (美金)</h3>
+                        <p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( < 3 筆) 的職等，直觀看出 RSU 爆發分水嶺。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+                        <div class="relative h-80"><canvas id="m2RsuChart"></canvas></div>
+                    </div>
+
+                    <!-- Chart 2: Raise by Perf Box Chart -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
+                        <p class="text-xs text-slate-400 mb-3">藍柱：未升遷 (純吃考績)｜紫柱：有升遷 (升等大禮包)。直觀看見考績間的鑑別度！(已支援高低標與平均值繪製)</p>
+                        <div class="relative h-80"><canvas id="m2RaiseChart"></canvas></div>
+                    </div>
+                </div>
             </div>
-        </section>
+
+            <!-- List for Mode 2 -->
+            <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+                <div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+                    <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-800">📋 2025 開獎清單快速檢視與搜尋</h3>
+                            <p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="exportM2CSV()" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm">📥 匯出 CSV</button>
+                            <span class="text-xs bg-purple-100 text-purple-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="m2Count">顯示 0 筆</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+                                <button id="btnM2SecAll" onclick="changeM2TableSeries('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全體</button>
+                                <button id="btnM2SecE" onclick="changeM2TableSeries('E')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">E系</button>
+                                <button id="btnM2SecT" onclick="changeM2TableSeries('T')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">T系</button>
+                                <button id="btnM2SecM" onclick="changeM2TableSeries('M')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">M系</button>
+                                <button id="btnM2SecD" onclick="changeM2TableSeries('D')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">D系</button>
+                            </div>
+                            
+                            <!-- 🚀 新增：升遷過濾器 -->
+                            <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-400 font-medium px-2 shrink-0">升遷：</span>
+                                <button id="btnM2PromoAll" onclick="changeM2TablePromo('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all">全部</button>
+                                <button id="btnM2PromoYes" onclick="changeM2TablePromo('Yes')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">✅ 有升遷</button>
+                                <button id="btnM2PromoNo" onclick="changeM2TablePromo('No')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all">❌ 未升遷</button>
+                            </div>
+
+                            <div class="flex-1 min-w-[200px]">
+                                <input id="m2Search" type="text" oninput="renderM2Table()" placeholder="🔍 搜尋職等或關鍵字..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-purple-500 shadow-sm">
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div id="m2SubGradeButtonGroup" class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
+                                <div id="m2SubGradeButtons" class="flex flex-wrap items-center gap-1.5">
+                                    <button onclick="changeM2TableSubGrade('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all">全部職等</button>
+                                </div>
+                            </div>
+                            
+                            <!-- 🚀 新增：動態考績過濾器 -->
+                            <div id="m2PerfButtonGroup" class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-400 font-medium px-1 shrink-0">考績：</span>
+                                <div id="m2PerfButtons" class="flex flex-wrap items-center gap-1.5">
+                                    <button onclick="changeM2TablePerf('All')" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all">全部考績</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto max-h-80 text-xs">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
+                            <tr>
+                                <th class="p-3 sortable" onclick="sortM2Table('grade')">職等 ↕</th>
+                                <th class="p-3 sortable" onclick="sortM2Table('perf')">考績 ↕</th>
+                                <th class="p-3 sortable" onclick="sortM2Table('promo')">有無升遷 ↕</th>
+                                <th class="p-3 sortable" onclick="sortM2Table('raise')">調薪幅度 (%) ↕</th>
+                                <th class="p-3 sortable" onclick="sortM2Table('rsu')">RSU (美金) ↕</th>
+                            </tr>
+                        </thead>
+                        <tbody id="m2Tbody" class="text-slate-600 divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
     </div>
 
-    <!-- 📝 Data Collection Form Modal -->
+    <!-- 📝 Data Collection Form Modal (M1) -->
     <div id="dataFormModal" class="modal">
         <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
-            <button onclick="closeFormModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">✖</button>
-            <h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">📝 匿名貢獻薪水數據</h2>
-            <p class="text-xs text-slate-500 mb-5">薪資透明化需要您的參與！填寫資料後，系統會直接寫入雲端資料庫。</p>
+            <button onclick="closeFormModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg">✖</button>
+            <h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">📝 匿名貢獻日常薪情</h2>
+            <p class="text-xs text-slate-500 mb-5">僅收集日常月薪架構，用於完善 Base Salary 曲線庫。</p>
             
             <form id="salaryForm" onsubmit="submitForm(event)" class="space-y-4 text-sm">
-                <div>
-                    <label class="block text-slate-700 font-bold mb-1">職等 (如: E1, E2, T3)</label>
-                    <input type="text" id="formGrade" required class="w-full border border-slate-300 rounded-lg p-2 uppercase outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-slate-700 font-bold mb-1">總工作年資 (含過去經歷)</label>
-                    <input type="number" step="0.1" id="formExp" required class="w-full border border-slate-300 rounded-lg p-2 outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-slate-700 font-bold mb-1">底薪月薪 (萬元, 不含加班費)</label>
-                    <input type="number" step="0.1" id="formSalary" required class="w-full border border-slate-300 rounded-lg p-2 outline-none focus:border-blue-500" placeholder="例如: 8.5">
-                </div>
+                <div><label class="block text-slate-700 font-bold mb-1">職等 (如: E1)</label><input type="text" id="formGrade" required class="w-full border rounded-lg p-2 uppercase outline-none focus:border-blue-500"></div>
+                <div><label class="block text-slate-700 font-bold mb-1">總工作年資</label><input type="number" step="0.1" id="formExp" required class="w-full border rounded-lg p-2 outline-none focus:border-blue-500"></div>
+                <div><label class="block text-slate-700 font-bold mb-1">底薪月薪 (萬)</label><input type="number" step="0.1" id="formSalary" required class="w-full border rounded-lg p-2 outline-none focus:border-blue-500"></div>
                 <div>
                     <label class="block text-slate-700 font-bold mb-1">團隊類型</label>
-                    <select id="formTeam" required class="w-full border border-slate-300 rounded-lg p-2 outline-none focus:border-blue-500">
-                        <option value="Site team">Site team</option>
-                        <option value="Global team">Global team</option>
-                    </select>
+                    <select id="formTeam" required class="w-full border rounded-lg p-2 outline-none focus:border-blue-500"><option value="Site team">Site team</option><option value="Global team">Global team</option></select>
                 </div>
-                <div>
-                    <label class="block text-slate-700 font-bold mb-1">部門關鍵字 (選填, 如: Yield, PE)</label>
-                    <input type="text" id="formDept" class="w-full border border-slate-300 rounded-lg p-2 outline-none focus:border-blue-500">
-                </div>
+                <div><label class="block text-slate-700 font-bold mb-1">部門 (如: PE)</label><input type="text" id="formDept" class="w-full border rounded-lg p-2 outline-none focus:border-blue-500"></div>
                 
-                <button type="submit" id="formSubmitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg mt-4 transition-colors">🚀 送出匿名資料</button>
+                <button type="submit" id="formSubmitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg mt-4 transition-colors">🚀 送出</button>
                 <div id="formStatusMsg" class="text-xs text-center font-bold mt-2 hidden"></div>
             </form>
         </div>
     </div>
 
+    <!-- 🎁 Data Collection Form Modal (M2 - Bonus) -->
+    <div id="bonusFormModal" class="modal">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button onclick="closeBonusModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg">✖</button>
+            <h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">🎁 匿名貢獻 2025 開獎</h2>
+            <p class="text-xs text-slate-500 mb-5">輸入您的開獎包裹，建立最透明的獎金常態分佈！資料將傳送至開獎資料庫。</p>
+            
+            <form id="bonusForm" onsubmit="submitBonusForm(event)" class="space-y-4 text-sm">
+                <div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2)</label><input type="text" id="bFormGrade" required class="w-full border rounded-lg p-2 uppercase outline-none focus:border-purple-500"></div>
+                <div>
+                    <label class="block text-slate-700 font-bold mb-1">考績 (Ranking)</label>
+                    <select id="bFormRank" required class="w-full border rounded-lg p-2 outline-none focus:border-purple-500">
+                        <option value="" disabled selected>請選擇考績</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填寫 %)</label>
+                    <input type="number" step="0.01" id="bFormRaise" required placeholder="例如: 4.5" class="w-full border rounded-lg p-2 outline-none focus:border-purple-500">
+                </div>
+                <div>
+                    <label class="block text-slate-700 font-bold mb-1">有無升遷</label>
+                    <select id="bFormPromo" required class="w-full border rounded-lg p-2 outline-none focus:border-purple-500">
+                        <option value="有">✅ 有升遷 (Yes)</option>
+                        <option value="無" selected>❌ 未升遷 (No)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-700 font-bold mb-1">RSU 限制型股票 (純數字，單位: 美金)</label>
+                    <input type="number" step="1" id="bFormRSU" placeholder="若無請填 0，例如: 5000" required class="w-full border rounded-lg p-2 outline-none focus:border-purple-500">
+                </div>
+                
+                <button type="submit" id="bFormSubmitBtn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 rounded-lg mt-4 transition-colors">🚀 送出匿名開獎資料</button>
+                <div id="bFormStatusMsg" class="text-xs text-center font-bold mt-2 hidden"></div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
+        const API_M1 = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
+        const API_M2 = "https://script.google.com/macros/s/AKfycbwWd9ozWC4ATM6Oeo_vzhtxjjIFjWivXR6yi-2IwZ8j3G8gvwSqypNtwinHc3q7oWwX/exec";
         
-        let rawData = [];
+        let dataM1 = [], dataM2 = [];
+        const gradeColors = { 'EA': '#38bdf8', 'EB': '#0284c7', 'E1': '#fbbf24', 'E2': '#f59e0b', 'E3': '#10b981', 'E4': '#8b5cf6', 'T1': '#ec4899', 'T2': '#f43f5e', 'M1': '#14b8a6', 'D1': '#a855f7', 'D2': '#6366f1' };
+        const defaultColor = '#94a3b8';
+        
+        // Mode 1 State
+        let chartBoxSalary = null, chartSampleCount = null, chartScatter = null, myLocationPoint = null;
+        let globalBoxMeta = {};
         let currentSeriesTab = "All"; 
-        let myLocationPoint = null;   
-        let outliersSet = new Set(); 
         let currentTableSeries = "All";
         let currentTableSubGrade = "All";
         let currentTableTeam = "All";
+        let outliersSet = new Set();
+        let m1SortCol = '', m1SortDesc = false;
+        
+        // Mode 2 State
+        let cM2Rsu = null, cM2Raise = null;
+        let m2RsuMeta = {}, metaRaiseNo = {}, metaRaiseYes = {}; 
+        let currentM2TableSeries = "All";
+        let currentM2TableSubGrade = "All";
+        let currentM2TablePromo = "All";
+        let currentM2TablePerf = "All";
+        let m2SortCol = '', m2SortDesc = false;
 
-        const gradeColors = { 'EA': '#38bdf8', 'EB': '#0284c7', 'E1': '#fbbf24', 'E2': '#f59e0b', 'E3': '#10b981', 'E4': '#8b5cf6', 'T1': '#ec4899', 'T2': '#f43f5e', 'M1': '#14b8a6', 'D1': '#a855f7', 'D2': '#6366f1' };
-        const defaultColor = '#94a3b8';
-
-        let chartScatter = null, chartBoxSalary = null, chartSampleCount = null;
+        // Custom Plugin for Boxplot
+        Chart.register({
+            id: 'boxCustom',
+            afterDatasetsDraw(c) {
+                const y = c.scales.y; if(!y) return;
+                
+                // M1 Box Salary & M2 RSU Box
+                if(c.canvas.id === 'boxSalaryChart' || c.canvas.id === 'm2RsuChart' || c.canvas.id === 'm2RaiseChart') {
+                    const isM1 = c.canvas.id === 'boxSalaryChart';
+                    const isRaise = c.canvas.id === 'm2RaiseChart';
+                    const unit = isM1 ? "萬" : (isRaise ? "%" : "");
+                    
+                    c.data.datasets.forEach((ds, dsi) => {
+                        c.getDatasetMeta(dsi).data.forEach((bar, i) => {
+                            const lbl = c.data.labels[i];
+                            let m = null;
+                            if (c.config.options.plugins.tooltip.callbacks.customMeta) {
+                                m = c.config.options.plugins.tooltip.callbacks.customMeta(lbl, dsi);
+                            }
+                            if(m && !isNaN(m.avg)) {
+                                c.ctx.save(); c.ctx.fillStyle = '#1e293b'; c.ctx.font = 'bold 9px sans-serif'; c.ctx.textAlign = 'center';
+                                c.ctx.fillText(m.max + unit, bar.x, bar.y - 4);
+                                c.ctx.fillText(m.min + unit, bar.x, bar.base + 10);
+                                const ay = y.getPixelForValue(parseFloat(m.avg));
+                                if(!isNaN(ay)) {
+                                    c.ctx.strokeStyle = '#ef4444'; c.ctx.lineWidth = 1.5; c.ctx.beginPath(); c.ctx.moveTo(bar.x - bar.width/2, ay); c.ctx.lineTo(bar.x + bar.width/2, ay); c.ctx.stroke();
+                                    c.ctx.fillStyle = '#ef4444'; c.ctx.textAlign = 'left'; c.ctx.fillText("均:"+m.avg, bar.x + bar.width/2+1, ay+3);
+                                }
+                                c.ctx.restore();
+                            }
+                        });
+                    });
+                }
+                if(c.canvas.id === 'sampleCountChart') {
+                    c.data.datasets.forEach((ds, dsi) => {
+                        c.getDatasetMeta(dsi).data.forEach((bar, i) => {
+                            const v = ds.data[i];
+                            if(v) { c.ctx.save(); c.ctx.fillStyle='#0f766e'; c.ctx.font='bold 11px sans-serif'; c.ctx.textAlign='center'; c.ctx.fillText(v+"人", bar.x, bar.y-6); c.ctx.restore(); }
+                        });
+                    });
+                }
+            }
+        });
 
         function compareGrades(gradeA, gradeB) {
             function getVal(g) {
@@ -381,52 +565,138 @@
             return getVal(gradeA) - getVal(gradeB);
         }
 
-        const boxPlotCustomLabelsPlugin = {
-            id: 'boxPlotCustomLabelsPlugin',
-            afterDatasetsDraw(chart, args, pluginOptions) {
-                const { ctx, scales: { y } } = chart;
-                if (!y || typeof y.getPixelForValue !== 'function') return;
+        async function initPlatform() {
+            const loadingBar = document.getElementById('loadingBar');
+            const loadingText = document.getElementById('loadingText');
+            const loadingDot = document.getElementById('loadingDot');
+            const statusContainer = document.getElementById('statusContainer');
 
-                if (chart.canvas.id === 'boxSalaryChart' && chart.config.type === 'bar') {
-                    chart.data.datasets.forEach((dataset, datasetIndex) => {
-                        const meta = chart.getDatasetMeta(datasetIndex);
-                        meta.data.forEach((bar, index) => {
-                            const label = chart.data.labels[index];
-                            const metaInfo = chart.config.options.plugins.tooltip.callbacks.customMeta && chart.config.options.plugins.tooltip.callbacks.customMeta(label);
-                            if (metaInfo && !isNaN(metaInfo.avg)) {
-                                ctx.save();
-                                ctx.fillStyle = '#1e293b'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
-                                ctx.fillText(metaInfo.max + "萬", bar.x, bar.y - 6);
-                                ctx.fillText(metaInfo.min + "萬", bar.x, bar.base + 12);
-                                const avgY = y.getPixelForValue(parseFloat(metaInfo.avg));
-                                if (!isNaN(avgY)) {
-                                    ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(bar.x - bar.width / 2, avgY); ctx.lineTo(bar.x + bar.width / 2, avgY); ctx.stroke();
-                                    ctx.fillStyle = '#ef4444'; ctx.textAlign = 'left'; ctx.fillText(" 均:" + metaInfo.avg, bar.x + bar.width / 2 + 2, avgY + 3);
-                                }
-                                ctx.restore();
-                            }
-                        });
-                    });
+            try {
+                // Sequential Fetch
+                loadingBar.style.width = '30%';
+                loadingText.innerText = '載入日常薪情資料庫...';
+                const r1 = await fetch(API_M1, { redirect: "follow" });
+                if(!r1.ok) throw new Error("API 1 Error");
+                const j1 = await r1.json();
+
+                loadingBar.style.width = '60%';
+                loadingText.innerText = '載入開獎資料庫...';
+                const r2 = await fetch(API_M2, { redirect: "follow" });
+                if(!r2.ok) throw new Error("API 2 Error");
+                const j2 = await r2.json();
+
+                if (!Array.isArray(j1) || !Array.isArray(j2)) throw new SyntaxError("API Return Error");
+
+                loadingBar.style.width = '85%';
+                loadingText.innerText = '資料解析中...';
+
+                // Parse M1
+                dataM1 = j1.map((item, i) => {
+                    const keys = Object.keys(item);
+                    return { id: i, grade: (item[keys[1]]||'').toString().trim().toUpperCase(), experience: parseFloat(item[keys[2]]), salary: parseFloat(item[keys[3]]), team_type: (item[keys[4]]||'未填寫').toString().trim(), department: (item[keys[5]]||'未填寫').toString().trim() };
+                }).filter(x => x.grade && !isNaN(x.experience) && !isNaN(x.salary));
+
+                // Parse M2 (Robust matching & Promo conversion)
+                dataM2 = j2.map((item, i) => {
+                    const keys = Object.keys(item);
+                    // 嚴格避開 "職等" 以防 Promotion 被誤判
+                    const kG = keys.find(k=>k.toUpperCase().includes('GJS') || k.includes('職')) || keys[1];
+                    const kP = keys.find(k=>k.toLowerCase().includes('rank') || k.includes('烤雞') || k.includes('績')) || keys[2];
+                    
+                    // 嚴格綁定 Promotion / 升遷
+                    const kPr = keys.find(k=>k.toLowerCase() === 'promotion' || k.toLowerCase().includes('promot') || k.includes('Promotion/ 升遷') || (k.includes('升遷') && !k.includes('職等'))) || keys[4];
+                    
+                    const kR = keys.find(k=>k.toLowerCase().includes('annual') || k.toLowerCase().includes('incr') || k.includes('調薪')) || keys[3];
+                    const kS = keys.find(k=>k.toLowerCase().includes('rsu') || k.includes('股') || k.includes('金')) || keys[5];
+                    
+                    let gradeStr = (item[kG]||'').toString().toUpperCase().trim();
+                    if (gradeStr.includes('->')) gradeStr = gradeStr.split('->').pop().trim();
+                    if (gradeStr.includes('>')) gradeStr = gradeStr.split('>').pop().trim();
+
+                    const pStr = (item[kPr]||'').toString().trim();
+                    const isPro = (pStr.includes('有') || pStr.toLowerCase().includes('y') || pStr.includes('是') || pStr === '1') ? 'Yes' : 'No';
+                    
+                    // 調薪自動乘 100 邏輯
+                    let rawRaiseStr = (item[kR]||'').toString().trim();
+                    let rawRaise = parseFloat(rawRaiseStr);
+                    if (isNaN(rawRaise)) rawRaise = 0;
+                    if (!rawRaiseStr.includes('%') && rawRaise > 0 && rawRaise <= 2) {
+                        rawRaise = rawRaise * 100;
+                    }
+                    let raisePct = Math.round(rawRaise * 100) / 100;
+                    
+                    return { id: i, grade: gradeStr, perf: (item[kP]||'').toString().trim(), promo: isPro, raise: raisePct, rsu: parseFloat(item[kS])||0 };
+                }).filter(x => x.grade);
+
+                // Init UI M1
+                if(dataM1.length > 0) {
+                    document.getElementById('totalGlobalCount').innerText = dataM1.length + " 筆";
+                    const g1 = Array.from(new Set(dataM1.map(i=>i.grade))).sort(compareGrades);
+                    const s1 = document.getElementById('filterGrade');
+                    g1.forEach(g => s1.innerHTML += `<option value="${g}">${g}</option>`);
+                    calculateOutliers(); 
+                    updateSubGradeButtons();
+                    updateCharts();
                 }
-                if (chart.canvas.id === 'sampleCountChart' && chart.config.type === 'bar') {
-                    chart.data.datasets.forEach((dataset, datasetIndex) => {
-                        const meta = chart.getDatasetMeta(datasetIndex);
-                        meta.data.forEach((bar, index) => {
-                            const dataValue = chart.data.datasets[datasetIndex].data[index];
-                            if (dataValue !== undefined) {
-                                ctx.save(); ctx.fillStyle = '#0f766e'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
-                                ctx.fillText(dataValue + "人", bar.x, bar.y - 6); ctx.restore();
-                            }
-                        });
-                    });
+
+                // Init UI M2
+                if(dataM2.length > 0) {
+                    document.getElementById('totalGlobalCount2').innerText = dataM2.length + " 筆";
+                    updateM2PerfButtons(); // Init dynamic performance buttons
+                    updateM2SubGradeButtons();
+                    updateM2Charts();
+                }
+
+                loadingBar.style.width = '100%';
+                loadingBar.className = "absolute top-0 left-0 bottom-0 bg-emerald-500/40 transition-all duration-500";
+                loadingDot.className = "w-2 h-2 rounded-full bg-emerald-400";
+                loadingDot.classList.remove('animate-pulse');
+                loadingText.innerText = "雙資料庫同步完成";
+                statusContainer.className = "relative overflow-hidden inline-flex items-center gap-2 bg-emerald-900/20 text-emerald-300 text-xs px-4 py-2 rounded-full border border-emerald-500/30 w-full sm:w-64 transition-colors";
+
+            } catch (e) {
+                console.error("API Error:", e);
+                loadingBar.style.width = '100%';
+                loadingBar.className = "absolute top-0 left-0 bottom-0 bg-rose-500/40 transition-all duration-500";
+                loadingDot.className = "w-2 h-2 rounded-full bg-rose-400";
+                loadingDot.classList.remove('animate-pulse');
+                statusContainer.className = "relative overflow-hidden inline-flex items-center gap-2 bg-rose-900/20 text-rose-300 text-xs px-4 py-2 rounded-full border border-rose-500/30 w-full sm:w-64 transition-colors";
+                if (e.name === 'SyntaxError') {
+                    loadingText.innerText = "解析失敗: 請確認共用權限";
+                } else if (e.message.includes('fetch') || e.message.includes('Error')) {
+                    loadingText.innerText = "連線失敗: 網路或 CORS 問題";
+                } else {
+                    loadingText.innerText = "系統錯誤: " + e.message;
                 }
             }
-        };
-        Chart.register(boxPlotCustomLabelsPlugin);
+        }
 
+        function calculateOutliers() {
+            const gradeGroups = {}; dataM1.forEach(item => { if (!gradeGroups[item.grade]) gradeGroups[item.grade] = []; gradeGroups[item.grade].push(item.salary); });
+            const bounds = {};
+            Object.keys(gradeGroups).forEach(g => {
+                const s = gradeGroups[g].sort((a,b)=>a-b), q1 = s[Math.floor(s.length * 0.25)], q3 = s[Math.floor(s.length * 0.75)], iqr = q3 - q1;
+                bounds[g] = { low: q1 - 1.5 * iqr, high: q3 + 1.5 * iqr };
+            });
+            dataM1.forEach(item => { const bound = bounds[item.grade]; if (bound && (item.salary < bound.low || item.salary > bound.high)) outliersSet.add(item.id); });
+        }
+
+        // ==========================
+        // MODE TOGGLE
+        // ==========================
+        function switchMode(mode) {
+            document.getElementById('btnMode1').className = mode === 1 ? "flex-1 py-3 px-6 rounded-xl font-bold text-sm transition-all mode-btn-active" : "flex-1 py-3 px-6 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent";
+            document.getElementById('btnMode2').className = mode === 2 ? "flex-1 py-3 px-6 rounded-xl font-bold text-sm transition-all mode-btn-active bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg" : "flex-1 py-3 px-6 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent";
+            
+            document.getElementById('mode1Container').style.display = mode === 1 ? 'block' : 'none';
+            document.getElementById('mode2Container').style.display = mode === 2 ? 'block' : 'none';
+        }
+
+        // ==========================
+        // MODE 1: BASE SALARY
+        // ==========================
         function updateExpSliders() {
-            let minVal = parseFloat(document.getElementById('filterExpMin').value);
-            let maxVal = parseFloat(document.getElementById('filterExpMax').value);
+            let minVal = parseFloat(document.getElementById('filterExpMin').value), maxVal = parseFloat(document.getElementById('filterExpMax').value);
             if (minVal > maxVal) { document.getElementById('filterExpMin').value = maxVal; minVal = maxVal; }
             document.getElementById('expRangeLabel').innerText = minVal + " - " + maxVal + " 年";
         }
@@ -447,7 +717,7 @@
 
         function updateSubGradeButtons() {
             const container = document.getElementById('subGradeButtons'); container.innerHTML = '';
-            const allGradesInSeries = Array.from(new Set(rawData.filter(i => currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)).map(i => i.grade))).sort(compareGrades);
+            const allGradesInSeries = Array.from(new Set(dataM1.filter(i => currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)).map(i => i.grade))).sort(compareGrades);
             
             const allBtn = document.createElement('button'); allBtn.innerText = '全部';
             allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentTableSubGrade === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
@@ -468,110 +738,10 @@
             document.getElementById(targetId).classList.add('btn-series-active'); renderTable();
         }
 
-        async function initPlatform() {
-            try {
-                const response = await fetch(API_URL, { redirect: "follow" });
-                if (!response.ok) throw new Error("HTTP Error " + response.status);
-                const jsonData = await response.json();
-                rawData = jsonData.map((item, index) => {
-                    const keys = Object.keys(item);
-                    return {
-                        id: index, grade: (item[keys[1]] || '').toString().trim().toUpperCase(),
-                        experience: parseFloat(item[keys[2]]), salary: parseFloat(item[keys[3]]),
-                        team_type: (item[keys[4]] || '未填寫').toString().trim(), department: (item[keys[5]] || '未填寫').toString().trim()
-                    };
-                }).filter(item => item.grade && !isNaN(item.experience) && !isNaN(item.salary));
-            } catch (e) {
-                console.error("API Error:", e);
-                document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 text-xs px-3 py-1.5 rounded-full border border-rose-500/30";
-                document.getElementById('connectionStatus').innerText = "● 連線失敗"; return;
-            }
-
-            document.getElementById('totalGlobalCount').innerText = rawData.length + " 筆";
-            const sortedGrades = Array.from(new Set(rawData.map(i => i.grade))).sort(compareGrades);
-            const filterGradeSel = document.getElementById('filterGrade'); filterGradeSel.innerHTML = '<option value="All">全部職等</option>';
-            sortedGrades.forEach(g => { filterGradeSel.innerHTML += `<option value="${g}">${g}</option>`; });
-
-            calculateOutliers(); updateSubGradeButtons();
-            document.getElementById('connectionStatus').className = "inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1.5 rounded-full border border-emerald-500/30";
-            document.getElementById('connectionStatus').innerText = "● 數據同步完成";
-            updateCharts();
-        }
-
-        function calculateOutliers() {
-            const gradeGroups = {}; rawData.forEach(item => { if (!gradeGroups[item.grade]) gradeGroups[item.grade] = []; gradeGroups[item.grade].push(item.salary); });
-            const bounds = {};
-            Object.keys(gradeGroups).forEach(g => {
-                const s = gradeGroups[g].sort((a,b)=>a-b), q1 = s[Math.floor(s.length * 0.25)], q3 = s[Math.floor(s.length * 0.75)], iqr = q3 - q1;
-                bounds[g] = { low: q1 - 1.5 * iqr, high: q3 + 1.5 * iqr };
-            });
-            rawData.forEach(item => { const bound = bounds[item.grade]; if (bound && (item.salary < bound.low || item.salary > bound.high)) outliersSet.add(item.id); });
-        }
-
-        function calculateBonus() {
-            const monthSalary = parseFloat(document.getElementById('mySalary').value) || 0;
-            const compPerf = (parseFloat(document.getElementById('compPerf').value) || 200) / 100, userPerf = (parseFloat(document.getElementById('userPerf').value) || 100) / 100;
-
-            if (monthSalary <= 0) { document.getElementById('baseAnnualVal').innerText = "0 萬元"; document.getElementById('bonusVal').innerText = "0 萬元"; document.getElementById('totalAnnualVal').innerText = "0 萬元"; return; }
-            const baseAnnual = monthSalary * 14, bonus = baseAnnual * 0.18 * compPerf * userPerf, totalAnnual = baseAnnual + bonus;
-            document.getElementById('baseAnnualVal').innerText = baseAnnual.toFixed(1) + " 萬元";
-            document.getElementById('bonusVal').innerText = bonus.toFixed(1) + " 萬元 (" + (bonus / monthSalary).toFixed(1) + "個月)";
-            document.getElementById('totalAnnualVal').innerText = totalAnnual.toFixed(1) + " 萬元";
-        }
-
-        function locateMe() {
-            const g = document.getElementById('myGrade').value.trim().toUpperCase(), e = parseFloat(document.getElementById('myExp').value), s = parseFloat(document.getElementById('mySalary').value);
-            if(!g || isNaN(e) || isNaN(s)) return alert("請完整輸入資訊！");
-            
-            myLocationPoint = { grade: g, experience: e, salary: s };
-            
-            const sameG = rawData.filter(i => i.grade === g).map(i => i.salary).sort((a,b)=>a-b);
-            const gPct = sameG.length ? Math.round((sameG.filter(x => x < s).length / sameG.length) * 100) : 50;
-            const sameE = rawData.filter(i => Math.abs(i.experience - e) <= 2).map(i => i.salary).sort((a,b)=>a-b);
-            const ePct = sameE.length ? Math.round((sameE.filter(x => x < s).length / sameE.length) * 100) : 50;
-
-            document.getElementById('pctGradeRes').innerText = gPct + "%";
-            document.getElementById('pctGradeLabel').innerText = `領先 ${g} 職等同仁`;
-            document.getElementById('pctExpRes').innerText = ePct + "%";
-            document.getElementById('percentileCard').classList.remove('hidden');
-
-            const alertBox = document.getElementById('ceilingAlert');
-            if(gPct >= 90) { alertBox.classList.remove('hidden'); alertBox.classList.add('animate-pulse'); } else { alertBox.classList.add('hidden'); }
-
-            calculatePromotionPotential(g, s); calculateBonus(); updateCharts();
-        }
-
-        function calculatePromotionPotential(myGrade, mySalary) {
-            const promoCard = document.getElementById('promoCard'), promoContent = document.getElementById('promoContent');
-            const series = myGrade.replace(/[0-9]/g, ''), numMatch = myGrade.match(/\d+/);
-            if (!numMatch) { promoCard.classList.add('hidden'); return; }
-            const nextGrade = series + (parseInt(numMatch[0]) + 1), nextGradeData = rawData.filter(i => i.grade === nextGrade).map(i => i.salary);
-            if (nextGradeData.length === 0) { promoCard.classList.add('hidden'); return; }
-            const nextAvg = nextGradeData.reduce((a,b)=>a+b, 0) / nextGradeData.length, diff = nextAvg - mySalary, pct = (diff / mySalary) * 100;
-            promoContent.innerHTML = `
-                <div class="flex justify-between items-center"><span>當前: <b class="text-white">${myGrade}</b></span><span>晉升: <b class="text-amber-300">${nextGrade}</b></span></div>
-                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700 mt-1">
-                    <p class="text-[11px] text-slate-400">${nextGrade} 平均月薪：<b class="text-white">${nextAvg.toFixed(1)} 萬</b></p>
-                    <p class="text-xs font-bold ${diff >= 0 ? 'text-emerald-400' : 'text-rose-400'} mt-1">${diff >= 0 ? '▲ 預期月薪增幅：+' + diff.toFixed(1) + ' 萬 (+' + pct.toFixed(1) + '%)' : '▼ 您的當前薪資已高於下一職等平均'}</p>
-                </div>
-            `;
-            promoCard.classList.remove('hidden');
-        }
-
-        function clearLocation() {
-            myLocationPoint = null; document.getElementById('myGrade').value = ''; document.getElementById('myExp').value = ''; document.getElementById('mySalary').value = '';
-            document.getElementById('percentileCard').classList.add('hidden'); document.getElementById('promoCard').classList.add('hidden'); document.getElementById('ceilingAlert').classList.add('hidden');
-            calculateBonus(); updateCharts();
-        }
-
-        let globalBoxMeta = {};
-
         function updateCharts() {
-            const filterSeriesEl = document.getElementById('filterSeries'); if(!filterSeriesEl) return;
-            const filterSeries = filterSeriesEl.value, filterGrade = document.getElementById('filterGrade').value, filterTeam = document.getElementById('filterTeam').value, expMin = parseFloat(document.getElementById('filterExpMin').value), expMax = parseFloat(document.getElementById('filterExpMax').value);
-            
-            const pool = rawData.filter(item => {
-                return (filterSeries === 'All' || item.grade.startsWith(filterSeries)) && (filterGrade === 'All' || item.grade === filterGrade) && (filterTeam === 'All' || item.team_type === filterTeam) && (item.experience >= expMin && item.experience <= expMax);
+            const fs = document.getElementById('filterSeries').value, fg = document.getElementById('filterGrade').value, ft = document.getElementById('filterTeam').value, emin = parseFloat(document.getElementById('filterExpMin').value), emax = parseFloat(document.getElementById('filterExpMax').value);
+            const pool = dataM1.filter(item => {
+                return (fs === 'All' || item.grade.startsWith(fs)) && (fg === 'All' || item.grade === fg) && (ft === 'All' || item.team_type === ft) && (item.experience >= emin && item.experience <= emax);
             });
 
             if (pool.length >= 0) { renderScatter(pool); renderBoxAndSampleCharts(pool); renderHeatmapMatrix(pool); renderTable(); }
@@ -582,19 +752,19 @@
             active.forEach(item => { if (!gradePointsMap[item.grade]) gradePointsMap[item.grade] = []; gradePointsMap[item.grade].push({ x: item.experience, y: item.salary }); });
             const datasets = [];
             Object.keys(gradePointsMap).sort(compareGrades).forEach(g => {
-                datasets.push({ type: 'scatter', label: g, data: gradePointsMap[g], backgroundColor: gradeColors[g] || defaultColor, pointRadius: 4.5, idTag: g, order: 10 });
+                datasets.push({ type: 'scatter', label: g, data: gradePointsMap[g], backgroundColor: gradeColors[g] || defaultColor, pointRadius: 3, idTag: g, order: 10 });
                 if (gradePointsMap[g].length > 2) {
                     const pts = gradePointsMap[g], n = pts.length;
                     let sX = 0, sY = 0, sXY = 0, sXX = 0;
                     pts.forEach(p => { sX += p.x; sY += p.y; sXY += (p.x*p.y); sXX += (p.x*p.x); });
                     const slope = (n * sXY - sX * sY) / (n * sXX - sX * sX), intercept = (sY - slope * sX) / n, minX = Math.min(...pts.map(p=>p.x)), maxX = Math.max(...pts.map(p=>p.x));
-                    datasets.push({ type: 'line', label: g + '_line', data: [{ x: minX, y: slope * minX + intercept }, { x: maxX, y: slope * maxX + intercept }], borderColor: gradeColors[g] || defaultColor, borderWidth: 2, pointRadius: 0, fill: false, showLine: true, idTag: g, order: 5 });
+                    datasets.push({ type: 'line', label: g + '_line', data: [{ x: minX, y: slope * minX + intercept }, { x: maxX, y: slope * maxX + intercept }], borderColor: gradeColors[g] || defaultColor, borderWidth: 1.5, pointRadius: 0, fill: false, showLine: true, idTag: g, order: 5 });
                 }
             });
-            if (myLocationPoint) datasets.push({ type: 'scatter', label: '📍 我的座標點', data: [{ x: myLocationPoint.experience, y: myLocationPoint.salary }], backgroundColor: '#f59e0b', borderColor: '#FF0000', borderWidth: 3, pointRadius: 13, pointStyle: 'star', idTag: 'mine', order: 1 });
+            if (myLocationPoint) datasets.push({ type: 'scatter', label: '📍 我的座標點', data: [{ x: myLocationPoint.experience, y: myLocationPoint.salary }], backgroundColor: '#f59e0b', borderColor: '#FF0000', borderWidth: 2, pointRadius: 9, pointStyle: 'star', idTag: 'mine', order: 1 });
 
             if (chartScatter) { chartScatter.data.datasets = datasets; chartScatter.update(); } else { 
-                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), { data: { datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { filter: (i)=>!i.text.endsWith('_line') }, onClick: (e, lI, l)=> { const t = lI.text, ci = l.chart; ci.data.datasets.forEach(d => { if(d.idTag===t) d.hidden = !d.hidden; }); ci.update(); } } }, scales: { x: { type: 'linear', title: { display: true, text: '總工作年資 (年)' } }, y: { title: { display: true, text: '月薪 (萬元)' } } } } }); 
+                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), { data: { datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 9 }, boxWidth: 10, boxHeight: 10, filter: (i)=>!i.text.endsWith('_line') }, onClick: (e, lI, l)=> { const t = lI.text, ci = l.chart; ci.data.datasets.forEach(d => { if(d.idTag===t) d.hidden = !d.hidden; }); ci.update(); } } }, scales: { x: { type: 'linear', title: { display: true, text: '總工作年資 (年)' } }, y: { title: { display: true, text: '月薪 (萬元)' } } } } }); 
             }
         }
 
@@ -644,13 +814,29 @@
             });
         }
 
+        // 🚀 M1 表格排序邏輯
+        function sortM1Table(col) {
+            if (m1SortCol === col) { m1SortDesc = !m1SortDesc; } 
+            else { m1SortCol = col; m1SortDesc = false; }
+            renderTable();
+        }
+
         function renderTable() {
             const tbody = document.getElementById('dataTableBody'); tbody.innerHTML = '';
             const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
-            const filtered = rawData.filter(i => {
+            const filtered = dataM1.filter(i => {
                 const searchMatch = !searchKeyword || i.department.toLowerCase().includes(searchKeyword) || i.grade.toLowerCase().includes(searchKeyword) || i.team_type.toLowerCase().includes(searchKeyword);
                 return (currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)) && (currentTableSubGrade === 'All' || i.grade === currentTableSubGrade) && (currentTableTeam === 'All' || i.team_type === currentTableTeam) && searchMatch;
             });
+            
+            if (m1SortCol) {
+                filtered.sort((a, b) => {
+                    let vA = a[m1SortCol], vB = b[m1SortCol];
+                    if (typeof vA === 'string') return m1SortDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+                    return m1SortDesc ? vB - vA : vA - vB;
+                });
+            }
+
             filtered.forEach(item => {
                 const isOut = outliersSet.has(item.id), row = document.createElement('tr');
                 row.className = isOut ? "bg-rose-50/80 text-rose-900 border-b border-slate-200" : "hover:bg-slate-50 border-b border-slate-100";
@@ -660,9 +846,65 @@
             document.getElementById('tableRowCount').innerText = '顯示 ' + filtered.length + ' 筆';
         }
 
+        function calculateBonus() {
+            const monthSalary = parseFloat(document.getElementById('mySalary').value) || 0;
+            const compPerf = (parseFloat(document.getElementById('compPerf').value) || 200) / 100, userPerf = (parseFloat(document.getElementById('userPerf').value) || 100) / 100;
+
+            if (monthSalary <= 0) { document.getElementById('baseAnnualVal').innerText = "0 萬元"; document.getElementById('bonusVal').innerText = "0 萬元"; document.getElementById('totalAnnualVal').innerText = "0 萬元"; return; }
+            const baseAnnual = monthSalary * 14, bonus = baseAnnual * 0.18 * compPerf * userPerf, totalAnnual = baseAnnual + bonus;
+            document.getElementById('baseAnnualVal').innerText = baseAnnual.toFixed(1) + " 萬元";
+            document.getElementById('bonusVal').innerText = bonus.toFixed(1) + " 萬元 (" + (bonus / monthSalary).toFixed(1) + "個月)";
+            document.getElementById('totalAnnualVal').innerText = totalAnnual.toFixed(1) + " 萬元";
+        }
+
+        function locateMe() {
+            const g = document.getElementById('myGrade').value.trim().toUpperCase(), e = parseFloat(document.getElementById('myExp').value), s = parseFloat(document.getElementById('mySalary').value);
+            if(!g || isNaN(e) || isNaN(s)) return alert("請完整輸入資訊！");
+            
+            myLocationPoint = { grade: g, experience: e, salary: s };
+            
+            const sameG = dataM1.filter(i => i.grade === g).map(i => i.salary).sort((a,b)=>a-b);
+            const gPct = sameG.length ? Math.round((sameG.filter(x => x < s).length / sameG.length) * 100) : 50;
+            const sameE = dataM1.filter(i => Math.abs(i.experience - e) <= 2).map(i => i.salary).sort((a,b)=>a-b);
+            const ePct = sameE.length ? Math.round((sameE.filter(x => x < s).length / sameE.length) * 100) : 50;
+
+            document.getElementById('pctGradeRes').innerText = gPct + "%";
+            document.getElementById('pctGradeLabel').innerText = `領先 ${g} 職等同仁`;
+            document.getElementById('pctExpRes').innerText = ePct + "%";
+            document.getElementById('percentileCard').classList.remove('hidden');
+
+            const alertBox = document.getElementById('ceilingAlert');
+            if(gPct >= 90) { alertBox.classList.remove('hidden'); alertBox.classList.add('animate-pulse'); } else { alertBox.classList.add('hidden'); }
+
+            calculatePromotionPotential(g, s); calculateBonus(); updateCharts();
+        }
+
+        function calculatePromotionPotential(myGrade, mySalary) {
+            const promoCard = document.getElementById('promoCard'), promoContent = document.getElementById('promoContent');
+            const series = myGrade.replace(/[0-9]/g, ''), numMatch = myGrade.match(/\d+/);
+            if (!numMatch) { promoCard.classList.add('hidden'); return; }
+            const nextGrade = series + (parseInt(numMatch[0]) + 1), nextGradeData = dataM1.filter(i => i.grade === nextGrade).map(i => i.salary);
+            if (nextGradeData.length === 0) { promoCard.classList.add('hidden'); return; }
+            const nextAvg = nextGradeData.reduce((a,b)=>a+b, 0) / nextGradeData.length, diff = nextAvg - mySalary, pct = (diff / mySalary) * 100;
+            promoContent.innerHTML = `
+                <div class="flex justify-between items-center"><span>當前: <b class="text-white">${myGrade}</b></span><span>晉升: <b class="text-amber-300">${nextGrade}</b></span></div>
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700 mt-1">
+                    <p class="text-[11px] text-slate-400">${nextGrade} 平均月薪：<b class="text-white">${nextAvg.toFixed(1)} 萬</b></p>
+                    <p class="text-xs font-bold ${diff >= 0 ? 'text-emerald-400' : 'text-rose-400'} mt-1">${diff >= 0 ? '▲ 預期月薪增幅：+' + diff.toFixed(1) + ' 萬 (+' + pct.toFixed(1) + '%)' : '▼ 您的當前薪資已高於下一職等平均'}</p>
+                </div>
+            `;
+            promoCard.classList.remove('hidden');
+        }
+
+        function clearLocation() {
+            myLocationPoint = null; document.getElementById('myGrade').value = ''; document.getElementById('myExp').value = ''; document.getElementById('mySalary').value = '';
+            document.getElementById('percentileCard').classList.add('hidden'); document.getElementById('promoCard').classList.add('hidden'); document.getElementById('ceilingAlert').classList.add('hidden');
+            calculateBonus(); updateCharts();
+        }
+
         function exportCSV() {
             const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
-            const filtered = rawData.filter(i => {
+            const filtered = dataM1.filter(i => {
                 const searchMatch = !searchKeyword || i.department.toLowerCase().includes(searchKeyword) || i.grade.toLowerCase().includes(searchKeyword) || i.team_type.toLowerCase().includes(searchKeyword);
                 return (currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)) && (currentTableSubGrade === 'All' || i.grade === currentTableSubGrade) && (currentTableTeam === 'All' || i.team_type === currentTableTeam) && searchMatch;
             });
@@ -673,9 +915,233 @@
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        // --- Modal Form Functions (資料收集) ---
+        // ==========================
+        // MODE 2: BONUS & RSU
+        // ==========================
+        function changeM2TableSeries(series) {
+            currentM2TableSeries = series; currentM2TableSubGrade = "All";
+            ['btnM2SecAll', 'btnM2SecE', 'btnM2SecT', 'btnM2SecM', 'btnM2SecD'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            document.getElementById('btnM2Sec' + series).classList.add('btn-series-active');
+            updateM2SubGradeButtons(); renderM2Table();
+        }
+
+        function updateM2SubGradeButtons() {
+            const container = document.getElementById('m2SubGradeButtons'); container.innerHTML = '';
+            const allGradesInSeries = Array.from(new Set(dataM2.filter(i => currentM2TableSeries === 'All' || i.grade.startsWith(currentM2TableSeries)).map(i => i.grade))).sort(compareGrades);
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TableSubGrade === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeM2TableSubGrade('All'); container.appendChild(allBtn);
+
+            allGradesInSeries.forEach(g => {
+                const btn = document.createElement('button'); btn.innerText = g;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TableSubGrade === g ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeM2TableSubGrade(g); container.appendChild(btn);
+            });
+        }
+
+        function changeM2TableSubGrade(grade) { currentM2TableSubGrade = grade; updateM2SubGradeButtons(); renderM2Table(); }
+
+        // 🚀 動態考績按鈕過濾器
+        function changeM2TablePerf(perf) {
+            currentM2TablePerf = perf;
+            updateM2PerfButtons(); renderM2Table();
+        }
+
+        function updateM2PerfButtons() {
+            const container = document.getElementById('m2PerfButtons'); container.innerHTML = '';
+            const allPerfs = Array.from(new Set(dataM2.map(i => i.perf).filter(x=>x))).sort();
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部考績';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TablePerf === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeM2TablePerf('All'); container.appendChild(allBtn);
+
+            allPerfs.forEach(p => {
+                const btn = document.createElement('button'); btn.innerText = p;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TablePerf === p ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeM2TablePerf(p); container.appendChild(btn);
+            });
+        }
+
+        // 🚀 升遷與否按鈕過濾器
+        function changeM2TablePromo(promo) {
+            currentM2TablePromo = promo;
+            ['btnM2PromoAll', 'btnM2PromoYes', 'btnM2PromoNo'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            let targetId = promo === 'Yes' ? 'btnM2PromoYes' : promo === 'No' ? 'btnM2PromoNo' : 'btnM2PromoAll';
+            document.getElementById(targetId).classList.add('btn-series-active'); renderM2Table();
+        }
+
+        function updateM2Charts() {
+            const fs = document.getElementById('m2FilterSeries').value, fp = document.getElementById('m2FilterPromo').value, fpf = document.getElementById('m2FilterPerf').value;
+            const p = dataM2.filter(i => (fs==='All'||i.grade.startsWith(fs))&&(fp==='All'||i.promo===fp)&&(fpf==='All'||i.perf===fpf));
+            
+            renderM2RsuChart(p);
+            renderM2RaiseChart(p);
+            renderM2Table(p);
+        }
+
+        // 🚀 RSU 盒鬚圖 (過濾 < 3 筆)
+        function renderM2RsuChart(p) {
+            const g = {}; p.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
+            const m = [];
+            Object.keys(g).forEach(k => {
+                const s = g[k], c = s.length;
+                if(c >= 3) {
+                    const avg = s.reduce((a,b)=>a+b,0)/c, st = [...s].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    m.push({ grade:k, count: c, min: Math.min(...s), max: Math.max(...s), avg: avg.toFixed(0), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(0) });
+                }
+            });
+            m.sort((a,b)=>compareGrades(a.grade,b.grade));
+
+            const lbl = m.map(x=>x.grade), dBox = m.map(x=>[x.min, x.max]);
+            m2RsuMeta = {}; m.forEach(x => m2RsuMeta[x.grade] = x);
+
+            if(cM2Rsu) { cM2Rsu.data.labels=lbl; cM2Rsu.data.datasets[0].data=dBox; cM2Rsu.update(); }
+            else { 
+                cM2Rsu = new Chart(document.getElementById('m2RsuChart'), { 
+                    type:'bar', 
+                    data:{labels:lbl, datasets:[{label:'RSU 區間 (美金)', data:dBox, backgroundColor:'rgba(168, 85, 247, 0.55)', borderColor:'#a855f7', borderWidth:1.5, borderRadius:2}]}, 
+                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m2RsuMeta[l], label:c=>{const mb=m2RsuMeta[c.label]; return `最低: $${mb.min} | 中位: $${mb.med} | 平均: $${mb.avg} | 最高: $${mb.max}`;} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
+                }); 
+            }
+        }
+
+        // 🚀 調薪幅度 盒鬚圖
+        function renderM2RaiseChart(p) {
+            const pf = Array.from(new Set(p.map(i=>i.perf).filter(x=>x))).sort();
+            const gNo = {}, gYes = {};
+            p.forEach(i => {
+                if (i.raise > 0) {
+                    if (i.promo === 'No') { if(!gNo[i.perf]) gNo[i.perf]=[]; gNo[i.perf].push(i.raise); }
+                    else { if(!gYes[i.perf]) gYes[i.perf]=[]; gYes[i.perf].push(i.raise); }
+                }
+            });
+
+            const dNo = [], dYes = [];
+            metaRaiseNo = {}; metaRaiseYes = {};
+
+            pf.forEach(k => {
+                let sNo = gNo[k] || [];
+                if (sNo.length > 0) {
+                    let c = sNo.length, avg = sNo.reduce((a,b)=>a+b,0)/c, st = [...sNo].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    metaRaiseNo[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
+                    dNo.push([st[0], st[c-1]]);
+                } else { dNo.push(null); }
+
+                let sYes = gYes[k] || [];
+                if (sYes.length > 0) {
+                    let c = sYes.length, avg = sYes.reduce((a,b)=>a+b,0)/c, st = [...sYes].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    metaRaiseYes[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
+                    dYes.push([st[0], st[c-1]]);
+                } else { dYes.push(null); }
+            });
+
+            if(cM2Raise) { 
+                cM2Raise.data.labels=pf; cM2Raise.data.datasets[0].data=dNo; cM2Raise.data.datasets[1].data=dYes; cM2Raise.update(); 
+            } else { 
+                cM2Raise = new Chart(document.getElementById('m2RaiseChart'), { 
+                    type:'bar', 
+                    data:{
+                        labels:pf, 
+                        datasets:[
+                            {label:'未升遷 (%)', data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
+                            {label:'剛升遷 (%)', data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
+                        ]
+                    }, 
+                    options:{
+                        responsive:true, maintainAspectRatio:false, 
+                        plugins:{
+                            tooltip:{
+                                callbacks:{
+                                    customMeta: (l, dsi) => dsi === 0 ? metaRaiseNo[l] : metaRaiseYes[l],
+                                    label: c => {
+                                        let m = c.datasetIndex === 0 ? metaRaiseNo[c.label] : metaRaiseYes[c.label];
+                                        return m ? `最低: ${m.min}% | 中位: ${m.med}% | 平均: ${m.avg}% | 最高: ${m.max}%` : '無資料';
+                                    }
+                                }
+                            }
+                        },
+                        scales: { x: { ticks: { autoSkip: false, maxRotation: 0, minRotation: 0, font: {size: 11} } } }
+                    } 
+                }); 
+            }
+        }
+
+        // 🚀 M2 表格排序邏輯
+        function sortM2Table(col) {
+            if (m2SortCol === col) { m2SortDesc = !m2SortDesc; } 
+            else { m2SortCol = col; m2SortDesc = false; }
+            renderM2Table();
+        }
+
+        function renderM2Table(pool) {
+            const kw = (document.getElementById('m2Search').value||'').toLowerCase();
+            const p = pool || dataM2;
+            const res = p.filter(i => {
+                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
+                const seriesMatch = currentM2TableSeries === 'All' || i.grade.startsWith(currentM2TableSeries);
+                const subGradeMatch = currentM2TableSubGrade === 'All' || i.grade === currentM2TableSubGrade;
+                const promoMatch = currentM2TablePromo === 'All' || i.promo === currentM2TablePromo;
+                const perfMatch = currentM2TablePerf === 'All' || i.perf === currentM2TablePerf;
+                
+                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            });
+            
+            if (m2SortCol) {
+                res.sort((a, b) => {
+                    let vA = a[m2SortCol], vB = b[m2SortCol];
+                    if (typeof vA === 'string') return m2SortDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+                    return m2SortDesc ? vB - vA : vA - vB;
+                });
+            }
+
+            document.getElementById('m2Count').innerText = '顯示 ' + res.length + " 筆";
+            document.getElementById('m2Tbody').innerHTML = res.slice(0, 50).map(i => `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">${i.rsu}</td></tr>`).join('');
+        }
+
+        function locateM2() {
+            const g = document.getElementById('m2MyGrade').value.toUpperCase(), pr = document.getElementById('m2MyPromo').value, pf = document.getElementById('m2MyPerf').value, r = parseFloat(document.getElementById('m2MyRaise').value), su = parseFloat(document.getElementById('m2MyRsu').value);
+            if(!g||!pf||isNaN(r)||isNaN(su)) return alert("請完整填寫");
+            
+            const peer = dataM2.filter(i => i.grade===g && i.perf===pf && i.promo===pr);
+            document.getElementById('m2TargetGroup').innerText = `比對母體: ${g} 且考績 ${pf} 且 ${pr==='Yes'?'有升遷':'無升遷'}`;
+            
+            const arrR = peer.filter(i=>i.raise>0).map(i=>i.raise).sort((a,b)=>a-b);
+            const arrSu = peer.filter(i=>i.rsu>0).map(i=>i.rsu).sort((a,b)=>a-b);
+
+            document.getElementById('m2PctRaise').innerText = arrR.length ? Math.round((arrR.filter(x=>x<r).length/arrR.length)*100)+"%" : "無足夠數據";
+            document.getElementById('m2PctRsu').innerText = arrSu.length ? Math.round((arrSu.filter(x=>x<su).length/arrSu.length)*100)+"%" : "無足夠數據";
+            
+            document.getElementById('m2PctCard').classList.remove('hidden');
+        }
+        
+        function clearM2() { document.getElementById('m2PctCard').classList.add('hidden'); }
+        
+        function exportM2CSV() {
+            const kw = (document.getElementById('m2Search').value||'').toLowerCase();
+            const filtered = dataM2.filter(i => {
+                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
+                const seriesMatch = currentM2TableSeries === 'All' || i.grade.startsWith(currentM2TableSeries);
+                const subGradeMatch = currentM2TableSubGrade === 'All' || i.grade === currentM2TableSubGrade;
+                const promoMatch = currentM2TablePromo === 'All' || i.promo === currentM2TablePromo;
+                const perfMatch = currentM2TablePerf === 'All' || i.perf === currentM2TablePerf;
+                
+                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            });
+            if (filtered.length === 0) return alert("無資料可匯出！");
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF職等,考績,有無升遷,調薪(%),RSU(美金)\n";
+            filtered.forEach(i => csvContent+=`"${i.grade}","${i.perf}","${i.promo==='Yes'?'有':'無'}","${i.raise}","${i.rsu}"\n`);
+            const a = document.createElement("a"); a.href = encodeURI(csvContent); a.download = `2025_bonus_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+
+        // ==========================
+        // MODAL (DATA COLLECTION)
+        // ==========================
         function openFormModal() { document.getElementById('dataFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeFormModal() { document.getElementById('dataFormModal').classList.remove('active'); document.body.style.overflow = ''; }
+        
+        function openBonusModal() { document.getElementById('bonusFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeBonusModal() { document.getElementById('bonusFormModal').classList.remove('active'); document.body.style.overflow = ''; }
         
         async function submitForm(e) {
             e.preventDefault();
@@ -695,7 +1161,7 @@
             for (const key in payload) { params.append(key, payload[key]); }
 
             try {
-                await fetch(API_URL, {
+                await fetch(API_M1, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -704,10 +1170,51 @@
                 
                 msg.innerText = "✅ 感謝您的匿名貢獻！(資料將於下次重整後載入)";
                 msg.className = "text-xs text-center font-bold mt-2 text-emerald-600 block";
-                btn.innerText = "🚀 送出匿名資料";
+                btn.innerText = "🚀 送出";
                 btn.disabled = false;
                 document.getElementById('salaryForm').reset();
                 setTimeout(closeFormModal, 2000);
+            } catch (err) {
+                console.error(err);
+                msg.innerText = "❌ 傳送失敗，請確認 API 設定。";
+                msg.className = "text-xs text-center font-bold mt-2 text-rose-600 block";
+                btn.innerText = "🚀 重新送出";
+                btn.disabled = false;
+            }
+        }
+
+        async function submitBonusForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('bFormSubmitBtn'); const msg = document.getElementById('bFormStatusMsg');
+            btn.disabled = true; btn.innerText = "開獎資料傳送中..."; msg.classList.add('hidden');
+
+            const payload = {
+                Timestamp: new Date().toISOString(),
+                Grade: document.getElementById('bFormGrade').value.trim().toUpperCase(),
+                Ranking: document.getElementById('bFormRank').value,
+                Raise: document.getElementById('bFormRaise').value,
+                Promotion: document.getElementById('bFormPromo').value,
+                RSU: document.getElementById('bFormRSU').value
+            };
+
+            const params = new URLSearchParams();
+            for (const key in payload) { params.append(key, payload[key]); }
+
+            try {
+                // 送至 API_M2
+                await fetch(API_M2, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                
+                msg.innerText = "✅ 感謝您的匿名貢獻！(資料將於下次重整後載入)";
+                msg.className = "text-xs text-center font-bold mt-2 text-emerald-600 block";
+                btn.innerText = "🚀 送出匿名開獎資料";
+                btn.disabled = false;
+                document.getElementById('bonusForm').reset();
+                setTimeout(closeBonusModal, 2000);
             } catch (err) {
                 console.error(err);
                 msg.innerText = "❌ 傳送失敗，請確認 API 設定。";
