@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>m光光猴薪情平台 v9 • PortalDB V2</title>
+<title>m光光猴薪情平台 v9 • PortalDB 3.4.2</title>
 <link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
 <link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
 <!-- Tailwind CSS -->
@@ -37,7 +37,19 @@
 </style>
 <link href="manifest.webmanifest" rel="manifest"/>
 <meta content="#0f172a" name="theme-color"/>
-</head>
+<style>
+.keyword-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:9px 13px;min-height:150px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#f8fafc,#eef2ff);overflow:hidden}.keyword-cloud .kw{display:inline-flex;align-items:center;line-height:1.1;font-weight:900;color:#334155;cursor:pointer;transition:transform .15s ease,opacity .15s ease}.keyword-cloud .kw:hover{transform:scale(1.06);opacity:.75}.keyword-cloud .kw .heat{font-size:.55em;margin-left:4px;opacity:.55}.external-news-item{display:block;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}.external-news-item:hover{background:#eef2ff}.portal-report-viewport{height:290px;overflow:hidden}.portal-report-track{display:flex;flex-direction:column;gap:8px}.portal-report-row{height:50px;min-height:50px;overflow:hidden}.portal-report-content{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.event-timeline{position:relative;padding-left:22px}.event-timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e2e8f0}.event-item{position:relative;padding:12px 0 12px 14px}.event-item:before{content:"";position:absolute;left:-1px;top:19px;width:11px;height:11px;border-radius:999px;background:#6366f1;border:3px solid white;box-shadow:0 0 0 2px #c7d2fe}.event-date-hero{font-size:1.05rem;font-weight:900;color:#be123c}.event-range{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;background:#fff1f2;color:#be123c;font-weight:900;font-size:.8rem}.news-meta{display:inline-flex;align-items:center;gap:7px;font-size:14px;line-height:1.35;color:#475569;font-weight:800;margin-bottom:4px}.news-meta .news-source-tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:900}.news-meta .news-date{font-size:14px;font-weight:800;color:#64748b}.external-news-item .news-title{font-size:1rem;line-height:1.5;font-weight:900;color:#0f172a}.ai-summary{line-height:1.7}.external-status{font-size:11px}
+.news-filter{transition:.15s}.event-countdown{font-weight:900}
+.news-filter{transition:.15s}.event-date-hero{letter-spacing:.01em}
+
+<style>
+/* V5.2.1 stability / layout fixes */
+.portal-report-viewport{height:570px;max-height:570px;overflow:hidden;position:relative}
+.portal-report-track{display:flex;flex-direction:column;gap:6px;transition:transform .45s ease}
+.portal-report-row{height:108px;min-height:108px;max-height:108px;box-sizing:border-box;overflow:hidden}
+.portal-report-content{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.35;overflow-wrap:anywhere}
+.portal-tool-status{font-size:11px}.event-countdown{font-size:10px;line-height:1.2;white-space:nowrap}
+</style></head>
 <body class="p-4 md:p-8 relative">
 <div class="max-w-7xl mx-auto">
 <!-- Header -->
@@ -52,9 +64,9 @@
 </div>
 <div>
 <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                        光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v9 • PortalDB V2</span>
+                        光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v10 PORTAL DB</span>
 </h1>
-<p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p>
+<p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p><div class="mt-2 flex flex-wrap gap-2 text-[11px] font-bold"><span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">👁 總瀏覽 <b id="pageViewTotal">--</b></span><span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">🔥 今日 <b id="pageViewToday">--</b></span></div><button class="bg-violet-500 hover:bg-violet-400 text-white border border-violet-300/30 px-2 py-1 rounded-full text-[8px] leading-none whitespace-nowrap" onclick="openWishlistModal()">💡 功能許願</button>
 </div>
 </div>
 <div class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center w-full md:w-auto">
@@ -601,34 +613,40 @@
 <div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode5Container">
 <div class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white p-6 md:p-8 rounded-3xl shadow-lg">
 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-<div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、投票、熱門議題、重要日期與匿名回報集中在這裡。</p></div>
+<div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、投票、熱門議題、匿名互動與外部資訊集中在這裡。</p></div>
 <div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-white/10 rounded-xl px-4 py-3"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div><div class="bg-white/10 rounded-xl px-4 py-3"><span class="text-slate-400">熱門議題</span><b class="block text-xl" id="portalTopicCount">--</b></div></div>
-</div>
-</div><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm lg:col-span-2">
-<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🔥 最近大家最關心什麼</h3><p class="text-xs text-slate-400">熱門議題排行</p></div><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="submitTopicPrompt()">我要提議題</button></div>
-<div class="space-y-3" id="topicList"><p class="text-sm text-slate-400">載入中...</p></div>
-</section><div class="grid grid-cols-1 lg:grid-cols-2 gap-6"><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<div class="flex justify-between items-center mb-4">
-<div><h3 class="font-black text-slate-800">📢 匿名心聲廣播</h3><p class="text-xs text-slate-400">最新匿名心聲；一次顯示 5 則，每 5 秒更新 1 則。</p></div>
-<button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPublicReports()">↻ 更新</button>
-</div>
-<div class="portal-report-viewport" id="publicReportViewport">
-<div class="portal-report-track" id="publicReportTrack">
-<div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">載入中...</div>
-</div>
-</div>
-</section><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><h3 class="font-black text-slate-800">📣 匿名大聲公</h3><p class="text-xs text-slate-400 mb-3">匿名寫下你的心聲，送出後直接播送到左側「匿名心聲廣播」。</p><select class="w-full border rounded-lg p-2 mb-2" id="reportCategory"><option>薪資</option><option>工會</option><option>福利</option><option>管理</option><option>其他</option></select><select class="w-full border rounded-lg p-2 mb-2" id="reportSite"><option value="">不指定地點</option><option>桃園</option><option>台中</option></select><textarea class="w-full border rounded-lg p-2 mb-2" id="reportContent" placeholder="請描述問題，不要填姓名、員工編號等個資" rows="3"></textarea><button class="w-full bg-rose-600 text-white font-bold py-2 rounded-lg" onclick="submitAnonymousReport()">送出匿名回報</button><div class="text-xs mt-2 font-bold" id="reportResult"></div></section></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-6"><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">工會、薪資與平台公告</p></div><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div>
-<div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div>
-</section><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="font-black text-slate-800 mb-4">📅 公司重要日期</h3><div class="space-y-3" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div>
-</section></div><div class="grid grid-cols-1 gap-6"><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🗳️ 匿名投票</h3><p class="text-xs text-slate-400">一人一票的前端匿名投票介面</p></div><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openPollModal()">＋ 新議題</button></div>
-<div class="space-y-4 portal-poll-scroll" id="pollList"><p class="text-sm text-slate-400">載入中...</p></div>
-</section></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-
 </div></div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🔥 最近大家最關心什麼</h3><p class="text-xs text-slate-400">熱門議題排行；按 👍 可以推上熱搜。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="submitTopicPrompt()">我要提議題</button></div></div>
+<div class="space-y-3" id="topicList"><p class="text-sm text-slate-400">載入中...</p></div>
+</section>
+<section class="bg-white p-5 rounded-2xl border border-violet-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🤖 AI 話題摘要</h3><p class="text-xs text-slate-400">直接取代原本的「議題關鍵字」；摘要以站內熱門議題與匿名大聲公為主，外部新聞若有成功取得也會納入。</p></div><button class="text-xs bg-violet-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshAISummary(true)">↻ 更新摘要</button></div><div id="aiSummary" class="ai-summary text-sm text-slate-700"><p class="text-slate-400">載入中...</p></div></section>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 匿名心聲廣播</h3><p class="text-xs text-slate-400">固定顯示 5 則，每 3 秒向前輪播 2 則。</p></div><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPublicReports()">↻ 更新</button></div>
+<div class="portal-report-viewport" id="publicReportViewport"><div class="portal-report-track" id="publicReportTrack"><div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">載入中...</div></div></div>
+</section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><h3 class="font-black text-slate-800">📣 匿名大聲公</h3><p class="text-xs text-slate-400 mb-3">投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。</p><div class="grid grid-cols-2 gap-2 mb-2"><select class="w-full border rounded-lg p-2" id="reportType"><option value="心聲">🗣️ 心聲</option><option value="許願池">💡 許願池</option></select><select class="w-full border rounded-lg p-2" id="reportCategory"><option>薪資</option><option>工會</option><option>福利</option><option>管理</option><option>工作環境</option><option>文化</option><option>交通</option><option>餐廳</option><option>其他</option></select></div><select class="w-full border rounded-lg p-2 mb-2" id="reportSite"><option value="">不指定地點</option><option>桃園</option><option>台中</option></select><textarea class="w-full border rounded-lg p-2 mb-2" id="reportContent" placeholder="例如：😤 今天最想說的是……" rows="3"></textarea><div class="flex flex-wrap gap-1 mb-2"><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😄')">😄</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😐')">😐</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😤')">😤</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('💰')">💰</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🏭')">🏭</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🗣️')">🗣️</button></div><button class="w-full bg-rose-600 text-white font-bold py-2 rounded-lg" onclick="submitAnonymousReport()">送出匿名大聲公</button><div class="text-xs mt-2 font-bold" id="reportResult"></div></section>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">標題、日期、分類；點擊查看全文。投稿需管理者審核。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="openAnnouncementSubmit()">＋ 投稿</button><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div></div><div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div></section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><h3 class="font-black text-slate-800">📅 公司重要日期｜事件時間軸</h3><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openEventSubmit()">＋ 投稿</button></div><div class="event-timeline" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div></section>
+</div>
+
+<div class="grid grid-cols-1 gap-6"><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🗳️ 匿名投票</h3><p class="text-xs text-slate-400">每題至少 2 個選項；建立後 20 日自動清除。</p></div><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openPollModal()">＋ 新議題</button></div><div class="space-y-4 portal-poll-scroll" id="pollList"><p class="text-sm text-slate-400">載入中...</p></div></section></div>
+
+
+
+<section class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌡️ 你覺得現在公司氣氛？</h3><p class="text-xs text-slate-400">匿名、非正式員工感受調查。</p></div><div class="flex items-center gap-2"><div id="moodScore" class="text-sm font-black text-sky-700">目前尚無資料</div><button class="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded-lg font-bold" onclick="refreshCompanyMood()">↻</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2" id="moodOptions"><button onclick="submitMood('很不錯')" class="mood-btn p-3 rounded-xl border hover:bg-emerald-50 text-sm font-bold">😄<br>很不錯</button><button onclick="submitMood('還不錯')" class="mood-btn p-3 rounded-xl border hover:bg-green-50 text-sm font-bold">🙂<br>還不錯</button><button onclick="submitMood('普通')" class="mood-btn p-3 rounded-xl border hover:bg-slate-50 text-sm font-bold">😐<br>普通</button><button onclick="submitMood('有點差')" class="mood-btn p-3 rounded-xl border hover:bg-amber-50 text-sm font-bold">😕<br>有點差</button><button onclick="submitMood('非常差')" class="mood-btn p-3 rounded-xl border hover:bg-rose-50 text-sm font-bold">😡<br>非常差</button></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"><div id="moodResults" class="space-y-2"></div><div class="relative h-56"><canvas id="moodTrendChart"></canvas></div></div></section>
+
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」；外部內容未經本站驗證。系統採後端快取，外部來源暫時失敗時保留最後一次成功資料。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89">Yahoo「美光」</a></div></div><div id="externalNewsStatus" class="external-status text-slate-500 mb-3">外部資訊尚未更新。</div><div id="externalNewsFilters" class="flex flex-wrap gap-2 mb-3"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div id="externalNewsList" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-sm text-slate-400">載入中...</p></div></section>
+
+</div>
 <!-- 📝 Data Collection Form Modal (M1) -->
 <div class="modal" id="dataFormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
@@ -715,6 +733,10 @@
 </form>
 </div>
 </div>
+<div class="modal" id="announcementSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📢 投稿公告</h2><input id="annSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="公告標題"><select id="annSubmitCategory" class="w-full border rounded-lg p-2 mb-2"><option>一般</option><option>工會</option><option>福利</option><option>重要通知</option></select><textarea id="annSubmitContent" class="w-full border rounded-lg p-2 mb-3" rows="6" placeholder="公告內容"></textarea><button class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-lg" onclick="submitAnnouncementSuggestion()">送出審核</button><div id="annSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
+<div class="modal" id="eventSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('eventSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📅 投稿重要日期</h2><input id="eventSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="事件名稱"><div class="grid grid-cols-2 gap-2 mb-2"><input id="eventSubmitStart" class="w-full border rounded-lg p-2" type="datetime-local"><input id="eventSubmitEnd" class="w-full border rounded-lg p-2" type="datetime-local"></div><input id="eventSubmitCategory" class="w-full border rounded-lg p-2 mb-2" placeholder="分類"><textarea id="eventSubmitDescription" class="w-full border rounded-lg p-2 mb-3" rows="4" placeholder="說明"></textarea><button class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-lg" onclick="submitEventSuggestion()">送出審核</button><div id="eventSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
+<div class="modal" id="announcementViewModal"><div class="bg-white rounded-2xl w-full max-w-2xl p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementViewModal')">✖</button><div id="announcementViewBody"></div></div></div>
+<div class="modal" id="wishlistModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('wishlistModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">💡 網站功能許願清單</h2><input id="wishTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="功能名稱（可不填）"><textarea id="wishContent" class="w-full border rounded-lg p-2 mb-3" rows="5" placeholder="你希望網站未來增加什麼？"></textarea><button class="w-full bg-violet-600 text-white font-bold py-2.5 rounded-lg" onclick="submitWishlist()">送出許願</button><div id="wishMsg" class="text-xs mt-2 font-bold"></div></div></div>
 <script>
         const API_M1 = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
         const API_M2 = "https://script.google.com/macros/s/AKfycbwWd9ozWC4ATM6Oeo_vzhtxjjIFjWivXR6yi-2IwZ8j3G8gvwSqypNtwinHc3q7oWwX/exec";
@@ -827,10 +849,14 @@
             return fallbackIndex !== undefined ? item[keys[fallbackIndex]] : '';
         }
         function unwrapApiPayload(payload){
+            // PortalDB successResponse() wraps every GET result as {ok:true, data:<result>}.
+            // IMPORTANT: some APIs return arrays (announcements/topics/events), while
+            // external_news/company_mood return objects. The old code converted those
+            // objects to [] and made valid responses look like empty data.
             if(Array.isArray(payload)) return payload;
-            if(payload && Array.isArray(payload.data)) return payload.data;
-            if(payload && payload.ok && payload.data && Array.isArray(payload.data.rows)) return payload.data.rows;
-            return [];
+            if(payload && payload.ok === false) throw new Error(payload.error || 'PortalDB API error');
+            if(payload && Object.prototype.hasOwnProperty.call(payload,'data')) return payload.data;
+            return payload || null;
         }
         function parseM1Rows(rows){
             return rows.map((item,i)=>{
@@ -1669,10 +1695,14 @@ function clearM3() { }
             cUnionTrend=new Chart(canvas.getContext('2d'),{type:'line',data:{labels,datasets:[{label:'桃園工會',data:ty,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.08)',fill:true,tension:.3,borderWidth:2},{label:'台中工會',data:tc,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Number(c.raw||0).toLocaleString()} 人`}}},scales:{y:{beginAtZero:true,suggestedMax:8000,title:{display:true,text:'會員人數'}}}}});
             const st=document.getElementById('unionDataStatus');if(st)st.innerText=API_PORTAL&&API_PORTAL.indexOf('請貼上')!==0?'🟢 PortalDB 共用資料庫：所有人的匿名回報會匯入同一份資料。':'🔴 尚未設定 PortalDB API。';
         }
-        async function portalGet(action){
+        async function portalGet(action, params={}){
             if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0) throw new Error('尚未設定 API_PORTAL');
-            const r=await fetch(API_PORTAL+'?action='+encodeURIComponent(action)+'&t='+Date.now(),{redirect:'follow',cache:'no-store'}); if(!r.ok)throw new Error('HTTP '+r.status); const raw=await r.json();
-            if(raw && raw.ok===false)throw new Error(raw.error||'PortalDB API error'); return unwrapApiPayload(raw);
+            const qs=new URLSearchParams(); qs.set('action',action); Object.keys(params||{}).forEach(k=>{ if(params[k]!==undefined&&params[k]!==null&&params[k]!=='') qs.set(k,String(params[k])); }); qs.set('t',Date.now());
+            const r=await fetch(API_PORTAL+'?'+qs.toString(),{redirect:'follow',cache:'no-store'});
+            if(!r.ok)throw new Error('HTTP '+r.status);
+            const raw=await r.json();
+            if(raw && raw.ok===false)throw new Error(raw.error||'PortalDB API error');
+            return unwrapApiPayload(raw);
         }
         async function portalPost(action,data){
             if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0)throw new Error('尚未設定 API_PORTAL');
@@ -1680,6 +1710,7 @@ function clearM3() { }
             await fetch(API_PORTAL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString()}); return true;
         }
         let publicReportItems=[], publicReportIndex=0, publicReportTimer=null;
+        const announcementStore={};
 
         function getOwnedPolls(){
             try{return JSON.parse(localStorage.getItem('micron_owned_polls_v2')||'[]')}catch(e){return[]}
@@ -1734,41 +1765,125 @@ function clearM3() { }
             }).join('');
         }
 
-        async function refreshPortalData(){
+        async function refreshAISummary(force=false){
+            const el=document.getElementById('aiSummary'); if(!el)return;
+            el.innerHTML='<p class="text-sm text-slate-400">AI 摘要整理中...</p>';
+            try{const d=await portalGet('ai_summary', force?{force:'1'}:{});
+                if(d && d.html) el.innerHTML=d.html;
+                else if(d && d.summary) el.innerHTML='<p>'+escapeHtml(d.summary).replace(/\n/g,'</p><p>')+'</p>';
+                else el.innerHTML='<p class="text-sm text-slate-400">目前沒有足夠資料產生摘要。</p>';
+            }catch(e){el.innerHTML='<p class="text-sm text-slate-400">AI 摘要暫時無法載入；站內資料仍可正常使用。</p>';}
+        }
+        function addReportEmoji(emoji){const el=document.getElementById('reportContent');if(!el)return;const pos=el.selectionStart||el.value.length;el.value=el.value.slice(0,pos)+emoji+el.value.slice(pos);el.focus();el.selectionStart=el.selectionEnd=pos+emoji.length;}
+        async function refreshExternalNews(force=false){
+            const list=document.getElementById('externalNewsList'), status=document.getElementById('externalNewsStatus'); if(!list)return;
+            list.innerHTML='<p class="text-sm text-slate-400">外部新聞更新中...</p>';
+            try{const d=await portalGet('external_news', force?{force:'1'}:{});const news=Array.isArray(d?.news)?d.news:(Array.isArray(d)?d:[]);currentExternalNewsItems=news;
+                if(status)status.innerText=(d?.live?'🟢 外部新聞已更新':'🟡 顯示最近一次成功快取')+' · '+(d?.updatedAt?formatDateTime(d.updatedAt):'未知時間')+' · '+news.length+' 篇';
+                renderExternalNewsFiltered();setupNewsFilters();
+            }catch(e){console.error('external_news:',e);if(status)status.innerHTML='🔴 外部新聞暫時無法載入 · '+escapeHtml(e.message||String(e));list.innerHTML='<div class="col-span-full rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800"><b>目前無法取得外部新聞</b><p class="mt-1 text-xs">可直接開啟 Google News 搜尋「美光」。</p></div>';}
+        }
+        let currentExternalNewsItems=[];
+[];
+        let currentExternalNewsFilter='全部';
+        function classifyNewsItem(n){const t=(String(n.title||'')+' '+String(n.source||'')).toLowerCase();if(/工會|罷工|勞資|union|strike/.test(t))return '工會';if(/薪資|獎金|分紅|bonus|salary/.test(t))return '薪資';if(/股價|目標|美元|nasdaq|\bmu\b|股市|漲|跌/.test(t))return '股價';if(/ai|hbm|dram|nand|記憶體|半導體|晶片/.test(t))return 'AI/記憶體';return '其他';}
+        function renderExternalNewsFiltered(){const list=document.getElementById('externalNewsList');if(!list)return;const items=currentExternalNewsFilter==='全部'?currentExternalNewsItems:currentExternalNewsItems.filter(n=>classifyNewsItem(n)===currentExternalNewsFilter);list.innerHTML=items.length?items.slice(0,20).map(n=>{const dt=formatDateTime(n.date||n.published||n.Published||'');return `<a class="external-news-item" target="_blank" rel="noopener" href="${escapeHtml(n.url||'#')}"><div class="news-meta"><span class="news-source-tag">${escapeHtml(n.source||'Google News')}</span><span class="news-date">${escapeHtml(dt)}</span></div><div class="news-title">${escapeHtml(n.title||'')}</div></a>`}).join(''):'<div class="col-span-full text-sm text-slate-400 p-3">此分類目前沒有新聞。</div>';}
+        function setupNewsFilters(){document.querySelectorAll('.news-filter').forEach(b=>{if(b.dataset.bound==='1')return;b.dataset.bound='1';b.addEventListener('click',()=>{currentExternalNewsFilter=b.dataset.newsFilter||'全部';document.querySelectorAll('.news-filter').forEach(x=>{x.classList.remove('bg-sky-600','text-white');x.classList.add('bg-slate-100');});b.classList.add('bg-sky-600','text-white');b.classList.remove('bg-slate-100');renderExternalNewsFiltered();});});}
+        function refreshEventCountdowns(){document.querySelectorAll('[data-countdown]').forEach(el=>{const target=new Date(el.dataset.countdown);if(isNaN(target))return;const diff=target-new Date();if(diff<=0){el.textContent='⏳ 事件已開始 / 進行中';return;}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);el.textContent=`⏳ 還有 ${d} 天 ${h} 小時 ${m} 分鐘`;});}
+        function getMoodToken(){let k='micron_mood_token';let v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():('mood_'+Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem(k,v);}return v;}
+        async function refreshCompanyMood(){
+            const scoreEl=document.getElementById('moodScore'), resultEl=document.getElementById('moodResults'); if(!scoreEl)return;
+            try{
+                const d=await portalGet('company_mood');
+                if(!d || d.ok===false) throw new Error(d?.error || '公司氣氛 API 沒有回傳有效資料');
+                const total=Number(d.total)||0;
+                scoreEl.textContent=total?`氣氛指數 ${Number(d.score)||0}/100 · ${total} 份回覆`:'目前尚無資料';
+                const counts=d.counts||{};
+                const labels=d.labels||['很不錯','還不錯','普通','有點差','非常差'];
+                resultEl.innerHTML=total?labels.map(x=>{const n=Number(counts[x])||0,p=Math.round(n/total*100);return `<div class="flex items-center gap-2 text-xs"><span class="w-14 font-bold">${escapeHtml(x)}</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-sky-500" style="width:${p}%"></div></div><b class="w-12 text-right">${n} (${p}%)</b></div>`}).join(''):'<div class="text-xs text-slate-400">目前已有 API 連線，但尚無有效投票資料。</div>';
+                renderMoodTrend(d.trend||[]);
+            }catch(e){console.error('company_mood:',e);scoreEl.textContent='目前無法取得統計'; if(resultEl)resultEl.innerHTML='<div class="text-xs text-rose-500">統計 API 暫時無法讀取：'+escapeHtml(e.message||String(e))+'</div>';}
+        }
+        let moodTrendChartInstance=null;
+        function renderMoodTrend(trend){
+            const c=document.getElementById('moodTrendChart');
+            if(!c||!window.Chart)return;
+            if(moodTrendChartInstance && typeof moodTrendChartInstance.destroy==='function'){
+                moodTrendChartInstance.destroy();
+            }
+            moodTrendChartInstance=null;
+            const rows=Array.isArray(trend)?trend:[];
+            moodTrendChartInstance=new Chart(c,{
+                type:'line',
+                data:{labels:rows.map(x=>x.date||''),datasets:[{label:'公司氣氛指數',data:rows.map(x=>Number(x.score)||0),tension:.25,fill:false}]},
+                options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:100,title:{display:true,text:'指數'}}},plugins:{legend:{display:false}}}
+            });
+        }
+        async function submitMood(mood){
+            if(localStorage.getItem('micron_mood_submitted')==='1'){alert('你已經填過本次公司氣氛調查。');return;}
+            const buttons=[...document.querySelectorAll('.mood-btn')]; buttons.forEach(b=>b.disabled=true);
+            try{await portalPost('company_mood',{Mood:mood,AnonToken:getMoodToken()}); localStorage.setItem('micron_mood_submitted','1'); document.getElementById('moodScore').textContent='✅ 已送出，謝謝你的回覆'; await refreshCompanyMood();}catch(e){alert('送出失敗：'+(e.message||e));buttons.forEach(b=>b.disabled=false);}
+        }
+
+        function closeGenericModal(id){const el=document.getElementById(id);if(el)el.classList.remove('active');document.body.style.overflow='';}
+        function openWishlistModal(){document.getElementById('wishlistModal').classList.add('active');document.body.style.overflow='hidden';}
+        async function submitWishlist(){const content=document.getElementById('wishContent').value.trim(),msg=document.getElementById('wishMsg');if(!content)return alert('請寫下你的想法');try{await portalPost('wishlist',{Title:document.getElementById('wishTitle').value.trim(),Content:content,Category:'功能許願',AnonToken:getAnonToken()});msg.textContent='✅ 已送出，已加入未來功能許願清單。';msg.className='text-xs mt-2 font-bold text-emerald-600';document.getElementById('wishContent').value='';setTimeout(()=>closeGenericModal('wishlistModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
+        function openAnnouncementSubmit(){document.getElementById('announcementSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
+        async function submitAnnouncementSuggestion(){const title=document.getElementById('annSubmitTitle').value.trim(),content=document.getElementById('annSubmitContent').value.trim(),msg=document.getElementById('annSubmitMsg');if(!title||!content)return alert('請填寫公告標題與內容');try{await portalPost('announcement_submit',{Title:title,Content:content,Category:document.getElementById('annSubmitCategory').value,AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('announcementSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
+        function openEventSubmit(){document.getElementById('eventSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
+        async function submitEventSuggestion(){const title=document.getElementById('eventSubmitTitle').value.trim(),start=document.getElementById('eventSubmitStart').value,end=document.getElementById('eventSubmitEnd').value,msg=document.getElementById('eventSubmitMsg');if(!title||!start)return alert('至少要填事件名稱與開始時間');try{await portalPost('event_submit',{Title:title,StartAt:start,EndAt:end,Category:document.getElementById('eventSubmitCategory').value,Description:document.getElementById('eventSubmitDescription').value.trim(),AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('eventSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
+        async function openAnnouncement(key){const a=announcementStore[String(key)]||{};document.getElementById('announcementViewBody').innerHTML=`<div class="pr-6"><div class="flex gap-2 text-xs text-slate-500 mb-2"><span>${escapeHtml(a.Category||'一般')}</span><span>${formatDateTime(a.Timestamp)}</span></div><h2 class="text-2xl font-black text-slate-800">${escapeHtml(a.Title||'')}</h2><div class="mt-5 text-sm leading-7 whitespace-pre-wrap text-slate-700">${escapeHtml(a.Content||'')}</div><div class="mt-5 pt-4 border-t text-xs font-bold text-slate-500">👁 ${Number(a.ViewCount||0).toLocaleString()} 人閱讀</div></div>`;document.getElementById('announcementViewModal').classList.add('active');document.body.style.overflow='hidden';if(key){try{const r=await portalPost('announcement_view',{AnnouncementKey:key,AnonToken:getAnonToken()});}catch(e){} const n=document.querySelector('#announcementViewBody div.mt-5.pt-4');if(n)n.textContent='👁 '+(Number(a.ViewCount||0)+1).toLocaleString()+' 人閱讀';}}
+        async function likeReport(key){if(!key)return;const k='micron_report_liked_'+key;if(localStorage.getItem(k)==='1')return;try{const r=await portalPost('report_like',{ReportKey:key,AnonToken:getAnonToken()});localStorage.setItem(k,'1');setTimeout(refreshPublicReports,100);}catch(e){console.warn(e);}}
+        async function refreshPageViewStats(){try{const d=await portalGet('page_stats');const s=d&&d.data?d.data:d;const a=document.getElementById('pageViewTotal'),b=document.getElementById('pageViewToday');if(a)a.textContent=Number(s?.total||0).toLocaleString();if(b)b.textContent=Number(s?.today||0).toLocaleString();}catch(e){}}
+        function recordPageView(){try{portalPost('pageview',{Page:'portal',AnonToken:getAnonToken()});}catch(e){}}
+
+        let portalDataLastLoadedAt=0, portalDataLoadingPromise=null;
+        async function refreshPortalData(force=false){
+            refreshPageViewStats();
             if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0){
                 ['announcementList','pollList','topicList','eventList'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<p class="text-sm text-slate-400">尚未設定 PortalDB API。</p>';});
                 return;
             }
-            const results=await Promise.allSettled([
-                portalGet('announcements'),portalGet('polls'),portalGet('topics'),portalGet('events')
-            ]);
-            const ann=results[0].status==='fulfilled'?results[0].value:[],
-                  polls=results[1].status==='fulfilled'?results[1].value:[],
-                  topics=results[2].status==='fulfilled'?results[2].value:[],
-                  events=results[3].status==='fulfilled'?results[3].value:[];
-            const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.innerText=v;};
-            const setHtml=(id,v)=>{const e=document.getElementById(id);if(e)e.innerHTML=v;};
-            setText('portalAnnouncementCount',ann.length);
-            setText('portalTopicCount',topics.length);
-            setHtml('announcementList',ann.length?ann.slice(0,8).map(a=>`<div class="p-3 rounded-xl bg-slate-50 border"><div class="flex justify-between gap-2"><b class="text-sm">${escapeHtml(a.Title||'未命名公告')}</b><span class="text-[10px] text-slate-400">${formatDate(a.Timestamp)}</span></div><p class="text-xs text-slate-600 mt-1 whitespace-pre-wrap">${escapeHtml(a.Content||'')}</p></div>`).join(''):'<p class="text-sm text-slate-400">尚無公告。</p>');
-            await renderPollList(polls);
-            const sortedTopics=[...topics].sort((a,b)=>Number(b.Votes||b.votes||0)-Number(a.Votes||a.votes||0));
-            setHtml('topicList',sortedTopics.length?sortedTopics.slice(0,10).map((t,i)=>{
-                const topic=String(t.Topic||t.Title||'');
-                const key='micron_topic_liked_'+topic;
-                const liked=localStorage.getItem(key)==='1';
-                const votes=Number(t.Votes||t.votes||0)||0;
-                return `<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border"><span class="text-lg font-black text-amber-500">#${i+1}</span><span class="flex-1 text-sm font-bold">${escapeHtml(topic)}</span><button onclick="likeTopic('${escapeJs(topic)}')" class="text-xs font-black ${liked?'text-slate-400 bg-slate-100':'text-rose-600 bg-rose-50'} px-2 py-1 rounded-lg" ${liked?'disabled':''}>👍 ${votes}</button></div>`;
-            }).join(''):'<p class="text-sm text-slate-400">尚無熱門議題。</p>');
-            setHtml('eventList',events.length?events.slice(0,8).map(x=>`<div class="p-3 rounded-xl bg-slate-50 border"><b class="text-sm">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-500 mt-1">${formatDate(x.StartAt)} ${escapeHtml(x.Category||'')}</p><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
-            await refreshPublicReports();
-            renderPortalAnalytics();
+            const now=Date.now();
+            if(!force && portalDataLastLoadedAt && now-portalDataLastLoadedAt<12000) return;
+            if(portalDataLoadingPromise) return portalDataLoadingPromise;
+            portalDataLoadingPromise=(async()=>{
+                const results=await Promise.allSettled([portalGet('announcements'),portalGet('polls'),portalGet('topics'),portalGet('events')]);
+                const names=['公告','投票','議題','日期'];
+                const vals=results.map((r,i)=>{
+                    if(r.status==='fulfilled') return r.value;
+                    console.warn('PortalDB '+names[i]+' API:',r.reason);
+                    return null;
+                });
+                const ann=Array.isArray(vals[0])?vals[0]:[], polls=Array.isArray(vals[1])?vals[1]:[], topics=Array.isArray(vals[2])?vals[2]:[], events=Array.isArray(vals[3])?vals[3]:[];
+                if(results[0].status==='fulfilled'){
+                    setTextSafe('portalAnnouncementCount',ann.length);
+                    setHtmlSafe('announcementList',ann.length?ann.slice(0,8).map(a=>{const rawKey=String(a.AnnouncementKey||'');if(rawKey)announcementStore[rawKey]=a;const key=escapeJs(rawKey);return `<button class="w-full text-left p-3 rounded-xl bg-slate-50 border hover:bg-indigo-50" onclick="openAnnouncement('${key}')"><div class="flex justify-between gap-2 items-center"><b class="text-sm">${escapeHtml(a.Title||'未命名公告')}</b><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDate(a.Timestamp)}</span></div><div class="mt-1 flex gap-2 text-[10px] text-slate-500"><span>${escapeHtml(a.Category||'一般')}</span><span>👁 ${Number(a.ViewCount||0).toLocaleString()}</span></div></button>`;}).join(''):'<p class="text-sm text-slate-400">尚無公告。</p>');
+                }else setHtmlSafe('announcementList','<p class="text-sm text-amber-600">⚠️ 公告暫時無法更新，稍後重試。</p>');
+                if(results[1].status==='fulfilled') await renderPollList(polls); else setHtmlSafe('pollList','<p class="text-sm text-amber-600">⚠️ 投票資料暫時無法更新。</p>');
+                if(results[2].status==='fulfilled'){
+                    window.currentPortalTopics=topics.map(t=>String(t.Topic||t.Title||''));
+                    setTextSafe('portalTopicCount',topics.length);
+                    const sortedTopics=[...topics].sort((a,b)=>Number(b.Votes||b.votes||0)-Number(a.Votes||a.votes||0));
+                    setHtmlSafe('topicList',sortedTopics.length?sortedTopics.slice(0,10).map((t,i)=>{const topic=String(t.Topic||t.Title||'');const key='micron_topic_liked_'+topic;const liked=localStorage.getItem(key)==='1';const votes=Number(t.Votes||t.votes||0)||0;return `<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border"><span class="text-lg font-black text-amber-500">#${i+1}</span><span class="flex-1 text-sm font-bold">${escapeHtml(topic)}</span><button onclick="likeTopic('${escapeJs(topic)}')" class="text-xs font-black ${liked?'text-slate-400 bg-slate-100':'text-rose-600 bg-rose-50'} px-2 py-1 rounded-lg" ${liked?'disabled':''}>👍 ${votes}</button></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無熱門議題。</p>');
+                }else setHtmlSafe('topicList','<p class="text-sm text-amber-600">⚠️ 熱門議題暫時無法更新。</p>');
+                if(results[3].status==='fulfilled'){
+                    setHtmlSafe('eventList',events.length?events.slice().sort((a,b)=>new Date(a.StartAt)-new Date(b.StartAt)).slice(0,12).map(x=>{const st=new Date(x.StartAt),en=x.EndAt?new Date(x.EndAt):null;const same=en&&!isNaN(en)&&st.toDateString()===en.toDateString();const range=en&&!isNaN(en)&&!same?`${formatDate(x.StartAt)} ～ ${formatDate(x.EndAt)}`:formatDate(x.StartAt);return `<div class="event-item"><div class="flex flex-wrap items-center gap-2"><span class="event-range">${escapeHtml(range)}</span><span class="text-[10px] text-slate-500">${escapeHtml(x.Category||'')}</span><span class="event-countdown font-black text-rose-600" data-countdown="${escapeHtml(x.StartAt||'')}">⏳ 計算中…</span></div><b class="event-date-hero block mt-2">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
+                    setTimeout(refreshEventCountdowns,0);
+                }else setHtmlSafe('eventList','<p class="text-sm text-amber-600">⚠️ 重要日期暫時無法更新。</p>');
+                portalDataLastLoadedAt=Date.now();
+                // 以下是低頻/非核心內容，獨立失敗不影響上述四區。
+                Promise.allSettled([refreshAISummary(false),refreshCompanyMood(),refreshExternalNews(false),refreshPublicReports()]).then(()=>{});
+            })().finally(()=>{portalDataLoadingPromise=null;});
+            return portalDataLoadingPromise;
         }
+        function setTextSafe(id,v){const e=document.getElementById(id);if(e)e.innerText=v;}
+        function setHtmlSafe(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v;}
 
         function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
         function escapeJs(v){return String(v==null?'':v).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-        function formatDate(v){const d=new Date(v);return isNaN(d)?String(v||''):d.toLocaleDateString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit'});}
-        function formatDateTime(v){const d=new Date(v);return isNaN(d)?String(v||''):d.toLocaleString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});}
+        function formatDate(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}
+        function formatDateTime(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d).replace(/\\s/g,' ');}
 
         async function votePoll(id,option){
             if(!id)return;
@@ -1776,11 +1891,22 @@ function clearM3() { }
             try{
                 await portalPost('vote',{PollId:id,Option:option,AnonToken:getAnonToken()});
                 localStorage.setItem(pollVotedKey(id),'1');
+                // no-cors POST 不提供可讀 response；先立即更新 UI，再背景重新抓正式票數。
+                const cards=[...document.querySelectorAll('#pollList > div')];
+                cards.forEach(card=>{
+                    if(!card.innerText.includes(option))return;
+                    const btns=[...card.querySelectorAll('button')];
+                    btns.forEach(btn=>{
+                        if(btn.innerText.trim().startsWith(option)){
+                            const m=btn.querySelector('b'); if(m){const mm=m.innerText.match(/^(\d+)/);const n=mm?Number(mm[1])+1:1;m.innerText=n+' 票';}
+                            btn.disabled=true; btn.classList.add('opacity-70','cursor-not-allowed');
+                        }
+                    });
+                });
                 alert('✅ 已送出匿名投票');
-                await refreshPortalData();
+                setTimeout(()=>refreshPortalData(true),800);
             }catch(e){alert('投票失敗：'+e.message);}
         }
-
         async function openPollModal(){
             const q=(prompt('請輸入投票問題')||'').trim(); if(!q)return;
             const o=(prompt('請輸入至少 2 個選項，以逗號分隔，例如：A,B,C')||'').trim(); if(!o)return;
@@ -1801,33 +1927,44 @@ function clearM3() { }
             try{
                 await portalPost('topic_like',{Topic:topic,AnonToken:getAnonToken()});
                 localStorage.setItem(key,'1');
-                await refreshPortalData();
+                await refreshPortalData(true);
             }catch(e){alert('按讚失敗：'+e.message);}
         }
 
         async function submitTopicPrompt(){
             const t=(prompt('你想讓大家關注什麼？')||'').trim(); if(!t)return;
             if(t.length<2){alert('議題至少 2 個字。');return;}
+            const normalizedTopic=t.replace(/\s+/g,'').toLowerCase();
+            const duplicate=(window.currentPortalTopics||[]).some(x=>String(x||'').replace(/\s+/g,'').toLowerCase()===normalizedTopic);
+            if(duplicate){alert('這個議題已經存在，請直接幫它按 👍，不用重複建立。');return;}
             try{
                 await portalPost('topic',{Topic:t,Votes:0,AnonToken:getAnonToken()});
                 alert('✅ 議題已送出，等待大家按 👍 推上熱搜');
-                await refreshPortalData();
+                await refreshPortalData(true);
             }catch(e){alert('議題送出失敗：'+e.message);}
         }
 
         async function refreshPublicReports(){
             const track=document.getElementById('publicReportTrack'); if(!track)return;
             try{
-                let rows=[];
-                try{rows=await portalGet('public_reports');}catch(e){rows=[];}
-                publicReportItems=Array.isArray(rows)?rows.filter(r=>String(r.Status||r.status||'').toLowerCase().match(/public|published|approved|已公開|公開|核准/)):rows;
+                const rows=await portalGet('public_reports');
+                if(!Array.isArray(rows)) throw new Error('public_reports 回傳格式不是陣列');
+                publicReportItems=rows;
                 if(!publicReportItems.length){
-                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">目前沒有已核准公開的匿名回報。</div>';
+                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">目前沒有可公開顯示的匿名心聲。</div>';
+                    if(publicReportTimer){clearInterval(publicReportTimer);publicReportTimer=null;}
                     return;
                 }
-                publicReportIndex=0; renderPublicReportWindow(); startPublicReportTicker();
+                publicReportIndex=Math.min(publicReportIndex,Math.max(0,publicReportItems.length-1));
+                renderPublicReportWindow(); startPublicReportTicker();
             }catch(e){
-                track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">匿名心聲目前無法載入。</div>';
+                console.error('public_reports:',e);
+                // 不因一次 API 失敗把既有資料清成 0 筆；若已有資料，繼續播。
+                if(publicReportItems.length){
+                    renderPublicReportWindow(); startPublicReportTicker();
+                }else{
+                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-700">⚠️ 匿名心聲暫時無法載入：'+escapeHtml(e.message||String(e))+'</div>';
+                }
             }
         }
         function renderPublicReportWindow(){
@@ -1835,28 +1972,35 @@ function clearM3() { }
             const rows=[];
             for(let i=0;i<5;i++){
                 const r=publicReportItems[(publicReportIndex+i)%publicReportItems.length];
-                rows.push(`<div class="portal-report-row p-3 rounded-xl bg-slate-50 border"><div class="flex justify-between gap-2"><span class="text-xs font-bold text-rose-600">${escapeHtml(r.Category||'匿名回報')}</span><span class="text-[10px] text-slate-400">${formatDateTime(r.Timestamp)}</span></div><p class="portal-report-content text-sm text-slate-700 mt-1 whitespace-pre-wrap">${escapeHtml(r.Content||r.Message||'')}</p></div>`);
+                rows.push(`<div class="portal-report-row p-3 rounded-xl bg-slate-50 border flex flex-col"><div class="flex items-center justify-between gap-2 shrink-0"><div class="flex gap-1.5 items-center min-w-0"><span class="text-[11px] font-bold text-rose-600 whitespace-nowrap">${escapeHtml(r.Type||'心聲')}</span><span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-600 whitespace-nowrap">${escapeHtml(r.Category||'其他')}</span></div><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDateTime(r.Timestamp)}</span></div><p class="portal-report-content text-sm text-slate-700 mt-1 whitespace-pre-wrap flex-1 min-h-0">${escapeHtml(r.Content||r.Message||'')}</p><div class="flex justify-end mt-1 shrink-0"><button class="text-[11px] font-black px-2 py-0.5 rounded-lg bg-rose-50 text-rose-600" ${String(r.ReportKey||'').indexOf('local_')===0?'disabled':''} onclick="likeReport('${escapeJs(r.ReportKey||'')}')">👍 ${Number(r.Likes||0)}</button></div></div>`);
             }
             track.innerHTML=rows.join('');
         }
         function startPublicReportTicker(){
             if(publicReportTimer)clearInterval(publicReportTimer);
             if(publicReportItems.length<=5)return;
-            publicReportTimer=setInterval(()=>{publicReportIndex=(publicReportIndex+1)%publicReportItems.length;renderPublicReportWindow();},5000);
+            publicReportTimer=setInterval(()=>{publicReportIndex=(publicReportIndex+2)%publicReportItems.length;renderPublicReportWindow();},3000);
         }
 
+        let reportSubmitBusy=false;
         async function submitAnonymousReport(){
-            const content=document.getElementById('reportContent').value.trim();
+            if(reportSubmitBusy)return;
+            const contentEl=document.getElementById('reportContent'), resultEl=document.getElementById('reportResult');
+            const content=contentEl.value.trim();
             if(!content)return alert('請填寫內容');
             if(content.length<5)return alert('請至少寫 5 個字，讓大家看得懂。');
+            const submitBtn=document.querySelector('#mode5Container button[onclick="submitAnonymousReport()"]');
+            reportSubmitBusy=true; if(submitBtn){submitBtn.disabled=true;submitBtn.innerText='送出中...';}
             try{
-                await portalPost('report',{Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,AnonToken:getAnonToken(),Status:'Pending'});
-                document.getElementById('reportResult').innerText='✅ 已送出匿名回報；經核准公開後會出現在「匿名心聲廣播」。';
-                document.getElementById('reportContent').value='';
-                await refreshPublicReports();
-            }catch(e){document.getElementById('reportResult').innerText='❌ 回報失敗：'+e.message;}
+                await portalPost('report',{Type:document.getElementById('reportType').value,Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,AnonToken:getAnonToken(),Status:'Public'});
+                const optimistic={ReportKey:'local_'+Date.now(),Timestamp:new Date().toISOString(),Type:document.getElementById('reportType').value,Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,Likes:0};
+                publicReportItems=[optimistic,...publicReportItems.filter(x=>String(x.ReportKey||'')!==String(optimistic.ReportKey))]; publicReportIndex=0; renderPublicReportWindow(); startPublicReportTicker();
+                resultEl.innerText='✅ 已送出，會直接進入「匿名心聲廣播」。'; resultEl.className='text-xs mt-2 font-bold text-emerald-600 block';
+                contentEl.value='';
+                setTimeout(()=>refreshPublicReports(),900);
+            }catch(e){resultEl.innerText='❌ 回報失敗：'+e.message;resultEl.className='text-xs mt-2 font-bold text-rose-600 block';}
+            finally{reportSubmitBusy=false;if(submitBtn){submitBtn.disabled=false;submitBtn.innerText='送出匿名大聲公';}}
         }
-
         function runPromotionTool(){const g=document.getElementById('toolGrade').value.trim().toUpperCase(),s=parseFloat(document.getElementById('toolSalary').value);if(!/^[A-Z][0-9]$/.test(g)||isNaN(s))return alert('請輸入 E1 / T1 / M1 與目前月薪');const m=g.match(/([A-Z])(\d+)/),next=m?m[1]+(Number(m[2])+1):'';const arr=dataM1.filter(x=>x.grade===next).map(x=>x.salary);if(!arr.length){document.getElementById('promotionToolResult').innerText=`找不到 ${next} 的樣本資料。`;return;}const avg=arr.reduce((a,b)=>a+b,0)/arr.length;document.getElementById('promotionToolResult').innerHTML=`${next} 平均 ${avg.toFixed(1)} 萬；相對目前約 <b>${((avg-s)/s*100).toFixed(1)}%</b>`;}
         function runAnnualTool(){const base=parseFloat(document.getElementById('annualBase').value)||0,bonus=parseFloat(document.getElementById('annualBonus').value)||0,rsu=parseFloat(document.getElementById('annualRSU').value)||0,total=base*14+bonus+rsu*(Number(window.MU_PRICE_CURRENT)||920.95)/10000;document.getElementById('annualToolResult').innerText=`估算年總包約 ${total.toFixed(1)} 萬（RSU 以目前價格估算）。`;}
         async function renderPortalAnalytics(){
@@ -2066,8 +2210,12 @@ function clearM3() { }
             }, 50);
         }
 
-        window.addEventListener('load',()=>{startMUStockTicker();
-        initPlatform(); setTimeout(()=>startMUStockTicker(),150); if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});});
+        window.addEventListener('error',e=>console.error('Portal UI error:',e.error||e.message));
+        window.addEventListener('unhandledrejection',e=>console.error('Portal async error:',e.reason));
+        window.addEventListener('load',()=>{recordPageView();
+        setupNewsFilters();
+        setInterval(refreshEventCountdowns,60000);refreshPageViewStats();startMUStockTicker();
+        initPlatform(); if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});});
     </script>
 </body>
 </html>
