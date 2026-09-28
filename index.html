@@ -445,97 +445,138 @@
 </section>
 </div>
 <div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode3Container">
+<!-- TOP PANEL -->
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
-<div class="lg:col-span-1 bg-gradient-to-br from-indigo-700 to-slate-900 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px] relative overflow-hidden">
-<div class="absolute top-0 right-0 bg-rose-500 text-white text-[10px] px-2 py-1 rounded-bl-lg font-bold">未來擴充</div>
-<p class="text-xs font-medium text-indigo-200 uppercase tracking-wider">🎁 開獎調查人數 (2026)</p>
+<div class="lg:col-span-1 bg-gradient-to-br from-purple-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+<p class="text-xs font-medium text-purple-200 uppercase tracking-wider">🎁 開獎調查人數 (2026)</p>
 <p class="text-3xl font-black mt-1" id="totalGlobalCount3">連線中...</p>
 </div>
-<div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center opacity-80">
+<div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-<div><label class="block text-slate-500 font-bold mb-1">1. 職系 (Series)</label><select class="w-full bg-slate-50 border rounded p-2 outline-none" id="m3FilterSeries" onchange="updateM3Charts()"><option value="All">全部職系</option><option value="E">E系</option><option value="T">T系</option><option value="M">M系</option><option value="D">D系</option></select></div>
-<div><label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label><select class="w-full bg-slate-50 border rounded p-2 outline-none" id="m3FilterPromo" onchange="updateM3Charts()"><option value="All">全部</option><option value="Yes">✅ 有升遷</option><option value="No">❌ 未升遷</option></select></div>
-<div><label class="block text-slate-500 font-bold mb-1">3. 考績 (Performance)</label><select class="w-full bg-slate-50 border rounded p-2 outline-none" id="m3FilterPerf" onchange="updateM3Charts()"><option value="All">全部考績</option></select></div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">1. 職等群 (Series)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterSeries" onchange="updateM3Charts()"><option value="All">全部職系</option><option value="E">E系</option><option value="T">T系</option><option value="M">M系</option><option value="D">D系</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterPromo" onchange="updateM3Charts()"><option value="All">全部 (升遷+未升遷)</option><option value="Yes">✅ 有升遷 (Promoted)</option><option value="No">❌ 未升遷 (Normal)</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterPerf" onchange="updateM3Charts()"><option value="All">全部考績</option></select>
+</div>
 </div>
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Locate Me Bonus -->
 <div class="space-y-6 lg:col-span-1">
-<div class="bg-gradient-to-b from-indigo-900 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-indigo-500/30 opacity-80">
-<h3 class="text-sm font-bold text-indigo-300 mb-3">📍 2026 開獎定位器</h3>
+<div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-5 rounded-2xl shadow-sm border border-purple-500/30">
+<h3 class="text-sm font-bold text-fuchsia-300 mb-3">📍 2026 開獎定位器</h3>
+<p class="text-[10px] text-slate-300 mb-3">檢驗您的 Package 在同類人中是好是壞。</p>
 <div class="space-y-3 text-xs">
-<input class="w-full bg-slate-800 border-slate-600 rounded p-1.5 uppercase outline-none" disabled="" id="m3MyGrade" placeholder="職等 e.g. E2" type="text"/>
-<select class="w-full bg-slate-800 border-slate-600 rounded p-1.5 text-white outline-none" disabled="" id="m3MyPromo"><option value="No">❌ 未升遷</option><option value="Yes">✅ 有升遷</option></select>
-<input class="w-full bg-slate-800 border-slate-600 rounded p-1.5 outline-none" disabled="" id="m3MyPerf" placeholder="考績 e.g. 3" type="text"/>
-<input class="w-full bg-slate-800 border-slate-600 rounded p-1.5 outline-none" disabled="" id="m3MyRaise" placeholder="調薪幅度 (%)" step="0.1" type="number"/>
-<input class="w-full bg-slate-800 border-slate-600 rounded p-1.5 outline-none" disabled="" id="m3MyRsu" placeholder="RSU (美金)" step="1" type="number"/>
-<div class="grid grid-cols-2 gap-2 pt-1"><button class="bg-indigo-600/50 text-white p-2 rounded font-bold cursor-not-allowed">檢驗 PR 值</button><button class="bg-slate-700/50 text-white p-2 rounded cursor-not-allowed">清除</button></div>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 uppercase outline-none" id="m3MyGrade" placeholder="職等 e.g. E2" type="text"/>
+<select class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-white outline-none" id="m3MyPromo">
+<option value="No">未升遷 (❌ 無)</option><option value="Yes">有升遷 (✅ 有)</option>
+</select>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyPerf" placeholder="考績 e.g. 3 或 Meets" type="text"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyRaise" placeholder="調薪幅度 (%) e.g. 4.5" step="0.1" type="number"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyRsu" placeholder="RSU 數量 (美金) e.g. 5000" step="1" type="number"/>
+<div class="grid grid-cols-2 gap-2 pt-1"><button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded font-bold" onclick="locateM3()">檢驗 PR 值</button><button class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded" onclick="clearM3()">清除</button></div>
+</div>
+</div>
+<div class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-fuchsia-500/30" id="m3PctCard">
+<h3 class="text-xs font-bold text-fuchsia-400 mb-3">📊 2026 開獎勝率報告</h3>
+<p class="text-[10px] text-slate-400 mb-3 border-b border-slate-700 pb-2" id="m3TargetGroup">比對母體：...</p>
+<div class="space-y-3 text-xs">
+<div class="flex justify-between items-baseline">
+<span class="text-slate-300">調薪幅度 PR值</span><span class="text-2xl font-black text-amber-400" id="m3PctRaise">--%</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="text-slate-300">RSU 美金 PR值</span><span class="text-2xl font-black text-emerald-400" id="m3PctRsu">--%</span>
 </div>
 </div>
 </div>
+</div>
+<!-- Charts -->
 <div class="lg:col-span-3 space-y-6">
-<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-90">
+<!-- Chart 1: RSU Box Chart -->
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📦 2026 各職等 RSU 分發力道 (美金)</h3>
-<div class="relative h-80 flex items-center justify-center bg-slate-50 rounded-xl border border-dashed border-slate-300" id="m3RsuEmpty"><span class="text-slate-400 font-bold">等待 2026 數據注入...</span></div>
-<div class="relative h-80 hidden" id="m3RsuWrapper"><canvas id="m3RsuChart"></canvas></div>
+<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等，直觀看出 RSU 爆發分水嶺。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<div class="relative h-80"><canvas id="m3RsuChart"></canvas></div>
 </div>
-<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-90">
-<h3 class="text-sm font-bold text-slate-800 mb-1">📈 2026 考績 vs. 調薪幅度 (%)</h3>
-<div class="relative h-80 flex items-center justify-center bg-slate-50 rounded-xl border border-dashed border-slate-300" id="m3RaiseEmpty"><span class="text-slate-400 font-bold">等待 2026 數據注入...</span></div>
-<div class="relative h-80 hidden" id="m3RaiseWrapper"><canvas id="m3RaiseChart"></canvas></div>
+<!-- Chart 2: Raise by Perf Box Chart -->
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
+<p class="text-xs text-slate-400 mb-3">藍柱：未升遷 (純吃考績)｜紫柱：有升遷 (升等大禮包)。直觀看見考績間的鑑別度！(已支援高低標與平均值繪製)</p>
+<div class="relative h-80"><canvas id="m3RaiseChart"></canvas></div>
 </div>
 </div>
 </div>
-<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8 opacity-90">
-<div class="p-4 border-b border-slate-100 flex flex-col gap-3 bg-slate-50/50">
-<div class="flex flex-col sm:flex-row justify-between items-center gap-3">
-<h3 class="text-sm font-bold text-slate-800">📋 2026 開獎清單</h3>
+<!-- List for Mode 2 -->
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+<div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+<div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+<div>
+<h3 class="text-sm font-bold text-slate-800">📋 2026 開獎清單快速檢視與搜尋</h3>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+</div>
 <div class="flex items-center gap-2">
-<span class="text-xs bg-indigo-100 text-indigo-700 px-3 py-2 rounded-xl font-bold" id="m3Count">顯示 0 筆</span>
-<button class="text-xs bg-emerald-600/50 text-white font-bold px-3 py-2 rounded-xl cursor-not-allowed">📥 匯出 CSV</button>
+<button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportM3CSV()">📥 匯出 CSV</button>
+<span class="text-xs bg-purple-100 text-purple-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="m3Count">顯示 0 筆</span>
 </div>
 </div>
-<div class="flex flex-wrap items-center gap-2 text-xs">
+<div class="space-y-3 text-xs">
+<div class="flex flex-wrap items-center gap-3">
 <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
-<span class="text-slate-400 font-medium px-2">職系：</span>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold btn-series-active" id="btnM3SecAll" onclick="changeM3TableSeries('All')">全體</button>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold" id="btnM3SecE" onclick="changeM3TableSeries('E')">E系</button>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold" id="btnM3SecT" onclick="changeM3TableSeries('T')">T系</button>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold" id="btnM3SecM" onclick="changeM3TableSeries('M')">M系</button>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold" id="btnM3SecD" onclick="changeM3TableSeries('D')">D系</button>
+<span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM3SecAll" onclick="changeM3TableSeries('All')">全體</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecE" onclick="changeM3TableSeries('E')">E系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecT" onclick="changeM3TableSeries('T')">T系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecM" onclick="changeM3TableSeries('M')">M系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecD" onclick="changeM3TableSeries('D')">D系</button>
 </div>
+<!-- 🚀 新增：升遷過濾器 -->
 <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
-<span class="text-slate-400 font-medium px-2">升遷：</span>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold btn-series-active" id="btnM3PromoAll" onclick="changeM3TablePromo('All')">全部</button>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold" id="btnM3PromoYes" onclick="changeM3TablePromo('Yes')">✅ 有</button>
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold" id="btnM3PromoNo" onclick="changeM3TablePromo('No')">❌ 無</button>
+<span class="text-slate-400 font-medium px-2 shrink-0">升遷：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM3PromoAll" onclick="changeM3TablePromo('All')">全部</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3PromoYes" onclick="changeM3TablePromo('Yes')">✅ 有升遷</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3PromoNo" onclick="changeM3TablePromo('No')">❌ 未升遷</button>
 </div>
-<input class="flex-1 min-w-[180px] bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-indigo-500" id="m3Search" oninput="renderM3Table()" placeholder="🔍 搜尋職等或關鍵字..." type="text"/>
+<div class="flex-1 min-w-[200px]">
+<input class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-purple-500 shadow-sm" id="m3Search" oninput="renderM3Table()" placeholder="🔍 搜尋職等或關鍵字..." type="text"/>
+</div>
 </div>
 <div class="flex flex-wrap items-center gap-3">
 <div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m3SubGradeButtonGroup">
-<span class="text-slate-400 font-medium px-1">具體職等：</span>
+<span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
 <div class="flex flex-wrap items-center gap-1.5" id="m3SubGradeButtons">
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold btn-grade-active" onclick="changeM3TableSubGrade('All')">全部職等</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM3TableSubGrade('All')">全部職等</button>
 </div>
 </div>
+<!-- 🚀 新增：動態考績過濾器 -->
 <div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m3PerfButtonGroup">
-<span class="text-slate-400 font-medium px-1">考績：</span>
+<span class="text-slate-400 font-medium px-1 shrink-0">考績：</span>
 <div class="flex flex-wrap items-center gap-1.5" id="m3PerfButtons">
-<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold btn-grade-active" onclick="changeM3TablePerf('All')">全部考績</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM3TablePerf('All')">全部考績</button>
 </div>
 </div>
 </div>
 </div>
-<div class="hidden">
-<span id="m3LegacyCount"></span>
 </div>
 <div class="overflow-x-auto max-h-80 text-xs">
 <table class="w-full text-left border-collapse">
-<thead class="bg-slate-100 text-slate-700 sticky top-0 shadow-sm">
-<tr><th class="p-3">職等 ↕</th><th class="p-3">考績 ↕</th><th class="p-3">升遷 ↕</th><th class="p-3">調薪(%) ↕</th><th class="p-3">RSU($) ↕</th><th class="p-3">換算股數 ↕</th><th class="p-3">現值($) ↕</th></tr>
+<thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
+<tr>
+<th class="p-3 sortable" onclick="sortM3Table('grade')">職等 ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('perf')">考績 ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('promo')">有無升遷 ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('raise')">調薪幅度 (%) ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('rsu')">RSU (美金) ↕</th>
+</tr>
 </thead>
-<tbody class="text-slate-600 divide-y divide-slate-100" id="m3Tbody"><tr><td class="p-8 text-center text-slate-400 font-bold" colspan="7">目前尚無任何 2026 數據</td></tr></tbody>
+<tbody class="text-slate-600 divide-y divide-slate-100" id="m3Tbody"></tbody>
 </table>
 </div>
 </section>
@@ -593,8 +634,8 @@
 <p class="text-xs text-slate-400 mt-1">團結力量大！感謝每一位站出來的夥伴。</p>
 </div>
 <div class="text-right">
-<p class="text-[10px] text-slate-400">目前預估總人數</p>
-<p class="text-2xl font-black text-rose-600">~ 8,000 人</p>
+<p class="text-[10px] text-slate-400">最新回報人數</p>
+<p class="text-2xl font-black text-rose-600" id="latestUnionCount">載入中...</p>
 </div>
 </div>
 <div class="relative h-64 w-full"><canvas id="unionTrendChart"></canvas></div><div class="mt-6 pt-6 border-t border-slate-200">
@@ -613,17 +654,11 @@
 <div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode5Container">
 <div class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white p-6 md:p-8 rounded-3xl shadow-lg">
 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-<div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、投票、熱門議題、匿名互動與外部資訊集中在這裡。</p></div>
-<div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-white/10 rounded-xl px-4 py-3"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div><div class="bg-white/10 rounded-xl px-4 py-3"><span class="text-slate-400">熱門議題</span><b class="block text-xl" id="portalTopicCount">--</b></div></div>
+<div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、匿名互動與外部資訊集中在這裡。</p></div>
+<div class="bg-white/10 rounded-xl px-4 py-3 text-xs"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div>
 </div></div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🔥 最近大家最關心什麼</h3><p class="text-xs text-slate-400">熱門議題排行；按 👍 可以推上熱搜。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="submitTopicPrompt()">我要提議題</button></div></div>
-<div class="space-y-3" id="topicList"><p class="text-sm text-slate-400">載入中...</p></div>
-</section>
-<section class="bg-white p-5 rounded-2xl border border-violet-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🤖 AI 話題摘要</h3><p class="text-xs text-slate-400">直接取代原本的「議題關鍵字」；摘要以站內熱門議題與匿名大聲公為主，外部新聞若有成功取得也會納入。</p></div><button class="text-xs bg-violet-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshAISummary(true)">↻ 更新摘要</button></div><div id="aiSummary" class="ai-summary text-sm text-slate-700"><p class="text-slate-400">載入中...</p></div></section>
-</div>
+
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
@@ -638,7 +673,7 @@
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><h3 class="font-black text-slate-800">📅 公司重要日期｜事件時間軸</h3><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openEventSubmit()">＋ 投稿</button></div><div class="event-timeline" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div></section>
 </div>
 
-<div class="grid grid-cols-1 gap-6"><section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">🗳️ 匿名投票</h3><p class="text-xs text-slate-400">每題至少 2 個選項；建立後 20 日自動清除。</p></div><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openPollModal()">＋ 新議題</button></div><div class="space-y-4 portal-poll-scroll" id="pollList"><p class="text-sm text-slate-400">載入中...</p></div></section></div>
+
 
 
 
@@ -727,7 +762,7 @@
 <p class="text-xs text-slate-500 mb-5">只需要填寫地點與你目前掌握的人數。</p>
 <form class="space-y-4 text-sm" id="unionReportForm" onsubmit="submitUnionReport(event)">
 <div><label class="block text-slate-700 font-bold mb-1">工會地點</label><select class="w-full border rounded-lg p-2" id="unionSite" required=""><option value="桃園">桃園</option><option value="台中">台中</option></select></div>
-<div><label class="block text-slate-700 font-bold mb-1">目前工會人數</label><input class="w-full border rounded-lg p-2" id="unionCount" max="8000" min="0" placeholder="例如：2300" required="" step="1" type="number"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">目前工會人數</label><input class="w-full border rounded-lg p-2" id="unionCount" max="15000" min="0" placeholder="例如：2300" required="" step="1" type="number"/></div>
 <button class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-lg" id="unionReportBtn" type="submit">🚀 送出匿名回報</button>
 <div class="text-xs text-center font-bold mt-2 hidden" id="unionReportMsg"></div>
 </form>
@@ -1674,7 +1709,7 @@ function clearM3() { }
         async function submitUnionReport(e){
             e.preventDefault(); const btn=document.getElementById('unionReportBtn'),msg=document.getElementById('unionReportMsg');
             const site=document.getElementById('unionSite').value,count=parseInt(document.getElementById('unionCount').value,10);
-            if(!['桃園','台中'].includes(site)||!Number.isInteger(count)||count<0||count>8000){alert('請填寫 0～8000 的整數人數。');return;}
+            if(!['桃園','台中'].includes(site)||!Number.isInteger(count)||count<0||count>15000){alert('請填寫 0～15000 的整數人數。');return;}
             btn.disabled=true;btn.innerText='回報傳送中...';
             try{
                 await portalPost('union',{Site:site,MemberCount:String(count),AnonToken:getAnonToken(),Note:''});
@@ -1686,13 +1721,19 @@ function clearM3() { }
         async function renderUnionChart(){
             const canvas=document.getElementById('unionTrendChart');if(!canvas)return;
             const reports=await loadUnionReports();
+            // 右上角「目前預估總人數」改為顯示 PortalDB 最新一筆回報，而不是固定上限值。
+            const latest=reports.slice().sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp))[0];
+            const latestEl=document.getElementById('latestUnionCount');
+            if(latestEl){
+                latestEl.innerText=latest && Number.isFinite(latest.count) ? `${latest.count.toLocaleString()} 人` : '--';
+            }
             const monthMap={};
             reports.forEach(r=>{const d=new Date(r.timestamp);if(isNaN(d))return;const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');if(!monthMap[key])monthMap[key]={};monthMap[key][r.site]=r.count;});
             const keys=Object.keys(monthMap).sort();
             const labels=keys.length?keys.map(k=>{const [y,m]=k.split('-');return y+'/'+Number(m)+'月';}):[];
             const ty=keys.map(k=>monthMap[k].桃園 ?? null),tc=keys.map(k=>monthMap[k].台中 ?? null);
             if(cUnionTrend)cUnionTrend.destroy();
-            cUnionTrend=new Chart(canvas.getContext('2d'),{type:'line',data:{labels,datasets:[{label:'桃園工會',data:ty,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.08)',fill:true,tension:.3,borderWidth:2},{label:'台中工會',data:tc,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Number(c.raw||0).toLocaleString()} 人`}}},scales:{y:{beginAtZero:true,suggestedMax:8000,title:{display:true,text:'會員人數'}}}}});
+            cUnionTrend=new Chart(canvas.getContext('2d'),{type:'line',data:{labels,datasets:[{label:'桃園工會',data:ty,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.08)',fill:true,tension:.3,borderWidth:2},{label:'台中工會',data:tc,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Number(c.raw||0).toLocaleString()} 人`}}},scales:{y:{beginAtZero:true,suggestedMax:15000,title:{display:true,text:'會員人數'}}}}});
             const st=document.getElementById('unionDataStatus');if(st)st.innerText=API_PORTAL&&API_PORTAL.indexOf('請貼上')!==0?'🟢 PortalDB 共用資料庫：所有人的匿名回報會匯入同一份資料。':'🔴 尚未設定 PortalDB API。';
         }
         async function portalGet(action, params={}){
@@ -1789,7 +1830,24 @@ function clearM3() { }
         function classifyNewsItem(n){const t=(String(n.title||'')+' '+String(n.source||'')).toLowerCase();if(/工會|罷工|勞資|union|strike/.test(t))return '工會';if(/薪資|獎金|分紅|bonus|salary/.test(t))return '薪資';if(/股價|目標|美元|nasdaq|\bmu\b|股市|漲|跌/.test(t))return '股價';if(/ai|hbm|dram|nand|記憶體|半導體|晶片/.test(t))return 'AI/記憶體';return '其他';}
         function renderExternalNewsFiltered(){const list=document.getElementById('externalNewsList');if(!list)return;const items=currentExternalNewsFilter==='全部'?currentExternalNewsItems:currentExternalNewsItems.filter(n=>classifyNewsItem(n)===currentExternalNewsFilter);list.innerHTML=items.length?items.slice(0,20).map(n=>{const dt=formatDateTime(n.date||n.published||n.Published||'');return `<a class="external-news-item" target="_blank" rel="noopener" href="${escapeHtml(n.url||'#')}"><div class="news-meta"><span class="news-source-tag">${escapeHtml(n.source||'Google News')}</span><span class="news-date">${escapeHtml(dt)}</span></div><div class="news-title">${escapeHtml(n.title||'')}</div></a>`}).join(''):'<div class="col-span-full text-sm text-slate-400 p-3">此分類目前沒有新聞。</div>';}
         function setupNewsFilters(){document.querySelectorAll('.news-filter').forEach(b=>{if(b.dataset.bound==='1')return;b.dataset.bound='1';b.addEventListener('click',()=>{currentExternalNewsFilter=b.dataset.newsFilter||'全部';document.querySelectorAll('.news-filter').forEach(x=>{x.classList.remove('bg-sky-600','text-white');x.classList.add('bg-slate-100');});b.classList.add('bg-sky-600','text-white');b.classList.remove('bg-slate-100');renderExternalNewsFiltered();});});}
-        function refreshEventCountdowns(){document.querySelectorAll('[data-countdown]').forEach(el=>{const target=new Date(el.dataset.countdown);if(isNaN(target))return;const diff=target-new Date();if(diff<=0){el.textContent='⏳ 事件已開始 / 進行中';return;}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);el.textContent=`⏳ 還有 ${d} 天 ${h} 小時 ${m} 分鐘`;});}
+        function refreshEventCountdowns(){
+            const now=new Date();
+            document.querySelectorAll('[data-countdown-start]').forEach(el=>{
+                const start=new Date(el.dataset.countdownStart), endRaw=el.dataset.countdownEnd||'', end=endRaw?new Date(endRaw):null;
+                if(isNaN(start))return;
+                if(end && isNaN(end)) return;
+                if(end && now>=end){el.textContent='✅ 已結束';el.classList.remove('text-rose-600');el.classList.add('text-slate-500');return;}
+                if(now>=start){
+                    if(end){
+                        const diff=end-now,d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);
+                        el.textContent=`🟢 進行中 · 剩 ${d} 天 ${h} 小時 ${m} 分鐘`;
+                    }else el.textContent='🟡 已開始';
+                    el.classList.remove('text-rose-600');el.classList.add('text-emerald-600');return;
+                }
+                const diff=start-now,d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);
+                el.textContent=`⏳ 還有 ${d} 天 ${h} 小時 ${m} 分鐘`;
+            });
+        }
         function getMoodToken(){let k='micron_mood_token';let v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():('mood_'+Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem(k,v);}return v;}
         async function refreshCompanyMood(){
             const scoreEl=document.getElementById('moodScore'), resultEl=document.getElementById('moodResults'); if(!scoreEl)return;
@@ -1868,12 +1926,12 @@ function clearM3() { }
                     setHtmlSafe('topicList',sortedTopics.length?sortedTopics.slice(0,10).map((t,i)=>{const topic=String(t.Topic||t.Title||'');const key='micron_topic_liked_'+topic;const liked=localStorage.getItem(key)==='1';const votes=Number(t.Votes||t.votes||0)||0;return `<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border"><span class="text-lg font-black text-amber-500">#${i+1}</span><span class="flex-1 text-sm font-bold">${escapeHtml(topic)}</span><button onclick="likeTopic('${escapeJs(topic)}')" class="text-xs font-black ${liked?'text-slate-400 bg-slate-100':'text-rose-600 bg-rose-50'} px-2 py-1 rounded-lg" ${liked?'disabled':''}>👍 ${votes}</button></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無熱門議題。</p>');
                 }else setHtmlSafe('topicList','<p class="text-sm text-amber-600">⚠️ 熱門議題暫時無法更新。</p>');
                 if(results[3].status==='fulfilled'){
-                    setHtmlSafe('eventList',events.length?events.slice().sort((a,b)=>new Date(a.StartAt)-new Date(b.StartAt)).slice(0,12).map(x=>{const st=new Date(x.StartAt),en=x.EndAt?new Date(x.EndAt):null;const same=en&&!isNaN(en)&&st.toDateString()===en.toDateString();const range=en&&!isNaN(en)&&!same?`${formatDate(x.StartAt)} ～ ${formatDate(x.EndAt)}`:formatDate(x.StartAt);return `<div class="event-item"><div class="flex flex-wrap items-center gap-2"><span class="event-range">${escapeHtml(range)}</span><span class="text-[10px] text-slate-500">${escapeHtml(x.Category||'')}</span><span class="event-countdown font-black text-rose-600" data-countdown="${escapeHtml(x.StartAt||'')}">⏳ 計算中…</span></div><b class="event-date-hero block mt-2">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
+                    setHtmlSafe('eventList',events.length?events.slice().sort((a,b)=>new Date(a.StartAt)-new Date(b.StartAt)).slice(0,12).map(x=>{const st=new Date(x.StartAt),en=x.EndAt?new Date(x.EndAt):null;const same=en&&!isNaN(en)&&st.toDateString()===en.toDateString();const range=en&&!isNaN(en)&&!same?`${formatDate(x.StartAt)} ～ ${formatDate(x.EndAt)}`:formatDate(x.StartAt);return `<div class="event-item"><div class="flex flex-wrap items-center gap-2"><span class="event-range">${escapeHtml(range)}</span><span class="text-[10px] text-slate-500">${escapeHtml(x.Category||'')}</span><span class="event-countdown font-black text-rose-600" data-countdown-start="${escapeHtml(x.StartAt||'')}" data-countdown-end="${escapeHtml(x.EndAt||'')}">⏳ 計算中…</span></div><b class="event-date-hero block mt-2">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
                     setTimeout(refreshEventCountdowns,0);
                 }else setHtmlSafe('eventList','<p class="text-sm text-amber-600">⚠️ 重要日期暫時無法更新。</p>');
                 portalDataLastLoadedAt=Date.now();
                 // 以下是低頻/非核心內容，獨立失敗不影響上述四區。
-                Promise.allSettled([refreshAISummary(false),refreshCompanyMood(),refreshExternalNews(false),refreshPublicReports()]).then(()=>{});
+                Promise.allSettled([refreshCompanyMood(),refreshExternalNews(false),refreshPublicReports()]).then(()=>{});
             })().finally(()=>{portalDataLoadingPromise=null;});
             return portalDataLoadingPromise;
         }
