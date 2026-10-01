@@ -574,6 +574,7 @@
 <th class="p-3 sortable" onclick="sortM3Table('promo')">有無升遷 ↕</th>
 <th class="p-3 sortable" onclick="sortM3Table('raise')">調薪幅度 (%) ↕</th>
 <th class="p-3 sortable" onclick="sortM3Table('rsu')">RSU (美金) ↕</th>
+<th class="p-3">換算股數 (股)</th>
 </tr>
 </thead>
 <tbody class="text-slate-600 divide-y divide-slate-100" id="m3Tbody"></tbody>
@@ -709,7 +710,7 @@
 <h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">🎁 匿名貢獻 2025 開獎</h2>
 <p class="text-xs text-slate-500 mb-5">輸入您的開獎包裹，建立最透明的獎金常態分佈！資料將傳送至開獎資料庫。</p>
 <form class="space-y-4 text-sm" id="bonusForm" onsubmit="submitBonusForm(event)">
-<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-purple-500" id="bFormGrade" required="" type="text"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-purple-500" id="bFormGrade" required="" type="text"/></div>
 <div>
 <label class="block text-slate-700 font-bold mb-1">考績 (Ranking)</label>
 <select class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormRank" required="">
@@ -744,7 +745,7 @@
 <h2 class="text-xl font-bold text-slate-800 mb-1">🎁 匿名貢獻 2026 開獎</h2>
 <p class="text-xs text-slate-500 mb-5">建立最透明的 2026 開獎常態分佈！</p>
 <form class="space-y-4 text-sm" id="bonus2026Form" onsubmit="submitBonus2026Form(event)">
-<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" maxlength="2" pattern="[A-Za-z][0-9]" required="" type="text"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
 <div><label class="block text-slate-700 font-bold mb-1">考績</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRank" required=""><option disabled="" selected="" value="">請選擇考績</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
 <div><label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填 %)</label><input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRaise" placeholder="例如: 4.5" required="" step="0.01" type="number"/></div>
 <div><label class="block text-slate-700 font-bold mb-1">有無升遷</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormPromo" required=""><option value="無">❌ 未升遷</option><option value="有">✅ 有升遷</option></select></div>
@@ -1653,8 +1654,7 @@ function renderM3Table(pool) {
             } else {
                 document.getElementById('m3Tbody').innerHTML = res.slice(0, 50).map(i => {
                     const shares = Math.round(i.rsu / (MU_PRICE_CURRENT || 1));
-                    const currentVal = Math.round(shares * (MU_PRICE_CURRENT || 1));
-                    return `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">$${i.rsu.toLocaleString()}</td><td class="p-3 text-slate-500">${i.rsu > 0 ? shares + ' 股' : '--'}</td><td class="p-3 font-bold text-amber-500">${i.rsu > 0 ? '$'+currentVal.toLocaleString() : '--'}</td></tr>`;
+                    return `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">$${i.rsu.toLocaleString()}</td><td class="p-3 text-slate-500">${i.rsu > 0 ? shares + ' 股' : '--'}</td></tr>`;
                 }).join('');
             }
         }
@@ -1665,7 +1665,14 @@ function locateM3() {
 
 function clearM3() { }
 
-        function validateGradeValue(v){ return /^[A-Za-z][0-9]$/.test((v||'').trim()); }
+        function validateGradeValue(v){
+            const value=(v||'').trim().toUpperCase();
+            return /^[A-Z0-9]+$/.test(value);
+        }
+        function validateBonusGradeValue(v){
+            const value=(v||'').trim().toUpperCase();
+            return /^[A-Z0-9]+$/.test(value);
+        }
         function validateSalaryInput(input){
             const value=parseFloat(input.value), msg=document.getElementById('salaryGuardMsg');
             if(!isNaN(value)&&value>100){ msg.classList.remove('hidden'); input.classList.add('border-rose-500','ring-2','ring-rose-100'); return false; }
@@ -1678,7 +1685,7 @@ function clearM3() { }
         async function submitBonus2026Form(e){
             e.preventDefault(); const btn=document.getElementById('b3FormSubmitBtn'),msg=document.getElementById('b3FormStatusMsg');
             const grade=document.getElementById('b3FormGrade').value.trim().toUpperCase();
-            if(!validateGradeValue(grade)){alert('職等請填兩位文字，例如 E1、T1、M1。');return;}
+            if(!validateBonusGradeValue(grade)){alert('職等請填英文字母或數字，例如 E1、EE、MM。');return;}
             btn.disabled=true; btn.innerText='2026 資料傳送中...';
             try{ await fetch(API_M3,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({
                 Timestamp:new Date().toISOString(),Grade:grade,Ranking:document.getElementById('b3FormRank').value,Raise:document.getElementById('b3FormRaise').value,Promotion:document.getElementById('b3FormPromo').value,RSU:document.getElementById('b3FormRSU').value}).toString()});
@@ -2201,6 +2208,12 @@ function clearM3() { }
         async function submitBonusForm(e) {
             e.preventDefault();
             const btn = document.getElementById('bFormSubmitBtn'); const msg = document.getElementById('bFormStatusMsg');
+            const bonusGrade = document.getElementById('bFormGrade').value.trim().toUpperCase();
+            if(!validateBonusGradeValue(bonusGrade)){
+                alert('職等請填英文字母或數字，例如 E1、EE、MM。');
+                document.getElementById('bFormGrade').focus();
+                return;
+            }
             btn.disabled = true; btn.innerText = "開獎資料傳送中..."; msg.classList.add('hidden');
 
             const payload = {
