@@ -746,12 +746,12 @@
 <h2 class="text-xl font-bold text-slate-800 mb-1">🎁 匿名貢獻 2026 開獎</h2>
 <p class="text-xs text-slate-500 mb-5">建立最透明的 2026 開獎常態分佈！</p>
 <form class="space-y-4 text-sm" id="bonus2026Form" onsubmit="submitBonus2026Form(event)">
-<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">職等/升遷後 (如:E2/EA/M1，如E1->E2請填E2) </label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
 <div><label class="block text-slate-700 font-bold mb-1">考績</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRank" required=""><option disabled="" selected="" value="">請選擇考績</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
 <div><label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填 %)</label>
 <div class="hidden text-rose-600 font-bold text-xs mb-1" id="b3FormRaiseWarning"></div>
 <input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRaise" oninput="validateBonusRaiseInput('b3FormRaise','b3FormRaiseWarning','b3FormSubmitBtn')" placeholder="例如: 4.5" required="" step="0.01" type="number"/></div>
-<div><label class="block text-slate-700 font-bold mb-1">有無升遷</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormPromo" required=""><option value="無">❌ 未升遷</option><option value="有">✅ 有升遷</option></select></div>
+<div><label class="block text-slate-700 font-bold mb-1">有無升遷（不含Off-cycle升遷)</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormPromo" required=""><option value="無">❌ 未升遷</option><option value="有">✅ 有升遷</option></select></div>
 <div><label class="block text-slate-700 font-bold mb-1">RSU (美金)</label>
 <div class="hidden text-amber-600 font-bold text-xs mb-1" id="b3FormRSUWarning"></div>
 <input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRSU" min="0" oninput="validateBonusRSUInput('b3FormRSU','b3FormRSUWarning')" placeholder="若無請填 0" required="" step="1" type="number"/></div>
