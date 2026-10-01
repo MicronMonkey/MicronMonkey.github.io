@@ -720,7 +720,8 @@
 </div>
 <div>
 <label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填寫 %)</label>
-<input class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormRaise" placeholder="例如: 4.5" required="" step="0.01" type="number"/>
+<div class="hidden text-rose-600 font-bold text-xs mb-1" id="bFormRaiseWarning"></div>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormRaise" oninput="validateBonusRaiseInput('bFormRaise','bFormRaiseWarning','bFormSubmitBtn')" placeholder="例如: 4.5" required="" step="0.01" type="number"/>
 </div>
 <div>
 <label class="block text-slate-700 font-bold mb-1">有無升遷</label>
@@ -747,9 +748,13 @@
 <form class="space-y-4 text-sm" id="bonus2026Form" onsubmit="submitBonus2026Form(event)">
 <div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
 <div><label class="block text-slate-700 font-bold mb-1">考績</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRank" required=""><option disabled="" selected="" value="">請選擇考績</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
-<div><label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填 %)</label><input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRaise" placeholder="例如: 4.5" required="" step="0.01" type="number"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填 %)</label>
+<div class="hidden text-rose-600 font-bold text-xs mb-1" id="b3FormRaiseWarning"></div>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRaise" oninput="validateBonusRaiseInput('b3FormRaise','b3FormRaiseWarning','b3FormSubmitBtn')" placeholder="例如: 4.5" required="" step="0.01" type="number"/></div>
 <div><label class="block text-slate-700 font-bold mb-1">有無升遷</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormPromo" required=""><option value="無">❌ 未升遷</option><option value="有">✅ 有升遷</option></select></div>
-<div><label class="block text-slate-700 font-bold mb-1">RSU (美金)</label><input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRSU" min="0" placeholder="若無請填 0" required="" step="1" type="number"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">RSU (美金)</label>
+<div class="hidden text-amber-600 font-bold text-xs mb-1" id="b3FormRSUWarning"></div>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRSU" min="0" oninput="validateBonusRSUInput('b3FormRSU','b3FormRSUWarning')" placeholder="若無請填 0" required="" step="1" type="number"/></div>
 <button class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold py-3 rounded-lg mt-4" id="b3FormSubmitBtn" type="submit">🚀 送出 2026 開獎資料</button>
 <div class="text-xs text-center font-bold mt-2 hidden" id="b3FormStatusMsg"></div>
 </form>
@@ -1665,6 +1670,57 @@ function locateM3() {
 
 function clearM3() { }
 
+        function validateBonusRaiseInput(inputId, warningId, submitId){
+            const input = document.getElementById(inputId);
+            const warning = document.getElementById(warningId);
+            const btn = document.getElementById(submitId);
+            const raw = input.value.trim();
+            const value = raw === '' ? NaN : Number(raw);
+            let invalid = false;
+            let message = '';
+
+            if(!Number.isNaN(value)){
+                if(value > 50){
+                    invalid = true;
+                    message = '你是山賊的兒子嗎？';
+                }else if(value < 0){
+                    invalid = true;
+                    message = '別鬧了，沒那麼慘吧';
+                }
+            }
+
+            if(invalid){
+                warning.textContent = message;
+                warning.classList.remove('hidden');
+                input.classList.add('border-rose-500','ring-2','ring-rose-100');
+            }else{
+                warning.textContent = '';
+                warning.classList.add('hidden');
+                input.classList.remove('border-rose-500','ring-2','ring-rose-100');
+            }
+            if(btn) btn.disabled = invalid;
+            return !invalid;
+        }
+
+        function validateBonusRSUInput(inputId, warningId){
+            const input = document.getElementById(inputId);
+            const warning = document.getElementById(warningId);
+            const raw = input.value.trim();
+            const value = raw === '' ? NaN : Number(raw);
+            const showWarning = !Number.isNaN(value) && value < 6000;
+
+            if(showWarning){
+                warning.textContent = 'JE請你確認單位是否正確（美元）';
+                warning.classList.remove('hidden');
+                input.classList.add('border-amber-400','ring-2','ring-amber-100');
+            }else{
+                warning.textContent = '';
+                warning.classList.add('hidden');
+                input.classList.remove('border-amber-400','ring-2','ring-amber-100');
+            }
+            return true;
+        }
+
         function validateGradeValue(v){
             const value=(v||'').trim().toUpperCase();
             return /^[A-Z0-9]+$/.test(value);
@@ -1686,6 +1742,11 @@ function clearM3() { }
             e.preventDefault(); const btn=document.getElementById('b3FormSubmitBtn'),msg=document.getElementById('b3FormStatusMsg');
             const grade=document.getElementById('b3FormGrade').value.trim().toUpperCase();
             if(!validateBonusGradeValue(grade)){alert('職等請填英文字母或數字，例如 E1、EE、MM。');return;}
+            if(!validateBonusRaiseInput('b3FormRaise','b3FormRaiseWarning','b3FormSubmitBtn')){
+                document.getElementById('b3FormRaise').focus();
+                return;
+            }
+            validateBonusRSUInput('b3FormRSU','b3FormRSUWarning');
             btn.disabled=true; btn.innerText='2026 資料傳送中...';
             try{ await fetch(API_M3,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({
                 Timestamp:new Date().toISOString(),Grade:grade,Ranking:document.getElementById('b3FormRank').value,Raise:document.getElementById('b3FormRaise').value,Promotion:document.getElementById('b3FormPromo').value,RSU:document.getElementById('b3FormRSU').value}).toString()});
@@ -2212,6 +2273,10 @@ function clearM3() { }
             if(!validateBonusGradeValue(bonusGrade)){
                 alert('職等請填英文字母或數字，例如 E1、EE、MM。');
                 document.getElementById('bFormGrade').focus();
+                return;
+            }
+            if(!validateBonusRaiseInput('bFormRaise','bFormRaiseWarning','bFormSubmitBtn')){
+                document.getElementById('bFormRaise').focus();
                 return;
             }
             btn.disabled = true; btn.innerText = "開獎資料傳送中..."; msg.classList.add('hidden');
