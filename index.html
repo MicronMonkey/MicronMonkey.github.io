@@ -919,7 +919,7 @@
                 const promo=(promoRaw.includes('有')||promoRaw.includes('yes')||promoRaw.includes('y')||promoRaw.includes('是')||promoRaw==='1'||promoRaw==='true')?'Yes':'No';
                 const rawRaise=findField(item,['Raise','Annual Increase','AnnualIncr','Increase','調薪幅度','調薪','調薪(%)'],3);
                 let raise=parseFloat(rawRaise); if(!Number.isFinite(raise)) raise=0;
-                if(raise>0 && raise<=2 && !String(rawRaise).includes('%')) raise*=100;
+                if(raise>0 && raise<0.3 && !String(rawRaise).includes('%')) raise*=100;
                 const rsu=parseFloat(findField(item,['RSU','RSU($)','限制型股票','股票','RSU美金'],5)) || 0;
                 return {id:i,grade,perf,promo,raise:Math.round(raise*100)/100,rsu};
             }).filter(x=>x.grade);
