@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>m光光猴薪情平台 v9 • PortalDB 3.4.2</title>
+<link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
+<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        body { background-color: #f8fafc; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        .tab-active { background-color: #0066cc; color: white; border-color: #0066cc; }
+        .btn-series-active { background-color: #0066cc; color: white; border-color: #0066cc; box-shadow: 0 2px 4px rgba(0,102,204,0.25); }
+        .btn-grade-active { background-color: #0284c7; color: white; border-color: #0284c7; font-weight: bold; }
+        .heatmap-cell { transition: all 0.2s; }
+        .heatmap-cell:hover { transform: scale(1.02); filter: brightness(0.95); }
+        .mode-btn-active { background-image: linear-gradient(to right, #3b82f6, #8b5cf6); color: white; box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39); border-color: transparent; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); z-index: 50; backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        /* Table Sort Icon */
+        th.sortable:hover { background-color: #e2e8f0; cursor: pointer; transition: background 0.2s; }
+    
+        /* ===== V9 UX upgrades ===== */
+        .portal-poll-scroll { max-height: 520px; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
+        .portal-poll-scroll::-webkit-scrollbar { width: 8px; }
+        .portal-poll-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+        .portal-report-viewport { height: 302px; overflow: hidden; position: relative; }
+        .portal-report-track { display: flex; flex-direction: column; gap: 8px; transition: transform .6s ease; }
+        .portal-report-row { height: 54px; min-height: 54px; max-height: 54px; box-sizing: border-box; overflow: hidden; }
+        .portal-stock-bar { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(10px); }
+        .portal-stock-up { color:#34d399; } .portal-stock-down { color:#fb7185; }
+        .portal-report-content { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; line-height:1.35; }
+</style>
+<link href="manifest.webmanifest" rel="manifest"/>
+<meta content="#0f172a" name="theme-color"/>
+<style>
+.keyword-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:9px 13px;min-height:150px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#f8fafc,#eef2ff);overflow:hidden}.keyword-cloud .kw{display:inline-flex;align-items:center;line-height:1.1;font-weight:900;color:#334155;cursor:pointer;transition:transform .15s ease,opacity .15s ease}.keyword-cloud .kw:hover{transform:scale(1.06);opacity:.75}.keyword-cloud .kw .heat{font-size:.55em;margin-left:4px;opacity:.55}.external-news-item{display:block;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}.external-news-item:hover{background:#eef2ff}.portal-report-viewport{height:290px;overflow:hidden}.portal-report-track{display:flex;flex-direction:column;gap:8px}.portal-report-row{height:50px;min-height:50px;overflow:hidden}.portal-report-content{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.event-timeline{position:relative;padding-left:22px}.event-timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e2e8f0}.event-item{position:relative;padding:12px 0 12px 14px}.event-item:before{content:"";position:absolute;left:-1px;top:19px;width:11px;height:11px;border-radius:999px;background:#6366f1;border:3px solid white;box-shadow:0 0 0 2px #c7d2fe}.event-date-hero{font-size:1.05rem;font-weight:900;color:#be123c}.event-range{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;background:#fff1f2;color:#be123c;font-weight:900;font-size:.8rem}.news-meta{display:inline-flex;align-items:center;gap:7px;font-size:14px;line-height:1.35;color:#475569;font-weight:800;margin-bottom:4px}.news-meta .news-source-tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:900}.news-meta .news-date{font-size:14px;font-weight:800;color:#64748b}.external-news-item .news-title{font-size:1rem;line-height:1.5;font-weight:900;color:#0f172a}.ai-summary{line-height:1.7}.external-status{font-size:11px}
+.news-filter{transition:.15s}.event-countdown{font-weight:900}
+.news-filter{transition:.15s}.event-date-hero{letter-spacing:.01em}
+
+<style>
+/* V5.2.1 stability / layout fixes */
+.portal-report-viewport{height:570px;max-height:570px;overflow:hidden;position:relative}
+.portal-report-track{display:flex;flex-direction:column;gap:6px;transition:transform .45s ease}
+.portal-report-row{height:108px;min-height:108px;max-height:108px;box-sizing:border-box;overflow:hidden}
+.portal-report-content{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.35;overflow-wrap:anywhere}
+.portal-tool-status{font-size:11px}.event-countdown{font-size:10px;line-height:1.2;white-space:nowrap}
+</style></head>
+<body class="p-4 md:p-8 relative">
+<div class="max-w-7xl mx-auto">
+<!-- Header -->
+<header class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-200 shrink-0">
+<svg class="w-10 h-10" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M22 25 L37 25 L47 75 L32 75 Z" fill="#0066cc"></path>
+<path d="M44 25 L59 25 L69 75 L54 75 Z" fill="#0066cc"></path>
+<path d="M59 25 C72 25, 82 38, 85 55 L89 75 L74 75 L71 60 C69 50, 64 42, 56 42 Z" fill="#0066cc"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                        光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v10 PORTAL DB</span>
+</h1>
+<p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p><div class="mt-2 flex flex-wrap gap-2 text-[11px] font-bold"><span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">👁 總瀏覽 <b id="pageViewTotal">--</b></span><span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">🔥 今日 <b id="pageViewToday">--</b></span></div><button class="bg-violet-500 hover:bg-violet-400 text-white border border-violet-300/30 px-2 py-1 rounded-full text-[8px] leading-none whitespace-nowrap" onclick="openWishlistModal()">💡 功能許願</button>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center w-full md:w-auto">
+<div class="relative overflow-hidden inline-flex items-center gap-2 bg-slate-800 text-slate-300 text-xs px-4 py-2 rounded-full border border-slate-700 w-full sm:w-64 transition-colors" id="statusContainer">
+<div class="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-blue-600 to-emerald-500 transition-all duration-300" id="loadingBar" style="width: 5%;"></div>
+<div class="relative z-10 flex items-center justify-center w-full gap-2 font-bold drop-shadow-md">
+<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse" id="loadingDot"></span>
+<span class="tracking-wide" id="loadingText">連線初始化中...</span>
+</div>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer border border-slate-600" onclick="openFormModal()">
+                        📝 貢獻日常薪情
+                    </button>
+<button class="flex-1 sm:flex-none bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer" onclick="openBonusModal()">
+                        🎁 貢獻 2025 開獎
+                    </button>
+<button class="flex-1 sm:flex-none bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer" onclick="openBonus2026Modal()">
+                        🎁 貢獻 2026 開獎
+                    </button>
+</div>
+</div>
+</header>
+<!-- 🚀 核心雙模式切換 🚀 -->
+<div class="flex flex-wrap items-center gap-2 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode2" onclick="switchMode(2)">🎁 2025 開獎</button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent relative" id="btnMode3" onclick="switchMode(3)">🎁 2026 開獎 <span class="absolute -top-2 -right-2 bg-rose-500 text-white text-[9px] px-2 py-0.5 rounded-full shadow animate-pulse">即將到來</span></button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent flex justify-center items-center gap-1" id="btnMode4" onclick="switchMode(4)">🏭 工會資訊 <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span class="relative inline-flex rounded-full h-full w-2 bg-rose-500"></span></span></button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode5" onclick="switchMode(5)">🧰 員工工具箱</button>
+</div>
+<!-- 📈 Sticky MU stock ticker: visible across all tabs -->
+<div class="portal-stock-bar mb-5 rounded-2xl border border-slate-700 bg-slate-950/95 text-white shadow-lg" id="muStockBar">
+<div class="px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+<div class="flex items-center gap-3">
+<span class="bg-blue-600 text-white font-bold text-xs px-2 py-1 rounded">NASDAQ: MU</span>
+<div>
+<div class="text-[10px] text-slate-400">美光科技 Micron Technology</div>
+<div class="flex items-baseline gap-2">
+<span class="text-xl font-black" id="muStockPrice">載入中...</span>
+<span class="text-sm font-bold" id="muStockChange">--</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 text-[10px] text-slate-400">
+<span id="muStockTime">等待報價</span>
+<button class="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-slate-200" onclick="refreshMUStock(true)">↻ 更新</button>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MODE 1: 日常薪情模式 (BASE SALARY) -->
+<!-- ========================================== -->
+<div class="space-y-6 block animate-[fadeIn_0.5s_ease-out]" id="mode1Container">
+<!-- TOP PANEL -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+<div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+<p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 總調查人數 (母體樣本)</p>
+<p class="text-3xl font-black mt-1" id="totalGlobalCount">連線中...</p>
+</div>
+<div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
+<div>
+<label class="block text-slate-500 font-bold mb-1">1. 職等群篩選 (Series)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" id="filterSeries" onchange="updateCharts()">
+<option selected="" value="All">全部職系 (E*, T*, M*, D*...)</option>
+<option value="E">E系 (工程師)</option>
+<option value="T">T系 (技術員)</option>
+<option value="M">M系 (主管職)</option>
+<option value="D">D系 (操作員)</option>
+</select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">2. 職等快速過濾 (GJS)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" id="filterGrade" onchange="updateCharts()">
+<option selected="" value="All">全部職等</option>
+</select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">3. 團隊類型</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 font-semibold outline-none" id="filterTeam" onchange="updateCharts()">
+<option selected="" value="All">全部類型 (Global &amp; Site)</option>
+<option value="Global team">Global team</option>
+<option value="Site team">Site team</option>
+</select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1 flex justify-between">
+<span>4. 年資篩選範圍</span>
+<span class="text-blue-600 font-bold" id="expRangeLabel">0 - 25 年</span>
+</label>
+<div class="space-y-1 mt-1">
+<div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Min:</span><input class="w-full accent-blue-600 cursor-pointer" id="filterExpMin" max="25" min="0" oninput="updateExpSliders(); updateCharts();" type="range" value="0"/></div>
+<div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Max:</span><input class="w-full accent-blue-600 cursor-pointer" id="filterExpMax" max="25" min="0" oninput="updateExpSliders(); updateCharts();" type="range" value="25"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標)</h3>
+<p class="text-xs text-slate-400 mb-3">(自動屏蔽少於2筆數據，柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<div class="relative h-80"><canvas id="boxSalaryChart"></canvas></div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📊 各職等參與調查人數 (數據母體分佈)</h3>
+<p class="text-xs text-slate-400 mb-3">（🚀 橫軸已按照 D-&gt;T-&gt;E-&gt;M 層級嚴格順序排列）</p>
+<div class="relative h-80"><canvas id="sampleCountChart"></canvas></div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<div class="space-y-6 lg:col-span-1">
+<div class="bg-gradient-to-b from-slate-800 to-slate-900 text-white p-5 rounded-2xl shadow-sm border border-slate-700/50 relative overflow-hidden">
+<h3 class="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">📍 互動定位：我在猴群哪個位置？</h3>
+<div class="space-y-3 text-xs relative z-10">
+<div><label class="block text-slate-300 mb-1">您的職等 (如: E2, T3)</label><input class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none uppercase" id="myGrade" placeholder="e.g. E2" type="text"/></div>
+<div><label class="block text-slate-300 mb-1">總工作年資 (年)</label><input class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none" id="myExp" placeholder="e.g. 4.5" step="0.1" type="number"/></div>
+<div><label class="block text-slate-300 mb-1">月薪 (萬元，不含加班費)</label><input class="w-full bg-slate-700 border border-slate-600 rounded p-1.5 text-white outline-none" id="mySalary" oninput="calculateBonus()" placeholder="e.g. 9.2" step="0.1" type="number"/></div>
+<div class="grid grid-cols-2 gap-2 pt-1"><button class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 rounded transition-colors cursor-pointer text-center" onclick="locateMe()">開始定位</button><button class="bg-slate-700 hover:bg-slate-600 text-slate-300 p-2 rounded transition-colors cursor-pointer text-center" onclick="clearLocation()">清除定位</button></div>
+</div>
+</div>
+<div class="hidden mb-3 p-3 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-200 text-xs font-bold" id="ceilingAlert">🚨 你已接近此職等薪資高位區間。</div>
+<div class="hidden bg-gradient-to-br from-slate-900 to-blue-950 text-white p-5 rounded-2xl shadow-md border border-blue-500/20" id="percentileCard">
+<h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2">📊 薪資勝率百分位報告</h3>
+<div class="space-y-4 text-xs">
+<div><p class="text-[11px] text-slate-400">同職等勝率 (Grade Percentile)</p><div class="flex items-baseline gap-1 mt-0.5"><span class="text-3xl font-black text-amber-400" id="pctGradeRes">--%</span><span class="text-slate-400 text-[11px]" id="pctGradeLabel">領先該職等同仁</span></div></div>
+<div><p class="text-[11px] text-slate-400">相似年資勝率 (±2年資產圈)</p><div class="flex items-baseline gap-1 mt-0.5"><span class="text-3xl font-black text-sky-400" id="pctExpRes">--%</span><span class="text-slate-400 text-[11px]">同資歷同仁</span></div></div>
+</div>
+</div>
+<div class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-amber-500/20" id="promoCard">
+<h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">⚡ 職等晉升薪資跳升預估 (ROI)</h3>
+<div class="text-xs space-y-2 text-slate-300" id="promoContent"></div>
+</div>
+<div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-900 text-white p-5 rounded-2xl shadow-md border border-indigo-500/30">
+<h3 class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-2 flex items-center gap-1">🎁 考績分紅與預估年薪計算器</h3>
+<div class="space-y-3 text-xs">
+<div class="grid grid-cols-2 gap-2">
+<div><label class="block text-slate-300 mb-1">公司績效 (%)</label><input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-amber-300 font-bold outline-none text-center" id="compPerf" oninput="calculateBonus()" step="10" type="number" value="200"/></div>
+<div><label class="block text-slate-300 mb-1">個人績效 (%)</label><input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-emerald-400 font-bold outline-none text-center" id="userPerf" oninput="calculateBonus()" step="10" type="number" value="100"/></div>
+</div>
+<div class="bg-slate-950/80 p-3 rounded-xl border border-indigo-500/20 space-y-2 mt-2">
+<div class="flex justify-between items-center text-[11px]"><span class="text-slate-400">保障底薪 (14個月):</span><span class="font-bold text-slate-200" id="baseAnnualVal">0 萬元</span></div>
+<div class="flex justify-between items-center text-[11px]"><span class="text-slate-400">預估考績分紅:</span><span class="font-bold text-emerald-400" id="bonusVal">0 萬元</span></div>
+<div class="border-t border-slate-800 pt-1.5 flex justify-between items-center text-xs"><span class="font-bold text-amber-300">🚀 預估總年薪:</span><span class="text-base font-black text-amber-400" id="totalAnnualVal">0 萬元</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-3 space-y-6">
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
+<div>
+<h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線</h3>
+<p class="text-xs text-slate-400 mt-0.5">🚀 圖表高度增倍，圖例與標點精緻化，點選圖例可開啟/隱藏該職等。</p>
+</div>
+<div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
+<button class="px-3 py-1.5 rounded-md tab-active cursor-pointer" id="tabAll" onclick="changeSeriesTab('All')">全體</button>
+<button class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer" id="tabE" onclick="changeSeriesTab('E')">E系</button>
+<button class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer" id="tabT" onclick="changeSeriesTab('T')">T系</button>
+<button class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer" id="tabM" onclick="changeSeriesTab('M')">M系</button>
+<button class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer" id="tabD" onclick="changeSeriesTab('D')">D系</button>
+</div>
+</div>
+<!-- 🚀 調整高度 2倍 (600px) -->
+<div class="relative h-[600px]"><canvas id="mainScatterChart"></canvas></div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)</h3>
+<p class="text-xs text-slate-400 mb-4">（🚀 橫向職等已按照 D-&gt;T-&gt;E-&gt;M 嚴格層級順序排列）</p>
+<div class="overflow-x-auto">
+<table class="w-full text-center border-collapse text-xs min-w-[650px] border">
+<thead><tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200" id="heatmapHeaderRow"><th class="p-3 text-left bg-slate-200">目標月薪級距</th></tr></thead>
+<tbody class="divide-y divide-slate-100 font-medium" id="heatmapTableBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- List -->
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+<div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+<div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+<div>
+<h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視與搜尋</h3>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportCSV()">📥 匯出 CSV</button>
+<span class="text-xs bg-blue-100 text-blue-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="tableRowCount">顯示 0 筆</span>
+</div>
+</div>
+<div class="space-y-3 text-xs">
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+<span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnSecAll" onclick="changeTableSeries('All')">全體</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnSecE" onclick="changeTableSeries('E')">E系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnSecT" onclick="changeTableSeries('T')">T系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnSecM" onclick="changeTableSeries('M')">M系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnSecD" onclick="changeTableSeries('D')">D系</button>
+</div>
+<div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+<span class="text-slate-400 font-medium px-2 shrink-0">團隊：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnTeamAll" onclick="changeTableTeam('All')">全部</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnTeamGlobal" onclick="changeTableTeam('Global team')">Global</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnTeamSite" onclick="changeTableTeam('Site team')">Site</button>
+</div>
+<div class="flex-1 min-w-[200px]">
+<input class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-blue-500 shadow-sm" id="tableSearchInput" oninput="renderTable()" placeholder="🔍 搜尋部門、職等或團隊..." type="text"/>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="subGradeButtonGroup">
+<span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
+<div class="flex flex-wrap items-center gap-1.5" id="subGradeButtons">
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeTableSubGrade('All')">全部職等</button>
+</div>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto max-h-80 text-xs">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
+<tr>
+<th class="p-3 sortable" onclick="sortM1Table('grade')">職等 (GJS) ↕</th>
+<th class="p-3 sortable" onclick="sortM1Table('experience')">總工作年資 ↕</th>
+<th class="p-3 sortable" onclick="sortM1Table('salary')">月薪 (萬元) ↕</th>
+<th class="p-3 sortable" onclick="sortM1Table('team_type')">團隊類型 ↕</th>
+<th class="p-3 sortable" onclick="sortM1Table('department')">部門 ↕</th>
+<th class="p-3">常態狀態</th>
+</tr>
+</thead>
+<tbody class="text-slate-600 divide-y divide-slate-100" id="dataTableBody"></tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- ========================================== -->
+<!-- MODE 2: 2025 開獎模式 (BONUS & RSU) -->
+<!-- ========================================== -->
+<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode2Container">
+<!-- TOP PANEL -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+<div class="lg:col-span-1 bg-gradient-to-br from-purple-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+<p class="text-xs font-medium text-purple-200 uppercase tracking-wider">🎁 開獎調查人數 (2025)</p>
+<p class="text-3xl font-black mt-1" id="totalGlobalCount2">連線中...</p>
+</div>
+<div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+<div>
+<label class="block text-slate-500 font-bold mb-1">1. 職等群 (Series)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m2FilterSeries" onchange="updateM2Charts()"><option value="All">全部職系</option><option value="E">E系</option><option value="T">T系</option><option value="M">M系</option><option value="D">D系</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m2FilterPromo" onchange="updateM2Charts()"><option value="All">全部 (升遷+未升遷)</option><option value="Yes">✅ 有升遷 (Promoted)</option><option value="No">❌ 未升遷 (Normal)</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m2FilterPerf" onchange="updateM2Charts()"><option value="All">全部考績</option></select>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Locate Me Bonus -->
+<div class="space-y-6 lg:col-span-1">
+<div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-5 rounded-2xl shadow-sm border border-purple-500/30">
+<h3 class="text-sm font-bold text-fuchsia-300 mb-3">📍 2025 開獎定位器</h3>
+<p class="text-[10px] text-slate-300 mb-3">檢驗您的 Package 在同類人中是好是壞。</p>
+<div class="space-y-3 text-xs">
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 uppercase outline-none" id="m2MyGrade" placeholder="職等 e.g. E2" type="text"/>
+<select class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-white outline-none" id="m2MyPromo">
+<option value="No">未升遷 (❌ 無)</option><option value="Yes">有升遷 (✅ 有)</option>
+</select>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m2MyPerf" placeholder="考績 e.g. 3 或 Meets" type="text"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m2MyRaise" placeholder="調薪幅度 (%) e.g. 4.5" step="0.1" type="number"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m2MyRsu" placeholder="RSU 數量 (美金) e.g. 5000" step="1" type="number"/>
+<div class="grid grid-cols-2 gap-2 pt-1"><button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded font-bold" onclick="locateM2()">檢驗 PR 值</button><button class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded" onclick="clearM2()">清除</button></div>
+</div>
+</div>
+<div class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-fuchsia-500/30" id="m2PctCard">
+<h3 class="text-xs font-bold text-fuchsia-400 mb-3">📊 2025 開獎勝率報告</h3>
+<p class="text-[10px] text-slate-400 mb-3 border-b border-slate-700 pb-2" id="m2TargetGroup">比對母體：...</p>
+<div class="space-y-3 text-xs">
+<div class="flex justify-between items-baseline">
+<span class="text-slate-300">調薪幅度 PR值</span><span class="text-2xl font-black text-amber-400" id="m2PctRaise">--%</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="text-slate-300">RSU 美金 PR值</span><span class="text-2xl font-black text-emerald-400" id="m2PctRsu">--%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Charts -->
+<div class="lg:col-span-3 space-y-6">
+<!-- Chart 1: RSU Box Chart -->
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 2025 各職等 RSU 分發力道 (美金)</h3>
+<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等，直觀看出 RSU 爆發分水嶺。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<div class="relative h-80"><canvas id="m2RsuChart"></canvas></div>
+</div>
+<!-- Chart 2: Raise by Perf Box Chart -->
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
+<p class="text-xs text-slate-400 mb-3">藍柱：未升遷 (純吃考績)｜紫柱：有升遷 (升等大禮包)。直觀看見考績間的鑑別度！(已支援高低標與平均值繪製)</p>
+<div class="relative h-80"><canvas id="m2RaiseChart"></canvas></div>
+</div>
+</div>
+</div>
+<!-- List for Mode 2 -->
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+<div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+<div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+<div>
+<h3 class="text-sm font-bold text-slate-800">📋 2025 開獎清單快速檢視與搜尋</h3>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportM2CSV()">📥 匯出 CSV</button>
+<span class="text-xs bg-purple-100 text-purple-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="m2Count">顯示 0 筆</span>
+</div>
+</div>
+<div class="space-y-3 text-xs">
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+<span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM2SecAll" onclick="changeM2TableSeries('All')">全體</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2SecE" onclick="changeM2TableSeries('E')">E系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2SecT" onclick="changeM2TableSeries('T')">T系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2SecM" onclick="changeM2TableSeries('M')">M系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2SecD" onclick="changeM2TableSeries('D')">D系</button>
+</div>
+<!-- 🚀 新增：升遷過濾器 -->
+<div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+<span class="text-slate-400 font-medium px-2 shrink-0">升遷：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM2PromoAll" onclick="changeM2TablePromo('All')">全部</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2PromoYes" onclick="changeM2TablePromo('Yes')">✅ 有升遷</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2PromoNo" onclick="changeM2TablePromo('No')">❌ 未升遷</button>
+</div>
+<div class="flex-1 min-w-[200px]">
+<input class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-purple-500 shadow-sm" id="m2Search" oninput="renderM2Table()" placeholder="🔍 搜尋職等或關鍵字..." type="text"/>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m2SubGradeButtonGroup">
+<span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
+<div class="flex flex-wrap items-center gap-1.5" id="m2SubGradeButtons">
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM2TableSubGrade('All')">全部職等</button>
+</div>
+</div>
+<!-- 🚀 新增：動態考績過濾器 -->
+<div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m2PerfButtonGroup">
+<span class="text-slate-400 font-medium px-1 shrink-0">考績：</span>
+<div class="flex flex-wrap items-center gap-1.5" id="m2PerfButtons">
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM2TablePerf('All')">全部考績</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto max-h-80 text-xs">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
+<tr>
+<th class="p-3 sortable" onclick="sortM2Table('grade')">職等 ↕</th>
+<th class="p-3 sortable" onclick="sortM2Table('perf')">考績 ↕</th>
+<th class="p-3 sortable" onclick="sortM2Table('promo')">有無升遷 ↕</th>
+<th class="p-3 sortable" onclick="sortM2Table('raise')">調薪幅度 (%) ↕</th>
+<th class="p-3 sortable" onclick="sortM2Table('rsu')">RSU (美金) ↕</th>
+</tr>
+</thead>
+<tbody class="text-slate-600 divide-y divide-slate-100" id="m2Tbody"></tbody>
+</table>
+</div>
+</section>
+</div>
+<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode3Container">
+<!-- TOP PANEL -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
+<div class="lg:col-span-1 bg-gradient-to-br from-purple-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
+<p class="text-xs font-medium text-purple-200 uppercase tracking-wider">🎁 開獎調查人數 (2026)</p>
+<p class="text-3xl font-black mt-1" id="totalGlobalCount3">連線中...</p>
+</div>
+<div class="lg:col-span-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+<div>
+<label class="block text-slate-500 font-bold mb-1">1. 職等群 (Series)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterSeries" onchange="updateM3Charts()"><option value="All">全部職系</option><option value="E">E系</option><option value="T">T系</option><option value="M">M系</option><option value="D">D系</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterPromo" onchange="updateM3Charts()"><option value="All">全部 (升遷+未升遷)</option><option value="Yes">✅ 有升遷 (Promoted)</option><option value="No">❌ 未升遷 (Normal)</option></select>
+</div>
+<div>
+<label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterPerf" onchange="updateM3Charts()"><option value="All">全部考績</option></select>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Locate Me Bonus -->
+<div class="space-y-6 lg:col-span-1">
+<div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-5 rounded-2xl shadow-sm border border-purple-500/30">
+<h3 class="text-sm font-bold text-fuchsia-300 mb-3">📍 2026 開獎定位器</h3>
+<p class="text-[10px] text-slate-300 mb-3">檢驗您的 Package 在同類人中是好是壞。</p>
+<div class="space-y-3 text-xs">
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 uppercase outline-none" id="m3MyGrade" placeholder="職等 e.g. E2" type="text"/>
+<select class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-white outline-none" id="m3MyPromo">
+<option value="No">未升遷 (❌ 無)</option><option value="Yes">有升遷 (✅ 有)</option>
+</select>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyPerf" placeholder="考績 e.g. 3 或 Meets" type="text"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyRaise" placeholder="調薪幅度 (%) e.g. 4.5" step="0.1" type="number"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyRsu" placeholder="RSU 數量 (美金) e.g. 5000" step="1" type="number"/>
+<div class="grid grid-cols-2 gap-2 pt-1"><button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded font-bold" onclick="locateM3()">檢驗 PR 值</button><button class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded" onclick="clearM3()">清除</button></div>
+</div>
+</div>
+<div class="hidden bg-slate-900 text-white p-5 rounded-2xl shadow-md border border-fuchsia-500/30" id="m3PctCard">
+<h3 class="text-xs font-bold text-fuchsia-400 mb-3">📊 2026 開獎勝率報告</h3>
+<p class="text-[10px] text-slate-400 mb-3 border-b border-slate-700 pb-2" id="m3TargetGroup">比對母體：...</p>
+<div class="space-y-3 text-xs">
+<div class="flex justify-between items-baseline">
+<span class="text-slate-300">調薪幅度 PR值</span><span class="text-2xl font-black text-amber-400" id="m3PctRaise">--%</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="text-slate-300">RSU 美金 PR值</span><span class="text-2xl font-black text-emerald-400" id="m3PctRsu">--%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Charts -->
+<div class="lg:col-span-3 space-y-6">
+<!-- Chart 1: RSU Box Chart -->
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 2026 各職等 RSU 分發力道 (美金)</h3>
+<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等，直觀看出 RSU 爆發分水嶺。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<div class="relative h-80"><canvas id="m3RsuChart"></canvas></div>
+</div>
+<!-- Chart 2: Raise by Perf Box Chart -->
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
+<p class="text-xs text-slate-400 mb-3">藍柱：未升遷 (純吃考績)｜紫柱：有升遷 (升等大禮包)。直觀看見考績間的鑑別度！(已支援高低標與平均值繪製)</p>
+<div class="relative h-80"><canvas id="m3RaiseChart"></canvas></div>
+</div>
+</div>
+</div>
+<!-- List for Mode 2 -->
+<section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+<div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
+<div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+<div>
+<h3 class="text-sm font-bold text-slate-800">📋 2026 開獎清單快速檢視與搜尋</h3>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportM3CSV()">📥 匯出 CSV</button>
+<span class="text-xs bg-purple-100 text-purple-700 px-3 py-2 rounded-xl font-bold shadow-sm" id="m3Count">顯示 0 筆</span>
+</div>
+</div>
+<div class="space-y-3 text-xs">
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+<span class="text-slate-400 font-medium px-2 shrink-0">職系：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM3SecAll" onclick="changeM3TableSeries('All')">全體</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecE" onclick="changeM3TableSeries('E')">E系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecT" onclick="changeM3TableSeries('T')">T系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecM" onclick="changeM3TableSeries('M')">M系</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecD" onclick="changeM3TableSeries('D')">D系</button>
+</div>
+<!-- 🚀 新增：升遷過濾器 -->
+<div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+<span class="text-slate-400 font-medium px-2 shrink-0">升遷：</span>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM3PromoAll" onclick="changeM3TablePromo('All')">全部</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3PromoYes" onclick="changeM3TablePromo('Yes')">✅ 有升遷</button>
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3PromoNo" onclick="changeM3TablePromo('No')">❌ 未升遷</button>
+</div>
+<div class="flex-1 min-w-[200px]">
+<input class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 outline-none focus:border-purple-500 shadow-sm" id="m3Search" oninput="renderM3Table()" placeholder="🔍 搜尋職等或關鍵字..." type="text"/>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m3SubGradeButtonGroup">
+<span class="text-slate-400 font-medium px-1 shrink-0">具體職等：</span>
+<div class="flex flex-wrap items-center gap-1.5" id="m3SubGradeButtons">
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM3TableSubGrade('All')">全部職等</button>
+</div>
+</div>
+<!-- 🚀 新增：動態考績過濾器 -->
+<div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m3PerfButtonGroup">
+<span class="text-slate-400 font-medium px-1 shrink-0">考績：</span>
+<div class="flex flex-wrap items-center gap-1.5" id="m3PerfButtons">
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM3TablePerf('All')">全部考績</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto max-h-80 text-xs">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
+<tr>
+<th class="p-3 sortable" onclick="sortM3Table('grade')">職等 ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('perf')">考績 ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('promo')">有無升遷 ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('raise')">調薪幅度 (%) ↕</th>
+<th class="p-3 sortable" onclick="sortM3Table('rsu')">RSU (美金) ↕</th>
+<th class="p-3">換算股數 (股)</th>
+</tr>
+</thead>
+<tbody class="text-slate-600 divide-y divide-slate-100" id="m3Tbody"></tbody>
+</table>
+</div>
+</section>
+</div>
+<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode4Container">
+<div class="bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-rose-500 rounded-bl-full opacity-10"></div>
+<h2 class="text-2xl md:text-3xl font-black text-slate-800 border-b-4 border-rose-500 pb-3 mb-6 inline-block">🏭 加入【美光工會】，讓員工有真正的聲音！</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div class="space-y-4">
+<ul class="space-y-4 text-sm md:text-base text-slate-700">
+<li class="flex items-start gap-2"><span>⚖️</span> <span><b>遭遇不公？</b><br/><span class="text-slate-500">工會幫你協調、法律支援絕對到位。</span></span></li>
+<li class="flex items-start gap-2"><span>🗣️</span> <span><b>想改變現狀？</b><br/><span class="text-slate-500">工會核心成員可直接參與薪酬與勞資會議。</span></span></li>
+<li class="flex items-start gap-2"><span>🛡️</span> <span><b>需要保障？</b><br/><span class="text-slate-500">會員專享免費法律諮詢、節慶專屬回饋、急難互助金制度。</span></span></li>
+<li class="flex items-start gap-2"><span>🎉</span> <span><b>想看到實質成果？</b><br/><span class="text-rose-600 font-bold">今年的三天有薪假，就是我們爭取來的！</span></span></li>
+</ul>
+</div>
+<div class="bg-rose-50 p-6 rounded-2xl border border-rose-100 flex flex-col justify-center">
+<h3 class="text-lg font-black text-rose-800 mb-2">📢 你的參與，就是改變的開始</h3>
+<p class="text-sm text-rose-700 leading-relaxed font-medium mb-4">
+                            每月只需 250 元（年底前免入會費），<br/>讓我們一起集結力量，讓公司不再能假裝聽不見！<br/>人越多，力量越大，制度才會真正改變。
+                        </p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h4 class="font-black text-slate-800 mb-3 text-lg border-l-4 border-blue-500 pl-2">📍 桃園工會</h4>
+<p class="text-xs text-slate-600 mb-2 font-bold">有任何問題歡迎聯繫我們~<br/>也歡迎跟我們聊聊或是加入工會！</p>
+<div class="space-y-2 text-sm font-medium mt-4">
+<a class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition-all shadow" href="https://forms.gle/UTjfm4YeWQusxx1R7" target="_blank">👉 加入桃園工會</a>
+<a class="block w-full text-center bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 rounded-lg transition-all" href="https://forms.gle/3vbDYYPLjjR8jUNi8" target="_blank">⚠️ 想要申訴</a>
+<div class="mt-4 text-xs text-slate-600 space-y-1">
+<p><b>辦公室位置：</b>F11 廠務1樓大辦公室H125辦公室隔壁(左邊)</p>
+<p><b>工會布告欄：</b>F11 一樓及五樓公佈欄區</p>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm">
+<h4 class="font-black text-slate-800 mb-3 text-lg border-l-4 border-emerald-500 pl-2">📍 台中工會</h4>
+<p class="text-xs text-slate-600 mb-2 font-bold">你不敢說的，我們幫你說！你不敢做的，我們幫你做！<br/>現在就加入美光台中工會，讓工程師勇敢拿回權益！</p>
+<div class="space-y-2 text-sm font-medium mt-4">
+<a class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-lg transition-all shadow" href="https://asdfgghghhh.github.io/micron-union-form../" target="_blank">👉 線上入會申請 (台中)</a>
+<div class="mt-4 text-xs text-slate-600 space-y-1">
+<p><b>專人聯繫：</b>Teams 私訊 Mark Hsu</p>
+<p>台灣美光記憶體企業工會，與您同行，共同守護勞動權益</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm mt-6">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h3 class="text-lg font-black text-slate-800">📈 工會會員人數成長趨勢</h3>
+<p class="text-xs text-slate-400 mt-1">團結力量大！感謝每一位站出來的夥伴。</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-400">最新回報人數</p>
+<p class="text-2xl font-black text-rose-600" id="latestUnionCount">載入中...</p>
+</div>
+</div>
+<div class="relative h-64 w-full"><canvas id="unionTrendChart"></canvas></div><div class="mt-6 pt-6 border-t border-slate-200">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div><h4 class="font-black text-slate-800">📣 我要回報工會人數</h4><p class="text-xs text-slate-500 mt-1">請回報你目前知道的會員人數；不收集姓名。</p></div>
+<button class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-5 py-2.5 rounded-xl shadow" onclick="openUnionReportModal()">📝 我要回報</button>
+</div>
+<div class="mt-3 text-[11px] text-slate-400" id="unionDataStatus">目前顯示公開資料／回報資料彙整結果。</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MODE 5: 員工工具箱 / PORTAL HUB -->
+<!-- ========================================== -->
+<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode5Container">
+<div class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white p-6 md:p-8 rounded-3xl shadow-lg">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、匿名互動與外部資訊集中在這裡。</p></div>
+<div class="bg-white/10 rounded-xl px-4 py-3 text-xs"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div>
+</div></div>
+
+
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 匿名心聲廣播</h3><p class="text-xs text-slate-400">固定顯示 5 則，每 3 秒向前輪播 2 則。</p></div><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPublicReports()">↻ 更新</button></div>
+<div class="portal-report-viewport" id="publicReportViewport"><div class="portal-report-track" id="publicReportTrack"><div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">載入中...</div></div></div>
+</section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><h3 class="font-black text-slate-800">📣 匿名大聲公</h3><p class="text-xs text-slate-400 mb-3">投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。</p><div class="grid grid-cols-2 gap-2 mb-2"><select class="w-full border rounded-lg p-2" id="reportType"><option value="心聲">🗣️ 心聲</option><option value="許願池">💡 許願池</option></select><select class="w-full border rounded-lg p-2" id="reportCategory"><option>薪資</option><option>工會</option><option>福利</option><option>管理</option><option>工作環境</option><option>文化</option><option>交通</option><option>餐廳</option><option>其他</option></select></div><select class="w-full border rounded-lg p-2 mb-2" id="reportSite"><option value="">不指定地點</option><option>桃園</option><option>台中</option></select><textarea class="w-full border rounded-lg p-2 mb-2" id="reportContent" placeholder="例如：😤 今天最想說的是……" rows="3"></textarea><div class="flex flex-wrap gap-1 mb-2"><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😄')">😄</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😐')">😐</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😤')">😤</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('💰')">💰</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🏭')">🏭</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🗣️')">🗣️</button></div><button class="w-full bg-rose-600 text-white font-bold py-2 rounded-lg" onclick="submitAnonymousReport()">送出匿名大聲公</button><div class="text-xs mt-2 font-bold" id="reportResult"></div></section>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">標題、日期、分類；點擊查看全文。投稿需管理者審核。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="openAnnouncementSubmit()">＋ 投稿</button><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div></div><div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div></section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><h3 class="font-black text-slate-800">📅 公司重要日期｜事件時間軸</h3><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openEventSubmit()">＋ 投稿</button></div><div class="event-timeline" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div></section>
+</div>
+
+
+
+
+
+<section class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌡️ 你覺得現在公司氣氛？</h3><p class="text-xs text-slate-400">匿名、非正式員工感受調查。</p></div><div class="flex items-center gap-2"><div id="moodScore" class="text-sm font-black text-sky-700">目前尚無資料</div><button class="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded-lg font-bold" onclick="refreshCompanyMood()">↻</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2" id="moodOptions"><button onclick="submitMood('很不錯')" class="mood-btn p-3 rounded-xl border hover:bg-emerald-50 text-sm font-bold">😄<br>很不錯</button><button onclick="submitMood('還不錯')" class="mood-btn p-3 rounded-xl border hover:bg-green-50 text-sm font-bold">🙂<br>還不錯</button><button onclick="submitMood('普通')" class="mood-btn p-3 rounded-xl border hover:bg-slate-50 text-sm font-bold">😐<br>普通</button><button onclick="submitMood('有點差')" class="mood-btn p-3 rounded-xl border hover:bg-amber-50 text-sm font-bold">😕<br>有點差</button><button onclick="submitMood('非常差')" class="mood-btn p-3 rounded-xl border hover:bg-rose-50 text-sm font-bold">😡<br>非常差</button></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"><div id="moodResults" class="space-y-2"></div><div class="relative h-56"><canvas id="moodTrendChart"></canvas></div></div></section>
+
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」；外部內容未經本站驗證。系統採後端快取，外部來源暫時失敗時保留最後一次成功資料。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89">Yahoo「美光」</a></div></div><div id="externalNewsStatus" class="external-status text-slate-500 mb-3">外部資訊尚未更新。</div><div id="externalNewsFilters" class="flex flex-wrap gap-2 mb-3"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div id="externalNewsList" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-sm text-slate-400">載入中...</p></div></section>
+
+</div>
+<!-- 📝 Data Collection Form Modal (M1) -->
+<div class="modal" id="dataFormModal">
+<div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeFormModal()">✖</button>
+<h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">📝 匿名貢獻日常薪情</h2>
+<p class="text-xs text-slate-500 mb-5">僅收集日常月薪架構，用於完善 Base Salary 曲線庫。</p>
+<form class="space-y-4 text-sm" id="salaryForm" onsubmit="submitForm(event)">
+<div><label class="block text-slate-700 font-bold mb-1">職等 (兩位文字，如: E1 / T1 / M1)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-blue-500" id="formGrade" maxlength="2" pattern="[A-Za-z][0-9]" required="" title="職等請填兩位文字，例如 E1、T1、M1" type="text"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">總工作年資</label><input class="w-full border rounded-lg p-2 outline-none focus:border-blue-500" id="formExp" required="" step="0.1" type="number"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">底薪月薪 (萬)</label><input class="w-full border rounded-lg p-2 outline-none focus:border-blue-500" id="formSalary" min="0" oninput="validateSalaryInput(this)" required="" step="0.1" type="number"/><p class="hidden text-[11px] text-rose-600 font-bold mt-1" id="salaryGuardMsg">⚠️ 你是山賊嗎? 月薪請填 "萬" 為單位</p></div>
+<div>
+<label class="block text-slate-700 font-bold mb-1">團隊類型</label>
+<select class="w-full border rounded-lg p-2 outline-none focus:border-blue-500" id="formTeam" required=""><option value="Site team">Site team</option><option value="Global team">Global team</option></select>
+</div>
+<div><label class="block text-slate-700 font-bold mb-1">部門 (如: PE)</label><input class="w-full border rounded-lg p-2 outline-none focus:border-blue-500" id="formDept" type="text"/></div>
+<button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg mt-4 transition-colors" id="formSubmitBtn" type="submit">🚀 送出</button>
+<div class="text-xs text-center font-bold mt-2 hidden" id="formStatusMsg"></div>
+</form>
+</div>
+</div>
+<!-- 🎁 Data Collection Form Modal (M2 - Bonus) -->
+<div class="modal" id="bonusFormModal">
+<div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeBonusModal()">✖</button>
+<h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">🎁 匿名貢獻 2025 開獎</h2>
+<p class="text-xs text-slate-500 mb-5">輸入您的開獎包裹，建立最透明的獎金常態分佈！資料將傳送至開獎資料庫。</p>
+<form class="space-y-4 text-sm" id="bonusForm" onsubmit="submitBonusForm(event)">
+<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-purple-500" id="bFormGrade" required="" type="text"/></div>
+<div>
+<label class="block text-slate-700 font-bold mb-1">考績 (Ranking)</label>
+<select class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormRank" required="">
+<option disabled="" selected="" value="">請選擇考績</option>
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+</select>
+</div>
+<div>
+<label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填寫 %)</label>
+<div class="hidden text-rose-600 font-bold text-xs mb-1" id="bFormRaiseWarning"></div>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormRaise" oninput="validateBonusRaiseInput('bFormRaise','bFormRaiseWarning','bFormSubmitBtn')" placeholder="例如: 4.5" required="" step="0.01" type="number"/>
+</div>
+<div>
+<label class="block text-slate-700 font-bold mb-1">有無升遷</label>
+<select class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormPromo" required="">
+<option value="有">✅ 有升遷 (Yes)</option>
+<option selected="" value="無">❌ 未升遷 (No)</option>
+</select>
+</div>
+<div>
+<label class="block text-slate-700 font-bold mb-1">RSU 限制型股票 (純數字，單位: 美金)</label>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-purple-500" id="bFormRSU" placeholder="若無請填 0，例如: 5000" required="" step="1" type="number"/>
+</div>
+<button class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 rounded-lg mt-4 transition-colors" id="bFormSubmitBtn" type="submit">🚀 送出匿名開獎資料</button>
+<div class="text-xs text-center font-bold mt-2 hidden" id="bFormStatusMsg"></div>
+</form>
+</div>
+</div>
+<!-- 🎁 2026 Bonus Modal -->
+<div class="modal" id="bonus2026FormModal">
+<div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeBonus2026Modal()">✖</button>
+<h2 class="text-xl font-bold text-slate-800 mb-1">🎁 匿名貢獻 2026 開獎</h2>
+<p class="text-xs text-slate-500 mb-5">建立最透明的 2026 開獎常態分佈！</p>
+<form class="space-y-4 text-sm" id="bonus2026Form" onsubmit="submitBonus2026Form(event)">
+<div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">考績</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRank" required=""><option disabled="" selected="" value="">請選擇考績</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div><label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填 %)</label>
+<div class="hidden text-rose-600 font-bold text-xs mb-1" id="b3FormRaiseWarning"></div>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRaise" oninput="validateBonusRaiseInput('b3FormRaise','b3FormRaiseWarning','b3FormSubmitBtn')" placeholder="例如: 4.5" required="" step="0.01" type="number"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">有無升遷</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormPromo" required=""><option value="無">❌ 未升遷</option><option value="有">✅ 有升遷</option></select></div>
+<div><label class="block text-slate-700 font-bold mb-1">RSU (美金)</label>
+<div class="hidden text-amber-600 font-bold text-xs mb-1" id="b3FormRSUWarning"></div>
+<input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRSU" min="0" oninput="validateBonusRSUInput('b3FormRSU','b3FormRSUWarning')" placeholder="若無請填 0" required="" step="1" type="number"/></div>
+<button class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold py-3 rounded-lg mt-4" id="b3FormSubmitBtn" type="submit">🚀 送出 2026 開獎資料</button>
+<div class="text-xs text-center font-bold mt-2 hidden" id="b3FormStatusMsg"></div>
+</form>
+</div>
+</div>
+<!-- 🏭 Union Report Modal -->
+<div class="modal" id="unionReportModal">
+<div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeUnionReportModal()">✖</button>
+<h2 class="text-xl font-bold text-slate-800 mb-1">📣 我要回報工會人數</h2>
+<p class="text-xs text-slate-500 mb-5">只需要填寫地點與你目前掌握的人數。</p>
+<form class="space-y-4 text-sm" id="unionReportForm" onsubmit="submitUnionReport(event)">
+<div><label class="block text-slate-700 font-bold mb-1">工會地點</label><select class="w-full border rounded-lg p-2" id="unionSite" required=""><option value="桃園">桃園</option><option value="台中">台中</option></select></div>
+<div><label class="block text-slate-700 font-bold mb-1">目前工會人數</label><input class="w-full border rounded-lg p-2" id="unionCount" max="15000" min="0" placeholder="例如：2300" required="" step="1" type="number"/></div>
+<button class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-lg" id="unionReportBtn" type="submit">🚀 送出匿名回報</button>
+<div class="text-xs text-center font-bold mt-2 hidden" id="unionReportMsg"></div>
+</form>
+</div>
+</div>
+<div class="modal" id="announcementSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📢 投稿公告</h2><input id="annSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="公告標題"><select id="annSubmitCategory" class="w-full border rounded-lg p-2 mb-2"><option>一般</option><option>工會</option><option>福利</option><option>重要通知</option></select><textarea id="annSubmitContent" class="w-full border rounded-lg p-2 mb-3" rows="6" placeholder="公告內容"></textarea><button class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-lg" onclick="submitAnnouncementSuggestion()">送出審核</button><div id="annSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
+<div class="modal" id="eventSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('eventSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📅 投稿重要日期</h2><input id="eventSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="事件名稱"><div class="grid grid-cols-2 gap-2 mb-2"><input id="eventSubmitStart" class="w-full border rounded-lg p-2" type="datetime-local"><input id="eventSubmitEnd" class="w-full border rounded-lg p-2" type="datetime-local"></div><input id="eventSubmitCategory" class="w-full border rounded-lg p-2 mb-2" placeholder="分類"><textarea id="eventSubmitDescription" class="w-full border rounded-lg p-2 mb-3" rows="4" placeholder="說明"></textarea><button class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-lg" onclick="submitEventSuggestion()">送出審核</button><div id="eventSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
+<div class="modal" id="announcementViewModal"><div class="bg-white rounded-2xl w-full max-w-2xl p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementViewModal')">✖</button><div id="announcementViewBody"></div></div></div>
+<div class="modal" id="wishlistModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('wishlistModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">💡 網站功能許願清單</h2><input id="wishTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="功能名稱（可不填）"><textarea id="wishContent" class="w-full border rounded-lg p-2 mb-3" rows="5" placeholder="你希望網站未來增加什麼？"></textarea><button class="w-full bg-violet-600 text-white font-bold py-2.5 rounded-lg" onclick="submitWishlist()">送出許願</button><div id="wishMsg" class="text-xs mt-2 font-bold"></div></div></div>
+<script>
+        const API_M1 = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
+        const API_M2 = "https://script.google.com/macros/s/AKfycbwWd9ozWC4ATM6Oeo_vzhtxjjIFjWivXR6yi-2IwZ8j3G8gvwSqypNtwinHc3q7oWwX/exec";
+        const API_M3 = "https://script.google.com/macros/s/AKfycbzkbhv1JJQTK5Ks0XB6EiUxFAlo4hjapkoBptVwDBwEopnz46oyU5eO28aY4tAhinBp/exec";
+        // 工會資料：建議建立獨立 Google Apps Script + Google Sheet；部署後把 /exec URL 填入。
+        // 留空時會使用 localStorage（僅本機測試，不會跨使用者同步）。
+        const API_UNION = ""; // 舊版相容：工會現在統一走 API_PORTAL
+        // V9 PortalDB：部署 PortalDB_Code.gs 後填入 /exec URL。
+        const API_PORTAL = "https://script.google.com/macros/s/AKfycbxBKnwm1dobNMGrCOYx0V5me_xz0wPQ4td4-tZc8Lvr3T_UBZvVr_WIPWfWGvddxljO/exec";
+        const MU_PRICE_2025_11 = 223.77;
+        window.MU_PRICE_CURRENT = NaN;
+        
+        let dataM1 = [], dataM2 = [], dataM3 = [];
+        const gradeColors = { 'EA': '#38bdf8', 'EB': '#0284c7', 'E1': '#fbbf24', 'E2': '#f59e0b', 'E3': '#10b981', 'E4': '#8b5cf6', 'T1': '#ec4899', 'T2': '#f43f5e', 'M1': '#14b8a6', 'D1': '#a855f7', 'D2': '#6366f1' };
+        const defaultColor = '#94a3b8';
+        
+        // Mode 1 State
+        let chartBoxSalary = null, chartSampleCount = null, chartScatter = null, myLocationPoint = null;
+        let globalBoxMeta = {};
+        let currentSeriesTab = "All"; 
+        let currentTableSeries = "All";
+        let currentTableSubGrade = "All";
+        let currentTableTeam = "All";
+        let outliersSet = new Set();
+        let m1SortCol = '', m1SortDesc = false;
+        
+        // Mode 2 State
+        let cM2Rsu = null, cM2Raise = null;
+        let m2RsuMeta = {}, metaRaiseNo = {}, metaRaiseYes = {}; 
+        let currentM2TableSeries = "All";
+        let currentM2TableSubGrade = "All";
+        let currentM2TablePromo = "All";
+        let currentM2TablePerf = "All";
+        let m2SortCol = '', m2SortDesc = false;
+        let cM3Rsu=null, cM3Raise=null, m3RsuMeta={}, metaRaiseNo3={}, metaRaiseYes3={};
+        let currentM3TableSeries='All', currentM3TableSubGrade='All', currentM3TablePromo='All', currentM3TablePerf='All', m3SortCol='', m3SortDesc=false;
+        let cUnionTrend=null;
+
+        // Custom Plugin for Boxplot
+        Chart.register({
+            id: 'boxCustom',
+            afterDatasetsDraw(c) {
+                const y = c.scales.y; if(!y) return;
+                
+                // M1 Box Salary & M2 RSU Box
+                if(c.canvas.id === 'boxSalaryChart' || c.canvas.id === 'm2RsuChart' || c.canvas.id === 'm2RaiseChart' || c.canvas.id === 'm3RsuChart' || c.canvas.id === 'm3RaiseChart') {
+                    const isM1 = c.canvas.id === 'boxSalaryChart';
+                    const isRaise = c.canvas.id === 'm2RaiseChart';
+                    const unit = isM1 ? "萬" : (isRaise ? "%" : "");
+                    
+                    c.data.datasets.forEach((ds, dsi) => {
+                        c.getDatasetMeta(dsi).data.forEach((bar, i) => {
+                            const lbl = c.data.labels[i];
+                            let m = null;
+                            if (c.config.options.plugins.tooltip.callbacks.customMeta) {
+                                m = c.config.options.plugins.tooltip.callbacks.customMeta(lbl, dsi);
+                            }
+                            if(m && !isNaN(m.avg)) {
+                                c.ctx.save(); c.ctx.fillStyle = '#1e293b'; c.ctx.font = 'bold 9px sans-serif'; c.ctx.textAlign = 'center';
+                                c.ctx.fillText(m.max + unit, bar.x, bar.y - 4);
+                                c.ctx.fillText(m.min + unit, bar.x, bar.base + 10);
+                                const ay = y.getPixelForValue(parseFloat(m.avg));
+                                if(!isNaN(ay)) {
+                                    c.ctx.strokeStyle = '#ef4444'; c.ctx.lineWidth = 1.5; c.ctx.beginPath(); c.ctx.moveTo(bar.x - bar.width/2, ay); c.ctx.lineTo(bar.x + bar.width/2, ay); c.ctx.stroke();
+                                    c.ctx.fillStyle = '#ef4444'; c.ctx.textAlign = 'left'; c.ctx.fillText("均:"+m.avg, bar.x + bar.width/2+1, ay+3);
+                                }
+                                c.ctx.restore();
+                            }
+                        });
+                    });
+                }
+                if(c.canvas.id === 'sampleCountChart') {
+                    c.data.datasets.forEach((ds, dsi) => {
+                        c.getDatasetMeta(dsi).data.forEach((bar, i) => {
+                            const v = ds.data[i];
+                            if(v) { c.ctx.save(); c.ctx.fillStyle='#0f766e'; c.ctx.font='bold 11px sans-serif'; c.ctx.textAlign='center'; c.ctx.fillText(v+"人", bar.x, bar.y-6); c.ctx.restore(); }
+                        });
+                    });
+                }
+            }
+        });
+
+        function compareGrades(gradeA, gradeB) {
+            function getVal(g) {
+                if(!g) return 9999;
+                const p = g.charAt(0).toUpperCase(), s = g.substring(1).toUpperCase();
+                let w = 9000;
+                if(p==='D') w = 1000; else if(p==='T') w = 2000; else if(p==='E') w = 3000; else if(p==='M') w = 4000;
+                let sw = (s==='A') ? -2 : (s==='B') ? -1 : (parseInt(s) || 0);
+                return w + sw;
+            }
+            return getVal(gradeA) - getVal(gradeB);
+        }
+
+        function normalizeKey(key){
+            return String(key || '').trim().toLowerCase().replace(/[\s_\-（）()：:／/\\]/g,'');
+        }
+        function findField(item, aliases, fallbackIndex){
+            const keys = Object.keys(item || {});
+            const normalized = {};
+            keys.forEach(k => normalized[normalizeKey(k)] = k);
+            for(const alias of aliases){
+                const a = normalizeKey(alias);
+                if(normalized[a] !== undefined) return item[normalized[a]];
+            }
+            for(const k of keys){
+                const nk = normalizeKey(k);
+                if(aliases.some(alias => nk.includes(normalizeKey(alias)))) return item[k];
+            }
+            return fallbackIndex !== undefined ? item[keys[fallbackIndex]] : '';
+        }
+        function unwrapApiPayload(payload){
+            // PortalDB successResponse() wraps every GET result as {ok:true, data:<result>}.
+            // IMPORTANT: some APIs return arrays (announcements/topics/events), while
+            // external_news/company_mood return objects. The old code converted those
+            // objects to [] and made valid responses look like empty data.
+            if(Array.isArray(payload)) return payload;
+            if(payload && payload.ok === false) throw new Error(payload.error || 'PortalDB API error');
+            if(payload && Object.prototype.hasOwnProperty.call(payload,'data')) return payload.data;
+            return payload || null;
+        }
+        function parseM1Rows(rows){
+            return rows.map((item,i)=>{
+                const grade=String(findField(item,['GJS','職等','職等 GJS','Grade'],1)||'').trim().toUpperCase();
+                const experience=parseFloat(findField(item,['Experience','年資','總工作年資','工作年資','年資(年)'],2));
+                const salary=parseFloat(findField(item,['Salary','底薪月薪','底薪月薪(萬)','月薪','月薪(萬元)','Base Salary'],3));
+                const team=String(findField(item,['Team','Team Type','團隊類型','團隊'],4)||'未填寫').trim();
+                const dept=String(findField(item,['Department','部門','Dept'],5)||'未填寫').trim();
+                return {id:i,grade,experience,salary,team_type:team,department:dept};
+            }).filter(x=>x.grade && Number.isFinite(x.experience) && Number.isFinite(x.salary));
+        }
+        function parseBonusRows(rows){
+            return rows.map((item,i)=>{
+                let grade=String(findField(item,['GJS','職等','Grade'],1)||'').trim().toUpperCase();
+                if(grade.includes('->')) grade=grade.split('->').pop().trim();
+                if(grade.includes('>')) grade=grade.split('>').pop().trim();
+                const perf=String(findField(item,['Ranking','Rank','考績','績效','Performance'],2)||'').trim();
+                const promoRaw=String(findField(item,['Promotion','Promotion/ 升遷','升遷','有無升遷','Promoted'],4)||'').trim().toLowerCase();
+                const promo=(promoRaw.includes('有')||promoRaw.includes('yes')||promoRaw.includes('y')||promoRaw.includes('是')||promoRaw==='1'||promoRaw==='true')?'Yes':'No';
+                const rawRaise=findField(item,['Raise','Annual Increase','AnnualIncr','Increase','調薪幅度','調薪','調薪(%)'],3);
+                let raise=parseFloat(rawRaise); if(!Number.isFinite(raise)) raise=0;
+                if(raise>0 && raise<=2 && !String(rawRaise).includes('%')) raise*=100;
+                const rsu=parseFloat(findField(item,['RSU','RSU($)','限制型股票','股票','RSU美金'],5)) || 0;
+                return {id:i,grade,perf,promo,raise:Math.round(raise*100)/100,rsu};
+            }).filter(x=>x.grade);
+        }
+        async function loadJson(label,url){
+            if(!url) throw new Error(label+' API 未設定');
+            const controller=new AbortController();
+            const timer=setTimeout(()=>controller.abort(),12000);
+            try{
+                const r=await fetch(url,{redirect:'follow',cache:'no-store',signal:controller.signal});
+                if(!r.ok) throw new Error(label+' HTTP '+r.status);
+                const raw=await r.json();
+                const rows=unwrapApiPayload(raw);
+                if(!Array.isArray(rows)) throw new Error(label+' 回傳格式錯誤');
+                return rows;
+            }catch(e){
+                if(e?.name==='AbortError') throw new Error(label+' API 逾時（12秒）');
+                throw e;
+            }finally{clearTimeout(timer);}
+        }
+        const CLIENT_CACHE_TTL = 120000;
+        function clientCacheKey(label){ return 'micron_portal_cache_'+label; }
+        function readClientCache(label){
+            try{
+                const raw=sessionStorage.getItem(clientCacheKey(label));
+                if(!raw)return null;
+                const obj=JSON.parse(raw);
+                if(!obj || !Array.isArray(obj.rows) || Date.now()-Number(obj.ts||0)>CLIENT_CACHE_TTL)return null;
+                return obj.rows;
+            }catch(_){return null;}
+        }
+        function writeClientCache(label,rows){
+            try{sessionStorage.setItem(clientCacheKey(label),JSON.stringify({ts:Date.now(),rows:Array.isArray(rows)?rows:[]}));}catch(_){/* quota / private mode */}
+        }
+
+        async function initPlatform() {
+            const loadingBar=document.getElementById('loadingBar'),loadingText=document.getElementById('loadingText'),loadingDot=document.getElementById('loadingDot'),statusContainer=document.getElementById('statusContainer');
+            const errors=[]; let completed=0, total=4;
+            const setProgress=(label)=>{
+                completed=Math.min(completed+1,total);
+                if(loadingBar) loadingBar.style.width=Math.round(10+(completed/total)*85)+'%';
+                if(loadingText) loadingText.innerText=label;
+            };
+            const renderM1=(rows)=>{
+                dataM1=parseM1Rows(rows||[]);
+                const total1=document.getElementById('totalGlobalCount'); if(total1)total1.innerText=dataM1.length+' 筆';
+                if(dataM1.length){
+                    const fg=document.getElementById('filterGrade');
+                    if(fg){fg.innerHTML='<option value="All" selected>全部職等</option>';Array.from(new Set(dataM1.map(i=>i.grade))).sort(compareGrades).forEach(g=>fg.innerHTML+=`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`);}
+                    calculateOutliers(); updateSubGradeButtons(); updateCharts();
+                }
+            };
+            const renderM2=(rows)=>{dataM2=parseBonusRows(rows||[]);const e=document.getElementById('totalGlobalCount2');if(e)e.innerText=dataM2.length+' 筆';if(dataM2.length){updateM2PerfButtons();updateM2SubGradeButtons();updateM2Charts();}};
+            const renderM3=(rows)=>{dataM3=parseBonusRows(rows||[]);const e=document.getElementById('totalGlobalCount3');if(e)e.innerText=dataM3.length+' 筆';if(dataM3.length){updateM3PerfButtons();updateM3SubGradeButtons();updateM3Charts();}};
+            try{
+                if(loadingBar)loadingBar.style.width='5%';
+                if(loadingText)loadingText.innerText='⚡ 入口網站啟動中，正在平行載入資料...';
+
+                // 若本次工作階段已有快取，先顯示快取；網路資料再背景更新，降低再次開站的等待感。
+                const cached1=readClientCache('M1'),cached2=readClientCache('M2'),cached3=readClientCache('M3');
+                if(cached1)renderM1(cached1);
+                if(cached2)renderM2(cached2);
+                if(cached3)renderM3(cached3);
+
+                const tasks=[
+                    loadJson('M1',API_M1).then(rows=>{writeClientCache('M1',rows);renderM1(rows);setProgress('日常薪情已更新');return true;}).catch(e=>{errors.push('M1: '+e.message);console.warn('M1',e);setProgress('日常薪情完成');return false;}),
+                    loadJson('M2',API_M2).then(rows=>{writeClientCache('M2',rows);renderM2(rows);setProgress('2025 開獎已更新');return true;}).catch(e=>{errors.push('M2: '+e.message);console.warn('M2',e);setProgress('2025 開獎完成');return false;}),
+                    loadJson('M3',API_M3).then(rows=>{writeClientCache('M3',rows);renderM3(rows);setProgress('2026 開獎已更新');return true;}).catch(e=>{errors.push('M3: '+e.message);console.warn('M3',e);setProgress('2026 開獎完成');return false;}),
+                    Promise.allSettled([renderUnionChart(),refreshPortalData()]).then(()=>{setProgress('PortalDB 社群資料已更新');return true;}).catch(e=>{errors.push('PortalDB: '+e.message);console.warn('PortalDB',e);setProgress('PortalDB 完成');return false;})
+                ];
+                await Promise.allSettled(tasks);
+                if(loadingBar)loadingBar.style.width='100%';
+                if(loadingDot){loadingDot.className='w-2 h-2 rounded-full '+(errors.length?'bg-amber-400':'bg-emerald-400');loadingDot.classList.remove('animate-pulse');}
+                if(loadingText)loadingText.innerText=errors.length?'資料已載入（部分資料源異常，不影響其他分頁）':'全部資料已載入';
+                if(statusContainer)statusContainer.className=errors.length?'relative overflow-hidden inline-flex items-center gap-2 bg-amber-900/20 text-amber-300 text-xs px-4 py-2 rounded-full border border-amber-500/30 w-full sm:w-64 transition-colors':'relative overflow-hidden inline-flex items-center gap-2 bg-emerald-900/20 text-emerald-300 text-xs px-4 py-2 rounded-full border border-emerald-500/30 w-full sm:w-64 transition-colors';
+                setTimeout(()=>{const lb=document.getElementById('loadingBar');if(lb){lb.style.opacity='0';lb.style.transition='opacity .5s ease';}},700);
+            }catch(e){
+                console.error('INIT ERROR',e);if(loadingBar){loadingBar.style.width='100%';loadingBar.style.opacity='1';}if(loadingDot){loadingDot.className='w-2 h-2 rounded-full bg-rose-400';loadingDot.classList.remove('animate-pulse');}if(loadingText)loadingText.innerText='系統錯誤：'+e.message;if(statusContainer)statusContainer.className='relative overflow-hidden inline-flex items-center gap-2 bg-rose-900/20 text-rose-300 text-xs px-4 py-2 rounded-full border border-rose-500/30 w-full sm:w-64 transition-colors';
+            }
+        }
+
+        // ==========================
+        // MODE 1: BASE SALARY
+        // ==========================
+        function updateExpSliders() {
+            let minVal = parseFloat(document.getElementById('filterExpMin').value), maxVal = parseFloat(document.getElementById('filterExpMax').value);
+            if (minVal > maxVal) { document.getElementById('filterExpMin').value = maxVal; minVal = maxVal; }
+            document.getElementById('expRangeLabel').innerText = minVal + " - " + maxVal + " 年";
+        }
+
+        function changeSeriesTab(series) {
+            currentSeriesTab = series;
+            ['tabAll', 'tabE', 'tabT', 'tabM', 'tabD'].forEach(id => { document.getElementById(id).className = "px-3 py-1.5 rounded-md text-slate-600 cursor-pointer"; });
+            document.getElementById('tab' + series).className = "px-3 py-1.5 rounded-md tab-active cursor-pointer";
+            updateCharts();
+        }
+
+        function changeTableSeries(series) {
+            currentTableSeries = series; currentTableSubGrade = "All";
+            ['btnSecAll', 'btnSecE', 'btnSecT', 'btnSecM', 'btnSecD'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            document.getElementById('btnSec' + series).classList.add('btn-series-active');
+            updateSubGradeButtons(); renderTable();
+        }
+
+        function updateSubGradeButtons() {
+            const container = document.getElementById('subGradeButtons'); container.innerHTML = '';
+            const allGradesInSeries = Array.from(new Set(dataM1.filter(i => currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)).map(i => i.grade))).sort(compareGrades);
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentTableSubGrade === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeTableSubGrade('All'); container.appendChild(allBtn);
+
+            allGradesInSeries.forEach(g => {
+                const btn = document.createElement('button'); btn.innerText = g;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentTableSubGrade === g ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeTableSubGrade(g); container.appendChild(btn);
+            });
+        }
+
+        function changeTableSubGrade(grade) { currentTableSubGrade = grade; updateSubGradeButtons(); renderTable(); }
+        function changeTableTeam(team) {
+            currentTableTeam = team;
+            ['btnTeamAll', 'btnTeamGlobal', 'btnTeamSite'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            let targetId = team === 'Global team' ? 'btnTeamGlobal' : team === 'Site team' ? 'btnTeamSite' : 'btnTeamAll';
+            document.getElementById(targetId).classList.add('btn-series-active'); renderTable();
+        }
+
+        function calculateOutliers() {
+            // 以每個職等的 IQR 判定極端值；資料不足 4 筆時不標記。
+            outliersSet = new Set();
+            const groups = {};
+            dataM1.forEach(item => {
+                if (!groups[item.grade]) groups[item.grade] = [];
+                groups[item.grade].push(item);
+            });
+            Object.keys(groups).forEach(grade => {
+                const rows = groups[grade];
+                if (rows.length < 4) return;
+                const values = rows.map(x => x.salary).filter(Number.isFinite).sort((a,b)=>a-b);
+                if (values.length < 4) return;
+                const q = (arr, p) => {
+                    const pos = (arr.length - 1) * p;
+                    const lo = Math.floor(pos), hi = Math.ceil(pos);
+                    return lo === hi ? arr[lo] : arr[lo] + (arr[hi] - arr[lo]) * (pos - lo);
+                };
+                const q1 = q(values, 0.25), q3 = q(values, 0.75), iqr = q3 - q1;
+                const low = q1 - 1.5 * iqr, high = q3 + 1.5 * iqr;
+                rows.forEach(item => {
+                    if (item.salary < low || item.salary > high) outliersSet.add(item.id);
+                });
+            });
+        }
+
+        function updateCharts() {
+            const fs = document.getElementById('filterSeries').value, fg = document.getElementById('filterGrade').value, ft = document.getElementById('filterTeam').value, emin = parseFloat(document.getElementById('filterExpMin').value), emax = parseFloat(document.getElementById('filterExpMax').value);
+            const pool = dataM1.filter(item => {
+                return (fs === 'All' || item.grade.startsWith(fs)) && (fg === 'All' || item.grade === fg) && (ft === 'All' || item.team_type === ft) && (item.experience >= emin && item.experience <= emax);
+            });
+
+            if (pool.length >= 0) { renderScatter(pool); renderBoxAndSampleCharts(pool); renderHeatmapMatrix(pool); renderTable(); }
+        }
+
+        function renderScatter(pool) {
+            const active = pool.filter(i => currentSeriesTab === 'All' || i.grade.startsWith(currentSeriesTab)), gradePointsMap = {};
+            active.forEach(item => { if (!gradePointsMap[item.grade]) gradePointsMap[item.grade] = []; gradePointsMap[item.grade].push({ x: item.experience, y: item.salary }); });
+            const datasets = [];
+            Object.keys(gradePointsMap).sort(compareGrades).forEach(g => {
+                datasets.push({ type: 'scatter', label: g, data: gradePointsMap[g], backgroundColor: gradeColors[g] || defaultColor, pointRadius: 3, idTag: g, order: 10 });
+                if (gradePointsMap[g].length > 2) {
+                    const pts = gradePointsMap[g], n = pts.length;
+                    let sX = 0, sY = 0, sXY = 0, sXX = 0;
+                    pts.forEach(p => { sX += p.x; sY += p.y; sXY += (p.x*p.y); sXX += (p.x*p.x); });
+                    const slope = (n * sXY - sX * sY) / (n * sXX - sX * sX), intercept = (sY - slope * sX) / n, minX = Math.min(...pts.map(p=>p.x)), maxX = Math.max(...pts.map(p=>p.x));
+                    datasets.push({ type: 'line', label: g + '_line', data: [{ x: minX, y: slope * minX + intercept }, { x: maxX, y: slope * maxX + intercept }], borderColor: gradeColors[g] || defaultColor, borderWidth: 1.5, pointRadius: 0, fill: false, showLine: true, idTag: g, order: 5 });
+                }
+            });
+            if (myLocationPoint) datasets.push({ type: 'scatter', label: '📍 我的座標點', data: [{ x: myLocationPoint.experience, y: myLocationPoint.salary }], backgroundColor: '#f59e0b', borderColor: '#FF0000', borderWidth: 2, pointRadius: 9, pointStyle: 'star', idTag: 'mine', order: 1 });
+
+            if (chartScatter) { chartScatter.data.datasets = datasets; chartScatter.update(); } else { 
+                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), { data: { datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 9 }, boxWidth: 10, boxHeight: 10, filter: (i)=>!i.text.endsWith('_line') }, onClick: (e, lI, l)=> { const t = lI.text, ci = l.chart; ci.data.datasets.forEach(d => { if(d.idTag===t) d.hidden = !d.hidden; }); ci.update(); } } }, scales: { x: { type: 'linear', title: { display: true, text: '總工作年資 (年)' } }, y: { title: { display: true, text: '月薪 (萬元)' } } } } }); 
+            }
+        }
+
+        function renderBoxAndSampleCharts(pool) {
+            const groups = {}; pool.forEach(i => { if(!groups[i.grade]) groups[i.grade] = []; groups[i.grade].push(i.salary); });
+            const metaList = [];
+            Object.keys(groups).forEach(g => {
+                const sList = groups[g], count = sList.length;
+                if (count > 2) {
+                    const avg = sList.reduce((a,b)=>a+b, 0) / count, sorted = [...sList].sort((a,b)=>a-b), mid = Math.floor(count/2);
+                    metaList.push({ grade: g, count: count, min: Math.min(...sList), max: Math.max(...sList), avg: avg.toFixed(1), med: (count % 2 !== 0 ? sorted[mid] : (sorted[mid-1]+sorted[mid])/2).toFixed(1) });
+                }
+            });
+            metaList.sort((a, b) => compareGrades(a.grade, b.grade));
+            const sortedLabels = metaList.map(m => m.grade), sortedBoxData = metaList.map(m => [m.min, m.max]), sortedCounts = metaList.map(m => m.count);
+            globalBoxMeta = {}; metaList.forEach(m => { globalBoxMeta[m.grade] = m; });
+
+            if (chartBoxSalary) { chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.update(); } else { 
+                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '薪資區間 (低標~高標)', data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: (label)=>globalBoxMeta[label], label: (c)=> { const m = globalBoxMeta[c.label]; return `最低: ${m.min}萬 | 中位: ${m.med}萬 | 平均: ${m.avg}萬 | 最高: ${m.max}萬`; } } } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
+            }
+            if (chartSampleCount) { chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.update(); } else { 
+                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '覆蓋樣本數 (人)', data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
+            }
+        }
+
+        function renderHeatmapMatrix(pool) {
+            const tiers = [ { l: "4-6萬", min: 4, max: 6 }, { l: "6-8萬", min: 6, max: 8 }, { l: "8-10萬", min: 8, max: 10 }, { l: "10-12萬", min: 10, max: 12 }, { l: "12-14萬", min: 12, max: 14 }, { l: "14-16萬", min: 14, max: 16 }, { l: "16萬以上", min: 16, max: 999 } ];
+            const gradeCounts = {}; pool.forEach(i => { gradeCounts[i.grade] = (gradeCounts[i.grade] || 0) + 1; });
+            const activeGrades = Object.keys(gradeCounts).filter(g => gradeCounts[g] > 2).sort(compareGrades);
+
+            const headerRow = document.getElementById('heatmapHeaderRow'); headerRow.innerHTML = '<th class="p-3 text-left bg-slate-200">目標月薪級距</th>';
+            activeGrades.forEach(g => { headerRow.innerHTML += `<th class="p-3 bg-slate-100">${g}</th>`; });
+            if(activeGrades.length === 0) headerRow.innerHTML += '<th class="p-3 text-slate-400 font-normal">無職等</th>';
+
+            const tbody = document.getElementById('heatmapTableBody'); tbody.innerHTML = '';
+            tiers.forEach(t => {
+                let html = `<td class="p-3 text-left bg-slate-50 font-bold text-slate-700 whitespace-nowrap">${t.l}</td>`;
+                if(activeGrades.length === 0) html += `<td class="p-3 text-slate-300">--</td>`;
+                activeGrades.forEach(g => {
+                    const matches = pool.filter(i => i.grade === g && i.salary >= t.min && i.salary < t.max);
+                    if (matches.length > 0) {
+                        const avgExp = matches.reduce((s, i) => s + i.experience, 0) / matches.length;
+                        html += `<td class="p-3 heatmap-cell font-bold border" style="background-color: rgba(0, 102, 204, ${Math.min(0.1 + avgExp/12, 0.75)})">${avgExp.toFixed(1)}年<span class="text-[10px] font-normal text-slate-500 block">(${matches.length})</span></td>`;
+                    } else { html += `<td class="p-3 bg-slate-50/50 text-slate-300 border font-normal">--</td>`; }
+                });
+                const row = document.createElement('tr'); row.innerHTML = html; tbody.appendChild(row);
+            });
+        }
+
+        // 🚀 M1 表格排序邏輯
+        function sortM1Table(col) {
+            if (m1SortCol === col) { m1SortDesc = !m1SortDesc; } 
+            else { m1SortCol = col; m1SortDesc = false; }
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('dataTableBody'); tbody.innerHTML = '';
+            const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
+            const filtered = dataM1.filter(i => {
+                const searchMatch = !searchKeyword || i.department.toLowerCase().includes(searchKeyword) || i.grade.toLowerCase().includes(searchKeyword) || i.team_type.toLowerCase().includes(searchKeyword);
+                return (currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)) && (currentTableSubGrade === 'All' || i.grade === currentTableSubGrade) && (currentTableTeam === 'All' || i.team_type === currentTableTeam) && searchMatch;
+            });
+            
+            if (m1SortCol) {
+                filtered.sort((a, b) => {
+                    let vA = a[m1SortCol], vB = b[m1SortCol];
+                    if (typeof vA === 'string') return m1SortDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+                    return m1SortDesc ? vB - vA : vA - vB;
+                });
+            }
+
+            filtered.forEach(item => {
+                const isOut = outliersSet.has(item.id), row = document.createElement('tr');
+                row.className = isOut ? "bg-rose-50/80 text-rose-900 border-b border-slate-200" : "hover:bg-slate-50 border-b border-slate-100";
+                row.innerHTML = `<td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-bold" style="background-color: ${gradeColors[item.grade] || defaultColor}">${item.grade}</span></td><td class="p-3 font-medium">${item.experience} 年</td><td class="p-3 font-bold">${item.salary} 萬</td><td class="p-3 text-slate-500">${item.team_type}</td><td class="p-3 text-slate-400">${item.department}</td><td class="p-3 font-bold">${isOut ? '⚠️ 偏離常態(極端值)' : '✅ 正常常態'}</td>`;
+                tbody.appendChild(row);
+            });
+            document.getElementById('tableRowCount').innerText = '顯示 ' + filtered.length + ' 筆';
+        }
+
+        function calculateBonus() {
+            const monthSalary = parseFloat(document.getElementById('mySalary').value) || 0;
+            const compPerf = (parseFloat(document.getElementById('compPerf').value) || 200) / 100, userPerf = (parseFloat(document.getElementById('userPerf').value) || 100) / 100;
+
+            if (monthSalary <= 0) { document.getElementById('baseAnnualVal').innerText = "0 萬元"; document.getElementById('bonusVal').innerText = "0 萬元"; document.getElementById('totalAnnualVal').innerText = "0 萬元"; return; }
+            const baseAnnual = monthSalary * 14, bonus = baseAnnual * 0.18 * compPerf * userPerf, totalAnnual = baseAnnual + bonus;
+            document.getElementById('baseAnnualVal').innerText = baseAnnual.toFixed(1) + " 萬元";
+            document.getElementById('bonusVal').innerText = bonus.toFixed(1) + " 萬元 (" + (bonus / monthSalary).toFixed(1) + "個月)";
+            document.getElementById('totalAnnualVal').innerText = totalAnnual.toFixed(1) + " 萬元";
+        }
+
+        function locateMe() {
+            const g = document.getElementById('myGrade').value.trim().toUpperCase(), e = parseFloat(document.getElementById('myExp').value), s = parseFloat(document.getElementById('mySalary').value);
+            if(!g || isNaN(e) || isNaN(s)) return alert("請完整輸入資訊！");
+            
+            myLocationPoint = { grade: g, experience: e, salary: s };
+            
+            const sameG = dataM1.filter(i => i.grade === g).map(i => i.salary).sort((a,b)=>a-b);
+            const gPct = sameG.length ? Math.round((sameG.filter(x => x < s).length / sameG.length) * 100) : 50;
+            const sameE = dataM1.filter(i => Math.abs(i.experience - e) <= 2).map(i => i.salary).sort((a,b)=>a-b);
+            const ePct = sameE.length ? Math.round((sameE.filter(x => x < s).length / sameE.length) * 100) : 50;
+
+            document.getElementById('pctGradeRes').innerText = gPct + "%";
+            document.getElementById('pctGradeLabel').innerText = `領先 ${g} 職等同仁`;
+            document.getElementById('pctExpRes').innerText = ePct + "%";
+            document.getElementById('percentileCard').classList.remove('hidden');
+
+            const alertBox = document.getElementById('ceilingAlert');
+            if(alertBox) { if(gPct >= 90) { alertBox.classList.remove('hidden'); alertBox.classList.add('animate-pulse'); } else { alertBox.classList.add('hidden'); } }
+
+            calculatePromotionPotential(g, s); calculateBonus(); updateCharts();
+        }
+
+        function calculatePromotionPotential(myGrade, mySalary) {
+            const promoCard = document.getElementById('promoCard'), promoContent = document.getElementById('promoContent');
+            const series = myGrade.replace(/[0-9]/g, ''), numMatch = myGrade.match(/\d+/);
+            if (!numMatch) { promoCard.classList.add('hidden'); return; }
+            const nextGrade = series + (parseInt(numMatch[0]) + 1), nextGradeData = dataM1.filter(i => i.grade === nextGrade).map(i => i.salary);
+            if (nextGradeData.length === 0) { promoCard.classList.add('hidden'); return; }
+            const nextAvg = nextGradeData.reduce((a,b)=>a+b, 0) / nextGradeData.length, diff = nextAvg - mySalary, pct = (diff / mySalary) * 100;
+            promoContent.innerHTML = `
+                <div class="flex justify-between items-center"><span>當前: <b class="text-white">${myGrade}</b></span><span>晉升: <b class="text-amber-300">${nextGrade}</b></span></div>
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700 mt-1">
+                    <p class="text-[11px] text-slate-400">${nextGrade} 平均月薪：<b class="text-white">${nextAvg.toFixed(1)} 萬</b></p>
+                    <p class="text-xs font-bold ${diff >= 0 ? 'text-emerald-400' : 'text-rose-400'} mt-1">${diff >= 0 ? '▲ 預期月薪增幅：+' + diff.toFixed(1) + ' 萬 (+' + pct.toFixed(1) + '%)' : '▼ 您的當前薪資已高於下一職等平均'}</p>
+                </div>
+            `;
+            promoCard.classList.remove('hidden');
+        }
+
+        function clearLocation() {
+            myLocationPoint = null; document.getElementById('myGrade').value = ''; document.getElementById('myExp').value = ''; document.getElementById('mySalary').value = '';
+            document.getElementById('percentileCard').classList.add('hidden'); document.getElementById('promoCard').classList.add('hidden'); const ceiling = document.getElementById('ceilingAlert'); if (ceiling) ceiling.classList.add('hidden');
+            calculateBonus(); updateCharts();
+        }
+
+        function exportCSV() {
+            const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
+            const filtered = dataM1.filter(i => {
+                const searchMatch = !searchKeyword || i.department.toLowerCase().includes(searchKeyword) || i.grade.toLowerCase().includes(searchKeyword) || i.team_type.toLowerCase().includes(searchKeyword);
+                return (currentTableSeries === 'All' || i.grade.startsWith(currentTableSeries)) && (currentTableSubGrade === 'All' || i.grade === currentTableSubGrade) && (currentTableTeam === 'All' || i.team_type === currentTableTeam) && searchMatch;
+            });
+            if (filtered.length === 0) return alert("無資料可匯出！");
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF職等,總工作年資(年),月薪(萬元),團隊類型,部門,健康度\n";
+            filtered.forEach(item => { csvContent += `"${item.grade}",${item.experience},${item.salary},"${item.team_type}","${item.department}","${outliersSet.has(item.id) ? "極端值" : "正常"}"\n`; });
+            const link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent)); link.setAttribute("download", `micron_salary_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        }
+
+        // ==========================
+        // MODE 2: BONUS & RSU
+        // ==========================
+        function changeM2TableSeries(series) {
+            currentM2TableSeries = series; currentM2TableSubGrade = "All";
+            ['btnM2SecAll', 'btnM2SecE', 'btnM2SecT', 'btnM2SecM', 'btnM2SecD'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            document.getElementById('btnM2Sec' + series).classList.add('btn-series-active');
+            updateM2SubGradeButtons(); renderM2Table();
+        }
+
+        function updateM2SubGradeButtons() {
+            const container = document.getElementById('m2SubGradeButtons'); container.innerHTML = '';
+            const allGradesInSeries = Array.from(new Set(dataM2.filter(i => currentM2TableSeries === 'All' || i.grade.startsWith(currentM2TableSeries)).map(i => i.grade))).sort(compareGrades);
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TableSubGrade === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeM2TableSubGrade('All'); container.appendChild(allBtn);
+
+            allGradesInSeries.forEach(g => {
+                const btn = document.createElement('button'); btn.innerText = g;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TableSubGrade === g ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeM2TableSubGrade(g); container.appendChild(btn);
+            });
+        }
+
+        function changeM2TableSubGrade(grade) { currentM2TableSubGrade = grade; updateM2SubGradeButtons(); renderM2Table(); }
+
+        // 🚀 動態考績按鈕過濾器
+        function changeM2TablePerf(perf) {
+            currentM2TablePerf = perf;
+            updateM2PerfButtons(); renderM2Table();
+        }
+
+        function updateM2PerfButtons() {
+            const container = document.getElementById('m2PerfButtons'); container.innerHTML = '';
+            const allPerfs = Array.from(new Set(dataM2.map(i => i.perf).filter(x=>x))).sort();
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部考績';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TablePerf === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeM2TablePerf('All'); container.appendChild(allBtn);
+
+            allPerfs.forEach(p => {
+                const btn = document.createElement('button'); btn.innerText = p;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM2TablePerf === p ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeM2TablePerf(p); container.appendChild(btn);
+            });
+        }
+
+        // 🚀 升遷與否按鈕過濾器
+        function changeM2TablePromo(promo) {
+            currentM2TablePromo = promo;
+            ['btnM2PromoAll', 'btnM2PromoYes', 'btnM2PromoNo'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            let targetId = promo === 'Yes' ? 'btnM2PromoYes' : promo === 'No' ? 'btnM2PromoNo' : 'btnM2PromoAll';
+            document.getElementById(targetId).classList.add('btn-series-active'); renderM2Table();
+        }
+
+        function updateM2Charts() {
+            const fs = document.getElementById('m2FilterSeries').value, fp = document.getElementById('m2FilterPromo').value, fpf = document.getElementById('m2FilterPerf').value;
+            const p = dataM2.filter(i => (fs==='All'||i.grade.startsWith(fs))&&(fp==='All'||i.promo===fp)&&(fpf==='All'||i.perf===fpf));
+            
+            renderM2RsuChart(p);
+            renderM2RaiseChart(p);
+            renderM2Table(p);
+        }
+
+        // 🚀 RSU 盒鬚圖 (過濾 < 3 筆)
+        function renderM2RsuChart(p) {
+            const g = {}; p.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
+            const m = [];
+            Object.keys(g).forEach(k => {
+                const s = g[k], c = s.length;
+                if(c >= 3) {
+                    const avg = s.reduce((a,b)=>a+b,0)/c, st = [...s].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    m.push({ grade:k, count: c, min: Math.min(...s), max: Math.max(...s), avg: avg.toFixed(0), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(0) });
+                }
+            });
+            m.sort((a,b)=>compareGrades(a.grade,b.grade));
+
+            const lbl = m.map(x=>x.grade), dBox = m.map(x=>[x.min, x.max]);
+            m2RsuMeta = {}; m.forEach(x => m2RsuMeta[x.grade] = x);
+
+            if(cM2Rsu) { cM2Rsu.data.labels=lbl; cM2Rsu.data.datasets[0].data=dBox; cM2Rsu.update(); }
+            else { 
+                cM2Rsu = new Chart(document.getElementById('m2RsuChart'), { 
+                    type:'bar', 
+                    data:{labels:lbl, datasets:[{label:'RSU 區間 (美金)', data:dBox, backgroundColor:'rgba(168, 85, 247, 0.55)', borderColor:'#a855f7', borderWidth:1.5, borderRadius:2}]}, 
+                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m2RsuMeta[l], label:c=>{const mb=m2RsuMeta[c.label]; return `最低: $${mb.min} | 中位: $${mb.med} | 平均: $${mb.avg} | 最高: $${mb.max}`;} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
+                }); 
+            }
+        }
+
+        // 🚀 調薪幅度 盒鬚圖
+        function renderM2RaiseChart(p) {
+            const pf = Array.from(new Set(p.map(i=>i.perf).filter(x=>x))).sort();
+            const gNo = {}, gYes = {};
+            p.forEach(i => {
+                if (i.raise > 0) {
+                    if (i.promo === 'No') { if(!gNo[i.perf]) gNo[i.perf]=[]; gNo[i.perf].push(i.raise); }
+                    else { if(!gYes[i.perf]) gYes[i.perf]=[]; gYes[i.perf].push(i.raise); }
+                }
+            });
+
+            const dNo = [], dYes = [];
+            metaRaiseNo = {}; metaRaiseYes = {};
+
+            pf.forEach(k => {
+                let sNo = gNo[k] || [];
+                if (sNo.length > 0) {
+                    let c = sNo.length, avg = sNo.reduce((a,b)=>a+b,0)/c, st = [...sNo].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    metaRaiseNo[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
+                    dNo.push([st[0], st[c-1]]);
+                } else { dNo.push(null); }
+
+                let sYes = gYes[k] || [];
+                if (sYes.length > 0) {
+                    let c = sYes.length, avg = sYes.reduce((a,b)=>a+b,0)/c, st = [...sYes].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    metaRaiseYes[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
+                    dYes.push([st[0], st[c-1]]);
+                } else { dYes.push(null); }
+            });
+
+            if(cM2Raise) { 
+                cM2Raise.data.labels=pf; cM2Raise.data.datasets[0].data=dNo; cM2Raise.data.datasets[1].data=dYes; cM2Raise.update(); 
+            } else { 
+                cM2Raise = new Chart(document.getElementById('m2RaiseChart'), { 
+                    type:'bar', 
+                    data:{
+                        labels:pf, 
+                        datasets:[
+                            {label:'未升遷 (%)', data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
+                            {label:'剛升遷 (%)', data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
+                        ]
+                    }, 
+                    options:{
+                        responsive:true, maintainAspectRatio:false, 
+                        plugins:{
+                            tooltip:{
+                                callbacks:{
+                                    customMeta: (l, dsi) => dsi === 0 ? metaRaiseNo[l] : metaRaiseYes[l],
+                                    label: c => {
+                                        let m = c.datasetIndex === 0 ? metaRaiseNo[c.label] : metaRaiseYes[c.label];
+                                        return m ? `最低: ${m.min}% | 中位: ${m.med}% | 平均: ${m.avg}% | 最高: ${m.max}%` : '無資料';
+                                    }
+                                }
+                            }
+                        },
+                        scales: { x: { ticks: { autoSkip: false, maxRotation: 0, minRotation: 0, font: {size: 11} } } }
+                    } 
+                }); 
+            }
+        }
+
+        // 🚀 M2 表格排序邏輯
+        function sortM2Table(col) {
+            if (m2SortCol === col) { m2SortDesc = !m2SortDesc; } 
+            else { m2SortCol = col; m2SortDesc = false; }
+            renderM2Table();
+        }
+
+        function renderM2Table(pool) {
+            const kw = (document.getElementById('m2Search').value||'').toLowerCase();
+            const p = pool || dataM2;
+            const res = p.filter(i => {
+                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
+                const seriesMatch = currentM2TableSeries === 'All' || i.grade.startsWith(currentM2TableSeries);
+                const subGradeMatch = currentM2TableSubGrade === 'All' || i.grade === currentM2TableSubGrade;
+                const promoMatch = currentM2TablePromo === 'All' || i.promo === currentM2TablePromo;
+                const perfMatch = currentM2TablePerf === 'All' || i.perf === currentM2TablePerf;
+                
+                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            });
+            
+            if (m2SortCol) {
+                res.sort((a, b) => {
+                    let vA = a[m2SortCol], vB = b[m2SortCol];
+                    if (typeof vA === 'string') return m2SortDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+                    return m2SortDesc ? vB - vA : vA - vB;
+                });
+            }
+
+            document.getElementById('m2Count').innerText = '顯示 ' + res.length + " 筆";
+            document.getElementById('m2Tbody').innerHTML = res.slice(0, 50).map(i => `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">${i.rsu}</td></tr>`).join('');
+        }
+
+        function locateM2() {
+            const g = document.getElementById('m2MyGrade').value.toUpperCase(), pr = document.getElementById('m2MyPromo').value, pf = document.getElementById('m2MyPerf').value, r = parseFloat(document.getElementById('m2MyRaise').value), su = parseFloat(document.getElementById('m2MyRsu').value);
+            if(!g||!pf||isNaN(r)||isNaN(su)) return alert("請完整填寫");
+            
+            const peer = dataM2.filter(i => i.grade===g && i.perf===pf && i.promo===pr);
+            document.getElementById('m2TargetGroup').innerText = `比對母體: ${g} 且考績 ${pf} 且 ${pr==='Yes'?'有升遷':'無升遷'}`;
+            
+            const arrR = peer.filter(i=>i.raise>0).map(i=>i.raise).sort((a,b)=>a-b);
+            const arrSu = peer.filter(i=>i.rsu>0).map(i=>i.rsu).sort((a,b)=>a-b);
+
+            document.getElementById('m2PctRaise').innerText = arrR.length ? Math.round((arrR.filter(x=>x<r).length/arrR.length)*100)+"%" : "無足夠數據";
+            document.getElementById('m2PctRsu').innerText = arrSu.length ? Math.round((arrSu.filter(x=>x<su).length/arrSu.length)*100)+"%" : "無足夠數據";
+            
+            document.getElementById('m2PctCard').classList.remove('hidden');
+        }
+        
+        function clearM2() { document.getElementById('m2PctCard').classList.add('hidden'); }
+        
+        function exportM2CSV() {
+            const kw = (document.getElementById('m2Search').value||'').toLowerCase();
+            const filtered = dataM2.filter(i => {
+                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
+                const seriesMatch = currentM2TableSeries === 'All' || i.grade.startsWith(currentM2TableSeries);
+                const subGradeMatch = currentM2TableSubGrade === 'All' || i.grade === currentM2TableSubGrade;
+                const promoMatch = currentM2TablePromo === 'All' || i.promo === currentM2TablePromo;
+                const perfMatch = currentM2TablePerf === 'All' || i.perf === currentM2TablePerf;
+                
+                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            });
+            if (filtered.length === 0) return alert("無資料可匯出！");
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF職等,考績,有無升遷,調薪(%),RSU(美金)\n";
+            filtered.forEach(i => csvContent+=`"${i.grade}","${i.perf}","${i.promo==='Yes'?'有':'無'}","${i.raise}","${i.rsu}"\n`);
+            const a = document.createElement("a"); a.href = encodeURI(csvContent); a.download = `2025_bonus_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+
+        // ==========================
+        // MODAL (DATA COLLECTION)
+        // ==========================
+        function openFormModal() { document.getElementById('dataFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeFormModal() { document.getElementById('dataFormModal').classList.remove('active'); document.body.style.overflow = ''; }
+        
+        function openBonusModal() { document.getElementById('bonusFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeBonusModal() { document.getElementById('bonusFormModal').classList.remove('active'); document.body.style.overflow = ''; }
+        
+function changeM3TableSeries(series) {
+            currentM3TableSeries = series; currentM3TableSubGrade = "All";
+            ['btnM3SecAll', 'btnM3SecE', 'btnM3SecT', 'btnM3SecM', 'btnM3SecD'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
+            document.getElementById('btnM3Sec' + series).classList.add('btn-series-active');
+            updateM3SubGradeButtons(); renderM3Table();
+        }
+
+function updateM3SubGradeButtons() {
+            const container = document.getElementById('m3SubGradeButtons'); container.innerHTML = '';
+            const allGradesInSeries = Array.from(new Set(dataM3.filter(i => currentM3TableSeries === 'All' || i.grade.startsWith(currentM3TableSeries)).map(i => i.grade))).sort(compareGrades);
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM3TableSubGrade === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeM3TableSubGrade('All'); container.appendChild(allBtn);
+
+            allGradesInSeries.forEach(g => {
+                const btn = document.createElement('button'); btn.innerText = g;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM3TableSubGrade === g ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeM3TableSubGrade(g); container.appendChild(btn);
+            });
+        }
+
+function changeM3TableSubGrade(grade) { currentM3TableSubGrade = grade; updateM3SubGradeButtons(); renderM3Table(); }
+
+function changeM3TablePerf(perf) {
+            currentM3TablePerf = perf;
+            updateM3PerfButtons(); renderM3Table();
+        }
+
+function updateM3PerfButtons() {
+            const container = document.getElementById('m3PerfButtons'); container.innerHTML = '';
+            const allPerfs = Array.from(new Set(dataM3.map(i => i.perf).filter(x=>x))).sort();
+            
+            const allBtn = document.createElement('button'); allBtn.innerText = '全部考績';
+            allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM3TablePerf === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+            allBtn.onclick = () => changeM3TablePerf('All'); container.appendChild(allBtn);
+
+            allPerfs.forEach(p => {
+                const btn = document.createElement('button'); btn.innerText = p;
+                btn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM3TablePerf === p ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
+                btn.onclick = () => changeM3TablePerf(p); container.appendChild(btn);
+            });
+        }
+
+function changeM3TablePromo(promo) {
+            currentM3TablePromo = promo;
+            ['btnM3PromoAll', 'btnM3PromoYes', 'btnM3PromoNo'].forEach(id => { document.getElementById(id).className = "px-2 py-1 rounded border text-slate-700 bg-white hover:bg-slate-100"; });
+            let targetId = promo === 'Yes' ? 'btnM3PromoYes' : promo === 'No' ? 'btnM3PromoNo' : 'btnM3PromoAll';
+            document.getElementById(targetId).className = "px-2 py-1 rounded bg-[#0066cc] text-white border border-[#0066cc] font-bold shadow-sm"; renderM3Table();
+        }
+
+function updateM3Charts() {
+            const fs = document.getElementById('m3FilterSeries').value, fp = document.getElementById('m3FilterPromo').value, fpf = document.getElementById('m3FilterPerf').value;
+            const p = dataM3.filter(i => (fs==='All'||i.grade.startsWith(fs))&&(fp==='All'||i.promo===fp)&&(fpf==='All'||i.perf===fpf));
+            
+            renderM3RsuChart(p);
+            renderM3RaiseChart(p);
+            renderM3Table(p);
+        }
+
+function renderM3RsuChart(p) {
+            const g = {}; p.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
+            const m = [];
+            Object.keys(g).forEach(k => {
+                const s = g[k], c = s.length;
+                if(c >= 3) {
+                    const avg = s.reduce((a,b)=>a+b,0)/c, st = [...s].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    m.push({ grade:k, count: c, min: Math.min(...s), max: Math.max(...s), avg: avg.toFixed(0), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(0) });
+                }
+            });
+            m.sort((a,b)=>compareGrades(a.grade,b.grade));
+
+            const lbl = m.map(x=>x.grade), dBox = m.map(x=>[x.min, x.max]);
+            m3RsuMeta = {}; m.forEach(x => m3RsuMeta[x.grade] = x);
+
+            if(cM3Rsu) { cM3Rsu.data.labels=lbl; cM3Rsu.data.datasets[0].data=dBox; cM3Rsu.update(); }
+            else { 
+                cM3Rsu = new Chart(document.getElementById('m3RsuChart'), { 
+                    type:'bar', 
+                    data:{labels:lbl, datasets:[{label:'RSU 區間 (美金)', data:dBox, backgroundColor:'rgba(99, 102, 241, 0.55)', borderColor:'#6366f1', borderWidth:1.5, borderRadius:2}]}, 
+                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m3RsuMeta[l], label:c=>{const mb=m3RsuMeta[c.label]; return mb ? `最低: $${mb.min} | 中位: $${mb.med} | 平均: $${mb.avg} | 最高: $${mb.max}` : '無資料';} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
+                }); 
+            }
+        }
+
+function renderM3RaiseChart(p) {
+            const pf = Array.from(new Set(p.map(i=>i.perf).filter(x=>x))).sort();
+            const gNo = {}, gYes = {};
+            p.forEach(i => {
+                if (i.raise > 0) {
+                    if (i.promo === 'No') { if(!gNo[i.perf]) gNo[i.perf]=[]; gNo[i.perf].push(i.raise); }
+                    else { if(!gYes[i.perf]) gYes[i.perf]=[]; gYes[i.perf].push(i.raise); }
+                }
+            });
+
+            const dNo = [], dYes = [];
+            metaRaiseNo3 = {}; metaRaiseYes3 = {};
+
+            pf.forEach(k => {
+                let sNo = gNo[k] || [];
+                if (sNo.length >= 2) {
+                    let c = sNo.length, avg = sNo.reduce((a,b)=>a+b,0)/c, st = [...sNo].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    metaRaiseNo3[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
+                    dNo.push([st[0], st[c-1]]);
+                } else { dNo.push(null); }
+
+                let sYes = gYes[k] || [];
+                if (sYes.length >= 2) {
+                    let c = sYes.length, avg = sYes.reduce((a,b)=>a+b,0)/c, st = [...sYes].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    metaRaiseYes3[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
+                    dYes.push([st[0], st[c-1]]);
+                } else { dYes.push(null); }
+            });
+
+            if(cM3Raise) { 
+                cM3Raise.data.labels=pf; cM3Raise.data.datasets[0].data=dNo; cM3Raise.data.datasets[1].data=dYes; cM3Raise.update(); 
+            } else { 
+                cM3Raise = new Chart(document.getElementById('m3RaiseChart'), { 
+                    type:'bar', 
+                    data:{
+                        labels:pf, 
+                        datasets:[
+                            {label:'未升遷 (%)', data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
+                            {label:'剛升遷 (%)', data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
+                        ]
+                    }, 
+                    options:{
+                        responsive:true, maintainAspectRatio:false, 
+                        plugins:{
+                            tooltip:{
+                                callbacks:{
+                                    customMeta: (l, dsi) => dsi === 0 ? metaRaiseNo3[l] : metaRaiseYes3[l],
+                                    label: c => {
+                                        let m = c.datasetIndex === 0 ? metaRaiseNo3[c.label] : metaRaiseYes3[c.label];
+                                        return m ? `最低: ${m.min}% | 中位: ${m.med}% | 平均: ${m.avg}% | 最高: ${m.max}%` : '資料少於2筆';
+                                    }
+                                }
+                            }
+                        },
+                        scales: { x: { ticks: { autoSkip: false, maxRotation: 0, minRotation: 0, font: {size: 11} } } }
+                    } 
+                }); 
+            }
+        }
+
+function sortM3Table(col) {
+            if (m3SortCol === col) { m3SortDesc = !m3SortDesc; } 
+            else { m3SortCol = col; m3SortDesc = false; }
+            renderM3Table();
+        }
+
+function renderM3Table(pool) {
+            const searchEl = document.getElementById('m3Search'); const kw = (searchEl ? searchEl.value : '').toLowerCase();
+            const p = pool || dataM3;
+            const res = p.filter(i => {
+                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
+                const seriesMatch = currentM3TableSeries === 'All' || i.grade.startsWith(currentM3TableSeries);
+                const subGradeMatch = currentM3TableSubGrade === 'All' || i.grade === currentM3TableSubGrade;
+                const promoMatch = currentM3TablePromo === 'All' || i.promo === currentM3TablePromo;
+                const perfMatch = currentM3TablePerf === 'All' || i.perf === currentM3TablePerf;
+                
+                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            });
+            
+            if (m3SortCol) {
+                res.sort((a, b) => {
+                    let vA = a[m3SortCol], vB = b[m3SortCol];
+                    if (typeof vA === 'string') return m3SortDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
+                    return m3SortDesc ? vB - vA : vA - vB;
+                });
+            }
+
+            const countEl = document.getElementById('m3Count'); if (countEl) countEl.innerText = '顯示 ' + res.length + " 筆";
+            
+            if(res.length === 0 && dataM3.length === 0) {
+                document.getElementById('m3Tbody').innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">目前尚無任何 2026 數據</td></tr>`;
+            } else if (res.length === 0) {
+                document.getElementById('m3Tbody').innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">沒有符合條件的數據</td></tr>`;
+            } else {
+                document.getElementById('m3Tbody').innerHTML = res.slice(0, 50).map(i => {
+                    const shares = Math.round(i.rsu / (MU_PRICE_CURRENT || 1));
+                    return `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">$${i.rsu.toLocaleString()}</td><td class="p-3 text-slate-500">${i.rsu > 0 ? shares + ' 股' : '--'}</td></tr>`;
+                }).join('');
+            }
+        }
+
+function locateM3() {
+            // Functionality available when data exists
+        }
+
+function clearM3() { }
+
+        function validateBonusRaiseInput(inputId, warningId, submitId){
+            const input = document.getElementById(inputId);
+            const warning = document.getElementById(warningId);
+            const btn = document.getElementById(submitId);
+            const raw = input.value.trim();
+            const value = raw === '' ? NaN : Number(raw);
+            let invalid = false;
+            let message = '';
+
+            if(!Number.isNaN(value)){
+                if(value > 50){
+                    invalid = true;
+                    message = '你是山賊的兒子嗎？';
+                }else if(value < 0){
+                    invalid = true;
+                    message = '別鬧了，沒那麼慘吧';
+                }
+            }
+
+            if(invalid){
+                warning.textContent = message;
+                warning.classList.remove('hidden');
+                input.classList.add('border-rose-500','ring-2','ring-rose-100');
+            }else{
+                warning.textContent = '';
+                warning.classList.add('hidden');
+                input.classList.remove('border-rose-500','ring-2','ring-rose-100');
+            }
+            if(btn) btn.disabled = invalid;
+            return !invalid;
+        }
+
+        function validateBonusRSUInput(inputId, warningId){
+            const input = document.getElementById(inputId);
+            const warning = document.getElementById(warningId);
+            const raw = input.value.trim();
+            const value = raw === '' ? NaN : Number(raw);
+            const showWarning = !Number.isNaN(value) && value < 6000;
+
+            if(showWarning){
+                warning.textContent = 'JE請你確認單位是否正確（美元）';
+                warning.classList.remove('hidden');
+                input.classList.add('border-amber-400','ring-2','ring-amber-100');
+            }else{
+                warning.textContent = '';
+                warning.classList.add('hidden');
+                input.classList.remove('border-amber-400','ring-2','ring-amber-100');
+            }
+            return true;
+        }
+
+        function validateGradeValue(v){
+            const value=(v||'').trim().toUpperCase();
+            return /^[A-Z0-9]+$/.test(value);
+        }
+        function validateBonusGradeValue(v){
+            const value=(v||'').trim().toUpperCase();
+            return /^[A-Z0-9]+$/.test(value);
+        }
+        function validateSalaryInput(input){
+            const value=parseFloat(input.value), msg=document.getElementById('salaryGuardMsg');
+            if(!isNaN(value)&&value>100){ msg.classList.remove('hidden'); input.classList.add('border-rose-500','ring-2','ring-rose-100'); return false; }
+            msg.classList.add('hidden'); input.classList.remove('border-rose-500','ring-2','ring-rose-100'); return true;
+        }
+        function openBonus2026Modal(){document.getElementById('bonus2026FormModal').classList.add('active');document.body.style.overflow='hidden';}
+        function closeBonus2026Modal(){document.getElementById('bonus2026FormModal').classList.remove('active');document.body.style.overflow='';}
+        function openUnionReportModal(){document.getElementById('unionReportModal').classList.add('active');document.body.style.overflow='hidden';}
+        function closeUnionReportModal(){document.getElementById('unionReportModal').classList.remove('active');document.body.style.overflow='';}
+        async function submitBonus2026Form(e){
+            e.preventDefault(); const btn=document.getElementById('b3FormSubmitBtn'),msg=document.getElementById('b3FormStatusMsg');
+            const grade=document.getElementById('b3FormGrade').value.trim().toUpperCase();
+            if(!validateBonusGradeValue(grade)){alert('職等請填英文字母或數字，例如 E1、EE、MM。');return;}
+            if(!validateBonusRaiseInput('b3FormRaise','b3FormRaiseWarning','b3FormSubmitBtn')){
+                document.getElementById('b3FormRaise').focus();
+                return;
+            }
+            validateBonusRSUInput('b3FormRSU','b3FormRSUWarning');
+            btn.disabled=true; btn.innerText='2026 資料傳送中...';
+            try{ await fetch(API_M3,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({
+                Timestamp:new Date().toISOString(),Grade:grade,Ranking:document.getElementById('b3FormRank').value,Raise:document.getElementById('b3FormRaise').value,Promotion:document.getElementById('b3FormPromo').value,RSU:document.getElementById('b3FormRSU').value}).toString()});
+                msg.innerText='✅ 感謝您的匿名貢獻！(資料將於下次重整後載入)'; msg.className='text-xs text-center font-bold mt-2 text-emerald-600 block';
+                document.getElementById('bonus2026Form').reset(); setTimeout(closeBonus2026Modal,1800);
+            }catch(err){console.error(err);msg.innerText='❌ 傳送失敗，請確認 2026 API 設定。';msg.className='text-xs text-center font-bold mt-2 text-rose-600 block';}
+            finally{btn.disabled=false;btn.innerText='🚀 送出 2026 開獎資料';}
+        }
+        function getAnonToken(){
+            let token=localStorage.getItem('micron_anon_token');
+            if(!token){token=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():('anon-'+Date.now()+'-'+Math.random().toString(36).slice(2));localStorage.setItem('micron_anon_token',token);}
+            return token;
+        }
+        function normalizeUnionRows(rows){
+            return rows.map(r=>({
+                timestamp:r.Timestamp||r.timestamp||r.Date||r.date,
+                site:r.Site||r.site||r.Location||r.location,
+                count:Number(r.MemberCount!==undefined?r.MemberCount:(r.count!==undefined?r.count:r.Count))
+            })).filter(r=>r.site && Number.isFinite(r.count));
+        }
+        async function loadUnionReports(){
+            if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0) return [];
+            try{
+                const rows=await portalGet('union_history');
+                return normalizeUnionRows(rows);
+            }catch(e){console.warn('Union API',e);return []}
+        }
+        async function submitUnionReport(e){
+            e.preventDefault(); const btn=document.getElementById('unionReportBtn'),msg=document.getElementById('unionReportMsg');
+            const site=document.getElementById('unionSite').value,count=parseInt(document.getElementById('unionCount').value,10);
+            if(!['桃園','台中'].includes(site)||!Number.isInteger(count)||count<0||count>15000){alert('請填寫 0～15000 的整數人數。');return;}
+            btn.disabled=true;btn.innerText='回報傳送中...';
+            try{
+                await portalPost('union',{Site:site,MemberCount:String(count),AnonToken:getAnonToken(),Note:''});
+                msg.innerText='✅ 已送出匿名回報，資料已寫入 PortalDB。';msg.className='text-xs text-center font-bold mt-2 text-emerald-600 block';
+                document.getElementById('unionReportForm').reset(); await renderUnionChart(); setTimeout(closeUnionReportModal,1200);
+            }catch(err){console.error(err);msg.innerText='❌ 回報失敗：'+err.message;msg.className='text-xs text-center font-bold mt-2 text-rose-600 block';}
+            finally{btn.disabled=false;btn.innerText='🚀 送出匿名回報';}
+        }
+        async function renderUnionChart(){
+            const canvas=document.getElementById('unionTrendChart');if(!canvas)return;
+            const reports=await loadUnionReports();
+            // 右上角「目前預估總人數」改為顯示 PortalDB 最新一筆回報，而不是固定上限值。
+            const latest=reports.slice().sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp))[0];
+            const latestEl=document.getElementById('latestUnionCount');
+            if(latestEl){
+                latestEl.innerText=latest && Number.isFinite(latest.count) ? `${latest.count.toLocaleString()} 人` : '--';
+            }
+            const monthMap={};
+            reports.forEach(r=>{const d=new Date(r.timestamp);if(isNaN(d))return;const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');if(!monthMap[key])monthMap[key]={};monthMap[key][r.site]=r.count;});
+            const keys=Object.keys(monthMap).sort();
+            const labels=keys.length?keys.map(k=>{const [y,m]=k.split('-');return y+'/'+Number(m)+'月';}):[];
+            const ty=keys.map(k=>monthMap[k].桃園 ?? null),tc=keys.map(k=>monthMap[k].台中 ?? null);
+            if(cUnionTrend)cUnionTrend.destroy();
+            cUnionTrend=new Chart(canvas.getContext('2d'),{type:'line',data:{labels,datasets:[{label:'桃園工會',data:ty,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.08)',fill:true,tension:.3,borderWidth:2},{label:'台中工會',data:tc,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Number(c.raw||0).toLocaleString()} 人`}}},scales:{y:{beginAtZero:true,suggestedMax:15000,title:{display:true,text:'會員人數'}}}}});
+            const st=document.getElementById('unionDataStatus');if(st)st.innerText=API_PORTAL&&API_PORTAL.indexOf('請貼上')!==0?'🟢 PortalDB 共用資料庫：所有人的匿名回報會匯入同一份資料。':'🔴 尚未設定 PortalDB API。';
+        }
+        async function portalGet(action, params={}){
+            if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0) throw new Error('尚未設定 API_PORTAL');
+            const qs=new URLSearchParams(); qs.set('action',action); Object.keys(params||{}).forEach(k=>{ if(params[k]!==undefined&&params[k]!==null&&params[k]!=='') qs.set(k,String(params[k])); }); qs.set('t',Date.now());
+            const r=await fetch(API_PORTAL+'?'+qs.toString(),{redirect:'follow',cache:'no-store'});
+            if(!r.ok)throw new Error('HTTP '+r.status);
+            const raw=await r.json();
+            if(raw && raw.ok===false)throw new Error(raw.error||'PortalDB API error');
+            return unwrapApiPayload(raw);
+        }
+        async function portalPost(action,data){
+            if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0)throw new Error('尚未設定 API_PORTAL');
+            const body=new URLSearchParams(); body.set('action',action); body.set('Timestamp',new Date().toISOString()); Object.keys(data||{}).forEach(k=>body.set(k,data[k]??''));
+            await fetch(API_PORTAL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString()}); return true;
+        }
+        let publicReportItems=[], publicReportIndex=0, publicReportTimer=null;
+        const announcementStore={};
+
+        function getOwnedPolls(){
+            try{return JSON.parse(localStorage.getItem('micron_owned_polls_v2')||'[]')}catch(e){return[]}
+        }
+        function rememberOwnedPoll(id){
+            if(!id)return;
+            const a=getOwnedPolls(); if(!a.includes(String(id))){a.push(String(id));localStorage.setItem('micron_owned_polls_v2',JSON.stringify(a));}
+        }
+        function forgetOwnedPoll(id){
+            const a=getOwnedPolls().filter(x=>String(x)!==String(id));localStorage.setItem('micron_owned_polls_v2',JSON.stringify(a));
+        }
+        function normalizePollOptions(p){
+            return String(p.Options||p.options||'').split(/[,，|、\n]/).map(x=>x.trim()).filter(Boolean);
+        }
+        function normalizePollCounts(p){
+            let raw=p.Results||p.results||p.OptionCounts||p.optionCounts||p.Counts||p.counts;
+            if(typeof raw==='string'){try{raw=JSON.parse(raw)}catch(e){raw=null;}}
+            if(raw && typeof raw==='object' && !Array.isArray(raw)) return raw;
+            return {};
+        }
+        function totalPollVotes(p){
+            const c=normalizePollCounts(p);
+            const vals=Object.values(c).map(Number).filter(Number.isFinite);
+            if(vals.length)return vals.reduce((a,b)=>a+b,0);
+            return Number(p.TotalVotes??p.totalVotes??p.Votes??p.votes??0)||0;
+        }
+        function pollVotedKey(id){return 'micron_poll_voted_'+String(id);}
+        function hasVotedPoll(id){return localStorage.getItem(pollVotedKey(id))==='1';}
+
+        async function renderPollList(polls){
+            const el=document.getElementById('pollList'); if(!el)return;
+            if(!polls.length){el.innerHTML='<p class="text-sm text-slate-400">尚無進行中的投票。</p>';return;}
+            el.innerHTML=polls.slice(0,30).map(p=>{
+                const id=String(p.PollId||p.ID||p.Id||'');
+                const opts=normalizePollOptions(p);
+                const counts=normalizePollCounts(p);
+                const total=totalPollVotes(p);
+                const voted=hasVotedPoll(id);
+                const optionHtml=opts.map(o=>{
+                    const count=Number(counts[o]??counts[String(o)]??0)||0;
+                    const pct=total>0?Math.round(count/total*100):0;
+                    return `<button ${voted?'disabled':''} onclick="votePoll('${escapeJs(id)}','${escapeJs(o)}')" class="w-full text-left text-xs bg-white border rounded-lg px-3 py-2 ${voted?'opacity-70 cursor-not-allowed':'hover:bg-indigo-50'}">
+                        <div class="flex justify-between gap-2"><span>${escapeHtml(o)}</span><b>${count} 票${total?` · ${pct}%`:''}</b></div>
+                        <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-indigo-500" style="width:${pct}%"></div></div>
+                    </button>`;
+                }).join('');
+                return `<div class="p-4 rounded-xl border bg-slate-50">
+                    <div class="flex items-start justify-between gap-3"><div><b class="text-sm">${escapeHtml(p.Question||p.question||'')}</b><div class="text-[10px] text-slate-400 mt-1">目前 ${total} 票 ${voted?'· 你已投票':''}</div></div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 mt-3">${optionHtml}</div>
+                </div>`;
+            }).join('');
+        }
+
+        async function refreshAISummary(force=false){
+            const el=document.getElementById('aiSummary'); if(!el)return;
+            el.innerHTML='<p class="text-sm text-slate-400">AI 摘要整理中...</p>';
+            try{const d=await portalGet('ai_summary', force?{force:'1'}:{});
+                if(d && d.html) el.innerHTML=d.html;
+                else if(d && d.summary) el.innerHTML='<p>'+escapeHtml(d.summary).replace(/\n/g,'</p><p>')+'</p>';
+                else el.innerHTML='<p class="text-sm text-slate-400">目前沒有足夠資料產生摘要。</p>';
+            }catch(e){el.innerHTML='<p class="text-sm text-slate-400">AI 摘要暫時無法載入；站內資料仍可正常使用。</p>';}
+        }
+        function addReportEmoji(emoji){const el=document.getElementById('reportContent');if(!el)return;const pos=el.selectionStart||el.value.length;el.value=el.value.slice(0,pos)+emoji+el.value.slice(pos);el.focus();el.selectionStart=el.selectionEnd=pos+emoji.length;}
+        async function refreshExternalNews(force=false){
+            const list=document.getElementById('externalNewsList'), status=document.getElementById('externalNewsStatus'); if(!list)return;
+            list.innerHTML='<p class="text-sm text-slate-400">外部新聞更新中...</p>';
+            try{const d=await portalGet('external_news', force?{force:'1'}:{});const news=Array.isArray(d?.news)?d.news:(Array.isArray(d)?d:[]);currentExternalNewsItems=news;
+                if(status)status.innerText=(d?.live?'🟢 外部新聞已更新':'🟡 顯示最近一次成功快取')+' · '+(d?.updatedAt?formatDateTime(d.updatedAt):'未知時間')+' · '+news.length+' 篇';
+                renderExternalNewsFiltered();setupNewsFilters();
+            }catch(e){console.error('external_news:',e);if(status)status.innerHTML='🔴 外部新聞暫時無法載入 · '+escapeHtml(e.message||String(e));list.innerHTML='<div class="col-span-full rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800"><b>目前無法取得外部新聞</b><p class="mt-1 text-xs">可直接開啟 Google News 搜尋「美光」。</p></div>';}
+        }
+        let currentExternalNewsItems=[];
+[];
+        let currentExternalNewsFilter='全部';
+        function classifyNewsItem(n){const t=(String(n.title||'')+' '+String(n.source||'')).toLowerCase();if(/工會|罷工|勞資|union|strike/.test(t))return '工會';if(/薪資|獎金|分紅|bonus|salary/.test(t))return '薪資';if(/股價|目標|美元|nasdaq|\bmu\b|股市|漲|跌/.test(t))return '股價';if(/ai|hbm|dram|nand|記憶體|半導體|晶片/.test(t))return 'AI/記憶體';return '其他';}
+        function renderExternalNewsFiltered(){const list=document.getElementById('externalNewsList');if(!list)return;const items=currentExternalNewsFilter==='全部'?currentExternalNewsItems:currentExternalNewsItems.filter(n=>classifyNewsItem(n)===currentExternalNewsFilter);list.innerHTML=items.length?items.slice(0,20).map(n=>{const dt=formatDateTime(n.date||n.published||n.Published||'');return `<a class="external-news-item" target="_blank" rel="noopener" href="${escapeHtml(n.url||'#')}"><div class="news-meta"><span class="news-source-tag">${escapeHtml(n.source||'Google News')}</span><span class="news-date">${escapeHtml(dt)}</span></div><div class="news-title">${escapeHtml(n.title||'')}</div></a>`}).join(''):'<div class="col-span-full text-sm text-slate-400 p-3">此分類目前沒有新聞。</div>';}
+        function setupNewsFilters(){document.querySelectorAll('.news-filter').forEach(b=>{if(b.dataset.bound==='1')return;b.dataset.bound='1';b.addEventListener('click',()=>{currentExternalNewsFilter=b.dataset.newsFilter||'全部';document.querySelectorAll('.news-filter').forEach(x=>{x.classList.remove('bg-sky-600','text-white');x.classList.add('bg-slate-100');});b.classList.add('bg-sky-600','text-white');b.classList.remove('bg-slate-100');renderExternalNewsFiltered();});});}
+        function refreshEventCountdowns(){
+            const now=new Date();
+            document.querySelectorAll('[data-countdown-start]').forEach(el=>{
+                const start=new Date(el.dataset.countdownStart), endRaw=el.dataset.countdownEnd||'', end=endRaw?new Date(endRaw):null;
+                if(isNaN(start))return;
+                if(end && isNaN(end)) return;
+                if(end && now>=end){el.textContent='✅ 已結束';el.classList.remove('text-rose-600');el.classList.add('text-slate-500');return;}
+                if(now>=start){
+                    if(end){
+                        const diff=end-now,d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);
+                        el.textContent=`🟢 進行中 · 剩 ${d} 天 ${h} 小時 ${m} 分鐘`;
+                    }else el.textContent='🟡 已開始';
+                    el.classList.remove('text-rose-600');el.classList.add('text-emerald-600');return;
+                }
+                const diff=start-now,d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);
+                el.textContent=`⏳ 還有 ${d} 天 ${h} 小時 ${m} 分鐘`;
+            });
+        }
+        function getMoodToken(){let k='micron_mood_token';let v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():('mood_'+Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem(k,v);}return v;}
+        async function refreshCompanyMood(){
+            const scoreEl=document.getElementById('moodScore'), resultEl=document.getElementById('moodResults'); if(!scoreEl)return;
+            try{
+                const d=await portalGet('company_mood');
+                if(!d || d.ok===false) throw new Error(d?.error || '公司氣氛 API 沒有回傳有效資料');
+                const total=Number(d.total)||0;
+                scoreEl.textContent=total?`氣氛指數 ${Number(d.score)||0}/100 · ${total} 份回覆`:'目前尚無資料';
+                const counts=d.counts||{};
+                const labels=d.labels||['很不錯','還不錯','普通','有點差','非常差'];
+                resultEl.innerHTML=total?labels.map(x=>{const n=Number(counts[x])||0,p=Math.round(n/total*100);return `<div class="flex items-center gap-2 text-xs"><span class="w-14 font-bold">${escapeHtml(x)}</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-sky-500" style="width:${p}%"></div></div><b class="w-12 text-right">${n} (${p}%)</b></div>`}).join(''):'<div class="text-xs text-slate-400">目前已有 API 連線，但尚無有效投票資料。</div>';
+                renderMoodTrend(d.trend||[]);
+            }catch(e){console.error('company_mood:',e);scoreEl.textContent='目前無法取得統計'; if(resultEl)resultEl.innerHTML='<div class="text-xs text-rose-500">統計 API 暫時無法讀取：'+escapeHtml(e.message||String(e))+'</div>';}
+        }
+        let moodTrendChartInstance=null;
+        function renderMoodTrend(trend){
+            const c=document.getElementById('moodTrendChart');
+            if(!c||!window.Chart)return;
+            if(moodTrendChartInstance && typeof moodTrendChartInstance.destroy==='function'){
+                moodTrendChartInstance.destroy();
+            }
+            moodTrendChartInstance=null;
+            const rows=Array.isArray(trend)?trend:[];
+            moodTrendChartInstance=new Chart(c,{
+                type:'line',
+                data:{labels:rows.map(x=>x.date||''),datasets:[{label:'公司氣氛指數',data:rows.map(x=>Number(x.score)||0),tension:.25,fill:false}]},
+                options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:100,title:{display:true,text:'指數'}}},plugins:{legend:{display:false}}}
+            });
+        }
+        async function submitMood(mood){
+            if(localStorage.getItem('micron_mood_submitted')==='1'){alert('你已經填過本次公司氣氛調查。');return;}
+            const buttons=[...document.querySelectorAll('.mood-btn')]; buttons.forEach(b=>b.disabled=true);
+            try{await portalPost('company_mood',{Mood:mood,AnonToken:getMoodToken()}); localStorage.setItem('micron_mood_submitted','1'); document.getElementById('moodScore').textContent='✅ 已送出，謝謝你的回覆'; await refreshCompanyMood();}catch(e){alert('送出失敗：'+(e.message||e));buttons.forEach(b=>b.disabled=false);}
+        }
+
+        function closeGenericModal(id){const el=document.getElementById(id);if(el)el.classList.remove('active');document.body.style.overflow='';}
+        function openWishlistModal(){document.getElementById('wishlistModal').classList.add('active');document.body.style.overflow='hidden';}
+        async function submitWishlist(){const content=document.getElementById('wishContent').value.trim(),msg=document.getElementById('wishMsg');if(!content)return alert('請寫下你的想法');try{await portalPost('wishlist',{Title:document.getElementById('wishTitle').value.trim(),Content:content,Category:'功能許願',AnonToken:getAnonToken()});msg.textContent='✅ 已送出，已加入未來功能許願清單。';msg.className='text-xs mt-2 font-bold text-emerald-600';document.getElementById('wishContent').value='';setTimeout(()=>closeGenericModal('wishlistModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
+        function openAnnouncementSubmit(){document.getElementById('announcementSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
+        async function submitAnnouncementSuggestion(){const title=document.getElementById('annSubmitTitle').value.trim(),content=document.getElementById('annSubmitContent').value.trim(),msg=document.getElementById('annSubmitMsg');if(!title||!content)return alert('請填寫公告標題與內容');try{await portalPost('announcement_submit',{Title:title,Content:content,Category:document.getElementById('annSubmitCategory').value,AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('announcementSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
+        function openEventSubmit(){document.getElementById('eventSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
+        async function submitEventSuggestion(){const title=document.getElementById('eventSubmitTitle').value.trim(),start=document.getElementById('eventSubmitStart').value,end=document.getElementById('eventSubmitEnd').value,msg=document.getElementById('eventSubmitMsg');if(!title||!start)return alert('至少要填事件名稱與開始時間');try{await portalPost('event_submit',{Title:title,StartAt:start,EndAt:end,Category:document.getElementById('eventSubmitCategory').value,Description:document.getElementById('eventSubmitDescription').value.trim(),AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('eventSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
+        async function openAnnouncement(key){const a=announcementStore[String(key)]||{};document.getElementById('announcementViewBody').innerHTML=`<div class="pr-6"><div class="flex gap-2 text-xs text-slate-500 mb-2"><span>${escapeHtml(a.Category||'一般')}</span><span>${formatDateTime(a.Timestamp)}</span></div><h2 class="text-2xl font-black text-slate-800">${escapeHtml(a.Title||'')}</h2><div class="mt-5 text-sm leading-7 whitespace-pre-wrap text-slate-700">${escapeHtml(a.Content||'')}</div><div class="mt-5 pt-4 border-t text-xs font-bold text-slate-500">👁 ${Number(a.ViewCount||0).toLocaleString()} 人閱讀</div></div>`;document.getElementById('announcementViewModal').classList.add('active');document.body.style.overflow='hidden';if(key){try{const r=await portalPost('announcement_view',{AnnouncementKey:key,AnonToken:getAnonToken()});}catch(e){} const n=document.querySelector('#announcementViewBody div.mt-5.pt-4');if(n)n.textContent='👁 '+(Number(a.ViewCount||0)+1).toLocaleString()+' 人閱讀';}}
+        async function likeReport(key){if(!key)return;const k='micron_report_liked_'+key;if(localStorage.getItem(k)==='1')return;try{const r=await portalPost('report_like',{ReportKey:key,AnonToken:getAnonToken()});localStorage.setItem(k,'1');setTimeout(refreshPublicReports,100);}catch(e){console.warn(e);}}
+        async function refreshPageViewStats(){try{const d=await portalGet('page_stats');const s=d&&d.data?d.data:d;const a=document.getElementById('pageViewTotal'),b=document.getElementById('pageViewToday');if(a)a.textContent=Number(s?.total||0).toLocaleString();if(b)b.textContent=Number(s?.today||0).toLocaleString();}catch(e){}}
+        function recordPageView(){try{portalPost('pageview',{Page:'portal',AnonToken:getAnonToken()});}catch(e){}}
+
+        let portalDataLastLoadedAt=0, portalDataLoadingPromise=null;
+        async function refreshPortalData(force=false){
+            refreshPageViewStats();
+            if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0){
+                ['announcementList','pollList','topicList','eventList'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<p class="text-sm text-slate-400">尚未設定 PortalDB API。</p>';});
+                return;
+            }
+            const now=Date.now();
+            if(!force && portalDataLastLoadedAt && now-portalDataLastLoadedAt<12000) return;
+            if(portalDataLoadingPromise) return portalDataLoadingPromise;
+            portalDataLoadingPromise=(async()=>{
+                const results=await Promise.allSettled([portalGet('announcements'),portalGet('polls'),portalGet('topics'),portalGet('events')]);
+                const names=['公告','投票','議題','日期'];
+                const vals=results.map((r,i)=>{
+                    if(r.status==='fulfilled') return r.value;
+                    console.warn('PortalDB '+names[i]+' API:',r.reason);
+                    return null;
+                });
+                const ann=Array.isArray(vals[0])?vals[0]:[], polls=Array.isArray(vals[1])?vals[1]:[], topics=Array.isArray(vals[2])?vals[2]:[], events=Array.isArray(vals[3])?vals[3]:[];
+                if(results[0].status==='fulfilled'){
+                    setTextSafe('portalAnnouncementCount',ann.length);
+                    setHtmlSafe('announcementList',ann.length?ann.slice(0,8).map(a=>{const rawKey=String(a.AnnouncementKey||'');if(rawKey)announcementStore[rawKey]=a;const key=escapeJs(rawKey);return `<button class="w-full text-left p-3 rounded-xl bg-slate-50 border hover:bg-indigo-50" onclick="openAnnouncement('${key}')"><div class="flex justify-between gap-2 items-center"><b class="text-sm">${escapeHtml(a.Title||'未命名公告')}</b><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDate(a.Timestamp)}</span></div><div class="mt-1 flex gap-2 text-[10px] text-slate-500"><span>${escapeHtml(a.Category||'一般')}</span><span>👁 ${Number(a.ViewCount||0).toLocaleString()}</span></div></button>`;}).join(''):'<p class="text-sm text-slate-400">尚無公告。</p>');
+                }else setHtmlSafe('announcementList','<p class="text-sm text-amber-600">⚠️ 公告暫時無法更新，稍後重試。</p>');
+                if(results[1].status==='fulfilled') await renderPollList(polls); else setHtmlSafe('pollList','<p class="text-sm text-amber-600">⚠️ 投票資料暫時無法更新。</p>');
+                if(results[2].status==='fulfilled'){
+                    window.currentPortalTopics=topics.map(t=>String(t.Topic||t.Title||''));
+                    setTextSafe('portalTopicCount',topics.length);
+                    const sortedTopics=[...topics].sort((a,b)=>Number(b.Votes||b.votes||0)-Number(a.Votes||a.votes||0));
+                    setHtmlSafe('topicList',sortedTopics.length?sortedTopics.slice(0,10).map((t,i)=>{const topic=String(t.Topic||t.Title||'');const key='micron_topic_liked_'+topic;const liked=localStorage.getItem(key)==='1';const votes=Number(t.Votes||t.votes||0)||0;return `<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border"><span class="text-lg font-black text-amber-500">#${i+1}</span><span class="flex-1 text-sm font-bold">${escapeHtml(topic)}</span><button onclick="likeTopic('${escapeJs(topic)}')" class="text-xs font-black ${liked?'text-slate-400 bg-slate-100':'text-rose-600 bg-rose-50'} px-2 py-1 rounded-lg" ${liked?'disabled':''}>👍 ${votes}</button></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無熱門議題。</p>');
+                }else setHtmlSafe('topicList','<p class="text-sm text-amber-600">⚠️ 熱門議題暫時無法更新。</p>');
+                if(results[3].status==='fulfilled'){
+                    setHtmlSafe('eventList',events.length?events.slice().sort((a,b)=>new Date(a.StartAt)-new Date(b.StartAt)).slice(0,12).map(x=>{const st=new Date(x.StartAt),en=x.EndAt?new Date(x.EndAt):null;const same=en&&!isNaN(en)&&st.toDateString()===en.toDateString();const range=en&&!isNaN(en)&&!same?`${formatDate(x.StartAt)} ～ ${formatDate(x.EndAt)}`:formatDate(x.StartAt);return `<div class="event-item"><div class="flex flex-wrap items-center gap-2"><span class="event-range">${escapeHtml(range)}</span><span class="text-[10px] text-slate-500">${escapeHtml(x.Category||'')}</span><span class="event-countdown font-black text-rose-600" data-countdown-start="${escapeHtml(x.StartAt||'')}" data-countdown-end="${escapeHtml(x.EndAt||'')}">⏳ 計算中…</span></div><b class="event-date-hero block mt-2">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
+                    setTimeout(refreshEventCountdowns,0);
+                }else setHtmlSafe('eventList','<p class="text-sm text-amber-600">⚠️ 重要日期暫時無法更新。</p>');
+                portalDataLastLoadedAt=Date.now();
+                // 以下是低頻/非核心內容，獨立失敗不影響上述四區。
+                Promise.allSettled([refreshCompanyMood(),refreshExternalNews(false),refreshPublicReports()]).then(()=>{});
+            })().finally(()=>{portalDataLoadingPromise=null;});
+            return portalDataLoadingPromise;
+        }
+        function setTextSafe(id,v){const e=document.getElementById(id);if(e)e.innerText=v;}
+        function setHtmlSafe(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v;}
+
+        function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+        function escapeJs(v){return String(v==null?'':v).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+        function formatDate(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}
+        function formatDateTime(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d).replace(/\\s/g,' ');}
+
+        async function votePoll(id,option){
+            if(!id)return;
+            if(hasVotedPoll(id))return alert('你已經投過這一題了。');
+            try{
+                await portalPost('vote',{PollId:id,Option:option,AnonToken:getAnonToken()});
+                localStorage.setItem(pollVotedKey(id),'1');
+                // no-cors POST 不提供可讀 response；先立即更新 UI，再背景重新抓正式票數。
+                const cards=[...document.querySelectorAll('#pollList > div')];
+                cards.forEach(card=>{
+                    if(!card.innerText.includes(option))return;
+                    const btns=[...card.querySelectorAll('button')];
+                    btns.forEach(btn=>{
+                        if(btn.innerText.trim().startsWith(option)){
+                            const m=btn.querySelector('b'); if(m){const mm=m.innerText.match(/^(\d+)/);const n=mm?Number(mm[1])+1:1;m.innerText=n+' 票';}
+                            btn.disabled=true; btn.classList.add('opacity-70','cursor-not-allowed');
+                        }
+                    });
+                });
+                alert('✅ 已送出匿名投票');
+                setTimeout(()=>refreshPortalData(true),800);
+            }catch(e){alert('投票失敗：'+e.message);}
+        }
+        async function openPollModal(){
+            const q=(prompt('請輸入投票問題')||'').trim(); if(!q)return;
+            const o=(prompt('請輸入至少 2 個選項，以逗號分隔，例如：A,B,C')||'').trim(); if(!o)return;
+            const opts=[...new Set(o.split(/[,，|、\n]/).map(x=>x.trim()).filter(Boolean))];
+            if(opts.length<2){alert('⚠️ 投票至少需要 2 個不同選項。只有 1 個選項不能建立投票。');return;}
+            if(opts.length>10){alert('⚠️ 最多 10 個選項。');return;}
+            try{
+                await portalPost('poll',{Question:q,Options:opts.join(','),EndAt:'',CreatorToken:getAnonToken()});
+                alert('✅ 投票已建立');
+                await refreshPortalData();
+            }catch(e){alert('建立投票失敗：'+e.message);}
+        }
+
+        async function likeTopic(topic){
+            if(!topic)return;
+            const key='micron_topic_liked_'+topic;
+            if(localStorage.getItem(key)==='1')return alert('你已經按過讚了。');
+            try{
+                await portalPost('topic_like',{Topic:topic,AnonToken:getAnonToken()});
+                localStorage.setItem(key,'1');
+                await refreshPortalData(true);
+            }catch(e){alert('按讚失敗：'+e.message);}
+        }
+
+        async function submitTopicPrompt(){
+            const t=(prompt('你想讓大家關注什麼？')||'').trim(); if(!t)return;
+            if(t.length<2){alert('議題至少 2 個字。');return;}
+            const normalizedTopic=t.replace(/\s+/g,'').toLowerCase();
+            const duplicate=(window.currentPortalTopics||[]).some(x=>String(x||'').replace(/\s+/g,'').toLowerCase()===normalizedTopic);
+            if(duplicate){alert('這個議題已經存在，請直接幫它按 👍，不用重複建立。');return;}
+            try{
+                await portalPost('topic',{Topic:t,Votes:0,AnonToken:getAnonToken()});
+                alert('✅ 議題已送出，等待大家按 👍 推上熱搜');
+                await refreshPortalData(true);
+            }catch(e){alert('議題送出失敗：'+e.message);}
+        }
+
+        async function refreshPublicReports(){
+            const track=document.getElementById('publicReportTrack'); if(!track)return;
+            try{
+                const rows=await portalGet('public_reports');
+                if(!Array.isArray(rows)) throw new Error('public_reports 回傳格式不是陣列');
+                publicReportItems=rows;
+                if(!publicReportItems.length){
+                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">目前沒有可公開顯示的匿名心聲。</div>';
+                    if(publicReportTimer){clearInterval(publicReportTimer);publicReportTimer=null;}
+                    return;
+                }
+                publicReportIndex=Math.min(publicReportIndex,Math.max(0,publicReportItems.length-1));
+                renderPublicReportWindow(); startPublicReportTicker();
+            }catch(e){
+                console.error('public_reports:',e);
+                // 不因一次 API 失敗把既有資料清成 0 筆；若已有資料，繼續播。
+                if(publicReportItems.length){
+                    renderPublicReportWindow(); startPublicReportTicker();
+                }else{
+                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-700">⚠️ 匿名心聲暫時無法載入：'+escapeHtml(e.message||String(e))+'</div>';
+                }
+            }
+        }
+        function renderPublicReportWindow(){
+            const track=document.getElementById('publicReportTrack');if(!track)return;
+            const rows=[];
+            for(let i=0;i<5;i++){
+                const r=publicReportItems[(publicReportIndex+i)%publicReportItems.length];
+                rows.push(`<div class="portal-report-row p-3 rounded-xl bg-slate-50 border flex flex-col"><div class="flex items-center justify-between gap-2 shrink-0"><div class="flex gap-1.5 items-center min-w-0"><span class="text-[11px] font-bold text-rose-600 whitespace-nowrap">${escapeHtml(r.Type||'心聲')}</span><span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-600 whitespace-nowrap">${escapeHtml(r.Category||'其他')}</span></div><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDateTime(r.Timestamp)}</span></div><p class="portal-report-content text-sm text-slate-700 mt-1 whitespace-pre-wrap flex-1 min-h-0">${escapeHtml(r.Content||r.Message||'')}</p><div class="flex justify-end mt-1 shrink-0"><button class="text-[11px] font-black px-2 py-0.5 rounded-lg bg-rose-50 text-rose-600" ${String(r.ReportKey||'').indexOf('local_')===0?'disabled':''} onclick="likeReport('${escapeJs(r.ReportKey||'')}')">👍 ${Number(r.Likes||0)}</button></div></div>`);
+            }
+            track.innerHTML=rows.join('');
+        }
+        function startPublicReportTicker(){
+            if(publicReportTimer)clearInterval(publicReportTimer);
+            if(publicReportItems.length<=5)return;
+            publicReportTimer=setInterval(()=>{publicReportIndex=(publicReportIndex+2)%publicReportItems.length;renderPublicReportWindow();},3000);
+        }
+
+        let reportSubmitBusy=false;
+        async function submitAnonymousReport(){
+            if(reportSubmitBusy)return;
+            const contentEl=document.getElementById('reportContent'), resultEl=document.getElementById('reportResult');
+            const content=contentEl.value.trim();
+            if(!content)return alert('請填寫內容');
+            if(content.length<5)return alert('請至少寫 5 個字，讓大家看得懂。');
+            const submitBtn=document.querySelector('#mode5Container button[onclick="submitAnonymousReport()"]');
+            reportSubmitBusy=true; if(submitBtn){submitBtn.disabled=true;submitBtn.innerText='送出中...';}
+            try{
+                await portalPost('report',{Type:document.getElementById('reportType').value,Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,AnonToken:getAnonToken(),Status:'Public'});
+                const optimistic={ReportKey:'local_'+Date.now(),Timestamp:new Date().toISOString(),Type:document.getElementById('reportType').value,Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,Likes:0};
+                publicReportItems=[optimistic,...publicReportItems.filter(x=>String(x.ReportKey||'')!==String(optimistic.ReportKey))]; publicReportIndex=0; renderPublicReportWindow(); startPublicReportTicker();
+                resultEl.innerText='✅ 已送出，會直接進入「匿名心聲廣播」。'; resultEl.className='text-xs mt-2 font-bold text-emerald-600 block';
+                contentEl.value='';
+                setTimeout(()=>refreshPublicReports(),900);
+            }catch(e){resultEl.innerText='❌ 回報失敗：'+e.message;resultEl.className='text-xs mt-2 font-bold text-rose-600 block';}
+            finally{reportSubmitBusy=false;if(submitBtn){submitBtn.disabled=false;submitBtn.innerText='送出匿名大聲公';}}
+        }
+        function runPromotionTool(){const g=document.getElementById('toolGrade').value.trim().toUpperCase(),s=parseFloat(document.getElementById('toolSalary').value);if(!/^[A-Z][0-9]$/.test(g)||isNaN(s))return alert('請輸入 E1 / T1 / M1 與目前月薪');const m=g.match(/([A-Z])(\d+)/),next=m?m[1]+(Number(m[2])+1):'';const arr=dataM1.filter(x=>x.grade===next).map(x=>x.salary);if(!arr.length){document.getElementById('promotionToolResult').innerText=`找不到 ${next} 的樣本資料。`;return;}const avg=arr.reduce((a,b)=>a+b,0)/arr.length;document.getElementById('promotionToolResult').innerHTML=`${next} 平均 ${avg.toFixed(1)} 萬；相對目前約 <b>${((avg-s)/s*100).toFixed(1)}%</b>`;}
+        function runAnnualTool(){const base=parseFloat(document.getElementById('annualBase').value)||0,bonus=parseFloat(document.getElementById('annualBonus').value)||0,rsu=parseFloat(document.getElementById('annualRSU').value)||0,total=base*14+bonus+rsu*(Number(window.MU_PRICE_CURRENT)||920.95)/10000;document.getElementById('annualToolResult').innerText=`估算年總包約 ${total.toFixed(1)} 萬（RSU 以目前價格估算）。`;}
+        async function renderPortalAnalytics(){
+            const byGrade={};
+            dataM1.forEach(x=>{
+                if(!x.grade || !Number.isFinite(x.salary)) return;
+                if(!byGrade[x.grade]) byGrade[x.grade]=[];
+                byGrade[x.grade].push(x.salary);
+            });
+            const labels=Object.keys(byGrade).sort(compareGrades);
+            const avg=labels.map(g=>byGrade[g].reduce((a,b)=>a+b,0)/byGrade[g].length);
+            const canvas=document.getElementById('salaryTrendChart');
+            if(canvas){
+                if(window.portalSalaryChart) window.portalSalaryChart.destroy();
+                window.portalSalaryChart=new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'各職等平均月薪',data:avg,tension:.25,fill:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{title:{display:true,text:'萬元'}}}}});
+            }
+        }
+
+        const MU_TICKER_URL='https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1m&includePrePost=false';
+        let muStockTimer=null;
+        async function refreshMUStock(manual=false){
+            const priceEl=document.getElementById('muStockPrice'),changeEl=document.getElementById('muStockChange'),timeEl=document.getElementById('muStockTime');
+            if(!priceEl)return;
+
+            const timeoutFetch=async(url,ms=8000)=>{
+                const ctrl=new AbortController(); const timer=setTimeout(()=>ctrl.abort(),ms);
+                try{return await fetch(url,{redirect:'follow',cache:'no-store',signal:ctrl.signal});}
+                finally{clearTimeout(timer);}
+            };
+            const finite=n=>{const x=Number(n);return Number.isFinite(x)?x:NaN;};
+            const pick=(o,keys)=>{if(!o||typeof o!=='object')return undefined; for(const k of keys){if(o[k]!==undefined&&o[k]!==null&&o[k]!=='')return o[k];} return undefined;};
+            const findQuote=(root)=>{
+                const seen=new Set(); const stack=[root];
+                while(stack.length){const o=stack.shift(); if(!o||typeof o!=='object'||seen.has(o))continue; seen.add(o);
+                    const price=finite(pick(o,['price','regularMarketPrice','currentPrice','lastPrice','last','close','previousClose']));
+                    if(Number.isFinite(price)){
+                        const prev=finite(pick(o,['previousClose','regularMarketPreviousClose','prevClose','previous_close']));
+                        const ch=finite(pick(o,['change','regularMarketChange','priceChange','changeValue']));
+                        const pct=finite(pick(o,['changePct','changePercent','regularMarketChangePercent','percentChange','change_percent']));
+                        const ts=finite(pick(o,['timestamp','regularMarketTime','time','updatedAt','updated']));
+                        return {price,previousClose:prev,change:ch,changePct:pct,timestamp:ts};
+                    }
+                    for(const v of Object.values(o)){if(v&&typeof v==='object')stack.push(v);}
+                }
+                return null;
+            };
+            const renderQuote=q=>{
+                const price=finite(q.price); if(!Number.isFinite(price))throw new Error('MU price missing');
+                let prev=finite(q.previousClose), ch=finite(q.change), pct=finite(q.changePct);
+                if(!Number.isFinite(ch)&&Number.isFinite(prev))ch=price-prev;
+                if(!Number.isFinite(pct)&&Number.isFinite(prev)&&prev)pct=ch/prev*100;
+                priceEl.textContent='$'+price.toFixed(2);
+                changeEl.textContent=Number.isFinite(pct)?`${ch>=0?'▲':'▼'} ${Math.abs(pct).toFixed(2)}%`:'最新報價';
+                changeEl.className='text-sm font-bold '+(ch>=0?'portal-stock-up':'portal-stock-down');
+                const ts=finite(q.timestamp); const d=ts?(ts<10000000000?new Date(ts*1000):new Date(ts)):new Date();
+                timeEl.textContent='更新：'+d.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+                window.MU_PRICE_CURRENT=price;
+            };
+            try{
+                // 1) PortalDB：不要經過 portalGet()，因為 stock 是物件而非 rows 陣列。
+                const url=API_PORTAL+'?action=stock&t='+Date.now();
+                const r=await timeoutFetch(url,8000); if(!r.ok)throw new Error('PortalDB HTTP '+r.status);
+                const raw=await r.json(); const q=findQuote(raw); if(!q)throw new Error('PortalDB 未回傳 MU 報價');
+                renderQuote(q); return;
+            }catch(primaryErr){
+                // 2) Yahoo chart API 備援；若瀏覽器 CORS 阻擋，會在 8 秒內放棄，不再永久 loading。
+                try{
+                    const r=await timeoutFetch('https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1m&_='+Date.now(),8000);
+                    if(!r.ok)throw new Error('Yahoo HTTP '+r.status);
+                    const j=await r.json(),m=j?.chart?.result?.[0]?.meta||{};
+                    const price=finite(m.regularMarketPrice??m.postMarketPrice??m.previousClose),prev=finite(m.previousClose),ts=finite(m.regularMarketTime??m.postMarketTime);
+                    if(!Number.isFinite(price))throw new Error('Yahoo 無 MU price');
+                    renderQuote({price,previousClose:prev,timestamp:ts}); return;
+                }catch(fallbackErr){
+                    // 3) 保留上一個成功值；第一次失敗則明確顯示「暫時無法取得」，不再顯示無限 loading。
+                    if(Number.isFinite(Number(window.MU_PRICE_CURRENT))&&Number(window.MU_PRICE_CURRENT)>0){
+                        priceEl.textContent='$'+Number(window.MU_PRICE_CURRENT).toFixed(2);
+                        changeEl.textContent='暫用上次報價'; changeEl.className='text-sm font-bold text-slate-400';
+                        timeEl.textContent='報價來源暫時無法連線';
+                    }else{
+                        priceEl.textContent='暫時無法取得';
+                        changeEl.textContent='--'; changeEl.className='text-sm font-bold text-slate-400';
+                        timeEl.textContent='請按「↻ 更新」重試';
+                    }
+                    console.warn('MU quote failed',primaryErr,fallbackErr);
+                    if(manual)alert('目前無法取得 MU 報價。已停止等待，請稍後再按「↻ 更新」。');
+                }
+            }
+        }
+
+        function startMUStockTicker(){
+            refreshMUStock(false);
+            if(muStockTimer)clearInterval(muStockTimer);
+            muStockTimer=setInterval(()=>refreshMUStock(false),60000);
+        }
+
+        async function submitForm(e) {
+            e.preventDefault();
+            const grade=document.getElementById('formGrade').value.trim().toUpperCase(), salaryInput=document.getElementById('formSalary');
+            if(!validateGradeValue(grade)){alert('職等請填兩位文字，例如 E1、T1、M1。');document.getElementById('formGrade').focus();return;}
+            if(!validateSalaryInput(salaryInput)){alert('你是山賊嗎? 月薪請填 "萬" 為單位');salaryInput.focus();return;}
+            const btn = document.getElementById('formSubmitBtn'); const msg = document.getElementById('formStatusMsg');
+            btn.disabled = true; btn.innerText = "資料傳送中..."; msg.classList.add('hidden');
+
+            const payload = {
+                Timestamp: new Date().toISOString(),
+                Grade: grade,
+                Experience: document.getElementById('formExp').value,
+                Salary: document.getElementById('formSalary').value,
+                Team: document.getElementById('formTeam').value,
+                Department: document.getElementById('formDept').value || "未填寫"
+            };
+
+            const params = new URLSearchParams();
+            for (const key in payload) { params.append(key, payload[key]); }
+
+            try {
+                await fetch(API_M1, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                
+                msg.innerText = "✅ 感謝您的匿名貢獻！(資料將於下次重整後載入)";
+                msg.className = "text-xs text-center font-bold mt-2 text-emerald-600 block";
+                btn.innerText = "🚀 送出";
+                btn.disabled = false;
+                document.getElementById('salaryForm').reset();
+                setTimeout(closeFormModal, 2000);
+            } catch (err) {
+                console.error(err);
+                msg.innerText = "❌ 傳送失敗，請確認 API 設定。";
+                msg.className = "text-xs text-center font-bold mt-2 text-rose-600 block";
+                btn.innerText = "🚀 重新送出";
+                btn.disabled = false;
+            }
+        }
+
+        async function submitBonusForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('bFormSubmitBtn'); const msg = document.getElementById('bFormStatusMsg');
+            const bonusGrade = document.getElementById('bFormGrade').value.trim().toUpperCase();
+            if(!validateBonusGradeValue(bonusGrade)){
+                alert('職等請填英文字母或數字，例如 E1、EE、MM。');
+                document.getElementById('bFormGrade').focus();
+                return;
+            }
+            if(!validateBonusRaiseInput('bFormRaise','bFormRaiseWarning','bFormSubmitBtn')){
+                document.getElementById('bFormRaise').focus();
+                return;
+            }
+            btn.disabled = true; btn.innerText = "開獎資料傳送中..."; msg.classList.add('hidden');
+
+            const payload = {
+                Timestamp: new Date().toISOString(),
+                Grade: document.getElementById('bFormGrade').value.trim().toUpperCase(),
+                Ranking: document.getElementById('bFormRank').value,
+                Raise: document.getElementById('bFormRaise').value,
+                Promotion: document.getElementById('bFormPromo').value,
+                RSU: document.getElementById('bFormRSU').value
+            };
+
+            const params = new URLSearchParams();
+            for (const key in payload) { params.append(key, payload[key]); }
+
+            try {
+                // 送至 API_M2
+                await fetch(API_M2, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                
+                msg.innerText = "✅ 感謝您的匿名貢獻！(資料將於下次重整後載入)";
+                msg.className = "text-xs text-center font-bold mt-2 text-emerald-600 block";
+                btn.innerText = "🚀 送出匿名開獎資料";
+                btn.disabled = false;
+                document.getElementById('bonusForm').reset();
+                setTimeout(closeBonusModal, 2000);
+            } catch (err) {
+                console.error(err);
+                msg.innerText = "❌ 傳送失敗，請確認 API 設定。";
+                msg.className = "text-xs text-center font-bold mt-2 text-rose-600 block";
+                btn.innerText = "🚀 重新送出";
+                btn.disabled = false;
+            }
+        }
+
+        function switchMode(mode) {
+            const containers = ['mode1Container','mode2Container','mode3Container','mode4Container','mode5Container'];
+            const buttons = ['btnMode1','btnMode2','btnMode3','btnMode4','btnMode5'];
+            containers.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (el) el.classList.toggle('hidden', i !== mode - 1);
+            });
+            buttons.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.toggle('tab-active', i === mode - 1);
+                if (i !== mode - 1) el.classList.add('text-slate-500'); else el.classList.remove('text-slate-500');
+            });
+            if (mode === 3) {
+                try { updateM3Charts(); } catch (e) { console.warn('M3 render:', e); }
+            }
+            if (mode === 4) {
+                try { renderUnionChart(); } catch (e) { console.warn('Union render:', e); }
+            }
+            if (mode === 5) {
+                try { refreshPortalData(); } catch (e) { console.warn('Portal render:', e); }
+            }
+            setTimeout(() => {
+                try {
+                    if (window.Chart && Chart.instances) Object.values(Chart.instances).forEach(c => c.resize());
+                } catch (_) {}
+            }, 50);
+        }
+
+        window.addEventListener('error',e=>console.error('Portal UI error:',e.error||e.message));
+        window.addEventListener('unhandledrejection',e=>console.error('Portal async error:',e.reason));
+        window.addEventListener('load',()=>{recordPageView();
+        setupNewsFilters();
+        setInterval(refreshEventCountdowns,60000);refreshPageViewStats();startMUStockTicker();
+        initPlatform(); if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});});
+    </script>
+</body>
+</html>
