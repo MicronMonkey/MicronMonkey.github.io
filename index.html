@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>m光光猴薪情平台 v9 • PortalDB 3.4.2</title>
+<title>光光猴薪情平台 v11 • PortalDB 4.1</title>
 <link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
 <link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
 <!-- Tailwind CSS -->
@@ -24,7 +24,7 @@
         /* Table Sort Icon */
         th.sortable:hover { background-color: #e2e8f0; cursor: pointer; transition: background 0.2s; }
     
-        /* ===== V9 UX upgrades ===== */
+        /* ===== UX upgrades ===== */
         .portal-poll-scroll { max-height: 520px; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
         .portal-poll-scroll::-webkit-scrollbar { width: 8px; }
         .portal-poll-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
@@ -34,22 +34,26 @@
         .portal-stock-bar { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(10px); }
         .portal-stock-up { color:#34d399; } .portal-stock-down { color:#fb7185; }
         .portal-report-content { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; line-height:1.35; }
+        .keyword-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:9px 13px;min-height:150px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#f8fafc,#eef2ff);overflow:hidden}
+        .external-news-item{display:block;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}
+        .external-news-item:hover{background:#eef2ff}
+        .event-timeline{position:relative;padding-left:22px}
+        .event-timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e2e8f0}
+        .event-item{position:relative;padding:12px 0 12px 14px}
+        .event-item:before{content:"";position:absolute;left:-1px;top:19px;width:11px;height:11px;border-radius:999px;background:#6366f1;border:3px solid white;box-shadow:0 0 0 2px #c7d2fe}
+        .event-date-hero{font-size:1.05rem;font-weight:900;color:#be123c}
+        .event-range{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;background:#fff1f2;color:#be123c;font-weight:900;font-size:.8rem}
+        .news-meta{display:inline-flex;align-items:center;gap:7px;font-size:14px;line-height:1.35;color:#475569;font-weight:800;margin-bottom:4px}
+        .news-meta .news-source-tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:900}
+        .news-meta .news-date{font-size:14px;font-weight:800;color:#64748b}
+        .external-news-item .news-title{font-size:1rem;line-height:1.5;font-weight:900;color:#0f172a}
+        .external-status{font-size:11px}
+        .news-filter{transition:.15s}
+        .event-countdown{font-weight:900}
 </style>
 <link href="manifest.webmanifest" rel="manifest"/>
 <meta content="#0f172a" name="theme-color"/>
-<style>
-.keyword-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:9px 13px;min-height:150px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#f8fafc,#eef2ff);overflow:hidden}.keyword-cloud .kw{display:inline-flex;align-items:center;line-height:1.1;font-weight:900;color:#334155;cursor:pointer;transition:transform .15s ease,opacity .15s ease}.keyword-cloud .kw:hover{transform:scale(1.06);opacity:.75}.keyword-cloud .kw .heat{font-size:.55em;margin-left:4px;opacity:.55}.external-news-item{display:block;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}.external-news-item:hover{background:#eef2ff}.portal-report-viewport{height:290px;overflow:hidden}.portal-report-track{display:flex;flex-direction:column;gap:8px}.portal-report-row{height:50px;min-height:50px;overflow:hidden}.portal-report-content{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.event-timeline{position:relative;padding-left:22px}.event-timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e2e8f0}.event-item{position:relative;padding:12px 0 12px 14px}.event-item:before{content:"";position:absolute;left:-1px;top:19px;width:11px;height:11px;border-radius:999px;background:#6366f1;border:3px solid white;box-shadow:0 0 0 2px #c7d2fe}.event-date-hero{font-size:1.05rem;font-weight:900;color:#be123c}.event-range{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;background:#fff1f2;color:#be123c;font-weight:900;font-size:.8rem}.news-meta{display:inline-flex;align-items:center;gap:7px;font-size:14px;line-height:1.35;color:#475569;font-weight:800;margin-bottom:4px}.news-meta .news-source-tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:900}.news-meta .news-date{font-size:14px;font-weight:800;color:#64748b}.external-news-item .news-title{font-size:1rem;line-height:1.5;font-weight:900;color:#0f172a}.ai-summary{line-height:1.7}.external-status{font-size:11px}
-.news-filter{transition:.15s}.event-countdown{font-weight:900}
-.news-filter{transition:.15s}.event-date-hero{letter-spacing:.01em}
-
-<style>
-/* V5.2.1 stability / layout fixes */
-.portal-report-viewport{height:570px;max-height:570px;overflow:hidden;position:relative}
-.portal-report-track{display:flex;flex-direction:column;gap:6px;transition:transform .45s ease}
-.portal-report-row{height:108px;min-height:108px;max-height:108px;box-sizing:border-box;overflow:hidden}
-.portal-report-content{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.35;overflow-wrap:anywhere}
-.portal-tool-status{font-size:11px}.event-countdown{font-size:10px;line-height:1.2;white-space:nowrap}
-</style></head>
+</head>
 <body class="p-4 md:p-8 relative">
 <div class="max-w-7xl mx-auto">
 <!-- Header -->
@@ -64,9 +68,14 @@
 </div>
 <div>
 <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                        光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v10 PORTAL DB</span>
+    光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v11 PORTAL DB</span>
 </h1>
-<p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p><div class="mt-2 flex flex-wrap gap-2 text-[11px] font-bold"><span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">👁 總瀏覽 <b id="pageViewTotal">--</b></span><span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">🔥 今日 <b id="pageViewToday">--</b></span></div><button class="bg-violet-500 hover:bg-violet-400 text-white border border-violet-300/30 px-2 py-1 rounded-full text-[8px] leading-none whitespace-nowrap" onclick="openWishlistModal()">💡 功能許願</button>
+<p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p>
+<div class="mt-2 flex flex-wrap gap-2 text-[11px] font-bold">
+    <span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">👁 總瀏覽 <b id="pageViewTotal">--</b></span>
+    <span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">🔥 今日 <b id="pageViewToday">--</b></span>
+</div>
+<button class="bg-violet-500 hover:bg-violet-400 text-white border border-violet-300/30 px-2 py-1 rounded-full text-[8px] leading-none whitespace-nowrap mt-1" onclick="openWishlistModal()">💡 功能許願</button>
 </div>
 </div>
 <div class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center w-full md:w-auto">
@@ -79,18 +88,19 @@
 </div>
 <div class="flex gap-2 w-full sm:w-auto">
 <button class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer border border-slate-600" onclick="openFormModal()">
-                        📝 貢獻日常薪情
-                    </button>
+    📝 貢獻日常薪情
+</button>
 <button class="flex-1 sm:flex-none bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer" onclick="openBonusModal()">
-                        🎁 貢獻 2025 開獎
-                    </button>
+    🎁 貢獻 2025 開獎
+</button>
 <button class="flex-1 sm:flex-none bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer" onclick="openBonus2026Modal()">
-                        🎁 貢獻 2026 開獎
-                    </button>
+    🎁 貢獻 2026 開獎
+</button>
 </div>
 </div>
 </header>
-<!-- 🚀 核心雙模式切換 🚀 -->
+
+<!-- 核心切換 -->
 <div class="flex flex-wrap items-center gap-2 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode2" onclick="switchMode(2)">🎁 2025 開獎</button>
@@ -98,7 +108,8 @@
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent flex justify-center items-center gap-1" id="btnMode4" onclick="switchMode(4)">🏭 工會資訊 <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span class="relative inline-flex rounded-full h-full w-2 bg-rose-500"></span></span></button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode5" onclick="switchMode(5)">🧰 員工工具箱</button>
 </div>
-<!-- 📈 Sticky MU stock ticker: visible across all tabs -->
+
+<!-- Sticky MU stock ticker -->
 <div class="portal-stock-bar mb-5 rounded-2xl border border-slate-700 bg-slate-950/95 text-white shadow-lg" id="muStockBar">
 <div class="px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 <div class="flex items-center gap-3">
@@ -117,11 +128,11 @@
 </div>
 </div>
 </div>
+
 <!-- ========================================== -->
-<!-- MODE 1: 日常薪情模式 (BASE SALARY) -->
+<!-- MODE 1: 日常薪情模式 -->
 <!-- ========================================== -->
 <div class="space-y-6 block animate-[fadeIn_0.5s_ease-out]" id="mode1Container">
-<!-- TOP PANEL -->
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 <div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
 <p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 總調查人數 (母體樣本)</p>
@@ -221,7 +232,7 @@
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
 <div>
 <h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線</h3>
-<p class="text-xs text-slate-400 mt-0.5">🚀 圖表高度增倍，圖例與標點精緻化，點選圖例可開啟/隱藏該職等。</p>
+<p class="text-xs text-slate-400 mt-0.5">🚀 點選圖例可開啟/隱藏該職等。</p>
 </div>
 <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
 <button class="px-3 py-1.5 rounded-md tab-active cursor-pointer" id="tabAll" onclick="changeSeriesTab('All')">全體</button>
@@ -231,7 +242,6 @@
 <button class="px-3 py-1.5 rounded-md text-slate-600 cursor-pointer" id="tabD" onclick="changeSeriesTab('D')">D系</button>
 </div>
 </div>
-<!-- 🚀 調整高度 2倍 (600px) -->
 <div class="relative h-[600px]"><canvas id="mainScatterChart"></canvas></div>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
@@ -252,7 +262,7 @@
 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
 <div>
 <h3 class="text-sm font-bold text-slate-800">📋 數據清單快速檢視與搜尋</h3>
-<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序</p>
 </div>
 <div class="flex items-center gap-2">
 <button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportCSV()">📥 匯出 CSV</button>
@@ -304,11 +314,11 @@
 </div>
 </section>
 </div>
+
 <!-- ========================================== -->
-<!-- MODE 2: 2025 開獎模式 (BONUS & RSU) -->
+<!-- MODE 2: 2025 開獎模式 -->
 <!-- ========================================== -->
 <div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode2Container">
-<!-- TOP PANEL -->
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 <div class="lg:col-span-1 bg-gradient-to-br from-purple-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
 <p class="text-xs font-medium text-purple-200 uppercase tracking-wider">🎁 開獎調查人數 (2025)</p>
@@ -332,7 +342,6 @@
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-<!-- Locate Me Bonus -->
 <div class="space-y-6 lg:col-span-1">
 <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-5 rounded-2xl shadow-sm border border-purple-500/30">
 <h3 class="text-sm font-bold text-fuchsia-300 mb-3">📍 2025 開獎定位器</h3>
@@ -363,16 +372,14 @@
 </div>
 <!-- Charts -->
 <div class="lg:col-span-3 space-y-6">
-<!-- Chart 1: RSU Box Chart -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📦 2025 各職等 RSU 分發力道 (美金)</h3>
-<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等，直觀看出 RSU 爆發分水嶺。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
 <div class="relative h-80"><canvas id="m2RsuChart"></canvas></div>
 </div>
-<!-- Chart 2: Raise by Perf Box Chart -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
-<p class="text-xs text-slate-400 mb-3">藍柱：未升遷 (純吃考績)｜紫柱：有升遷 (升等大禮包)。直觀看見考績間的鑑別度！(已支援高低標與平均值繪製)</p>
+<p class="text-xs text-slate-400 mb-3">藍柱：未升遷｜紫柱：有升遷。(已支援高低標與平均值繪製)</p>
 <div class="relative h-80"><canvas id="m2RaiseChart"></canvas></div>
 </div>
 </div>
@@ -383,7 +390,7 @@
 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
 <div>
 <h3 class="text-sm font-bold text-slate-800">📋 2025 開獎清單快速檢視與搜尋</h3>
-<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序</p>
 </div>
 <div class="flex items-center gap-2">
 <button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportM2CSV()">📥 匯出 CSV</button>
@@ -400,7 +407,6 @@
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2SecM" onclick="changeM2TableSeries('M')">M系</button>
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM2SecD" onclick="changeM2TableSeries('D')">D系</button>
 </div>
-<!-- 🚀 新增：升遷過濾器 -->
 <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
 <span class="text-slate-400 font-medium px-2 shrink-0">升遷：</span>
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM2PromoAll" onclick="changeM2TablePromo('All')">全部</button>
@@ -418,7 +424,6 @@
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM2TableSubGrade('All')">全部職等</button>
 </div>
 </div>
-<!-- 🚀 新增：動態考績過濾器 -->
 <div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m2PerfButtonGroup">
 <span class="text-slate-400 font-medium px-1 shrink-0">考績：</span>
 <div class="flex flex-wrap items-center gap-1.5" id="m2PerfButtons">
@@ -444,8 +449,11 @@
 </div>
 </section>
 </div>
+
+<!-- ========================================== -->
+<!-- MODE 3: 2026 開獎模式 -->
+<!-- ========================================== -->
 <div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode3Container">
-<!-- TOP PANEL -->
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 <div class="lg:col-span-1 bg-gradient-to-br from-purple-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
 <p class="text-xs font-medium text-purple-200 uppercase tracking-wider">🎁 開獎調查人數 (2026)</p>
@@ -463,13 +471,20 @@
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
-<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterPerf" onchange="updateM3Charts()"><option value="All">全部考績</option></select>
+<select class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-700 outline-none" id="m3FilterPerf" onchange="updateM3Charts()">
+    <option value="All">全部考績</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
 </div>
 </div>
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-<!-- Locate Me Bonus -->
+<!-- Locate Me 2026 -->
 <div class="space-y-6 lg:col-span-1">
 <div class="bg-gradient-to-b from-purple-900 to-indigo-950 text-white p-5 rounded-2xl shadow-sm border border-purple-500/30">
 <h3 class="text-sm font-bold text-fuchsia-300 mb-3">📍 2026 開獎定位器</h3>
@@ -479,7 +494,7 @@
 <select class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 text-white outline-none" id="m3MyPromo">
 <option value="No">未升遷 (❌ 無)</option><option value="Yes">有升遷 (✅ 有)</option>
 </select>
-<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyPerf" placeholder="考績 e.g. 3 或 Meets" type="text"/>
+<input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyPerf" placeholder="考績 e.g. 3 或 4" type="text"/>
 <input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyRaise" placeholder="調薪幅度 (%) e.g. 4.5" step="0.1" type="number"/>
 <input class="w-full bg-slate-800 border border-slate-600 rounded p-1.5 outline-none" id="m3MyRsu" placeholder="RSU 數量 (美金) e.g. 5000" step="1" type="number"/>
 <div class="grid grid-cols-2 gap-2 pt-1"><button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded font-bold" onclick="locateM3()">檢驗 PR 值</button><button class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded" onclick="clearM3()">清除</button></div>
@@ -500,27 +515,25 @@
 </div>
 <!-- Charts -->
 <div class="lg:col-span-3 space-y-6">
-<!-- Chart 1: RSU Box Chart -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📦 2026 各職等 RSU 分發力道 (美金)</h3>
-<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等，直觀看出 RSU 爆發分水嶺。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
 <div class="relative h-80"><canvas id="m3RsuChart"></canvas></div>
 </div>
-<!-- Chart 2: Raise by Perf Box Chart -->
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
-<p class="text-xs text-slate-400 mb-3">藍柱：未升遷 (純吃考績)｜紫柱：有升遷 (升等大禮包)。直觀看見考績間的鑑別度！(已支援高低標與平均值繪製)</p>
+<p class="text-xs text-slate-400 mb-3">藍柱：未升遷｜紫柱：有升遷。(已支援高低標與平均值繪製)</p>
 <div class="relative h-80"><canvas id="m3RaiseChart"></canvas></div>
 </div>
 </div>
 </div>
-<!-- List for Mode 2 -->
+<!-- List for Mode 3 -->
 <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
 <div class="p-4 border-b border-slate-100 flex flex-col gap-4 bg-slate-50/50">
 <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
 <div>
 <h3 class="text-sm font-bold text-slate-800">📋 2026 開獎清單快速檢視與搜尋</h3>
-<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序 (大到小 / 小到大)</p>
+<p class="text-[11px] text-slate-400 mt-0.5">⚠️ 點擊表格【標題】可進行排序</p>
 </div>
 <div class="flex items-center gap-2">
 <button class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl transition-all cursor-pointer shadow-sm" onclick="exportM3CSV()">📥 匯出 CSV</button>
@@ -537,7 +550,6 @@
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecM" onclick="changeM3TableSeries('M')">M系</button>
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer transition-all" id="btnM3SecD" onclick="changeM3TableSeries('D')">D系</button>
 </div>
-<!-- 🚀 新增：升遷過濾器 -->
 <div class="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
 <span class="text-slate-400 font-medium px-2 shrink-0">升遷：</span>
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 font-semibold cursor-pointer btn-series-active transition-all" id="btnM3PromoAll" onclick="changeM3TablePromo('All')">全部</button>
@@ -555,7 +567,6 @@
 <button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-[11px] font-semibold cursor-pointer btn-grade-active transition-all" onclick="changeM3TableSubGrade('All')">全部職等</button>
 </div>
 </div>
-<!-- 🚀 新增：動態考績過濾器 -->
 <div class="flex flex-wrap items-center gap-1.5 bg-white p-2 rounded-xl border border-slate-200 shadow-sm" id="m3PerfButtonGroup">
 <span class="text-slate-400 font-medium px-1 shrink-0">考績：</span>
 <div class="flex flex-wrap items-center gap-1.5" id="m3PerfButtons">
@@ -582,6 +593,10 @@
 </div>
 </section>
 </div>
+
+<!-- ========================================== -->
+<!-- MODE 4: 工會資訊 -->
+<!-- ========================================== -->
 <div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode4Container">
 <div class="bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-lg relative overflow-hidden">
 <div class="absolute top-0 right-0 w-32 h-32 bg-rose-500 rounded-bl-full opacity-10"></div>
@@ -598,8 +613,8 @@
 <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100 flex flex-col justify-center">
 <h3 class="text-lg font-black text-rose-800 mb-2">📢 你的參與，就是改變的開始</h3>
 <p class="text-sm text-rose-700 leading-relaxed font-medium mb-4">
-                            每月只需 250 元（年底前免入會費），<br/>讓我們一起集結力量，讓公司不再能假裝聽不見！<br/>人越多，力量越大，制度才會真正改變。
-                        </p>
+    每月只需 250 元（年底前免入會費），<br/>讓我們一起集結力量，讓公司不再能假裝聽不見！<br/>人越多，力量越大，制度才會真正改變。
+</p>
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -639,7 +654,8 @@
 <p class="text-2xl font-black text-rose-600" id="latestUnionCount">載入中...</p>
 </div>
 </div>
-<div class="relative h-64 w-full"><canvas id="unionTrendChart"></canvas></div><div class="mt-6 pt-6 border-t border-slate-200">
+<div class="relative h-64 w-full"><canvas id="unionTrendChart"></canvas></div>
+<div class="mt-6 pt-6 border-t border-slate-200">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
 <div><h4 class="font-black text-slate-800">📣 我要回報工會人數</h4><p class="text-xs text-slate-500 mt-1">請回報你目前知道的會員人數；不收集姓名。</p></div>
 <button class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-5 py-2.5 rounded-xl shadow" onclick="openUnionReportModal()">📝 我要回報</button>
@@ -648,7 +664,7 @@
 </div>
 </div>
 </div>
-</div>
+
 <!-- ========================================== -->
 <!-- MODE 5: 員工工具箱 / PORTAL HUB -->
 <!-- ========================================== -->
@@ -659,8 +675,6 @@
 <div class="bg-white/10 rounded-xl px-4 py-3 text-xs"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div>
 </div></div>
 
-
-
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 匿名心聲廣播</h3><p class="text-xs text-slate-400">固定顯示 5 則，每 3 秒向前輪播 2 則。</p></div><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPublicReports()">↻ 更新</button></div>
@@ -670,20 +684,16 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">標題、日期、分類；點擊查看全文。投稿需管理者審核。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="openAnnouncementSubmit()">＋ 投稿</button><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div></div><div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div></section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">標題、日期、分類；點擊查看全文。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="openAnnouncementSubmit()">＋ 投稿</button><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div></div><div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div></section>
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><h3 class="font-black text-slate-800">📅 公司重要日期｜事件時間軸</h3><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openEventSubmit()">＋ 投稿</button></div><div class="event-timeline" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div></section>
 </div>
 
-
-
-
-
 <section class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌡️ 你覺得現在公司氣氛？</h3><p class="text-xs text-slate-400">匿名、非正式員工感受調查。</p></div><div class="flex items-center gap-2"><div id="moodScore" class="text-sm font-black text-sky-700">目前尚無資料</div><button class="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded-lg font-bold" onclick="refreshCompanyMood()">↻</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2" id="moodOptions"><button onclick="submitMood('很不錯')" class="mood-btn p-3 rounded-xl border hover:bg-emerald-50 text-sm font-bold">😄<br>很不錯</button><button onclick="submitMood('還不錯')" class="mood-btn p-3 rounded-xl border hover:bg-green-50 text-sm font-bold">🙂<br>還不錯</button><button onclick="submitMood('普通')" class="mood-btn p-3 rounded-xl border hover:bg-slate-50 text-sm font-bold">😐<br>普通</button><button onclick="submitMood('有點差')" class="mood-btn p-3 rounded-xl border hover:bg-amber-50 text-sm font-bold">😕<br>有點差</button><button onclick="submitMood('非常差')" class="mood-btn p-3 rounded-xl border hover:bg-rose-50 text-sm font-bold">😡<br>非常差</button></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"><div id="moodResults" class="space-y-2"></div><div class="relative h-56"><canvas id="moodTrendChart"></canvas></div></div></section>
 
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」；外部內容未經本站驗證。系統採後端快取，外部來源暫時失敗時保留最後一次成功資料。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89">Yahoo「美光」</a></div></div><div id="externalNewsStatus" class="external-status text-slate-500 mb-3">外部資訊尚未更新。</div><div id="externalNewsFilters" class="flex flex-wrap gap-2 mb-3"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div id="externalNewsList" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-sm text-slate-400">載入中...</p></div></section>
-
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89">Yahoo「美光」</a></div></div><div id="externalNewsStatus" class="external-status text-slate-500 mb-3">外部資訊尚未更新。</div><div id="externalNewsFilters" class="flex flex-wrap gap-2 mb-3"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div id="externalNewsList" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-sm text-slate-400">載入中...</p></div></section>
 </div>
-<!-- 📝 Data Collection Form Modal (M1) -->
+
+<!-- 📝 Form Modal (M1) -->
 <div class="modal" id="dataFormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
 <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeFormModal()">✖</button>
@@ -703,12 +713,13 @@
 </form>
 </div>
 </div>
-<!-- 🎁 Data Collection Form Modal (M2 - Bonus) -->
+
+<!-- 🎁 Form Modal (M2 - Bonus) -->
 <div class="modal" id="bonusFormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
 <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeBonusModal()">✖</button>
 <h2 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">🎁 匿名貢獻 2025 開獎</h2>
-<p class="text-xs text-slate-500 mb-5">輸入您的開獎包裹，建立最透明的獎金常態分佈！資料將傳送至開獎資料庫。</p>
+<p class="text-xs text-slate-500 mb-5">輸入您的開獎包裹，建立最透明的獎金常態分佈！</p>
 <form class="space-y-4 text-sm" id="bonusForm" onsubmit="submitBonusForm(event)">
 <div><label class="block text-slate-700 font-bold mb-1">職等 (如: E2 / EE / MM)</label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-purple-500" id="bFormGrade" required="" type="text"/></div>
 <div>
@@ -739,6 +750,7 @@
 </form>
 </div>
 </div>
+
 <!-- 🎁 2026 Bonus Modal -->
 <div class="modal" id="bonus2026FormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
@@ -746,8 +758,8 @@
 <h2 class="text-xl font-bold text-slate-800 mb-1">🎁 匿名貢獻 2026 開獎</h2>
 <p class="text-xs text-slate-500 mb-5">建立最透明的 2026 開獎常態分佈！</p>
 <form class="space-y-4 text-sm" id="bonus2026Form" onsubmit="submitBonus2026Form(event)">
-<div><label class="block text-slate-700 font-bold mb-1">職等/升遷後 (如:E2/EA/M1，如E1->E2請填E2) </label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
-<div><label class="block text-slate-700 font-bold mb-1">考績</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRank" required=""><option disabled="" selected="" value="">請選擇考績</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div><label class="block text-slate-700 font-bold mb-1">職等/升遷後 (如:E2/EA/M1，如E1-&gt;E2請填E2) </label><input class="w-full border rounded-lg p-2 uppercase outline-none focus:border-indigo-500" id="b3FormGrade" required="" type="text"/></div>
+<div><label class="block text-slate-700 font-bold mb-1">考績</label><select class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRank" required=""><option disabled="" selected="" value="">請選擇考績</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
 <div><label class="block text-slate-700 font-bold mb-1">調薪幅度 (純數字，勿填 %)</label>
 <div class="hidden text-rose-600 font-bold text-xs mb-1" id="b3FormRaiseWarning"></div>
 <input class="w-full border rounded-lg p-2 outline-none focus:border-indigo-500" id="b3FormRaise" oninput="validateBonusRaiseInput('b3FormRaise','b3FormRaiseWarning','b3FormSubmitBtn')" placeholder="例如: 4.5" required="" step="0.01" type="number"/></div>
@@ -760,6 +772,7 @@
 </form>
 </div>
 </div>
+
 <!-- 🏭 Union Report Modal -->
 <div class="modal" id="unionReportModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
@@ -774,18 +787,17 @@
 </form>
 </div>
 </div>
+
+<!-- Extra Modals -->
 <div class="modal" id="announcementSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📢 投稿公告</h2><input id="annSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="公告標題"><select id="annSubmitCategory" class="w-full border rounded-lg p-2 mb-2"><option>一般</option><option>工會</option><option>福利</option><option>重要通知</option></select><textarea id="annSubmitContent" class="w-full border rounded-lg p-2 mb-3" rows="6" placeholder="公告內容"></textarea><button class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-lg" onclick="submitAnnouncementSuggestion()">送出審核</button><div id="annSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
 <div class="modal" id="eventSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('eventSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📅 投稿重要日期</h2><input id="eventSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="事件名稱"><div class="grid grid-cols-2 gap-2 mb-2"><input id="eventSubmitStart" class="w-full border rounded-lg p-2" type="datetime-local"><input id="eventSubmitEnd" class="w-full border rounded-lg p-2" type="datetime-local"></div><input id="eventSubmitCategory" class="w-full border rounded-lg p-2 mb-2" placeholder="分類"><textarea id="eventSubmitDescription" class="w-full border rounded-lg p-2 mb-3" rows="4" placeholder="說明"></textarea><button class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-lg" onclick="submitEventSuggestion()">送出審核</button><div id="eventSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
 <div class="modal" id="announcementViewModal"><div class="bg-white rounded-2xl w-full max-w-2xl p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementViewModal')">✖</button><div id="announcementViewBody"></div></div></div>
 <div class="modal" id="wishlistModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('wishlistModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">💡 網站功能許願清單</h2><input id="wishTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="功能名稱（可不填）"><textarea id="wishContent" class="w-full border rounded-lg p-2 mb-3" rows="5" placeholder="你希望網站未來增加什麼？"></textarea><button class="w-full bg-violet-600 text-white font-bold py-2.5 rounded-lg" onclick="submitWishlist()">送出許願</button><div id="wishMsg" class="text-xs mt-2 font-bold"></div></div></div>
+
 <script>
         const API_M1 = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
         const API_M2 = "https://script.google.com/macros/s/AKfycbwWd9ozWC4ATM6Oeo_vzhtxjjIFjWivXR6yi-2IwZ8j3G8gvwSqypNtwinHc3q7oWwX/exec";
         const API_M3 = "https://script.google.com/macros/s/AKfycbzkbhv1JJQTK5Ks0XB6EiUxFAlo4hjapkoBptVwDBwEopnz46oyU5eO28aY4tAhinBp/exec";
-        // 工會資料：建議建立獨立 Google Apps Script + Google Sheet；部署後把 /exec URL 填入。
-        // 留空時會使用 localStorage（僅本機測試，不會跨使用者同步）。
-        const API_UNION = ""; // 舊版相容：工會現在統一走 API_PORTAL
-        // V9 PortalDB：部署 PortalDB_Code.gs 後填入 /exec URL。
         const API_PORTAL = "https://script.google.com/macros/s/AKfycbxBKnwm1dobNMGrCOYx0V5me_xz0wPQ4td4-tZc8Lvr3T_UBZvVr_WIPWfWGvddxljO/exec";
         const MU_PRICE_2025_11 = 223.77;
         window.MU_PRICE_CURRENT = NaN;
@@ -812,6 +824,8 @@
         let currentM2TablePromo = "All";
         let currentM2TablePerf = "All";
         let m2SortCol = '', m2SortDesc = false;
+
+        // Mode 3 State
         let cM3Rsu=null, cM3Raise=null, m3RsuMeta={}, metaRaiseNo3={}, metaRaiseYes3={};
         let currentM3TableSeries='All', currentM3TableSubGrade='All', currentM3TablePromo='All', currentM3TablePerf='All', m3SortCol='', m3SortDesc=false;
         let cUnionTrend=null;
@@ -822,10 +836,9 @@
             afterDatasetsDraw(c) {
                 const y = c.scales.y; if(!y) return;
                 
-                // M1 Box Salary & M2 RSU Box
                 if(c.canvas.id === 'boxSalaryChart' || c.canvas.id === 'm2RsuChart' || c.canvas.id === 'm2RaiseChart' || c.canvas.id === 'm3RsuChart' || c.canvas.id === 'm3RaiseChart') {
                     const isM1 = c.canvas.id === 'boxSalaryChart';
-                    const isRaise = c.canvas.id === 'm2RaiseChart';
+                    const isRaise = c.canvas.id === 'm2RaiseChart' || c.canvas.id === 'm3RaiseChart';
                     const unit = isM1 ? "萬" : (isRaise ? "%" : "");
                     
                     c.data.datasets.forEach((ds, dsi) => {
@@ -890,10 +903,6 @@
             return fallbackIndex !== undefined ? item[keys[fallbackIndex]] : '';
         }
         function unwrapApiPayload(payload){
-            // PortalDB successResponse() wraps every GET result as {ok:true, data:<result>}.
-            // IMPORTANT: some APIs return arrays (announcements/topics/events), while
-            // external_news/company_mood return objects. The old code converted those
-            // objects to [] and made valid responses look like empty data.
             if(Array.isArray(payload)) return payload;
             if(payload && payload.ok === false) throw new Error(payload.error || 'PortalDB API error');
             if(payload && Object.prototype.hasOwnProperty.call(payload,'data')) return payload.data;
@@ -952,7 +961,28 @@
             }catch(_){return null;}
         }
         function writeClientCache(label,rows){
-            try{sessionStorage.setItem(clientCacheKey(label),JSON.stringify({ts:Date.now(),rows:Array.isArray(rows)?rows:[]}));}catch(_){/* quota / private mode */}
+            try{sessionStorage.setItem(clientCacheKey(label),JSON.stringify({ts:Date.now(),rows:Array.isArray(rows)?rows:[]}));}catch(_){/* ignore */}
+        }
+
+        function populateM3PerfFilterOptions() {
+            const select = document.getElementById('m3FilterPerf');
+            if (!select) return;
+            const currentVal = select.value || 'All';
+            const standardPerfs = ['1', '2', '3', '4', '5'];
+            const dataPerfs = dataM3.map(i => String(i.perf).trim()).filter(Boolean);
+            const allPerfs = Array.from(new Set([...standardPerfs, ...dataPerfs])).sort((a,b)=>{
+                const nA = Number(a), nB = Number(b);
+                if (!isNaN(nA) && !isNaN(nB)) return nA - nB;
+                return String(a).localeCompare(String(b));
+            });
+
+            select.innerHTML = '<option value="All">全部考績</option>';
+            allPerfs.forEach(p => {
+                select.innerHTML += `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`;
+            });
+            if (allPerfs.includes(currentVal)) {
+                select.value = currentVal;
+            }
         }
 
         async function initPlatform() {
@@ -973,12 +1003,19 @@
                 }
             };
             const renderM2=(rows)=>{dataM2=parseBonusRows(rows||[]);const e=document.getElementById('totalGlobalCount2');if(e)e.innerText=dataM2.length+' 筆';if(dataM2.length){updateM2PerfButtons();updateM2SubGradeButtons();updateM2Charts();}};
-            const renderM3=(rows)=>{dataM3=parseBonusRows(rows||[]);const e=document.getElementById('totalGlobalCount3');if(e)e.innerText=dataM3.length+' 筆';if(dataM3.length){updateM3PerfButtons();updateM3SubGradeButtons();updateM3Charts();}};
+            const renderM3=(rows)=>{
+                dataM3=parseBonusRows(rows||[]);
+                const e=document.getElementById('totalGlobalCount3');
+                if(e) e.innerText=dataM3.length+' 筆';
+                populateM3PerfFilterOptions();
+                updateM3PerfButtons();
+                updateM3SubGradeButtons();
+                updateM3Charts();
+            };
             try{
                 if(loadingBar)loadingBar.style.width='5%';
                 if(loadingText)loadingText.innerText='⚡ 入口網站啟動中，正在平行載入資料...';
 
-                // 若本次工作階段已有快取，先顯示快取；網路資料再背景更新，降低再次開站的等待感。
                 const cached1=readClientCache('M1'),cached2=readClientCache('M2'),cached3=readClientCache('M3');
                 if(cached1)renderM1(cached1);
                 if(cached2)renderM2(cached2);
@@ -1002,7 +1039,7 @@
         }
 
         // ==========================
-        // MODE 1: BASE SALARY
+        // MODE 1 FUNCTIONS
         // ==========================
         function updateExpSliders() {
             let minVal = parseFloat(document.getElementById('filterExpMin').value), maxVal = parseFloat(document.getElementById('filterExpMax').value);
@@ -1048,7 +1085,6 @@
         }
 
         function calculateOutliers() {
-            // 以每個職等的 IQR 判定極端值；資料不足 4 筆時不標記。
             outliersSet = new Set();
             const groups = {};
             dataM1.forEach(item => {
@@ -1149,7 +1185,6 @@
             });
         }
 
-        // 🚀 M1 表格排序邏輯
         function sortM1Table(col) {
             if (m1SortCol === col) { m1SortDesc = !m1SortDesc; } 
             else { m1SortCol = col; m1SortDesc = false; }
@@ -1251,7 +1286,7 @@
         }
 
         // ==========================
-        // MODE 2: BONUS & RSU
+        // MODE 2 FUNCTIONS
         // ==========================
         function changeM2TableSeries(series) {
             currentM2TableSeries = series; currentM2TableSubGrade = "All";
@@ -1277,7 +1312,6 @@
 
         function changeM2TableSubGrade(grade) { currentM2TableSubGrade = grade; updateM2SubGradeButtons(); renderM2Table(); }
 
-        // 🚀 動態考績按鈕過濾器
         function changeM2TablePerf(perf) {
             currentM2TablePerf = perf;
             updateM2PerfButtons(); renderM2Table();
@@ -1298,7 +1332,6 @@
             });
         }
 
-        // 🚀 升遷與否按鈕過濾器
         function changeM2TablePromo(promo) {
             currentM2TablePromo = promo;
             ['btnM2PromoAll', 'btnM2PromoYes', 'btnM2PromoNo'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
@@ -1315,7 +1348,6 @@
             renderM2Table(p);
         }
 
-        // 🚀 RSU 盒鬚圖 (過濾 < 3 筆)
         function renderM2RsuChart(p) {
             const g = {}; p.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
             const m = [];
@@ -1341,7 +1373,6 @@
             }
         }
 
-        // 🚀 調薪幅度 盒鬚圖
         function renderM2RaiseChart(p) {
             const pf = Array.from(new Set(p.map(i=>i.perf).filter(x=>x))).sort();
             const gNo = {}, gYes = {};
@@ -1402,7 +1433,6 @@
             }
         }
 
-        // 🚀 M2 表格排序邏輯
         function sortM2Table(col) {
             if (m2SortCol === col) { m2SortDesc = !m2SortDesc; } 
             else { m2SortCol = col; m2SortDesc = false; }
@@ -1470,22 +1500,16 @@
         }
 
         // ==========================
-        // MODAL (DATA COLLECTION)
+        // MODE 3 FUNCTIONS
         // ==========================
-        function openFormModal() { document.getElementById('dataFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeFormModal() { document.getElementById('dataFormModal').classList.remove('active'); document.body.style.overflow = ''; }
-        
-        function openBonusModal() { document.getElementById('bonusFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeBonusModal() { document.getElementById('bonusFormModal').classList.remove('active'); document.body.style.overflow = ''; }
-        
-function changeM3TableSeries(series) {
+        function changeM3TableSeries(series) {
             currentM3TableSeries = series; currentM3TableSubGrade = "All";
             ['btnM3SecAll', 'btnM3SecE', 'btnM3SecT', 'btnM3SecM', 'btnM3SecD'].forEach(id => { document.getElementById(id).classList.remove('btn-series-active'); });
             document.getElementById('btnM3Sec' + series).classList.add('btn-series-active');
             updateM3SubGradeButtons(); renderM3Table();
         }
 
-function updateM3SubGradeButtons() {
+        function updateM3SubGradeButtons() {
             const container = document.getElementById('m3SubGradeButtons'); container.innerHTML = '';
             const allGradesInSeries = Array.from(new Set(dataM3.filter(i => currentM3TableSeries === 'All' || i.grade.startsWith(currentM3TableSeries)).map(i => i.grade))).sort(compareGrades);
             
@@ -1500,16 +1524,22 @@ function updateM3SubGradeButtons() {
             });
         }
 
-function changeM3TableSubGrade(grade) { currentM3TableSubGrade = grade; updateM3SubGradeButtons(); renderM3Table(); }
+        function changeM3TableSubGrade(grade) { currentM3TableSubGrade = grade; updateM3SubGradeButtons(); renderM3Table(); }
 
-function changeM3TablePerf(perf) {
+        function changeM3TablePerf(perf) {
             currentM3TablePerf = perf;
             updateM3PerfButtons(); renderM3Table();
         }
 
-function updateM3PerfButtons() {
+        function updateM3PerfButtons() {
             const container = document.getElementById('m3PerfButtons'); container.innerHTML = '';
-            const allPerfs = Array.from(new Set(dataM3.map(i => i.perf).filter(x=>x))).sort();
+            const standardPerfs = ['1', '2', '3', '4', '5'];
+            const dataPerfs = dataM3.map(i => String(i.perf).trim()).filter(Boolean);
+            const allPerfs = Array.from(new Set([...standardPerfs, ...dataPerfs])).sort((a,b)=>{
+                const nA = Number(a), nB = Number(b);
+                if (!isNaN(nA) && !isNaN(nB)) return nA - nB;
+                return String(a).localeCompare(String(b));
+            });
             
             const allBtn = document.createElement('button'); allBtn.innerText = '全部考績';
             allBtn.className = `px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-semibold cursor-pointer transition-all ${currentM3TablePerf === 'All' ? 'btn-grade-active' : 'text-slate-700 bg-white hover:bg-slate-100'}`;
@@ -1522,14 +1552,14 @@ function updateM3PerfButtons() {
             });
         }
 
-function changeM3TablePromo(promo) {
+        function changeM3TablePromo(promo) {
             currentM3TablePromo = promo;
             ['btnM3PromoAll', 'btnM3PromoYes', 'btnM3PromoNo'].forEach(id => { document.getElementById(id).className = "px-2 py-1 rounded border text-slate-700 bg-white hover:bg-slate-100"; });
             let targetId = promo === 'Yes' ? 'btnM3PromoYes' : promo === 'No' ? 'btnM3PromoNo' : 'btnM3PromoAll';
             document.getElementById(targetId).className = "px-2 py-1 rounded bg-[#0066cc] text-white border border-[#0066cc] font-bold shadow-sm"; renderM3Table();
         }
 
-function updateM3Charts() {
+        function updateM3Charts() {
             const fs = document.getElementById('m3FilterSeries').value, fp = document.getElementById('m3FilterPromo').value, fpf = document.getElementById('m3FilterPerf').value;
             const p = dataM3.filter(i => (fs==='All'||i.grade.startsWith(fs))&&(fp==='All'||i.promo===fp)&&(fpf==='All'||i.perf===fpf));
             
@@ -1538,7 +1568,7 @@ function updateM3Charts() {
             renderM3Table(p);
         }
 
-function renderM3RsuChart(p) {
+        function renderM3RsuChart(p) {
             const g = {}; p.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
             const m = [];
             Object.keys(g).forEach(k => {
@@ -1563,7 +1593,7 @@ function renderM3RsuChart(p) {
             }
         }
 
-function renderM3RaiseChart(p) {
+        function renderM3RaiseChart(p) {
             const pf = Array.from(new Set(p.map(i=>i.perf).filter(x=>x))).sort();
             const gNo = {}, gYes = {};
             p.forEach(i => {
@@ -1623,13 +1653,13 @@ function renderM3RaiseChart(p) {
             }
         }
 
-function sortM3Table(col) {
+        function sortM3Table(col) {
             if (m3SortCol === col) { m3SortDesc = !m3SortDesc; } 
             else { m3SortCol = col; m3SortDesc = false; }
             renderM3Table();
         }
 
-function renderM3Table(pool) {
+        function renderM3Table(pool) {
             const searchEl = document.getElementById('m3Search'); const kw = (searchEl ? searchEl.value : '').toLowerCase();
             const p = pool || dataM3;
             const res = p.filter(i => {
@@ -1664,11 +1694,58 @@ function renderM3Table(pool) {
             }
         }
 
-function locateM3() {
-            // Functionality available when data exists
+        function locateM3() {
+            const g = document.getElementById('m3MyGrade').value.trim().toUpperCase();
+            const pr = document.getElementById('m3MyPromo').value;
+            const pf = document.getElementById('m3MyPerf').value.trim();
+            const r = parseFloat(document.getElementById('m3MyRaise').value);
+            const su = parseFloat(document.getElementById('m3MyRsu').value);
+
+            if (!g || !pf || isNaN(r) || isNaN(su)) {
+                return alert("請完整填寫職等、考績、調薪幅度與 RSU 美金！");
+            }
+
+            const peer = dataM3.filter(i => i.grade === g && i.perf === pf && i.promo === pr);
+            document.getElementById('m3TargetGroup').innerText = `比對母體: ${g} 且考績 ${pf} 且 ${pr==='Yes'?'有升遷':'無升遷'} (共 ${peer.length} 筆)`;
+
+            const arrR = peer.filter(i => i.raise > 0).map(i => i.raise).sort((a,b)=>a-b);
+            const arrSu = peer.filter(i => i.rsu > 0).map(i => i.rsu).sort((a,b)=>a-b);
+
+            document.getElementById('m3PctRaise').innerText = arrR.length ? Math.round((arrR.filter(x => x < r).length / arrR.length) * 100) + "%" : "無足夠數據";
+            document.getElementById('m3PctRsu').innerText = arrSu.length ? Math.round((arrSu.filter(x => x < su).length / arrSu.length) * 100) + "%" : "無足夠數據";
+
+            document.getElementById('m3PctCard').classList.remove('hidden');
         }
 
-function clearM3() { }
+        function clearM3() {
+            document.getElementById('m3MyGrade').value = '';
+            document.getElementById('m3MyPerf').value = '';
+            document.getElementById('m3MyRaise').value = '';
+            document.getElementById('m3MyRsu').value = '';
+            document.getElementById('m3MyPromo').value = 'No';
+            document.getElementById('m3PctCard').classList.add('hidden');
+        }
+
+        function exportM3CSV() {
+            const kw = (document.getElementById('m3Search')?.value || '').toLowerCase();
+            const filtered = dataM3.filter(i => {
+                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
+                const seriesMatch = currentM3TableSeries === 'All' || i.grade.startsWith(currentM3TableSeries);
+                const subGradeMatch = currentM3TableSubGrade === 'All' || i.grade === currentM3TableSubGrade;
+                const promoMatch = currentM3TablePromo === 'All' || i.promo === currentM3TablePromo;
+                const perfMatch = currentM3TablePerf === 'All' || i.perf === currentM3TablePerf;
+                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            });
+            if (filtered.length === 0) return alert("無資料可匯出！");
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF職等,考績,有無升遷,調薪(%),RSU(美金)\n";
+            filtered.forEach(i => csvContent += `"${i.grade}","${i.perf}","${i.promo==='Yes'?'有':'無'}","${i.raise}","${i.rsu}"\n`);
+            const a = document.createElement("a");
+            a.href = encodeURI(csvContent);
+            a.download = `2026_bonus_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
 
         function validateBonusRaiseInput(inputId, warningId, submitId){
             const input = document.getElementById(inputId);
@@ -1734,10 +1811,15 @@ function clearM3() { }
             if(!isNaN(value)&&value>100){ msg.classList.remove('hidden'); input.classList.add('border-rose-500','ring-2','ring-rose-100'); return false; }
             msg.classList.add('hidden'); input.classList.remove('border-rose-500','ring-2','ring-rose-100'); return true;
         }
+        function openFormModal() { document.getElementById('dataFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeFormModal() { document.getElementById('dataFormModal').classList.remove('active'); document.body.style.overflow = ''; }
+        function openBonusModal() { document.getElementById('bonusFormModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeBonusModal() { document.getElementById('bonusFormModal').classList.remove('active'); document.body.style.overflow = ''; }
         function openBonus2026Modal(){document.getElementById('bonus2026FormModal').classList.add('active');document.body.style.overflow='hidden';}
         function closeBonus2026Modal(){document.getElementById('bonus2026FormModal').classList.remove('active');document.body.style.overflow='';}
         function openUnionReportModal(){document.getElementById('unionReportModal').classList.add('active');document.body.style.overflow='hidden';}
         function closeUnionReportModal(){document.getElementById('unionReportModal').classList.remove('active');document.body.style.overflow='';}
+
         async function submitBonus2026Form(e){
             e.preventDefault(); const btn=document.getElementById('b3FormSubmitBtn'),msg=document.getElementById('b3FormStatusMsg');
             const grade=document.getElementById('b3FormGrade').value.trim().toUpperCase();
@@ -1755,6 +1837,7 @@ function clearM3() { }
             }catch(err){console.error(err);msg.innerText='❌ 傳送失敗，請確認 2026 API 設定。';msg.className='text-xs text-center font-bold mt-2 text-rose-600 block';}
             finally{btn.disabled=false;btn.innerText='🚀 送出 2026 開獎資料';}
         }
+
         function getAnonToken(){
             let token=localStorage.getItem('micron_anon_token');
             if(!token){token=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():('anon-'+Date.now()+'-'+Math.random().toString(36).slice(2));localStorage.setItem('micron_anon_token',token);}
@@ -1789,7 +1872,6 @@ function clearM3() { }
         async function renderUnionChart(){
             const canvas=document.getElementById('unionTrendChart');if(!canvas)return;
             const reports=await loadUnionReports();
-            // 右上角「目前預估總人數」改為顯示 PortalDB 最新一筆回報，而不是固定上限值。
             const latest=reports.slice().sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp))[0];
             const latestEl=document.getElementById('latestUnionCount');
             if(latestEl){
@@ -1804,6 +1886,7 @@ function clearM3() { }
             cUnionTrend=new Chart(canvas.getContext('2d'),{type:'line',data:{labels,datasets:[{label:'桃園工會',data:ty,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.08)',fill:true,tension:.3,borderWidth:2},{label:'台中工會',data:tc,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Number(c.raw||0).toLocaleString()} 人`}}},scales:{y:{beginAtZero:true,suggestedMax:15000,title:{display:true,text:'會員人數'}}}}});
             const st=document.getElementById('unionDataStatus');if(st)st.innerText=API_PORTAL&&API_PORTAL.indexOf('請貼上')!==0?'🟢 PortalDB 共用資料庫：所有人的匿名回報會匯入同一份資料。':'🔴 尚未設定 PortalDB API。';
         }
+
         async function portalGet(action, params={}){
             if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0) throw new Error('尚未設定 API_PORTAL');
             const qs=new URLSearchParams(); qs.set('action',action); Object.keys(params||{}).forEach(k=>{ if(params[k]!==undefined&&params[k]!==null&&params[k]!=='') qs.set(k,String(params[k])); }); qs.set('t',Date.now());
@@ -1818,71 +1901,10 @@ function clearM3() { }
             const body=new URLSearchParams(); body.set('action',action); body.set('Timestamp',new Date().toISOString()); Object.keys(data||{}).forEach(k=>body.set(k,data[k]??''));
             await fetch(API_PORTAL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString()}); return true;
         }
+
         let publicReportItems=[], publicReportIndex=0, publicReportTimer=null;
         const announcementStore={};
 
-        function getOwnedPolls(){
-            try{return JSON.parse(localStorage.getItem('micron_owned_polls_v2')||'[]')}catch(e){return[]}
-        }
-        function rememberOwnedPoll(id){
-            if(!id)return;
-            const a=getOwnedPolls(); if(!a.includes(String(id))){a.push(String(id));localStorage.setItem('micron_owned_polls_v2',JSON.stringify(a));}
-        }
-        function forgetOwnedPoll(id){
-            const a=getOwnedPolls().filter(x=>String(x)!==String(id));localStorage.setItem('micron_owned_polls_v2',JSON.stringify(a));
-        }
-        function normalizePollOptions(p){
-            return String(p.Options||p.options||'').split(/[,，|、\n]/).map(x=>x.trim()).filter(Boolean);
-        }
-        function normalizePollCounts(p){
-            let raw=p.Results||p.results||p.OptionCounts||p.optionCounts||p.Counts||p.counts;
-            if(typeof raw==='string'){try{raw=JSON.parse(raw)}catch(e){raw=null;}}
-            if(raw && typeof raw==='object' && !Array.isArray(raw)) return raw;
-            return {};
-        }
-        function totalPollVotes(p){
-            const c=normalizePollCounts(p);
-            const vals=Object.values(c).map(Number).filter(Number.isFinite);
-            if(vals.length)return vals.reduce((a,b)=>a+b,0);
-            return Number(p.TotalVotes??p.totalVotes??p.Votes??p.votes??0)||0;
-        }
-        function pollVotedKey(id){return 'micron_poll_voted_'+String(id);}
-        function hasVotedPoll(id){return localStorage.getItem(pollVotedKey(id))==='1';}
-
-        async function renderPollList(polls){
-            const el=document.getElementById('pollList'); if(!el)return;
-            if(!polls.length){el.innerHTML='<p class="text-sm text-slate-400">尚無進行中的投票。</p>';return;}
-            el.innerHTML=polls.slice(0,30).map(p=>{
-                const id=String(p.PollId||p.ID||p.Id||'');
-                const opts=normalizePollOptions(p);
-                const counts=normalizePollCounts(p);
-                const total=totalPollVotes(p);
-                const voted=hasVotedPoll(id);
-                const optionHtml=opts.map(o=>{
-                    const count=Number(counts[o]??counts[String(o)]??0)||0;
-                    const pct=total>0?Math.round(count/total*100):0;
-                    return `<button ${voted?'disabled':''} onclick="votePoll('${escapeJs(id)}','${escapeJs(o)}')" class="w-full text-left text-xs bg-white border rounded-lg px-3 py-2 ${voted?'opacity-70 cursor-not-allowed':'hover:bg-indigo-50'}">
-                        <div class="flex justify-between gap-2"><span>${escapeHtml(o)}</span><b>${count} 票${total?` · ${pct}%`:''}</b></div>
-                        <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-indigo-500" style="width:${pct}%"></div></div>
-                    </button>`;
-                }).join('');
-                return `<div class="p-4 rounded-xl border bg-slate-50">
-                    <div class="flex items-start justify-between gap-3"><div><b class="text-sm">${escapeHtml(p.Question||p.question||'')}</b><div class="text-[10px] text-slate-400 mt-1">目前 ${total} 票 ${voted?'· 你已投票':''}</div></div>
-                    </div>
-                    <div class="grid grid-cols-1 gap-2 mt-3">${optionHtml}</div>
-                </div>`;
-            }).join('');
-        }
-
-        async function refreshAISummary(force=false){
-            const el=document.getElementById('aiSummary'); if(!el)return;
-            el.innerHTML='<p class="text-sm text-slate-400">AI 摘要整理中...</p>';
-            try{const d=await portalGet('ai_summary', force?{force:'1'}:{});
-                if(d && d.html) el.innerHTML=d.html;
-                else if(d && d.summary) el.innerHTML='<p>'+escapeHtml(d.summary).replace(/\n/g,'</p><p>')+'</p>';
-                else el.innerHTML='<p class="text-sm text-slate-400">目前沒有足夠資料產生摘要。</p>';
-            }catch(e){el.innerHTML='<p class="text-sm text-slate-400">AI 摘要暫時無法載入；站內資料仍可正常使用。</p>';}
-        }
         function addReportEmoji(emoji){const el=document.getElementById('reportContent');if(!el)return;const pos=el.selectionStart||el.value.length;el.value=el.value.slice(0,pos)+emoji+el.value.slice(pos);el.focus();el.selectionStart=el.selectionEnd=pos+emoji.length;}
         async function refreshExternalNews(force=false){
             const list=document.getElementById('externalNewsList'), status=document.getElementById('externalNewsStatus'); if(!list)return;
@@ -1893,7 +1915,6 @@ function clearM3() { }
             }catch(e){console.error('external_news:',e);if(status)status.innerHTML='🔴 外部新聞暫時無法載入 · '+escapeHtml(e.message||String(e));list.innerHTML='<div class="col-span-full rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800"><b>目前無法取得外部新聞</b><p class="mt-1 text-xs">可直接開啟 Google News 搜尋「美光」。</p></div>';}
         }
         let currentExternalNewsItems=[];
-[];
         let currentExternalNewsFilter='全部';
         function classifyNewsItem(n){const t=(String(n.title||'')+' '+String(n.source||'')).toLowerCase();if(/工會|罷工|勞資|union|strike/.test(t))return '工會';if(/薪資|獎金|分紅|bonus|salary/.test(t))return '薪資';if(/股價|目標|美元|nasdaq|\bmu\b|股市|漲|跌/.test(t))return '股價';if(/ai|hbm|dram|nand|記憶體|半導體|晶片/.test(t))return 'AI/記憶體';return '其他';}
         function renderExternalNewsFiltered(){const list=document.getElementById('externalNewsList');if(!list)return;const items=currentExternalNewsFilter==='全部'?currentExternalNewsItems:currentExternalNewsItems.filter(n=>classifyNewsItem(n)===currentExternalNewsFilter);list.innerHTML=items.length?items.slice(0,20).map(n=>{const dt=formatDateTime(n.date||n.published||n.Published||'');return `<a class="external-news-item" target="_blank" rel="noopener" href="${escapeHtml(n.url||'#')}"><div class="news-meta"><span class="news-source-tag">${escapeHtml(n.source||'Google News')}</span><span class="news-date">${escapeHtml(dt)}</span></div><div class="news-title">${escapeHtml(n.title||'')}</div></a>`}).join(''):'<div class="col-span-full text-sm text-slate-400 p-3">此分類目前沒有新聞。</div>';}
@@ -1958,8 +1979,8 @@ function clearM3() { }
         async function submitAnnouncementSuggestion(){const title=document.getElementById('annSubmitTitle').value.trim(),content=document.getElementById('annSubmitContent').value.trim(),msg=document.getElementById('annSubmitMsg');if(!title||!content)return alert('請填寫公告標題與內容');try{await portalPost('announcement_submit',{Title:title,Content:content,Category:document.getElementById('annSubmitCategory').value,AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('announcementSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
         function openEventSubmit(){document.getElementById('eventSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
         async function submitEventSuggestion(){const title=document.getElementById('eventSubmitTitle').value.trim(),start=document.getElementById('eventSubmitStart').value,end=document.getElementById('eventSubmitEnd').value,msg=document.getElementById('eventSubmitMsg');if(!title||!start)return alert('至少要填事件名稱與開始時間');try{await portalPost('event_submit',{Title:title,StartAt:start,EndAt:end,Category:document.getElementById('eventSubmitCategory').value,Description:document.getElementById('eventSubmitDescription').value.trim(),AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('eventSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
-        async function openAnnouncement(key){const a=announcementStore[String(key)]||{};document.getElementById('announcementViewBody').innerHTML=`<div class="pr-6"><div class="flex gap-2 text-xs text-slate-500 mb-2"><span>${escapeHtml(a.Category||'一般')}</span><span>${formatDateTime(a.Timestamp)}</span></div><h2 class="text-2xl font-black text-slate-800">${escapeHtml(a.Title||'')}</h2><div class="mt-5 text-sm leading-7 whitespace-pre-wrap text-slate-700">${escapeHtml(a.Content||'')}</div><div class="mt-5 pt-4 border-t text-xs font-bold text-slate-500">👁 ${Number(a.ViewCount||0).toLocaleString()} 人閱讀</div></div>`;document.getElementById('announcementViewModal').classList.add('active');document.body.style.overflow='hidden';if(key){try{const r=await portalPost('announcement_view',{AnnouncementKey:key,AnonToken:getAnonToken()});}catch(e){} const n=document.querySelector('#announcementViewBody div.mt-5.pt-4');if(n)n.textContent='👁 '+(Number(a.ViewCount||0)+1).toLocaleString()+' 人閱讀';}}
-        async function likeReport(key){if(!key)return;const k='micron_report_liked_'+key;if(localStorage.getItem(k)==='1')return;try{const r=await portalPost('report_like',{ReportKey:key,AnonToken:getAnonToken()});localStorage.setItem(k,'1');setTimeout(refreshPublicReports,100);}catch(e){console.warn(e);}}
+        async function openAnnouncement(key){const a=announcementStore[String(key)]||{};document.getElementById('announcementViewBody').innerHTML=`<div class="pr-6"><div class="flex gap-2 text-xs text-slate-500 mb-2"><span>${escapeHtml(a.Category||'一般')}</span><span>${formatDateTime(a.Timestamp)}</span></div><h2 class="text-2xl font-black text-slate-800">${escapeHtml(a.Title||'')}</h2><div class="mt-5 text-sm leading-7 whitespace-pre-wrap text-slate-700">${escapeHtml(a.Content||'')}</div><div class="mt-5 pt-4 border-t text-xs font-bold text-slate-500">👁 ${Number(a.ViewCount||0).toLocaleString()} 人閱讀</div></div>`;document.getElementById('announcementViewModal').classList.add('active');document.body.style.overflow='hidden';if(key){try{await portalPost('announcement_view',{AnnouncementKey:key,AnonToken:getAnonToken()});}catch(e){} const n=document.querySelector('#announcementViewBody div.mt-5.pt-4');if(n)n.textContent='👁 '+(Number(a.ViewCount||0)+1).toLocaleString()+' 人閱讀';}}
+        async function likeReport(key){if(!key)return;const k='micron_report_liked_'+key;if(localStorage.getItem(k)==='1')return;try{await portalPost('report_like',{ReportKey:key,AnonToken:getAnonToken()});localStorage.setItem(k,'1');setTimeout(refreshPublicReports,100);}catch(e){console.warn(e);}}
         async function refreshPageViewStats(){try{const d=await portalGet('page_stats');const s=d&&d.data?d.data:d;const a=document.getElementById('pageViewTotal'),b=document.getElementById('pageViewToday');if(a)a.textContent=Number(s?.total||0).toLocaleString();if(b)b.textContent=Number(s?.today||0).toLocaleString();}catch(e){}}
         function recordPageView(){try{portalPost('pageview',{Page:'portal',AnonToken:getAnonToken()});}catch(e){}}
 
@@ -1967,108 +1988,38 @@ function clearM3() { }
         async function refreshPortalData(force=false){
             refreshPageViewStats();
             if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0){
-                ['announcementList','pollList','topicList','eventList'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<p class="text-sm text-slate-400">尚未設定 PortalDB API。</p>';});
+                ['announcementList','eventList'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<p class="text-sm text-slate-400">尚未設定 PortalDB API。</p>';});
                 return;
             }
             const now=Date.now();
             if(!force && portalDataLastLoadedAt && now-portalDataLastLoadedAt<12000) return;
             if(portalDataLoadingPromise) return portalDataLoadingPromise;
             portalDataLoadingPromise=(async()=>{
-                const results=await Promise.allSettled([portalGet('announcements'),portalGet('polls'),portalGet('topics'),portalGet('events')]);
-                const names=['公告','投票','議題','日期'];
-                const vals=results.map((r,i)=>{
-                    if(r.status==='fulfilled') return r.value;
-                    console.warn('PortalDB '+names[i]+' API:',r.reason);
-                    return null;
-                });
-                const ann=Array.isArray(vals[0])?vals[0]:[], polls=Array.isArray(vals[1])?vals[1]:[], topics=Array.isArray(vals[2])?vals[2]:[], events=Array.isArray(vals[3])?vals[3]:[];
+                const results=await Promise.allSettled([portalGet('announcements'),portalGet('events')]);
+                const ann=results[0].status==='fulfilled' && Array.isArray(results[0].value)?results[0].value:[];
+                const events=results[1].status==='fulfilled' && Array.isArray(results[1].value)?results[1].value:[];
+                
                 if(results[0].status==='fulfilled'){
                     setTextSafe('portalAnnouncementCount',ann.length);
                     setHtmlSafe('announcementList',ann.length?ann.slice(0,8).map(a=>{const rawKey=String(a.AnnouncementKey||'');if(rawKey)announcementStore[rawKey]=a;const key=escapeJs(rawKey);return `<button class="w-full text-left p-3 rounded-xl bg-slate-50 border hover:bg-indigo-50" onclick="openAnnouncement('${key}')"><div class="flex justify-between gap-2 items-center"><b class="text-sm">${escapeHtml(a.Title||'未命名公告')}</b><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDate(a.Timestamp)}</span></div><div class="mt-1 flex gap-2 text-[10px] text-slate-500"><span>${escapeHtml(a.Category||'一般')}</span><span>👁 ${Number(a.ViewCount||0).toLocaleString()}</span></div></button>`;}).join(''):'<p class="text-sm text-slate-400">尚無公告。</p>');
                 }else setHtmlSafe('announcementList','<p class="text-sm text-amber-600">⚠️ 公告暫時無法更新，稍後重試。</p>');
-                if(results[1].status==='fulfilled') await renderPollList(polls); else setHtmlSafe('pollList','<p class="text-sm text-amber-600">⚠️ 投票資料暫時無法更新。</p>');
-                if(results[2].status==='fulfilled'){
-                    window.currentPortalTopics=topics.map(t=>String(t.Topic||t.Title||''));
-                    setTextSafe('portalTopicCount',topics.length);
-                    const sortedTopics=[...topics].sort((a,b)=>Number(b.Votes||b.votes||0)-Number(a.Votes||a.votes||0));
-                    setHtmlSafe('topicList',sortedTopics.length?sortedTopics.slice(0,10).map((t,i)=>{const topic=String(t.Topic||t.Title||'');const key='micron_topic_liked_'+topic;const liked=localStorage.getItem(key)==='1';const votes=Number(t.Votes||t.votes||0)||0;return `<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border"><span class="text-lg font-black text-amber-500">#${i+1}</span><span class="flex-1 text-sm font-bold">${escapeHtml(topic)}</span><button onclick="likeTopic('${escapeJs(topic)}')" class="text-xs font-black ${liked?'text-slate-400 bg-slate-100':'text-rose-600 bg-rose-50'} px-2 py-1 rounded-lg" ${liked?'disabled':''}>👍 ${votes}</button></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無熱門議題。</p>');
-                }else setHtmlSafe('topicList','<p class="text-sm text-amber-600">⚠️ 熱門議題暫時無法更新。</p>');
-                if(results[3].status==='fulfilled'){
+                
+                if(results[1].status==='fulfilled'){
                     setHtmlSafe('eventList',events.length?events.slice().sort((a,b)=>new Date(a.StartAt)-new Date(b.StartAt)).slice(0,12).map(x=>{const st=new Date(x.StartAt),en=x.EndAt?new Date(x.EndAt):null;const same=en&&!isNaN(en)&&st.toDateString()===en.toDateString();const range=en&&!isNaN(en)&&!same?`${formatDate(x.StartAt)} ～ ${formatDate(x.EndAt)}`:formatDate(x.StartAt);return `<div class="event-item"><div class="flex flex-wrap items-center gap-2"><span class="event-range">${escapeHtml(range)}</span><span class="text-[10px] text-slate-500">${escapeHtml(x.Category||'')}</span><span class="event-countdown font-black text-rose-600" data-countdown-start="${escapeHtml(x.StartAt||'')}" data-countdown-end="${escapeHtml(x.EndAt||'')}">⏳ 計算中…</span></div><b class="event-date-hero block mt-2">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
                     setTimeout(refreshEventCountdowns,0);
                 }else setHtmlSafe('eventList','<p class="text-sm text-amber-600">⚠️ 重要日期暫時無法更新。</p>');
+                
                 portalDataLastLoadedAt=Date.now();
-                // 以下是低頻/非核心內容，獨立失敗不影響上述四區。
                 Promise.allSettled([refreshCompanyMood(),refreshExternalNews(false),refreshPublicReports()]).then(()=>{});
             })().finally(()=>{portalDataLoadingPromise=null;});
             return portalDataLoadingPromise;
         }
         function setTextSafe(id,v){const e=document.getElementById(id);if(e)e.innerText=v;}
         function setHtmlSafe(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v;}
-
         function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
         function escapeJs(v){return String(v==null?'':v).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
         function formatDate(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}
         function formatDateTime(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d).replace(/\\s/g,' ');}
-
-        async function votePoll(id,option){
-            if(!id)return;
-            if(hasVotedPoll(id))return alert('你已經投過這一題了。');
-            try{
-                await portalPost('vote',{PollId:id,Option:option,AnonToken:getAnonToken()});
-                localStorage.setItem(pollVotedKey(id),'1');
-                // no-cors POST 不提供可讀 response；先立即更新 UI，再背景重新抓正式票數。
-                const cards=[...document.querySelectorAll('#pollList > div')];
-                cards.forEach(card=>{
-                    if(!card.innerText.includes(option))return;
-                    const btns=[...card.querySelectorAll('button')];
-                    btns.forEach(btn=>{
-                        if(btn.innerText.trim().startsWith(option)){
-                            const m=btn.querySelector('b'); if(m){const mm=m.innerText.match(/^(\d+)/);const n=mm?Number(mm[1])+1:1;m.innerText=n+' 票';}
-                            btn.disabled=true; btn.classList.add('opacity-70','cursor-not-allowed');
-                        }
-                    });
-                });
-                alert('✅ 已送出匿名投票');
-                setTimeout(()=>refreshPortalData(true),800);
-            }catch(e){alert('投票失敗：'+e.message);}
-        }
-        async function openPollModal(){
-            const q=(prompt('請輸入投票問題')||'').trim(); if(!q)return;
-            const o=(prompt('請輸入至少 2 個選項，以逗號分隔，例如：A,B,C')||'').trim(); if(!o)return;
-            const opts=[...new Set(o.split(/[,，|、\n]/).map(x=>x.trim()).filter(Boolean))];
-            if(opts.length<2){alert('⚠️ 投票至少需要 2 個不同選項。只有 1 個選項不能建立投票。');return;}
-            if(opts.length>10){alert('⚠️ 最多 10 個選項。');return;}
-            try{
-                await portalPost('poll',{Question:q,Options:opts.join(','),EndAt:'',CreatorToken:getAnonToken()});
-                alert('✅ 投票已建立');
-                await refreshPortalData();
-            }catch(e){alert('建立投票失敗：'+e.message);}
-        }
-
-        async function likeTopic(topic){
-            if(!topic)return;
-            const key='micron_topic_liked_'+topic;
-            if(localStorage.getItem(key)==='1')return alert('你已經按過讚了。');
-            try{
-                await portalPost('topic_like',{Topic:topic,AnonToken:getAnonToken()});
-                localStorage.setItem(key,'1');
-                await refreshPortalData(true);
-            }catch(e){alert('按讚失敗：'+e.message);}
-        }
-
-        async function submitTopicPrompt(){
-            const t=(prompt('你想讓大家關注什麼？')||'').trim(); if(!t)return;
-            if(t.length<2){alert('議題至少 2 個字。');return;}
-            const normalizedTopic=t.replace(/\s+/g,'').toLowerCase();
-            const duplicate=(window.currentPortalTopics||[]).some(x=>String(x||'').replace(/\s+/g,'').toLowerCase()===normalizedTopic);
-            if(duplicate){alert('這個議題已經存在，請直接幫它按 👍，不用重複建立。');return;}
-            try{
-                await portalPost('topic',{Topic:t,Votes:0,AnonToken:getAnonToken()});
-                alert('✅ 議題已送出，等待大家按 👍 推上熱搜');
-                await refreshPortalData(true);
-            }catch(e){alert('議題送出失敗：'+e.message);}
-        }
 
         async function refreshPublicReports(){
             const track=document.getElementById('publicReportTrack'); if(!track)return;
@@ -2085,7 +2036,6 @@ function clearM3() { }
                 renderPublicReportWindow(); startPublicReportTicker();
             }catch(e){
                 console.error('public_reports:',e);
-                // 不因一次 API 失敗把既有資料清成 0 筆；若已有資料，繼續播。
                 if(publicReportItems.length){
                     renderPublicReportWindow(); startPublicReportTicker();
                 }else{
@@ -2127,25 +2077,7 @@ function clearM3() { }
             }catch(e){resultEl.innerText='❌ 回報失敗：'+e.message;resultEl.className='text-xs mt-2 font-bold text-rose-600 block';}
             finally{reportSubmitBusy=false;if(submitBtn){submitBtn.disabled=false;submitBtn.innerText='送出匿名大聲公';}}
         }
-        function runPromotionTool(){const g=document.getElementById('toolGrade').value.trim().toUpperCase(),s=parseFloat(document.getElementById('toolSalary').value);if(!/^[A-Z][0-9]$/.test(g)||isNaN(s))return alert('請輸入 E1 / T1 / M1 與目前月薪');const m=g.match(/([A-Z])(\d+)/),next=m?m[1]+(Number(m[2])+1):'';const arr=dataM1.filter(x=>x.grade===next).map(x=>x.salary);if(!arr.length){document.getElementById('promotionToolResult').innerText=`找不到 ${next} 的樣本資料。`;return;}const avg=arr.reduce((a,b)=>a+b,0)/arr.length;document.getElementById('promotionToolResult').innerHTML=`${next} 平均 ${avg.toFixed(1)} 萬；相對目前約 <b>${((avg-s)/s*100).toFixed(1)}%</b>`;}
-        function runAnnualTool(){const base=parseFloat(document.getElementById('annualBase').value)||0,bonus=parseFloat(document.getElementById('annualBonus').value)||0,rsu=parseFloat(document.getElementById('annualRSU').value)||0,total=base*14+bonus+rsu*(Number(window.MU_PRICE_CURRENT)||920.95)/10000;document.getElementById('annualToolResult').innerText=`估算年總包約 ${total.toFixed(1)} 萬（RSU 以目前價格估算）。`;}
-        async function renderPortalAnalytics(){
-            const byGrade={};
-            dataM1.forEach(x=>{
-                if(!x.grade || !Number.isFinite(x.salary)) return;
-                if(!byGrade[x.grade]) byGrade[x.grade]=[];
-                byGrade[x.grade].push(x.salary);
-            });
-            const labels=Object.keys(byGrade).sort(compareGrades);
-            const avg=labels.map(g=>byGrade[g].reduce((a,b)=>a+b,0)/byGrade[g].length);
-            const canvas=document.getElementById('salaryTrendChart');
-            if(canvas){
-                if(window.portalSalaryChart) window.portalSalaryChart.destroy();
-                window.portalSalaryChart=new Chart(canvas,{type:'line',data:{labels,datasets:[{label:'各職等平均月薪',data:avg,tension:.25,fill:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{title:{display:true,text:'萬元'}}}}});
-            }
-        }
 
-        const MU_TICKER_URL='https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1m&includePrePost=false';
         let muStockTimer=null;
         async function refreshMUStock(manual=false){
             const priceEl=document.getElementById('muStockPrice'),changeEl=document.getElementById('muStockChange'),timeEl=document.getElementById('muStockTime');
@@ -2186,13 +2118,11 @@ function clearM3() { }
                 window.MU_PRICE_CURRENT=price;
             };
             try{
-                // 1) PortalDB：不要經過 portalGet()，因為 stock 是物件而非 rows 陣列。
                 const url=API_PORTAL+'?action=stock&t='+Date.now();
                 const r=await timeoutFetch(url,8000); if(!r.ok)throw new Error('PortalDB HTTP '+r.status);
                 const raw=await r.json(); const q=findQuote(raw); if(!q)throw new Error('PortalDB 未回傳 MU 報價');
                 renderQuote(q); return;
             }catch(primaryErr){
-                // 2) Yahoo chart API 備援；若瀏覽器 CORS 阻擋，會在 8 秒內放棄，不再永久 loading。
                 try{
                     const r=await timeoutFetch('https://query1.finance.yahoo.com/v8/finance/chart/MU?range=1d&interval=1m&_='+Date.now(),8000);
                     if(!r.ok)throw new Error('Yahoo HTTP '+r.status);
@@ -2201,7 +2131,6 @@ function clearM3() { }
                     if(!Number.isFinite(price))throw new Error('Yahoo 無 MU price');
                     renderQuote({price,previousClose:prev,timestamp:ts}); return;
                 }catch(fallbackErr){
-                    // 3) 保留上一個成功值；第一次失敗則明確顯示「暫時無法取得」，不再顯示無限 loading。
                     if(Number.isFinite(Number(window.MU_PRICE_CURRENT))&&Number(window.MU_PRICE_CURRENT)>0){
                         priceEl.textContent='$'+Number(window.MU_PRICE_CURRENT).toFixed(2);
                         changeEl.textContent='暫用上次報價'; changeEl.className='text-sm font-bold text-slate-400';
@@ -2294,7 +2223,6 @@ function clearM3() { }
             for (const key in payload) { params.append(key, payload[key]); }
 
             try {
-                // 送至 API_M2
                 await fetch(API_M2, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -2348,10 +2276,15 @@ function clearM3() { }
 
         window.addEventListener('error',e=>console.error('Portal UI error:',e.error||e.message));
         window.addEventListener('unhandledrejection',e=>console.error('Portal async error:',e.reason));
-        window.addEventListener('load',()=>{recordPageView();
-        setupNewsFilters();
-        setInterval(refreshEventCountdowns,60000);refreshPageViewStats();startMUStockTicker();
-        initPlatform(); if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});});
+        window.addEventListener('load',()=>{
+            recordPageView();
+            setupNewsFilters();
+            setInterval(refreshEventCountdowns,60000);
+            refreshPageViewStats();
+            startMUStockTicker();
+            initPlatform(); 
+            if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+        });
     </script>
 </body>
 </html>
