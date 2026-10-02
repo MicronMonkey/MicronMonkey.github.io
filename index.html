@@ -53,6 +53,16 @@
 </style>
 <link href="manifest.webmanifest" rel="manifest"/>
 <meta content="#0f172a" name="theme-color"/>
+
+<style id="chart-tooltip-readability-v20">
+/* Long bilingual Chart.js tooltip content: keep enough vertical room and prevent clipped HTML tooltip text. */
+.chartjs-tooltip, .chart-tooltip, [role="tooltip"] {
+  max-width: min(92vw, 360px) !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+</style>
 </head>
 <body class="p-4 md:p-8 relative">
 <div class="max-w-7xl mx-auto">
@@ -297,7 +307,7 @@
 </div>
 </div>
 </div>
-<div class="overflow-x-auto max-h-80 text-xs">
+<div class="overflow-x-auto max-h-[40rem] text-xs">
 <table class="w-full text-left border-collapse">
 <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
 <tr>
@@ -433,7 +443,7 @@
 </div>
 </div>
 </div>
-<div class="overflow-x-auto max-h-80 text-xs">
+<div class="overflow-x-auto max-h-[40rem] text-xs">
 <table class="w-full text-left border-collapse">
 <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
 <tr>
@@ -517,12 +527,12 @@
 <div class="lg:col-span-3 space-y-6">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📦 2026 各職等 RSU 分發力道 (美金)</h3>
-<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等。(柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
+<p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等。<span id="m3RsuOutlierNote" class="text-amber-600 font-bold">⚠️ 圖表依各職等分別排除統計極端值（Tukey 1.5×IQR）。</span></p>
 <div class="relative h-80"><canvas id="m3RsuChart"></canvas></div>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <h3 class="text-sm font-bold text-slate-800 mb-1">📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)</h3>
-<p class="text-xs text-slate-400 mb-3">藍柱：未升遷｜紫柱：有升遷。(已支援高低標與平均值繪製)</p>
+<p class="text-xs text-slate-400 mb-3">藍柱：未升遷｜紫柱：有升遷。<span id="m3RaiseOutlierNote" class="text-amber-600 font-bold">⚠️ 圖表依各職等分別排除統計極端值（Tukey 1.5×IQR）。</span></p>
 <div class="relative h-80"><canvas id="m3RaiseChart"></canvas></div>
 </div>
 </div>
@@ -576,7 +586,7 @@
 </div>
 </div>
 </div>
-<div class="overflow-x-auto max-h-80 text-xs">
+<div class="overflow-x-auto max-h-[40rem] text-xs">
 <table class="w-full text-left border-collapse">
 <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
 <tr>
@@ -585,7 +595,7 @@
 <th class="p-3 sortable" onclick="sortM3Table('promo')">有無升遷 ↕</th>
 <th class="p-3 sortable" onclick="sortM3Table('raise')">調薪幅度 (%) ↕</th>
 <th class="p-3 sortable" onclick="sortM3Table('rsu')">RSU (美金) ↕</th>
-<th class="p-3">換算股數 (股)</th>
+<th class="p-3">換算股數 (股)</th><th class="p-3">常態 Profile</th>
 </tr>
 </thead>
 <tbody class="text-slate-600 divide-y divide-slate-100" id="m3Tbody"></tbody>
@@ -848,14 +858,14 @@
                             if (c.config.options.plugins.tooltip.callbacks.customMeta) {
                                 m = c.config.options.plugins.tooltip.callbacks.customMeta(lbl, dsi);
                             }
-                            if(m && !isNaN(m.avg)) {
+                            if(m && Number.isFinite(Number(m.avg))) {
                                 c.ctx.save(); c.ctx.fillStyle = '#1e293b'; c.ctx.font = 'bold 9px sans-serif'; c.ctx.textAlign = 'center';
                                 c.ctx.fillText(m.max + unit, bar.x, bar.y - 4);
                                 c.ctx.fillText(m.min + unit, bar.x, bar.base + 10);
                                 const ay = y.getPixelForValue(parseFloat(m.avg));
                                 if(!isNaN(ay)) {
                                     c.ctx.strokeStyle = '#ef4444'; c.ctx.lineWidth = 1.5; c.ctx.beginPath(); c.ctx.moveTo(bar.x - bar.width/2, ay); c.ctx.lineTo(bar.x + bar.width/2, ay); c.ctx.stroke();
-                                    c.ctx.fillStyle = '#ef4444'; c.ctx.textAlign = 'left'; c.ctx.fillText("均:"+m.avg, bar.x + bar.width/2+1, ay+3);
+                                    c.ctx.fillStyle = '#ef4444'; c.ctx.textAlign = 'left'; c.ctx.fillText(tr("均:")+m.avg, bar.x + bar.width/2+1, ay+3);
                                 }
                                 c.ctx.restore();
                             }
@@ -949,19 +959,50 @@
                 throw e;
             }finally{clearTimeout(timer);}
         }
-        const CLIENT_CACHE_TTL = 120000;
-        function clientCacheKey(label){ return 'micron_portal_cache_'+label; }
-        function readClientCache(label){
+        /* ===== Resilient client cache: stale-while-revalidate ===== */
+        // Keep the last successful dataset for 30 minutes. Even when it is older,
+        // it is still useful as a fallback while the API is recovering.
+        const CLIENT_CACHE_TTL = 30 * 60 * 1000;
+        const CLIENT_CACHE_STALE_MAX = 24 * 60 * 60 * 1000;
+        function clientCacheKey(label){ return 'micron_portal_cache_v2_'+label; }
+        function readClientCache(label, allowStale=true){
             try{
-                const raw=sessionStorage.getItem(clientCacheKey(label));
+                const storage=localStorage;
+                const raw=storage.getItem(clientCacheKey(label));
                 if(!raw)return null;
                 const obj=JSON.parse(raw);
-                if(!obj || !Array.isArray(obj.rows) || Date.now()-Number(obj.ts||0)>CLIENT_CACHE_TTL)return null;
-                return obj.rows;
+                if(!obj || !Array.isArray(obj.rows) || !Number.isFinite(Number(obj.ts)))return null;
+                const age=Date.now()-Number(obj.ts);
+                if(age<0 || age>(allowStale?CLIENT_CACHE_STALE_MAX:CLIENT_CACHE_TTL))return null;
+                return {rows:obj.rows,ts:Number(obj.ts),age};
             }catch(_){return null;}
         }
         function writeClientCache(label,rows){
-            try{sessionStorage.setItem(clientCacheKey(label),JSON.stringify({ts:Date.now(),rows:Array.isArray(rows)?rows:[]}));}catch(_){/* ignore */}
+            try{
+                const payload={ts:Date.now(),rows:Array.isArray(rows)?rows:[]};
+                localStorage.setItem(clientCacheKey(label),JSON.stringify(payload));
+            }catch(_){/* private mode / quota: ignore */}
+        }
+        function formatCacheAge(ms){
+            const min=Math.max(1,Math.round(ms/60000));
+            return min<60 ? `${min} 分鐘前` : `${Math.round(min/60)} 小時前`;
+        }
+        function sleep(ms){ return new Promise(resolve=>setTimeout(resolve,ms)); }
+        async function loadJsonWithRetry(label,url,options={}){
+            const attempts=Number(options.attempts||3);
+            let lastError=null;
+            for(let attempt=1;attempt<=attempts;attempt++){
+                try{
+                    return await loadJson(label,url);
+                }catch(e){
+                    lastError=e;
+                    if(attempt<attempts){
+                        const delay=(attempt===1?700:1500)*attempt + Math.floor(Math.random()*500);
+                        await sleep(delay);
+                    }
+                }
+            }
+            throw lastError || new Error(label+' API unavailable');
         }
 
         function populateM3PerfFilterOptions() {
@@ -987,12 +1028,13 @@
 
         async function initPlatform() {
             const loadingBar=document.getElementById('loadingBar'),loadingText=document.getElementById('loadingText'),loadingDot=document.getElementById('loadingDot'),statusContainer=document.getElementById('statusContainer');
-            const errors=[]; let completed=0, total=4;
-            const setProgress=(label)=>{
-                completed=Math.min(completed+1,total);
-                if(loadingBar) loadingBar.style.width=Math.round(10+(completed/total)*85)+'%';
-                if(loadingText) loadingText.innerText=label;
+            const errors=[];
+            const sourceState={M1:false,M2:false,M3:false,PortalDB:false};
+            const updateStatus=()=>{
+                const done=Object.values(sourceState).filter(Boolean).length;
+                if(loadingBar)loadingBar.style.width=Math.round(8+(done/4)*87)+'%';
             };
+            const markSource=(label,ok)=>{ sourceState[label]=true; updateStatus(); };
             const renderM1=(rows)=>{
                 dataM1=parseM1Rows(rows||[]);
                 const total1=document.getElementById('totalGlobalCount'); if(total1)total1.innerText=dataM1.length+' 筆';
@@ -1003,38 +1045,84 @@
                 }
             };
             const renderM2=(rows)=>{dataM2=parseBonusRows(rows||[]);const e=document.getElementById('totalGlobalCount2');if(e)e.innerText=dataM2.length+' 筆';if(dataM2.length){updateM2PerfButtons();updateM2SubGradeButtons();updateM2Charts();}};
-            const renderM3=(rows)=>{
-                dataM3=parseBonusRows(rows||[]);
-                const e=document.getElementById('totalGlobalCount3');
-                if(e) e.innerText=dataM3.length+' 筆';
-                populateM3PerfFilterOptions();
-                updateM3PerfButtons();
-                updateM3SubGradeButtons();
-                updateM3Charts();
+            const renderM3=(rows)=>{dataM3=parseBonusRows(rows||[]);const e=document.getElementById('totalGlobalCount3');if(e)e.innerText=dataM3.length+' 筆';populateM3PerfFilterOptions();updateM3PerfButtons();updateM3SubGradeButtons();updateM3Charts();};
+            const sourceLabels={M1:'日常薪情',M2:'2025 開獎',M3:'2026 開獎'};
+            const loadOne=async(label,url,render)=>{
+                const cached=readClientCache(label,true);
+                if(cached && cached.rows.length){
+                    render(cached.rows);
+                    const ageText=formatCacheAge(cached.age);
+                    if(loadingText)loadingText.innerText=`${sourceLabels[label]} 已顯示快取（${ageText}），正在背景更新...`;
+                }
+                try{
+                    // Small staggering prevents all Apps Script endpoints from being hit at exactly the same moment.
+                    const stagger={M1:0,M2:900,M3:1800}[label]||0;
+                    if(stagger)await sleep(stagger);
+                    const rows=await loadJsonWithRetry(label,url,{attempts:3});
+                    writeClientCache(label,rows); render(rows); markSource(label,true);
+                    if(loadingText)loadingText.innerText=`${sourceLabels[label]} 已更新`;
+                    return true;
+                }catch(e){
+                    errors.push(label+': '+e.message); console.warn(label,e); markSource(label,true);
+                    if(cached && cached.rows.length){
+                        if(loadingText)loadingText.innerText=`${sourceLabels[label]} API 暫時異常，沿用上次成功資料；稍後自動重試`;
+                        // One delayed background retry handles transient Apps Script cold starts/rate limits.
+                        setTimeout(async()=>{
+                            try{
+                                const retryRows=await loadJsonWithRetry(label,url,{attempts:2});
+                                writeClientCache(label,retryRows); render(retryRows);
+                                if(loadingText)loadingText.innerText=`${sourceLabels[label]} 背景重試成功`;
+                            }catch(retryErr){ console.warn(label+' background retry',retryErr); }
+                        },20000);
+                        return false;
+                    }
+                    if(loadingText)loadingText.innerText=`${sourceLabels[label]} 暫時無法載入，20 秒後自動重試`;
+                    // No cache on first visit: retry once in the background without blocking the page.
+                    setTimeout(async()=>{
+                        try{
+                            const retryRows=await loadJsonWithRetry(label,url,{attempts:2});
+                            writeClientCache(label,retryRows); render(retryRows);
+                            if(loadingText)loadingText.innerText=`${sourceLabels[label]} 背景重試成功`;
+                        }catch(retryErr){ console.warn(label+' background retry',retryErr); }
+                    },20000);
+                    return false;
+                }
             };
             try{
                 if(loadingBar)loadingBar.style.width='5%';
-                if(loadingText)loadingText.innerText='⚡ 入口網站啟動中，正在平行載入資料...';
+                if(loadingText)loadingText.innerText='⚡ 入口網站啟動中，優先顯示可用資料，背景更新中...';
 
-                const cached1=readClientCache('M1'),cached2=readClientCache('M2'),cached3=readClientCache('M3');
-                if(cached1)renderM1(cached1);
-                if(cached2)renderM2(cached2);
-                if(cached3)renderM3(cached3);
-
-                const tasks=[
-                    loadJson('M1',API_M1).then(rows=>{writeClientCache('M1',rows);renderM1(rows);setProgress('日常薪情已更新');return true;}).catch(e=>{errors.push('M1: '+e.message);console.warn('M1',e);setProgress('日常薪情完成');return false;}),
-                    loadJson('M2',API_M2).then(rows=>{writeClientCache('M2',rows);renderM2(rows);setProgress('2025 開獎已更新');return true;}).catch(e=>{errors.push('M2: '+e.message);console.warn('M2',e);setProgress('2025 開獎完成');return false;}),
-                    loadJson('M3',API_M3).then(rows=>{writeClientCache('M3',rows);renderM3(rows);setProgress('2026 開獎已更新');return true;}).catch(e=>{errors.push('M3: '+e.message);console.warn('M3',e);setProgress('2026 開獎完成');return false;}),
-                    Promise.allSettled([renderUnionChart(),refreshPortalData()]).then(()=>{setProgress('PortalDB 社群資料已更新');return true;}).catch(e=>{errors.push('PortalDB: '+e.message);console.warn('PortalDB',e);setProgress('PortalDB 完成');return false;})
+                // Load the three core datasets independently. One failure never blocks the others.
+                const coreTasks=[
+                    loadOne('M1',API_M1,renderM1),
+                    loadOne('M2',API_M2,renderM2),
+                    loadOne('M3',API_M3,renderM3)
                 ];
-                await Promise.allSettled(tasks);
+
+                // PortalDB is separated from the core salary APIs.
+                const portalTask=(async()=>{
+                    try{
+                        await sleep(2600);
+                        await Promise.allSettled([renderUnionChart(),refreshPortalData()]);
+                        markSource('PortalDB',true);
+                        return true;
+                    }catch(e){
+                        errors.push('PortalDB: '+e.message); console.warn('PortalDB',e); markSource('PortalDB',true); return false;
+                    }
+                })();
+
+                await Promise.allSettled([...coreTasks,portalTask]);
                 if(loadingBar)loadingBar.style.width='100%';
                 if(loadingDot){loadingDot.className='w-2 h-2 rounded-full '+(errors.length?'bg-amber-400':'bg-emerald-400');loadingDot.classList.remove('animate-pulse');}
-                if(loadingText)loadingText.innerText=errors.length?'資料已載入（部分資料源異常，不影響其他分頁）':'全部資料已載入';
+                if(loadingText)loadingText.innerText=errors.length?'資料已載入（部分來源暫時異常，已保留可用資料）':'全部資料已載入';
                 if(statusContainer)statusContainer.className=errors.length?'relative overflow-hidden inline-flex items-center gap-2 bg-amber-900/20 text-amber-300 text-xs px-4 py-2 rounded-full border border-amber-500/30 w-full sm:w-64 transition-colors':'relative overflow-hidden inline-flex items-center gap-2 bg-emerald-900/20 text-emerald-300 text-xs px-4 py-2 rounded-full border border-emerald-500/30 w-full sm:w-64 transition-colors';
-                setTimeout(()=>{const lb=document.getElementById('loadingBar');if(lb){lb.style.opacity='0';lb.style.transition='opacity .5s ease';}},700);
+                setTimeout(()=>{const lb=document.getElementById('loadingBar');if(lb){lb.style.opacity='0';lb.style.transition='opacity .5s ease';}},1200);
             }catch(e){
-                console.error('INIT ERROR',e);if(loadingBar){loadingBar.style.width='100%';loadingBar.style.opacity='1';}if(loadingDot){loadingDot.className='w-2 h-2 rounded-full bg-rose-400';loadingDot.classList.remove('animate-pulse');}if(loadingText)loadingText.innerText='系統錯誤：'+e.message;if(statusContainer)statusContainer.className='relative overflow-hidden inline-flex items-center gap-2 bg-rose-900/20 text-rose-300 text-xs px-4 py-2 rounded-full border border-rose-500/30 w-full sm:w-64 transition-colors';
+                console.error('INIT ERROR',e);
+                if(loadingBar){loadingBar.style.width='100%';loadingBar.style.opacity='1';}
+                if(loadingDot){loadingDot.className='w-2 h-2 rounded-full bg-rose-400';loadingDot.classList.remove('animate-pulse');}
+                if(loadingText)loadingText.innerText='系統啟動完成，但部分資料來源暫時無法連線';
+                if(statusContainer)statusContainer.className='relative overflow-hidden inline-flex items-center gap-2 bg-amber-900/20 text-amber-300 text-xs px-4 py-2 rounded-full border border-amber-500/30 w-full sm:w-64 transition-colors';
             }
         }
 
@@ -1153,11 +1241,11 @@
             const sortedLabels = metaList.map(m => m.grade), sortedBoxData = metaList.map(m => [m.min, m.max]), sortedCounts = metaList.map(m => m.count);
             globalBoxMeta = {}; metaList.forEach(m => { globalBoxMeta[m.grade] = m; });
 
-            if (chartBoxSalary) { chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.update(); } else { 
-                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '薪資區間 (低標~高標)', data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: (label)=>globalBoxMeta[label], label: (c)=> { const m = globalBoxMeta[c.label]; return `最低: ${m.min}萬 | 中位: ${m.med}萬 | 平均: ${m.avg}萬 | 最高: ${m.max}萬`; } } } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
+            if (chartBoxSalary) { chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.data.datasets[0].label=tr('薪資區間 (低標~高標)'); chartBoxSalary.update(); } else { 
+                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: tr('薪資區間 (低標~高標)'), data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: (label)=>globalBoxMeta[label], label: (c)=> { const m = globalBoxMeta[c.label]; return [tr('最低')+`: ${m.min}${tr('萬')}`, tr('中位')+`: ${m.med}${tr('萬')}`, tr('平均')+`: ${m.avg}${tr('萬')}`, tr('最高')+`: ${m.max}${tr('萬')}`]; } } } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
             }
-            if (chartSampleCount) { chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.update(); } else { 
-                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '覆蓋樣本數 (人)', data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
+            if (chartSampleCount) { chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.data.datasets[0].label=tr('覆蓋樣本數 (人)'); chartSampleCount.update(); } else { 
+                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: tr('覆蓋樣本數 (人)'), data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
             }
         }
 
@@ -1363,12 +1451,12 @@
             const lbl = m.map(x=>x.grade), dBox = m.map(x=>[x.min, x.max]);
             m2RsuMeta = {}; m.forEach(x => m2RsuMeta[x.grade] = x);
 
-            if(cM2Rsu) { cM2Rsu.data.labels=lbl; cM2Rsu.data.datasets[0].data=dBox; cM2Rsu.update(); }
+            if(cM2Rsu) { cM2Rsu.data.labels=lbl; cM2Rsu.data.datasets[0].data=dBox; cM2Rsu.data.datasets[0].label=tr('RSU 區間 (美金)'); cM2Rsu.update(); }
             else { 
                 cM2Rsu = new Chart(document.getElementById('m2RsuChart'), { 
                     type:'bar', 
-                    data:{labels:lbl, datasets:[{label:'RSU 區間 (美金)', data:dBox, backgroundColor:'rgba(168, 85, 247, 0.55)', borderColor:'#a855f7', borderWidth:1.5, borderRadius:2}]}, 
-                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m2RsuMeta[l], label:c=>{const mb=m2RsuMeta[c.label]; return `最低: $${mb.min} | 中位: $${mb.med} | 平均: $${mb.avg} | 最高: $${mb.max}`;} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
+                    data:{labels:lbl, datasets:[{label:tr('RSU 區間 (美金)'), data:dBox, backgroundColor:'rgba(168, 85, 247, 0.55)', borderColor:'#a855f7', borderWidth:1.5, borderRadius:2}]}, 
+                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m2RsuMeta[l], label:c=>{const mb=m2RsuMeta[c.label]; return [tr('最低')+`: $${mb.min}`, tr('中位')+`: $${mb.med}`, tr('平均')+`: $${mb.avg}`, tr('最高')+`: $${mb.max}`];} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
                 }); 
             }
         }
@@ -1403,15 +1491,15 @@
             });
 
             if(cM2Raise) { 
-                cM2Raise.data.labels=pf; cM2Raise.data.datasets[0].data=dNo; cM2Raise.data.datasets[1].data=dYes; cM2Raise.update(); 
+                cM2Raise.data.labels=pf; cM2Raise.data.datasets[0].data=dNo; cM2Raise.data.datasets[1].data=dYes; cM2Raise.data.datasets[0].label=tr('未升遷 (%)'); cM2Raise.data.datasets[1].label=tr('剛升遷 (%)'); cM2Raise.update(); 
             } else { 
                 cM2Raise = new Chart(document.getElementById('m2RaiseChart'), { 
                     type:'bar', 
                     data:{
                         labels:pf, 
                         datasets:[
-                            {label:'未升遷 (%)', data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
-                            {label:'剛升遷 (%)', data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
+                            {label:tr('未升遷 (%)'), data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
+                            {label:tr('剛升遷 (%)'), data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
                         ]
                     }, 
                     options:{
@@ -1422,7 +1510,7 @@
                                     customMeta: (l, dsi) => dsi === 0 ? metaRaiseNo[l] : metaRaiseYes[l],
                                     label: c => {
                                         let m = c.datasetIndex === 0 ? metaRaiseNo[c.label] : metaRaiseYes[c.label];
-                                        return m ? `最低: ${m.min}% | 中位: ${m.med}% | 平均: ${m.avg}% | 最高: ${m.max}%` : '無資料';
+                                        return m ? [tr('最低')+`: ${m.min}%`, tr('中位')+`: ${m.med}%`, tr('平均')+`: ${m.avg}%`, tr('最高')+`: ${m.max}%`] : [tr('無資料')];
                                     }
                                 }
                             }
@@ -1559,97 +1647,114 @@
             document.getElementById(targetId).className = "px-2 py-1 rounded bg-[#0066cc] text-white border border-[#0066cc] font-bold shadow-sm"; renderM3Table();
         }
 
+
+        // ===== 2026 grade-level statistical outlier handling =====
+        // Each grade is evaluated independently. Standard Tukey 1.5×IQR is used.
+        // Small groups (fewer than 5 valid observations) are kept intact to avoid
+        // falsely removing values because the distribution is too small to be stable.
+        function quartileValue(values, q) {
+            const a = values.filter(Number.isFinite).slice().sort((x,y)=>x-y);
+            if (!a.length) return NaN;
+            const pos = (a.length - 1) * q, lo = Math.floor(pos), hi = Math.ceil(pos);
+            return lo === hi ? a[lo] : a[lo] + (a[hi] - a[lo]) * (pos - lo);
+        }
+        function getM3Bounds(rows, field) {
+            const vals = rows.map(i=>Number(i[field])).filter(v=>Number.isFinite(v) && v>0);
+            if (vals.length < 5) return {low:-Infinity, high:Infinity, n:vals.length, trimmed:false, q1:NaN, q3:NaN, iqr:NaN};
+            const q1=quartileValue(vals,0.25), q3=quartileValue(vals,0.75), iqr=q3-q1;
+            if (!Number.isFinite(iqr) || iqr<=0) return {low:-Infinity, high:Infinity, n:vals.length, trimmed:false, q1, q3, iqr};
+            const low=q1-1.5*iqr, high=q3+1.5*iqr;
+            const hasOutlier=vals.some(v=>v<low||v>high);
+            return {low, high, n:vals.length, trimmed:hasOutlier, q1, q3, iqr};
+        }
+        function getM3GradeBounds(rows, field, grade) {
+            return getM3Bounds(rows.filter(i=>String(i.grade||'')===String(grade||'')), field);
+        }
+        function trimM3Rows(rows, field) {
+            const byGrade={};
+            rows.forEach(i=>{ const g=String(i.grade||''); (byGrade[g] ||= []).push(i); });
+            const kept=[]; const boundsByGrade={};
+            Object.keys(byGrade).forEach(g=>{
+                const b=getM3Bounds(byGrade[g],field); boundsByGrade[g]=b;
+                byGrade[g].forEach(i=>{
+                    const v=Number(i[field]);
+                    const keep=!b.trimmed || !(Number.isFinite(v)&&v>0) || (v>=b.low&&v<=b.high);
+                    if(keep) kept.push(i);
+                });
+            });
+            return {rows:kept,bounds:boundsByGrade};
+        }
+        function isM3NormalProfile(item, rows=dataM3) {
+            const gradeRows=rows.filter(i=>String(i.grade||'')===String(item.grade||''));
+            const rb=getM3Bounds(gradeRows,'raise'), sb=getM3Bounds(gradeRows,'rsu');
+            const rv=Number(item.raise), sv=Number(item.rsu);
+            const raiseOut=Number.isFinite(rv)&&rv>0&&rb.trimmed&&(rv<rb.low||rv>rb.high);
+            const rsuOut=Number.isFinite(sv)&&sv>0&&sb.trimmed&&(sv<sb.low||sv>sb.high);
+            return !(raiseOut||rsuOut);
+        }
+        function updateM3OutlierNotes(rows) {
+            const gradeCount=new Set(rows.map(i=>String(i.grade||''))).size;
+            const rbAll=rows.map(i=>getM3GradeBounds(rows,'raise',i.grade));
+            const sbAll=rows.map(i=>getM3GradeBounds(rows,'rsu',i.grade));
+            const rbTrim=rbAll.some(b=>b.trimmed), sbTrim=sbAll.some(b=>b.trimmed);
+            const rbN=rows.filter(i=>Number.isFinite(Number(i.raise))&&Number(i.raise)>0).length;
+            const sbN=rows.filter(i=>Number.isFinite(Number(i.rsu))&&Number(i.rsu)>0).length;
+            const rsuNote=document.getElementById('m3RsuOutlierNote'), raiseNote=document.getElementById('m3RaiseOutlierNote');
+            const note = (has, type, n) => has
+                ? `⚠️ ${tr('各職等分別依 1.5×IQR 統計分布排除極端值')} (${tr(type)}；${tr('職等數')} ${gradeCount}；${tr('有效樣本')} ${n} ${tr('筆')}).`
+                : `ℹ️ ${tr('各職等分別依 1.5×IQR 檢查極端值')} (${tr(type)}；${tr('職等數')} ${gradeCount}；${tr('有效樣本')} ${n} ${tr('筆')}).`;
+            if(rsuNote) rsuNote.textContent=note(sbTrim,'RSU',sbN);
+            if(raiseNote) raiseNote.textContent=note(rbTrim,'調薪',rbN);
+        }
+
         function updateM3Charts() {
             const fs = document.getElementById('m3FilterSeries').value, fp = document.getElementById('m3FilterPromo').value, fpf = document.getElementById('m3FilterPerf').value;
             const p = dataM3.filter(i => (fs==='All'||i.grade.startsWith(fs))&&(fp==='All'||i.promo===fp)&&(fpf==='All'||i.perf===fpf));
-            
+            updateM3OutlierNotes(p);
             renderM3RsuChart(p);
             renderM3RaiseChart(p);
             renderM3Table(p);
         }
 
         function renderM3RsuChart(p) {
-            const g = {}; p.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
+            const trimmed=trimM3Rows(p,'rsu'), pool=trimmed.rows, g = {};
+            pool.forEach(i => { if(i.rsu>0) { if(!g[i.grade]) g[i.grade]=[]; g[i.grade].push(i.rsu); }});
             const m = [];
             Object.keys(g).forEach(k => {
-                const s = g[k], c = s.length;
-                if(c >= 3) {
-                    const avg = s.reduce((a,b)=>a+b,0)/c, st = [...s].sort((a,b)=>a-b), md=Math.floor(c/2);
-                    m.push({ grade:k, count: c, min: Math.min(...s), max: Math.max(...s), avg: avg.toFixed(0), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(0) });
+                const ss=g[k], c=ss.length;
+                if(c>=3){
+                    const avg=ss.reduce((a,b)=>a+b,0)/c, st=[...ss].sort((a,b)=>a-b), md=Math.floor(c/2);
+                    m.push({grade:k,count:c,min:Math.min(...ss),max:Math.max(...ss),avg:avg.toFixed(0),med:(c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(0)});
                 }
             });
             m.sort((a,b)=>compareGrades(a.grade,b.grade));
-
-            const lbl = m.map(x=>x.grade), dBox = m.map(x=>[x.min, x.max]);
-            m3RsuMeta = {}; m.forEach(x => m3RsuMeta[x.grade] = x);
-
-            if(cM3Rsu) { cM3Rsu.data.labels=lbl; cM3Rsu.data.datasets[0].data=dBox; cM3Rsu.update(); }
-            else { 
-                cM3Rsu = new Chart(document.getElementById('m3RsuChart'), { 
-                    type:'bar', 
-                    data:{labels:lbl, datasets:[{label:'RSU 區間 (美金)', data:dBox, backgroundColor:'rgba(99, 102, 241, 0.55)', borderColor:'#6366f1', borderWidth:1.5, borderRadius:2}]}, 
-                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m3RsuMeta[l], label:c=>{const mb=m3RsuMeta[c.label]; return mb ? `最低: $${mb.min} | 中位: $${mb.med} | 平均: $${mb.avg} | 最高: $${mb.max}` : '無資料';} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
-                }); 
+            const lbl=m.map(x=>x.grade), dBox=m.map(x=>[x.min,x.max]);
+            m3RsuMeta={}; m.forEach(x=>m3RsuMeta[x.grade]=x);
+            const ds={label:'RSU range (USD)',data:dBox,backgroundColor:'rgba(99,102,241,0.55)',borderColor:'#6366f1',borderWidth:1.5,borderRadius:2};
+            if(cM3Rsu){
+                cM3Rsu.data.labels=lbl; cM3Rsu.data.datasets[0].data=dBox; cM3Rsu.data.datasets[0].label=tr('RSU 區間 (美金)'); cM3Rsu.update();
+            }else{
+                cM3Rsu=new Chart(document.getElementById('m3RsuChart'),{
+                    type:'bar',data:{labels:lbl,datasets:[ds]},
+                    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},datalabels:{display:true,anchor:'end',align:'top',clamp:true,font:{size:9,weight:'bold'},formatter:(v)=>Array.isArray(v)?`$${Number(v[0]).toLocaleString()}–$${Number(v[1]).toLocaleString()}`:`$${Number(v).toLocaleString()}`},tooltip:{callbacks:{customMeta:l=>m3RsuMeta[l],label:c=>{const mb=m3RsuMeta[c.label];return mb?[tr('最低')+`: $${mb.min.toLocaleString()}`, tr('中位')+`: $${mb.med}`, tr('平均')+`: $${mb.avg}`, tr('最高')+`: $${mb.max.toLocaleString()}`]:[tr('無資料')];}}}},scales:{x:{ticks:{autoSkip:false,maxRotation:45,minRotation:0,font:{size:10}}}}}
+                });
             }
         }
 
         function renderM3RaiseChart(p) {
-            const pf = Array.from(new Set(p.map(i=>i.perf).filter(x=>x))).sort();
-            const gNo = {}, gYes = {};
-            p.forEach(i => {
-                if (i.raise > 0) {
-                    if (i.promo === 'No') { if(!gNo[i.perf]) gNo[i.perf]=[]; gNo[i.perf].push(i.raise); }
-                    else { if(!gYes[i.perf]) gYes[i.perf]=[]; gYes[i.perf].push(i.raise); }
-                }
+            const trimmed=trimM3Rows(p,'raise'), pool=trimmed.rows;
+            const pf=Array.from(new Set(pool.map(i=>i.perf).filter(x=>x))).sort((a,b)=>Number(a)-Number(b));
+            const gNo={},gYes={}; pool.forEach(i=>{if(i.raise>0){const g=i.promo==='No'?gNo:gYes;if(!g[i.perf])g[i.perf]=[];g[i.perf].push(i.raise);}});
+            const dNo=[],dYes=[]; metaRaiseNo3={};metaRaiseYes3={};
+            pf.forEach(k=>{
+                let a=gNo[k]||[]; if(a.length>=2){let c=a.length,st=[...a].sort((x,y)=>x-y),avg=a.reduce((x,y)=>x+y,0)/c,md=Math.floor(c/2);metaRaiseNo3[k]={min:st[0],max:st[c-1],avg:avg.toFixed(1),med:(c%2?st[md]:(st[md-1]+st[md])/2).toFixed(1)};dNo.push([st[0],st[c-1]]);}else dNo.push(null);
+                let b=gYes[k]||[]; if(b.length>=2){let c=b.length,st=[...b].sort((x,y)=>x-y),avg=b.reduce((x,y)=>x+y,0)/c,md=Math.floor(c/2);metaRaiseYes3[k]={min:st[0],max:st[c-1],avg:avg.toFixed(1),med:(c%2?st[md]:(st[md-1]+st[md])/2).toFixed(1)};dYes.push([st[0],st[c-1]]);}else dYes.push(null);
             });
-
-            const dNo = [], dYes = [];
-            metaRaiseNo3 = {}; metaRaiseYes3 = {};
-
-            pf.forEach(k => {
-                let sNo = gNo[k] || [];
-                if (sNo.length >= 2) {
-                    let c = sNo.length, avg = sNo.reduce((a,b)=>a+b,0)/c, st = [...sNo].sort((a,b)=>a-b), md=Math.floor(c/2);
-                    metaRaiseNo3[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
-                    dNo.push([st[0], st[c-1]]);
-                } else { dNo.push(null); }
-
-                let sYes = gYes[k] || [];
-                if (sYes.length >= 2) {
-                    let c = sYes.length, avg = sYes.reduce((a,b)=>a+b,0)/c, st = [...sYes].sort((a,b)=>a-b), md=Math.floor(c/2);
-                    metaRaiseYes3[k] = { min: st[0], max: st[c-1], avg: avg.toFixed(1), med: (c%2!==0?st[md]:(st[md-1]+st[md])/2).toFixed(1) };
-                    dYes.push([st[0], st[c-1]]);
-                } else { dYes.push(null); }
-            });
-
-            if(cM3Raise) { 
-                cM3Raise.data.labels=pf; cM3Raise.data.datasets[0].data=dNo; cM3Raise.data.datasets[1].data=dYes; cM3Raise.update(); 
-            } else { 
-                cM3Raise = new Chart(document.getElementById('m3RaiseChart'), { 
-                    type:'bar', 
-                    data:{
-                        labels:pf, 
-                        datasets:[
-                            {label:'未升遷 (%)', data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
-                            {label:'剛升遷 (%)', data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
-                        ]
-                    }, 
-                    options:{
-                        responsive:true, maintainAspectRatio:false, 
-                        plugins:{
-                            tooltip:{
-                                callbacks:{
-                                    customMeta: (l, dsi) => dsi === 0 ? metaRaiseNo3[l] : metaRaiseYes3[l],
-                                    label: c => {
-                                        let m = c.datasetIndex === 0 ? metaRaiseNo3[c.label] : metaRaiseYes3[c.label];
-                                        return m ? `最低: ${m.min}% | 中位: ${m.med}% | 平均: ${m.avg}% | 最高: ${m.max}%` : '資料少於2筆';
-                                    }
-                                }
-                            }
-                        },
-                        scales: { x: { ticks: { autoSkip: false, maxRotation: 0, minRotation: 0, font: {size: 11} } } }
-                    } 
-                }); 
+            const ds0={label:tr('未升遷 (%)'),data:dNo,backgroundColor:'rgba(59,130,246,0.55)',borderColor:'#3b82f6',borderWidth:1.5,borderRadius:2};
+            const ds1={label:tr('剛升遷 (%)'),data:dYes,backgroundColor:'rgba(192,132,252,0.55)',borderColor:'#c084fc',borderWidth:1.5,borderRadius:2};
+            if(cM3Raise){cM3Raise.data.labels=pf;cM3Raise.data.datasets[0].data=dNo;cM3Raise.data.datasets[1].data=dYes;cM3Raise.data.datasets[0].label=tr('未升遷 (%)');cM3Raise.data.datasets[1].label=tr('剛升遷 (%)');cM3Raise.update();}
+            else{
+                cM3Raise=new Chart(document.getElementById('m3RaiseChart'),{type:'bar',data:{labels:pf,datasets:[ds0,ds1]},options:{responsive:true,maintainAspectRatio:false,plugins:{datalabels:{display:true,anchor:'end',align:'top',clamp:true,font:{size:9,weight:'bold'},formatter:(v)=>Array.isArray(v)?`${Number(v[0]).toFixed(1)}–${Number(v[1]).toFixed(1)}%`:`${Number(v).toFixed(1)}%`},tooltip:{callbacks:{customMeta:(l,dsi)=>dsi===0?metaRaiseNo3[l]:metaRaiseYes3[l],label:c=>{const m=c.datasetIndex===0?metaRaiseNo3[c.label]:metaRaiseYes3[c.label];return m?[tr('最低')+`: ${m.min}%`, tr('中位')+`: ${m.med}%`, tr('平均')+`: ${m.avg}%`, tr('最高')+`: ${m.max}%`]:[tr('資料少於2筆')];}}}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,minRotation:0,font:{size:11}}}}}});
             }
         }
 
@@ -1660,36 +1765,26 @@
         }
 
         function renderM3Table(pool) {
-            const searchEl = document.getElementById('m3Search'); const kw = (searchEl ? searchEl.value : '').toLowerCase();
-            const p = pool || dataM3;
-            const res = p.filter(i => {
-                const searchMatch = !kw || Object.values(i).join(' ').toLowerCase().includes(kw);
-                const seriesMatch = currentM3TableSeries === 'All' || i.grade.startsWith(currentM3TableSeries);
-                const subGradeMatch = currentM3TableSubGrade === 'All' || i.grade === currentM3TableSubGrade;
-                const promoMatch = currentM3TablePromo === 'All' || i.promo === currentM3TablePromo;
-                const perfMatch = currentM3TablePerf === 'All' || i.perf === currentM3TablePerf;
-                
-                return seriesMatch && subGradeMatch && promoMatch && perfMatch && searchMatch;
+            const searchEl=document.getElementById('m3Search'),kw=(searchEl?searchEl.value:'').toLowerCase(),p=pool||dataM3;
+            const res=p.filter(i=>{
+                const searchMatch=!kw||Object.values(i).join(' ').toLowerCase().includes(kw);
+                return (currentM3TableSeries==='All'||i.grade.startsWith(currentM3TableSeries)) &&
+                       (currentM3TableSubGrade==='All'||i.grade===currentM3TableSubGrade) &&
+                       (currentM3TablePromo==='All'||i.promo===currentM3TablePromo) &&
+                       (currentM3TablePerf==='All'||i.perf===currentM3TablePerf) && searchMatch;
             });
-            
-            if (m3SortCol) {
-                res.sort((a, b) => {
-                    let vA = a[m3SortCol], vB = b[m3SortCol];
-                    if (typeof vA === 'string') return m3SortDesc ? vB.localeCompare(vA) : vA.localeCompare(vB);
-                    return m3SortDesc ? vB - vA : vA - vB;
-                });
-            }
-
-            const countEl = document.getElementById('m3Count'); if (countEl) countEl.innerText = '顯示 ' + res.length + " 筆";
-            
-            if(res.length === 0 && dataM3.length === 0) {
-                document.getElementById('m3Tbody').innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">目前尚無任何 2026 數據</td></tr>`;
-            } else if (res.length === 0) {
-                document.getElementById('m3Tbody').innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">沒有符合條件的數據</td></tr>`;
-            } else {
-                document.getElementById('m3Tbody').innerHTML = res.slice(0, 50).map(i => {
-                    const shares = Math.round(i.rsu / (MU_PRICE_CURRENT || 1));
-                    return `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">$${i.rsu.toLocaleString()}</td><td class="p-3 text-slate-500">${i.rsu > 0 ? shares + ' 股' : '--'}</td></tr>`;
+            if(m3SortCol)res.sort((a,b)=>{let vA=a[m3SortCol],vB=b[m3SortCol];if(typeof vA==='string')return m3SortDesc?vB.localeCompare(vA):vA.localeCompare(vB);return m3SortDesc?vB-vA:vA-vB;});
+            const countEl=document.getElementById('m3Count');if(countEl)countEl.innerText=tr('顯示')+' '+res.length+' '+tr('筆');
+            if(res.length===0&&dataM3.length===0)document.getElementById('m3Tbody').innerHTML=`<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">${tr('目前尚無任何 2026 數據')}</td></tr>`;
+            else if(res.length===0)document.getElementById('m3Tbody').innerHTML=`<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">${tr('沒有符合條件的數據')}</td></tr>`;
+            else{
+                const price=Number(window.MU_PRICE_CURRENT);
+                document.getElementById('m3Tbody').innerHTML=res.slice(0,50).map(i=>{
+                    const validPrice=Number.isFinite(price)&&price>0, shares=validPrice&&Number(i.rsu)>0?Math.round(i.rsu/price):null;
+                    const normal=isM3NormalProfile(i,p);
+                    const profile=normal?`<span class="text-emerald-600 font-bold">✅ ${tr('正常 Profile')}</span>`:`<span class="text-rose-600 font-bold">⚠️ ${tr('Outlier')}</span>`;
+                    const shareText=i.rsu>0?(shares===null?'NA':shares+' '+tr('股')):'--';
+                    return `<tr class="${normal?'hover:bg-slate-50':'bg-rose-50/80'} border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ '+tr('有'):'❌ '+tr('無')}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">$${Number(i.rsu||0).toLocaleString()}</td><td class="p-3 text-slate-500">${shareText}</td><td class="p-3">${profile}</td></tr>`;
                 }).join('');
             }
         }
@@ -2281,10 +2376,321 @@
             setupNewsFilters();
             setInterval(refreshEventCountdowns,60000);
             refreshPageViewStats();
-            startMUStockTicker();
-            initPlatform(); 
+            setTimeout(()=>startMUStockTicker(),1800);
+            initPlatform();
+            try{const savedLang=localStorage.getItem('salaryPortalLanguage'); if(savedLang==='en') setTimeout(()=>refreshAllLanguageContent(),150); }catch(e){}
             if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
         });
     </script>
+
+<script>
+/* ===== Permanent bilingual UI: Chinese first + English in smaller text ===== */
+const I18N = {
+  '光光猴薪情平台':'Monkey Salary Portal',
+  '我們不生產錢，我們只是香蕉農':'We do not make money; we are just banana farmers',
+  '核心切換':'Main sections','日常薪情':'Salary Insights','2025 開獎':'2025 Bonus','2026 開獎':'2026 Bonus','工會資訊':'Union Info','員工工具箱':'Employee Toolbox',
+  '貢獻日常薪情':'Contribute salary data','貢獻 2025 開獎':'Contribute 2025 bonus','貢獻 2026 開獎':'Contribute 2026 bonus','功能許願':'Feature request',
+  '📊 總調查人數 (母體樣本)':'📊 Total respondents (sample)','🎁 開獎調查人數 (2026)':'🎁 2026 bonus respondents','連線中...':'Connecting...','連線初始化中...':'Initializing connection...',
+  '職等群 (Series)':'Grade series','職等群篩選 (Series)':'Grade series filter','職等快速過濾 (GJS)':'Grade filter (GJS)','團隊類型':'Team type','年資篩選範圍':'Experience range',
+  '全部職系':'All series','全部職等':'All grades','全部類型 (Global & Site)':'All types (Global & Site)','全部考績':'All performance','具體職等':'Specific grade',
+  '職系：':'Series:','升遷：':'Promotion:','考績：':'Performance:','職等/升遷後':'Grade / after promotion','調薪幅度 (純數字，勿填 %)':'Raise (%) — enter numbers only',
+  '考績 vs. 調薪幅度：殘酷關聯圖 (%)':'Performance vs. raise (%)','RSU 分發力道 (美金)':'RSU distribution (USD)','藍柱：未升遷｜紫柱：有升遷。':'Blue: not promoted | Purple: promoted.',
+  '點擊表格【標題】可進行排序':'Click table headers to sort','匯出 CSV':'Export CSV','搜尋職等或關鍵字':'Search grade or keyword',
+  '2026 開獎定位器':'2026 bonus locator','檢驗您的 Package 在同類人中是好是壞。':'Check how your package compares with peers.','檢驗 PR 值':'Check percentile','清除':'Clear',
+  '調薪幅度 PR值':'Raise percentile','RSU 美金 PR值':'RSU USD percentile','比對母體：':'Comparison group:','開獎勝率報告':'Bonus percentile report',
+  '無資料':'No data','資料少於2筆':'Fewer than 2 records','目前尚無任何 2026 數據':'No 2026 data available','沒有符合條件的數據':'No matching data',
+  '目前沒有統計上明顯的 RSU 極端值':'No statistically significant RSU outliers detected','目前沒有統計上明顯的調薪極端值':'No statistically significant raise outliers detected',
+  '依統計分布排除極端值':'Extreme values excluded based on statistical distribution','保留範圍':'retained range','有效樣本':'valid samples','Tukey 3×IQR':'Tukey 3×IQR',
+
+  '核心切換':'Main sections','狀態':'Status','日常':'Salary','開獎':'Bonus','工會':'Union','工具箱':'Toolbox',
+  '依統計分布排除極端值':'Extreme values excluded based on statistical distribution','Tukey 3×IQR':'Tukey 3×IQR','有效樣本':'valid samples','保留範圍':'retained range',
+  '目前沒有統計上明顯的 RSU 極端值':'No statistically significant RSU outliers detected','目前沒有統計上明顯的調薪極端值':'No statistically significant raise outliers detected','我們不生產錢，我們只是香蕉農':'We do not make money; we are just banana farmers',
+  '總瀏覽':'Total views','今日':'Today','功能許願':'Feature request','貢獻日常薪情':'Contribute salary data','貢獻 2025 開獎':'Contribute 2025 bonus','貢獻 2026 開獎':'Contribute 2026 bonus',
+  '連線初始化中...':'Initializing connection...','中文':'中文','全部職系':'All series','全部職等':'All grades','全部類型 (Global & Site)':'All types (Global & Site)',
+  'E系 (工程師)':'E series (Engineers)','T系 (技術員)':'T series (Technicians)','M系 (主管職)':'M series (Managers)','D系 (操作員)':'D series (Operators)',
+  '日常薪情':'Salary Insights','2025 開獎':'2025 Bonus','2026 開獎':'2026 Bonus','工會資訊':'Union Info','員工工具箱':'Employee Toolbox',
+  '美光科技 Micron Technology':'Micron Technology','載入中...':'Loading...','等待報價':'Waiting for quote','更新':'Refresh',
+  '總調查人數 (母體樣本)':'Total respondents (sample)','職等群篩選 (Series)':'Grade series filter','職等快速過濾 (GJS)':'Grade filter (GJS)','團隊類型':'Team type','年資篩選範圍':'Experience range',
+  '全部類型 (Global & Site)':'All types (Global & Site)','總工作年資':'Total experience','年資':'Experience','底薪月薪':'Base monthly salary','月薪':'Monthly salary',
+  '部門':'Department','考績':'Performance','績效':'Performance','升遷':'Promotion','有無升遷':'Promotion status','調薪幅度':'Raise','RSU 美金':'RSU (USD)',
+  '薪資區間 (低標~高標)':'Salary range (low to high)','各職等薪水廣度分佈 (低標~高標)':'Salary range by grade (low to high)',
+  '各職等參與調查人數 (數據母體分佈)':'Respondents by grade (sample distribution)','數據母體分佈':'Sample distribution',
+  '自動屏蔽少於2筆數據':'Automatically hides grades with fewer than 2 records','自動過濾資料過少':'Automatically filters grades with too few records',
+  '最低':'Min','最高':'Max','中位':'Median','平均':'Average','無資料':'No data','資料少於2筆':'Fewer than 2 records',
+  '常態狀態':'Profile status','正常常態':'Normal profile','偏離常態(極端值)':'Outlier','正常 Profile':'Normal profile','Outlier':'Outlier',
+  '顯示':'Showing','筆':'rows','股':'shares','無':'No','有':'Yes',
+  '2026 開獎清單快速檢視與搜尋':'2026 bonus data: browse & search','數據清單快速檢視與搜尋':'Data list: browse & search',
+  '換算股數 (股)':'Converted shares','常態 Profile':'Normal profile',
+  '檢驗 PR 值':'Check percentile','清除':'Clear','全部考績':'All performance','具體職等':'Specific grade',
+  '是否升遷 (Promoted)':'Promotion status','考績過濾 (Performance)':'Performance filter','全部 (升遷+未升遷)':'All (promoted + not promoted)',
+  '有升遷 (Promoted)':'Promoted','未升遷 (Normal)':'Not promoted','有升遷':'Promoted','未升遷':'Not promoted',
+  'RSU 區間 (美金)':'RSU range (USD)','未升遷 (%)':'Not promoted (%)','剛升遷 (%)':'Promoted (%)','RSU 分發力道 (美金)':'RSU distribution (USD)','考績 vs. 調薪幅度：殘酷關聯圖 (%)':'Performance vs. raise (%)',
+  '藍柱：未升遷｜紫柱：有升遷。':'Blue: not promoted | Purple: promoted.',
+  '統計極端值':'lowest/highest 5% outliers','排除統計極端值':'excluding the highest/lowest 5% outliers',
+  '目前尚無任何 2026 數據':'No 2026 data available','沒有符合條件的數據':'No matching data',
+  '匿名貢獻 2026 開獎':'Anonymous 2026 bonus contribution','建立最透明的 2026 開獎常態分佈！':'Build the most transparent 2026 bonus distribution!',
+  '送出 2026 開獎資料':'Submit 2026 bonus data','資料傳送中...':'Submitting data...','送出':'Submit',
+  '感謝您的匿名貢獻！':'Thank you for your anonymous contribution!','目前無法取得 MU 報價':'Unable to retrieve the MU quote',
+  '暫用上次報價':'Using the previous quote','報價來源暫時無法連線':'Quote source unavailable','暫時無法取得':'Temporarily unavailable',
+  '請按「↻ 更新」重試':'Click “↻ Refresh” to retry','最新報價':'Latest quote','更新：':'Updated:','總工作年資 (年)':'Total experience (years)','月薪 (萬元)':'Monthly salary (10k TWD)','已排除 RSU 統計極端值':'Excluded the lowest/highest 5% RSU outliers','已排除調薪幅度統計極端值':'Excluded the lowest/highest 5% raise outliers','有效樣本':'valid samples','範圍':'range','筆':'rows','各職等有效 RSU 樣本不足 5 筆，不進行極端值排除。':'Fewer than 10 valid RSU samples; no 5% outlier trimming applied.','各職等有效調薪樣本不足 5 筆，不進行極端值排除。':'Fewer than 10 valid raise samples; no 5% outlier trimming applied.','均:':'Avg:','覆蓋樣本數 (人)':'Sample count','薪資區間 (低標~高標)':'Salary range (low to high)','我的座標點':'My location', '目標月薪級距':'Target monthly salary range','萬':'10k TWD'
+};
+/* ===== Complete UI i18n extension ===== */
+const EXTRA_I18N = {
+ '各職等分別依統計分布排除極端值':'Extreme values excluded separately within each grade','各職等分別檢查 RSU 極端值':'RSU outliers checked separately within each grade','各職等分別檢查調薪極端值':'Raise outliers checked separately within each grade','職等數':'grades', '中文':'Chinese','英文':'English','LANG':'LANG','光光猴薪情平台 v11 • PortalDB 4.1':'Monkey Salary Portal v11 • PortalDB 4.1',
+ '👁 總瀏覽':'👁 Total views','🔥 今日':'🔥 Today','💡 功能許願':'💡 Feature requests','連線初始化中...':'Initializing connection...','📝 貢獻日常薪情':'📝 Contribute salary data','🎁 貢獻 2025 開獎':'🎁 Contribute 2025 bonus','🎁 貢獻 2026 開獎':'🎁 Contribute 2026 bonus',
+ '📊 日常薪情':'📊 Salary Insights','🎁 2025 開獎':'🎁 2025 Bonus','🎁 2026 開獎':'🎁 2026 Bonus','即將到來':'Coming soon','🏭 工會資訊':'🏭 Union Info','🧰 員工工具箱':'🧰 Employee Toolbox','美光科技 Micron Technology':'Micron Technology','載入中...':'Loading...','等待報價':'Waiting for quote','↻ 更新':'↻ Refresh',
+ '1. 職等群篩選 (Series)':'1. Grade Series Filter','全部職系 (E*, T*, M*, D*...)':'All series (E*, T*, M*, D*...)','E系 (工程師)':'E Series (Engineers)','T系 (技術員)':'T Series (Technicians)','M系 (主管職)':'M Series (Managers)','D系 (操作員)':'D Series (Operators)','2. 職等快速過濾 (GJS)':'2. Grade Filter (GJS)','全部職等':'All grades','3. 團隊類型':'3. Team Type','全部類型 (Global & Site)':'All types (Global & Site)','4. 年資篩選範圍':'4. Experience Range','0 - 25 年':'0 - 25 years',
+ '📦 各職等薪水廣度分佈 (低標~高標)':'📦 Salary Range by Grade (Low ~ High)','(自動屏蔽少於2筆數據，柱體已直秀高低標，':'(Automatically hides grades with fewer than 2 records; bars show low/high values, ','紅色橫槓':'the red line','代表平均數)':'represents the average)','📊 各職等參與調查人數 (數據母體分佈)':'📊 Survey Count by Grade (Sample Distribution)','（🚀 橫軸已按照 D->T->E->M 層級嚴格順序排列）':'(🚀 X-axis follows the strict D -> T -> E -> M order)',
+ '📍 互動定位：我在猴群哪個位置？':'📍 Interactive Position: Where am I in the group?','您的職等 (如: E2, T3)':'Your grade (e.g. E2, T3)','總工作年資 (年)':'Total experience (years)','月薪 (萬元，不含加班費)':'Monthly salary (NT$10K, excluding overtime)','開始定位':'Locate me','清除定位':'Clear position','🚨 你已接近此職等薪資高位區間。':'🚨 You are near the upper salary range for this grade.','📊 薪資勝率百分位報告':'📊 Salary Percentile Report','同職等勝率 (Grade Percentile)':'Same-grade percentile','領先該職等同仁':'Ahead of peers in this grade','相似年資勝率 (±2年資產圈)':'Similar-experience percentile (±2 years)','同資歷同仁':'Peers with similar experience',
+ '⚡ 職等晉升薪資跳升預估 (ROI)':'⚡ Estimated Salary Increase After Promotion (ROI)','🎁 考績分紅與預估年薪計算器':'🎁 Performance Bonus & Estimated Annual Salary Calculator','公司績效 (%)':'Company performance (%)','個人績效 (%)':'Individual performance (%)','保障底薪 (14個月):':'Guaranteed base salary (14 months):','0 萬元':'0 ten-thousand NTD','預估考績分紅:':'Estimated performance bonus:','🚀 預估總年薪:':'🚀 Estimated total annual compensation:',
+ '📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線':'📈 “Golden Grind Period”: Salary vs. Promotion Trend','🚀 點選圖例可開啟/隱藏該職等。':'🚀 Click the legend to show/hide a grade.','全體':'All','E系':'E Series','T系':'T Series','M系':'M Series','D系':'D Series','⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)':'⏳ “Time to Break Through”: Average Experience Needed to Reach Target Salary (Heatmap)','（🚀 橫向職等已按照 D->T->E->M 嚴格層級順序排列）':'(🚀 Grades follow the strict D -> T -> E -> M order)','目標月薪級距':'Target monthly salary range','📋 數據清單快速檢視與搜尋':'📋 Data List: Quick View & Search','⚠️ 點擊表格【標題】可進行排序':'⚠️ Click table headers to sort','📥 匯出 CSV':'📥 Export CSV','顯示 0 筆':'Showing 0 records','職系：':'Series:','團隊：':'Team:','全部':'All','具體職等：':'Specific grade:','職等 (GJS) ↕':'Grade (GJS) ↕','總工作年資 ↕':'Total experience ↕','月薪 (萬元) ↕':'Monthly salary (10K NTD) ↕','團隊類型 ↕':'Team type ↕','部門 ↕':'Department ↕','常態狀態':'Normal profile',
+ '🎁 開獎調查人數 (2025)':'🎁 2025 Bonus Survey Count','1. 職等群 (Series)':'1. Grade Series','2. 是否升遷 (Promoted)':'2. Promotion Status','全部 (升遷+未升遷)':'All (Promoted + Normal)','✅ 有升遷 (Promoted)':'✅ Promoted','❌ 未升遷 (Normal)':'❌ Normal','3. 考績過濾 (Performance)':'3. Performance Filter','全部考績':'All performance','📍 2025 開獎定位器':'📍 2025 Bonus Locator','檢驗您的 Package 在同類人中是好是壞。':'Check how your package compares with peers.','未升遷 (❌ 無)':'Normal (❌ No)','有升遷 (✅ 有)':'Promoted (✅ Yes)','檢驗 PR 值':'Check percentile','📊 2025 開獎勝率報告':'📊 2025 Bonus Percentile Report','比對母體：...':'Comparison group: ...','調薪幅度 PR值':'Raise percentile','RSU 美金 PR值':'RSU USD percentile','📦 2025 各職等 RSU 分發力道 (美金)':'📦 2025 RSU Distribution by Grade (USD)','自動過濾資料過少 ( < 3 筆) 的職等。':'Automatically filters grades with fewer than 3 records.','📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)':'📈 Performance vs. Raise: Correlation (%)','藍柱：未升遷｜紫柱：有升遷。':'Blue: Normal | Purple: Promoted.','(已支援高低標與平均值繪製)':'(Low/high and average values are shown)','📋 2025 開獎清單快速檢視與搜尋':'📋 2025 Bonus Data: Quick View & Search','升遷：':'Promotion:','考績：':'Performance:','有無升遷':'Promotion status','調薪幅度 (%) ↕':'Raise (%) ↕','RSU (美金) ↕':'RSU (USD) ↕',
+ '🎁 開獎調查人數 (2026)':'🎁 2026 Bonus Survey Count','📍 2026 開獎定位器':'📍 2026 Bonus Locator','📊 2026 開獎勝率報告':'📊 2026 Bonus Percentile Report','📦 2026 各職等 RSU 分發力道 (美金)':'📦 2026 RSU Distribution by Grade (USD)','⚠️ 圖表只排除統計上極端值（Tukey 3×IQR）。':'⚠️ Charts exclude only statistically extreme values (Tukey 3×IQR).','📋 2026 開獎清單快速檢視與搜尋':'📋 2026 Bonus Data: Quick View & Search','RSU (美金) ↕':'RSU (USD) ↕','換算股數 (股)':'Converted shares','常態 Profile':'Normal Profile',
+ '🏭 加入【美光工會】，讓員工有真正的聲音！':'🏭 Join the Micron Union and give employees a real voice!','遭遇不公？':'Facing unfair treatment?','工會幫你協調、法律支援絕對到位。':'The union provides coordination and legal support.','想改變現狀？':'Want to change things?','工會核心成員可直接參與薪酬與勞資會議。':'Core union members can participate directly in compensation and labor-management meetings.','需要保障？':'Need protection?','會員專享免費法律諮詢、節慶專屬回饋、急難互助金制度。':'Members receive free legal consultation, holiday benefits, and emergency assistance.','想看到實質成果？':'Want to see tangible results?','今年的三天有薪假，就是我們爭取來的！':'The three paid leave days this year were achieved through our efforts!','📢 你的參與，就是改變的開始':'📢 Your participation is where change begins','每月只需 250 元（年底前免入會費），':'Only NT$250 per month (membership fee waived until year-end),','讓我們一起集結力量，讓公司不再能假裝聽不見！':'Let’s join forces so the company can no longer pretend not to hear us!','人越多，力量越大，制度才會真正改變。':'The more people participate, the stronger the collective voice and the greater the chance for meaningful change.','📍 桃園工會':'📍 Taoyuan Union','有任何問題歡迎聯繫我們~':'Questions? Feel free to contact us~','也歡迎跟我們聊聊或是加入工會！':'You are also welcome to talk with us or join the union!','👉 加入桃園工會':'👉 Join Taoyuan Union','⚠️ 想要申訴':'⚠️ File a complaint','辦公室位置：':'Office location:','工會布告欄：':'Union bulletin boards:','📍 台中工會':'📍 Taichung Union','你不敢說的，我們幫你說！你不敢做的，我們幫你做！':'We speak up about what you cannot say and help with what you cannot do!','現在就加入美光台中工會，讓工程師勇敢拿回權益！':'Join the Micron Taichung Union and stand up for engineers’ rights!','👉 線上入會申請 (台中)':'👉 Online membership application (Taichung)','專人聯繫：':'Contact person:','台灣美光記憶體企業工會，與您同行，共同守護勞動權益':'Taiwan Micron Memory Corporate Union — standing with you to protect labor rights','📈 工會會員人數成長趨勢':'📈 Union Membership Growth Trend','團結力量大！感謝每一位站出來的夥伴。':'Strength comes from solidarity. Thank you to everyone who stepped forward.','最新回報人數':'Latest reported membership','📣 我要回報工會人數':'📣 Report union membership','請回報你目前知道的會員人數；不收集姓名。':'Report the membership count you currently know; no names are collected.','📝 我要回報':'📝 Report',
+ '🧰 員工工具箱':'🧰 Employee Toolbox','公告、匿名互動與外部資訊集中在這裡。':'Announcements, anonymous interactions, and external information are collected here.','📢 匿名心聲廣播':'📢 Anonymous Voice Broadcast','固定顯示 5 則，每 3 秒向前輪播 2 則。':'Shows 5 posts; advances 2 posts every 3 seconds.','📣 匿名大聲公':'📣 Anonymous Voice Board','投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。':'Submissions go directly to the broadcast; do not enter names, employee IDs, or other personal information.','🗣️ 心聲':'🗣️ Voice','💡 許願池':'💡 Wish Pool','薪資':'Salary','工會':'Union','福利':'Benefits','管理':'Management','工作環境':'Work environment','文化':'Culture','交通':'Transportation','餐廳':'Restaurant','其他':'Other','不指定地點':'No specific location','桃園':'Taoyuan','台中':'Taichung','送出匿名大聲公':'Submit anonymously','📢 公告牆':'📢 Bulletin Board','標題、日期、分類；點擊查看全文。':'Title, date, category; click to view full text.','＋ 投稿':'＋ Submit','📅 公司重要日期｜事件時間軸':'📅 Important Company Dates | Timeline','🌡️ 你覺得現在公司氣氛？':'🌡️ How do you feel about the company atmosphere?','匿名、非正式員工感受調查。':'Anonymous, informal employee sentiment survey.','目前尚無資料':'No data yet','很不錯':'Very good','還不錯':'Good','普通':'Neutral','有點差':'Not great','非常差':'Very poor','🌎 外部世界｜美光資訊雷達':'🌎 Outside World | Micron Radar','Google News 搜尋「美光」。':'Search Google News for “Micron”.','↻ 更新外部資訊':'↻ Refresh external news','📰 Google News「美光」':'📰 Google News “Micron”','Yahoo「美光」':'Yahoo “Micron”','外部資訊尚未更新。':'External information has not been updated yet。','股價':'Stock price','AI/記憶體':'AI/Memory',
+ '📝 匿名貢獻日常薪情':'📝 Anonymous Salary Contribution','僅收集日常月薪架構，用於完善 Base Salary 曲線庫。':'Only monthly base-salary structure is collected to improve the Base Salary curve database.','職等 (兩位文字，如: E1 / T1 / M1)':'Grade (two characters, e.g. E1 / T1 / M1)','總工作年資':'Total experience','底薪月薪 (萬)':'Base monthly salary (10K NTD)','⚠️ 你是山賊嗎? 月薪請填 "萬" 為單位':'⚠️ Salary must be entered in units of “10K NTD”.','團隊類型':'Team type','部門 (如: PE)':'Department (e.g. PE)','🚀 送出':'🚀 Submit','📝 我要回報':'📝 Report','🎁 匿名貢獻 2025 開獎':'🎁 Anonymous 2025 Bonus Contribution','輸入您的開獎包裹，建立最透明的獎金常態分佈！':'Enter your bonus package to build the most transparent bonus distribution!','職等 (如: E2 / EE / MM)':'Grade (e.g. E2 / EE / MM)','考績 (Ranking)':'Performance (Ranking)','請選擇考績':'Select performance','調薪幅度 (純數字，勿填寫 %)':'Raise (%) — enter numbers only','有無升遷':'Promotion status','RSU 限制型股票 (純數字，單位: 美金)':'RSU restricted stock (number only, USD)','🚀 送出匿名開獎資料':'🚀 Submit anonymous bonus data','🎁 匿名貢獻 2026 開獎':'🎁 Anonymous 2026 Bonus Contribution','建立最透明的 2026 開獎常態分佈！':'Build the most transparent 2026 bonus distribution!','職等/升遷後 (如:E2/EA/M1，如E1->E2請填E2)':'Grade / after promotion (e.g. E2/EA/M1; enter E2 for E1->E2)','有無升遷（不含Off-cycle升遷)':'Promotion status (excluding off-cycle promotion)','RSU (美金)':'RSU (USD)','🚀 送出 2026 開獎資料':'🚀 Submit 2026 bonus data','只需要填寫地點與你目前掌握的人數。':'Only enter the location and the membership count you currently know.','工會地點':'Union location','目前工會人數':'Current union membership','🚀 送出匿名回報':'🚀 Submit anonymous report','📢 投稿公告':'📢 Submit announcement','一般':'General','重要通知':'Important notice','送出審核':'Submit for review','📅 投稿重要日期':'📅 Submit important date','💡 網站功能許願清單':'💡 Website Feature Wish List','送出許願':'Submit wish',
+ '外部新聞更新中...':'Updating external news...','目前無法取得外部新聞':'Unable to retrieve external news','可直接開啟 Google News 搜尋「美光」。':'Open Google News directly to search for “Micron”.','此分類目前沒有新聞。':'No news in this category.','目前已有 API 連線，但尚無有效投票資料。':'The API is connected, but there is no valid voting data yet.','公告暫時無法更新，稍後重試。':'Announcements cannot be updated right now; please try again later.','⏳ 計算中…':'⏳ Calculating…','尚無重要日期。':'No important dates yet.','⚠️ 重要日期暫時無法更新。':'⚠️ Important dates cannot be updated right now.','目前沒有可公開顯示的匿名心聲。':'No anonymous voices are available for public display.','公告標題':'Announcement title','公告內容':'Announcement content','事件名稱':'Event name','分類':'Category','說明':'Description','功能名稱（可不填）':'Feature name (optional)','你希望網站未來增加什麼？':'What would you like the website to add in the future?',
+ '🔍 搜尋部門、職等或團隊...':'🔍 Search department, grade, or team...','🔍 搜尋職等或關鍵字...':'🔍 Search grade or keyword...','職等 e.g. E2':'Grade e.g. E2','考績 e.g. 3 或 Meets':'Performance e.g. 3 or Meets','調薪幅度 (%) e.g. 4.5':'Raise (%) e.g. 4.5','RSU 數量 (美金) e.g. 5000':'RSU amount (USD) e.g. 5000','考績 e.g. 3 或 4':'Performance e.g. 3 or 4','心聲':'Voice','許願池':'Wish Pool','例如：😤 今天最想說的是……':'e.g. 😤 What I really want to say today is…','職等請填兩位文字，例如 E1、T1、M1':'Enter a two-character grade, e.g. E1, T1, M1','例如: 4.5':'e.g. 4.5','有':'Yes','無':'No','若無請填 0，例如: 5000':'Enter 0 if none, e.g. 5000','若無請填 0':'Enter 0 if none','例如：2300':'e.g. 2300'
+};
+Object.assign(I18N, EXTRA_I18N);
+const BILINGUAL_I18N = Object.assign({}, (typeof I18N!=='undefined'?I18N:{}), (typeof EXTRA_I18N!=='undefined'?EXTRA_I18N:{}));
+const BILINGUAL_EXTRA = {
+  'Tukey 3×IQR':'Tukey 3×IQR',
+  'Tukey 1.5×IQR':'Tukey 1.5×IQR',
+  '各職等分別依 1.5×IQR 統計分布排除極端值':'Extreme values excluded separately within each grade using 1.5×IQR',
+  '各職等分別依 1.5×IQR 檢查極端值':'Outliers checked separately within each grade using 1.5×IQR',
+  '各職等分別依統計分布排除極端值':'Extreme values excluded separately within each grade based on statistical distribution',
+  '各職等分別檢查 RSU 極端值':'RSU outliers checked separately within each grade',
+  '各職等分別檢查調薪極端值':'Raise outliers checked separately within each grade',
+  '⚠️ 圖表依各職等分別排除統計極端值（Tukey 1.5×IQR）。':'⚠️ Charts exclude statistical outliers separately within each grade (Tukey 1.5×IQR).',
+  '正常常態':'Normal profile', '偏離常態(極端值)':'Outlier',
+  '正常 Profile':'Normal profile', '有效樣本':'valid samples', '職等數':'grades', '筆':'records'
+};
+Object.assign(BILINGUAL_I18N,BILINGUAL_EXTRA,{
+  '職等 ↕':'Grade ↕','F11 廠務1樓大辦公室H125辦公室隔壁(左邊)':'F11 Facilities 1F large office, next to H125 office (left)','F11 一樓及五樓公佈欄區':'F11 Bulletin board areas on 1F and 5F','Teams 私訊 Mark Hsu':'Teams direct message to Mark Hsu','公告':'Announcement',
+  '全部':'All','工會':'Union','薪資':'Salary','股價':'Stock price','AI/記憶體':'AI / Memory','工作年資':'Work experience','未填寫':'Not provided','團隊':'Team','調薪':'Raise','限制型股票':'Restricted stock','股票':'Stock','RSU美金':'RSU (USD)',
+  ' API 未設定':' API not configured',' 回傳格式錯誤':' Invalid API response format',' API 逾時（12秒）':' API timeout (12s)','⚡ 入口網站啟動中，正在平行載入資料...':'⚡ Portal starting; loading data in parallel...','日常薪情已更新':'Salary insights updated','日常薪情完成':'Salary insights ready','2025 開獎已更新':'2025 bonus updated','2025 開獎完成':'2025 bonus ready','2026 開獎已更新':'2026 bonus updated','2026 開獎完成':'2026 bonus ready','PortalDB 社群資料已更新':'PortalDB community data updated','PortalDB 完成':'PortalDB ready','資料已載入（部分資料源異常，不影響其他分頁）':'Data loaded (some sources unavailable; other sections are unaffected)','全部資料已載入':'All data loaded','系統錯誤：':'System error:','📍 我的座標點':'📍 My location','總工作年資 (年)':'Total experience (years)','月薪 (萬元)':'Monthly salary (10k TWD)','薪資區間 (低標~高標)':'Salary range (low to high)','最低':'Minimum','中位':'Median','平均':'Average','最高':'Maximum','覆蓋樣本數 (人)':'Sample count','4-6萬':'40k–60k','6-8萬':'60k–80k','8-10萬':'80k–100k','10-12萬':'100k–120k','12-14萬':'120k–140k','14-16萬':'140k–160k','16萬以上':'160k+','目標月薪級距':'Target monthly salary range','無職等':'No grade','⚠️ 偏離常態(極端值)':'⚠️ Outlier','✅ 正常常態':'✅ Normal profile','顯示':'Showing','請完整輸入資訊！':'Please complete all required fields!','請完整填寫':'Please complete all required fields','無資料可匯出！':'No data to export!','無資料':'No data','有升遷':'Promoted','無升遷':'Not promoted','無足夠數據':'Insufficient data','資料少於2筆':'Fewer than 2 records','目前尚無任何 2026 數據':'No 2026 data available','沒有符合條件的數據':'No matching data','請完整填寫職等、考績、調薪幅度與 RSU 美金！':'Please complete grade, performance, raise, and RSU (USD)!','你是山賊的兒子嗎？':'Are you the son of a bandit?','別鬧了，沒那麼慘吧':'Come on, it is not that bad.','JE請你確認單位是否正確（美元）':'JE, please confirm the unit is correct (USD).','2026 資料傳送中...':'Sending 2026 data...','請貼上':'Please paste','請填寫 0～15000 的整數人數。':'Please enter an integer from 0 to 15,000.','回報傳送中...':'Sending report...','桃園工會':'Taoyuan Union','台中工會':'Taichung Union','會員人數':'Membership','🟢 PortalDB 共用資料庫：所有人的匿名回報會匯入同一份資料。':'🟢 Shared PortalDB: all anonymous reports are stored in the same database.','🔴 尚未設定 PortalDB API。':'🔴 PortalDB API is not configured.','尚未設定 API_PORTAL':'API_PORTAL is not configured','外部新聞更新中...':'Updating external news...','🟢 外部新聞已更新':'🟢 External news updated','🟡 顯示最近一次成功快取':'🟡 Showing the latest successful cache','未知時間':'Unknown time','🔴 外部新聞暫時無法載入 · ':'🔴 External news temporarily unavailable · ','其他':'Other','此分類目前沒有新聞。':'No news in this category.','公司氣氛 API 沒有回傳有效資料':'Company sentiment API returned no valid data','目前尚無資料':'No data available','目前無法取得統計':'Statistics unavailable','公司氣氛指數':'Company sentiment index','指數':'Index','你已經填過本次公司氣氛調查。':'You have already completed this company sentiment survey.','請寫下你的想法':'Please write your thoughts','功能許願':'Feature request','至少要填事件名稱與開始時間':'Event name and start time are required','一般':'General','未命名公告':'Untitled announcement','尚無公告。':'No announcements yet.','尚無重要日期。':'No important dates yet.','🚀 送出 2026 開獎資料':'🚀 Submit 2026 bonus data','🚀 送出匿名回報':'🚀 Submit anonymous report','🚀 送出匿名開獎資料':'🚀 Submit anonymous bonus data','🔍 搜尋部門、職等或團隊...':'🔍 Search department, grade, or team...','🔍 搜尋職等或關鍵字...':'🔍 Search grade or keyword...','心聲':'Voice','許願池':'Wish Pool','普通':'Average','有點差':'Below average','非常差':'Very poor','很不錯':'Very good','還不錯':'Good','請寫下你的想法':'Please write your thoughts'
+});
+/* ===== Legacy bilingual runtime disabled =====
+   The translation dictionaries above are retained as a source vocabulary,
+   but the old DOM observer is intentionally disabled. A single unified
+   renderer is installed by the final bilingual layer below.
+*/
+window.__legacyBilingualRuntimeDisabled = true;
+</script>
+
+<script>
+/* ===== Complete Chinese + English UI layer ===== */
+(function(){
+const COMPLETE_I18N = {
+'光光猴薪情平台 v11 • PortalDB 4.1':'Monkey Salary Portal v11 • PortalDB 4.1','光光猴薪情平台':'Monkey Salary Portal','我們不生產錢，我們只是香蕉農':'We do not make money; we are just banana farmers','👁 總瀏覽':'👁 Total views','🔥 今日':'🔥 Today','💡 功能許願':'💡 Feature requests','連線初始化中...':'Initializing connection...','📝 貢獻日常薪情':'📝 Contribute salary data','🎁 貢獻 2025 開獎':'🎁 Contribute 2025 bonus','🎁 貢獻 2026 開獎':'🎁 Contribute 2026 bonus','核心切換':'Main sections','📊 日常薪情':'📊 Salary Insights','🎁 2025 開獎':'🎁 2025 Bonus','🎁 2026 開獎':'🎁 2026 Bonus','即將到來':'Coming soon','🏭 工會資訊':'🏭 Union Info','🧰 員工工具箱':'🧰 Employee Toolbox','美光科技 Micron Technology':'Micron Technology','載入中...':'Loading...','等待報價':'Waiting for quote','↻ 更新':'↻ Refresh',
+'MODE 1: 日常薪情模式':'MODE 1: Salary Insights','📊 總調查人數 (母體樣本)':'📊 Total respondents (sample)','連線中...':'Connecting...','1. 職等群篩選 (Series)':'1. Grade series filter','全部職系 (E*, T*, M*, D*...)':'All series (E*, T*, M*, D*...)','E系 (工程師)':'E Series (Engineers)','T系 (技術員)':'T Series (Technicians)','M系 (主管職)':'M Series (Managers)','D系 (操作員)':'D Series (Operators)','2. 職等快速過濾 (GJS)':'2. Grade quick filter (GJS)','全部職等':'All grades','3. 團隊類型':'3. Team type','全部類型 (Global & Site)':'All types (Global & Site)','4. 年資篩選範圍':'4. Experience range','0 - 25 年':'0 - 25 years',
+'📦 各職等薪水廣度分佈 (低標~高標)':'📦 Salary range by grade (low to high)','(自動屏蔽少於2筆數據，柱體已直秀高低標，':'(Grades with fewer than 2 records are automatically hidden; bars show low/high values,','代表平均數)':'indicating the average)','紅色橫槓':'red line','📊 各職等參與調查人數 (數據母體分佈)':'📊 Respondents by grade (sample distribution)','（🚀 橫軸已按照 D->T->E->M 層級嚴格順序排列）':'(🚀 X-axis follows the strict D -> T -> E -> M hierarchy order)','📍 互動定位：我在猴群哪個位置？':'📍 Interactive locator: Where do I rank among peers?','您的職等 (如: E2, T3)':'Your grade (e.g. E2, T3)','總工作年資 (年)':'Total experience (years)','月薪 (萬元，不含加班費)':'Monthly salary (10K NTD, excluding overtime)','開始定位':'Locate me','清除定位':'Clear position','🚨 你已接近此職等薪資高位區間。':'🚨 You are near the upper salary range for this grade.','📊 薪資勝率百分位報告':'📊 Salary Percentile Report','同職等勝率 (Grade Percentile)':'Same-grade percentile','領先該職等同仁':'Ahead of peers in this grade','相似年資勝率 (±2年資產圈)':'Similar-experience percentile (±2 years)','同資歷同仁':'Peers with similar experience','⚡ 職等晉升薪資跳升預估 (ROI)':'⚡ Estimated salary increase after promotion (ROI)','🎁 考績分紅與預估年薪計算器':'🎁 Performance Bonus & Estimated Annual Salary Calculator','公司績效 (%)':'Company performance (%)','個人績效 (%)':'Individual performance (%)','保障底薪 (14個月):':'Guaranteed base salary (14 months):','0 萬元':'0 10K NTD','預估考績分紅:':'Estimated performance bonus:','🚀 預估總年薪:':'🚀 Estimated total annual compensation:','📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線':'📈 “Golden Grind Period”: Salary vs. promotion trend','🚀 點選圖例可開啟/隱藏該職等。':'🚀 Click the legend to show/hide a grade.','全體':'All','E系':'E Series','T系':'T Series','M系':'M Series','D系':'D Series','⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)':'⏳ “Time to Break Through”: Average experience needed to reach target salary (heatmap)','（🚀 橫向職等已按照 D->T->E->M 嚴格層級順序排列）':'(🚀 Grades follow the strict D -> T -> E -> M order)','目標月薪級距':'Target monthly salary range','📋 數據清單快速檢視與搜尋':'📋 Data List: Quick View & Search','⚠️ 點擊表格【標題】可進行排序':'⚠️ Click table headers to sort','📥 匯出 CSV':'📥 Export CSV','顯示 0 筆':'Showing 0 records','職系：':'Series:','團隊：':'Team:','具體職等：':'Specific grade:','職等 (GJS) ↕':'Grade (GJS) ↕','總工作年資 ↕':'Total experience ↕','月薪 (萬元) ↕':'Monthly salary (10K NTD) ↕','團隊類型 ↕':'Team type ↕','部門 ↕':'Department ↕','常態狀態':'Profile status',
+'MODE 2: 2025 開獎模式':'MODE 2: 2025 Bonus','🎁 開獎調查人數 (2025)':'🎁 2025 Bonus Survey Count','1. 職等群 (Series)':'1. Grade Series','2. 是否升遷 (Promoted)':'2. Promotion Status','全部 (升遷+未升遷)':'All (Promoted + Not promoted)','✅ 有升遷 (Promoted)':'✅ Promoted','❌ 未升遷 (Normal)':'❌ Not promoted (Normal)','3. 考績過濾 (Performance)':'3. Performance Filter','全部考績':'All performance','📍 2025 開獎定位器':'📍 2025 Bonus Locator','檢驗您的 Package 在同類人中是好是壞。':'Check how your package compares with peers.','未升遷 (❌ 無)':'Not promoted (❌ No)','有升遷 (✅ 有)':'Promoted (✅ Yes)','檢驗 PR 值':'Check percentile','清除':'Clear','📊 2025 開獎勝率報告':'📊 2025 Bonus Percentile Report','比對母體：...':'Comparison group: ...','調薪幅度 PR值':'Raise percentile','RSU 美金 PR值':'RSU USD percentile','📦 2025 各職等 RSU 分發力道 (美金)':'📦 2025 RSU Distribution by Grade (USD)','自動過濾資料過少 ( < 3 筆) 的職等。':'Automatically filters grades with fewer than 3 records.','📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)':'📈 Performance vs. Raise: Correlation (%)','藍柱：未升遷｜紫柱：有升遷。':'Blue: Not promoted | Purple: Promoted.','(已支援高低標與平均值繪製)':'(Low/high and average values are shown)','📋 2025 開獎清單快速檢視與搜尋':'📋 2025 Bonus Data: Quick View & Search','升遷：':'Promotion:','考績：':'Performance:','有無升遷':'Promotion status','調薪幅度 (%) ↕':'Raise (%) ↕','RSU (美金) ↕':'RSU (USD) ↕',
+'MODE 3: 2026 開獎模式':'MODE 3: 2026 Bonus','🎁 開獎調查人數 (2026)':'🎁 2026 Bonus Survey Count','📍 2026 開獎定位器':'📍 2026 Bonus Locator','📊 2026 開獎勝率報告':'📊 2026 Bonus Percentile Report','📦 2026 各職等 RSU 分發力道 (美金)':'📦 2026 RSU Distribution by Grade (USD)','⚠️ 圖表依各職等分別排除統計極端值（Tukey 1.5×IQR）。':'⚠️ Statistical outliers are excluded separately within each grade (Tukey 1.5×IQR).','📋 2026 開獎清單快速檢視與搜尋':'📋 2026 Bonus Data: Quick View & Search','換算股數 (股)':'Converted shares','常態 Profile':'Normal Profile','有升遷':'Promoted','無升遷':'Not promoted',
+'MODE 4: 工會資訊':'MODE 4: Union Info','🏭 加入【美光工會】，讓員工有真正的聲音！':'🏭 Join the Micron Union and give employees a real voice!','遭遇不公？':'Facing unfair treatment?','工會幫你協調、法律支援絕對到位。':'The union provides coordination and legal support.','想改變現狀？':'Want to change things?','工會核心成員可直接參與薪酬與勞資會議。':'Core union members can participate directly in compensation and labor-management meetings.','需要保障？':'Need protection?','會員專享免費法律諮詢、節慶專屬回饋、急難互助金制度。':'Members receive free legal consultation, holiday benefits, and emergency assistance.','想看到實質成果？':'Want to see tangible results?','今年的三天有薪假，就是我們爭取來的！':'The three paid leave days this year were achieved through our efforts!','📢 你的參與，就是改變的開始':'📢 Your participation is where change begins','每月只需 250 元（年底前免入會費），':'Only NT$250 per month (membership fee waived until year-end),','讓我們一起集結力量，讓公司不再能假裝聽不見！':'Let’s join forces so the company can no longer pretend not to hear us!','人越多，力量越大，制度才會真正改變。':'The more people participate, the stronger the collective voice and the greater the chance for meaningful change.','📍 桃園工會':'📍 Taoyuan Union','有任何問題歡迎聯繫我們~':'Questions? Feel free to contact us~','也歡迎跟我們聊聊或是加入工會！':'You are also welcome to talk with us or join the union!','👉 加入桃園工會':'👉 Join Taoyuan Union','⚠️ 想要申訴':'⚠️ File a complaint','辦公室位置：':'Office location:','F11 廠務1樓大辦公室H125辦公室隔壁(左邊)':'F11 Facilities 1F large office, next to H125 office (left)','工會布告欄：':'Union bulletin boards:','F11 一樓及五樓公佈欄區':'F11 Bulletin board areas on 1F and 5F','📍 台中工會':'📍 Taichung Union','你不敢說的，我們幫你說！你不敢做的，我們幫你做！':'We speak up about what you cannot say and help with what you cannot do!','現在就加入美光台中工會，讓工程師勇敢拿回權益！':'Join the Micron Taichung Union and stand up for engineers’ rights!','👉 線上入會申請 (台中)':'👉 Online membership application (Taichung)','專人聯繫：':'Contact person:','Teams 私訊 Mark Hsu':'Teams direct message to Mark Hsu','台灣美光記憶體企業工會，與您同行，共同守護勞動權益':'Taiwan Micron Memory Corporate Union — standing with you to protect labor rights','📈 工會會員人數成長趨勢':'📈 Union Membership Growth Trend','團結力量大！感謝每一位站出來的夥伴。':'Strength comes from solidarity. Thank you to everyone who stepped forward.','最新回報人數':'Latest reported membership','📣 我要回報工會人數':'📣 Report union membership','請回報你目前知道的會員人數；不收集姓名。':'Report the membership count you currently know; no names are collected.','📝 我要回報':'📝 Report','目前顯示公開資料／回報資料彙整結果。':'Currently showing aggregated public and reported data.',
+'MODE 5: 員工工具箱 / PORTAL HUB':'MODE 5: Employee Toolbox / PORTAL HUB','🧰 員工工具箱':'🧰 Employee Toolbox','公告、匿名互動與外部資訊集中在這裡。':'Announcements, anonymous interactions, and external information are collected here.','公告':'Announcements','📢 匿名心聲廣播':'📢 Anonymous Voice Broadcast','固定顯示 5 則，每 3 秒向前輪播 2 則。':'Shows 5 posts; advances 2 posts every 3 seconds.','📣 匿名大聲公':'📣 Anonymous Voice Board','投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。':'Submissions go directly to the broadcast; do not enter names, employee IDs, or other personal information.','🗣️ 心聲':'🗣️ Voice','💡 許願池':'💡 Wish Pool','薪資':'Salary','工會':'Union','福利':'Benefits','管理':'Management','工作環境':'Work environment','文化':'Culture','交通':'Transportation','餐廳':'Restaurant','其他':'Other','不指定地點':'No specific location','桃園':'Taoyuan','台中':'Taichung','送出匿名大聲公':'Submit anonymously','📢 公告牆':'📢 Bulletin Board','標題、日期、分類；點擊查看全文。':'Title, date, category; click to view full text.','＋ 投稿':'＋ Submit','📅 公司重要日期｜事件時間軸':'📅 Important Company Dates | Timeline','🌡️ 你覺得現在公司氣氛？':'🌡️ How do you feel about the company atmosphere?','匿名、非正式員工感受調查。':'Anonymous, informal employee sentiment survey.','目前尚無資料':'No data yet','很不錯':'Very good','還不錯':'Good','普通':'Average','有點差':'Below average','非常差':'Very poor','🌎 外部世界｜美光資訊雷達':'🌎 Outside World | Micron Radar','Google News 搜尋「美光」。':'Search Google News for “Micron”.','↻ 更新外部資訊':'↻ Refresh external news','📰 Google News「美光」':'📰 Google News “Micron”','Yahoo「美光」':'Yahoo “Micron”','外部資訊尚未更新。':'External information has not been updated yet.','🏭 工會':'🏭 Union','💰 薪資':'💰 Salary','📈 股價':'📈 Stock price','🧠 AI/記憶體':'🧠 AI / Memory','載入中...':'Loading...',
+'📝 匿名貢獻日常薪情':'📝 Anonymous Salary Contribution','僅收集日常月薪架構，用於完善 Base Salary 曲線庫。':'Only monthly base-salary structure is collected to improve the Base Salary curve database.','職等 (兩位文字，如: E1 / T1 / M1)':'Grade (two characters, e.g. E1 / T1 / M1)','總工作年資':'Total experience','底薪月薪 (萬)':'Base monthly salary (10K NTD)','⚠️ 你是山賊嗎? 月薪請填 "萬" 為單位':'⚠️ Salary must be entered in units of “10K NTD”.','團隊類型':'Team type','部門 (如: PE)':'Department (e.g. PE)','🚀 送出':'🚀 Submit','🎁 匿名貢獻 2025 開獎':'🎁 Anonymous 2025 Bonus Contribution','輸入您的開獎包裹，建立最透明的獎金常態分佈！':'Enter your bonus package to build the most transparent bonus distribution!','職等 (如: E2 / EE / MM)':'Grade (e.g. E2 / EE / MM)','考績 (Ranking)':'Performance (Ranking)','請選擇考績':'Select performance','調薪幅度 (純數字，勿填寫 %)':'Raise (%) — numbers only; do not enter %','有無升遷':'Promotion status','✅ 有升遷 (Yes)':'✅ Promoted (Yes)','❌ 未升遷 (No)':'❌ Not promoted (No)','RSU 限制型股票 (純數字，單位: 美金)':'RSU restricted stock (numbers only, USD)','🚀 送出匿名開獎資料':'🚀 Submit anonymous bonus data','🎁 匿名貢獻 2026 開獎':'🎁 Anonymous 2026 Bonus Contribution','建立最透明的 2026 開獎常態分佈！':'Build the most transparent 2026 bonus distribution!','職等/升遷後 (如:E2/EA/M1，如E1->E2請填E2)':'Grade / after promotion (e.g. E2/EA/M1; enter E2 for E1->E2)','有無升遷（不含Off-cycle升遷)':'Promotion status (excluding off-cycle promotion)','RSU (美金)':'RSU (USD)','🚀 送出 2026 開獎資料':'🚀 Submit 2026 bonus data','只需要填寫地點與你目前掌握的人數。':'Only enter the location and the membership count you currently know.','工會地點':'Union location','目前工會人數':'Current union membership','🚀 送出匿名回報':'🚀 Submit anonymous report','📢 投稿公告':'📢 Submit announcement','一般':'General','重要通知':'Important notice','送出審核':'Submit for review','📅 投稿重要日期':'📅 Submit important date','💡 網站功能許願清單':'💡 Website Feature Wish List','送出許願':'Submit wish',
+'🔍 搜尋部門、職等或團隊...':'🔍 Search department, grade, or team...','🔍 搜尋職等或關鍵字...':'🔍 Search grade or keyword...','職等 e.g. E2':'Grade e.g. E2','考績 e.g. 3 或 Meets':'Performance e.g. 3 or Meets','調薪幅度 (%) e.g. 4.5':'Raise (%) e.g. 4.5','RSU 數量 (美金) e.g. 5000':'RSU amount (USD) e.g. 5000','考績 e.g. 3 或 4':'Performance e.g. 3 or 4','例如：😤 今天最想說的是……':'e.g. 😤 What I really want to say today is…','職等請填兩位文字，例如 E1、T1、M1':'Enter a two-character grade, e.g. E1, T1, M1','例如: 4.5':'e.g. 4.5','若無請填 0，例如: 5000':'Enter 0 if none, e.g. 5000','若無請填 0':'Enter 0 if none','例如：2300':'e.g. 2300','公告標題':'Announcement title','公告內容':'Announcement content','事件名稱':'Event name','分類':'Category','說明':'Description','功能名稱（可不填）':'Feature name (optional)','你希望網站未來增加什麼？':'What would you like the website to add in the future?',
+'⚠️ 圖表依各職等分別排除統計極端值（Tukey 1.5×IQR）。':'⚠️ Charts exclude statistical outliers separately within each grade (Tukey 1.5×IQR).','各職等分別依 1.5×IQR 統計分布排除極端值':'Extreme values excluded separately within each grade using 1.5×IQR','各職等分別依統計分布排除極端值':'Extreme values excluded separately within each grade based on statistical distribution','各職等分別檢查 RSU 極端值':'RSU outliers checked separately within each grade','各職等分別檢查調薪極端值':'Raise outliers checked separately within each grade','正常常態':'Normal profile','偏離常態(極端值)':'Outlier','有效樣本':'Valid samples','保留範圍':'Retained range','統計極端值':'Statistical outliers','排除統計極端值':'Exclude statistical outliers','最低':'Minimum','中位':'Median','平均':'Average','最高':'Maximum','覆蓋樣本數 (人)':'Sample count','無職等':'No grade','4-6萬':'40k–60k','6-8萬':'60k–80k','8-10萬':'80k–100k','10-12萬':'100k–120k','12-14萬':'120k–140k','14-16萬':'140k–160k','16萬以上':'160k+','職等數':'Grades','筆':'records','股':'shares','顯示':'Showing',
+'你是山賊嗎? 月薪請填 "萬" 為單位':'Are you a bandit? Please enter salary in units of 10K NTD.','資料傳送中...':'Submitting data...','開獎資料傳送中...':'Submitting bonus data...','重新送出':'Resubmit','送出中...':'Submitting...','送出失敗':'Submission failed','傳送失敗，請確認 API 設定。':'Submission failed. Please check the API settings.','資料將於下次重整後載入':'Data will load after the next refresh','感謝您的匿名貢獻！':'Thank you for your anonymous contribution!','請完整填寫':'Please complete all required fields','請完整輸入資訊！':'Please complete all required fields!','請完整填寫職等、考績、調薪幅度與 RSU 美金！':'Please complete grade, performance, raise, and RSU (USD)!','無資料可匯出！':'No data to export!','目前沒有可公開顯示的匿名心聲。':'No anonymous voices are available for public display.','⚠️ 匿名心聲暫時無法載入：':'⚠️ Anonymous voices cannot be loaded right now:','目前尚無任何 2026 數據':'No 2026 data available','沒有符合條件的數據':'No matching data','無足夠數據':'Insufficient data','資料少於2筆':'Fewer than 2 records','外部新聞更新中...':'Updating external news...','目前無法取得外部新聞':'Unable to retrieve external news','可直接開啟 Google News 搜尋「美光」。':'Open Google News directly to search for “Micron”.','此分類目前沒有新聞。':'No news in this category.','公告暫時無法更新，稍後重試。':'Announcements cannot be updated right now; please try again later.','⏳ 計算中…':'⏳ Calculating…','尚無重要日期。':'No important dates yet.','⚠️ 重要日期暫時無法更新。':'⚠️ Important dates cannot be updated right now.','目前已有 API 連線，但尚無有效投票資料。':'The API is connected, but there is no valid survey data yet.','公司氣氛 API 沒有回傳有效資料':'Company sentiment API returned no valid data','目前無法取得統計':'Statistics unavailable','公司氣氛指數':'Company sentiment index','指數':'Index','你已經填過本次公司氣氛調查。':'You have already completed this company sentiment survey.','請寫下你的想法':'Please write your thoughts','至少要填事件名稱與開始時間':'Event name and start time are required','API 未設定':'API not configured','尚未設定 API_PORTAL':'API_PORTAL is not configured','系統錯誤：':'System error:','報價來源暫時無法連線':'Quote source temporarily unavailable','暫時無法取得':'Temporarily unavailable','請按「↻ 更新」重試':'Please click “↻ Refresh” and try again','更新：':'Updated:','最新報價':'Latest quote','暫用上次報價':'Using previous quote','報價來源暫時無法連線':'Quote source temporarily unavailable','報價來源暫時無法連線':'Quote source temporarily unavailable'
+};
+Object.assign(COMPLETE_I18N,{
+'會員人數':'Membership count','指數':'Index','📍 我的座標點':'📍 My location','桃園工會':'Taoyuan Union','台中工會':'Taichung Union','公司氣氛指數':'Company sentiment index','工會':'Union','福利':'Benefits','一般':'General','重要通知':'Important notice','全部':'All','未升遷':'Not promoted','❌ 未升遷':'❌ Not promoted','✅ 有升遷':'✅ Promoted','請選擇考績':'Select performance','調薪幅度 (純數字，勿填 %)':'Raise (%) — numbers only; do not enter %','職等/升遷後 (如:E2/EA/M1，如E1->E2請填E2)':'Grade / after promotion (e.g. E2/EA/M1; enter E2 for E1->E2)','有無升遷（不含Off-cycle升遷)':'Promotion status (excluding off-cycle promotion)','常態 Profile':'Normal profile','換算股數 (股)':'Converted shares','顯示 0 筆':'Showing 0 records','資料傳送中...':'Submitting data...','開獎資料傳送中...':'Submitting bonus data...','送出失敗':'Submission failed','傳送失敗，請確認 API 設定。':'Submission failed. Please check the API settings.','資料將於下次重整後載入':'Data will load after the next refresh','目前顯示公開資料／回報資料彙整結果。':'Currently showing aggregated public and reported data.','連線中...':'Connecting...','載入中...':'Loading...','等待報價':'Waiting for quote','🚀 送出':'🚀 Submit','↻ 更新':'↻ Refresh','＋ 投稿':'＋ Submit','📣 我要回報工會人數':'📣 Report union membership','📝 我要回報':'📝 Report','送出審核':'Submit for review','送出許願':'Submit wish','公告':'Announcements'});
+const MAP=Object.assign({},
+  (typeof BILINGUAL_I18N!=='undefined'?BILINGUAL_I18N:{}),
+  (window.COMPLETE_I18N||{}),
+  COMPLETE_I18N
+);
+
+/* ================================================================
+   SINGLE-PASS BILINGUAL RENDERER
+   Rule: exactly one Chinese + one English. One leading icon only.
+   Generated bilingual wrappers are NEVER translated again.
+   ================================================================ */
+(function(){
+  'use strict';
+  const CJK=/[\u3400-\u9fff]/;
+  const SKIP_TAGS=new Set(['SCRIPT','STYLE','CANVAS','NOSCRIPT','CODE','PRE']);
+  const GENERATED='[data-bilingual-generated="1"]';
+  const LEADING_ICON=/^[\s\u200B]*(?:(?:[\p{Extended_Pictographic}\uFE0F\u20E3]|[\u2600-\u27BF]|[\u2190-\u21FF]|[\u2300-\u23FF]|[\u2B00-\u2BFF])+)[\s\u200B]*/u;
+
+  function hasCJK(v){ return CJK.test(String(v ?? '')); }
+  function stripIcon(v){ return String(v ?? '').replace(LEADING_ICON,'').trim(); }
+  function leadingIcon(v){
+    const m=String(v ?? '').match(LEADING_ICON);
+    return m ? m[0].trim() : '';
+  }
+  function alreadyBilingual(v){
+    const s=String(v ?? '').trim();
+    if(!s) return false;
+    if(/\s\/\s/.test(s)){
+      const parts=s.split(/\s\/\s/);
+      return parts.length>=2 && hasCJK(parts[0]) && !hasCJK(parts.slice(1).join(' / '));
+    }
+    return false;
+  }
+
+  const keys=Object.keys(MAP||{}).filter(Boolean).sort((a,b)=>b.length-a.length);
+
+  function translateOnce(value){
+    if(value==null) return value;
+    let x=String(value);
+    if(alreadyBilingual(x)) return x;
+    for(const k of keys){
+      if(x.includes(k)) x=x.split(k).join(MAP[k]);
+    }
+    return x;
+  }
+
+  function makeBilingual(value){
+    if(value==null) return value;
+    const zh=String(value);
+    if(!hasCJK(zh) || alreadyBilingual(zh)) return zh;
+    let en=translateOnce(zh);
+    if(!en || en===zh) return zh;
+    // Icon belongs to the Chinese side only.
+    en=stripIcon(en);
+    if(!en) return zh;
+    return zh+' / '+en;
+  }
+
+  // Existing application code calls tr() for chart labels, table text, etc.
+  // It now produces exactly one bilingual string and never nests translations.
+  window.tr=makeBilingual;
+  window.bilingualText=translateOnce;
+  window.__unifiedBilingual=makeBilingual;
+
+  function styleEnglish(el){
+    el.style.fontSize='calc(1em - 3.33px)';
+    el.style.fontWeight='400';
+    el.style.opacity='0.72';
+  }
+
+  function translateTextNode(node){
+    if(!node || node.nodeType!==Node.TEXT_NODE) return;
+    const parent=node.parentElement;
+    if(!parent || SKIP_TAGS.has(parent.tagName)) return;
+    if(parent.closest(GENERATED)) return;
+
+    const raw=node.nodeValue;
+    if(!raw || !raw.trim() || !hasCJK(raw)) return;
+    if(alreadyBilingual(raw)) return;
+
+    const enRaw=translateOnce(raw);
+    if(!enRaw || enRaw.trim()===raw.trim()) return;
+    const en=stripIcon(enRaw);
+    if(!en) return;
+
+    // One immutable wrapper prevents this renderer from seeing its own output.
+    const wrapper=document.createElement('span');
+    wrapper.setAttribute('data-bilingual-generated','1');
+
+    const zh=document.createElement('span');
+    zh.textContent=raw;
+
+    const enSpan=document.createElement('span');
+    enSpan.setAttribute('data-bilingual-en','1');
+    enSpan.textContent=' / '+en;
+    styleEnglish(enSpan);
+
+    wrapper.appendChild(zh);
+    wrapper.appendChild(enSpan);
+    node.replaceWith(wrapper);
+  }
+
+  function translateAttributes(){
+    document.querySelectorAll('input,textarea,[title],[aria-label]').forEach(el=>{
+      if(el.closest(GENERATED)) return;
+      for(const attr of ['placeholder','title','aria-label']){
+        if(!el.hasAttribute(attr)) continue;
+        const raw=el.getAttribute(attr);
+        if(!raw || !hasCJK(raw) || alreadyBilingual(raw)) continue;
+        const out=makeBilingual(raw);
+        if(out!==raw) el.setAttribute(attr,out);
+      }
+    });
+
+    document.querySelectorAll('select option').forEach(opt=>{
+      if(opt.closest(GENERATED)) return;
+      const raw=opt.textContent.trim();
+      if(!raw || !hasCJK(raw) || alreadyBilingual(raw)) return;
+      const out=makeBilingual(raw);
+      if(out!==raw) opt.textContent=out;
+    });
+  }
+
+  function renderDOM(){
+    if(!document.body) return;
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    for(const n of nodes) translateTextNode(n);
+    translateAttributes();
+  }
+
+  function translateChartValue(v){
+    if(typeof v!=='string' || !hasCJK(v)) return v;
+    return makeBilingual(v);
+  }
+
+  function applyCharts(){
+    try{
+      if(!window.Chart || !Chart.instances) return;
+      Object.values(Chart.instances).forEach(c=>{
+        try{
+          if(c.options?.plugins?.title?.text){
+            const t=c.options.plugins.title.text;
+            if(typeof t==='string') c.options.plugins.title.text=translateChartValue(t);
+          }
+          if(c.options?.scales){
+            Object.values(c.options.scales).forEach(sc=>{
+              if(sc.title?.text && typeof sc.title.text==='string') sc.title.text=translateChartValue(sc.title.text);
+            });
+          }
+          if(c.data?.datasets){
+            c.data.datasets.forEach(d=>{
+              if(typeof d.label==='string') d.label=translateChartValue(d.label);
+            });
+          }
+          if(Array.isArray(c.data?.labels)) c.data.labels=c.data.labels.map(translateChartValue);
+          // Do not call update() unless something actually needs changing.
+          if(typeof c.update==='function') c.update('none');
+        }catch(e){}
+      });
+    }catch(e){}
+  }
+
+  let timer=0;
+  function schedule(){
+    clearTimeout(timer);
+    timer=setTimeout(()=>{ renderDOM(); applyCharts(); },120);
+  }
+
+  // IMPORTANT: childList only. Do NOT observe characterData, because the
+  // bilingual renderer itself creates text nodes.
+  const observer=new MutationObserver(mutations=>{
+    let relevant=false;
+    for(const m of mutations){
+      if(m.type!=='childList') continue;
+      const target=m.target;
+      if(target && target.closest && target.closest(GENERATED)) continue;
+      relevant=true; break;
+    }
+    if(relevant) schedule();
+  });
+  observer.observe(document.body,{childList:true,subtree:true});
+
+  // Initial pass after the original page has built its static DOM.
+  window.addEventListener('load',()=>{
+    renderDOM();
+    applyCharts();
+  });
+})();
+})();
+</script>
+<style id="unified-bilingual-style">
+[data-bilingual-en="1"]{font-size:calc(1em - 3.33px)!important;font-weight:400!important;opacity:.72}
+</style>
 </body>
 </html>
