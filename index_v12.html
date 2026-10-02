@@ -859,7 +859,7 @@
                                 const ay = y.getPixelForValue(parseFloat(m.avg));
                                 if(!isNaN(ay)) {
                                     c.ctx.strokeStyle = '#ef4444'; c.ctx.lineWidth = 1.5; c.ctx.beginPath(); c.ctx.moveTo(bar.x - bar.width/2, ay); c.ctx.lineTo(bar.x + bar.width/2, ay); c.ctx.stroke();
-                                    c.ctx.fillStyle = '#ef4444'; c.ctx.textAlign = 'left'; c.ctx.fillText("均:"+m.avg, bar.x + bar.width/2+1, ay+3);
+                                    c.ctx.fillStyle = '#ef4444'; c.ctx.textAlign = 'left'; c.ctx.fillText(tr("均:")+m.avg, bar.x + bar.width/2+1, ay+3);
                                 }
                                 c.ctx.restore();
                             }
@@ -1157,11 +1157,11 @@
             const sortedLabels = metaList.map(m => m.grade), sortedBoxData = metaList.map(m => [m.min, m.max]), sortedCounts = metaList.map(m => m.count);
             globalBoxMeta = {}; metaList.forEach(m => { globalBoxMeta[m.grade] = m; });
 
-            if (chartBoxSalary) { chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.update(); } else { 
-                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '薪資區間 (低標~高標)', data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: (label)=>globalBoxMeta[label], label: (c)=> { const m = globalBoxMeta[c.label]; return `最低: ${m.min}萬 | 中位: ${m.med}萬 | 平均: ${m.avg}萬 | 最高: ${m.max}萬`; } } } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
+            if (chartBoxSalary) { chartBoxSalary.data.labels = sortedLabels; chartBoxSalary.data.datasets[0].data = sortedBoxData; chartBoxSalary.data.datasets[0].label=tr('薪資區間 (低標~高標)'); chartBoxSalary.update(); } else { 
+                chartBoxSalary = new Chart(document.getElementById('boxSalaryChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: tr('薪資區間 (低標~高標)'), data: sortedBoxData, backgroundColor: 'rgba(37, 99, 235, 0.55)', borderColor: '#0066cc', borderWidth: 1.5, borderRadius: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip: { callbacks: { customMeta: (label)=>globalBoxMeta[label], label: (c)=> { const m = globalBoxMeta[c.label]; return `${tr('最低')}: ${m.min}${tr('萬')} | ${tr('中位')}: ${m.med}${tr('萬')} | ${tr('平均')}: ${m.avg}${tr('萬')} | ${tr('最高')}: ${m.max}${tr('萬')}`; } } } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
             }
-            if (chartSampleCount) { chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.update(); } else { 
-                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: '覆蓋樣本數 (人)', data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
+            if (chartSampleCount) { chartSampleCount.data.labels = sortedLabels; chartSampleCount.data.datasets[0].data = sortedCounts; chartSampleCount.data.datasets[0].label=tr('覆蓋樣本數 (人)'); chartSampleCount.update(); } else { 
+                chartSampleCount = new Chart(document.getElementById('sampleCountChart').getContext('2d'), { type: 'bar', data: { labels: sortedLabels, datasets: [{ label: tr('覆蓋樣本數 (人)'), data: sortedCounts, backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } }); 
             }
         }
 
@@ -1367,12 +1367,12 @@
             const lbl = m.map(x=>x.grade), dBox = m.map(x=>[x.min, x.max]);
             m2RsuMeta = {}; m.forEach(x => m2RsuMeta[x.grade] = x);
 
-            if(cM2Rsu) { cM2Rsu.data.labels=lbl; cM2Rsu.data.datasets[0].data=dBox; cM2Rsu.update(); }
+            if(cM2Rsu) { cM2Rsu.data.labels=lbl; cM2Rsu.data.datasets[0].data=dBox; cM2Rsu.data.datasets[0].label=tr('RSU 區間 (美金)'); cM2Rsu.update(); }
             else { 
                 cM2Rsu = new Chart(document.getElementById('m2RsuChart'), { 
                     type:'bar', 
-                    data:{labels:lbl, datasets:[{label:'RSU 區間 (美金)', data:dBox, backgroundColor:'rgba(168, 85, 247, 0.55)', borderColor:'#a855f7', borderWidth:1.5, borderRadius:2}]}, 
-                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m2RsuMeta[l], label:c=>{const mb=m2RsuMeta[c.label]; return `最低: $${mb.min} | 中位: $${mb.med} | 平均: $${mb.avg} | 最高: $${mb.max}`;} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
+                    data:{labels:lbl, datasets:[{label:tr('RSU 區間 (美金)'), data:dBox, backgroundColor:'rgba(168, 85, 247, 0.55)', borderColor:'#a855f7', borderWidth:1.5, borderRadius:2}]}, 
+                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}, tooltip:{callbacks:{customMeta:(l)=>m2RsuMeta[l], label:c=>{const mb=m2RsuMeta[c.label]; return `${tr('最低')}: $${mb.min} | ${tr('中位')}: $${mb.med} | ${tr('平均')}: $${mb.avg} | ${tr('最高')}: $${mb.max}`;} }}}, scales: { x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 0, font: {size: 10} } } } } 
                 }); 
             }
         }
@@ -1407,15 +1407,15 @@
             });
 
             if(cM2Raise) { 
-                cM2Raise.data.labels=pf; cM2Raise.data.datasets[0].data=dNo; cM2Raise.data.datasets[1].data=dYes; cM2Raise.update(); 
+                cM2Raise.data.labels=pf; cM2Raise.data.datasets[0].data=dNo; cM2Raise.data.datasets[1].data=dYes; cM2Raise.data.datasets[0].label=tr('未升遷 (%)'); cM2Raise.data.datasets[1].label=tr('剛升遷 (%)'); cM2Raise.update(); 
             } else { 
                 cM2Raise = new Chart(document.getElementById('m2RaiseChart'), { 
                     type:'bar', 
                     data:{
                         labels:pf, 
                         datasets:[
-                            {label:'未升遷 (%)', data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
-                            {label:'剛升遷 (%)', data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
+                            {label:tr('未升遷 (%)'), data:dNo, backgroundColor:'rgba(59, 130, 246, 0.55)', borderColor:'#3b82f6', borderWidth:1.5, borderRadius:2}, 
+                            {label:tr('剛升遷 (%)'), data:dYes, backgroundColor:'rgba(192, 132, 252, 0.55)', borderColor:'#c084fc', borderWidth:1.5, borderRadius:2}
                         ]
                     }, 
                     options:{
@@ -1595,8 +1595,8 @@
             const rsuNote=document.getElementById('m3RsuOutlierNote');
             const raiseNote=document.getElementById('m3RaiseOutlierNote');
             const fmt=v=>Number.isFinite(v)?v.toLocaleString(undefined,{maximumFractionDigits:1}):'--';
-            if(rsuNote) rsuNote.textContent=sb.trimmed ? `⚠️ 已排除 RSU 最低/最高 5% 極端值（有效樣本 ${sb.n} 筆；範圍 $${fmt(sb.low)}–$${fmt(sb.high)}）。` : `ℹ️ 有效 RSU 樣本不足 10 筆，未進行 5% 極端值排除。`;
-            if(raiseNote) raiseNote.textContent=rb.trimmed ? `⚠️ 已排除調薪幅度最低/最高 5% 極端值（有效樣本 ${rb.n} 筆；範圍 ${fmt(rb.low)}%–${fmt(rb.high)}%）。` : `ℹ️ 有效調薪樣本不足 10 筆，未進行 5% 極端值排除。`;
+            if(rsuNote) rsuNote.textContent=sb.trimmed ? `⚠️ ${tr('已排除 RSU 最低/最高 5% 極端值')} (${tr('有效樣本')} ${sb.n} ${tr('筆')}；${tr('範圍')} $${fmt(sb.low)}–$${fmt(sb.high)}).` : `ℹ️ ${tr('有效 RSU 樣本不足 10 筆，未進行 5% 極端值排除。')}`;
+            if(raiseNote) raiseNote.textContent=rb.trimmed ? `⚠️ ${tr('已排除調薪幅度最低/最高 5% 極端值')} (${tr('有效樣本')} ${rb.n} ${tr('筆')}；${tr('範圍')} ${fmt(rb.low)}%–${fmt(rb.high)}%).` : `ℹ️ ${tr('有效調薪樣本不足 10 筆，未進行 5% 極端值排除。')}`;
         }
 
         function updateM3Charts() {
@@ -1628,7 +1628,7 @@
             }else{
                 cM3Rsu=new Chart(document.getElementById('m3RsuChart'),{
                     type:'bar',data:{labels:lbl,datasets:[ds]},
-                    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const mb=m3RsuMeta[c.label];return mb?`${tr('最低')}: $${mb.min.toLocaleString()} | ${tr('中位')}: $${mb.med} | ${tr('平均')}: $${mb.avg} | ${tr('最高')}: $${mb.max.toLocaleString()}`:tr('無資料');}}}},scales:{x:{ticks:{autoSkip:false,maxRotation:45,minRotation:0,font:{size:10}}}}}
+                    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{customMeta:l=>m3RsuMeta[l],label:c=>{const mb=m3RsuMeta[c.label];return mb?`${tr('最低')}: $${mb.min.toLocaleString()} | ${tr('中位')}: $${mb.med} | ${tr('平均')}: $${mb.avg} | ${tr('最高')}: $${mb.max.toLocaleString()}`:tr('無資料');}}}},scales:{x:{ticks:{autoSkip:false,maxRotation:45,minRotation:0,font:{size:10}}}}}
                 });
             }
         }
@@ -1646,7 +1646,7 @@
             const ds1={label:tr('剛升遷 (%)'),data:dYes,backgroundColor:'rgba(192,132,252,0.55)',borderColor:'#c084fc',borderWidth:1.5,borderRadius:2};
             if(cM3Raise){cM3Raise.data.labels=pf;cM3Raise.data.datasets[0].data=dNo;cM3Raise.data.datasets[1].data=dYes;cM3Raise.data.datasets[0].label=tr('未升遷 (%)');cM3Raise.data.datasets[1].label=tr('剛升遷 (%)');cM3Raise.update();}
             else{
-                cM3Raise=new Chart(document.getElementById('m3RaiseChart'),{type:'bar',data:{labels:pf,datasets:[ds0,ds1]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>{const m=c.datasetIndex===0?metaRaiseNo3[c.label]:metaRaiseYes3[c.label];return m?`${tr('最低')}: ${m.min}% | ${tr('中位')}: ${m.med}% | ${tr('平均')}: ${m.avg}% | ${tr('最高')}: ${m.max}%`:tr('資料少於2筆');}}}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,minRotation:0,font:{size:11}}}}}});
+                cM3Raise=new Chart(document.getElementById('m3RaiseChart'),{type:'bar',data:{labels:pf,datasets:[ds0,ds1]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{customMeta:(l,dsi)=>dsi===0?metaRaiseNo3[l]:metaRaiseYes3[l],label:c=>{const m=c.datasetIndex===0?metaRaiseNo3[c.label]:metaRaiseYes3[c.label];return m?`${tr('最低')}: ${m.min}% | ${tr('中位')}: ${m.med}% | ${tr('平均')}: ${m.avg}% | ${tr('最高')}: ${m.max}%`:tr('資料少於2筆');}}}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,minRotation:0,font:{size:11}}}}}});
             }
         }
 
@@ -2297,7 +2297,7 @@ const I18N = {
   '檢驗 PR 值':'Check percentile','清除':'Clear','全部考績':'All performance','具體職等':'Specific grade',
   '是否升遷 (Promoted)':'Promotion status','考績過濾 (Performance)':'Performance filter','全部 (升遷+未升遷)':'All (promoted + not promoted)',
   '有升遷 (Promoted)':'Promoted','未升遷 (Normal)':'Not promoted','有升遷':'Promoted','未升遷':'Not promoted',
-  'RSU 分發力道 (美金)':'RSU distribution (USD)','考績 vs. 調薪幅度：殘酷關聯圖 (%)':'Performance vs. raise (%)',
+  'RSU 區間 (美金)':'RSU range (USD)','未升遷 (%)':'Not promoted (%)','剛升遷 (%)':'Promoted (%)','RSU 分發力道 (美金)':'RSU distribution (USD)','考績 vs. 調薪幅度：殘酷關聯圖 (%)':'Performance vs. raise (%)',
   '藍柱：未升遷｜紫柱：有升遷。':'Blue: not promoted | Purple: promoted.',
   '最低/最高 5% 極端值':'lowest/highest 5% outliers','排除最高/最低 5% 極端值':'excluding the highest/lowest 5% outliers',
   '目前尚無任何 2026 數據':'No 2026 data available','沒有符合條件的數據':'No matching data',
@@ -2305,7 +2305,7 @@ const I18N = {
   '送出 2026 開獎資料':'Submit 2026 bonus data','資料傳送中...':'Submitting data...','送出':'Submit',
   '感謝您的匿名貢獻！':'Thank you for your anonymous contribution!','目前無法取得 MU 報價':'Unable to retrieve the MU quote',
   '暫用上次報價':'Using the previous quote','報價來源暫時無法連線':'Quote source unavailable','暫時無法取得':'Temporarily unavailable',
-  '請按「↻ 更新」重試':'Click “↻ Refresh” to retry','最新報價':'Latest quote','更新：':'Updated:'
+  '請按「↻ 更新」重試':'Click “↻ Refresh” to retry','最新報價':'Latest quote','更新：':'Updated:','總工作年資 (年)':'Total experience (years)','月薪 (萬元)':'Monthly salary (10k TWD)','已排除 RSU 最低/最高 5% 極端值':'Excluded the lowest/highest 5% RSU outliers','已排除調薪幅度最低/最高 5% 極端值':'Excluded the lowest/highest 5% raise outliers','有效樣本':'valid samples','範圍':'range','筆':'rows','有效 RSU 樣本不足 10 筆，未進行 5% 極端值排除。':'Fewer than 10 valid RSU samples; no 5% outlier trimming applied.','有效調薪樣本不足 10 筆，未進行 5% 極端值排除。':'Fewer than 10 valid raise samples; no 5% outlier trimming applied.','均:':'Avg:','覆蓋樣本數 (人)':'Sample count','薪資區間 (低標~高標)':'Salary range (low to high)','我的座標點':'My location', '目標月薪級距':'Target monthly salary range','萬':'10k TWD'
 };
 function tr(text){
   if(text==null)return text;
@@ -2345,7 +2345,18 @@ window.setLanguage=function(lang){
   const zh=document.getElementById('btnLangZh'),en=document.getElementById('btnLangEn');
   if(zh&&en){zh.className=lang==='zh'?'px-3 py-1.5 rounded-full text-[11px] font-bold bg-white text-slate-900 shadow-sm':'px-3 py-1.5 rounded-full text-[11px] font-bold text-slate-300 hover:text-white';en.className=lang==='en'?'px-3 py-1.5 rounded-full text-[11px] font-bold bg-white text-slate-900 shadow-sm':'px-3 py-1.5 rounded-full text-[11px] font-bold text-slate-300 hover:text-white';}
   if(lang==='en')translateDom(); else restoreDom();
-  try{if(typeof updateM3Charts==='function'&&dataM3.length)updateM3Charts();}catch(e){}
+
+  // Canvas-based Chart.js charts are not part of the DOM text tree, so redraw/update
+  // every visible data chart immediately when the language changes.
+  try{
+    if(typeof updateCharts==='function'&&dataM1.length) updateCharts();
+    if(typeof updateM2Charts==='function'&&dataM2.length) updateM2Charts();
+    if(typeof updateM3Charts==='function'&&dataM3.length) updateM3Charts();
+    const active=document.querySelector('[id$="Container"]:not(.hidden)');
+    if(active&&active.id==='mode4Container'&&typeof renderUnionChart==='function') renderUnionChart();
+    if(active&&active.id==='mode5Container'&&typeof refreshPortalData==='function') refreshPortalData();
+    if(window.Chart&&Chart.instances) Object.values(Chart.instances).forEach(c=>c.resize());
+  }catch(e){console.warn('language chart refresh',e);}
 };
 const langObserver=new MutationObserver(()=>{if(window.currentLanguage==='en')translateDom();});
 langObserver.observe(document.body,{childList:true,subtree:true});
