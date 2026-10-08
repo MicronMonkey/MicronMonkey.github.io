@@ -309,7 +309,7 @@
 </div>
 </div>
 </div>
-<div class="overflow-x-auto max-h-[28rem] text-xs">
+<div class="overflow-x-auto overflow-y-auto max-h-[28rem] text-xs">
 <table class="w-full text-left border-collapse">
 <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
 <tr>
@@ -327,6 +327,7 @@
 </section>
 </div>
 
+<!-- Raw data fix: 2025/2026 tables render ALL filtered rows; the surrounding max-height + overflow-y-auto provides scrolling. -->
 <!-- ========================================== -->
 <!-- MODE 2: 2025 開獎模式 -->
 <!-- ========================================== -->
@@ -448,7 +449,7 @@
 </div>
 </div>
 </div>
-<div class="overflow-x-auto max-h-[28rem] text-xs">
+<div class="overflow-x-auto overflow-y-auto max-h-[28rem] text-xs">
 <table class="w-full text-left border-collapse">
 <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 sticky top-0 shadow-sm">
 <tr>
@@ -1581,7 +1582,7 @@
             }
 
             document.getElementById('m2Count').innerText = '顯示 ' + res.length + " 筆";
-            document.getElementById('m2Tbody').innerHTML = res.slice(0, 50).map(i => {
+            document.getElementById('m2Tbody').innerHTML = res.map(i => {
                 const out=sharedOutlierByGrade(i,p,'raise')||sharedOutlierByGrade(i,p,'rsu');
                 return `<tr class="hover:bg-slate-50 border-b border-slate-100"><td class="p-3 font-bold" style="color:${gradeColors[i.grade]||'#333'}">${i.grade}</td><td class="p-3 font-bold text-slate-700">${i.perf}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ 有':'❌ 無'}</td><td class="p-3 font-bold text-blue-600">${i.raise}%</td><td class="p-3 font-bold text-emerald-600">${i.rsu}</td><td class="p-3 font-bold">${out?'Outliers':'Normal'}</td></tr>`;
             }).join('');
@@ -1777,7 +1778,7 @@
             else if(res.length===0)document.getElementById('m3Tbody').innerHTML=`<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">${tr('沒有符合條件的數據')}</td></tr>`;
             else{
                 const price=Number(window.MU_PRICE_CURRENT);
-                document.getElementById('m3Tbody').innerHTML=res.slice(0,50).map(i=>{
+                document.getElementById('m3Tbody').innerHTML=res.map(i=>{
                     const validPrice=Number.isFinite(price)&&price>0, shares=validPrice&&Number(i.rsu)>0?Math.round(i.rsu/price):null;
                     const normal=isM3NormalProfile(i,p);
                     const profile=normal?`<span class="text-emerald-600 font-bold">Normal</span>`:`<span class="text-rose-600 font-bold">Outliers</span>`;
