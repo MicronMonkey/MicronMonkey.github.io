@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>光光猴薪情平台 v11 • PortalDB 4.1</title>
+<title>光光猴守護平台 v14 • PortalDB 4.1</title>
 <link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
 <link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
 <!-- Tailwind CSS -->
@@ -53,10 +53,55 @@
         .news-filter{transition:.15s}
         .event-countdown{font-weight:900}
         .mood-btn.mood-selected-today{background:#0f172a!important;color:#fff!important;border-color:#0f172a!important;box-shadow:0 0 0 2px rgba(15,23,42,.12);transform:translateY(-1px);}
+
+/* Emergency microsite: scoped to #mode0Container; existing charts and app unchanged */
+#mode0Container {--u-bg:#121820;--u-panel:#1e2732;--u-border:#3c4753;--u-fg:#f3f4f6;--u-muted:#b4bfca;--u-accent:#d6b77a;--u-tint:#29323d;color:var(--u-fg);font-size:15px;line-height:1.7}
+#mode0Container .u-surface{background:var(--u-panel);border:1px solid var(--u-border);border-radius:20px;padding:clamp(19px,3vw,30px)}
+#mode0Container .u-muted{color:var(--u-muted)}
+#mode0Container .u-kicker{font-size:11px;letter-spacing:.18em;font-weight:800;color:var(--u-accent)}
+#mode0Container .u-heading{font-size:clamp(23px,3vw,32px);font-weight:900;letter-spacing:-.025em;line-height:1.25}
+#mode0Container .u-button{display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:13px 19px;min-height:46px;border-radius:12px;text-decoration:none;font-weight:800;transition:transform .15s,filter .15s}
+#mode0Container .u-button:hover{transform:translateY(-2px);filter:brightness(1.12)}
+#mode0Container .u-primary{background:var(--u-accent);color:#151a20}
+#mode0Container .u-secondary{border:1px solid #77808c;background:#303a45;color:#fff}
+#mode0Container .u-step{display:inline-flex;align-items:center;justify-content:center;width:35px;height:35px;border-radius:10px;background:var(--u-tint);border:1px solid var(--u-border);color:var(--u-accent);font-weight:900}
+#mode0Container details{background:var(--u-panel);border:1px solid var(--u-border);border-radius:14px;overflow:hidden}
+#mode0Container summary{cursor:pointer;padding:17px 20px;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:14px}
+#mode0Container summary::after{content:'＋';color:var(--u-accent);font-size:20px}
+#mode0Container details[open] summary::after{content:'−'}
+#mode0Container .u-details-body{padding:0 20px 20px;color:var(--u-muted)}
+#mode0Container .u-details-body p{margin:0 0 12px}
+#mode0Container .u-details-body ul{list-style:disc;padding-left:20px;margin:8px 0}
+#mode0Container .u-details-body li{margin:7px 0}
+#mode0Container .u-details-body a{color:var(--u-accent);text-decoration:underline}
+#mode0Container .u-cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#mode0Container .u-stat{font-size:clamp(40px,6vw,64px);font-weight:900;line-height:1.05;letter-spacing:-.05em}
+#mode0Container .u-rail{border-left:2px solid var(--u-border);margin-left:16px;padding-left:26px}
+#mode0Container .u-rail-item{position:relative;padding:0 0 25px}
+#mode0Container .u-rail-item::before{content:'';position:absolute;left:-34px;top:7px;width:14px;height:14px;background:var(--u-accent);border:3px solid var(--u-bg);border-radius:50%}
+#mode0Container .u-rail-item:last-child{padding-bottom:0}
+#mode0Container .u-mini{font-size:12px}
+#mode0Container .u-divider{height:1px;background:var(--u-border);margin:22px 0}
+#mode0Container .u-highlight{border-left:4px solid var(--u-accent);padding-left:17px}
+@media(max-width:690px){#mode0Container .u-cardgrid{grid-template-columns:1fr}#mode0Container .u-stat{font-size:46px}}
+#mode0Container{--u-bg:#101216;--u-panel:#1b1e24;--u-border:#3a3e45;--u-accent:#d2bd9e;--u-tint:#292b30;background:#101216}body{background:#e6e6e6!important}body>div>header{filter:grayscale(1)}#muStockBar{filter:grayscale(1)}#mode0Container .u-hero{background:radial-gradient(circle at 78% 10%,#30333b,#101216 62%);border:1px solid #4a4c51}
+
+/* V13: prominent step-by-step action sequence */
+#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#mode0Container .u-cardgrid > section.u-surface{position:relative;border:2px solid #a68b58;box-shadow:0 12px 28px rgba(0,0,0,.18);padding-top:26px}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(1){border-color:#d9b46b}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(2){border-color:#9a9a9a}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(3){border-color:#7e8895}
+#mode0Container .u-cardgrid .u-step{width:58px;height:58px;border-radius:15px;background:#e4c58b;color:#191919;border:2px solid #f5e1b7;font-size:1.55rem;box-shadow:0 5px 14px rgba(0,0,0,.22)}
+#mode0Container .u-cardgrid > section:nth-child(2) .u-step{background:#d7d9dd;border-color:#fff}
+#mode0Container .u-cardgrid > section:nth-child(3) .u-step{background:#aeb8c4;border-color:#e3e8ee}
+#mode0Container .u-cardgrid h3{font-size:1.4rem;line-height:1.4}
+#mode0Container .u-cardgrid .u-button{min-height:64px;font-weight:900;font-size:1.05rem}
+#mode0Container .u-cardgrid .u-kicker{letter-spacing:.03em}
+@media(max-width:970px){#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:1fr}}
 </style>
 <link href="manifest.webmanifest" rel="manifest"/>
 <meta content="#0f172a" name="theme-color"/>
-
 <style id="chart-tooltip-readability-v20">
 /* Long bilingual Chart.js tooltip content: keep enough vertical room and prevent clipped HTML tooltip text. */
 .chartjs-tooltip, .chart-tooltip, [role="tooltip"] {
@@ -66,8 +111,45 @@
   word-break: break-word !important;
 }
 </style>
-</head>
-<body class="p-4 md:p-8 relative">
+<style id="emergency-v12-bilingual">
+#u-emergency-hero {scroll-margin-top:92px}
+#mode0Container .u-bilingual{display:inline}
+#mode0Container .u-bilingual .u-zh{display:block}
+#mode0Container .u-bilingual .u-en{display:block;font-size:.84em;line-height:1.48;font-weight:400;letter-spacing:normal;color:#bfc6cf;margin-top:3px;overflow-wrap:anywhere}
+#mode0Container .u-hero-heading .u-en{font-size:clamp(17px,2.5vw,25px);line-height:1.35;margin-top:14px;color:#d8c7ac;font-weight:500;letter-spacing:.01em}
+#mode0Container .u-kicker .u-en{font-size:11px;letter-spacing:.07em;color:#bfc6cf}
+#mode0Container a.u-button .u-en{font-size:11px;color:inherit;opacity:.84;margin-top:1px}
+#mode0Container .u-rail-item .u-en{max-width:850px}
+#mode0Container summary .u-en{font-size:12px}
+#mode0Container .u-stat .u-en{font-size:12px;letter-spacing:0}
+.u-emergency-notice .u-banner-en{display:block;font-size:11px;line-height:1.4;color:#cbd5e1;margin-top:3px;font-weight:400}
+.u-emergency-notice button .u-banner-en{color:#475569;font-size:10px;font-weight:500}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<style id="v14-editorial-layout">
+/* V14 | Memorial editorial / mobile-first emergency landing */
+body {background:#0e1014!important;}
+body > .max-w-7xl {position:relative;}
+body.emergency-active #portalContributeActions {display:none!important;}
+body.emergency-active header {margin-bottom:0!important;border-radius:24px 24px 0 0!important;border-bottom-color:#34373b!important;}
+body.emergency-active #mode0Container {background:#121418!important;border-radius:0 0 24px 24px!important;padding:clamp(12px,2.2vw,28px)!important;border:1px solid #303238;border-top:0;margin-bottom:20px;}
+body.emergency-active #u-emergency-hero {min-height:390px;display:flex;flex-direction:column;justify-content:center;border:1px solid #74634b;background:radial-gradient(ellipse at 90% 2%,rgba(188,153,102,.19),transparent 48%),linear-gradient(120deg,#080a0e,#171b21 65%,#111317)!important;box-shadow:inset 0 0 0 1px rgba(210,183,134,.11);}
+body.emergency-active #u-emergency-hero:before {content:'IN SOLIDARITY · 2026';position:absolute;right:26px;top:24px;color:#c4aa7a;letter-spacing:.26em;font-size:10px;font-weight:800;opacity:.65;}
+body.emergency-active #u-emergency-hero h2 {max-width:900px;text-wrap:balance;}
+body.emergency-active .u-v14-date {letter-spacing:.21em!important;}
+body.emergency-active #portalNavFooter {background:#1d2026!important;border:1px solid #40444b!important;padding:12px!important;border-radius:18px!important;margin-top:12px!important;}
+body.emergency-active #portalNavFooter button {min-height:46px;}
+body.emergency-active #portalNavFooter #btnMode0 {background:#8f7858!important;color:#fff!important;}
+body.emergency-active #muStockBar {position:static!important;background:#11151b!important;opacity:.85;margin-bottom:28px!important;}
+body:not(.emergency-active) #portalNavFooter {margin-top:16px;}
+body:not(.emergency-active) #muStockBar {position:sticky;top:0;}
+body:not(.emergency-active) header {margin-bottom:20px!important;}
+body.emergency-active #mode0Container .u-action-card {transition:transform .2s ease,box-shadow .2s ease;}
+body.emergency-active #mode0Container .u-action-card:hover {transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,.15);}
+#portalNavFooter {scroll-margin-top:20px;}
+@media(max-width:640px){body.emergency-active #u-emergency-hero{min-height:340px;padding:55px 22px 30px!important;}body.emergency-active #u-emergency-hero:before{right:18px;top:14px;font-size:8px;}body.emergency-active #u-emergency-hero h2{font-size:clamp(2rem,8vw,3rem)!important;line-height:1.16!important;}body.emergency-active #mode0Container{padding:10px!important;}body.emergency-active header{padding:18px!important;}}
+</style></head>
+<body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
 <!-- Header -->
 <header class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -81,12 +163,12 @@
 </div>
 <div>
 <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-    光光猴薪情平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v11 PORTAL DB</span>
+    光光猴守護平台 <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full uppercase">v14 PORTAL DB</span>
 </h1>
 <p class="text-slate-400 text-xs mt-0.5">我們不生產錢，我們只是香蕉農</p>
 <div class="mt-2 flex flex-wrap gap-2 text-[11px] font-bold">
-    <span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">👁 總瀏覽 <b id="pageViewTotal">--</b></span>
-    <span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">🔥 今日 <b id="pageViewToday">--</b></span>
+<span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">👁 總瀏覽 <b id="pageViewTotal">--</b></span>
+<span class="bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">🔥 今日 <b id="pageViewToday">--</b></span>
 </div>
 <button class="bg-violet-500 hover:bg-violet-400 text-white border border-violet-300/30 px-2 py-1 rounded-full text-[8px] leading-none whitespace-nowrap mt-1" onclick="openWishlistModal()">💡 功能許願</button>
 </div>
@@ -99,7 +181,7 @@
 <span class="tracking-wide" id="loadingText">連線初始化中...</span>
 </div>
 </div>
-<div class="flex gap-2 w-full sm:w-auto">
+<div class="flex gap-2 w-full sm:w-auto" id="portalContributeActions">
 <button class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer border border-slate-600" onclick="openFormModal()">
     📝 貢獻日常薪情
 </button>
@@ -114,16 +196,26 @@
 </header>
 
 <!-- 核心切換 -->
-<div class="flex flex-wrap items-center gap-2 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
-<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
+
+<!-- Sticky MU stock ticker -->
+
+<div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)"><section class="u-hero rounded-[24px] p-6 md:p-11 relative overflow-hidden u-v14-hero" id="u-emergency-hero"><div class="u-kicker u-v14-date">10.21 / 2026 · TAICHUNG · EMPLOYEE RESPONSE</div><h2 class="text-4xl md:text-6xl font-black mt-5 leading-tight u-hero-heading" style="letter-spacing:-.045em"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">沉痛．但我們仍有選擇</span><span class="u-en" lang="en">We are heartbroken, but we still have choices.</span></span></h2><p class="text-lg md:text-xl u-muted mt-4"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">以沉默記住失望，以程序守住權利。</span><span class="u-en" lang="en">We remember our disappointment in silence, and defend our rights through due process.</span></span></p><div class="mt-7 u-highlight"><p class="font-bold text-lg"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">對 10/21 協議感到失望與疑惑的同仁，我們先把資訊整理清楚。</span><span class="u-en" lang="en">For colleagues concerned or disappointed by the October 21 agreement, here is a clear summary of what we know.</span></span></p><p class="text-sm u-muted mt-2"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">不讓情緒取代事實；不讓資訊混亂阻礙會員依法行使權利。</span><span class="u-en" lang="en">Facts must guide our response; confusion must not prevent members from exercising their lawful rights.</span></span></p></div><div class="flex flex-wrap gap-3 mt-8"><a class="u-button u-primary" href="https://forms.gle/PvN1c1bHhh3v3UQL8" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">了解並參與連署 ↗</span><span class="u-en" lang="en">Review and support the petition ↗</span></span></a><a class="u-button u-secondary" href="#u-next"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">查看下一步 ↓</span><span class="u-en" lang="en">See what comes next ↓</span></span></a></div></section><div class="u-surface" style="border-left:4px solid var(--u-accent)"><div class="u-kicker"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">重要聲明 · PUBLIC NOTICE</span><span class="u-en" lang="en">IMPORTANT NOTICE · PUBLIC NOTICE</span></span></div><p class="mt-2 font-bold text-lg"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">目前處於緊急資訊統整階段</span><span class="u-en" lang="en">Emergency information is being consolidated.</span></span></p><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">2026/10/21 協議的性質、程序、會員授權與法律效力仍待協議原件及工會章程查證。本頁為員工自發整理，不代表工會官方、主管機關或法律專業意見；不預先認定任何人違法。資料若有更新，請以正式文件與主管機關說明為準。</span><span class="u-en" lang="en">The nature, approval process, member authorization, and legal effect of the October 21, 2026 agreement still require verification against the signed document and union bylaws. This page is an employee-led summary, not an official union or government statement or legal advice. It makes no prior finding of unlawful conduct. Official documents and competent authorities should govern any updates.</span></span></p></div><section class="u-surface"><div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4"><div><div class="u-kicker"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">SUPPORT COUNT · 公告截點</span><span class="u-en" lang="en">SUPPORT COUNT · As of the published update</span></span></div><div class="u-stat mt-2">2,284<span class="text-xl ml-2"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">人</span><span class="u-en" lang="en">supporters</span></span></span></div><p class="u-muted u-mini mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">同仁提供的連署公告：2026/10/22 18:48。非即時數字，尚未獨立驗證；不等於具會員資格的有效連署數。</span><span class="u-en" lang="en">Petition figure reported by colleagues as of Oct 22, 2026, 18:48. Not a live count, not independently verified, and not necessarily the number of legally valid member signatures.</span></span></p></div><div class="md:text-right"><div class="text-xl font-black"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">每一份意見，都值得被看見</span><span class="u-en" lang="en">Every voice deserves to be heard.</span></span></div><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">是否達法定門檻，需再核對會員總數、資格及連署用途。</span><span class="u-en" lang="en">Legal thresholds depend on the total eligible membership, signatory eligibility, and purpose of the petition.</span></span></p></div></div></section><div><div class="u-kicker mb-3">FOLLOW THESE 3 STEPS · 請依序完成以下三步驟</div><div class="u-cardgrid">
+<section class="u-surface"><div class="flex items-center gap-3"><span class="u-step">01</span><span class="u-kicker"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">STEP 1 · 先完成連署</span><span class="u-en" lang="en">STEP 1 · Sign the petition</span></span></span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">第一步：連署支持</span><span class="u-en" lang="en">Step 1: Sign the petition</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">透過連署表達對協議內容、程序透明及會員參與的關切。連署用途與個資蒐集方式請先閱讀表單說明。</span><span class="u-en" lang="en">Sign to express concerns about the agreement, procedural transparency, and member participation. Please review the form’s purpose and personal-data notice before submitting.</span></span></p><a class="u-button u-primary w-full mt-5" href="https://forms.gle/PvN1c1bHhh3v3UQL8" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">前往連署表單 ↗</span><span class="u-en" lang="en">Open the petition ↗</span></span></a><p class="u-mini u-muted mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">連署不是正式會員大會表決，仍須依法確認有效資格及門檻。</span><span class="u-en" lang="en">A petition is not a formal union vote; eligibility and legal thresholds still need to be verified.</span></span></p></section>
+<section class="u-surface"><div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">STEP 2 · 加入新群組</span><span class="u-en" lang="en">STEP 2 · Join the new group</span></span></span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">加入新台中工會成員LINE群</span><span class="u-en" lang="en">Join the new LINE group for Taichung union members</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">依群組邀請資訊，桃園工會會長及「桃園產總女戰神」也在群內協助台中同仁交流與釐清下一步。相關身分及參與情況請向群組管理員確認；請勿分享個資或公司機密。</span><span class="u-en" lang="en">According to the group invitation, the Taoyuan union president and a representative known as the “Taoyuan Labor Federation Warrior” are in the group to support Taichung colleagues. Please confirm their roles with the admins. Do not share personal or confidential company information.</span></span></p><a class="u-button u-secondary w-full mt-5" href="https://line.me/ti/g2/JjYtGmtpgSP557fVL8hANWuZg48rVfGlxaKLPg?utm_source=invitation&amp;utm_medium=link_copy&amp;utm_campaign=default" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">加入新 LINE 群組 ↗</span><span class="u-en" lang="en">Join the new LINE group ↗</span></span></a><p class="u-mini u-muted mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">入群及審核規則由社群管理員訂定。</span><span class="u-en" lang="en">Admission and moderation rules are set by group administrators.</span></span></p></section><section class="u-surface u-action-step u-wait-step"><div class="flex items-center gap-3"><span class="u-step">03</span><span class="u-kicker"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">STEP 3 · 等待正式通知</span><span class="u-en" lang="en">STEP 3 · Await the official notice</span></span></span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">第三步：等待臨時會員大會</span><span class="u-en" lang="en">Step 3: Prepare for the extraordinary members’ meeting</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">持續留意合法召集人發布的正式時間、地點與議程，保留相關文件；收到通知後確認會員資格、出席及表決方式。</span><span class="u-en" lang="en">Watch for the official date, venue, and agenda from an authorized convener. Keep relevant documents and check eligibility, attendance, and voting rules once notice is issued.</span></span></p><a class="u-button u-secondary w-full mt-5" href="#u-next"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">查看大會程序與注意事項 ↓</span><span class="u-en" lang="en">View meeting guidance ↓</span></span></a><p class="u-mini u-muted mt-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">臨時會員大會時間尚未確認，請勿將群組傳言視為正式公告。</span><span class="u-en" lang="en">The meeting date is not yet confirmed; group messages are not official notices.</span></span></p></section></div></div><section class="u-surface" id="u-next"><div class="u-kicker">WHAT HAPPENS NEXT</div><h3 class="u-heading mt-2"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">接下來的程序怎麼走？</span><span class="u-en" lang="en">What are the next procedural steps?</span></span></h3><div class="u-rail mt-6"><div class="u-rail-item"><b class="text-lg"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">現在｜連署、蒐集正式文件</span><span class="u-en" lang="en">Now | Petition and obtain official documents</span></span></b><p class="u-muted text-sm"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">持續反映會員意見；要求公開協議全文、相關會議決議與工會章程。</span><span class="u-en" lang="en">Keep gathering member views; request the complete agreement, relevant meeting decisions, and union bylaws.</span></span></p></div><div class="u-rail-item"><b class="text-lg"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">下一步｜依法請求臨時會員（代表）大會</span><span class="u-en" lang="en">Next | Lawfully request an extraordinary members’ or delegates’ meeting</span></span></b><p class="u-muted text-sm"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認會員 1/5 或會員代表 1/3 請求門檻；正式召集日期、議程及投票方式尚待公告。</span><span class="u-en" lang="en">Verify the one-fifth member or one-third delegate request threshold. The official meeting date, agenda, and voting process have yet to be announced.</span></span></p></div><div class="u-rail-item"><b class="text-lg"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">會中｜討論協議、程序與幹部責任</span><span class="u-en" lang="en">At the meeting | Review the agreement, procedure, and officers’ responsibilities</span></span></b><p class="u-muted text-sm"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">依協議法律性質與章程，討論拒絕追認、調查及解任提案，採合法方式表決。</span><span class="u-en" lang="en">Based on the agreement’s legal nature and the bylaws, discuss non-ratification, investigation, and removal motions, then vote through lawful procedures.</span></span></p></div><div class="u-rail-item"><b class="text-lg"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">會後｜保存紀錄、請求主管機關協助</span><span class="u-en" lang="en">After the meeting | Preserve records and seek official assistance</span></span></b><p class="u-muted text-sm"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">依合法決議辦理後續通知、備查及救濟；必要時請律師協助。</span><span class="u-en" lang="en">Implement lawful decisions, notifications, filings, and remedies; consult a lawyer when necessary.</span></span></p></div></div><p class="u-mini mt-5" style="color:var(--u-accent)"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">會議時間／地點：尚待正式公告，不應把網路流傳的日期當成已確認。</span><span class="u-en" lang="en">Meeting date and venue: pending official announcement. Do not treat circulating online dates as confirmed.</span></span></p></section><section><div class="u-kicker">LEGAL &amp; PROCEDURAL FAQ</div><h3 class="u-heading mt-2 mb-5"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">點擊查看詳細議事指引</span><span class="u-en" lang="en">Expand the detailed meeting and legal guide</span></span></h3><div class="space-y-3">
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">臨時會員大會如何發起？</span><span class="u-en" lang="en">How can members request an extraordinary meeting?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》第 23 條：會員五分之一以上，或會員代表三分之一以上，可請求理事長召開臨時會員（代表）大會；監事也可請求。通常須提前三日通知，緊急事故得於會前一日通知。</span><span class="u-en" lang="en">Under Article 23 of the Labor Union Act, at least one-fifth of members or one-third of delegates may request the chairperson to convene an extraordinary meeting; supervisors may also request one. Notice is generally required three days in advance, or one day in urgent circumstances.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">若理事長自請求日起十日內不召集，原請求人得依第 25 條申請主管機關指定召集。連署人數須按有資格的會員總數計算。</span><span class="u-en" lang="en">If the chairperson does not convene the meeting within ten days of the request, the original requesters may apply under Article 25 for the authority to designate a convener. Valid signatures must be counted against eligible membership.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">協議能否拒絕追認？哪些程序需要核對？</span><span class="u-en" lang="en">Can members decline ratification, and what procedures need review?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">第一步是確認 10/21 文件究竟屬於正式「團體協約」、一般勞資協議或調解紀錄，並取得全文及工會章程。</span><span class="u-en" lang="en">First determine whether the October 21 document is a collective agreement, an ordinary labor-management agreement, or a mediation record, and obtain its full text and the union bylaws.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">若屬正式團體協約，《團體協約法》第 9 條規定，除依章程簽訂外，須符合會員（代表）大會法定決議或全體會員書面同意方式；未符合者於補行追認前不生效力。不能僅憑「未開會員大會」便直接斷定無效，因條文有章程及書面同意途徑。</span><span class="u-en" lang="en">If it is a formal collective agreement, Article 9 of the Collective Agreement Act allows procedures specified in the bylaws, a legally required members’ or delegates’ resolution, or written approval by all members. An agreement that does not satisfy the relevant requirements does not take effect before ratification. The lack of a members’ meeting alone does not prove invalidity because other routes may apply.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">會員大會可提出不予追認、要求公開協議與重新協商的提案，但對外效力仍要依法及個案事實確認。</span><span class="u-en" lang="en">A members’ meeting may propose non-ratification, disclosure, or renewed negotiations; the effect outside the union depends on the applicable law and case facts.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">理監事解任（罷免）門檻怎麼算？</span><span class="u-en" lang="en">What vote is required to remove union directors or supervisors?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》第 26 條將解任規定列為會員（代表）大會議決事項。依第 27 條，會員（代表）大會原則上須過半數出席才能開會；涉及第 26 條第 1 至 5 款事項，須</span><span class="u-en" lang="en">Article 26 of the Labor Union Act lists removal among matters for the members’ or delegates’ meeting. Under Article 27, the meeting generally needs more than half of members or delegates in attendance. For matters in Article 26(1)–(5), the vote requires </span></span><strong><span class="u-bilingual" data-u-translated="1"><span class="u-zh">出席會員（代表）三分之二以上同意</span><span class="u-en" lang="en">at least two-thirds of those attending</span></span></strong><span class="u-bilingual" data-u-translated="1"><span class="u-zh">，不是全體會員三分之二。</span><span class="u-en" lang="en">—not two-thirds of the entire membership.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">解任對象、提案、投票及補選方式仍須核對工會章程、選任解任規定，勿在未確認前宣稱職務已被解除。</span><span class="u-en" lang="en">Check the bylaws and election/removal rules for motions, voting, and replacement elections. Do not announce a removal before it has lawfully occurred.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">委託書、電子投票與會員代表怎麼計算？</span><span class="u-en" lang="en">How are proxies, online voting, and delegate numbers counted?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">原始指引將紙本委託書直接納入出席數，但這不能直接當作通則；須核對適用法令、組織形式及章程，確認是否可委託、如何計票及是否採會員代表制。</span><span class="u-en" lang="en">The earlier guide automatically counted paper proxies as attendance, but that is not a general rule. Verify applicable law, organizational structure, and bylaws before accepting proxies or counting votes.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">建議由具勞動法經驗的律師或主管機關協助事先審查會議議程與程序。</span><span class="u-en" lang="en">Ask an employment-law attorney or the competent authority to review the proposed meeting agenda and procedures beforehand.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">大會後有哪些必須保留的證據？</span><span class="u-en" lang="en">What evidence should be kept after the meeting?</span></span></summary><div class="u-details-body"><ul><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">正式協議全文、附件、簽署頁與相關公告</span><span class="u-en" lang="en">The complete agreement, attachments, signature pages, and related notices</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">工會章程、會員名冊計算基準、召集通知及有效連署紀錄</span><span class="u-en" lang="en">Union bylaws, membership-count basis, meeting notice, and valid petition records</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">議程、簽到、表決票數、會議紀錄及送達憑證</span><span class="u-en" lang="en">Agenda, attendance records, vote totals, minutes, and proof of service</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">如有不利待遇，保留可合法取得的人事與對話紀錄</span><span class="u-en" lang="en">Legally obtained personnel and communication records if adverse treatment occurs</span></span></li></ul><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">送交主管機關的文件、期限與通知資方的方式，應依實際決議事項及適用規定辦理，不能一概認定「會後十五日內全部備查」。</span><span class="u-en" lang="en">Filing documents, deadlines, and employer notifications depend on the specific decision and applicable rules; do not assume every document must be filed within 15 days.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">政府救濟、工會保障與法律依據</span><span class="u-en" lang="en">Government remedies, union protections, and applicable law</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">可向台中市勞工局或勞動部詢問工會會議召集、章程及團體協約爭議；是否可申請調解、裁決或提起訴訟，須依爭議類型判斷。雇主若因正當工會活動給予不利待遇，可能涉及《工會法》第 35 條。</span><span class="u-en" lang="en">Ask the Taichung City Labor Affairs Bureau or Ministry of Labor about meeting procedures, bylaws, and collective-agreement disputes. Whether mediation, unfair-labor-practice adjudication, or litigation is available depends on the type of dispute. Adverse treatment by an employer for lawful union activity may implicate Article 35 of the Labor Union Act.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">官方法條：</span><span class="u-en" lang="en">Official legislation:</span></span><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020001" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》</span><span class="u-en" lang="en">Labor Union Act</span></span></a>、<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020006" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《團體協約法》</span><span class="u-en" lang="en">Collective Agreement Act</span></span></a><span class="u-bilingual" data-u-translated="1"><span class="u-zh">。可洽</span><span class="u-en" lang="en">You may contact</span></span><a href="https://www.mol.gov.tw/" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">勞動部</span><span class="u-en" lang="en">Ministry of Labor</span></span></a><span class="u-bilingual" data-u-translated="1"><span class="u-zh">或</span><span class="u-en" lang="en">or</span></span><a href="https://www.labor.taichung.gov.tw/" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">台中市勞工局</span><span class="u-en" lang="en">Taichung City Labor Affairs Bureau</span></span></a>。</p></div></details>
+</div></section><section class="u-surface"><h3 class="text-xl font-black"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">目前最重要的三個待確認問題</span><span class="u-en" lang="en">Four key questions still need answers</span></span></h3><div class="u-cardgrid mt-4"><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">協議是哪一種文件？</span><span class="u-en" lang="en">What kind of agreement was signed?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認全文、法律性質、生效條件。</span><span class="u-en" lang="en">Obtain the full text and verify its legal character and effective date.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">章程怎麼規定？</span><span class="u-en" lang="en">What do the bylaws require?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認授權、召集、投票與解任程序。</span><span class="u-en" lang="en">Check authorization, meeting notices, voting, and removal procedures.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">有效會員數多少？</span><span class="u-en" lang="en">How many eligible members are there?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">依法計算請求與開會門檻。</span><span class="u-en" lang="en">Calculate petition and quorum thresholds under the applicable rules.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">正式會議何時公告？</span><span class="u-en" lang="en">When will a formal meeting be announced?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">等待具召集權者的正式通知。</span><span class="u-en" lang="en">Wait for an official notice from an authorized convener.</span></span></p></div></div></section><footer class="u-muted text-xs pb-3"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">本頁整理日期：2026/10/22 · 社群動態及連署數請以原始來源最新公告為準 · 請避免散布未查證指控或可識別個人資料。</span><span class="u-en" lang="en">Page compiled Oct 22, 2026 · Check the original sources for updated group news and petition figures · Avoid unverified allegations or personally identifiable information.</span></span></footer></div><div class="flex flex-wrap items-center gap-2 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm u-v14-navigation" id="portalNavFooter">
+<button class="flex-1 min-w-[125px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active border border-transparent" id="btnMode0" onclick="goToEmergencyHero()">🕯️ 緊急專區</button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode2" onclick="switchMode(2)">🎁 2025 開獎</button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent relative" id="btnMode3" onclick="switchMode(3)">🎁 2026 開獎 <span class="absolute -top-2 -right-2 bg-rose-500 text-white text-[9px] px-2 py-0.5 rounded-full shadow animate-pulse">即將到來</span></button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent flex justify-center items-center gap-1" id="btnMode4" onclick="switchMode(4)">🏭 工會資訊 <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span class="relative inline-flex rounded-full h-full w-2 bg-rose-500"></span></span></button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode5" onclick="switchMode(5)">🧰 員工工具箱</button>
-</div>
-
-<!-- Sticky MU stock ticker -->
-<div class="portal-stock-bar mb-5 rounded-2xl border border-slate-700 bg-slate-950/95 text-white shadow-lg" id="muStockBar">
+</div><div class="portal-stock-bar mb-5 rounded-2xl border border-slate-700 bg-slate-950/95 text-white shadow-lg u-v14-stock" id="muStockBar">
 <div class="px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 <div class="flex items-center gap-3">
 <span class="bg-blue-600 text-white font-bold text-xs px-2 py-1 rounded">NASDAQ: MU</span>
@@ -141,11 +233,10 @@
 </div>
 </div>
 </div>
-
 <!-- ========================================== -->
 <!-- MODE 1: 日常薪情模式 -->
 <!-- ========================================== -->
-<div class="space-y-6 block animate-[fadeIn_0.5s_ease-out]" id="mode1Container">
+<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode1Container">
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 <div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
 <p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 總調查人數 (母體樣本)</p>
@@ -155,11 +246,11 @@
 <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
 <div>
 <label class="block text-slate-500 font-bold mb-1">1. 職等群篩選 (Series)</label>
-<div id="m1FilterSeriesButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m1FilterSeriesButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">2. 職等快速過濾 (GJS)</label>
-<div id="m1FilterGradeButtons" class="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto"></div>
+<div class="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto" id="m1FilterGradeButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1 flex justify-between">
@@ -170,11 +261,11 @@
 <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Min:</span><input class="w-full accent-blue-600 cursor-pointer" id="filterYearMin" max="24" min="0" oninput="updateYearSliders(); updateCharts();" type="range" value="0"/></div>
 <div class="flex items-center gap-2"><span class="text-slate-400 text-[10px]">Max:</span><input class="w-full accent-blue-600 cursor-pointer" id="filterYearMax" max="24" min="0" oninput="updateYearSliders(); updateCharts();" type="range" value="24"/></div>
 </div>
-<div id="m1YearFilters" class="flex flex-wrap gap-1.5 mt-2"></div>
+<div class="flex flex-wrap gap-1.5 mt-2" id="m1YearFilters"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">4. 團隊類型</label>
-<div id="m1FilterTeamButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m1FilterTeamButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1 flex justify-between">
@@ -191,7 +282,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標) <span id="m1OutlierNote" class="text-[10px] font-bold text-amber-600">⚠️ 各職等分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately within each grade using 1.5×IQR (<span id="m1ValidSamples">Valid samples / 有效樣本 --</span>).</span></h3>
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 各職等薪水廣度分佈 (低標~高標) <span class="text-[10px] font-bold text-amber-600" id="m1OutlierNote">⚠️ 各職等分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately within each grade using 1.5×IQR (<span id="m1ValidSamples">Valid samples / 有效樣本 --</span>).</span></h3>
 <p class="text-xs text-slate-400 mb-3">(自動屏蔽少於2筆數據，柱體已直秀高低標，<span class="text-rose-500 font-bold">紅色橫槓</span>代表平均數)</p>
 <div class="relative h-80"><canvas id="boxSalaryChart"></canvas></div>
 </div>
@@ -243,7 +334,7 @@
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-3 mb-4 gap-3">
 <div>
-<h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線 <span id="m1OutlierNoteGold" class="text-[10px] font-bold text-amber-600">⚠️ 各職等分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately within each grade using 1.5×IQR (<span id="m1ValidSamplesGold">Valid samples / 有效樣本 --</span>).</span></h3>
+<h3 class="text-sm font-bold text-slate-800">📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線 <span class="text-[10px] font-bold text-amber-600" id="m1OutlierNoteGold">⚠️ 各職等分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately within each grade using 1.5×IQR (<span id="m1ValidSamplesGold">Valid samples / 有效樣本 --</span>).</span></h3>
 <p class="text-xs text-slate-400 mt-0.5">🚀 點選圖例可開啟/隱藏該職等。</p>
 </div>
 <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium">
@@ -257,7 +348,7 @@
 <div class="relative h-[600px]"><canvas id="mainScatterChart"></canvas></div>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣) <span id="m1OutlierNoteHeat" class="text-[10px] font-bold text-amber-600">⚠️ 各職等分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately within each grade using 1.5×IQR (<span id="m1ValidSamplesHeat">Valid samples / 有效樣本 --</span>).</span></h3>
+<h3 class="text-sm font-bold text-slate-800 mb-1">⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣) <span class="text-[10px] font-bold text-amber-600" id="m1OutlierNoteHeat">⚠️ 各職等分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately within each grade using 1.5×IQR (<span id="m1ValidSamplesHeat">Valid samples / 有效樣本 --</span>).</span></h3>
 <p class="text-xs text-slate-400 mb-4">（🚀 橫向職等已按照 D-&gt;T-&gt;E-&gt;M 嚴格層級順序排列）</p>
 <div class="overflow-x-auto">
 <table class="w-full text-center border-collapse text-xs min-w-[650px] border">
@@ -326,7 +417,6 @@
 </div>
 </section>
 </div>
-
 <!-- Raw data fix: 2025/2026 tables render ALL filtered rows; the surrounding max-height + overflow-y-auto provides scrolling. -->
 <!-- ========================================== -->
 <!-- MODE 2: 2025 開獎模式 -->
@@ -341,15 +431,15 @@
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
 <div>
 <label class="block text-slate-500 font-bold mb-1">1. 職等群 (Series)</label>
-<div id="m2FilterSeriesButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m2FilterSeriesButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label>
-<div id="m2FilterPromoButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m2FilterPromoButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
-<div id="m2FilterPerfButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m2FilterPerfButtons"></div>
 </div>
 </div>
 </div>
@@ -386,12 +476,12 @@
 <!-- Charts -->
 <div class="lg:col-span-3 space-y-6">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="text-sm font-bold text-slate-800 mb-1">📦 2025 各職等 RSU 分發力道 (美金) <span id="m2RsuOutlierNote" class="text-[10px] font-bold text-amber-600">⚠️ 各職等 × 考績 × 升等狀態分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately by grade × performance × promotion status using 1.5×IQR (<span id="m2RsuValidSamples">Valid samples / 有效樣本 --</span>).</span></h3>
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 2025 各職等 RSU 分發力道 (美金) <span class="text-[10px] font-bold text-amber-600" id="m2RsuOutlierNote">⚠️ 各職等 × 考績 × 升等狀態分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately by grade × performance × promotion status using 1.5×IQR (<span id="m2RsuValidSamples">Valid samples / 有效樣本 --</span>).</span></h3>
 <p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等；標準 Box chart：箱體＝Q1～Q3、紅線＝Median、鬚線＝非極端值 Min～Max。</p>
 <div class="relative h-80"><canvas id="m2RsuChart"></canvas></div>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="text-sm font-bold text-slate-800 mb-1">📦 調薪 Box chart：職等 vs. 調薪 (%) <span id="m2RaiseOutlierNote" class="text-[10px] font-bold text-amber-600">⚠️ 依職等 × 考績 × 升遷狀態分別依 1.5×IQR 排除極端值 / Tukey 1.5×IQR</span></h3>
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 調薪 Box chart：職等 vs. 調薪 (%) <span class="text-[10px] font-bold text-amber-600" id="m2RaiseOutlierNote">⚠️ 依職等 × 考績 × 升遷狀態分別依 1.5×IQR 排除極端值 / Tukey 1.5×IQR</span></h3>
 <p class="text-xs text-slate-400 mb-3">三張圖各自使用自己的資料母體重新計算 Min、Q1、Median、Q3、Max。</p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <div class="border border-slate-200 rounded-xl p-3 bg-slate-50/40"><h4 class="text-xs font-black text-slate-700 mb-2">全數據</h4><div class="relative h-72"><canvas id="m2RaiseAllChart"></canvas></div></div>
@@ -465,7 +555,6 @@
 </div>
 </section>
 </div>
-
 <!-- ========================================== -->
 <!-- MODE 3: 2026 開獎模式 -->
 <!-- ========================================== -->
@@ -479,15 +568,15 @@
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
 <div>
 <label class="block text-slate-500 font-bold mb-1">1. 職等群 (Series)</label>
-<div id="m3FilterSeriesButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m3FilterSeriesButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">2. 是否升遷 (Promoted)</label>
-<div id="m3FilterPromoButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m3FilterPromoButtons"></div>
 </div>
 <div>
 <label class="block text-slate-500 font-bold mb-1">3. 考績過濾 (Performance)</label>
-<div id="m3FilterPerfButtons" class="flex flex-wrap gap-1.5"></div>
+<div class="flex flex-wrap gap-1.5" id="m3FilterPerfButtons"></div>
 </div>
 </div>
 </div>
@@ -525,12 +614,12 @@
 <!-- Charts -->
 <div class="lg:col-span-3 space-y-6">
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="text-sm font-bold text-slate-800 mb-1">📦 2026 各職等 RSU 分發力道 (美金) <span id="m3RsuOutlierNote" class="text-[10px] font-bold text-amber-600">⚠️ 各職等 × 考績 × 升等狀態分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately by grade × performance × promotion status using 1.5×IQR (<span id="m3RsuValidSamples">Valid samples / 有效樣本 --</span>).</span></h3>
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 2026 各職等 RSU 分發力道 (美金) <span class="text-[10px] font-bold text-amber-600" id="m3RsuOutlierNote">⚠️ 各職等 × 考績 × 升等狀態分別依 1.5×IQR 統計分布排除極端值 / Extreme values excluded separately by grade × performance × promotion status using 1.5×IQR (<span id="m3RsuValidSamples">Valid samples / 有效樣本 --</span>).</span></h3>
 <p class="text-xs text-slate-400 mb-3">自動過濾資料過少 ( &lt; 3 筆) 的職等。</p>
 <div class="relative h-80"><canvas id="m3RsuChart"></canvas></div>
 </div>
 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h3 class="text-sm font-bold text-slate-800 mb-1">📦 調薪 Box chart：職等 vs. 調薪 (%) <span id="m3RaiseOutlierNote" class="text-[10px] font-bold text-amber-600">⚠️ 依職等 × 考績 × 升遷狀態分別依 1.5×IQR 排除極端值 / Tukey 1.5×IQR</span></h3>
+<h3 class="text-sm font-bold text-slate-800 mb-1">📦 調薪 Box chart：職等 vs. 調薪 (%) <span class="text-[10px] font-bold text-amber-600" id="m3RaiseOutlierNote">⚠️ 依職等 × 考績 × 升遷狀態分別依 1.5×IQR 排除極端值 / Tukey 1.5×IQR</span></h3>
 <p class="text-xs text-slate-400 mb-3">三張圖各自使用自己的資料母體重新計算 Min、Q1、Median、Q3、Max。</p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <div class="border border-slate-200 rounded-xl p-3 bg-slate-50/40"><h4 class="text-xs font-black text-slate-700 mb-2">全數據</h4><div class="relative h-72"><canvas id="m3RaiseAllChart"></canvas></div></div>
@@ -605,7 +694,6 @@
 </div>
 </section>
 </div>
-
 <!-- ========================================== -->
 <!-- MODE 4: 工會資訊 -->
 <!-- ========================================== -->
@@ -676,7 +764,6 @@
 </div>
 </div>
 </div>
-
 <!-- ========================================== -->
 <!-- MODE 5: 員工工具箱 / PORTAL HUB -->
 <!-- ========================================== -->
@@ -686,26 +773,20 @@
 <div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、匿名互動與外部資訊集中在這裡。</p></div>
 <div class="bg-white/10 rounded-xl px-4 py-3 text-xs"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div>
 </div></div>
-
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 <div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 匿名心聲廣播</h3><p class="text-xs text-slate-400">固定顯示 5 則，每 4 秒輪播 1 則。</p></div><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPublicReports()">↻ 更新</button></div>
 <div class="portal-report-viewport" id="publicReportViewport"><div class="portal-report-track" id="publicReportTrack"><div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">載入中...</div></div></div>
 </section>
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><h3 class="font-black text-slate-800">📣 匿名大聲公</h3><p class="text-xs text-slate-400 mb-3">投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。</p><div class="grid grid-cols-2 gap-2 mb-2"><select class="w-full border rounded-lg p-2 text-[12px]" id="reportType"><option value="心聲">🗣️ 心聲</option><option value="許願池">💡 許願池</option></select><select class="w-full border rounded-lg p-2 text-[12px]" id="reportCategory"><option>薪資</option><option>工會</option><option>福利</option><option>管理</option><option>工作環境</option><option>文化</option><option>交通</option><option>餐廳</option><option>其他</option></select></div><select class="w-full border rounded-lg p-2 mb-2 text-[12px]" id="reportSite"><option value="">不指定地點</option><option>桃園</option><option>台中</option></select><textarea class="w-full border rounded-lg p-2 mb-2 text-[12px]" id="reportContent" placeholder="例如：😤 今天最想說的是……" rows="3"></textarea><div class="flex flex-wrap gap-1 mb-2"><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😄')">😄</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😐')">😐</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😤')">😤</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('💰')">💰</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🏭')">🏭</button><button type="button" class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🗣️')">🗣️</button></div><button class="w-full bg-rose-600 text-white font-bold py-2 rounded-lg text-[12px]" onclick="submitAnonymousReport()">送出匿名大聲公</button><div class="text-xs mt-2 font-bold" id="reportResult"></div></section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><h3 class="font-black text-slate-800">📣 匿名大聲公</h3><p class="text-xs text-slate-400 mb-3">投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。</p><div class="grid grid-cols-2 gap-2 mb-2"><select class="w-full border rounded-lg p-2 text-[12px]" id="reportType"><option value="心聲">🗣️ 心聲</option><option value="許願池">💡 許願池</option></select><select class="w-full border rounded-lg p-2 text-[12px]" id="reportCategory"><option>薪資</option><option>工會</option><option>福利</option><option>管理</option><option>工作環境</option><option>文化</option><option>交通</option><option>餐廳</option><option>其他</option></select></div><select class="w-full border rounded-lg p-2 mb-2 text-[12px]" id="reportSite"><option value="">不指定地點</option><option>桃園</option><option>台中</option></select><textarea class="w-full border rounded-lg p-2 mb-2 text-[12px]" id="reportContent" placeholder="例如：😤 今天最想說的是……" rows="3"></textarea><div class="flex flex-wrap gap-1 mb-2"><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😄')" type="button">😄</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😐')" type="button">😐</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😤')" type="button">😤</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('💰')" type="button">💰</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🏭')" type="button">🏭</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🗣️')" type="button">🗣️</button></div><button class="w-full bg-rose-600 text-white font-bold py-2 rounded-lg text-[12px]" onclick="submitAnonymousReport()">送出匿名大聲公</button><div class="text-xs mt-2 font-bold" id="reportResult"></div></section>
 </div>
-
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<section class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌡️ 你覺得現在公司氣氛？</h3><p class="text-xs text-slate-400">匿名、非正式員工感受調查；每人每天可投 1 次。</p></div><div class="flex items-center gap-2"><div id="moodScore" class="text-sm font-black text-sky-700">目前尚無資料</div><button class="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded-lg font-bold" onclick="refreshCompanyMood()">↻</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2" id="moodOptions"><button onclick="submitMood('很不錯')" class="mood-btn p-3 rounded-xl border hover:bg-emerald-50 text-sm font-bold">😄<br>很不錯</button><button onclick="submitMood('還不錯')" class="mood-btn p-3 rounded-xl border hover:bg-green-50 text-sm font-bold">🙂<br>還不錯</button><button onclick="submitMood('普通')" class="mood-btn p-3 rounded-xl border hover:bg-slate-50 text-sm font-bold">😐<br>普通</button><button onclick="submitMood('有點差')" class="mood-btn p-3 rounded-xl border hover:bg-amber-50 text-sm font-bold">😕<br>有點差</button><button onclick="submitMood('非常差')" class="mood-btn p-3 rounded-xl border hover:bg-rose-50 text-sm font-bold">😡<br>非常差</button></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"><div id="moodResults" class="space-y-2"></div><div class="relative h-56"><canvas id="moodTrendChart"></canvas></div></div></section>
+<section class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌡️ 你覺得現在公司氣氛？</h3><p class="text-xs text-slate-400">匿名、非正式員工感受調查；每人每天可投 1 次。</p></div><div class="flex items-center gap-2"><div class="text-sm font-black text-sky-700" id="moodScore">目前尚無資料</div><button class="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded-lg font-bold" onclick="refreshCompanyMood()">↻</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2" id="moodOptions"><button class="mood-btn p-3 rounded-xl border hover:bg-emerald-50 text-sm font-bold" onclick="submitMood('很不錯')">😄<br/>很不錯</button><button class="mood-btn p-3 rounded-xl border hover:bg-green-50 text-sm font-bold" onclick="submitMood('還不錯')">🙂<br/>還不錯</button><button class="mood-btn p-3 rounded-xl border hover:bg-slate-50 text-sm font-bold" onclick="submitMood('普通')">😐<br/>普通</button><button class="mood-btn p-3 rounded-xl border hover:bg-amber-50 text-sm font-bold" onclick="submitMood('有點差')">😕<br/>有點差</button><button class="mood-btn p-3 rounded-xl border hover:bg-rose-50 text-sm font-bold" onclick="submitMood('非常差')">😡<br/>非常差</button></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"><div class="space-y-2" id="moodResults"></div><div class="relative h-56"><canvas id="moodTrendChart"></canvas></div></div></section>
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">標題、日期、分類；點擊查看全文。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="openAnnouncementSubmit()">＋ 投稿</button><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div></div><div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div></section>
 <section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><h3 class="font-black text-slate-800">📅 公司重要日期｜事件時間軸</h3><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openEventSubmit()">＋ 投稿</button></div><div class="event-timeline" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div></section>
 </div>
-
-
-
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" target="_blank" rel="noopener" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89">Yahoo「美光」</a></div></div><div id="externalNewsStatus" class="external-status text-slate-500 mb-3">外部資訊尚未更新。</div><div id="externalNewsFilters" class="flex flex-wrap gap-2 mb-3"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div id="externalNewsList" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-sm text-slate-400">載入中...</p></div></section>
+<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&amp;hl=zh-TW&amp;gl=TW&amp;ceid=TW%3Azh-Hant" rel="noopener" target="_blank">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89" rel="noopener" target="_blank">Yahoo「美光」</a></div></div><div class="external-status text-slate-500 mb-3" id="externalNewsStatus">外部資訊尚未更新。</div><div class="flex flex-wrap gap-2 mb-3" id="externalNewsFilters"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="externalNewsList"><p class="text-sm text-slate-400">載入中...</p></div></section>
 </div>
-
 <!-- 📝 Form Modal (M1) -->
 <div class="modal" id="dataFormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
@@ -726,7 +807,6 @@
 </form>
 </div>
 </div>
-
 <!-- 🎁 Form Modal (M2 - Bonus) -->
 <div class="modal" id="bonusFormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
@@ -763,7 +843,6 @@
 </form>
 </div>
 </div>
-
 <!-- 🎁 2026 Bonus Modal -->
 <div class="modal" id="bonus2026FormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
@@ -785,7 +864,6 @@
 </form>
 </div>
 </div>
-
 <!-- 🏭 Union Report Modal -->
 <div class="modal" id="unionReportModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
@@ -800,13 +878,11 @@
 </form>
 </div>
 </div>
-
 <!-- Extra Modals -->
-<div class="modal" id="announcementSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📢 投稿公告</h2><input id="annSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="公告標題"><select id="annSubmitCategory" class="w-full border rounded-lg p-2 mb-2"><option>一般</option><option>工會</option><option>福利</option><option>重要通知</option></select><textarea id="annSubmitContent" class="w-full border rounded-lg p-2 mb-3" rows="6" placeholder="公告內容"></textarea><button class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-lg" onclick="submitAnnouncementSuggestion()">送出審核</button><div id="annSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
-<div class="modal" id="eventSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('eventSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📅 投稿重要日期</h2><input id="eventSubmitTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="事件名稱"><div class="grid grid-cols-2 gap-2 mb-2"><input id="eventSubmitStart" class="w-full border rounded-lg p-2" type="datetime-local"><input id="eventSubmitEnd" class="w-full border rounded-lg p-2" type="datetime-local"></div><input id="eventSubmitCategory" class="w-full border rounded-lg p-2 mb-2" placeholder="分類"><textarea id="eventSubmitDescription" class="w-full border rounded-lg p-2 mb-3" rows="4" placeholder="說明"></textarea><button class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-lg" onclick="submitEventSuggestion()">送出審核</button><div id="eventSubmitMsg" class="text-xs mt-2 font-bold"></div></div></div>
+<div class="modal" id="announcementSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📢 投稿公告</h2><input class="w-full border rounded-lg p-2 mb-2" id="annSubmitTitle" placeholder="公告標題"/><select class="w-full border rounded-lg p-2 mb-2" id="annSubmitCategory"><option>一般</option><option>工會</option><option>福利</option><option>重要通知</option></select><textarea class="w-full border rounded-lg p-2 mb-3" id="annSubmitContent" placeholder="公告內容" rows="6"></textarea><button class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-lg" onclick="submitAnnouncementSuggestion()">送出審核</button><div class="text-xs mt-2 font-bold" id="annSubmitMsg"></div></div></div>
+<div class="modal" id="eventSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('eventSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📅 投稿重要日期</h2><input class="w-full border rounded-lg p-2 mb-2" id="eventSubmitTitle" placeholder="事件名稱"/><div class="grid grid-cols-2 gap-2 mb-2"><input class="w-full border rounded-lg p-2" id="eventSubmitStart" type="datetime-local"/><input class="w-full border rounded-lg p-2" id="eventSubmitEnd" type="datetime-local"/></div><input class="w-full border rounded-lg p-2 mb-2" id="eventSubmitCategory" placeholder="分類"/><textarea class="w-full border rounded-lg p-2 mb-3" id="eventSubmitDescription" placeholder="說明" rows="4"></textarea><button class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-lg" onclick="submitEventSuggestion()">送出審核</button><div class="text-xs mt-2 font-bold" id="eventSubmitMsg"></div></div></div>
 <div class="modal" id="announcementViewModal"><div class="bg-white rounded-2xl w-full max-w-2xl p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementViewModal')">✖</button><div id="announcementViewBody"></div></div></div>
-<div class="modal" id="wishlistModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('wishlistModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">💡 網站功能許願清單</h2><input id="wishTitle" class="w-full border rounded-lg p-2 mb-2" placeholder="功能名稱（可不填）"><textarea id="wishContent" class="w-full border rounded-lg p-2 mb-3" rows="5" placeholder="你希望網站未來增加什麼？"></textarea><button class="w-full bg-violet-600 text-white font-bold py-2.5 rounded-lg" onclick="submitWishlist()">送出許願</button><div id="wishMsg" class="text-xs mt-2 font-bold"></div></div></div>
-
+<div class="modal" id="wishlistModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('wishlistModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">💡 網站功能許願清單</h2><input class="w-full border rounded-lg p-2 mb-2" id="wishTitle" placeholder="功能名稱（可不填）"/><textarea class="w-full border rounded-lg p-2 mb-3" id="wishContent" placeholder="你希望網站未來增加什麼？" rows="5"></textarea><button class="w-full bg-violet-600 text-white font-bold py-2.5 rounded-lg" onclick="submitWishlist()">送出許願</button><div class="text-xs mt-2 font-bold" id="wishMsg"></div></div></div>
 <script>
         const API_M1 = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
         const API_M2 = "https://script.google.com/macros/s/AKfycbwWd9ozWC4ATM6Oeo_vzhtxjjIFjWivXR6yi-2IwZ8j3G8gvwSqypNtwinHc3q7oWwX/exec";
@@ -2383,18 +2459,29 @@
             }
         }
 
+
+        function goToEmergencyHero() {
+            switchMode(0);
+            const destination=document.getElementById('u-emergency-hero');
+            if (!destination) return;
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                destination.scrollIntoView({behavior:'smooth',block:'start'});
+            }));
+        }
+
         function switchMode(mode) {
-            const containers = ['mode1Container','mode2Container','mode3Container','mode4Container','mode5Container'];
-            const buttons = ['btnMode1','btnMode2','btnMode3','btnMode4','btnMode5'];
+            document.body.classList.toggle('emergency-active',mode === 0);
+            const containers = ['mode0Container','mode1Container','mode2Container','mode3Container','mode4Container','mode5Container'];
+            const buttons = ['btnMode0','btnMode1','btnMode2','btnMode3','btnMode4','btnMode5'];
             containers.forEach((id, i) => {
                 const el = document.getElementById(id);
-                if (el) el.classList.toggle('hidden', i !== mode - 1);
+                if (el) el.classList.toggle('hidden', i !== mode);
             });
             buttons.forEach((id, i) => {
                 const el = document.getElementById(id);
                 if (!el) return;
-                el.classList.toggle('tab-active', i === mode - 1);
-                if (i !== mode - 1) el.classList.add('text-slate-500'); else el.classList.remove('text-slate-500');
+                el.classList.toggle('tab-active', i === mode);
+                if (i !== mode) el.classList.add('text-slate-500'); else el.classList.remove('text-slate-500');
             });
             if (mode === 2) {
                 try { updateM2Charts(); } catch (e) { console.warn('M2 render:', e); }
@@ -2428,7 +2515,6 @@
             if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
         });
     </script>
-
 <script>
 /* ===== Permanent bilingual UI: Chinese first + English in smaller text ===== */
 const I18N = {
@@ -2482,7 +2568,7 @@ const I18N = {
 };
 /* ===== Complete UI i18n extension ===== */
 const EXTRA_I18N = {
- '各職等分別依統計分布排除極端值':'Extreme values excluded separately within each grade','各職等分別檢查 RSU 極端值':'RSU outliers checked separately within each grade','各職等分別檢查調薪極端值':'Raise outliers checked separately within each grade','職等數':'grades', '中文':'Chinese','英文':'English','LANG':'LANG','光光猴薪情平台 v11 • PortalDB 4.1':'Monkey Salary Portal v11 • PortalDB 4.1',
+ '各職等分別依統計分布排除極端值':'Extreme values excluded separately within each grade','各職等分別檢查 RSU 極端值':'RSU outliers checked separately within each grade','各職等分別檢查調薪極端值':'Raise outliers checked separately within each grade','職等數':'grades', '中文':'Chinese','英文':'English','LANG':'LANG','光光猴薪情平台 v13 • PortalDB 4.1':'Monkey Salary Portal v12 • PortalDB 4.1',
  '👁 總瀏覽':'👁 Total views','🔥 今日':'🔥 Today','💡 功能許願':'💡 Feature requests','連線初始化中...':'Initializing connection...','📝 貢獻日常薪情':'📝 Contribute salary data','🎁 貢獻 2025 開獎':'🎁 Contribute 2025 bonus','🎁 貢獻 2026 開獎':'🎁 Contribute 2026 bonus',
  '📊 日常薪情':'📊 Salary Insights','🎁 2025 開獎':'🎁 2025 Bonus','🎁 2026 開獎':'🎁 2026 Bonus','即將到來':'Coming soon','🏭 工會資訊':'🏭 Union Info','🧰 員工工具箱':'🧰 Employee Toolbox','美光科技 Micron Technology':'Micron Technology','載入中...':'Loading...','等待報價':'Waiting for quote','↻ 更新':'↻ Refresh',
  '1. 職等群篩選 (Series)':'1. Grade Series Filter','全部職系 (E*, T*, M*, D*...)':'All series (E*, T*, M*, D*...)','E系 (工程師)':'E Series (Engineers)','T系 (技術員)':'T Series (Technicians)','M系 (主管職)':'M Series (Managers)','D系 (操作員)':'D Series (Operators)','2. 職等快速過濾 (GJS)':'2. Grade Filter (GJS)','全部職等':'All grades','3. 團隊類型':'3. Team Type','全部類型 (Global & Site)':'All types (Global & Site)','4. 年資篩選範圍':'4. Experience Range','0 - 25 年':'0 - 25 years',
@@ -2524,12 +2610,11 @@ Object.assign(BILINGUAL_I18N,BILINGUAL_EXTRA,{
 */
 window.__legacyBilingualRuntimeDisabled = true;
 </script>
-
 <script>
 /* ===== Complete Chinese + English UI layer ===== */
 (function(){
 const COMPLETE_I18N = {
-'光光猴薪情平台 v11 • PortalDB 4.1':'Monkey Salary Portal v11 • PortalDB 4.1','光光猴薪情平台':'Monkey Salary Portal','我們不生產錢，我們只是香蕉農':'We do not make money; we are just banana farmers','👁 總瀏覽':'👁 Total views','🔥 今日':'🔥 Today','💡 功能許願':'💡 Feature requests','連線初始化中...':'Initializing connection...','📝 貢獻日常薪情':'📝 Contribute salary data','🎁 貢獻 2025 開獎':'🎁 Contribute 2025 bonus','🎁 貢獻 2026 開獎':'🎁 Contribute 2026 bonus','核心切換':'Main sections','📊 日常薪情':'📊 Salary Insights','🎁 2025 開獎':'🎁 2025 Bonus','🎁 2026 開獎':'🎁 2026 Bonus','即將到來':'Coming soon','🏭 工會資訊':'🏭 Union Info','🧰 員工工具箱':'🧰 Employee Toolbox','美光科技 Micron Technology':'Micron Technology','載入中...':'Loading...','等待報價':'Waiting for quote','↻ 更新':'↻ Refresh',
+'光光猴薪情平台 v13 • PortalDB 4.1':'Monkey Salary Portal v12 • PortalDB 4.1','光光猴薪情平台':'Monkey Salary Portal','我們不生產錢，我們只是香蕉農':'We do not make money; we are just banana farmers','👁 總瀏覽':'👁 Total views','🔥 今日':'🔥 Today','💡 功能許願':'💡 Feature requests','連線初始化中...':'Initializing connection...','📝 貢獻日常薪情':'📝 Contribute salary data','🎁 貢獻 2025 開獎':'🎁 Contribute 2025 bonus','🎁 貢獻 2026 開獎':'🎁 Contribute 2026 bonus','核心切換':'Main sections','📊 日常薪情':'📊 Salary Insights','🎁 2025 開獎':'🎁 2025 Bonus','🎁 2026 開獎':'🎁 2026 Bonus','即將到來':'Coming soon','🏭 工會資訊':'🏭 Union Info','🧰 員工工具箱':'🧰 Employee Toolbox','美光科技 Micron Technology':'Micron Technology','載入中...':'Loading...','等待報價':'Waiting for quote','↻ 更新':'↻ Refresh',
 'MODE 1: 日常薪情模式':'MODE 1: Salary Insights','📊 總調查人數 (母體樣本)':'📊 Total respondents (sample)','連線中...':'Connecting...','1. 職等群篩選 (Series)':'1. Grade series filter','全部職系 (E*, T*, M*, D*...)':'All series (E*, T*, M*, D*...)','E系 (工程師)':'E Series (Engineers)','T系 (技術員)':'T Series (Technicians)','M系 (主管職)':'M Series (Managers)','D系 (操作員)':'D Series (Operators)','2. 職等快速過濾 (GJS)':'2. Grade quick filter (GJS)','全部職等':'All grades','3. 團隊類型':'3. Team type','全部類型 (Global & Site)':'All types (Global & Site)','4. 年資篩選範圍':'4. Experience range','0 - 25 年':'0 - 25 years',
 '📦 各職等薪水廣度分佈 (低標~高標)':'📦 Salary range by grade (low to high)','(自動屏蔽少於2筆數據，柱體已直秀高低標，':'(Grades with fewer than 2 records are automatically hidden; bars show low/high values,','代表平均數)':'indicating the average)','紅色橫槓':'red line','📊 各職等參與調查人數 (數據母體分佈)':'📊 Respondents by grade (sample distribution)','（🚀 橫軸已按照 D->T->E->M 層級嚴格順序排列）':'(🚀 X-axis follows the strict D -> T -> E -> M hierarchy order)','📍 互動定位：我在猴群哪個位置？':'📍 Interactive locator: Where do I rank among peers?','您的職等 (如: E2, T3)':'Your grade (e.g. E2, T3)','總工作年資 (年)':'Total experience (years)','月薪 (萬元，不含加班費)':'Monthly salary (10K NTD, excluding overtime)','開始定位':'Locate me','清除定位':'Clear position','🚨 你已接近此職等薪資高位區間。':'🚨 You are near the upper salary range for this grade.','📊 薪資勝率百分位報告':'📊 Salary Percentile Report','同職等勝率 (Grade Percentile)':'Same-grade percentile','領先該職等同仁':'Ahead of peers in this grade','相似年資勝率 (±2年資產圈)':'Similar-experience percentile (±2 years)','同資歷同仁':'Peers with similar experience','⚡ 職等晉升薪資跳升預估 (ROI)':'⚡ Estimated salary increase after promotion (ROI)','🎁 考績分紅與預估年薪計算器':'🎁 Performance Bonus & Estimated Annual Salary Calculator','公司績效 (%)':'Company performance (%)','個人績效 (%)':'Individual performance (%)','保障底薪 (14個月):':'Guaranteed base salary (14 months):','0 萬元':'0 10K NTD','預估考績分紅:':'Estimated performance bonus:','🚀 預估總年薪:':'🚀 Estimated total annual compensation:','📈 「黃金爆肝期」：職等晉升薪資關係與趨勢擬合線':'📈 “Golden Grind Period”: Salary vs. promotion trend','🚀 點選圖例可開啟/隱藏該職等。':'🚀 Click the legend to show/hide a grade.','全體':'All','E系':'E Series','T系':'T Series','M系':'M Series','D系':'D Series','⏳ 「熬出頭時間軸」：各職等達到目標月薪平均需累積年資 (熱力矩陣)':'⏳ “Time to Break Through”: Average experience needed to reach target salary (heatmap)','（🚀 橫向職等已按照 D->T->E->M 嚴格層級順序排列）':'(🚀 Grades follow the strict D -> T -> E -> M order)','目標月薪級距':'Target monthly salary range','📋 數據清單快速檢視與搜尋':'📋 Data List: Quick View & Search','⚠️ 點擊表格【標題】可進行排序':'⚠️ Click table headers to sort','📥 匯出 CSV':'📥 Export CSV','顯示 0 筆':'Showing 0 records','職系：':'Series:','團隊：':'Team:','具體職等：':'Specific grade:','職等 (GJS) ↕':'Grade (GJS) ↕','總工作年資 ↕':'Total experience ↕','月薪 (萬元) ↕':'Monthly salary (10K NTD) ↕','團隊類型 ↕':'Team type ↕','部門 ↕':'Department ↕','常態狀態':'Profile status',
 'MODE 2: 2025 開獎模式':'MODE 2: 2025 Bonus','🎁 開獎調查人數 (2025)':'🎁 2025 Bonus Survey Count','1. 職等群 (Series)':'1. Grade Series','2. 是否升遷 (Promoted)':'2. Promotion Status','全部 (升遷+未升遷)':'All (Promoted + Not promoted)','✅ 有升遷 (Promoted)':'✅ Promoted','❌ 未升遷 (Normal)':'❌ Not promoted (Normal)','3. 考績過濾 (Performance)':'3. Performance Filter','全部考績':'All performance','📍 2025 開獎定位器':'📍 2025 Bonus Locator','檢驗您的 Package 在同類人中是好是壞。':'Check how your package compares with peers.','未升遷 (❌ 無)':'Not promoted (❌ No)','有升遷 (✅ 有)':'Promoted (✅ Yes)','檢驗 PR 值':'Check percentile','清除':'Clear','📊 2025 開獎勝率報告':'📊 2025 Bonus Percentile Report','比對母體：...':'Comparison group: ...','調薪幅度 PR值':'Raise percentile','RSU 美金 PR值':'RSU USD percentile','📦 2025 各職等 RSU 分發力道 (美金)':'📦 2025 RSU Distribution by Grade (USD)','自動過濾資料過少 ( < 3 筆) 的職等。':'Automatically filters grades with fewer than 3 records.','📈 考績 vs. 調薪幅度：殘酷關聯圖 (%)':'📈 Performance vs. Raise: Correlation (%)','藍柱：未升遷｜紫柱：有升遷。':'Blue: Not promoted | Purple: Promoted.','(已支援高低標與平均值繪製)':'(Low/high and average values are shown)','📋 2025 開獎清單快速檢視與搜尋':'📋 2025 Bonus Data: Quick View & Search','升遷：':'Promotion:','考績：':'Performance:','有無升遷':'Promotion status','調薪幅度 (%) ↕':'Raise (%) ↕','RSU (美金) ↕':'RSU (USD) ↕',
@@ -2623,7 +2708,7 @@ const MAP=Object.assign({},
     if(!node || node.nodeType!==Node.TEXT_NODE) return;
     const parent=node.parentElement;
     if(!parent || SKIP_TAGS.has(parent.tagName)) return;
-    if(parent.closest(GENERATED)) return;
+    if(parent.closest(GENERATED) || parent.closest('#mode0Container, .u-emergency-notice')) return;
 
     const raw=node.nodeValue;
     if(!raw || !raw.trim() || !hasCJK(raw)) return;
@@ -2744,5 +2829,5 @@ const MAP=Object.assign({},
 <style id="unified-bilingual-style">
 [data-bilingual-en="1"]{font-size:calc(1em - 3.33px)!important;font-weight:400!important;opacity:.72}
 </style>
-</body>
+</div></body>
 </html>
