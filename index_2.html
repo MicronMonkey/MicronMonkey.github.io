@@ -3117,7 +3117,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
         setTimeout(() => { delete window[name]; },60000);
         error ? reject(error) : resolve(result);
       };
-      const timer = setTimeout(() => finish(new Error('timeout')),15000);
+      const timer = setTimeout(() => finish(new Error('timeout')),45000);
       window[name] = result => finish(null,result);
       tag.onerror = () => finish(new Error('network'));
       const url = new URL(COUNT_API_URL);
@@ -3132,12 +3132,23 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
     busy = true;refresh.disabled = true;
     $('petitionCountStatus').textContent = '正在讀取收件統計… / Updating…';
     try {
-      const data = await requestCount();
+      let data;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          data = await requestCount();
+          if (!data || data.ok !== true) throw new Error('backend');
+          break;
+        } catch (error) {
+          if (attempt === 1) throw error;
+          $('petitionCountStatus').textContent = '連線較慢或服務忙碌，正在重試… / Retrying the count service…';
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+      }
       const time = Date.parse(data && data.updatedAt);
       if(!data || data.ok !== true || data.metric !== 'pdf_documents' ||
         !Number.isSafeInteger(data.count) || data.count < 0 ||
         typeof data.updatedAt !== 'string' || !/(?:Z|[+-]\d{2}:\d{2})$/.test(data.updatedAt) ||
-        !Number.isFinite(time) || time > Date.now()+300000 ||
+        !Number.isFinite(time) ||
         (last && time < Date.parse(last.updatedAt))) throw new Error('invalid response');
       last = data;
       $('petitionCountValue').textContent = data.count.toLocaleString('en-US');
@@ -3148,9 +3159,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
         ? '目前顯示較早的統計，等待更新。 / Showing an older count; awaiting an update.'
         : '每分鐘自動更新 / Automatically refreshes every minute';
     } catch(error) {
+      const reason = error.message === 'timeout' ? '連線逾時 / Connection timed out' : error.message === 'network' ? '統計連線遭阻擋或載入失敗 / Count script blocked or failed to load' : error.message === 'backend' ? '後端暫時無法統計 / Backend count unavailable' : '統計資料格式不符 / Unexpected count response';
       $('petitionCountStatus').textContent = last
         ? '更新失敗，保留上次統計與時間。 / Update failed; showing the last successful count and time.'
-        : '暫時無法取得統計，請稍後再試。 / Count unavailable. Please try again later.';
+        : reason + '。請按「更新統計」重試。 / Tap Refresh to retry.';
     } finally { busy = false;refresh.disabled = false; }
   }
   refresh.addEventListener('click',update);
