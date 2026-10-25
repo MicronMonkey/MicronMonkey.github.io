@@ -784,4 +784,28 @@ $('cloudSend').onclick=async()=>{
  }finally{uploadBusy=false;refreshUploadState()}
 };
 })();
-</script></body></html>
+</script>
+<style>
+#browserReminder{width:min(440px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;border:0;border-radius:16px;padding:24px;color:#172c40;background:#fff;box-shadow:0 15px 60px #0015;font-family:inherit}
+#browserReminder::backdrop{background:rgba(7,27,43,.78)}
+#browserReminder h2{font-size:20px;margin:0 0 14px}
+#browserReminder p{font-size:15px;line-height:1.7;margin:0 0 12px}
+#browserReminder .reminder-en{font-size:13px;color:#526a7a}
+#browserReminder button{width:100%;border:0;border-radius:9px;padding:12px;background:#203e5a;color:white;font:600 15px/1.5 inherit;cursor:pointer}
+#browserReminder button:focus-visible{outline:3px solid #218dbb;outline-offset:3px}
+@media print{#browserReminder{display:none!important}}
+</style>
+<dialog id="browserReminder" aria-labelledby="browserReminderTitle" aria-describedby="browserReminderText browserReminderEnglish">
+<h2 id="browserReminderTitle">瀏覽器使用提醒<br><span class="reminder-en" lang="en">Browser reminder</span></h2>
+<p id="browserReminderText">請使用一般瀏覽器（如 Safari、Chrome 或 Edge）開啟本網頁，<strong>勿使用 LINE 內建瀏覽器操作。</strong></p>
+<p class="reminder-en" id="browserReminderEnglish" lang="en">Please open this page in a regular browser, such as Safari, Chrome, or Edge. <strong>Do not use LINE’s in-app browser.</strong></p>
+<p class="reminder-en">若從 LINE 開啟，請點選選單中的「以預設瀏覽器開啟」，或複製網址後貼到一般瀏覽器。<br><span lang="en">If you opened this page in LINE, use the menu to open it in your default browser, or copy the link and paste it into a regular browser.</span></p>
+<form method="dialog"><button type="submit" autofocus>我知道了 / Got it</button></form>
+</dialog>
+<script>
+(() => {
+  const reminder = document.getElementById('browserReminder');
+  reminder.showModal();
+})();
+</script>
+</body></html>
