@@ -3174,7 +3174,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
       $('petitionCountTime').textContent = '(' + stamp(data.updatedAt) + ')';
       $('petitionCountStatus').textContent = Date.now()-time > 10 * 60 * 1000
         ? '目前顯示較早的統計，等待更新。 / Showing an older count; awaiting an update.'
-        : '每 5 分鐘自動查詢（統計有快取）；手動更新間隔至少 1 分鐘 / Checks every 5 minutes (cached); manual refresh at most once per minute';
+        : '每 2 分鐘自動查詢（統計有快取）；手動更新間隔至少 1 分鐘 / Checks every 2 minutes (cached); manual refresh at most once per minute';
     } catch(error) {
       const reason = error.message === 'timeout' ? '連線逾時 / Connection timed out' : error.message === 'network' ? '兩種統計連線方式皆未成功 / Both count connection methods failed' : error.message === 'backend' ? '後端暫時無法統計 / Backend count unavailable' : '統計資料格式不符 / Unexpected count response';
       $('petitionCountStatus').textContent = last
