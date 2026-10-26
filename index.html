@@ -3086,7 +3086,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
   // Apps Script JSONP request: ?action=count&prefix=petitionCountCb_... .
   const $ = id => document.getElementById(id);
   const refresh = $('petitionCountRefresh');
-  const REFRESH_MS = 5 * 60 * 1000;
+  const REFRESH_MS = 2 * 60 * 1000;
   let busy = false, last = null, lastAttempt = 0;
   const stamp = value => {
     const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
