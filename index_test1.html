@@ -362,25 +362,96 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 #mode0Container .u-petition-milestone{border:1px solid #6fab87;background:#172e28;border-radius:14px;padding:16px;margin-top:18px}
 #mode0Container .u-petition-milestone strong{font-size:clamp(33px,5vw,53px);font-weight:900;color:#e9f4b8;font-variant-numeric:tabular-nums}
 #mode0Container #petitionCountRefresh{padding:9px 14px;min-height:36px;font-size:12px}
-#mode0Container #u-next .u-roadmap{display:grid;gap:12px;margin-top:22px;position:relative}
-#mode0Container #u-next .u-roadmap-item{display:grid;grid-template-columns:142px minmax(0,1fr);gap:15px;align-items:stretch}
-#mode0Container #u-next .u-roadmap-date{display:flex;align-items:center;justify-content:center;text-align:center;padding:15px 11px;border-radius:14px;background:#283747;border:1px solid #485c6e;font-size:16px;font-weight:900;color:#f3f6fa;line-height:1.45}
-#mode0Container #u-next .u-roadmap-copy{padding:16px 19px;border-radius:14px;border:1px solid #405463;background:#1a2531;min-width:0}
-#mode0Container #u-next .u-roadmap-item h4{font-size:17px;font-weight:900;line-height:1.42;color:#fff;margin:0 0 6px}
-#mode0Container #u-next .u-roadmap-item p{color:#cad5df;line-height:1.7;font-size:14px}
-#mode0Container #u-next .u-roadmap-item.roadmap-google .u-roadmap-date{background:#173d61;border-color:#306ca3}
-#mode0Container #u-next .u-roadmap-item.roadmap-google .u-roadmap-copy{background:#162c42;border-color:#306ca3}
-#mode0Container #u-next .u-roadmap-item.roadmap-brief .u-roadmap-date{background:#173e32;border-color:#40795b}
-#mode0Container #u-next .u-roadmap-item.roadmap-brief .u-roadmap-copy{background:#1a3129;border-color:#40795b}
-#mode0Container #u-next .u-roadmap-item.roadmap-volunteer .u-roadmap-date{background:#342c4a;border-color:#645382}
-#mode0Container #u-next .u-roadmap-item.roadmap-volunteer .u-roadmap-copy{background:#29243a;border-color:#645382}
-#mode0Container #u-next .u-roadmap-item.roadmap-stop .u-roadmap-date{background:#442d34;border-color:#835260}
-#mode0Container #u-next .u-roadmap-item.roadmap-stop .u-roadmap-copy{background:#30242a;border-color:#835260}
+/* Real connected, accessible vertical timeline (desktop and mobile). */
+#mode0Container #u-next{overflow:hidden}
+#mode0Container #u-next .u-roadmap{
+ --timeline-rail-x:158px;
+ display:flex;flex-direction:column;gap:0;position:relative;
+ margin:28px 0 0;padding:0;
+}
+#mode0Container #u-next .u-roadmap::before{
+ content:"";position:absolute;left:calc(var(--timeline-rail-x) - 2px);top:26px;bottom:48px;
+ width:4px;border-radius:999px;z-index:0;pointer-events:none;
+ background:linear-gradient(180deg,#f27d91 0%,#f5aa54 18%,#55a6ed 38%,#8b73d5 58%,#59b587 79%,#d3ad73 100%);
+ box-shadow:0 0 0 4px #243444,0 0 18px #68a5d22b;
+}
+#mode0Container #u-next .u-roadmap-item{
+ --phase-color:#7dacc6;
+ --phase-panel:#1a2938;
+ position:relative;isolation:isolate;display:grid;
+ grid-template-columns:136px 44px minmax(0,1fr);
+ align-items:start;column-gap:0;padding:0 0 18px;min-width:0;
+}
+#mode0Container #u-next .u-roadmap-item:last-child{padding-bottom:0}
+#mode0Container #u-next .u-roadmap-date{
+ grid-column:1;grid-row:1;display:block;align-self:start;
+ text-align:right;background:transparent;border:0;border-radius:0;
+ margin:10px 10px 0 0;padding:1px 0;
+ font-size:clamp(14px,1.5vw,17px);font-weight:900;line-height:1.5;
+ letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#e7edf7;
+}
+#mode0Container #u-next .u-roadmap-marker{
+ grid-column:2;grid-row:1;position:relative;z-index:2;
+ width:36px;height:36px;margin:11px auto 0;
+ border:5px solid #162330;border-radius:50%;
+ background:var(--phase-color);color:#101c28;box-shadow:0 0 0 2px var(--phase-color),0 5px 14px #0007;
+ display:flex;align-items:center;justify-content:center;
+ font-size:11px;font-weight:1000;line-height:1;font-variant-numeric:tabular-nums;
+}
+#mode0Container #u-next .u-roadmap-item::after{
+ content:"";position:absolute;top:28px;left:calc(var(--timeline-rail-x) + 19px);
+ width:14px;height:2px;background:var(--phase-color);opacity:.8;z-index:1;
+}
+#mode0Container #u-next .u-roadmap-copy{
+ grid-column:3;grid-row:1;margin-left:12px;min-width:0;position:relative;
+ border:1px solid color-mix(in srgb,var(--phase-color) 46%,#3a4e61);
+ border-left:4px solid var(--phase-color);border-radius:16px;
+ background:linear-gradient(115deg,var(--phase-panel),#1b2632 88%);
+ padding:17px 21px 18px;box-shadow:0 8px 22px #070d162d;
+ transition:transform .2s ease, box-shadow .2s ease;
+}
+#mode0Container #u-next .u-roadmap-copy::before{
+ content:"";position:absolute;left:-11px;top:18px;
+ width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;
+ border-right:8px solid var(--phase-color);
+}
+#mode0Container #u-next .u-roadmap-item:hover .u-roadmap-copy{transform:translateY(-2px);box-shadow:0 12px 26px #03091155}
+#mode0Container #u-next .u-roadmap-item h4{font-size:clamp(16px,1.8vw,19px);font-weight:900;line-height:1.43;color:#fff;margin:0 0 7px}
+#mode0Container #u-next .u-roadmap-item p{color:#d0d9e5;line-height:1.72;font-size:14px;margin:0}
+#mode0Container #u-next .u-roadmap-item.roadmap-stop{--phase-color:#f48198;--phase-panel:#34252d}
+#mode0Container #u-next .u-roadmap-item.roadmap-google{--phase-color:#58aff2;--phase-panel:#1b344e}
+#mode0Container #u-next .u-roadmap-item.roadmap-volunteer{--phase-color:#ab8aec;--phase-panel:#302a43}
+#mode0Container #u-next .u-roadmap-item.roadmap-brief{--phase-color:#70c993;--phase-panel:#1d3930}
+#mode0Container #u-next .u-roadmap-item:last-child{--phase-color:#e5c281;--phase-panel:#37301e}
+#mode0Container #u-next .u-roadmap-item:nth-child(2){--phase-color:#efa263;--phase-panel:#332b24}
 #mode0Container #u-next .u-spotlight{color:#9cccfb;font-weight:900}
 #mode0Container #u-next .u-green-emphasis{color:#8edda0;font-weight:900}
 #mode0Container #u-next .u-caution{color:#ffb1b1;font-weight:900}
 #mode0Container #u-next .u-timefoot{margin-top:19px;padding:13px 16px;border:1px solid #49617b;background:#1a2838;border-radius:12px;color:#cbd9e6}
-@media(max-width:700px){#mode0Container #u-next .u-roadmap-item{grid-template-columns:1fr;gap:5px}#mode0Container #u-next .u-roadmap-date{justify-content:flex-start;text-align:left;padding:9px 13px;font-size:15px}#mode0Container #u-next .u-roadmap-copy{padding:15px}#mode0Container .u-celebration{padding:19px}#mode0Container .u-quick-minor{grid-template-columns:1fr}#mode0Container .u-quick-minor .u-button{min-height:44px}}
+@media(max-width:700px){
+ #mode0Container #u-next .u-roadmap{--timeline-rail-x:18px;margin-top:23px}
+ #mode0Container #u-next .u-roadmap::before{left:16px;top:19px;bottom:70px;width:4px}
+ #mode0Container #u-next .u-roadmap-item{grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto;column-gap:0;padding-bottom:18px}
+ #mode0Container #u-next .u-roadmap-date{
+  grid-column:2;grid-row:1;margin:0 0 7px 1px;padding:0;
+  font-size:15px;color:var(--phase-color);text-align:left;line-height:1.4;
+ }
+ #mode0Container #u-next .u-roadmap-date br{display:none}
+ #mode0Container #u-next .u-roadmap-marker{
+  grid-column:1;grid-row:1 / span 2;justify-self:start;align-self:start;
+  margin:0 0 0 0;width:36px;height:36px;
+ }
+ #mode0Container #u-next .u-roadmap-item::after{top:41px;left:18px;width:2px;height:15px}
+ #mode0Container #u-next .u-roadmap-copy{grid-column:2;grid-row:2;margin:0;padding:15px 16px;border-radius:13px}
+ #mode0Container #u-next .u-roadmap-copy::before{top:14px;left:-10px}
+ #mode0Container .u-celebration{padding:19px}
+ #mode0Container .u-quick-minor{grid-template-columns:1fr}
+ #mode0Container .u-quick-minor .u-button{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){
+ #mode0Container #u-next .u-roadmap-copy{transition:none}
+ #mode0Container #u-next .u-roadmap-item:hover .u-roadmap-copy{transform:none}
+}
 </style>
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
@@ -444,15 +515,7 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 <a class="u-button u-secondary" href="#u-actions"><span class="u-bilingual"><span class="u-zh">目前重點 ↓</span><span class="u-en" lang="en">Current priorities ↓</span></span></a>
 <a class="u-button u-secondary" href="#u-quick-faq"><span class="u-bilingual"><span class="u-zh">常見 Q&A ↓</span><span class="u-en" lang="en">FAQ ↓</span></span></a>
 </div>
-</nav></section><section aria-labelledby="u-latest-title" class="u-surface u-latest-news" id="u-latest-announcement">
-<div class="u-news-topline"><span class="u-news-pill">10/28 · <span class="u-bilingual"><span class="u-zh">達標感謝公告</span><span class="u-en" lang="en">MILESTONE UPDATE</span></span></span><span class="u-news-byline"><span class="u-bilingual"><span class="u-zh">感謝會員參與・正式連署轉入核對階段</span><span class="u-en" lang="en">Thank you to every participating member</span></span></span></div>
-<h3 class="u-heading" id="u-latest-title"><span class="u-bilingual"><span class="u-zh">2,668 份收件，超越 2,600 份目標！</span><span class="u-en" lang="en">2,668 submissions received — beyond our 2,600 target!</span></span></h3>
-<div class="u-v18-news-copy mt-4">
-<p><span class="u-bilingual"><span class="u-zh">🎉 感謝大家持續支持！正式連署表單入口已從本頁移除，後續將著重去重、核對、建檔與依法準備正式請求召集臨時會員大會。</span><span class="u-en" lang="en">🎉 Thank you for your support. The formal petition entry has been removed from this page. Next steps are deduplication, verification, records preparation, and formally requesting an extraordinary union meeting.</span></span></p>
-<p><span class="u-bilingual"><span class="u-zh">📣 Google 意向書仍持續開放，請尚未表達立場的會員踴躍填寫，讓 11/6 桃園協調會聽見更多台中會員的真實聲音。</span><span class="u-en" lang="en">📣 The Google Form remains open. Members who have not responded are encouraged to share their views ahead of the Nov 6 Taoyuan coordination meeting.</span></span></p>
-</div>
-<div class="u-v18-news-emphasis mt-4"><span class="u-bilingual"><span class="u-zh"><strong>群組公告：</strong>新 LINE 群組目前暫停入群審核，管理團隊正申請擴充至 10,000 人容量；重新開放時間將另行公告。</span><span class="u-en" lang="en"><strong>LINE group update:</strong> New-member approvals are paused while administrators apply to expand group capacity to 10,000. Reopening details will be announced later.</span></span></div>
-</section><div id="u-actions">
+</nav></section><div id="u-actions">
 <div class="u-kicker mb-3"><span class="u-bilingual"><span class="u-zh">CURRENT PRIORITIES · 現階段重要行動</span><span class="u-en" lang="en">CURRENT PRIORITIES · Next actions</span></span></div>
 <div class="u-cardgrid u-three-actions u-four-actions">
 <section class="u-surface u-action-step">
@@ -503,12 +566,12 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 <h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">台中自救行動｜後續行動時間表</span><span class="u-en" lang="en">Taichung Self-Action | Next Steps Timeline</span></span></h3>
 <p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">連署不是終點，而是正式行動的開始。請大家持續關注並共同參與！</span><span class="u-en" lang="en">This is not the end — it is the start of our collective action. Please stay informed and involved!</span></span></p>
 <div class="u-roadmap">
-<div class="u-roadmap-item roadmap-stop"><div class="u-roadmap-date">10/28（三）<br>21:00</div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式連署募集暫停，轉入資料整理</span><span class="u-en" lang="en">Formal petition collection paused; review begins</span></span></h4><p><span class="u-bilingual"><span class="u-zh">依先前公告規劃暫停新的正式連署收件，進行<strong>移除重複連署書、核對及建檔</strong>，準備正式送件。此為流程時點，不代表網站後端已自動停止接收。</span><span class="u-en" lang="en">Based on the announced schedule, new formal petition submissions are to pause at 21:00. The next stage is deduplication, verification, and record preparation. Removing the link does not automatically disable the submission backend.</span></span></p></div></div>
-<div class="u-roadmap-item "><div class="u-roadmap-date">10/29（四）</div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式向台中工會送件（預計）</span><span class="u-en" lang="en">Formal submission to Taichung Union (planned)</span></span></h4><p><span class="u-bilingual"><span class="u-zh">待連署資料完成核對，正式提出召集<strong>臨時會員大會</strong>之請求，啟動相關法定程序；實際送件以公告為準。</span><span class="u-en" lang="en">After verifying the submissions, formally request an extraordinary union members’ meeting and start the relevant legal procedures. The actual submission will be confirmed by announcement.</span></span></p></div></div>
-<div class="u-roadmap-item roadmap-google"><div class="u-roadmap-date">現在－11/6（五）</div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">Google 意向書全力衝刺！</span><span class="u-en" lang="en">Make your voice heard via Google Form!</span></span></h4><p><span class="u-bilingual"><span class="u-zh">邀請尚未填寫的會員持續表達真實立場，讓 <span class='u-spotlight'>11/6 桃園協調會</span> 聽見更多台中會員的聲音。已填者請勿重複提交。</span><span class="u-en" lang="en">If you have not yet responded, please share your genuine views so the <span class='u-spotlight'>Nov 6 Taoyuan coordination meeting</span> can hear more voices from Taichung. Please avoid duplicates.</span></span></p></div></div>
-<div class="u-roadmap-item roadmap-volunteer"><div class="u-roadmap-date">現在－11/9（一）</div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
-<div class="u-roadmap-item roadmap-brief"><div class="u-roadmap-date">11/2－11/6<br>（日期待公告）</div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">台中會員實體＋線上說明會</span><span class="u-en" lang="en">Taichung members’ in-person + online briefing</span></span></h4><p><span class="u-bilingual"><span class="u-zh">邀請 <span class='u-green-emphasis'>桃園工會秘書長</span> 說明法律程序、後續行動方向並回應會員提問；實際日期與參加方式待公告。</span><span class="u-en" lang="en">Invite the <span class='u-green-emphasis'>Taoyuan Union Secretary-General</span> to explain the legal procedures, next steps, and answer members’ questions. Exact date and joining details are to be announced.</span></span></p></div></div>
-<div class="u-roadmap-item "><div class="u-roadmap-date">11/9（一）</div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">關注臨時會員大會召集進度</span><span class="u-en" lang="en">Follow the extraordinary members’ meeting convening process</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/9 為預定追蹤日期，請以實際送達日與法定期限確認。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. Nov 9 is a planned follow-up date; the actual deadline depends on service of the request.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-stop"><div class="u-roadmap-date">10/28（三）<br>21:00</div><div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式連署募集暫停，轉入資料整理</span><span class="u-en" lang="en">Formal petition collection paused; review begins</span></span></h4><p><span class="u-bilingual"><span class="u-zh">依先前公告規劃暫停新的正式連署收件，進行<strong>移除重複連署書、核對及建檔</strong>，準備正式送件。此為流程時點，不代表網站後端已自動停止接收。</span><span class="u-en" lang="en">Based on the announced schedule, new formal petition submissions are to pause at 21:00. The next stage is deduplication, verification, and record preparation. Removing the link does not automatically disable the submission backend.</span></span></p></div></div>
+<div class="u-roadmap-item "><div class="u-roadmap-date">10/29（四）</div><div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式向台中工會送件（預計）</span><span class="u-en" lang="en">Formal submission to Taichung Union (planned)</span></span></h4><p><span class="u-bilingual"><span class="u-zh">待連署資料完成核對，正式提出召集<strong>臨時會員大會</strong>之請求，啟動相關法定程序；實際送件以公告為準。</span><span class="u-en" lang="en">After verifying the submissions, formally request an extraordinary union members’ meeting and start the relevant legal procedures. The actual submission will be confirmed by announcement.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-google"><div class="u-roadmap-date">現在－11/6（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>03</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">Google 意向書全力衝刺！</span><span class="u-en" lang="en">Make your voice heard via Google Form!</span></span></h4><p><span class="u-bilingual"><span class="u-zh">邀請尚未填寫的會員持續表達真實立場，讓 <span class='u-spotlight'>11/6 桃園協調會</span> 聽見更多台中會員的聲音。已填者請勿重複提交。</span><span class="u-en" lang="en">If you have not yet responded, please share your genuine views so the <span class='u-spotlight'>Nov 6 Taoyuan coordination meeting</span> can hear more voices from Taichung. Please avoid duplicates.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-volunteer"><div class="u-roadmap-date">現在－11/9（一）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-brief"><div class="u-roadmap-date">11/2－11/6<br>（日期待公告）</div><div class="u-roadmap-marker" aria-hidden="true"><span>05</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">台中會員實體＋線上說明會</span><span class="u-en" lang="en">Taichung members’ in-person + online briefing</span></span></h4><p><span class="u-bilingual"><span class="u-zh">邀請 <span class='u-green-emphasis'>桃園工會秘書長</span> 說明法律程序、後續行動方向並回應會員提問；實際日期與參加方式待公告。</span><span class="u-en" lang="en">Invite the <span class='u-green-emphasis'>Taoyuan Union Secretary-General</span> to explain the legal procedures, next steps, and answer members’ questions. Exact date and joining details are to be announced.</span></span></p></div></div>
+<div class="u-roadmap-item "><div class="u-roadmap-date">11/9（一）</div><div class="u-roadmap-marker" aria-hidden="true"><span>06</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">關注臨時會員大會召集進度</span><span class="u-en" lang="en">Follow the extraordinary members’ meeting convening process</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/9 為預定追蹤日期，請以實際送達日與法定期限確認。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. Nov 9 is a planned follow-up date; the actual deadline depends on service of the request.</span></span></p></div></div>
 </div>
 <div class="u-timefoot"><span class="u-bilingual"><span class="u-zh">每一份連署、每一份真實意見、每一位願意挺身而出的會員，都是守護自身權益的重要力量。</span><span class="u-en" lang="en">Every petition, every genuine opinion, and every member who steps up helps protect our rights.</span></span></div>
 </section><section><div id="u-quick-faq" style="scroll-margin-top:24px"></div><div class="u-kicker">LEGAL &amp; PROCEDURAL FAQ</div><h3 class="u-heading mt-2 mb-5"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">點擊查看詳細議事指引</span><span class="u-en" lang="en">Expand the detailed meeting and legal guide</span></span></h3><div class="space-y-3">
