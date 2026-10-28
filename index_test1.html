@@ -3399,5 +3399,98 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
   }
   update();setInterval(()=>{if(!document.hidden)update()},120000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
-})();</script></body>
+})();</script><script id="taichung-google-form-count-v1">
+/**
+ * Google Forms replies: polls only a count-only Apps Script endpoint.
+ * Never publish the form /edit URL or individual responses.
+ * Activate by pasting your own deployed Apps Script /exec URL here.
+ */
+(() => {
+  'use strict';
+  const FORM_COUNT_WEBAPP_URL = ''; // PASTE the deployed /exec URL here.
+  const EXPECTED_FORM_ID = '1cTxACRUTPrsZdk-fIOabrXhWkJgf65k_NPQogqddO9E';
+  const REFRESH_MS = 180000;
+  const els = {
+    count: document.getElementById('intentTaichungCount'),
+    bar: document.getElementById('intentTaichungProgress'),
+    combined: document.getElementById('intentCombinedCount'),
+    status: document.getElementById('intentCountStatus'),
+    updated: document.getElementById('intentCountUpdated')
+  };
+  if (Object.values(els).some(el => !el)) return;
+  const apiReady = FORM_COUNT_WEBAPP_URL.startsWith('https://script.google.com/macros/s/')
+    && FORM_COUNT_WEBAPP_URL.includes('/exec');
+  if (!apiReady) {
+    els.status.textContent = '台中 Google 表單尚未完成統計串接；目前 3,300+ 為原先回報估值（非即時）。 / Form count endpoint not yet deployed; 3,300+ is a historical estimate, not live.';
+    return;
+  }
+  let inFlight = false;
+  let lastAttempt = 0;
+  let hasSuccess = false;
+  function taiwanTime(value) {
+    return new Intl.DateTimeFormat('zh-TW', {
+      timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false
+    }).format(new Date(value));
+  }
+  function fetchCount() {
+    return new Promise((resolve, reject) => {
+      const cb = 'intentCountCb_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+      const tag = document.createElement('script');
+      let done = false;
+      const finish = (error, data) => {
+        if (done) return;
+        done = true; clearTimeout(timer); tag.remove();
+        window[cb] = () => {};
+        setTimeout(() => { delete window[cb]; }, 60000);
+        error ? reject(error) : resolve(data);
+      };
+      const timer = setTimeout(() => finish(new Error('timeout')), 18000);
+      window[cb] = data => finish(null, data);
+      tag.onerror = () => finish(new Error('network'));
+      const url = new URL(FORM_COUNT_WEBAPP_URL);
+      url.searchParams.set('action', 'count');
+      url.searchParams.set('prefix', cb);
+      url.searchParams.set('_', String(Date.now()));
+      tag.src = url.href;
+      tag.async = true;
+      tag.referrerPolicy = 'no-referrer';
+      document.head.appendChild(tag);
+    });
+  }
+  async function updateCount() {
+    if (inFlight || document.hidden || Date.now() - lastAttempt < REFRESH_MS) return;
+    lastAttempt = Date.now();
+    inFlight = true;
+    if (!hasSuccess) els.status.textContent = '正在讀取台中 Google 表單統計… / Loading Taichung Google Form count…';
+    try {
+      const data = await fetchCount();
+      if (!data || data.ok !== true || data.source !== 'google_form'
+          || data.formId !== EXPECTED_FORM_ID
+          || !Number.isSafeInteger(data.count) || data.count < 0
+          || !data.updatedAt || !Number.isFinite(Date.parse(data.updatedAt))) {
+        throw new Error('invalid count payload');
+      }
+      hasSuccess = true;
+      const n = data.count;
+      els.count.textContent = n.toLocaleString('en-US') + ' / 11,000';
+      els.bar.value = Math.min(n, 11000);
+      // The separate Taoyuan figure is a prior estimate, not connected to this form.
+      els.combined.textContent = '約 ' + (n + 1700).toLocaleString('en-US') + '+';
+      els.status.textContent = '台中表單目前共 ' + n.toLocaleString('en-US') + ' 份回覆（未去重）；桃園 1,700+ 仍為先前估值。 / Taichung: ' + n.toLocaleString('en-US') + ' responses (not deduplicated). Taoyuan remains an estimate.';
+      els.updated.textContent = '統計時間（台灣）：' + taiwanTime(data.updatedAt) + ' · 每 3 分鐘更新 / Timestamp in Taiwan time · refreshed every 3 minutes.';
+    } catch (err) {
+      els.status.textContent = hasSuccess
+        ? '連線暫時異常，保留最後成功讀取的台中數字。 / Connection failed; showing last successful count.'
+        : '目前無法取得台中表單統計；顯示先前估值，非即時。 / Form count unavailable; showing historical estimate, not live.';
+    } finally {
+      inFlight = false;
+    }
+  }
+  updateCount();
+  setInterval(() => { if (!document.hidden) updateCount(); }, REFRESH_MS);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) updateCount(); });
+})();
+</script>
+</body>
 </html>
