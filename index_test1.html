@@ -469,6 +469,14 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 #mode0Container #u-participate.u-recruit-highlight .u-recruit-item .u-button.u-secondary{background:#68419c;border-color:#aa8bda;color:#fff}
 #mode0Container #u-participate.u-recruit-highlight .u-recruit-item .u-button.u-primary{background:#248b84;border-color:#6ccdc0;color:#fff}
 @media(max-width:640px){#mode0Container .u-quick-timeline .u-timeline-cta{min-height:62px}#mode0Container #u-participate.u-recruit-highlight{padding:19px}}
+</style><style id="intent-live-progress-v20">
+#mode0Container #u-intent-progress .u-intent-region-foot{color:#b9c7d7;font-size:12px;margin-top:5px;line-height:1.6}
+#mode0Container #u-intent-progress .intent-taichung-first{border-radius:12px;padding:11px 13px;background:linear-gradient(110deg,#203f5c,#1c334b);border:1px solid #477daa}
+#mode0Container #u-intent-progress #intentTaichungCount{font-size:17px;color:#b7e1ff;font-variant-numeric:tabular-nums}
+#mode0Container #u-intent-progress #intentTaichungCount small{display:block;text-align:right;font-size:10px;color:#c6d2df;font-weight:500}
+#mode0Container #u-intent-progress .u-intent-region-heading{flex-wrap:wrap}
+#mode0Container #u-intent-progress #intentCountStatus{border-top:1px solid #4a6172;padding-top:12px;line-height:1.7}
+#mode0Container #u-intent-progress #intentCountUpdated{font-size:11px;color:#a8b8c9}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -540,12 +548,22 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 <h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">Google 意向書繼續衝！</span><span class="u-en" lang="en">Keep the Google Form momentum going!</span></span></h3>
 <p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">意向書與正式連署是不同管道；請尚未填寫的同仁持續表達對公司 10/22 ATM 方案的看法，讓 <strong style='color:#9ecbff'>11/6 桃園協調會</strong> 聽見更多台中會員的聲音。已填寫者請勿重複送出。</span><span class="u-en" lang="en">The Google Form and formal petition are separate. If you have not yet responded, please share your views on the company's Oct 22 ATM proposal ahead of the <strong style='color:#9ecbff'>Nov 6 Taoyuan coordination meeting</strong>. Please avoid duplicate submissions.</span></span></p>
 <a class="u-button u-primary w-full mt-5" href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" rel="noopener noreferrer" target="_blank"><span class="u-bilingual"><span class="u-zh">📣 前往 Google 意向書 ↗</span><span class="u-en" lang="en">📣 Open the Google Form ↗</span></span></a>
-<div class="u-intent-progress" id="u-intent-progress"><div class="u-kicker"><span class="u-bilingual"><span class="u-zh">回報進度（非即時統計）</span><span class="u-en" lang="en">Reported progress (not live)</span></span></div>
-<div class="u-intent-numbers"><strong>5,000+</strong><span><span class="u-bilingual"><span class="u-zh">／7,000+ 兩地合計目標</span><span class="u-en" lang="en">/ 7,000+ combined target</span></span></span></div>
+<div class="u-intent-progress" id="u-intent-progress">
+<div class="u-kicker"><span class="u-bilingual"><span class="u-zh">GOOGLE 意向書 · 回覆進度</span><span class="u-en" lang="en">GOOGLE FORM · Response progress</span></span></div>
+<div class="u-intent-numbers"><strong id="intentCombinedCount">5,000+</strong><span><span class="u-bilingual"><span class="u-zh">／7,000+ 兩地合計目標（目前為回報估算）</span><span class="u-en" lang="en">/ 7,000+ combined target (currently an estimate)</span></span></span></div>
 <div class="u-intent-regional-bars">
-<div class="u-intent-region"><div class="u-intent-region-heading"><span><span class="u-bilingual"><span class="u-zh">桃園</span><span class="u-en" lang="en">Taoyuan</span></span></span><strong>1,700+ / 2,200</strong></div><progress class="u-intent-taoyuan" value="1700" max="2200"></progress></div>
-<div class="u-intent-region"><div class="u-intent-region-heading"><span><span class="u-bilingual"><span class="u-zh">台中</span><span class="u-en" lang="en">Taichung</span></span></span><strong>3,300+ / 11,000</strong></div><progress class="u-intent-taichung" value="3300" max="11000"></progress></div>
-</div><p class="u-muted u-mini mt-2"><span class="u-bilingual"><span class="u-zh">以上為既有回報估算，非即時數字，實際回覆數與去重狀態尚待確認。</span><span class="u-en" lang="en">These previously reported figures are estimates, not a live count; actual totals and duplicates have not been verified.</span></span></p></div>
+<div class="u-intent-region intent-taichung-first">
+<div class="u-intent-region-heading"><span><span class="u-bilingual"><span class="u-zh">台中</span><span class="u-en" lang="en">Taichung</span></span></span><strong id="intentTaichungCount">3,300+ <small><span class="u-bilingual"><span class="u-zh">舊回報</span><span class="u-en" lang="en">Prior report</span></span></small></strong></div>
+<progress class="u-intent-taichung" id="intentTaichungProgress" value="3300" max="11000" aria-label="台中意向書回覆數 / Taichung Form responses"></progress>
+<div class="u-intent-region-foot"><span class="u-bilingual"><span class="u-zh">台中約 11,000 名會員 · 待同步 Google 表單總回覆數</span><span class="u-en" lang="en">Approx. 11,000 Taichung members · Awaiting Google Form count</span></span></div></div>
+<div class="u-intent-region">
+<div class="u-intent-region-heading"><span><span class="u-bilingual"><span class="u-zh">桃園</span><span class="u-en" lang="en">Taoyuan</span></span></span><strong>1,700+ / 2,200</strong></div>
+<progress class="u-intent-taoyuan" value="1700" max="2200" aria-label="桃園既有回報估計數 / Previously reported Taoyuan estimate"></progress>
+<div class="u-intent-region-foot"><span class="u-bilingual"><span class="u-zh">桃園為既有回報估算，並非即時統計</span><span class="u-en" lang="en">Taoyuan is a previous reported estimate, not live</span></span></div></div>
+</div>
+<p class="u-muted u-mini mt-3" id="intentCountStatus" role="status" aria-live="polite"><span class="u-bilingual"><span class="u-zh">台中 Google 表單統計等待連線設定；目前顯示舊回報值，非即時數據。</span><span class="u-en" lang="en">Taichung Google Form sync is awaiting setup; displaying the earlier estimate, not live data.</span></span></p>
+<p class="u-muted u-mini mt-2" id="intentCountUpdated"><span class="u-bilingual"><span class="u-zh">啟用後每 3 分鐘自動查詢一次，只顯示回覆總份數，不公開個資。</span><span class="u-en" lang="en">Checks every 3 minutes once enabled; only aggregate response counts are shown.</span></span></p>
+</div>
 </section>
 <section class="u-surface u-action-step" id="u-petition-count" aria-labelledby="u-count-title">
 <div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">已達標 · 連署資料整理</span><span class="u-en" lang="en">GOAL REACHED · Review in progress</span></span></span></div>
