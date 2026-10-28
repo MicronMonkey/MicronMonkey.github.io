@@ -453,7 +453,23 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
  #mode0Container #u-next .u-roadmap-item:hover .u-roadmap-copy{transform:none}
 }
 </style>
-</head>
+<style id="action-navigation-recruit-v20">
+#mode0Container .u-quick-timeline{display:grid;grid-template-columns:1fr}
+#mode0Container .u-quick-timeline .u-timeline-cta{width:100%;min-height:66px;background:linear-gradient(105deg,#155e75,#14839a)!important;border:1px solid #75c7d4!important;color:#f4fdff!important;box-shadow:0 5px 19px #0e536359}
+#mode0Container .u-quick-timeline .u-timeline-cta:hover{background:linear-gradient(105deg,#137991,#259db4)!important}
+#mode0Container .u-quick-timeline .u-timeline-cta .u-en{display:block;font-size:12px;color:#d5f5ff!important}
+#mode0Container .u-quick-minor .u-volunteer-cta{background:linear-gradient(112deg,#7041b5,#8e51c4)!important;border:1px solid #b89bee!important;color:#fff!important;box-shadow:0 5px 16px #3919685e}
+#mode0Container .u-quick-minor .u-volunteer-cta:hover{background:linear-gradient(112deg,#8551c9,#a16ad8)!important}
+#mode0Container .u-quick-minor .u-volunteer-cta .u-en{color:inherit!important}
+#mode0Container #u-participate.u-recruit-highlight{border:1px solid #a281db;border-left:5px solid #b691ed;background:radial-gradient(ellipse at 100% 0%,#483260 0%,transparent 45%),linear-gradient(135deg,#24213e,#1a2938 82%);box-shadow:0 7px 30px #26133f5c;scroll-margin-top:24px}
+#mode0Container #u-participate.u-recruit-highlight>.u-kicker{color:#cba9ff;letter-spacing:.13em}
+#mode0Container #u-participate.u-recruit-highlight>.u-heading{color:#faf0ff}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item{background:#1b2535;border:1px solid #7c6295}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item:nth-child(2){background:#1c2e36;border-color:#659c9b}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item .u-button.u-secondary{background:#68419c;border-color:#aa8bda;color:#fff}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item .u-button.u-primary{background:#248b84;border-color:#6ccdc0;color:#fff}
+@media(max-width:640px){#mode0Container .u-quick-timeline .u-timeline-cta{min-height:62px}#mode0Container #u-participate.u-recruit-highlight{padding:19px}}
+</style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
 <!-- Header -->
@@ -510,13 +526,14 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 <div class="u-quick-major">
 <a class="u-button u-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">📣 Google 意向書持續衝刺，為 11/6 發聲 ↗</span><span class="u-en" lang="en">📣 Keep the Google Form going for Nov 6 ↗</span></span></a>
 </div>
+<div class="u-quick-timeline"><a class="u-button u-secondary u-timeline-cta" href="#u-next"><span class="u-bilingual"><span class="u-zh">📅 後續行動時間表 ↓</span><span class="u-en" lang="en">Next Steps Timeline ↓</span></span></a></div>
 <div class="u-quick-minor">
-<a class="u-button u-secondary" href="#u-participate"><span class="u-bilingual"><span class="u-zh">報名幹部／志工 ↓</span><span class="u-en" lang="en">Volunteer / organizer ↓</span></span></a>
-<a class="u-button u-secondary" href="#u-actions"><span class="u-bilingual"><span class="u-zh">目前重點 ↓</span><span class="u-en" lang="en">Current priorities ↓</span></span></a>
+<a class="u-button u-secondary u-volunteer-cta" href="#u-participate"><span class="u-bilingual"><span class="u-zh">報名幹部／志工 ↓</span><span class="u-en" lang="en">Volunteer / organizer ↓</span></span></a>
+<a class="u-button u-secondary" href="#u-actions"><span class="u-bilingual"><span class="u-zh">維護權益4步驟 ↓</span><span class="u-en" lang="en">4 Steps to Protect Our Rights ↓</span></span></a>
 <a class="u-button u-secondary" href="#u-quick-faq"><span class="u-bilingual"><span class="u-zh">常見 Q&A ↓</span><span class="u-en" lang="en">FAQ ↓</span></span></a>
 </div>
 </nav></section><div id="u-actions">
-<div class="u-kicker mb-3"><span class="u-bilingual"><span class="u-zh">CURRENT PRIORITIES · 現階段重要行動</span><span class="u-en" lang="en">CURRENT PRIORITIES · Next actions</span></span></div>
+<div class="u-kicker mb-3"><span class="u-bilingual"><span class="u-zh">維護權益4步驟 · 現階段重要行動</span><span class="u-en" lang="en">4 STEPS TO PROTECT OUR RIGHTS · Current priorities</span></span></div>
 <div class="u-cardgrid u-three-actions u-four-actions">
 <section class="u-surface u-action-step">
 <div class="flex items-center gap-3"><span class="u-step">01</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">持續 · Google 意向書</span><span class="u-en" lang="en">ONGOING · Google Form</span></span></span></div>
@@ -554,7 +571,7 @@ body.emergency-active #u-emergency-hero{min-height:390px!important}
 <p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">整理完有效連署後，預計 10/29 正式向台中工會提出召集臨時會員大會的請求；若依法定期限未召集，將視情況向主管機關申請指定召集人。</span><span class="u-en" lang="en">Following verification, a formal request to convene an extraordinary union meeting is planned for Oct 29. If no lawful convening occurs within the required period, the requesters may seek an authority-designated convener.</span></span></p>
 <a class="u-button u-secondary w-full mt-5" href="#u-next"><span class="u-bilingual"><span class="u-zh">查看完整後續時間軸 ↓</span><span class="u-en" lang="en">See the full timeline ↓</span></span></a>
 <p class="u-muted u-mini mt-3"><span class="u-bilingual"><span class="u-zh">召集時間、地點與議程尚未正式公告。</span><span class="u-en" lang="en">The meeting date, venue, and agenda have not been announced.</span></span></p>
-</section></div></div><section class="u-surface" id="u-participate">
+</section></div></div><section class="u-surface u-recruit-highlight" id="u-participate">
 <div class="u-kicker">HELP MAKE IT HAPPEN · 我願意幫忙</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">幹部自薦與志工協助</span><span class="u-en" lang="en">Organizers and volunteers</span></span></h3>
 <p class="u-muted text-sm mt-2">希望承擔幹部／代表工作，和願意提供專長或時間協助的志工，請依不同管道登記。</p>
 <div class="u-recruit-grid mt-5">
