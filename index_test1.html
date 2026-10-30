@@ -511,6 +511,35 @@ html{scroll-behavior:smooth}
 body.emergency-active #mode0Container{padding-left:42px!important;padding-right:10px!important}#portalFloatingNav .float-tip{display:none}
 #mode0Container #u-completed-milestones{padding:25px 12px 17px}#mode0Container .u-archive-ribbon{font-size:9px;padding:8px 9px}#mode0Container .u-archive-icon{flex-basis:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Test1: always-visible labels under icons, six shortcuts in user requested order. */
+#portalFloatingNav{gap:7px;left:max(5px,env(safe-area-inset-left))}
+#portalFloatingNav a,#portalFloatingNav button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  width:76px;height:65px;padding:5px 3px;line-height:1.12;box-sizing:border-box;
+  background:rgba(21,28,39,.54);opacity:.83;text-align:center;
+}
+#portalFloatingNav .float-icon{display:block;font-size:21px;line-height:1.2;flex:none}
+#portalFloatingNav .float-label{display:block;position:static;opacity:1;visibility:visible;
+  color:#fff;font-size:10px;font-weight:800;line-height:1.2;
+  white-space:normal;overflow-wrap:break-word;text-align:center;max-width:100%}
+#portalFloatingNav .back-top .float-label{color:#ffe4b5}
+#portalFloatingNav .float-tip{display:none!important}
+@media(max-width:700px){
+  #portalFloatingNav{gap:6px;left:max(3px,env(safe-area-inset-left))}
+  #portalFloatingNav a,#portalFloatingNav button{
+    width:60px;height:58px;padding:4px 2px;gap:2px;opacity:.74;border-radius:8px
+  }
+  #portalFloatingNav .float-icon{font-size:18px}
+  #portalFloatingNav .float-label{font-size:9px;line-height:1.16;letter-spacing:-.15px}
+  body.emergency-active #mode0Container{padding-left:66px!important;padding-right:8px!important}
+}
+@media(max-height:690px){
+  #portalFloatingNav{gap:3px}
+  #portalFloatingNav a,#portalFloatingNav button{height:50px}
+  #portalFloatingNav .float-icon{font-size:17px}
+  #portalFloatingNav .float-label{font-size:9px}
+}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -3450,7 +3479,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
   });
 })();
 </script>
-<nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation"><a href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" target="_blank" rel="noopener noreferrer" title="Google 意向書 / Google Form" aria-label="Google 意向書 / Google Form"><span aria-hidden="true">📣</span><span class="float-tip" aria-hidden="true">Google 意向書 / Google Form</span></a><a href="#u-next" onclick="return portalNavigateTo('u-next')" title="後續時間表 / Timeline" aria-label="後續時間表 / Timeline"><span aria-hidden="true">📅</span><span class="float-tip" aria-hidden="true">後續時間表 / Timeline</span></a><a href="#u-participate" onclick="return portalNavigateTo('u-participate')" title="幹部與志工 / Volunteer" aria-label="幹部與志工 / Volunteer"><span aria-hidden="true">🤝</span><span class="float-tip" aria-hidden="true">幹部與志工 / Volunteer</span></a><a href="#u-actions" onclick="return portalNavigateTo('u-actions')" title="重要行動 / Actions" aria-label="重要行動 / Actions"><span aria-hidden="true">🛡️</span><span class="float-tip" aria-hidden="true">重要行動 / Actions</span></a><a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="常見 Q&A / FAQ" aria-label="常見 Q&A / FAQ"><span aria-hidden="true">❓</span><span class="float-tip" aria-hidden="true">常見 Q&A / FAQ</span></a><button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回頂端 / Back to top" aria-label="回頂端 / Back to top">⬆️<span class="float-tip" aria-hidden="true">回頂端 / Back to top</span></button></nav>
+<nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" target="_blank" rel="noopener noreferrer" title="聲援桃園" aria-label="聲援桃園">
+<span class="float-icon" aria-hidden="true">📣</span><span class="float-label">聲援桃園</span></a>
+<a href="#u-nov3-briefing" onclick="return portalNavigateTo('u-nov3-briefing')" title="記者會／關工說明會" aria-label="記者會／關工說明會">
+<span class="float-icon" aria-hidden="true">🎤</span><span class="float-label">記者會<br>關工說明會</span></a>
+<a href="#u-participate" onclick="return portalNavigateTo('u-participate')" title="幹部/志工" aria-label="幹部/志工">
+<span class="float-icon" aria-hidden="true">🤝</span><span class="float-label">幹部/志工</span></a>
+<a href="#u-next" onclick="return portalNavigateTo('u-next')" title="自救時間線" aria-label="自救時間線">
+<span class="float-icon" aria-hidden="true">📅</span><span class="float-label">自救時間線</span></a>
+<a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="FAQ" aria-label="FAQ">
+<span class="float-icon" aria-hidden="true">❓</span><span class="float-label">FAQ</span></a>
+<button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label">回到頂端</span></button>
+</nav>
 <script id="test1-float-navigation">
 function portalNavigateTo(id){if(typeof switchMode==='function')switchMode(0);requestAnimationFrame(()=>requestAnimationFrame(()=>{let el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}));return false;}
 (function(){function init(){let src=document.getElementById('intentTaichungCount'),out=document.getElementById('intentHeroTaichungCount');if(!src||!out)return;function sync(){let match=(src.textContent||'').match(/[\d,]+/);out.textContent=match?match[0]:'—'}sync();new MutationObserver(sync).observe(src,{subtree:true,childList:true,characterData:true})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
