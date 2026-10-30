@@ -549,14 +549,27 @@ html{scroll-behavior:smooth}
 #portalFloatingNav>a,#portalFloatingNav>button{flex-shrink:0}
 #portalFloatingNav.is-collapsed>a,#portalFloatingNav.is-collapsed>.back-top{display:none}
 #portalNavToggle{border-color:#bf9c64!important}
+</style><style id="salary-compact-header">
+#salaryHeader{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+#salaryHeaderBrand,#salaryHeaderBrand>div:last-child{min-width:0}
+#salaryHeaderBrand h1{flex-wrap:wrap}
+#salaryHeaderControls{display:flex;flex-direction:column;align-items:stretch;gap:10px;width:100%;min-width:0}
+#salaryHeaderControls #statusContainer{align-self:flex-end;max-width:100%;width:250px}
+#portalContributeActions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;min-width:0}
+#portalContributeActions>button{width:100%;min-width:0;min-height:60px;padding:9px 8px;border-radius:14px;white-space:normal;line-height:1.35}
+#portalContributeActions .salary-action-label{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;max-width:100%;text-align:center}
+#portalContributeActions .salary-action-zh{font-size:12px;font-weight:800}
+#portalContributeActions [data-bilingual-en="1"]{display:block;font-size:10px!important;line-height:1.3;overflow-wrap:anywhere}
+@media(min-width:1100px){#salaryHeader{grid-template-columns:minmax(0,1fr) minmax(0,470px);align-items:center}}
+@media(max-width:520px){#salaryHeader{padding:16px}#portalContributeActions{gap:6px}#portalContributeActions>button{padding:8px 5px}#portalContributeActions .salary-action-zh{font-size:11px}}
 </style></head>
 <body class="p-4 md:p-8 relative">
 <div class="max-w-7xl mx-auto mb-3"><a href="index_test1.html" target="_self" class="inline-flex items-center gap-2 rounded-xl bg-amber-200 px-4 py-2 font-bold text-slate-900">🕯️ 回緊急專區 <span class="text-xs" lang="en">Back to Emergency</span></a></div>
 
 <div class="max-w-7xl mx-auto">
 <!-- Header -->
-<header class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
-<div class="flex items-center gap-4">
+<header id="salaryHeader" class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div id="salaryHeaderBrand" class="flex items-center gap-4">
 <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-200 shrink-0">
 <svg class="w-10 h-10" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 <path d="M22 25 L37 25 L47 75 L32 75 Z" fill="#0066cc"></path>
@@ -576,7 +589,7 @@ html{scroll-behavior:smooth}
 <button class="bg-violet-500 hover:bg-violet-400 text-white border border-violet-300/30 px-2 py-1 rounded-full text-[8px] leading-none whitespace-nowrap mt-1" onclick="openWishlistModal()">💡 功能許願</button>
 </div>
 </div>
-<div class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center w-full md:w-auto">
+<div id="salaryHeaderControls" class="flex flex-col sm:flex-row items-center gap-3 self-start md:self-center w-full md:w-auto">
 <div class="relative overflow-hidden inline-flex items-center gap-2 bg-slate-800 text-slate-300 text-xs px-4 py-2 rounded-full border border-slate-700 w-full sm:w-64 transition-colors" id="statusContainer">
 <div class="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-blue-600 to-emerald-500 transition-all duration-300" id="loadingBar" style="width: 5%;"></div>
 <div class="relative z-10 flex items-center justify-center w-full gap-2 font-bold drop-shadow-md">
@@ -586,13 +599,13 @@ html{scroll-behavior:smooth}
 </div>
 <div class="flex gap-2 w-full sm:w-auto" id="portalContributeActions">
 <button class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer border border-slate-600" onclick="openFormModal()">
-    📝 貢獻日常薪情
+<span data-bilingual-generated="1" class="salary-action-label"><span class="salary-action-zh">📝 貢獻日常薪情</span><span data-bilingual-en="1" lang="en">Contribute salary data</span></span>
 </button>
 <button class="flex-1 sm:flex-none bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer" onclick="openBonusModal()">
-    🎁 貢獻 2025 開獎
+<span data-bilingual-generated="1" class="salary-action-label"><span class="salary-action-zh">🎁 貢獻 2025 開獎</span><span data-bilingual-en="1" lang="en">Contribute 2025 bonus</span></span>
 </button>
 <button class="flex-1 sm:flex-none bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-1 cursor-pointer" onclick="openBonus2026Modal()">
-    🎁 貢獻 2026 開獎
+<span data-bilingual-generated="1" class="salary-action-label"><span class="salary-action-zh">🎁 貢獻 2026 開獎</span><span data-bilingual-en="1" lang="en">Contribute 2026 bonus</span></span>
 </button>
 </div>
 </div>
@@ -604,7 +617,7 @@ html{scroll-behavior:smooth}
 <div class="flex flex-wrap items-center gap-2 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm u-v14-navigation" id="portalNavFooter">
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode2" onclick="switchMode(2)">🎁 2025 開獎</button>
-<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent relative" id="btnMode3" onclick="switchMode(3)">🎁 2026 開獎 <span class="absolute -top-2 -right-2 bg-rose-500 text-white text-[9px] px-2 py-0.5 rounded-full shadow animate-pulse">即將到來</span></button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent relative" id="btnMode3" onclick="switchMode(3)">🎁 2026 開獎</button>
 </div><div class="portal-stock-bar mb-5 rounded-2xl border border-slate-700 bg-slate-950/95 text-white shadow-lg u-v14-stock" id="muStockBar">
 <div class="px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 <div class="flex items-center gap-3">
