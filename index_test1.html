@@ -867,7 +867,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 (function(){
  'use strict';
  const AGGREGATE_API_URL=''; // Fill in the Apps Script /exec URL after deploying the script.
- const refreshMs=5*60*1000;
+ const refreshMs=2*60*1000;
  const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionInterestCount'};
  if(!AGGREGATE_API_URL)return;
  let busy=false;
