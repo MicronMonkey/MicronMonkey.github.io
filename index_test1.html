@@ -508,37 +508,41 @@ html{scroll-behavior:smooth}
 #portalFloatingNav .float-tip{pointer-events:none;position:absolute;left:47px;padding:5px 8px;border-radius:7px;border:1px solid #5c6b7b;background:#233140;color:#fff;font:700 12px sans-serif;white-space:nowrap;visibility:hidden;opacity:0}
 #portalFloatingNav a:hover .float-tip,#portalFloatingNav button:hover .float-tip,#portalFloatingNav a:focus-visible .float-tip,#portalFloatingNav button:focus-visible .float-tip{visibility:visible;opacity:1}
 @media(max-width:700px){#portalFloatingNav{gap:5px;left:max(2px,env(safe-area-inset-left))}#portalFloatingNav a,#portalFloatingNav button{width:34px;height:35px;font-size:16px;opacity:.62;border-radius:8px}
-body.emergency-active #mode0Container{padding-left:42px!important;padding-right:10px!important}#portalFloatingNav .float-tip{display:none}
+#portalFloatingNav .float-tip{display:none}
 #mode0Container #u-completed-milestones{padding:25px 12px 17px}#mode0Container .u-archive-ribbon{font-size:9px;padding:8px 9px}#mode0Container .u-archive-icon{flex-basis:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-/* Test1: always-visible labels under icons, six shortcuts in user requested order. */
+/* Test1: translucent six-button floating nav with bilingual captions. */
 #portalFloatingNav{gap:7px;left:max(5px,env(safe-area-inset-left))}
 #portalFloatingNav a,#portalFloatingNav button{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  width:76px;height:65px;padding:5px 3px;line-height:1.12;box-sizing:border-box;
-  background:rgba(21,28,39,.54);opacity:.83;text-align:center;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+ width:76px;height:78px;padding:5px 3px;box-sizing:border-box;
+ background:rgba(21,28,39,.54);opacity:.83;text-align:center;line-height:1.12;
 }
-#portalFloatingNav .float-icon{display:block;font-size:21px;line-height:1.2;flex:none}
-#portalFloatingNav .float-label{display:block;position:static;opacity:1;visibility:visible;
-  color:#fff;font-size:10px;font-weight:800;line-height:1.2;
-  white-space:normal;overflow-wrap:break-word;text-align:center;max-width:100%}
-#portalFloatingNav .back-top .float-label{color:#ffe4b5}
+#portalFloatingNav .float-icon{display:block;font-size:21px;line-height:1.18;flex:none}
+#portalFloatingNav .float-label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+ position:static;opacity:1;visibility:visible;color:#fff;
+ max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center}
+#portalFloatingNav .float-label-zh{display:block;font-size:10px;font-weight:850;line-height:1.15}
+#portalFloatingNav .float-label-en{display:block;font-size:9px;font-weight:650;line-height:1.13;color:#e4eaf0}
+#portalFloatingNav .back-top .float-label-zh,#portalFloatingNav .back-top .float-label-en{color:#ffe4b5}
 #portalFloatingNav .float-tip{display:none!important}
 @media(max-width:700px){
-  #portalFloatingNav{gap:6px;left:max(3px,env(safe-area-inset-left))}
-  #portalFloatingNav a,#portalFloatingNav button{
-    width:60px;height:58px;padding:4px 2px;gap:2px;opacity:.74;border-radius:8px
-  }
-  #portalFloatingNav .float-icon{font-size:18px}
-  #portalFloatingNav .float-label{font-size:9px;line-height:1.16;letter-spacing:-.15px}
-  body.emergency-active #mode0Container{padding-left:66px!important;padding-right:8px!important}
+ #portalFloatingNav{gap:6px;left:max(3px,env(safe-area-inset-left))}
+ #portalFloatingNav a,#portalFloatingNav button{
+   width:60px;height:70px;padding:4px 2px;gap:2px;opacity:.74;border-radius:8px
+ }
+ #portalFloatingNav .float-icon{font-size:18px}
+ #portalFloatingNav .float-label{gap:1px}
+ #portalFloatingNav .float-label-zh{font-size:9px;line-height:1.12}
+ #portalFloatingNav .float-label-en{font-size:8px;line-height:1.09}
 }
 @media(max-height:690px){
-  #portalFloatingNav{gap:3px}
-  #portalFloatingNav a,#portalFloatingNav button{height:50px}
-  #portalFloatingNav .float-icon{font-size:17px}
-  #portalFloatingNav .float-label{font-size:9px}
+ #portalFloatingNav{gap:3px}
+ #portalFloatingNav a,#portalFloatingNav button{height:66px}
+ #portalFloatingNav .float-icon{font-size:17px}
+ #portalFloatingNav .float-label-zh{font-size:9px}
+ #portalFloatingNav .float-label-en{font-size:8px}
 }
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
@@ -3481,16 +3485,16 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
 </script>
 <nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" target="_blank" rel="noopener noreferrer" title="聲援桃園" aria-label="聲援桃園">
-<span class="float-icon" aria-hidden="true">📣</span><span class="float-label">聲援桃園</span></a>
+<span class="float-icon" aria-hidden="true">📣</span><span class="float-label"><span class="float-label-zh">聲援桃園</span><span class="float-label-en" lang="en">Support Taoyuan</span></span></a>
 <a href="#u-nov3-briefing" onclick="return portalNavigateTo('u-nov3-briefing')" title="記者會／關工說明會" aria-label="記者會／關工說明會">
-<span class="float-icon" aria-hidden="true">🎤</span><span class="float-label">記者會<br>關工說明會</span></a>
+<span class="float-icon" aria-hidden="true">🎤</span><span class="float-label"><span class="float-label-zh">記者會<br>關工說明會</span><span class="float-label-en" lang="en">Press / Union Briefing</span></span></a>
 <a href="#u-participate" onclick="return portalNavigateTo('u-participate')" title="幹部/志工" aria-label="幹部/志工">
-<span class="float-icon" aria-hidden="true">🤝</span><span class="float-label">幹部/志工</span></a>
+<span class="float-icon" aria-hidden="true">🤝</span><span class="float-label"><span class="float-label-zh">幹部/志工</span><span class="float-label-en" lang="en">Organizers / Volunteers</span></span></a>
 <a href="#u-next" onclick="return portalNavigateTo('u-next')" title="自救時間線" aria-label="自救時間線">
-<span class="float-icon" aria-hidden="true">📅</span><span class="float-label">自救時間線</span></a>
-<a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="FAQ" aria-label="FAQ">
-<span class="float-icon" aria-hidden="true">❓</span><span class="float-label">FAQ</span></a>
-<button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label">回到頂端</span></button>
+<span class="float-icon" aria-hidden="true">📅</span><span class="float-label"><span class="float-label-zh">自救時間線</span><span class="float-label-en" lang="en">Action Timeline</span></span></a>
+<a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="常見問答 / FAQ" aria-label="常見問答 / FAQ">
+<span class="float-icon" aria-hidden="true">❓</span><span class="float-label"><span class="float-label-zh">常見問答</span><span class="float-label-en" lang="en">FAQ</span></span></a>
+<button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
 </nav>
 <script id="test1-float-navigation">
 function portalNavigateTo(id){if(typeof switchMode==='function')switchMode(0);requestAnimationFrame(()=>requestAnimationFrame(()=>{let el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}));return false;}
