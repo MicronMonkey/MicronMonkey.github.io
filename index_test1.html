@@ -553,7 +553,12 @@ html{scroll-behavior:smooth}
 #portalFloatingNav .float-tip{display:none!important}
 #mode0Container .u-intent-sync-badge{font-variant-numeric:tabular-nums}
 @media(max-width:640px){#portalSimpleHeader{padding:14px 12px;margin-bottom:10px}#portalSimpleHeader .portal-mark{width:38px;height:38px;flex:none;font-size:22px}#portalSimpleHeader p{font-size:11px}}
-</style><style id="page-view-counter-style">#portalViewStats{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}#portalViewStats span{font-size:11px;font-weight:700;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:4px 10px;color:#e2e8f0}#portalViewStats b{font-weight:900;color:#fff;font-variant-numeric:tabular-nums}</style></head>
+</style><style id="page-view-counter-style">#portalViewStats{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}#portalViewStats span{font-size:11px;font-weight:700;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:4px 10px;color:#e2e8f0}#portalViewStats b{font-weight:900;color:#fff;font-variant-numeric:tabular-nums}</style><style id="floating-nav-collapse">
+#portalFloatingNav{max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain;pointer-events:auto}
+#portalFloatingNav>a,#portalFloatingNav>button{flex-shrink:0}
+#portalFloatingNav.is-collapsed>a,#portalFloatingNav.is-collapsed>.back-top{display:none}
+#portalNavToggle{border-color:#bf9c64!important}
+</style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
 <header id="portalSimpleHeader"><div class="portal-mark" aria-hidden="true">🐵</div><div>
@@ -596,7 +601,7 @@ html{scroll-behavior:smooth}
 <a id="intentCountDebugLink" class="u-intent-diagnostic-link" href="https://script.google.com/macros/s/AKfycbxNb1ZowLH51RlsLYWh0WYCKGz85WlyZ4uYYz3QTz5SXgfukNAKgUqXdXuaYmKU64mh/exec?action=count" rel="noopener noreferrer" target="_blank">檢查統計連線 / Check count service ↗</a>
 </div>
 </section>
-<div class="u-action-stack"><section class="u-surface u-action-step" id="u-nov3-briefing"><div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker">11/3 · BRIEFING SURVEY</span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">📅 11/3 台中說明會｜參加意願調查</span><span class="u-en" lang="en">📅 Nov 3 Briefing Interest Survey</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">請填寫調查表單，表達中午或晚上說明會的參加意願。實際時間、地點及內容以表單和後續公告為準。</span><span class="u-en" lang="en">Indicate interest in a noon or evening briefing. Actual time, venue and agenda are subject to the form and official announcements.</span></span></p><div class="grid grid-cols-2 gap-3 mt-4"><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">中午場 / Noon</div><strong class="block text-3xl" id="briefingNoonCount">—</strong><small class="u-muted">有意願 / Interested</small></div><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">晚上場 / Evening</div><strong class="block text-3xl" id="briefingEveningCount">—</strong><small class="u-muted">有意願 / Interested</small></div></div><p class="u-muted u-mini mt-3"><span class="u-bilingual"><span class="u-zh">人數為預留欄位，尚未串接表單。「—」不代表零人。</span><span class="u-en" lang="en">Count fields are placeholders, not yet connected; dashes do not mean zero.</span></span></p><a class="u-button u-primary w-full mt-5" href="https://docs.google.com/forms/d/e/1FAIpQLSd6-wvSV2brvOfbbG_FNVAtHl_MxOZdyddepiZoHQCpw0FpHg/viewform" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">填寫 11/3 說明會調查 ↗</span><span class="u-en" lang="en">Open Nov 3 survey ↗</span></span></a></section><section class="u-surface" id="u-affiliated-union"><div class="u-kicker">UNION MEMBERSHIP</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4"><div class="u-muted text-sm">入會申請資料筆數 / Membership applications</div><strong class="block text-4xl mt-2" id="affiliatedUnionInterestCount">849</strong><p class="u-muted u-mini mt-2"><span class="u-bilingual"><span class="u-zh">截至 2026/10/30 讀取時共有 849 筆申請資料列（不含標題列）；尚非核准會員數，目前為靜態快照。</span><span class="u-en" lang="en">849 application records as of Oct 30, 2026 (excluding header). This is a snapshot, not approved members.</span></span></p></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
+<div class="u-action-stack"><section class="u-surface u-action-step" id="u-nov3-briefing"><div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker">11/3 · BRIEFING SURVEY</span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">📅 11/3 台中說明會｜參加意願調查</span><span class="u-en" lang="en">📅 Nov 3 Briefing Interest Survey</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">請填寫調查表單，表達中午或晚上說明會的參加意願。實際時間、地點及內容以表單和後續公告為準。</span><span class="u-en" lang="en">Indicate interest in a noon or evening briefing. Actual time, venue and agenda are subject to the form and official announcements.</span></span></p><div class="grid grid-cols-2 gap-3 mt-4"><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">中午場 / Noon</div><strong class="block text-3xl" id="briefingNoonCount">—</strong><small class="u-muted">有意願 / Interested</small></div><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">晚上場 / Evening</div><strong class="block text-3xl" id="briefingEveningCount">—</strong><small class="u-muted">有意願 / Interested</small></div></div><p class="u-muted u-mini mt-3" id="briefingCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><a class="u-button u-primary w-full mt-5" href="https://docs.google.com/forms/d/e/1FAIpQLSd6-wvSV2brvOfbbG_FNVAtHl_MxOZdyddepiZoHQCpw0FpHg/viewform" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">填寫 11/3 說明會調查 ↗</span><span class="u-en" lang="en">Open Nov 3 survey ↗</span></span></a></section><section class="u-surface" id="u-affiliated-union"><div class="u-kicker">UNION MEMBERSHIP</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4"><div class="u-muted text-sm">入會申請資料筆數 / Membership applications</div><strong class="block text-4xl mt-2" id="affiliatedUnionInterestCount">—</strong><p class="u-muted u-mini mt-2">申請資料筆數，尚非核准會員數。 / Application records, not approved members.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
 <section class="u-surface u-action-step">
 <div class="flex items-center gap-3"><span class="u-step">03</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">已開放審核 · LINE 群組</span><span class="u-en" lang="en">OPEN · LINE group</span></span></span></div>
 <h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">LINE 群組已重新開放入群審核</span><span class="u-en" lang="en">LINE group approvals have reopened</span></span></h3>
@@ -850,8 +855,22 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
 <a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="常見問答 / FAQ" aria-label="常見問答 / FAQ">
 <span class="float-icon" aria-hidden="true">❓</span><span class="float-label"><span class="float-label-zh">常見問答</span><span class="float-label-en" lang="en">FAQ</span></span></a>
 <button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
+<button id="portalNavToggle" type="button" aria-expanded="true" aria-label="收摺導覽 / Collapse navigation" title="收摺導覽 / Collapse navigation"><span class="float-icon" aria-hidden="true">◀</span><span class="float-label"><span class="float-label-zh">收摺</span><span class="float-label-en" lang="en">Collapse</span></span></button>
 </nav>
 <script id="test1-float-navigation">
+(function(){
+ const nav=document.getElementById('portalFloatingNav'),toggle=document.getElementById('portalNavToggle');
+ toggle.addEventListener('click',()=>{
+  const collapsed=nav.classList.toggle('is-collapsed');
+  toggle.setAttribute('aria-expanded',String(!collapsed));
+  toggle.title=collapsed?'展開導覽 / Expand navigation':'收摺導覽 / Collapse navigation';
+  toggle.setAttribute('aria-label',toggle.title);
+  toggle.querySelector('.float-icon').textContent=collapsed?'▶':'◀';
+  toggle.querySelector('.float-label-zh').textContent=collapsed?'展開':'收摺';
+  toggle.querySelector('.float-label-en').textContent=collapsed?'Expand':'Collapse';
+ });
+})();
+
 function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()=>{let el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}));return false;}
 
 </script>
@@ -864,39 +883,50 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  async function read(){try{const q=new URLSearchParams({action:'page_stats',t:String(Date.now())});const resp=await fetch(endpoint+'?'+q,{redirect:'follow',cache:'no-store'});if(!resp.ok)throw Error('HTTP '+resp.status);const json=await resp.json();if(json&&json.ok===false)throw Error('API error');const data=json&&json.data?json.data:json;if(data&&Number.isFinite(Number(data.total)))total.textContent=Number(data.total).toLocaleString();if(data&&Number.isFinite(Number(data.today)))today.textContent=Number(data.today).toLocaleString();}catch(e){total.title=today.title='統計暫時無法載入';}}
  record().then(read);
 })();
-</script><script id="organizing-counts-sync-v1">
-/* Public aggregate counts only. Deploy a read-only Apps Script to enable auto sync. */
+</script><script id="organizing-counts-sync-v2">
+/* Read-only public aggregate counts; never request application records. */
 (function(){
  'use strict';
- const AGGREGATE_API_URL='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec'; // Fill in the Apps Script /exec URL after deploying the script.
- const refreshMs=2*60*1000;
+ const endpoint='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec';
+ const refreshMs=120000;
  const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionInterestCount'};
- if(!AGGREGATE_API_URL)return;
- let busy=false;
+ const statuses=['briefingCountsStatus','membershipCountsStatus'].map(id=>document.getElementById(id));
+ let busy=false,lastSuccess='';
+ function status(message){statuses.forEach(el=>{if(el)el.textContent=message;});}
  function refresh(){
   if(busy||document.hidden)return;
   busy=true;
-  const callback='organizingAggregateCb_'+Date.now();
+  status('正在同步… / Syncing…');
+  const callback='organizingAggregateCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
   const tag=document.createElement('script');
-  const timer=setTimeout(()=>finish(),15000);
-  function finish(){clearTimeout(timer);tag.remove();try{delete window[callback]}catch(e){window[callback]=undefined}busy=false;}
-  window[callback]=data=>{
-   if(data&&data.ok===true){
-    for(const key of Object.keys(ids)){
-      const count=data[key],el=document.getElementById(ids[key]);
-      if(el&&Number.isSafeInteger(count)&&count>=0)el.textContent=count.toLocaleString('en-US');
+  let done=false;
+  const timer=setTimeout(()=>finish(new Error('timeout')),30000);
+  function finish(error,data){
+   if(done)return;
+   done=true;clearTimeout(timer);tag.remove();busy=false;
+   // Ignore a late response after timeout, then release the callback.
+   window[callback]=()=>{};setTimeout(()=>{delete window[callback]},60000);
+   if(!error){
+    if(!data||data.ok!==true||!Object.keys(ids).every(key=>Number.isSafeInteger(data[key])&&data[key]>=0)
+       ||typeof data.updatedAt!=='string'||!Number.isFinite(Date.parse(data.updatedAt))){
+     error=new Error('invalid_response');
     }
    }
-   finish();
-  };
-  tag.onerror=finish;
-  try{
-   const url=new URL(AGGREGATE_API_URL);
-   url.searchParams.set('callback',callback);
-   url.searchParams.set('_',String(Date.now()));
-   tag.src=url.toString();
-   document.head.appendChild(tag);
-  }catch(e){finish()}
+   if(error){
+    status((lastSuccess?'同步失敗，保留上次數據（'+lastSuccess+'） / Sync failed; showing last counts ('+lastSuccess+')':'暫時無法取得人數 / Counts temporarily unavailable')+' · 每 2 分鐘重試 / Retry every 2 min');
+    return;
+   }
+   Object.keys(ids).forEach(key=>{const el=document.getElementById(ids[key]);if(el)el.textContent=data[key].toLocaleString('en-US');});
+   lastSuccess=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date(data.updatedAt));
+   status('最近更新（台灣時間）：'+lastSuccess+' · 每 2 分鐘自動更新 / Updated (Taiwan): '+lastSuccess+' · Auto-refresh every 2 min');
+  }
+  window[callback]=data=>finish(null,data);
+  tag.onerror=()=>finish(new Error('network'));
+  const url=new URL(endpoint);
+  url.searchParams.set('callback',callback);
+  url.searchParams.set('_',String(Date.now()));
+  tag.src=url.href;tag.async=true;tag.referrerPolicy='no-referrer';
+  document.head.appendChild(tag);
  }
  refresh();
  setInterval(refresh,refreshMs);
