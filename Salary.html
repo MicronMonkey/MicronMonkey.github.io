@@ -544,8 +544,15 @@ html{scroll-behavior:smooth}
  #portalFloatingNav .float-label-zh{font-size:9px}
  #portalFloatingNav .float-label-en{font-size:8px}
 }
+</style><style id="floating-nav-collapse">
+#portalFloatingNav{max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain;pointer-events:auto}
+#portalFloatingNav>a,#portalFloatingNav>button{flex-shrink:0}
+#portalFloatingNav.is-collapsed>a,#portalFloatingNav.is-collapsed>.back-top{display:none}
+#portalNavToggle{border-color:#bf9c64!important}
 </style></head>
-<body class="p-4 md:p-8 relative emergency-active">
+<body class="p-4 md:p-8 relative">
+<div class="max-w-7xl mx-auto mb-3"><a href="index_test1.html" target="_self" class="inline-flex items-center gap-2 rounded-xl bg-amber-200 px-4 py-2 font-bold text-slate-900">🕯️ 回緊急專區 <span class="text-xs" lang="en">Back to Emergency</span></a></div>
+
 <div class="max-w-7xl mx-auto">
 <!-- Header -->
 <header class="mb-6 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white p-6 rounded-2xl shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -592,11 +599,11 @@ html{scroll-behavior:smooth}
 </header>
 <!-- 核心切換 -->
 <!-- Sticky MU stock ticker -->
-<div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)">
+<div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" hidden style="background:var(--u-bg)">
 </div>
 <div class="flex flex-wrap items-center gap-2 mb-6 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm u-v14-navigation" id="portalNavFooter">
 <button class="flex-1 min-w-[125px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active border border-transparent" id="btnMode0" onclick="goToEmergencyHero()">🕯️ 緊急專區</button>
-<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
+<button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm transition-all tab-active" id="btnMode1" onclick="switchMode(1)">📊 日常薪情</button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent" id="btnMode2" onclick="switchMode(2)">🎁 2025 開獎</button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent relative" id="btnMode3" onclick="switchMode(3)">🎁 2026 開獎 <span class="absolute -top-2 -right-2 bg-rose-500 text-white text-[9px] px-2 py-0.5 rounded-full shadow animate-pulse">即將到來</span></button>
 <button class="flex-1 min-w-[120px] py-2.5 px-4 rounded-xl font-bold text-sm text-slate-500 hover:bg-slate-100 transition-all border border-transparent flex justify-center items-center gap-1" id="btnMode4" onclick="switchMode(4)">🏭 工會資訊 <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span><span class="relative inline-flex rounded-full h-full w-2 bg-rose-500"></span></span></button>
@@ -622,7 +629,7 @@ html{scroll-behavior:smooth}
 <!-- ========================================== -->
 <!-- MODE 1: 日常薪情模式 -->
 <!-- ========================================== -->
-<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode1Container">
+<div class="space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode1Container">
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-stretch">
 <div class="lg:col-span-1 bg-gradient-to-br from-blue-700 to-indigo-950 p-5 rounded-2xl shadow-md text-white flex flex-col justify-center min-h-[90px]">
 <p class="text-xs font-medium text-blue-200 uppercase tracking-wider">📊 總調查人數 (母體樣本)</p>
@@ -3414,10 +3421,25 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
 })();
 </script>
 <nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation">
+<a href="index_test1.html" target="_self" title="回緊急專區 / Back to Emergency" aria-label="回緊急專區 / Back to Emergency"><span class="float-icon" aria-hidden="true">🕯️</span><span class="float-label"><span class="float-label-zh">回緊急專區</span><span class="float-label-en" lang="en">Back to Emergency</span></span></a>
 <button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
+<button id="portalNavToggle" type="button" aria-expanded="true" aria-label="收摺導覽 / Collapse navigation" title="收摺導覽 / Collapse navigation"><span class="float-icon" aria-hidden="true">◀</span><span class="float-label"><span class="float-label-zh">收摺</span><span class="float-label-en" lang="en">Collapse</span></span></button>
 </nav>
 <script id="test1-float-navigation">
-function portalNavigateTo(id){if(typeof switchMode==='function')switchMode(0);requestAnimationFrame(()=>requestAnimationFrame(()=>{let el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}));return false;}
-(function(){function init(){let src=document.getElementById('intentTaichungCount'),out=document.getElementById('intentHeroTaichungCount');if(!src||!out)return;function sync(){let match=(src.textContent||'').match(/[\d,]+/);out.textContent=match?match[0]:'—'}sync();new MutationObserver(sync).observe(src,{subtree:true,childList:true,characterData:true})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
+(function(){
+ const nav=document.getElementById('portalFloatingNav'),toggle=document.getElementById('portalNavToggle');
+ toggle.addEventListener('click',()=>{
+  const collapsed=nav.classList.toggle('is-collapsed');
+  toggle.setAttribute('aria-expanded',String(!collapsed));
+  toggle.title=collapsed?'展開導覽 / Expand navigation':'收摺導覽 / Collapse navigation';
+  toggle.setAttribute('aria-label',toggle.title);
+  toggle.querySelector('.float-icon').textContent=collapsed?'▶':'◀';
+  toggle.querySelector('.float-label-zh').textContent=collapsed?'展開':'收摺';
+  toggle.querySelector('.float-label-en').textContent=collapsed?'Expand':'Collapse';
+ });
+})();
+
+function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()=>{let el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}));return false;}
+
 </script></body>
 </html>
