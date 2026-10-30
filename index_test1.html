@@ -866,7 +866,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 /* Public aggregate counts only. Deploy a read-only Apps Script to enable auto sync. */
 (function(){
  'use strict';
- const AGGREGATE_API_URL=''; // Fill in the Apps Script /exec URL after deploying the script.
+ const AGGREGATE_API_URL='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec'; // Fill in the Apps Script /exec URL after deploying the script.
  const refreshMs=2*60*1000;
  const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionInterestCount'};
  if(!AGGREGATE_API_URL)return;
