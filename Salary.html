@@ -1087,96 +1087,11 @@ html{scroll-behavior:smooth}
 <!-- ========================================== -->
 <!-- MODE 4: 工會資訊 -->
 <!-- ========================================== -->
-<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode4Container">
-<div class="bg-white p-6 md:p-10 rounded-3xl border border-slate-200 shadow-lg relative overflow-hidden">
-<div class="absolute top-0 right-0 w-32 h-32 bg-rose-500 rounded-bl-full opacity-10"></div>
-<h2 class="text-2xl md:text-3xl font-black text-slate-800 border-b-4 border-rose-500 pb-3 mb-6 inline-block">🏭 加入【美光工會】，讓員工有真正的聲音！</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-<div class="space-y-4">
-<ul class="space-y-4 text-sm md:text-base text-slate-700">
-<li class="flex items-start gap-2"><span>⚖️</span> <span><b>遭遇不公？</b><br/><span class="text-slate-500">工會幫你協調、法律支援絕對到位。</span></span></li>
-<li class="flex items-start gap-2"><span>🗣️</span> <span><b>想改變現狀？</b><br/><span class="text-slate-500">工會核心成員可直接參與薪酬與勞資會議。</span></span></li>
-<li class="flex items-start gap-2"><span>🛡️</span> <span><b>需要保障？</b><br/><span class="text-slate-500">會員專享免費法律諮詢、節慶專屬回饋、急難互助金制度。</span></span></li>
-<li class="flex items-start gap-2"><span>🎉</span> <span><b>想看到實質成果？</b><br/><span class="text-rose-600 font-bold">今年的三天有薪假，就是我們爭取來的！</span></span></li>
-</ul>
-</div>
-<div class="bg-rose-50 p-6 rounded-2xl border border-rose-100 flex flex-col justify-center">
-<h3 class="text-lg font-black text-rose-800 mb-2">📢 你的參與，就是改變的開始</h3>
-<p class="text-sm text-rose-700 leading-relaxed font-medium mb-4">
-    每月只需 250 元（年底前免入會費），<br/>讓我們一起集結力量，讓公司不再能假裝聽不見！<br/>人越多，力量越大，制度才會真正改變。
-</p>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-<div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h4 class="font-black text-slate-800 mb-3 text-lg border-l-4 border-blue-500 pl-2">📍 桃園工會</h4>
-<p class="text-xs text-slate-600 mb-2 font-bold">有任何問題歡迎聯繫我們~<br/>也歡迎跟我們聊聊或是加入工會！</p>
-<div class="space-y-2 text-sm font-medium mt-4">
-<a class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition-all shadow" href="https://forms.gle/UTjfm4YeWQusxx1R7" target="_blank">👉 加入桃園工會</a>
-<a class="block w-full text-center bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 rounded-lg transition-all" href="https://forms.gle/3vbDYYPLjjR8jUNi8" target="_blank">⚠️ 想要申訴</a>
-<div class="mt-4 text-xs text-slate-600 space-y-1">
-<p><b>辦公室位置：</b>F11 廠務1樓大辦公室H125辦公室隔壁(左邊)</p>
-<p><b>工會布告欄：</b>F11 一樓及五樓公佈欄區</p>
-</div>
-</div>
-</div>
-<div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm">
-<h4 class="font-black text-slate-800 mb-3 text-lg border-l-4 border-emerald-500 pl-2">📍 台中工會</h4>
-<p class="text-xs text-slate-600 mb-2 font-bold">你不敢說的，我們幫你說！你不敢做的，我們幫你做！<br/>現在就加入美光台中工會，讓工程師勇敢拿回權益！</p>
-<div class="space-y-2 text-sm font-medium mt-4">
-<a class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-lg transition-all shadow" href="https://asdfgghghhh.github.io/micron-union-form../" target="_blank">👉 線上入會申請 (台中)</a>
-<div class="mt-4 text-xs text-slate-600 space-y-1">
-<p><b>專人聯繫：</b>Teams 私訊 Mark Hsu</p>
-<p>台灣美光記憶體企業工會，與您同行，共同守護勞動權益</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm mt-6">
-<div class="flex justify-between items-end mb-4">
-<div>
-<h3 class="text-lg font-black text-slate-800">📈 工會會員人數成長趨勢</h3>
-<p class="text-xs text-slate-400 mt-1">團結力量大！感謝每一位站出來的夥伴。</p>
-</div>
-<div class="text-right">
-<p class="text-[10px] text-slate-400">最新回報人數</p>
-<p class="text-2xl font-black text-rose-600" id="latestUnionCount">載入中...</p>
-</div>
-</div>
-<div class="relative h-64 w-full"><canvas id="unionTrendChart"></canvas></div>
-<div class="mt-6 pt-6 border-t border-slate-200">
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-<div><h4 class="font-black text-slate-800">📣 我要回報工會人數</h4><p class="text-xs text-slate-500 mt-1">請回報你目前知道的會員人數；不收集姓名。</p></div>
-<button class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-5 py-2.5 rounded-xl shadow" onclick="openUnionReportModal()">📝 我要回報</button>
-</div>
-<div class="mt-3 text-[11px] text-slate-400" id="unionDataStatus">目前顯示公開資料／回報資料彙整結果。</div>
-</div>
-</div>
-</div>
+
 <!-- ========================================== -->
 <!-- MODE 5: 員工工具箱 / PORTAL HUB -->
 <!-- ========================================== -->
-<div class="hidden space-y-6 animate-[fadeIn_0.5s_ease-out]" id="mode5Container">
-<div class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white p-6 md:p-8 rounded-3xl shadow-lg">
-<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-<div><p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Micron Employee Portal</p><h2 class="text-3xl font-black mt-1">🧰 員工工具箱</h2><p class="text-slate-300 text-sm mt-2">公告、匿名互動與外部資訊集中在這裡。</p></div>
-<div class="bg-white/10 rounded-xl px-4 py-3 text-xs"><span class="text-slate-400">公告</span><b class="block text-xl" id="portalAnnouncementCount">--</b></div>
-</div></div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-<div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 匿名心聲廣播</h3><p class="text-xs text-slate-400">固定顯示 5 則，每 4 秒輪播 1 則。</p></div><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPublicReports()">↻ 更新</button></div>
-<div class="portal-report-viewport" id="publicReportViewport"><div class="portal-report-track" id="publicReportTrack"><div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">載入中...</div></div></div>
-</section>
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><h3 class="font-black text-slate-800">📣 匿名大聲公</h3><p class="text-xs text-slate-400 mb-3">投稿後直接進入左側廣播；請勿填寫姓名、員工編號等個資。</p><div class="grid grid-cols-2 gap-2 mb-2"><select class="w-full border rounded-lg p-2 text-[12px]" id="reportType"><option value="心聲">🗣️ 心聲</option><option value="許願池">💡 許願池</option></select><select class="w-full border rounded-lg p-2 text-[12px]" id="reportCategory"><option>薪資</option><option>工會</option><option>福利</option><option>管理</option><option>工作環境</option><option>文化</option><option>交通</option><option>餐廳</option><option>其他</option></select></div><select class="w-full border rounded-lg p-2 mb-2 text-[12px]" id="reportSite"><option value="">不指定地點</option><option>桃園</option><option>台中</option></select><textarea class="w-full border rounded-lg p-2 mb-2 text-[12px]" id="reportContent" placeholder="例如：😤 今天最想說的是……" rows="3"></textarea><div class="flex flex-wrap gap-1 mb-2"><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😄')" type="button">😄</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😐')" type="button">😐</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('😤')" type="button">😤</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('💰')" type="button">💰</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🏭')" type="button">🏭</button><button class="text-xs bg-slate-100 rounded-lg px-2 py-1" onclick="addReportEmoji('🗣️')" type="button">🗣️</button></div><button class="w-full bg-rose-600 text-white font-bold py-2 rounded-lg text-[12px]" onclick="submitAnonymousReport()">送出匿名大聲公</button><div class="text-xs mt-2 font-bold" id="reportResult"></div></section>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-<section class="bg-white p-5 rounded-2xl border border-sky-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌡️ 你覺得現在公司氣氛？</h3><p class="text-xs text-slate-400">匿名、非正式員工感受調查；每人每天可投 1 次。</p></div><div class="flex items-center gap-2"><div class="text-sm font-black text-sky-700" id="moodScore">目前尚無資料</div><button class="text-xs bg-sky-50 text-sky-700 px-2 py-1 rounded-lg font-bold" onclick="refreshCompanyMood()">↻</button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-2" id="moodOptions"><button class="mood-btn p-3 rounded-xl border hover:bg-emerald-50 text-sm font-bold" onclick="submitMood('很不錯')">😄<br/>很不錯</button><button class="mood-btn p-3 rounded-xl border hover:bg-green-50 text-sm font-bold" onclick="submitMood('還不錯')">🙂<br/>還不錯</button><button class="mood-btn p-3 rounded-xl border hover:bg-slate-50 text-sm font-bold" onclick="submitMood('普通')">😐<br/>普通</button><button class="mood-btn p-3 rounded-xl border hover:bg-amber-50 text-sm font-bold" onclick="submitMood('有點差')">😕<br/>有點差</button><button class="mood-btn p-3 rounded-xl border hover:bg-rose-50 text-sm font-bold" onclick="submitMood('非常差')">😡<br/>非常差</button></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"><div class="space-y-2" id="moodResults"></div><div class="relative h-56"><canvas id="moodTrendChart"></canvas></div></div></section>
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black text-slate-800">📢 公告牆</h3><p class="text-xs text-slate-400">標題、日期、分類；點擊查看全文。</p></div><div class="flex gap-2"><button class="text-xs bg-amber-500 text-white px-3 py-2 rounded-lg font-bold" onclick="openAnnouncementSubmit()">＋ 投稿</button><button class="text-xs bg-slate-100 px-3 py-2 rounded-lg font-bold" onclick="refreshPortalData()">↻ 更新</button></div></div><div class="space-y-3" id="announcementList"><p class="text-sm text-slate-400">載入中...</p></div></section>
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex justify-between items-center mb-4"><h3 class="font-black text-slate-800">📅 公司重要日期｜事件時間軸</h3><button class="text-xs bg-indigo-600 text-white px-3 py-2 rounded-lg font-bold" onclick="openEventSubmit()">＋ 投稿</button></div><div class="event-timeline" id="eventList"><p class="text-sm text-slate-400">載入中...</p></div></section>
-</div>
-<section class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm"><div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4"><div><h3 class="font-black text-slate-800">🌎 外部世界｜美光資訊雷達</h3><p class="text-xs text-slate-400">Google News 搜尋「美光」。</p></div><div class="flex flex-wrap gap-2"><button class="text-xs bg-sky-600 text-white px-3 py-2 rounded-lg font-bold" onclick="refreshExternalNews(true)">↻ 更新外部資訊</button><a class="text-xs bg-red-50 text-red-700 px-3 py-2 rounded-lg font-bold" href="https://news.google.com/search?q=%E7%BE%8E%E5%85%89&amp;hl=zh-TW&amp;gl=TW&amp;ceid=TW%3Azh-Hant" rel="noopener" target="_blank">📰 Google News「美光」</a><a class="text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg font-bold" href="https://tw.news.yahoo.com/search?p=%E7%BE%8E%E5%85%89" rel="noopener" target="_blank">Yahoo「美光」</a></div></div><div class="external-status text-slate-500 mb-3" id="externalNewsStatus">外部資訊尚未更新。</div><div class="flex flex-wrap gap-2 mb-3" id="externalNewsFilters"><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-sky-600 text-white" data-news-filter="全部">全部</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="工會">🏭 工會</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="薪資">💰 薪資</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="股價">📈 股價</button><button class="news-filter px-3 py-1.5 rounded-full text-xs font-black bg-slate-100" data-news-filter="AI/記憶體">🧠 AI/記憶體</button></div><div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="externalNewsList"><p class="text-sm text-slate-400">載入中...</p></div></section>
-</div>
+
 <!-- 📝 Form Modal (M1) -->
 <div class="modal" id="dataFormModal">
 <div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl overflow-y-auto max-h-[90vh]">
@@ -1255,23 +1170,11 @@ html{scroll-behavior:smooth}
 </div>
 </div>
 <!-- 🏭 Union Report Modal -->
-<div class="modal" id="unionReportModal">
-<div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
-<button class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg" onclick="closeUnionReportModal()">✖</button>
-<h2 class="text-xl font-bold text-slate-800 mb-1">📣 我要回報工會人數</h2>
-<p class="text-xs text-slate-500 mb-5">只需要填寫地點與你目前掌握的人數。</p>
-<form class="space-y-4 text-sm" id="unionReportForm" onsubmit="submitUnionReport(event)">
-<div><label class="block text-slate-700 font-bold mb-1">工會地點</label><select class="w-full border rounded-lg p-2" id="unionSite" required=""><option value="桃園">桃園</option><option value="台中">台中</option></select></div>
-<div><label class="block text-slate-700 font-bold mb-1">目前工會人數</label><input class="w-full border rounded-lg p-2" id="unionCount" max="15000" min="0" placeholder="例如：2300" required="" step="1" type="number"/></div>
-<button class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-lg" id="unionReportBtn" type="submit">🚀 送出匿名回報</button>
-<div class="text-xs text-center font-bold mt-2 hidden" id="unionReportMsg"></div>
-</form>
-</div>
-</div>
+
 <!-- Extra Modals -->
-<div class="modal" id="announcementSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📢 投稿公告</h2><input class="w-full border rounded-lg p-2 mb-2" id="annSubmitTitle" placeholder="公告標題"/><select class="w-full border rounded-lg p-2 mb-2" id="annSubmitCategory"><option>一般</option><option>工會</option><option>福利</option><option>重要通知</option></select><textarea class="w-full border rounded-lg p-2 mb-3" id="annSubmitContent" placeholder="公告內容" rows="6"></textarea><button class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-lg" onclick="submitAnnouncementSuggestion()">送出審核</button><div class="text-xs mt-2 font-bold" id="annSubmitMsg"></div></div></div>
-<div class="modal" id="eventSubmitModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('eventSubmitModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">📅 投稿重要日期</h2><input class="w-full border rounded-lg p-2 mb-2" id="eventSubmitTitle" placeholder="事件名稱"/><div class="grid grid-cols-2 gap-2 mb-2"><input class="w-full border rounded-lg p-2" id="eventSubmitStart" type="datetime-local"/><input class="w-full border rounded-lg p-2" id="eventSubmitEnd" type="datetime-local"/></div><input class="w-full border rounded-lg p-2 mb-2" id="eventSubmitCategory" placeholder="分類"/><textarea class="w-full border rounded-lg p-2 mb-3" id="eventSubmitDescription" placeholder="說明" rows="4"></textarea><button class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-lg" onclick="submitEventSuggestion()">送出審核</button><div class="text-xs mt-2 font-bold" id="eventSubmitMsg"></div></div></div>
-<div class="modal" id="announcementViewModal"><div class="bg-white rounded-2xl w-full max-w-2xl p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('announcementViewModal')">✖</button><div id="announcementViewBody"></div></div></div>
+
+
+
 <div class="modal" id="wishlistModal"><div class="bg-white rounded-2xl w-full max-w-md p-6 relative shadow-2xl"><button class="absolute top-4 right-4 text-slate-400" onclick="closeGenericModal('wishlistModal')">✖</button><h2 class="text-xl font-black text-slate-800 mb-4">💡 網站功能許願清單</h2><input class="w-full border rounded-lg p-2 mb-2" id="wishTitle" placeholder="功能名稱（可不填）"/><textarea class="w-full border rounded-lg p-2 mb-3" id="wishContent" placeholder="你希望網站未來增加什麼？" rows="5"></textarea><button class="w-full bg-violet-600 text-white font-bold py-2.5 rounded-lg" onclick="submitWishlist()">送出許願</button><div class="text-xs mt-2 font-bold" id="wishMsg"></div></div></div>
 <script>
         const API_M1 = "https://script.google.com/macros/s/AKfycbyEdRQZgPNfANU58JrP3tmYtupoJKofJBjUK4UbnU8yawitwbbQNopolfGVgNOQFfJVRA/exec";
@@ -1312,7 +1215,6 @@ html{scroll-behavior:smooth}
         let cM3Rsu=null, cM3RaiseAll=null, cM3RaiseYes=null, cM3RaiseNo=null, m3RsuMeta={};
         let m3FilterSeries='All',m3FilterPromo='All',m3FilterPerf='All';
         let currentM3TableSeries='All', currentM3TableSubGrade='All', currentM3TablePromo='All', currentM3TablePerf='All', m3SortCol='', m3SortDesc=false;
-        let cUnionTrend=null;
 
         // Standard box-chart renderer: floating bar = Q1..Q3; whiskers + red median only.
         Chart.register({
@@ -1495,10 +1397,10 @@ html{scroll-behavior:smooth}
         async function initPlatform() {
             const loadingBar=document.getElementById('loadingBar'),loadingText=document.getElementById('loadingText'),loadingDot=document.getElementById('loadingDot'),statusContainer=document.getElementById('statusContainer');
             const errors=[];
-            const sourceState={M1:false,M2:false,M3:false,PortalDB:false};
+            const sourceState={M1:false,M2:false,M3:false};
             const updateStatus=()=>{
                 const done=Object.values(sourceState).filter(Boolean).length;
-                if(loadingBar)loadingBar.style.width=Math.round(8+(done/4)*87)+'%';
+                if(loadingBar)loadingBar.style.width=Math.round(8+(done/Object.keys(sourceState).length)*87)+'%';
             };
             const markSource=(label,ok)=>{ sourceState[label]=true; updateStatus(); };
             const renderM1=(rows)=>{
@@ -1564,19 +1466,7 @@ html{scroll-behavior:smooth}
                     loadOne('M3',API_M3,renderM3)
                 ];
 
-                // PortalDB is separated from the core salary APIs.
-                const portalTask=(async()=>{
-                    try{
-                        await sleep(2600);
-                        await Promise.allSettled([renderUnionChart(),refreshPortalData()]);
-                        markSource('PortalDB',true);
-                        return true;
-                    }catch(e){
-                        errors.push('PortalDB: '+e.message); console.warn('PortalDB',e); markSource('PortalDB',true); return false;
-                    }
-                })();
-
-                await Promise.allSettled([...coreTasks,portalTask]);
+                await Promise.allSettled(coreTasks);
                 if(loadingBar)loadingBar.style.width='100%';
                 if(loadingDot){loadingDot.className='w-2 h-2 rounded-full '+(errors.length?'bg-amber-400':'bg-emerald-400');loadingDot.classList.remove('animate-pulse');}
                 if(loadingText)loadingText.innerText=errors.length?'資料已載入（部分來源暫時異常，已保留可用資料）':'全部資料已載入';
@@ -2377,8 +2267,6 @@ html{scroll-behavior:smooth}
         function closeBonusModal() { document.getElementById('bonusFormModal').classList.remove('active'); document.body.style.overflow = ''; }
         function openBonus2026Modal(){document.getElementById('bonus2026FormModal').classList.add('active');document.body.style.overflow='hidden';}
         function closeBonus2026Modal(){document.getElementById('bonus2026FormModal').classList.remove('active');document.body.style.overflow='';}
-        function openUnionReportModal(){document.getElementById('unionReportModal').classList.add('active');document.body.style.overflow='hidden';}
-        function closeUnionReportModal(){document.getElementById('unionReportModal').classList.remove('active');document.body.style.overflow='';}
 
         async function submitBonus2026Form(e){
             e.preventDefault(); const btn=document.getElementById('b3FormSubmitBtn'),msg=document.getElementById('b3FormStatusMsg');
@@ -2403,50 +2291,6 @@ html{scroll-behavior:smooth}
             if(!token){token=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():('anon-'+Date.now()+'-'+Math.random().toString(36).slice(2));localStorage.setItem('micron_anon_token',token);}
             return token;
         }
-        function normalizeUnionRows(rows){
-            return rows.map(r=>({
-                timestamp:r.Timestamp||r.timestamp||r.Date||r.date,
-                site:r.Site||r.site||r.Location||r.location,
-                count:Number(r.MemberCount!==undefined?r.MemberCount:(r.count!==undefined?r.count:r.Count))
-            })).filter(r=>r.site && Number.isFinite(r.count));
-        }
-        async function loadUnionReports(){
-            if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0) return [];
-            try{
-                const rows=await portalGet('union_history');
-                return normalizeUnionRows(rows);
-            }catch(e){console.warn('Union API',e);return []}
-        }
-        async function submitUnionReport(e){
-            e.preventDefault(); const btn=document.getElementById('unionReportBtn'),msg=document.getElementById('unionReportMsg');
-            const site=document.getElementById('unionSite').value,count=parseInt(document.getElementById('unionCount').value,10);
-            if(!['桃園','台中'].includes(site)||!Number.isInteger(count)||count<0||count>15000){alert('請填寫 0～15000 的整數人數。');return;}
-            btn.disabled=true;btn.innerText='回報傳送中...';
-            try{
-                await portalPost('union',{Site:site,MemberCount:String(count),AnonToken:getAnonToken(),Note:''});
-                msg.innerText='✅ 已送出匿名回報，資料已寫入 PortalDB。';msg.className='text-xs text-center font-bold mt-2 text-emerald-600 block';
-                document.getElementById('unionReportForm').reset(); await renderUnionChart(); setTimeout(closeUnionReportModal,1200);
-            }catch(err){console.error(err);msg.innerText='❌ 回報失敗：'+err.message;msg.className='text-xs text-center font-bold mt-2 text-rose-600 block';}
-            finally{btn.disabled=false;btn.innerText='🚀 送出匿名回報';}
-        }
-        async function renderUnionChart(){
-            const canvas=document.getElementById('unionTrendChart');if(!canvas)return;
-            const reports=await loadUnionReports();
-            const latest=reports.slice().sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp))[0];
-            const latestEl=document.getElementById('latestUnionCount');
-            if(latestEl){
-                latestEl.innerText=latest && Number.isFinite(latest.count) ? `${latest.count.toLocaleString()} 人` : '--';
-            }
-            const monthMap={};
-            reports.forEach(r=>{const d=new Date(r.timestamp);if(isNaN(d))return;const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');if(!monthMap[key])monthMap[key]={};monthMap[key][r.site]=r.count;});
-            const keys=Object.keys(monthMap).sort();
-            const labels=keys.length?keys.map(k=>{const [y,m]=k.split('-');return y+'/'+Number(m)+'月';}):[];
-            const ty=keys.map(k=>monthMap[k].桃園 ?? null),tc=keys.map(k=>monthMap[k].台中 ?? null);
-            if(cUnionTrend)cUnionTrend.destroy();
-            cUnionTrend=new Chart(canvas.getContext('2d'),{type:'line',data:{labels,datasets:[{label:'桃園工會',data:ty,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.08)',fill:true,tension:.3,borderWidth:2},{label:'台中工會',data:tc,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.3,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${Number(c.raw||0).toLocaleString()} 人`}}},scales:{y:{beginAtZero:true,suggestedMax:15000,title:{display:true,text:'會員人數'}}}}});
-            const st=document.getElementById('unionDataStatus');if(st)st.innerText=API_PORTAL&&API_PORTAL.indexOf('請貼上')!==0?'🟢 PortalDB 共用資料庫：所有人的匿名回報會匯入同一份資料。':'🔴 尚未設定 PortalDB API。';
-        }
-
         async function portalGet(action, params={}){
             if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0) throw new Error('尚未設定 API_PORTAL');
             const qs=new URLSearchParams(); qs.set('action',action); Object.keys(params||{}).forEach(k=>{ if(params[k]!==undefined&&params[k]!==null&&params[k]!=='') qs.set(k,String(params[k])); }); qs.set('t',Date.now());
@@ -2462,225 +2306,13 @@ html{scroll-behavior:smooth}
             await fetch(API_PORTAL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString()}); return true;
         }
 
-        let publicReportItems=[], publicReportIndex=0, publicReportTimer=null;
-        const announcementStore={};
-
-        function addReportEmoji(emoji){const el=document.getElementById('reportContent');if(!el)return;const pos=el.selectionStart||el.value.length;el.value=el.value.slice(0,pos)+emoji+el.value.slice(pos);el.focus();el.selectionStart=el.selectionEnd=pos+emoji.length;}
-        async function refreshExternalNews(force=false){
-            const list=document.getElementById('externalNewsList'), status=document.getElementById('externalNewsStatus'); if(!list)return;
-            list.innerHTML='<p class="text-sm text-slate-400">外部新聞更新中...</p>';
-            try{const d=await portalGet('external_news', force?{force:'1'}:{});const news=Array.isArray(d?.news)?d.news:(Array.isArray(d)?d:[]);currentExternalNewsItems=news;
-                if(status)status.innerText=(d?.live?'🟢 外部新聞已更新':'🟡 顯示最近一次成功快取')+' · '+(d?.updatedAt?formatDateTime(d.updatedAt):'未知時間')+' · '+news.length+' 篇';
-                renderExternalNewsFiltered();setupNewsFilters();
-            }catch(e){console.error('external_news:',e);if(status)status.innerHTML='🔴 外部新聞暫時無法載入 · '+escapeHtml(e.message||String(e));list.innerHTML='<div class="col-span-full rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800"><b>目前無法取得外部新聞</b><p class="mt-1 text-xs">可直接開啟 Google News 搜尋「美光」。</p></div>';}
-        }
-        let currentExternalNewsItems=[];
-        let currentExternalNewsFilter='全部';
-        function classifyNewsItem(n){const t=(String(n.title||'')+' '+String(n.source||'')).toLowerCase();if(/工會|罷工|勞資|union|strike/.test(t))return '工會';if(/薪資|薪酬|工資|獎金|分紅|補償|待遇|福利|員工|人力|裁員|招募|招聘|bonus|salary|compensation|wage|pay|employee|workforce|layoff|hiring|benefit/.test(t))return '薪資';if(/股價|目標|美元|nasdaq|\bmu\b|股市|漲|跌/.test(t))return '股價';if(/ai|hbm|dram|nand|記憶體|半導體|晶片/.test(t))return 'AI/記憶體';return '其他';}
-        function renderExternalNewsFiltered(){const list=document.getElementById('externalNewsList');if(!list)return;const items=currentExternalNewsFilter==='全部'?currentExternalNewsItems:currentExternalNewsItems.filter(n=>classifyNewsItem(n)===currentExternalNewsFilter);list.innerHTML=items.length?items.slice(0,20).map(n=>{const dt=formatDateTime(n.date||n.published||n.Published||'');return `<a class="external-news-item" target="_blank" rel="noopener" href="${escapeHtml(n.url||'#')}"><div class="news-meta"><span class="news-source-tag">${escapeHtml(n.source||'Google News')}</span><span class="news-date">${escapeHtml(dt)}</span></div><div class="news-title">${escapeHtml(n.title||'')}</div></a>`}).join(''):'<div class="col-span-full text-sm text-slate-400 p-3">此分類目前沒有新聞。</div>';}
-        function setupNewsFilters(){document.querySelectorAll('.news-filter').forEach(b=>{if(b.dataset.bound==='1')return;b.dataset.bound='1';b.addEventListener('click',()=>{currentExternalNewsFilter=b.dataset.newsFilter||'全部';document.querySelectorAll('.news-filter').forEach(x=>{x.classList.remove('bg-sky-600','text-white');x.classList.add('bg-slate-100');});b.classList.add('bg-sky-600','text-white');b.classList.remove('bg-slate-100');renderExternalNewsFiltered();});});}
-        function refreshEventCountdowns(){
-            const now=new Date();
-            document.querySelectorAll('[data-countdown-start]').forEach(el=>{
-                const start=new Date(el.dataset.countdownStart), endRaw=el.dataset.countdownEnd||'', end=endRaw?new Date(endRaw):null;
-                if(isNaN(start))return;
-                if(end && isNaN(end)) return;
-                if(end && now>=end){el.textContent='✅ 已結束';el.classList.remove('text-rose-600');el.classList.add('text-slate-500');return;}
-                if(now>=start){
-                    if(end){
-                        const diff=end-now,d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);
-                        el.textContent=`🟢 進行中 · 剩 ${d} 天 ${h} 小時 ${m} 分鐘`;
-                    }else el.textContent='🟡 已開始';
-                    el.classList.remove('text-rose-600');el.classList.add('text-emerald-600');return;
-                }
-                const diff=start-now,d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);
-                el.textContent=`⏳ 還有 ${d} 天 ${h} 小時 ${m} 分鐘`;
-            });
-        }
-        function getMoodToken(){let k='micron_mood_token';let v=localStorage.getItem(k);if(!v){v=(window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():('mood_'+Date.now()+'_'+Math.random().toString(36).slice(2));localStorage.setItem(k,v);}return v;}
-        async function refreshCompanyMood(){
-            const scoreEl=document.getElementById('moodScore'), resultEl=document.getElementById('moodResults'); if(!scoreEl)return;
-            try{
-                const d=await portalGet('company_mood');
-                if(!d || d.ok===false) throw new Error(d?.error || '公司氣氛 API 沒有回傳有效資料');
-                const total=Number(d.total)||0;
-                scoreEl.textContent=total?`氣氛指數 ${Number(d.score)||0}/100 · ${total} 份回覆`:'目前尚無資料';
-                const counts=d.counts||{};
-                const labels=d.labels||['很不錯','還不錯','普通','有點差','非常差'];
-                resultEl.innerHTML=total?labels.map(x=>{const n=Number(counts[x])||0,p=Math.round(n/total*100);return `<div class="flex items-center gap-2 text-xs"><span class="w-14 font-bold">${escapeHtml(x)}</span><div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-sky-500" style="width:${p}%"></div></div><b class="w-12 text-right">${n} (${p}%)</b></div>`}).join(''):'<div class="text-xs text-slate-400">目前已有 API 連線，但尚無有效投票資料。</div>';
-                 const moodDate=getReportLikeDate(),chosen=localStorage.getItem('micron_mood_choice_'+moodDate)||'';
-                 document.querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('mood-selected-today',!!chosen&&b.getAttribute('onclick')===`submitMood('${chosen}')`));
-                renderMoodTrend(d.trend||[]);
-            }catch(e){console.error('company_mood:',e);scoreEl.textContent='目前無法取得統計'; if(resultEl)resultEl.innerHTML='<div class="text-xs text-rose-500">統計 API 暫時無法讀取：'+escapeHtml(e.message||String(e))+'</div>';}
-        }
-        let moodTrendChartInstance=null;
-        function renderMoodTrend(trend){
-            const c=document.getElementById('moodTrendChart');
-            if(!c||!window.Chart)return;
-            if(moodTrendChartInstance && typeof moodTrendChartInstance.destroy==='function'){
-                moodTrendChartInstance.destroy();
-            }
-            moodTrendChartInstance=null;
-            const rows=Array.isArray(trend)?trend:[];
-            moodTrendChartInstance=new Chart(c,{
-                type:'line',
-                data:{labels:rows.map(x=>x.date||''),datasets:[{label:'公司氣氛指數',data:rows.map(x=>Number(x.score)||0),tension:.25,fill:false}]},
-                options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:100,title:{display:true,text:'指數'}}},plugins:{legend:{display:false}}}
-            });
-        }
-        async function submitMood(mood){
-            const moodDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei'}).format(new Date());
-            const moodKey='micron_mood_submitted_'+moodDate;
-            if(localStorage.getItem(moodKey)==='1'){alert('今天已經填過公司氣氛調查，明天可以再投一次。');return;}
-            const buttons=[...document.querySelectorAll('.mood-btn')]; buttons.forEach(b=>b.disabled=true);
-            try{await portalPost('company_mood',{Mood:mood,AnonToken:getMoodToken(),VoteDate:moodDate}); localStorage.setItem(moodKey,'1'); localStorage.setItem('micron_mood_choice_'+moodDate,mood); document.getElementById('moodScore').textContent='✅ 已送出，謝謝你的回覆'; document.querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('mood-selected-today',b.getAttribute('onclick')===`submitMood('${mood}')`)); await refreshCompanyMood();}catch(e){alert('送出失敗：'+(e.message||e));buttons.forEach(b=>b.disabled=false);}
-        }
-
         function closeGenericModal(id){const el=document.getElementById(id);if(el)el.classList.remove('active');document.body.style.overflow='';}
         function openWishlistModal(){document.getElementById('wishlistModal').classList.add('active');document.body.style.overflow='hidden';}
         async function submitWishlist(){const content=document.getElementById('wishContent').value.trim(),msg=document.getElementById('wishMsg');if(!content)return alert('請寫下你的想法');try{await portalPost('wishlist',{Title:document.getElementById('wishTitle').value.trim(),Content:content,Category:'功能許願',AnonToken:getAnonToken()});msg.textContent='✅ 已送出，已加入未來功能許願清單。';msg.className='text-xs mt-2 font-bold text-emerald-600';document.getElementById('wishContent').value='';setTimeout(()=>closeGenericModal('wishlistModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
-        function openAnnouncementSubmit(){document.getElementById('announcementSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
-        async function submitAnnouncementSuggestion(){const title=document.getElementById('annSubmitTitle').value.trim(),content=document.getElementById('annSubmitContent').value.trim(),msg=document.getElementById('annSubmitMsg');if(!title||!content)return alert('請填寫公告標題與內容');try{await portalPost('announcement_submit',{Title:title,Content:content,Category:document.getElementById('annSubmitCategory').value,AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('announcementSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
-        function openEventSubmit(){document.getElementById('eventSubmitModal').classList.add('active');document.body.style.overflow='hidden';}
-        async function submitEventSuggestion(){const title=document.getElementById('eventSubmitTitle').value.trim(),start=document.getElementById('eventSubmitStart').value,end=document.getElementById('eventSubmitEnd').value,msg=document.getElementById('eventSubmitMsg');if(!title||!start)return alert('至少要填事件名稱與開始時間');try{await portalPost('event_submit',{Title:title,StartAt:start,EndAt:end,Category:document.getElementById('eventSubmitCategory').value,Description:document.getElementById('eventSubmitDescription').value.trim(),AnonToken:getAnonToken()});msg.textContent='✅ 已送出，等待管理者審核。';msg.className='text-xs mt-2 font-bold text-emerald-600';setTimeout(()=>closeGenericModal('eventSubmitModal'),700);}catch(e){msg.textContent='❌ '+(e.message||e);msg.className='text-xs mt-2 font-bold text-rose-600';}}
-        async function openAnnouncement(key){const a=announcementStore[String(key)]||{};document.getElementById('announcementViewBody').innerHTML=`<div class="pr-6"><div class="flex gap-2 text-xs text-slate-500 mb-2"><span>${escapeHtml(a.Category||'一般')}</span><span>${formatDateTime(a.Timestamp)}</span></div><h2 class="text-2xl font-black text-slate-800">${escapeHtml(a.Title||'')}</h2><div class="mt-5 text-sm leading-7 whitespace-pre-wrap text-slate-700">${escapeHtml(a.Content||'')}</div><div class="mt-5 pt-4 border-t text-xs font-bold text-slate-500">👁 ${Number(a.ViewCount||0).toLocaleString()} 人閱讀</div></div>`;document.getElementById('announcementViewModal').classList.add('active');document.body.style.overflow='hidden';if(key){try{await portalPost('announcement_view',{AnnouncementKey:key,AnonToken:getAnonToken()});}catch(e){} const n=document.querySelector('#announcementViewBody div.mt-5.pt-4');if(n)n.textContent='👁 '+(Number(a.ViewCount||0)+1).toLocaleString()+' 人閱讀';}}
-        function getReportLikeDate(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei'}).format(new Date());}
-        function getReportLikeKey(key){return 'micron_report_liked_'+key+'_'+getReportLikeDate();}
-        function getReportLikeOverrideKey(key){return 'micron_report_like_expected_'+key+'_'+getReportLikeDate();}
-        function isReportLikedToday(key){return !!key && localStorage.getItem(getReportLikeKey(key))==='1';}
-        function effectiveReportLikes(r){
-            const server=Number(r?.Likes)||0,key=String(r?.ReportKey||'');if(!key)return server;
-            const expected=Number(localStorage.getItem(getReportLikeOverrideKey(key)));
-            if(Number.isFinite(expected)&&expected>server)return expected;
-            if(Number.isFinite(expected)&&server>=expected)localStorage.removeItem(getReportLikeOverrideKey(key));
-            return server;
-        }
-        function applyReportLikeState(btn, liked){
-            if(!btn)return;
-            btn.classList.toggle('bg-rose-700',liked);
-            btn.classList.toggle('text-white',liked);
-            btn.classList.toggle('bg-rose-50',!liked);
-            btn.classList.toggle('text-rose-600',!liked);
-            if(liked) btn.disabled=true;
-        }
-        async function likeReport(key){
-            if(!key)return;
-            const k=getReportLikeKey(key);
-            if(localStorage.getItem(k)==='1')return;
-            const btns=[...document.querySelectorAll('.report-like-btn')].filter(b=>b.dataset.reportKey===String(key));
-            const btn=btns[0];
-            const oldCount=btn?Number((btn.textContent||'').replace(/[^0-9]/g,''))||0:0,optimisticCount=oldCount+1;
-            localStorage.setItem(getReportLikeOverrideKey(key),String(optimisticCount));
-            if(btn){btn.disabled=true;btn.textContent='👍 '+optimisticCount;applyReportLikeState(btn,true);}
-            try{
-                await portalPost('report_like',{ReportKey:key,AnonToken:getAnonToken(),VoteDate:getReportLikeDate()});
-                localStorage.setItem(k,'1');
-                applyReportLikeState(btn,true);
-                setTimeout(refreshPublicReports,1200);
-            }catch(e){
-                console.warn('report_like:',e);
-                if(btn){btn.disabled=false;btn.textContent='👍 '+oldCount;applyReportLikeState(btn,false);}
-                alert('按讚失敗：'+(e.message||e));
-            }
-        }
         async function refreshPageViewStats(){try{const d=await portalGet('page_stats');const s=d&&d.data?d.data:d;const a=document.getElementById('pageViewTotal'),b=document.getElementById('pageViewToday');if(a)a.textContent=Number(s?.total||0).toLocaleString();if(b)b.textContent=Number(s?.today||0).toLocaleString();}catch(e){}}
         function recordPageView(){try{portalPost('pageview',{Page:'portal',AnonToken:getAnonToken()});}catch(e){}}
 
-        let portalDataLastLoadedAt=0, portalDataLoadingPromise=null;
-        async function refreshPortalData(force=false){
-            refreshPageViewStats();
-            if(!API_PORTAL || API_PORTAL.indexOf('請貼上')===0){
-                ['announcementList','eventList'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<p class="text-sm text-slate-400">尚未設定 PortalDB API。</p>';});
-                return;
-            }
-            const now=Date.now();
-            if(!force && portalDataLastLoadedAt && now-portalDataLastLoadedAt<12000) return;
-            if(portalDataLoadingPromise) return portalDataLoadingPromise;
-            portalDataLoadingPromise=(async()=>{
-                const results=await Promise.allSettled([portalGet('announcements'),portalGet('events')]);
-                const ann=results[0].status==='fulfilled' && Array.isArray(results[0].value)?results[0].value:[];
-                const events=results[1].status==='fulfilled' && Array.isArray(results[1].value)?results[1].value:[];
-                
-                if(results[0].status==='fulfilled'){
-                    setTextSafe('portalAnnouncementCount',ann.length);
-                    setHtmlSafe('announcementList',ann.length?ann.slice(0,8).map(a=>{const rawKey=String(a.AnnouncementKey||'');if(rawKey)announcementStore[rawKey]=a;const key=escapeJs(rawKey);return `<button class="w-full text-left p-3 rounded-xl bg-slate-50 border hover:bg-indigo-50" onclick="openAnnouncement('${key}')"><div class="flex justify-between gap-2 items-center"><b class="text-sm">${escapeHtml(a.Title||'未命名公告')}</b><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDate(a.Timestamp)}</span></div><div class="mt-1 flex gap-2 text-[10px] text-slate-500"><span>${escapeHtml(a.Category||'一般')}</span><span>👁 ${Number(a.ViewCount||0).toLocaleString()}</span></div></button>`;}).join(''):'<p class="text-sm text-slate-400">尚無公告。</p>');
-                }else setHtmlSafe('announcementList','<p class="text-sm text-amber-600">⚠️ 公告暫時無法更新，稍後重試。</p>');
-                
-                if(results[1].status==='fulfilled'){
-                    setHtmlSafe('eventList',events.length?events.slice().sort((a,b)=>new Date(a.StartAt)-new Date(b.StartAt)).slice(0,12).map(x=>{const st=new Date(x.StartAt),en=x.EndAt?new Date(x.EndAt):null;const same=en&&!isNaN(en)&&st.toDateString()===en.toDateString();const range=en&&!isNaN(en)&&!same?`${formatDate(x.StartAt)} ～ ${formatDate(x.EndAt)}`:formatDate(x.StartAt);return `<div class="event-item"><div class="flex flex-wrap items-center gap-2"><span class="event-range">${escapeHtml(range)}</span><span class="text-[10px] text-slate-500">${escapeHtml(x.Category||'')}</span><span class="event-countdown font-black text-rose-600" data-countdown-start="${escapeHtml(x.StartAt||'')}" data-countdown-end="${escapeHtml(x.EndAt||'')}">⏳ 計算中…</span></div><b class="event-date-hero block mt-2">${escapeHtml(x.Title||'')}</b><p class="text-xs text-slate-600 mt-1">${escapeHtml(x.Description||'')}</p></div>`;}).join(''):'<p class="text-sm text-slate-400">尚無重要日期。</p>');
-                    setTimeout(refreshEventCountdowns,0);
-                }else setHtmlSafe('eventList','<p class="text-sm text-amber-600">⚠️ 重要日期暫時無法更新。</p>');
-                
-                portalDataLastLoadedAt=Date.now();
-                Promise.allSettled([refreshCompanyMood(),refreshExternalNews(false),refreshPublicReports()]).then(()=>{});
-            })().finally(()=>{portalDataLoadingPromise=null;});
-            return portalDataLoadingPromise;
-        }
-        function setTextSafe(id,v){const e=document.getElementById(id);if(e)e.innerText=v;}
-        function setHtmlSafe(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v;}
         function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-        function escapeJs(v){return String(v==null?'':v).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
-        function formatDate(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);}
-        function formatDateTime(v){const d=new Date(v);if(isNaN(d))return String(v||'');return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d).replace(/\\s/g,' ');}
-
-        async function refreshPublicReports(){
-            const track=document.getElementById('publicReportTrack'); if(!track)return;
-            try{
-                const rows=await portalGet('public_reports');
-                if(!Array.isArray(rows)) throw new Error('public_reports 回傳格式不是陣列');
-                publicReportItems=rows;
-                if(!publicReportItems.length){
-                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-slate-50 border text-sm text-slate-400">目前沒有可公開顯示的匿名心聲。</div>';
-                    if(publicReportTimer){clearInterval(publicReportTimer);publicReportTimer=null;}
-                    return;
-                }
-                publicReportIndex=Math.min(publicReportIndex,Math.max(0,publicReportItems.length-1));
-                renderPublicReportWindow(); startPublicReportTicker();
-            }catch(e){
-                console.error('public_reports:',e);
-                if(publicReportItems.length){
-                    renderPublicReportWindow(); startPublicReportTicker();
-                }else{
-                    track.innerHTML='<div class="portal-report-row p-3 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-700">⚠️ 匿名心聲暫時無法載入：'+escapeHtml(e.message||String(e))+'</div>';
-                }
-            }
-        }
-        function renderPublicReportWindow(){
-            const track=document.getElementById('publicReportTrack');if(!track)return;
-            const rows=[];
-            for(let i=0;i<5;i++){
-                const r=publicReportItems[(publicReportIndex+i)%publicReportItems.length];
-                const likedToday=isReportLikedToday(String(r.ReportKey||''));
-                const localReport=String(r.ReportKey||'').indexOf('local_')===0;
-                rows.push(`<div class="portal-report-row p-3 rounded-xl bg-slate-50 border flex flex-col"><div class="flex items-center justify-between gap-2 shrink-0"><div class="flex gap-1.5 items-center min-w-0"><span class="text-[11px] font-bold text-rose-600 whitespace-nowrap">${escapeHtml(r.Type||'心聲')}</span><span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-600 whitespace-nowrap">${escapeHtml(r.Category||'其他')}</span></div><span class="text-[10px] text-slate-400 whitespace-nowrap">${formatDateTime(r.Timestamp)}</span></div><p class="portal-report-content text-sm text-slate-700 mt-1 whitespace-pre-wrap flex-1 min-h-0">${escapeHtml(r.Content||r.Message||'')}</p><div class="flex justify-end mt-1 shrink-0"><button class="report-like-btn text-[11px] font-black px-2 py-0.5 rounded-lg ${likedToday?'bg-rose-700 text-white':'bg-rose-50 text-rose-600'}" data-report-key="${escapeHtml(r.ReportKey||'')}" ${localReport||likedToday?'disabled':''} onclick="likeReport('${escapeJs(r.ReportKey||'')}')">👍 ${effectiveReportLikes(r)}</button></div></div>`);
-            }
-            track.innerHTML=rows.join('');
-        }
-        function startPublicReportTicker(){
-            if(publicReportTimer)clearInterval(publicReportTimer);
-            if(publicReportItems.length<=3)return;
-            publicReportTimer=setInterval(()=>{publicReportIndex=(publicReportIndex+1)%publicReportItems.length;renderPublicReportWindow();},4000);
-        }
-
-        let reportSubmitBusy=false;
-        async function submitAnonymousReport(){
-            if(reportSubmitBusy)return;
-            const contentEl=document.getElementById('reportContent'), resultEl=document.getElementById('reportResult');
-            const content=contentEl.value.trim();
-            if(!content)return alert('請填寫內容');
-            if(content.length<5)return alert('請至少寫 5 個字，讓大家看得懂。');
-            const submitBtn=document.querySelector('#mode5Container button[onclick="submitAnonymousReport()"]');
-            reportSubmitBusy=true; if(submitBtn){submitBtn.disabled=true;submitBtn.innerText='送出中...';}
-            try{
-                await portalPost('report',{Type:document.getElementById('reportType').value,Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,AnonToken:getAnonToken(),Status:'Public'});
-                const optimistic={ReportKey:'local_'+Date.now(),Timestamp:new Date().toISOString(),Type:document.getElementById('reportType').value,Category:document.getElementById('reportCategory').value,Site:document.getElementById('reportSite').value,Content:content,Likes:0};
-                publicReportItems=[optimistic,...publicReportItems.filter(x=>String(x.ReportKey||'')!==String(optimistic.ReportKey))]; publicReportIndex=0; renderPublicReportWindow(); startPublicReportTicker();
-                resultEl.innerText='✅ 已送出，會直接進入「匿名心聲廣播」。'; resultEl.className='text-xs mt-2 font-bold text-emerald-600 block';
-                contentEl.value='';
-                setTimeout(()=>refreshPublicReports(),900);
-            }catch(e){resultEl.innerText='❌ 回報失敗：'+e.message;resultEl.className='text-xs mt-2 font-bold text-rose-600 block';}
-            finally{reportSubmitBusy=false;if(submitBtn){submitBtn.disabled=false;submitBtn.innerText='送出匿名大聲公';}}
-        }
 
         let muStockTimer=null;
         async function refreshMUStock(manual=false){
@@ -2879,12 +2511,6 @@ html{scroll-behavior:smooth}
             if (mode === 3) {
                 try { updateM3Charts(); } catch (e) { console.warn('M3 render:', e); }
             }
-            if (mode === 4) {
-                try { renderUnionChart(); } catch (e) { console.warn('Union render:', e); }
-            }
-            if (mode === 5) {
-                try { refreshPortalData(); } catch (e) { console.warn('Portal render:', e); }
-            }
             setTimeout(() => {
                 try {
                     if (window.Chart && Chart.instances) Object.values(Chart.instances).forEach(c => c.resize());
@@ -2896,8 +2522,6 @@ html{scroll-behavior:smooth}
         window.addEventListener('unhandledrejection',e=>console.error('Portal async error:',e.reason));
         window.addEventListener('load',()=>{
             recordPageView();
-            setupNewsFilters();
-            setInterval(refreshEventCountdowns,60000);
             refreshPageViewStats();
             setTimeout(()=>startMUStockTicker(),1800);
             initPlatform();
@@ -3220,203 +2844,11 @@ const MAP=Object.assign({},
 [data-bilingual-en="1"]{font-size:calc(1em - 3.33px)!important;font-weight:400!important;opacity:.72}
 </style>
 </div>
-<div aria-label="志工意願申請" aria-modal="true" id="volunteerModal" onclick="if(event.target===this)closeVolunteerSignup()" role="dialog">
-<div class="vol-dialog"><div class="vol-toolbar"><strong>志工意願登記｜匿名／具名</strong><button aria-label="關閉" onclick="closeVolunteerSignup()" type="button">✕ 關閉</button></div>
-<iframe id="volunteerFrame" loading="lazy" referrerpolicy="no-referrer" title="志工登記表"></iframe>
-<a hidden="" id="volunteerOpenExternal" rel="noopener noreferrer" style="padding:8px 15px;text-align:center;background:#263340;color:#e8d3ae;font-size:12px;text-decoration:underline" target="_blank">表單無法顯示？另開報名頁 ↗</a>
-<div class="vol-setup" hidden="" id="volunteerNotConfigured">
-<strong>表單介面已建置，後台尚未連接</strong>
-<p>為避免志工資料誤送或公開，正式申請前必須由管理員將附檔中的 Google Apps Script 部署至指定試算表，並在本檔設定 <code>VOLUNTEER_WEBAPP_URL</code>。</p>
-<p>以下為表單欄位預覽，<strong>未串接期間不開放資料提交</strong>。</p>
-<div class="vol-preview"><div class="vol-choice"><label><input checked="" name="volDemoMode" onchange="toggleVolunteerPreview()" type="radio" value="anonymous"/> 匿名志工</label><label><input name="volDemoMode" onchange="toggleVolunteerPreview()" type="radio" value="named"/> 具名志工</label></div>
-<div hidden="" id="volDemoName"><label>姓名（具名必填）<input disabled="" placeholder="姓名"/></label><label>工號（選填）<input disabled="" placeholder="工號"/></label><label>部門（選填）<input disabled="" placeholder="部門"/></label></div>
-<label>廠區（選填）<select disabled=""><option>不提供</option><option>台中</option><option>桃園</option><option>銅鑼</option><option>台南</option></select></label>
-<label>聯絡方式（匿名選填／具名必填）<input disabled="" placeholder="Email、LINE ID 或手機號碼"/></label>
-<fieldset><legend>我能協助的工作（可複選）</legend><label><input disabled="" type="checkbox"/> 海報與視覺設計</label><label><input disabled="" type="checkbox"/> 群組資訊與同仁溝通</label><label><input disabled="" type="checkbox"/> 活動支援與現場工作</label><label><input disabled="" type="checkbox"/> 資料整理／分析／AI</label><label><input disabled="" type="checkbox"/> 外語翻譯</label><label><input disabled="" type="checkbox"/> 媒體／影音協助</label><label><input disabled="" type="checkbox"/> 議題整理與研究</label><label><input disabled="" type="checkbox"/> 其他</label></fieldset>
-<fieldset><legend>可協助時段</legend><label><input disabled="" type="checkbox"/> 平日白天</label><label><input disabled="" type="checkbox"/> 平日晚上</label><label><input disabled="" type="checkbox"/> 週末／假日</label><label><input disabled="" type="checkbox"/> 遠端線上</label><label><input disabled="" type="checkbox"/> 不固定</label></fieldset>
-<p>匿名志工不必提供姓名或工號；若留下聯絡方式則可能被識別。具名志工需填姓名及聯絡方式。</p>
-<button disabled="" type="button">後台尚未串接，暫無法送出</button></div>
-</div></div></div>
-<script id="volunteer-integration-v17">
-// 管理員部署 volunteer_backend 後，將新 Web App 的 https://script.google.com/macros/s/.../exec 貼在下方。
-// 不要把密碼放在這個檔案：密碼應留在 Google Apps Script 的 Script Properties 中。
-const VOLUNTEER_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw3QP4UvS8MAu2LyNfqFfA1jISzPOH_wUEZcLyKvt98lg8wYT6l2VP92c2yjt4LciFdHA/exec';
-function isVolunteerConnected(){return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(VOLUNTEER_WEBAPP_URL.trim());}
-function openVolunteerSignup(){
-  const modal=document.getElementById('volunteerModal'),iframe=document.getElementById('volunteerFrame'),notice=document.getElementById('volunteerNotConfigured');
-  const ready=isVolunteerConnected();iframe.style.display=ready?'block':'none';notice.hidden=ready;
-  const external=document.getElementById('volunteerOpenExternal');external.hidden=!ready;if(ready)external.href=VOLUNTEER_WEBAPP_URL.split('?')[0]+'?view=apply';
-  if(ready && !iframe.src)iframe.src=VOLUNTEER_WEBAPP_URL.split('?')[0]+'?view=apply';
-  modal.classList.add('is-open');document.body.style.overflow='hidden';
-}
-function toggleVolunteerPreview(){const v=document.querySelector('input[name=volDemoMode]:checked')?.value;document.getElementById('volDemoName').hidden=v!=='named';}
-function closeVolunteerSignup(){const m=document.getElementById('volunteerModal');m.classList.remove('is-open');document.body.style.overflow='';}
-function openVolunteerAdmin(){
-  if(!isVolunteerConnected()){openVolunteerSignup();return;}
-  window.open(VOLUNTEER_WEBAPP_URL.split('?')[0]+'?view=admin','_blank','noopener,noreferrer');
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('volunteerModal')?.classList.contains('is-open'))closeVolunteerSignup()});
-</script>
 
 
-<script id="volunteer-count-v1">(function(){
-  const url=typeof VOLUNTEER_WEBAPP_URL==='string'?VOLUNTEER_WEBAPP_URL:'';
-  const target=document.getElementById('volunteerPublicCount');
-  if(!target)return;
-  function update(){
-    if(!url){target.textContent='目前無法取得志工人數 / Count unavailable';target.classList.add('is-error');return;}
-    const name='volunteerCountCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-    const tag=document.createElement('script');let done=false;
-    const finish=(data)=>{if(done)return;done=true;clearTimeout(timer);tag.remove();window[name]=()=>{};setTimeout(()=>{delete window[name]},60000);
-      if(data&&data.ok&&Number.isInteger(data.count)&&data.count>=0){target.classList.remove('is-error');target.textContent='🌱 目前已有 '+data.count.toLocaleString('en-US')+' 人報名志工 / '+data.count.toLocaleString('en-US')+' volunteers registered';}
-      else{target.classList.add('is-error');target.textContent='志工人數暫時無法取得 / Count temporarily unavailable';}};
-    const timer=setTimeout(()=>finish(null),18000);window[name]=finish;tag.onerror=()=>finish(null);
-    const u=new URL(url);u.searchParams.set('action','count');u.searchParams.set('prefix',name);u.searchParams.set('_',Date.now());tag.src=u.href;tag.async=true;document.head.appendChild(tag);
-  }
-  update();setInterval(()=>{if(!document.hidden)update()},120000);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
-})();</script><script id="taichung-google-form-count-v1">
-/* Aggregate-only Google Form response count; no personal data is requested or shown. */
-(() => {
-  'use strict';
-  const FORM_COUNT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxNb1ZowLH51RlsLYWh0WYCKGz85WlyZ4uYYz3QTz5SXgfukNAKgUqXdXuaYmKU64mh/exec';
-  const EXPECTED_FORM_ID = '1cTxACRUTPrsZdk-fIOabrXhWkJgf65k_NPQogqddO9E';
-  const REFRESH_MS = 3 * 60 * 1000;
-  const GET_TIMEOUT_MS = 40000;
-  const $ = id => document.getElementById(id);
-  const els = {
-    count: $('intentTaichungCount'), bar: $('intentTaichungProgress'),
-    combined: $('intentCombinedCount'), status: $('intentCountStatus'),
-    updated: $('intentCountUpdated'), detail: $('intentTaichungDetail'),
-    badge: $('intentLiveBadge'), refresh: $('intentCountRefresh'),
-    debug: $('intentCountDebugLink')
-  };
-  if (Object.values(els).some(el => !el)) return;
-  let inFlight = false;
-  let lastAttempt = 0;
-  let lastData = null;
-  const formNumber = n => Number(n).toLocaleString('en-US');
-  function displayState(state,label,description) {
-    els.badge.dataset.state = state;
-    els.badge.textContent = label;
-    els.status.textContent = description;
-  }
-  function taiwanTime(value) {
-    return new Intl.DateTimeFormat('zh-TW', {
-      timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit',
-      hour: '2-digit', minute: '2-digit', hour12: false
-    }).format(new Date(value));
-  }
-  function requestJsonp() {
-    return new Promise((resolve,reject) => {
-      const cb = 'formCountCb_' + Date.now() + '_' + Math.random().toString(36).slice(2,9);
-      const tag = document.createElement('script');
-      let finished = false;
-      const finish = (err,data) => {
-        if(finished) return;
-        finished = true;
-        clearTimeout(timeout);
-        tag.remove();
-        window[cb] = () => {};
-        setTimeout(() => { delete window[cb]; },60000);
-        if(err) reject(err); else resolve(data);
-      };
-      const timeout = setTimeout(() => finish(new Error('timeout')), GET_TIMEOUT_MS);
-      window[cb] = data => finish(null,data);
-      tag.onerror = () => finish(new Error('script_blocked'));
-      const url = new URL(FORM_COUNT_WEBAPP_URL);
-      url.searchParams.set('action','count');
-      url.searchParams.set('prefix',cb);
-      url.searchParams.set('_',String(Date.now()));
-      tag.src = url.toString();
-      tag.async = true;
-      tag.referrerPolicy = 'no-referrer';
-      document.head.appendChild(tag);
-    });
-  }
-  async function requestJson() {
-    const ctrl = new AbortController();
-    const timeout = setTimeout(() => ctrl.abort(), 15000);
-    try {
-      const url = new URL(FORM_COUNT_WEBAPP_URL);
-      url.searchParams.set('action','count');
-      url.searchParams.set('_',String(Date.now()));
-      const r = await fetch(url.toString(),{
-        mode:'cors',credentials:'omit',cache:'no-store',redirect:'follow',signal:ctrl.signal
-      });
-      if(!r.ok) throw new Error('http_'+r.status);
-      return await r.json();
-    } finally { clearTimeout(timeout); }
-  }
-  function validate(data) {
-    if(!data || data.ok !== true) throw new Error(data && data.error || 'backend');
-    if(data.source !== 'google_form' || data.formId !== EXPECTED_FORM_ID)
-      throw new Error('form_mismatch');
-    if(!Number.isSafeInteger(data.count) || data.count < 0
-       || typeof data.updatedAt !== 'string' || !Number.isFinite(Date.parse(data.updatedAt)))
-      throw new Error('invalid_data');
-    return data;
-  }
-  async function getCount() {
-    try { return validate(await requestJsonp()); }
-    catch(firstError) {
-      try { return validate(await requestJson()); }
-      catch(secondError) {
-        if(['count_unavailable','form_mismatch','invalid_data','backend'].includes(firstError.message))
-          throw firstError;
-        throw secondError.message === 'Failed to fetch' ? firstError : secondError;
-      }
-    }
-  }
-  async function updateCount(force=false) {
-    if(inFlight || document.hidden || (!force && Date.now()-lastAttempt < REFRESH_MS))return;
-    lastAttempt = Date.now();
-    inFlight = true;
-    els.refresh.disabled = true;
-    displayState('pending','◌ 正在同步 / Syncing','正在讀取 Google 表單回覆數… / Checking Google Form responses…');
-    try {
-      const data = await getCount();
-      const n = data.count;
-      lastData = data;
-      els.count.textContent = formNumber(n) + ' / 11,000';
-      els.bar.value = Math.min(n,11000);
-      // Taoyuan 1,700+ is not connected to this API.
-      els.combined.textContent = '約 ' + formNumber(n+1700) + '+';
-      els.detail.textContent = '台中已同步 Google 表單回覆數：' + formNumber(n) + ' 份 / Synced Taichung responses: ' + formNumber(n);
-      displayState('success','✓ 已同步 / Synced',
-        '台中 Google 表單 ' + formNumber(n) + ' 份回覆；桃園 1,700+ 為舊估算。 / ' + formNumber(n) + ' Taichung responses ; Taoyuan remains an estimate.');
-      els.updated.textContent='最近同步（台灣時間）：'+taiwanTime(data.updatedAt)
-        +' · 每 3 分鐘自動更新（頁面開啟時） / Last sync (Taiwan): '+taiwanTime(data.updatedAt)+' · auto-refresh every 3 min while open';
-    }catch(error) {
-      const code=String(error && error.message || 'unknown');
-      let reason='統計服務未成功回應，請檢查 Script 部署權限與執行身分。 / Count service failed; check Apps Script deployment access and execution permissions.';
-      if(code==='count_unavailable') reason='Google Script 已回應，但無法讀取表單回覆。請確認部署帳號具有表單回覆檢視權限。 / Script responded but cannot read the form. Verify the deployment account has access to responses.';
-      if(code==='form_mismatch') reason='回傳表單 ID 不符合預期，請檢查 Google Script 使用的表單。 / Form ID returned by Script does not match the configured form.';
-      if(code==='invalid_data') reason='Google Script 回傳統計格式不符，請檢查程式版本。 / Invalid count response format; verify the deployed script version.';
-      if(code==='timeout' || code==='script_blocked') reason='統計連線逾時或遭瀏覽器封鎖，可點「檢查統計連線」。 / Count request timed out or was blocked. Use “Check count service” to diagnose.';
-      displayState('error','! 同步失敗 / Sync failed',reason);
-      if(!lastData) {
-        els.count.textContent='—';
-        els.combined.textContent='—';
-        els.detail.textContent='目前尚未取得台中即時回覆數 / Live Taichung count unavailable';
-        els.updated.textContent='尚無成功同步紀錄 · 每 3 分鐘自動重試 / No successful sync yet · Retries every 3 minutes';
-      } else {
-        els.updated.textContent='上次成功同步（台灣時間）：'+taiwanTime(lastData.updatedAt)
-          +' · 正在保留舊數據，每 3 分鐘重試 / Showing last successful count; retrying every 3 minutes';
-      }
-    }finally {
-      inFlight=false;
-      els.refresh.disabled=false;
-    }
-  }
-  els.refresh.addEventListener('click', () => updateCount(true));
-  updateCount();
-  setInterval(() => { if(!document.hidden)updateCount(); },REFRESH_MS);
-  document.addEventListener('visibilitychange', () => {
-    if(!document.hidden) updateCount();
-  });
-})();
-</script>
+
+
+
 <nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation">
 <a href="index_test1.html" target="_self" title="回緊急專區 / Back to Emergency" aria-label="回緊急專區 / Back to Emergency"><span class="float-icon" aria-hidden="true">🕯️</span><span class="float-label"><span class="float-label-zh">回緊急專區</span><span class="float-label-en" lang="en">Back to Emergency</span></span></a>
 <button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
