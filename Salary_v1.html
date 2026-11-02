@@ -572,7 +572,7 @@ html{scroll-behavior:smooth}
 .portal-stock-bar,body:not(.emergency-active) #muStockBar{position:static!important;top:auto!important}
 .v1-anchor{scroll-margin-top:calc(var(--nav-h) + 14px)}
 /* Sticky section nav */
-#sectionNav{position:sticky;top:0;z-index:45;margin:0 0 18px;padding:8px;border-radius:16px;background:rgba(15,23,42,.92);border:1px solid #334155;box-shadow:0 8px 22px rgba(15,23,42,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#sectionNav{position:sticky;top:0;z-index:45;margin:0 0 18px;padding:8px;border-radius:16px;background:#0f172a;border:1px solid #334155;box-shadow:0 8px 22px rgba(15,23,42,.18)}
 #sectionNav .v1-nav-track{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-padding:0 12px}
 #sectionNav .v1-nav-track::-webkit-scrollbar{display:none}
 #sectionNav a{flex:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;min-height:42px;padding:8px 15px;border-radius:999px;font-weight:800;font-size:14px;color:#cbd5e1;text-decoration:none;border:1px solid transparent;transition:background .15s,color .15s}
@@ -607,6 +607,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .v1-empty-tiles b{display:block;color:#fff;font-size:14px;margin-bottom:4px}
 @media(max-width:560px){.v1-empty-tiles{grid-template-columns:1fr}}
 .v1-result-card{border-radius:20px;padding:18px;background:rgba(15,23,42,.7);border:1px solid rgba(96,165,250,.3)}
+.v1-pr-card{border-color:rgba(250,204,21,.45);background:radial-gradient(ellipse at 100% 0%,rgba(250,204,21,.16),transparent 55%),linear-gradient(150deg,rgba(15,23,42,.85),rgba(59,7,100,.55))}
+.v1-chip{display:inline-flex;align-items:center;padding:6px 14px;border-radius:999px;border:2px solid rgba(250,204,21,.6);background:rgba(255,255,255,.08);font-weight:900;font-size:15px}
+.v1-pr-main{font-size:clamp(46px,8vw,72px);font-weight:900;line-height:1;letter-spacing:-.04em;color:var(--banana);font-variant-numeric:tabular-nums}
+.v1-pr-title{display:inline-flex;align-items:center;gap:10px;font-size:20px;line-height:1.3}
+.v1-pr-emoji{font-size:40px;line-height:1}
+.v1-pr-stat{border-radius:14px;padding:10px 12px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.3);display:flex;flex-direction:column;gap:2px;min-width:0}
+.v1-pr-stat span{font-size:12px;color:#94a3b8;font-weight:700}
+.v1-pr-stat b{font-size:26px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.15}
+.v1-pr-stat small{font-size:12px;color:#cbd5e1}
 .v1-big{font-size:clamp(38px,6vw,56px);font-weight:900;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .v1-details{border-radius:14px;border:1px solid rgba(129,140,248,.35);background:rgba(30,27,75,.5);margin-top:14px}
 .v1-details>summary{cursor:pointer;padding:12px 14px;font-weight:800;font-size:14px;color:#c7d2fe;list-style:none;min-height:44px;display:flex;align-items:center;justify-content:space-between}
@@ -638,7 +647,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .v1-timeline .v1-tl-axis{position:absolute;top:56px;font-size:10px;color:#94a3b8;transform:translateX(-50%)}
 /* Game */
 .v1-game{border-radius:24px;padding:clamp(16px,3vw,28px);background:linear-gradient(135deg,#1e1b4b,#0f172a 70%);color:#fff;border:1px solid rgba(250,204,21,.3)}
-.v1-game input[type=range]{width:100%;height:44px;accent-color:var(--banana);cursor:pointer}
+.v1-game input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:48px;background:transparent;cursor:pointer;touch-action:pan-y;margin:4px 0}
+.v1-game input[type=range]::-webkit-slider-runnable-track{height:12px;border-radius:99px;background:linear-gradient(90deg,rgba(250,204,21,.85),rgba(244,114,182,.85))}
+.v1-game input[type=range]::-moz-range-track{height:12px;border-radius:99px;background:linear-gradient(90deg,rgba(250,204,21,.85),rgba(244,114,182,.85))}
+.v1-game input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;margin-top:-11px;border-radius:50%;background:#fff;border:4px solid var(--banana);box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.v1-game input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:4px solid var(--banana);box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.v1-game input[type=range]:disabled{opacity:.5;cursor:not-allowed}
+.v1-nudge{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+.v1-nudge button{min-height:44px;border-radius:12px;font-weight:900;font-size:15px;color:#fde68a;background:rgba(255,255,255,.08);border:1px solid rgba(250,204,21,.35);cursor:pointer;touch-action:manipulation}
+.v1-nudge button:active{background:rgba(250,204,21,.25)}
 .v1-stat{border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.07);border:1px solid rgba(148,163,184,.25);text-align:center}
 .v1-stat b{display:block;font-size:22px;font-weight:900;color:var(--banana);font-variant-numeric:tabular-nums}
 .v1-stat span{font-size:12px;color:#cbd5e1}
@@ -804,13 +821,26 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 </div>
 </div>
 <div class="hidden p-4 rounded-2xl bg-rose-950/70 border border-rose-500/50 text-rose-100 text-sm font-bold" id="ceilingAlert" role="status">🚨 高位警示：你已接近此職等薪資高位區間（PR ≥ 90）。再往上的空間主要來自升遷。</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="hidden v1-result-card" id="percentileCard">
-<h3 class="text-xs font-black text-sky-300 tracking-wider mb-3">📊 薪資勝率百分位報告</h3>
-<div class="space-y-4">
-<div><p class="text-[13px] text-slate-400">同職等 PR</p><div class="flex items-baseline gap-2 mt-1 flex-wrap"><span class="v1-big text-amber-300" id="pctGradeRes">--</span><span class="text-slate-300 text-[13px]" id="pctGradeLabel">領先該職等同仁</span></div></div>
-<div><p class="text-[13px] text-slate-400">相似年資 PR（±2 年）</p><div class="flex items-baseline gap-2 mt-1 flex-wrap"><span class="v1-big text-sky-300" id="pctExpRes">--</span><span class="text-slate-300 text-[13px]" id="pctExpLabel">同資歷同仁</span></div></div>
-<p class="text-[12px] text-slate-400 border-t border-slate-700 pt-2" id="pctSampleInfo"></p>
+<div class="grid grid-cols-1 gap-4">
+<div class="hidden v1-result-card v1-pr-card" id="percentileCard">
+<div class="flex items-center justify-between gap-3 flex-wrap">
+<h3 class="text-xs font-black text-amber-300 tracking-wider">📊 我的猴群位置</h3>
+<span class="v1-chip" id="pctGradeChip">-- 職等</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-[1.25fr_1fr] gap-4 mt-3 items-center">
+<div class="text-center sm:text-left">
+<div class="v1-pr-main" id="pctGradeRes">--</div>
+<p class="text-slate-300 text-[13px] mt-1" id="pctGradeLabel">在同職等同仁中</p>
+<div class="v1-pr-title mt-3"><span aria-hidden="true" class="v1-pr-emoji" id="pctTitleEmoji">🐒</span><b id="pctTitleText">--</b></div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-1 gap-2">
+<div class="v1-pr-stat"><span>相似年資（±2 年）</span><b class="text-sky-300" id="pctExpRes">--</b><small id="pctExpLabel">同資歷同仁</small></div>
+<div class="v1-pr-stat"><span>比對樣本數</span><b id="pctSampleN">--</b><small id="pctSampleInfo"></small></div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center gap-3" id="shareCta">
+<button class="v1-btn v1-btn-banana shrink-0" id="shareOpenBtn" onclick="openShareCard()" type="button">🍌 產生分享卡</button>
+<p class="text-[12px] text-amber-100/90 leading-relaxed">分享卡就是上面這張的圖片版，<b>不會出現你的月薪數字</b>。</p>
 </div>
 </div>
 <div class="hidden v1-result-card" id="promoCard" style="border-color:rgba(250,204,21,.35)">
@@ -818,10 +848,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="text-sm space-y-2 text-slate-300" id="promoContent"></div>
 <a class="inline-flex items-center gap-1 mt-3 text-sm font-black text-amber-300 underline underline-offset-4 min-h-[44px]" href="#sec-sim" onclick="return navGoTo('sec-sim')">看完整晉升模擬 →</a>
 </div>
-</div>
-<div class="hidden flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl border border-amber-300/40 bg-amber-300/10 p-4" id="shareCta">
-<button class="v1-btn v1-btn-banana shrink-0" id="shareOpenBtn" onclick="openShareCard()" type="button">🍌 產生分享卡</button>
-<p class="text-[13px] text-amber-100 leading-relaxed">分享卡只顯示職等、PR 與稱號，<b>絕對不會出現你的月薪數字</b>。</p>
 </div>
 </div>
 </div>
@@ -999,7 +1025,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <th class="p-3">Status</th>
 </tr>
 </thead>
-<tbody class="text-slate-600 divide-y divide-slate-100" id="dataTableBody"></tbody>
+<tbody class="text-slate-600 divide-y divide-slate-100" data-no-bilingual id="dataTableBody"></tbody>
 </table>
 </div>
 </section>
@@ -1143,7 +1169,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <th class="p-3">換算股數 (股)</th><th class="p-3">Status</th>
 </tr>
 </thead>
-<tbody class="text-slate-600 divide-y divide-slate-100" id="bonusTbody"></tbody>
+<tbody class="text-slate-600 divide-y divide-slate-100" data-no-bilingual id="bonusTbody"></tbody>
 </table>
 </div>
 <p class="px-4 py-3 text-[11px] text-slate-400 border-t border-slate-100" data-no-bilingual id="bonusSharesNote">換算股數：2026 依目前 MU 股價換算；2025 依 2025/11 參考價 $223.77 換算。</p>
@@ -1307,6 +1333,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
         
 
         // Standard box-chart renderer: floating bar = Q1..Q3; whiskers + red median only.
+        Chart.defaults.animation.duration = 250;
+        // v1: mark "我" on my own grade in the salary box chart after locating.
+        Chart.register({
+            id:'myGradeMarker',
+            afterDatasetsDraw(c){
+                if(c.canvas.id!=='boxSalaryChart'||!myLocationPoint)return;
+                const i=c.data.labels.indexOf(myLocationPoint.grade); if(i<0)return;
+                const bar=c.getDatasetMeta(0).data[i], y=c.scales.y; if(!bar||!y)return;
+                const py=y.getPixelForValue(Math.min(y.max,Math.max(y.min,myLocationPoint.salary))), x=bar.x, r=8, ctx=c.ctx;
+                ctx.save(); ctx.beginPath(); ctx.moveTo(x,py-r); ctx.lineTo(x+r,py); ctx.lineTo(x,py+r); ctx.lineTo(x-r,py); ctx.closePath();
+                ctx.fillStyle='#facc15'; ctx.strokeStyle='#0f172a'; ctx.lineWidth=2; ctx.fill(); ctx.stroke();
+                ctx.font='bold 11px sans-serif'; ctx.textAlign='left'; ctx.textBaseline='middle'; ctx.lineWidth=3; ctx.strokeStyle='#fff'; ctx.strokeText('我',x+r+3,py); ctx.fillStyle='#0f172a'; ctx.fillText('我',x+r+3,py); ctx.restore();
+            }
+        });
+        Chart.defaults.resizeDelay = 120;
         Chart.register({
             id:'boxCustom',
             afterDatasetsDraw(c){
@@ -1484,7 +1525,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             };
             const renderBonus=(year,rows)=>{
                 if(year===2025) dataM2=parseBonusRows(rows||[]); else dataM3=parseBonusRows(rows||[]);
-                if(bonusView==='compare') renderBonusCompare(); else if(curBonusYear()===year) refreshBonusYear();
+                if(bonusView==='compare') renderBonusCompare(true); else if(curBonusYear()===year) refreshBonusYear(true);
                 ensureGameQuestion();
             };
             const renderM2=(rows)=>renderBonus(2025,rows);
@@ -1683,7 +1724,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             if (myLocationPoint) datasets.push({ type: 'scatter', label: '📍 我的座標點', data: [{ x: myLocationPoint.experience, y: myLocationPoint.salary }], backgroundColor: '#f59e0b', borderColor: '#FF0000', borderWidth: 2, pointRadius: 9, pointStyle: 'star', idTag: 'mine', order: 1 });
 
             if (chartScatter) { chartScatter.data.datasets = datasets; chartScatter.update(); } else { 
-                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), { data: { datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 9 }, boxWidth: 10, boxHeight: 10, filter: (i)=>!i.text.endsWith('_line') }, onClick: (e, lI, l)=> { const t = lI.text, ci = l.chart; ci.data.datasets.forEach(d => { if(d.idTag===t) d.hidden = !d.hidden; }); ci.update(); } } }, scales: { x: { type: 'linear', title: { display: true, text: '總工作年資 (年)' } }, y: { title: { display: true, text: '月薪 (萬元)' } } } } }); 
+                chartScatter = new Chart(document.getElementById('mainScatterChart').getContext('2d'), { data: { datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: window.innerWidth < 640 ? 'bottom' : 'right', labels: { font: { size: 9 }, boxWidth: 10, boxHeight: 10, filter: (i)=>!i.text.endsWith('_line') }, onClick: (e, lI, l)=> { const t = lI.text, ci = l.chart; ci.data.datasets.forEach(d => { if(d.idTag===t) d.hidden = !d.hidden; }); ci.update(); } } }, scales: { x: { type: 'linear', title: { display: true, text: '總工作年資 (年)' } }, y: { title: { display: true, text: '月薪 (萬元)' } } } } }); 
             }
         }
 
@@ -1728,7 +1769,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             renderTable();
         }
 
-        function renderTable() {
+        function renderTable(keepLimit) {
+            if (!keepLimit) tableLimit.dataTableBody = TABLE_PAGE;
             const tbody = document.getElementById('dataTableBody'); tbody.innerHTML = '';
             const searchKeyword = (document.getElementById('tableSearchInput')?.value || '').trim().toLowerCase();
             const filtered = dataM1.filter(i => {
@@ -1744,12 +1786,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
                 });
             }
 
-            filtered.forEach(item => {
-                const isOut = outliersSet.has(item.id), row = document.createElement('tr');
-                row.className = isOut ? "bg-rose-50/80 text-rose-900 border-b border-slate-200" : "hover:bg-slate-50 border-b border-slate-100";
-                row.innerHTML = `<td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-bold" style="background-color: ${gradeColors[item.grade] || defaultColor}">${escapeHtml(item.grade)}</span></td><td class="p-3 font-medium">${escapeHtml(item.experience)} 年</td><td class="p-3 font-bold">${escapeHtml(item.salary)} 萬</td><td class="p-3 text-slate-500">${escapeHtml(item.team_type)}</td><td class="p-3 text-slate-400">${escapeHtml(item.department)}</td><td class="p-3 font-bold">${isOut ? 'Outliers' : 'Normal'}</td>`;
-                tbody.appendChild(row);
-            });
+            tbody.innerHTML = filtered.slice(0, tableLimit.dataTableBody).map(item => {
+                const isOut = outliersSet.has(item.id);
+                                return `<tr class="${isOut ? 'bg-rose-50/80 text-rose-900 border-b border-slate-200' : 'hover:bg-slate-50 border-b border-slate-100'}"><td class="p-3"><span class="px-2 py-0.5 rounded text-white text-xs font-bold" style="background-color: ${gradeColors[item.grade] || defaultColor}">${escapeHtml(item.grade)}</span></td><td class="p-3 font-medium">${escapeHtml(item.experience)} 年</td><td class="p-3 font-bold">${escapeHtml(item.salary)} 萬</td><td class="p-3 text-slate-500">${escapeHtml(item.team_type)}</td><td class="p-3 text-slate-400">${escapeHtml(item.department)}</td><td class="p-3 font-bold">${isOut ? 'Outliers' : 'Normal'}</td></tr>`;
+            }).join('') + moreRowsRow('dataTableBody', Math.min(tableLimit.dataTableBody, filtered.length), filtered.length, 6);
             document.getElementById('tableRowCount').innerText = '顯示 ' + filtered.length + ' 筆';
         }
 
@@ -1783,11 +1823,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             const ePct = sameE.length ? Math.round((sameE.filter(x => x < s).length / sameE.length) * 100) : NaN;
             lastLocate = { grade: g, experience: e, salary: s, scope, gPct, ePct, nGrade: sameG.length, nExp: sameE.length };
 
-            document.getElementById('pctGradeRes').innerText = Number.isFinite(gPct) ? gPct + "%" : '--';
-            document.getElementById('pctGradeLabel').innerText = Number.isFinite(gPct) ? `領先 ${g} 職等同仁（${scopeText}）・${formatPR(gPct)}` : `資料中還沒有 ${g} 職等的回報（${scopeText}）`;
-            document.getElementById('pctExpRes').innerText = Number.isFinite(ePct) ? ePct + "%" : '--';
-            document.getElementById('pctExpLabel').innerText = Number.isFinite(ePct) ? `同資歷同仁・${formatPR(ePct)}` : '相似年資樣本不足';
-            document.getElementById('pctSampleInfo').innerText = `比對樣本：同職等 ${sameG.length} 筆・相似年資 ${sameE.length} 筆（${scopeText}）`;
+            const setT = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+            const title = Number.isFinite(gPct) ? prTitle(gPct) : {emoji: '🙈', text: '這個職等還沒有樣本'};
+            setT('pctGradeChip', `${g} 職等`);
+            setT('pctGradeRes', Number.isFinite(gPct) ? formatPR(gPct) : '--');
+            setT('pctGradeLabel', Number.isFinite(gPct) ? `在 ${g} 同職等同仁中（PR ${gPct}・${scopeText}）` : `資料中還沒有 ${g} 職等的回報（${scopeText}）`);
+            setT('pctTitleEmoji', title.emoji); setT('pctTitleText', title.text);
+            setT('pctExpRes', Number.isFinite(ePct) ? formatPR(ePct) : '樣本不足');
+            setT('pctExpLabel', Number.isFinite(ePct) ? `PR ${ePct}・同資歷同仁` : '相似年資樣本不足');
+            setT('pctSampleN', `${sameG.length} 筆`);
+            setT('pctSampleInfo', `同職等・相似年資 ${sameE.length} 筆`);
             document.getElementById('percentileCard').classList.remove('hidden');
             document.getElementById('locateEmpty').classList.add('hidden');
             document.getElementById('shareCta').classList.toggle('hidden', !sameG.length);
@@ -1880,6 +1925,25 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             });
             return kept;
         }
+        // v1: long tables render in pages of 200 rows (layout of thousands of rows is what made tabs stutter).
+        const TABLE_PAGE = 200;
+        const tableLimit = {dataTableBody: TABLE_PAGE, bonusTbody: TABLE_PAGE};
+        function moreRowsRow(tbodyId, shown, total, cols){
+            if (shown >= total) return '';
+            return `<tr><td class="p-3 text-center" colspan="${cols}"><button class="v1-btn v1-btn-light" onclick="showMoreRows('${tbodyId}')" type="button">再顯示 ${Math.min(TABLE_PAGE, total - shown)} 筆（目前 ${shown} / 共 ${total} 筆）</button></td></tr>`;
+        }
+        function showMoreRows(tbodyId){
+            tableLimit[tbodyId] += TABLE_PAGE;
+            if (tbodyId === 'dataTableBody') renderTable(true); else renderBonusTable(undefined, true);
+        }
+        function sharedOutlierChecker(rows, field) {
+            // Same population as sharedOutlierByGrade(), but bounds are computed once per group (O(n) instead of O(n²)).
+            const groups = new Map();
+            rows.forEach(i => { const k = sharedGroupKey(i); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(i); });
+            const bounds = new Map();
+            groups.forEach((g, k) => bounds.set(k, sharedGradeBounds(g, field)));
+            return item => { const b = bounds.get(sharedGroupKey(item)), v = Number(item[field]); return !!b && b.trimmed && Number.isFinite(v) && v > 0 && (v < b.low || v > b.high); };
+        }
         function sharedOutlierByGrade(item, rows, field) {
             // Same Grade × Performance × Promotion Status group used by sharedTrimByGrade().
             const key=sharedGroupKey(item);
@@ -1928,9 +1992,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             setTimeout(() => { try { [cBonusRsu,cBonusRaiseAll,cBonusRaiseYes,cBonusRaiseNo,cBonusCompare].forEach(c => c && c.resize()); } catch (_) {} }, 30);
         }
 
-        function refreshBonusYear(){
+        let bonusRenderedKey = '';
+        function refreshBonusYear(force){
             if (bonusView === 'compare') return;
             const y = curBonusYear();
+            const key = y + '|' + bonusData(y).length + '|' + JSON.stringify(bs());
+            if (!force && key === bonusRenderedKey) return;
+            bonusRenderedKey = key;
             const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
             setText('bonusCountLabel', `🎁 開獎調查人數 (${y})`);
             setText('bonusLocTitle', `📍 ${y} 開獎定位器`);
@@ -2034,23 +2102,26 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
                 return (st.tSeries==='All'||i.grade.startsWith(st.tSeries)) && (st.tSub==='All'||i.grade===st.tSub) && (st.tPromo==='All'||i.promo===st.tPromo) && (st.tPerf==='All'||i.perf===st.tPerf) && searchMatch;
             });
         }
-        function renderBonusTable(pool){
+        function renderBonusTable(pool, keepLimit){
+            if (!keepLimit) tableLimit.bonusTbody = TABLE_PAGE;
             const p = pool || bonusPool, st = bs(), y = curBonusYear(), tbody = document.getElementById('bonusTbody');
+            bonusRenderedKey = y + '|' + bonusData(y).length + '|' + JSON.stringify(st);
             const res = filterBonusTableRows(p);
             if (st.sortCol) res.sort((a,b)=>{ const vA=a[st.sortCol], vB=b[st.sortCol]; if(typeof vA==='string') return st.sortDesc?vB.localeCompare(vA):vA.localeCompare(vB); return st.sortDesc?vB-vA:vA-vB; });
-            const countEl = document.getElementById('bonusCount'); if (countEl) countEl.innerText = tr('顯示')+' '+res.length+' '+tr('筆');
+            const countEl = document.getElementById('bonusCount'); if (countEl) countEl.textContent = '顯示 ' + res.length + ' 筆';
             if (res.length===0 && bonusData(y).length===0) { tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">${escapeHtml('目前尚無任何 '+y+' 數據')}</td></tr>`; return; }
             if (res.length===0) { tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400 font-bold">${tr('沒有符合條件的數據')}</td></tr>`; return; }
             const price = y === 2025 ? MU_PRICE_2025_11 : Number(window.MU_PRICE_CURRENT);
             const validPrice = Number.isFinite(price) && price > 0;
-            tbody.innerHTML = res.map(i => {
+            const isRaiseOut = sharedOutlierChecker(p,'raise'), isRsuOut = sharedOutlierChecker(p,'rsu');
+            tbody.innerHTML = res.slice(0, tableLimit.bonusTbody).map(i => {
                 const shares = validPrice && Number(i.rsu) > 0 ? Math.round(i.rsu/price) : null;
-                const normal = !(sharedOutlierByGrade(i,p,'raise') || sharedOutlierByGrade(i,p,'rsu'));
+                const normal = !(isRaiseOut(i) || isRsuOut(i));
                 const profile = normal ? `<span class="text-emerald-600 font-bold">Normal</span>` : `<span class="text-rose-600 font-bold">Outliers</span>`;
                 const shareText = i.rsu > 0 ? (shares===null ? 'NA' : shares+' '+tr('股')) : '--';
                 const color = /^#[0-9a-f]{3,8}$/i.test(gradeColors[i.grade]||'') ? gradeColors[i.grade] : '#333';
                 return `<tr class="${normal?'hover:bg-slate-50':'bg-rose-50/80'} border-b border-slate-100"><td class="p-3 font-bold" style="color:${color}">${escapeHtml(i.grade)}</td><td class="p-3 font-bold text-slate-700">${escapeHtml(i.perf)}</td><td class="p-3 ${i.promo==='Yes'?'text-fuchsia-600 font-bold':''}">${i.promo==='Yes'?'✅ '+tr('有'):'❌ '+tr('無')}</td><td class="p-3 font-bold text-blue-600">${escapeHtml(i.raise)}%</td><td class="p-3 font-bold text-emerald-600">$${Number(i.rsu||0).toLocaleString()}</td><td class="p-3 text-slate-500">${shareText}</td><td class="p-3">${profile}</td></tr>`;
-            }).join('');
+            }).join('') + moreRowsRow('bonusTbody', Math.min(tableLimit.bonusTbody, res.length), res.length, 7);
         }
 
         function locateBonus(silent){
@@ -2118,7 +2189,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             const pct = a ? ` (${d>=0?'+':'−'}${Math.abs(d/a*100).toFixed(1)}%)` : '';
             return {text:`${arrow} $${Math.round(Math.abs(d)).toLocaleString()}${pct}`, cls};
         }
-        function renderBonusCompare(){
+        let compareRenderedKey = '';
+        function renderBonusCompare(force){
+            const ck = [cmpMetric, cmpPromo, dataM2.length, dataM3.length].join('|');
+            if (!force && ck === compareRenderedKey && cBonusCompare) return;
+            compareRenderedKey = ck;
             const s25 = compareStats(2025), s26 = compareStats(2026), MIN_N = 3;
             const metricName = cmpMetric === 'raise' ? '調薪中位數' : 'RSU 中位數', promoName = {All:'全部', No:'未升遷', Yes:'有升遷'}[cmpPromo];
             const o25 = s25.overall, o26 = s26.overall;
@@ -2456,9 +2531,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
         }
         function renderSectionNav(){
             const track = document.getElementById('sectionNavTrack'); if (!track) return;
+            if (track.dataset.mode === String(currentMode)) return;
+            track.dataset.mode = String(currentMode);
             track.innerHTML = (SECTION_NAV[currentMode] || []).map(([id,label]) => `<a data-target="${id}" href="#${id}">${escapeHtml(label)}</a>`).join('');
             track.querySelectorAll('a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); navGoTo(a.dataset.target); }));
-            updateNavHeight();
+            requestAnimationFrame(updateNavHeight);
         }
         function navGoTo(id){
             const isBonusTarget = BONUS_YEAR_SECTIONS.includes(id) || id === 'sec-bonus-compare' || id === 'sec-bonus-compare-teaser';
@@ -2679,11 +2756,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
                 <p class="text-lg md:text-xl font-black mt-1" id="gameQuestion">${escapeHtml(q.label)}</p>
                 <div class="mt-4"><label class="flex items-baseline justify-between gap-3" for="gameSlider"><span class="text-sm text-slate-300">我猜</span><span class="text-3xl font-black text-pink-300 tabular-nums" id="gameGuessVal">${start.toFixed(1)} ${q.unit}</span></label>
                 <input id="gameSlider" max="${q.range.max}" min="${q.range.min}" step="${q.range.step}" type="range" value="${start}" aria-valuetext="${start.toFixed(1)} ${q.unit}"/>
-                <div class="flex justify-between text-[11px] text-slate-400"><span>${q.range.min} ${q.unit}</span><span>${q.range.max} ${q.unit}</span></div></div>
+                <div class="flex justify-between text-[11px] text-slate-400"><span>${q.range.min} ${q.unit}</span><span>${q.range.max} ${q.unit}</span></div>
+                <div aria-label="微調猜測" class="v1-nudge" role="group"><button data-d="-1" type="button">−1</button><button data-d="-0.1" type="button">−0.1</button><button data-d="0.1" type="button">+0.1</button><button data-d="1" type="button">+1</button></div></div>
                 <div class="mt-4 flex flex-wrap gap-2"><button class="v1-btn v1-btn-banana" id="gameRevealBtn" onclick="revealGame()" type="button">🎯 揭曉答案</button><button class="v1-btn v1-btn-ghost" onclick="nextGameQuestion()" type="button">換一題</button></div>
                 <div aria-live="polite" id="gameResult"></div>`;
             const slider = document.getElementById('gameSlider');
-            slider.addEventListener('input', () => { const t = Number(slider.value).toFixed(1) + ' ' + q.unit; document.getElementById('gameGuessVal').textContent = t; slider.setAttribute('aria-valuetext', t); });
+            const guessEl = document.getElementById('gameGuessVal');
+            let raf = 0;
+            const paint = () => { raf = 0; const t = Number(slider.value).toFixed(1) + ' ' + q.unit; guessEl.textContent = t; slider.setAttribute('aria-valuetext', t); };
+            slider.addEventListener('input', () => { if (!raf) raf = requestAnimationFrame(paint); });
+            body.querySelectorAll('.v1-nudge button').forEach(b => b.addEventListener('click', () => {
+                if (game.revealed) return;
+                const v = Math.min(q.range.max, Math.max(q.range.min, Math.round((Number(slider.value) + Number(b.dataset.d)) * 10) / 10));
+                slider.value = v; paint();
+            }));
             updateGameStats();
         }
         function gamePoints(err){ return err <= 0.05 ? 3 : err <= 0.15 ? 2 : err <= 0.30 ? 1 : 0; }
@@ -2695,7 +2781,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
             if (game.score > game.best.score) game.best.score = game.score;
             if (game.streak > game.best.streak) game.best.streak = game.streak;
             try { localStorage.setItem(GAME_BEST_KEY, JSON.stringify(game.best)); } catch (_) {}
-            slider.disabled = true; document.getElementById('gameRevealBtn').disabled = true;
+            slider.disabled = true; document.getElementById('gameRevealBtn').disabled = true; document.querySelectorAll('#gameBody .v1-nudge button').forEach(b => b.disabled = true);
             const span = q.range.max - q.range.min, pos = v => Math.min(100, Math.max(0, (v - q.range.min) / span * 100)).toFixed(2) + '%';
             const f = v => v.toFixed(q.type === 'salary' ? 1 : 2) + ' ' + q.unit;
             const verdict = ['😵 差有點遠，再接再厲！', '🙂 有點感覺了（+1）', '😎 很接近！（+2）', '🎯 神準！（+3）'][pts];
@@ -3097,11 +3183,13 @@ const MAP=Object.assign({},
     return makeBilingual(v);
   }
 
+  function sigOf(c){ try{ return JSON.stringify([c.data?.labels||[], (c.data?.datasets||[]).map(d=>d.label), Object.values(c.options?.scales||{}).map(sc=>sc.title?.text||'')]); }catch(e){ return Math.random(); } }
   function applyCharts(){
     try{
       if(!window.Chart || !Chart.instances) return;
       Object.values(Chart.instances).forEach(c=>{
         if(c.canvas && c.canvas.closest && c.canvas.closest('[data-no-bilingual]')) return;
+        c.__bilingualSig=sigOf(c);
         try{
           if(c.options?.plugins?.title?.text){
             const t=c.options.plugins.title.text;
@@ -3119,7 +3207,7 @@ const MAP=Object.assign({},
           }
           if(Array.isArray(c.data?.labels)) c.data.labels=c.data.labels.map(translateChartValue);
           // Do not call update() unless something actually needs changing.
-          if(typeof c.update==='function') c.update('none');
+          if(c.__bilingualSig!==sigOf(c)){ c.__bilingualSig=sigOf(c); if(typeof c.update==='function') c.update('none'); }
         }catch(e){}
       });
     }catch(e){}
@@ -3138,7 +3226,7 @@ const MAP=Object.assign({},
     for(const m of mutations){
       if(m.type!=='childList') continue;
       const target=m.target;
-      if(target && target.closest && target.closest(GENERATED)) continue;
+      if(target && target.closest && (target.closest(GENERATED) || target.closest('[data-no-bilingual]'))) continue;
       relevant=true; break;
     }
     if(relevant) schedule();
