@@ -3170,7 +3170,6 @@ const MAP=Object.assign({},
 <script id="test1-float-navigation">
 (function(){
  const nav=document.getElementById('portalFloatingNav'),toggle=document.getElementById('portalNavToggle');
- if(window.matchMedia&&window.matchMedia('(max-width:700px)').matches){nav.classList.add('is-collapsed');toggle.setAttribute('aria-expanded','false');toggle.title='展開導覽 / Expand navigation';toggle.setAttribute('aria-label',toggle.title);toggle.querySelector('.float-icon').textContent='▶';toggle.querySelector('.float-label-zh').textContent='展開';toggle.querySelector('.float-label-en').textContent='Expand';}
  toggle.addEventListener('click',()=>{
   const collapsed=nav.classList.toggle('is-collapsed');
   toggle.setAttribute('aria-expanded',String(!collapsed));
