@@ -153,6 +153,9 @@
 @media(max-width:350px){#unionEntryReminder .union-entry-dialog{padding:16px 12px 13px}#unionEntryReminder .union-entry-card{grid-template-columns:minmax(0,1fr) 90px;padding:10px}#unionEntryReminder .union-entry-question{font-size:13px}#unionEntryReminder .union-entry-link{font-size:11px}}
 @media(max-height:590px){#unionEntryReminder .union-entry-dialog{padding-top:13px;padding-bottom:12px}#unionEntryReminder .union-entry-card{padding-top:9px;padding-bottom:9px;margin-top:7px}#unionEntryReminder .union-entry-note{margin-top:7px}#unionEntryReminder .union-entry-later{margin-top:8px}}
 
+#unionEntryReminder .union-entry-member-stats{font-size:11px;line-height:1.4}
+#unionEntryReminder .union-entry-member-stats strong{font-size:clamp(19px,5vw,24px)}
+#unionEntryReminder .union-entry-breakdown{font-size:10px;color:#c9d5e3;margin-top:3px;white-space:normal}
 /* Compact countdown displayed at top of entry reminder */
 #unionEntryReminder .meeting-countdown-pill{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 8px;width:100%;padding:9px 35px 9px 9px;margin:0 0 12px;border:1px solid #cba866;border-radius:11px;background:linear-gradient(110deg,#3a3022,#222a33);color:#f7e8c7;text-align:left}
 #unionEntryReminder .meeting-countdown-icon{font-size:17px}
@@ -1053,7 +1056,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   </div>
   <div class="union-entry-card">
    <p class="union-entry-question">🤝 加入關工了嗎？</p>
-   <p class="union-entry-count">目前台中 <strong id="entryMembershipCount">同步中…</strong> 人</p>
+   <div class="union-entry-count union-entry-member-stats"><div>桃園＋台中 <strong id="entryMembershipCount">同步中…</strong> 人（估計）</div><div class="union-entry-breakdown">台中 <span id="entryMembershipTaichung">同步中…</span> 人 · 桃園約 2,200+ 人</div></div>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">申請入會 ↗</a>
   </div>
   <div class="union-entry-card">
@@ -1088,12 +1091,13 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  function copyCount(sourceId,targetId){
   const source=document.getElementById(sourceId),target=document.getElementById(targetId);
   if(!source||!target)return;
-  const update=()=>{const raw=source.textContent.trim(),match=raw.match(/^([0-9,]+)/);
+  const update=()=>{const raw=source.textContent.trim(),match=raw.match(/^([0-9,]+\+?)/);
    target.textContent=match?match[1]:(raw==='—'||raw.startsWith('— ')?'尚未取得':'同步中…');};
   update();new MutationObserver(update).observe(source,{childList:true,characterData:true,subtree:true});
  }
  copyCount('intentTaichungCount','entryIntentCount');
- copyCount('affiliatedUnionInterestCount','entryMembershipCount');
+ copyCount('affiliatedUnionInterestCount','entryMembershipTaichung');
+ copyCount('affiliatedUnionCombinedCount','entryMembershipCount');
  const volunteerSource=document.getElementById('volunteerPublicCount');
  const volunteerTarget=document.getElementById('entryVolunteerCount');
  if(volunteerSource&&volunteerTarget){
