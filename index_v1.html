@@ -650,7 +650,14 @@ html{scroll-behavior:smooth}
 <a id="intentCountDebugLink" class="u-intent-diagnostic-link" href="https://script.google.com/macros/s/AKfycbxNb1ZowLH51RlsLYWh0WYCKGz85WlyZ4uYYz3QTz5SXgfukNAKgUqXdXuaYmKU64mh/exec?action=count" rel="noopener noreferrer" target="_blank">檢查統計連線 / Check count service ↗</a>
 </div>
 </section>
-<div class="u-action-stack"><section class="u-surface" id="u-affiliated-union"><div class="u-kicker">UNION MEMBERSHIP</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4"><div class="u-muted text-sm">入會申請資料筆數 / Membership applications</div><strong class="block text-4xl mt-2" id="affiliatedUnionInterestCount">—</strong><p class="u-muted u-mini mt-2">申請資料筆數，尚非核准會員數。 / Application records, not approved members.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:12px">↻ 更新數字 / Update counts</button></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
+<div class="u-action-stack"><section class="u-surface" id="u-affiliated-union"><div class="u-kicker">UNION MEMBERSHIP</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4">
+<div class="u-muted text-sm">桃園＋台中入會申請合計 / Taoyuan + Taichung membership applications</div>
+<div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人（估計） / estimated</span></div>
+<div class="grid grid-cols-2 gap-3 mt-4">
+ <div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-sm">台中 / Taichung <span class="text-xs">· 即時更新 / Live</span></div><strong class="block text-2xl mt-1" id="affiliatedUnionInterestCount">—</strong><small class="u-muted">人 · 申請資料筆數</small></div>
+ <div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-sm">桃園 / Taoyuan</div><strong class="block text-2xl mt-1">2,200+</strong><small class="u-muted">人 · 預計直接入會 / Estimated direct enrollment</small></div>
+</div>
+<p class="u-muted u-mini mt-3">合計依「台中即時申請筆數＋桃園預估 2,200+ 人」計算，非已核准會員數。 / Combined estimate based on live Taichung applications plus 2,200+ expected Taoyuan direct enrollments; not approved members.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:12px">↻ 更新數字 / Update counts</button></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
 <section class="u-surface u-action-step">
 <div class="flex items-center gap-3"><span class="u-step">03</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">已開放審核 · LINE 群組</span><span class="u-en" lang="en">OPEN · LINE group</span></span></span></div>
 <h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">LINE 群組已重新開放入群審核</span><span class="u-en" lang="en">LINE group approvals have reopened</span></span></h3>
@@ -945,6 +952,12 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  const endpoint='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec';
  const refreshMs=120000,retryMs=15000;
  const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionInterestCount'};
+ const combinedMembership=document.getElementById('affiliatedUnionCombinedCount');
+ function renderCombinedMembership(taichung){
+  if(!combinedMembership)return;
+  combinedMembership.textContent=Number.isSafeInteger(taichung)&&taichung>=0
+   ?(taichung+2200).toLocaleString('en-US')+'+':'—';
+ }
  const statuses=['briefingCountsStatus','membershipCountsStatus'].map(id=>document.getElementById(id));
  const buttons=[...document.querySelectorAll('[data-organizing-refresh]')];
  let busy=false,lastSuccess='',retryTimer=null,failures=0;
@@ -1000,6 +1013,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
     catch(secondError){throw firstError;}
    }
    Object.keys(ids).forEach(key=>{const el=document.getElementById(ids[key]);if(el)el.textContent=data[key].toLocaleString('en-US');});
+   renderCombinedMembership(data.membership);
    // A missing optional backend timestamp must not suppress valid counts.
    const timestamp=typeof data.updatedAt==='string'&&Number.isFinite(Date.parse(data.updatedAt))?new Date(data.updatedAt):new Date();
    lastSuccess=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(timestamp);
@@ -1011,6 +1025,8 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    const reason=reasons[error.message]||'統計連線失敗 / Connection failed';
    const previous=lastSuccess?' · 上次同步：'+lastSuccess+'，保留上次人數 / Keeping last counts':'';
    status(reason+previous+(failures<=2?' · 15 秒後重試，也可按更新數字 / Retry in 15 sec, or refresh now':' · 每 2 分鐘重試，也可按更新數字 / Retry every 2 min, or refresh now'));
+   // No last verified Taichung count available: do not display a made-up combined total.
+   if(!lastSuccess)renderCombinedMembership(null);
    if(failures<=2)retryTimer=setTimeout(refresh,retryMs);
   }finally{busy=false;buttons.forEach(button=>button.disabled=false)}
  }
@@ -1037,7 +1053,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   </div>
   <div class="union-entry-card">
    <p class="union-entry-question">🤝 加入關工了嗎？</p>
-   <p class="union-entry-count">目前 <strong id="entryMembershipCount">同步中…</strong> 人</p>
+   <p class="union-entry-count">目前台中 <strong id="entryMembershipCount">同步中…</strong> 人</p>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">申請入會 ↗</a>
   </div>
   <div class="union-entry-card">
