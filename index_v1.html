@@ -1054,7 +1054,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  if(volunteerSource&&volunteerTarget){
   const syncVolunteer=()=>{
    const value=volunteerSource.textContent.trim();
-   const match=value.match(/目前已有\\s*([0-9,]+)\\s*人報名/);
+   const match=value.match(/目前已有\s*([0-9,]+)\s*人報名/);
    volunteerTarget.textContent=match?match[1]:/無法取得|暫時無法取得|unavailable/i.test(value)?'尚未取得':'同步中…';
   };
   syncVolunteer();
