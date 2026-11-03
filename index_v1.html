@@ -152,6 +152,15 @@
 #unionEntryReminder .union-entry-later{font-size:13px;font-weight:700;margin-top:12px;min-height:41px;padding:8px;border-radius:9px}
 @media(max-width:350px){#unionEntryReminder .union-entry-dialog{padding:16px 12px 13px}#unionEntryReminder .union-entry-card{grid-template-columns:minmax(0,1fr) 90px;padding:10px}#unionEntryReminder .union-entry-question{font-size:13px}#unionEntryReminder .union-entry-link{font-size:11px}}
 @media(max-height:590px){#unionEntryReminder .union-entry-dialog{padding-top:13px;padding-bottom:12px}#unionEntryReminder .union-entry-card{padding-top:9px;padding-bottom:9px;margin-top:7px}#unionEntryReminder .union-entry-note{margin-top:7px}#unionEntryReminder .union-entry-later{margin-top:8px}}
+
+/* 2026-11-13 convening process countdown pill */
+#mode0Container .meeting-countdown-pill{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px 14px;width:100%;min-height:60px;padding:12px 18px;border:1px solid #cba866;border-radius:16px;background:linear-gradient(110deg,#3a3022,#202733 68%,#2c3037);box-shadow:0 4px 16px #0003;color:#f7e8c7;text-align:center}
+#mode0Container .meeting-countdown-icon{font-size:22px}
+#mode0Container .meeting-countdown-copy{font-weight:800;font-size:clamp(14px,2.8vw,17px);line-height:1.4}
+#mode0Container .meeting-countdown-copy .u-en{display:block;font-size:10px;font-weight:500;color:#b9c4d2;margin-top:2px}
+#mode0Container #meetingCountdownDays{font-size:clamp(23px,5vw,31px);line-height:1.1;color:#ffe0a0;font-variant-numeric:tabular-nums;white-space:nowrap}
+#mode0Container .meeting-countdown-date{font-size:11px;color:#c4cbd4;white-space:nowrap}
+@media(max-width:600px){#mode0Container .meeting-countdown-pill{gap:5px 8px;padding:11px 9px}.meeting-countdown-icon{font-size:18px!important}#mode0Container .meeting-countdown-copy{font-size:13px}#mode0Container .meeting-countdown-copy .u-en{font-size:9px}#mode0Container #meetingCountdownDays{font-size:26px}#mode0Container .meeting-countdown-date{width:100%;font-size:10px}}
 /* Nov 3 update: completed timeline items and archived briefing */
 #mode0Container #u-next .u-roadmap-item.roadmap-completed{--phase-color:#94a3b8;--phase-panel:#292d34;filter:grayscale(1);opacity:.68}
 #mode0Container #u-next .u-roadmap-item.roadmap-completed .u-roadmap-date,#mode0Container #u-next .u-roadmap-item.roadmap-completed h4{color:#b5bdc8}
@@ -605,7 +614,12 @@ html{scroll-behavior:smooth}
 <h1>光光猴守護平台 <span style="font-size:11px;font-weight:600;color:#b2c5da">· GUARDIAN</span></h1>
 <p>我們不生產錢，我們只是香蕉農。</p><div id="portalViewStats"><span>👁 總瀏覽 / Total <b id="pageViewTotal">—</b></span><span>🔥 今日 / Today <b id="pageViewToday">—</b></span></div>
 </div></header>
-<div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)"><section class="u-hero rounded-[24px] p-6 md:p-11 relative overflow-hidden u-v14-hero" id="u-emergency-hero"><div class="u-kicker u-v14-date">10.21 / 2026 · TAICHUNG · EMPLOYEE RESPONSE</div><h2 class="text-4xl md:text-6xl font-black mt-5 leading-tight u-hero-heading" style="letter-spacing:-.045em"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">沉痛．但我們仍有選擇</span><span class="u-en" lang="en">We are heartbroken, but we still have choices.</span></span></h2><p class="text-lg md:text-xl u-muted mt-4"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">以沉默記住失望，以程序守住權利。</span><span class="u-en" lang="en">We remember our disappointment in silence, and defend our rights through due process.</span></span></p></section><section id="u-current-strategy" class="u-surface" style="padding:clamp(16px,3vw,28px);margin-bottom:24px;text-align:center;">
+<div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)"><div id="meetingCountdownPill" class="meeting-countdown-pill" role="status" aria-live="polite">
+ <span class="meeting-countdown-icon" aria-hidden="true">⏳</span>
+ <span class="meeting-countdown-copy"><span class="u-zh">距離辦理臨時會員大會召集程序，還剩</span><span class="u-en" lang="en">Countdown to extraordinary members’ meeting convening process</span></span>
+ <strong id="meetingCountdownDays">— 天</strong>
+ <span class="meeting-countdown-date">截至 11/13（五）</span>
+</div><section class="u-hero rounded-[24px] p-6 md:p-11 relative overflow-hidden u-v14-hero" id="u-emergency-hero"><div class="u-kicker u-v14-date">10.21 / 2026 · TAICHUNG · EMPLOYEE RESPONSE</div><h2 class="text-4xl md:text-6xl font-black mt-5 leading-tight u-hero-heading" style="letter-spacing:-.045em"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">沉痛．但我們仍有選擇</span><span class="u-en" lang="en">We are heartbroken, but we still have choices.</span></span></h2><p class="text-lg md:text-xl u-muted mt-4"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">以沉默記住失望，以程序守住權利。</span><span class="u-en" lang="en">We remember our disappointment in silence, and defend our rights through due process.</span></span></p></section><section id="u-current-strategy" class="u-surface" style="padding:clamp(16px,3vw,28px);margin-bottom:24px;text-align:center;">
   <h2 style="font-size:clamp(1.45rem,4.5vw,2.15rem);font-weight:900;line-height:1.35;margin:0 0 16px;"><span class="u-bilingual"><span class="u-zh">雙線並進｜兩路突破</span><span class="u-en" lang="en">What Are We Doing Now?</span></span></h2>
   <img src="./current-action-overview.jpeg" alt="台中與桃園聯合作戰：原工會內部改革及成立台灣美光關係企業工會，雙線並進、兩路突破" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;max-width:760px;margin:0 auto;border-radius:16px;" />
   <a class="u-button" href="./Connected_Union_QA.html" target="_blank" rel="noopener noreferrer" aria-label="查看美光關係企業工會常見問題 Q&A，另開新分頁" style="display:inline-flex;align-items:center;justify-content:center;max-width:100%;min-height:48px;margin:20px auto 0;padding:12px 24px;border-radius:14px;font-weight:850;text-decoration:none;gap:8px;background:#b83f45;color:#fff;border:1px solid #d26368;box-shadow:0 6px 18px rgba(131,32,42,.28);">
@@ -1079,6 +1093,29 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   if(typeof openVolunteerSignup==='function')openVolunteerSignup();
  });
  dialog.hidden=false;previousFocus=document.activeElement;focusTarget.focus();
+})();
+</script>
+<script id="meeting-countdown-20261113">
+(function(){
+ 'use strict';
+ const target=document.getElementById('meetingCountdownDays');
+ const pill=document.getElementById('meetingCountdownPill');
+ if(!target||!pill)return;
+ const deadline=Date.UTC(2026,10,13);
+ const formatter=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'numeric',day:'numeric'});
+ function update(){
+  const parts=formatter.formatToParts(new Date());
+  const values={};
+  parts.forEach(part=>{if(part.type==='year'||part.type==='month'||part.type==='day')values[part.type]=Number(part.value)});
+  const today=Date.UTC(values.year,values.month-1,values.day);
+  const remaining=Math.round((deadline-today)/86400000);
+  if(remaining>0){target.textContent=remaining+' 天';pill.dataset.state='counting'}
+  else if(remaining===0){target.textContent='今天到期';pill.dataset.state='due'}
+  else{target.textContent='期限已過';pill.dataset.state='past'}
+ }
+ update();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+ setInterval(()=>{if(!document.hidden)update()},60000);
 })();
 </script>
 </body>
