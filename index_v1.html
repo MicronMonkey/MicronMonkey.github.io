@@ -156,6 +156,7 @@
 #unionEntryReminder .union-entry-member-stats{font-size:11px;line-height:1.4}
 #unionEntryReminder .union-entry-member-stats strong{font-size:clamp(19px,5vw,24px)}
 #unionEntryReminder .union-entry-breakdown{font-size:10px;color:#c9d5e3;margin-top:3px;white-space:normal}
+#unionEntryReminder .union-entry-breakdown .entry-member-breakdown-number{font-size:12px;font-weight:900;color:#f3d397}
 /* Compact countdown displayed at top of entry reminder */
 #unionEntryReminder .meeting-countdown-pill{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 8px;width:100%;padding:9px 35px 9px 9px;margin:0 0 12px;border:1px solid #cba866;border-radius:11px;background:linear-gradient(110deg,#3a3022,#222a33);color:#f7e8c7;text-align:left}
 #unionEntryReminder .meeting-countdown-icon{font-size:17px}
@@ -1056,7 +1057,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   </div>
   <div class="union-entry-card">
    <p class="union-entry-question">🤝 加入關工了嗎？</p>
-   <div class="union-entry-count union-entry-member-stats"><div>桃園＋台中 <strong id="entryMembershipCount">同步中…</strong> 人（估計）</div><div class="union-entry-breakdown">台中 <span id="entryMembershipTaichung">同步中…</span> 人 · 桃園約 2,200+ 人</div></div>
+   <div class="union-entry-count union-entry-member-stats"><div>桃園＋台中 <strong id="entryMembershipCount">同步中…</strong> 人（估計）</div><div class="union-entry-breakdown">台中 <strong class="entry-member-breakdown-number" id="entryMembershipTaichung">同步中…</strong> 人 · 桃園約 <strong class="entry-member-breakdown-number">2,200+</strong> 人</div></div>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">申請入會 ↗</a>
   </div>
   <div class="union-entry-card">
