@@ -1038,7 +1038,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  function copyCount(sourceId,targetId){
   const source=document.getElementById(sourceId),target=document.getElementById(targetId);
   if(!source||!target)return;
-  const update=()=>{const raw=source.textContent.trim(),match=raw.match(/^([\\d,]+)/);
+  const update=()=>{const raw=source.textContent.trim(),match=raw.match(/^([0-9,]+)/);
    target.textContent=match?match[1]:(raw==='—'||raw.startsWith('— ')?'尚未取得':'同步中…');};
   update();new MutationObserver(update).observe(source,{childList:true,characterData:true,subtree:true});
  }
