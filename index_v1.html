@@ -135,7 +135,7 @@
 #unionEntryReminder .union-entry-question{font-size:clamp(18px,3vw,22px);font-weight:900;margin:0 0 12px}
 #unionEntryReminder .union-entry-count{font-size:16px;color:#d6e4f2;margin:0 0 14px}
 #unionEntryReminder .union-entry-count strong{font-size:clamp(27px,6vw,35px);color:#f9dca2;font-variant-numeric:tabular-nums}
-#unionEntryReminder .union-entry-link{display:block;text-align:center;background:#e3be80;color:#171c23;font-size:16px;font-weight:900;border-radius:12px;padding:12px 16px;text-decoration:none}
+#unionEntryReminder .union-entry-link{display:block;width:100%;text-align:center;background:#e3be80;color:#171c23;font-size:16px;font-weight:900;border:0;border-radius:12px;padding:12px 16px;text-decoration:none;cursor:pointer}
 #unionEntryReminder .union-entry-note{margin-top:15px;color:#bec8d5;font-size:12px;line-height:1.65}
 #unionEntryReminder .union-entry-later{display:block;width:100%;margin-top:17px;padding:10px;background:transparent;border:1px solid #707b8b;border-radius:10px;color:#e8edf3;cursor:pointer}
 /* Nov 3 update: completed timeline items and archived briefing */
@@ -1000,7 +1000,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 <div id="unionEntryReminder" role="dialog" aria-modal="true" aria-labelledby="unionEntryReminderTitle" hidden>
  <div class="union-entry-dialog">
   <button type="button" class="union-entry-close" id="unionEntryClose" aria-label="關閉提醒 / Close">×</button>
-  <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 一起守護權益，這兩件事做了嗎？</h2>
+  <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 一起守護權益，這三件事做了嗎？</h2>
   <div class="union-entry-card">
    <p class="union-entry-question">📣 填意向書了嗎？</p>
    <p class="union-entry-count">目前台中 <strong id="entryIntentCount">同步中…</strong> 人</p>
@@ -1011,7 +1011,12 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    <p class="union-entry-count">目前 <strong id="entryMembershipCount">同步中…</strong> 人</p>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">前往關工入會申請 ↗</a>
   </div>
-  <p class="union-entry-note">意向書為台中 Google 表單回覆數；關工為入會申請資料筆數，並非核准會員人數。數字會依網站統計服務更新。</p>
+  <div class="union-entry-card">
+   <p class="union-entry-question">🌱 有意願擔任志工嗎？</p>
+   <p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p>
+   <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">填寫志工意願表 ↗</button>
+  </div>
+  <p class="union-entry-note">意向書為台中 Google 表單回覆數；關工為入會申請資料筆數，並非核准會員人數。志工為目前報名資料筆數。數字會依網站統計服務更新。</p>
   <button type="button" id="unionEntryLater" class="union-entry-later">稍後再說，進入網站</button>
  </div>
 </div>
@@ -1044,6 +1049,21 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  }
  copyCount('intentTaichungCount','entryIntentCount');
  copyCount('affiliatedUnionInterestCount','entryMembershipCount');
+ const volunteerSource=document.getElementById('volunteerPublicCount');
+ const volunteerTarget=document.getElementById('entryVolunteerCount');
+ if(volunteerSource&&volunteerTarget){
+  const syncVolunteer=()=>{
+   const value=volunteerSource.textContent.trim();
+   const match=value.match(/目前已有\\s*([0-9,]+)\\s*人報名/);
+   volunteerTarget.textContent=match?match[1]:/無法取得|暫時無法取得|unavailable/i.test(value)?'尚未取得':'同步中…';
+  };
+  syncVolunteer();
+  new MutationObserver(syncVolunteer).observe(volunteerSource,{childList:true,characterData:true,subtree:true});
+ }
+ document.getElementById('entryVolunteerSignup').addEventListener('click',()=>{
+  close();
+  if(typeof openVolunteerSignup==='function')openVolunteerSignup();
+ });
  dialog.hidden=false;previousFocus=document.activeElement;focusTarget.focus();
 })();
 </script>
