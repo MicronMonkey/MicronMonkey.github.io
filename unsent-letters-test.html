@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#171713">
+<meta name="description" content="光光猴｜未寄出的信：給夥伴、給台中工會與公司、給夢想中的公司、給未來的自己。">
+<meta property="og:title" content="未寄出的信｜光光猴守護平台（測試版）">
+<meta property="og:description" content="有些話，還沒寄出。四個展區，一封封屬於我們的故事。">
+<title>未寄出的信｜光光猴守護平台（測試版）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#171713;--surface:#25231e;--surface2:#302b24;--cream:#f2e5cc;--muted:#b8ae9d;--gold:#dfbd87;--line:#494136;--ink:#322b24}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% -8%,#423425 0%,transparent 35%),radial-gradient(ellipse at 3% 36%,#27261f 0%,transparent 43%),var(--bg);color:var(--cream);font-family:"Noto Sans TC",system-ui,sans-serif;min-height:100vh}
+body:after{content:"";position:fixed;inset:0;z-index:15;pointer-events:none;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 170'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.27'/%3E%3C/svg%3E")}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}a{text-decoration:none;color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #e9bf7f;outline-offset:3px}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:72px;border-bottom:1px solid #ffffff18}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.04em;font-size:14px}.logo-icon{height:33px;width:33px;display:grid;place-items:center;border:1px solid #d6b57d;border-radius:50%;font-size:20px}
+.nav{display:flex;align-items:center;gap:22px}.nav a{font-size:12px;color:#ded0bb}.nav a:hover{color:white}
+.test-badge{font-size:10px;font-weight:900;letter-spacing:.08em;border:1px solid #bda377;color:#e4c999;padding:5px 11px;border-radius:50px}
+.hero{min-height:460px;display:grid;grid-template-columns:1.18fr .82fr;align-items:center;gap:20px;padding:54px 0 34px}
+.kicker{font-size:11px;letter-spacing:.27em;color:var(--gold);font-weight:800}.hero h1{font:700 clamp(42px,5.7vw,73px)/1.34 "Noto Serif TC",serif;letter-spacing:.065em;margin:17px 0 22px}.hero h1 em{color:#dfbf92;font-style:normal}
+.hero p{font-size:14px;color:#ccc0ae;line-height:2.05;max-width:550px;margin:0 0 9px}
+.buttonrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:27px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 17px;border-radius:9px;border:1px solid #83735d;color:var(--cream);background:#25221e;min-height:45px;font-size:13px;font-weight:700;transition:transform .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px);border-color:#e5c28d}.btn.primary{background:var(--gold);color:#2d251a;border-color:var(--gold);font-weight:900}.btn.ghost{background:transparent}.btn.minor{padding:7px 11px;font-size:12px;min-height:34px}
+.stats{display:flex;gap:29px;flex-wrap:wrap;color:#ada391;font-size:11px;margin-top:24px}.stats strong{font-size:22px;font-weight:700;color:#eee1c9;display:block;font-family:"Noto Serif TC",serif}
+.stage{height:340px;display:grid;place-items:center;position:relative;isolation:isolate}.stage:before{content:"";width:290px;height:290px;border-radius:50%;border:1px solid #af91663f;position:absolute;box-shadow:0 0 0 47px #b99b6710,0 0 0 88px #b99b6709}
+.envelope{position:relative;width:275px;height:179px;transform:rotate(-8deg);animation:float 5.4s ease-in-out infinite;filter:drop-shadow(0 20px 22px #0009)}
+.env-back{position:absolute;inset:0;background:#b99665;border-radius:5px}.env-paper{position:absolute;left:20px;right:20px;top:-40px;height:125px;background:#ece1cb;color:#62533e;padding:22px 16px;font:600 16px/1.9 "Noto Serif TC",serif;transform:rotate(3deg);box-shadow:0 4px 10px #0004}
+.env-front{position:absolute;inset:0;clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);background:linear-gradient(125deg,#b18f63,#dbb988)}.env-flap{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 57%);background:#e4c394}
+.seal{position:absolute;top:81px;left:calc(50% - 23px);width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:#82483d;color:#efd3b2;font-size:23px;border:4px double #aa6555;box-shadow:0 6px 10px #0007}
+@keyframes float{50%{transform:translateY(-11px) rotate(-5deg)}}.notice{background:#51402080;border:1px solid #95764b;color:#f2dab4;padding:12px 16px;font-size:12px;line-height:1.85;border-radius:10px;margin:1px 0 43px}
+.section{padding:2px 0 30px}.section-header{margin:18px 0 17px;display:flex;justify-content:space-between;gap:14px;align-items:end}
+.section-header h2{font:700 clamp(24px,3vw,31px) "Noto Serif TC",serif;letter-spacing:.04em;margin:5px 0 5px}
+.section-header p{color:var(--muted);font-size:12px;margin:0}
+.zones{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.zone{--accent:#baae99;text-align:left;min-height:150px;color:#e9dec9;background:linear-gradient(150deg,#302b24,#211f1a);border:1px solid #544a3d;border-radius:13px;padding:19px 18px;position:relative;overflow:hidden;transition:.2s}
+.zone:before{content:"";height:3px;background:var(--accent);position:absolute;inset:0 0 auto}.zone:hover,.zone.selected{border-color:var(--accent);transform:translateY(-3px);background:#383027}
+.zone .symbol{font:700 30px "Noto Serif TC",serif;color:var(--accent);display:block;margin-bottom:9px}.zone strong{display:block;font:700 16px "Noto Serif TC",serif}.zone small{display:block;font-size:11px;color:#bfb4a2;line-height:1.7;margin-top:6px}
+.zone.a{--accent:#b4c2ce}.zone.b{--accent:#d49c87}.zone.c{--accent:#b9cba8}.zone.d{--accent:#e7c88c}
+.wall{padding-top:24px;padding-bottom:75px}.controls{display:flex;gap:12px;justify-content:space-between;align-items:center;margin:22px 0 20px;flex-wrap:wrap}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{background:#29251f;border:1px solid #544b3e;color:#c4b9a7;border-radius:8px;padding:9px 13px;font-size:12px}.tab.active{background:#dcbc86;color:#302619;border-color:#dcbc86;font-weight:900}
+.search{border:1px solid #5d5243;background:#25211d;border-radius:8px;color:#eee;padding:10px 12px;font-size:12px;min-width:215px}
+.lettergrid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.letter{min-height:278px;background:#ede1ca;color:#352d23;padding:22px 22px 15px;display:flex;flex-direction:column;box-shadow:0 8px 25px #0004;position:relative;border-radius:3px;transition:.2s;overflow:hidden}
+.letter:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent)}
+.letter:hover{transform:translateY(-4px);box-shadow:0 18px 35px #0008}
+.letter-meta{display:flex;justify-content:space-between;gap:9px;font-size:10px;color:#8c795e;align-items:center}.label{display:inline-block;font-size:10px;border:1px solid #c5b399;border-radius:30px;padding:2px 8px;white-space:nowrap}
+.letter h3{font:700 19px/1.5 "Noto Serif TC",serif;margin:17px 0 9px;letter-spacing:.035em}
+.letter p{font:400 13px/1.95 "Noto Serif TC",serif;color:#695b47;white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.letter-buttons{display:flex;align-items:center;justify-content:space-between;gap:6px;padding-top:11px;border-top:1px solid #bcaa918a}
+.linkbtn{background:none;color:#77634b;border:0;padding:4px 3px;font-size:12px}.linkbtn:hover,.linkbtn.liked{color:#ad554b}.linkbtn.liked{font-weight:900}
+.blank{grid-column:1/-1;text-align:center;border:1px dashed #655846;border-radius:12px;padding:50px 16px;color:#bcb09d;font-size:14px}
+.footer{border-top:1px solid #ffffff22;padding:26px 0 42px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:11px;line-height:1.9;color:#a79c8a}
+.overlay{position:fixed;inset:0;z-index:40;background:#0a0908dc;backdrop-filter:blur(13px);display:none;align-items:center;justify-content:center;padding:16px;overflow:auto}.overlay.show{display:flex}
+.dialog{max-height:92vh;overflow:auto;width:min(580px,100%);background:#27231e;border:1px solid #786550;box-shadow:0 25px 80px #000c;border-radius:14px;padding:22px;animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:none}}
+.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.dialog h2{font:700 23px "Noto Serif TC",serif;margin:0}.close{background:transparent;border:1px solid #6f5f4a;border-radius:50%;color:#e7d9c0;font-size:20px;width:35px;height:35px}
+.formfield{margin:0 0 15px}.formfield label{font-size:12px;color:#e3cda8;display:block;margin-bottom:7px}.formfield input,.formfield textarea,.formfield select{width:100%;border-radius:8px;padding:12px 13px;background:#151410;border:1px solid #6d5e4b;color:#f4e6ce;outline:none}.formfield textarea{height:182px;resize:vertical;line-height:1.85}
+.count{text-align:right;display:block;color:#aaa08e;font-size:10px;margin-top:3px}.risk{font-size:11px;color:#e1cbb1;background:#423628;padding:12px 14px;line-height:1.9;border-radius:8px;margin-bottom:15px}.checkline{display:flex;gap:10px;font-size:12px;line-height:1.8;color:#ddcfbb;margin:14px 0 20px}.checkline input{margin-top:6px}
+.paper{background:#eee2cc;color:#382e22;padding:26px 27px;min-height:260px;box-shadow:inset 0 0 70px #95806327;animation:paper .5s ease}
+@keyframes paper{from{opacity:0;transform:translateY(16px) rotate(-1deg)}}.paper .eyebrow{color:#8c7457}.paper h2{font-size:25px;margin:18px 0}.paper p{font:400 15px/2.15 "Noto Serif TC",serif;white-space:pre-wrap;overflow-wrap:anywhere}.signature{text-align:right;font:500 12px "Noto Serif TC",serif;color:#78674e;margin-top:26px}
+.paper-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.paper-actions .btn{min-height:38px;padding:8px 12px;flex:1;font-size:12px}
+.toast{z-index:100;position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);opacity:0;transition:.3s;max-width:85vw;text-align:center;border-radius:9px;padding:12px 17px;background:#e2c99e;color:#2c231a;font-size:12px;box-shadow:0 9px 30px #0008}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:850px){.hero{grid-template-columns:1fr;gap:0;padding-top:35px}.stage{height:230px}.stage:before{width:210px;height:210px}.envelope{transform:scale(.76) rotate(-8deg);animation:none}.zones{grid-template-columns:repeat(2,1fr)}.lettergrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:570px){.container{padding:0 17px}.topbar{min-height:65px}.nav{gap:11px}.nav a{font-size:11px}.test-badge{display:none}.hero h1{font-size:43px}.hero p{font-size:13px}.stage{height:165px;overflow:hidden}.envelope{transform:scale(.64) rotate(-7deg)}.hero{padding-top:28px}.zone{min-height:140px;padding:15px 13px}.zone strong{font-size:14px}.zone small{font-size:10px}.zones{gap:9px}.lettergrid{grid-template-columns:1fr}.letter{min-height:238px}.controls{align-items:stretch;flex-direction:column}.search{width:100%}.dialog{padding:17px}.paper{padding:21px}.stats{gap:21px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="topbar"><a class="logo" href="./index.html"><span class="logo-icon">🐵</span> 光光猴守護平台</a><nav><a href="#zones">四個展區</a><a href="#wall">閱讀信件</a><a href="#" id="navWrite">寫信</a></nav><span class="test-badge">INTERACTIVE TEST</span></header>
+<main>
+<section class="hero">
+<div><div class="kicker">THE UNSENT LETTERS · 2026</div><h1>那些，<br><em>沒有寄出的信。</em></h1><p>有些疲憊想對夥伴說，有些疑問想向台中工會與公司提起，有些期待留給夢想中的公司，還有一些話，只想寫給未來的自己。</p><p>不必留下姓名，也不必再填一份問卷。寫下一封心情，或者靜靜打開別人的信。</p><div class="buttonrow"><button class="btn primary" id="writeHero">✉ 寫一封匿名信</button><a href="#wall" class="btn ghost">閱讀所有信件 ↓</a></div><div class="stats"><div><strong id="letterCount">0</strong>封示範信件</div><div><strong id="likeCount">0</strong>次愛心回應</div><div><strong>4</strong>個心聲展區</div></div></div>
+<div class="stage" aria-hidden="true"><div class="envelope"><div class="env-back"></div><div class="env-paper">親愛的你：<br>有些話，終於能說。</div><div class="env-front"></div><div class="env-flap"></div><div class="seal">✦</div></div></div>
+</section>
+<div class="notice">🧪 <strong>目前為介面測試版：</strong>下方信件是虛構示範文字。你可以測試投稿、愛心、收藏、熱門排行及分享，但投稿與按讚只保存在<strong>你自己的瀏覽器</strong>，其他使用者不會看到。公開的多人即時投稿需要另外接資料庫與防濫用機制。</div>
+<section id="zones" class="section"><div class="section-header"><div><div class="kicker">FOUR LETTER COLLECTIONS</div><h2>這封信，想寫給誰？</h2><p>從不同心情出發，選擇你想讀的展區。</p></div></div>
+<div class="zones">
+<button class="zone a" data-zone="A"><span class="symbol">☁</span><strong>A｜疲憊</strong><small>寫給一起努力的夥伴</small></button>
+<button class="zone b" data-zone="B"><span class="symbol">？</span><strong>B｜疑問</strong><small>寫給台中工會與公司</small></button>
+<button class="zone c" data-zone="C"><span class="symbol">✧</span><strong>C｜期待</strong><small>寫給夢想中的公司</small></button>
+<button class="zone d" data-zone="D"><span class="symbol">✉</span><strong>D｜未來</strong><small>寫給未來的自己</small></button>
+</div></section>
+<section class="wall" id="wall"><div class="section-header"><div><div class="kicker">LETTERS FROM THE HEART</div><h2>每一封信，都值得被看見。</h2><p>點擊愛心回應共鳴；熱門榜依愛心與發布時間排序。</p></div><button class="btn minor" id="random">✧ 隨機拆信</button></div>
+<div class="controls"><div class="tabs"><button class="tab active" data-sort="new">最新</button><button class="tab" data-sort="hot">♡ 熱門</button><button class="tab" data-sort="saved">☆ 我的收藏</button><button class="tab" data-sort="all">全部</button></div><input class="search" id="search" placeholder="搜尋信件標題或內容" aria-label="搜尋信件"></div>
+<div class="lettergrid" id="letters" aria-live="polite"></div></section>
+</main>
+<footer class="footer"><span>光光猴守護平台 · 未寄出的信（測試版）<br>愛心回應不是工會投票，也不代表全體會員意見。</span><span>請勿寫入姓名、工號、部門班別或其他可辨識資訊。<br><a href="./index.html">↗ 返回光光猴首頁</a></span></footer>
+</div>
+<div class="overlay" id="writeModal" role="dialog" aria-modal="true" aria-label="匿名寫信"><div class="dialog">
+<div class="dialog-head"><h2>✉ 寫一封沒有寄出的信</h2><button class="close" data-close="writeModal" aria-label="關閉">×</button></div>
+<form id="writeForm">
+<div class="formfield"><label for="category">這封信要寫給誰？</label><select id="category"><option value="A">A｜疲憊 — 寫給夥伴</option><option value="B">B｜疑問 — 寫給台中工會與公司</option><option value="C">C｜期待 — 寫給夢想中的公司</option><option value="D">D｜未來 — 寫給未來的自己</option></select></div>
+<div class="formfield"><label for="title">信件標題</label><input id="title" maxlength="70" minlength="4" required placeholder="例如：給還在努力的我們"><small class="count" id="titleCounter">0 / 70</small></div>
+<div class="formfield"><label for="body">你想說的話</label><textarea id="body" maxlength="1500" minlength="20" required placeholder="那些說不出口的疲憊、疑問、期待……都可以寫下來。"></textarea><small class="count" id="bodyCounter">0 / 1500</small></div>
+<div class="risk"><strong>公開投稿提醒</strong>：正式版本將投稿後直接公開，不經事前人工審核，任何人都可能閱讀、截圖或轉傳。請勿提供自己或他人的身分資訊、公司機密、具體班別，或未經證實的個人指控。本測試版不會把文字上傳到公開資料庫。</div>
+<label class="checkline"><input type="checkbox" id="agree" required><span>我了解正式版是公開內容，並確認這封信不含可能識別個人或侵犯隱私的資訊。</span></label>
+<button class="btn primary" type="submit" style="width:100%">放進我的測試信件牆 →</button>
+</form></div></div>
+<div class="overlay" id="readModal" role="dialog" aria-modal="true" aria-label="拆開一封信"><div class="dialog">
+<div class="dialog-head"><div class="kicker" id="readCategory">UNSENT LETTERS</div><button class="close" data-close="readModal" aria-label="關閉">×</button></div>
+<article class="paper"><div class="eyebrow" id="readMeta"></div><h2 id="readTitle"></h2><p id="readBody"></p><div class="signature">—— 一封未寄出的信</div></article>
+<div class="paper-actions"><button class="btn" id="likeReading">♡ 愛心</button><button class="btn" id="saveReading">☆ 收藏</button><button class="btn" id="shareReading">↗ 分享</button><button class="btn" id="reportReading">⚑ 檢舉</button></div>
+<p style="font-size:11px;color:#b2a58f;line-height:1.8;margin:15px 0 0">測試版的檢舉只會在此裝置上隱藏信件，正式版需設置可處理申訴與下架的管理後端。</p>
+</div></div>
+<div id="toast" class="toast" role="status"></div>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const sample=[
+{id:"sample-a",category:"A",title:"給下班時還在笑的夥伴",body:"有些日子，真的很累。\n\n但每次在走廊遇見你，聽到一句「辛苦了」，好像又有了一點力氣。\n\n希望以後的我們，不必總是硬撐，也有足夠的時間好好休息。",created:Date.now()-45000000,likes:18,sample:true},
+{id:"sample-b",category:"B",title:"問題可以有一個清楚的回答嗎？",body:"寫給台中工會與公司：\n\n當重要的決定影響許多人時，我希望知道討論過哪些方案、考量過哪些聲音。\n\n提問不代表敵意。我們只是希望資訊完整、程序清楚，也願意好好對話。",created:Date.now()-90000000,likes:12,sample:true},
+{id:"sample-c",category:"C",title:"寫給我夢想中的公司",body:"希望未來的公司，不只看得見產能與數字，也能理解工作背後的生活。\n\n希望每個不同的意見都有被傾聽的機會，而制度不需要靠猜測才能理解。",created:Date.now()-138000000,likes:16,sample:true},
+{id:"sample-d",category:"D",title:"一年以後的自己，你好嗎？",body:"我想問問一年後的你：現在過得還好嗎？\n\n希望你沒有忘記照顧身體，也保留了與家人、朋友相處的時間。\n\n不管未來如何，都希望你對今天努力的自己說一句謝謝。",created:Date.now()-180000000,likes:23,sample:true}
+];
+const key="monkey_unsent_test_v1";
+let persisted;try{persisted=JSON.parse(localStorage.getItem(key))||{}}catch{persisted={}}
+const state={posts:Array.isArray(persisted.posts)?persisted.posts:[],liked:new Set(Array.isArray(persisted.liked)?persisted.liked:[]),saved:new Set(Array.isArray(persisted.saved)?persisted.saved:[]),hidden:new Set(Array.isArray(persisted.hidden)?persisted.hidden:[]),counts:persisted.counts&&typeof persisted.counts==="object"?persisted.counts:{},zone:"all",sort:"new",query:"",reading:null};
+const labels={A:{name:"疲憊",to:"寫給夥伴",color:"#b4c2ce"},B:{name:"疑問",to:"寫給台中工會與公司",color:"#d49c87"},C:{name:"期待",to:"寫給夢想中的公司",color:"#b9cba8"},D:{name:"未來",to:"寫給未來的自己",color:"#e7c88c"}};
+const all=()=>sample.concat(state.posts).map(x=>({id:x.id,category:x.category,title:x.title,body:x.body,created:x.created,likes:Number.isInteger(state.counts[x.id])?state.counts[x.id]:x.likes||0,sample:!!x.sample}));
+const save=()=>{try{localStorage.setItem(key,JSON.stringify({posts:state.posts,liked:[...state.liked],saved:[...state.saved],hidden:[...state.hidden],counts:state.counts}))}catch{message("瀏覽器無法保存本機資料，請確認隱私模式或儲存空間。")}};
+let timer;function message(text){const e=$("toast");e.textContent=text;e.classList.add("show");clearTimeout(timer);timer=setTimeout(()=>e.classList.remove("show"),3000)}
+function openDialog(id){$(id).classList.add("show");document.body.style.overflow="hidden";$(id).querySelector(".close").focus()}
+function closeDialog(id){$(id).classList.remove("show");document.body.style.overflow=""}
+function date(ts){return new Date(ts).toLocaleDateString("zh-TW",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit"})}
+function hotScore(p){const hours=Math.max(0,(Date.now()-p.created)/3600000);return p.likes/Math.pow(hours+4,.45)}
+function getVisible(){let arr=all().filter(p=>!state.hidden.has(p.id));if(state.zone!=="all")arr=arr.filter(p=>p.category===state.zone);if(state.sort==="saved")arr=arr.filter(p=>state.saved.has(p.id));if(state.query)arr=arr.filter(p=>(p.title+" "+p.body).toLowerCase().includes(state.query));arr.sort(state.sort==="hot"?(a,b)=>hotScore(b)-hotScore(a):(a,b)=>b.created-a.created);return arr}
+function render(){
+ document.querySelectorAll(".zone").forEach(x=>x.classList.toggle("selected",x.dataset.zone===state.zone));
+ document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.sort===state.sort));
+ const a=all();$("letterCount").textContent=a.length;$("likeCount").textContent=a.reduce((v,p)=>v+p.likes,0);
+ const grid=$("letters");grid.replaceChildren();
+ const list=getVisible();
+ if(!list.length){const blank=document.createElement("div");blank.className="blank";blank.textContent="這裡暫時沒有信。可以試試其他展區，或寫下你的第一封。";grid.append(blank);return}
+ list.forEach(p=>{
+ const card=document.createElement("article");card.className="letter";card.style.setProperty("--accent",labels[p.category].color);
+ const meta=document.createElement("div");meta.className="letter-meta";
+ const cat=document.createElement("span");cat.className="label";cat.textContent=p.category+"｜"+labels[p.category].name;
+ const stamp=document.createElement("span");stamp.textContent=(p.sample?"虛構示範 · ":"本機投稿 · ")+date(p.created);meta.append(cat,stamp);
+ const title=document.createElement("h3");title.textContent=p.title;
+ const body=document.createElement("p");body.textContent=p.body;
+ const actions=document.createElement("div");actions.className="letter-buttons";
+ const open=document.createElement("button");open.className="linkbtn";open.textContent="✉ 拆開閱讀 →";open.onclick=()=>read(p.id);
+ const like=document.createElement("button");like.className="linkbtn"+(state.liked.has(p.id)?" liked":"");like.textContent=(state.liked.has(p.id)?"♥ ":"♡ ")+p.likes;like.setAttribute("aria-label","愛心回應");like.onclick=()=>toggleLike(p.id);
+ const favorite=document.createElement("button");favorite.className="linkbtn";favorite.textContent=state.saved.has(p.id)?"★":"☆";favorite.setAttribute("aria-label","收藏");favorite.onclick=()=>toggleSave(p.id);
+ actions.append(open,like,favorite);card.append(meta,title,body,actions);grid.append(card);
+ });
+}
+function read(id){const p=all().find(x=>x.id===id);if(!p)return;state.reading=id;$("readCategory").textContent=p.category+"｜"+labels[p.category].name+" · "+labels[p.category].to;
+ $("readMeta").textContent=(p.sample?"虛構示範":"此裝置上的測試投稿")+" · "+date(p.created);$("readTitle").textContent=p.title;$("readBody").textContent=p.body;
+ $("likeReading").textContent=(state.liked.has(id)?"♥ 已回應 ":"♡ 愛心 ")+p.likes;$("saveReading").textContent=state.saved.has(id)?"★ 已收藏":"☆ 收藏";openDialog("readModal")}
+function refreshRead(){if(state.reading){const p=all().find(x=>x.id===state.reading);if(p){$("likeReading").textContent=(state.liked.has(p.id)?"♥ 已回應 ":"♡ 愛心 ")+p.likes;$("saveReading").textContent=state.saved.has(p.id)?"★ 已收藏":"☆ 收藏"}}}
+function toggleLike(id){const p=all().find(x=>x.id===id);if(!p)return;const was=state.liked.has(id);was?state.liked.delete(id):state.liked.add(id);state.counts[id]=Math.max(0,p.likes+(was?-1:1));save();render();refreshRead()}
+function toggleSave(id){state.saved.has(id)?state.saved.delete(id):state.saved.add(id);save();render();refreshRead();message(state.saved.has(id)?"已加入我的收藏":"已取消收藏")}
+function write(){openDialog("writeModal")}
+$("writeHero").onclick=write;$("navWrite").onclick=e=>{e.preventDefault();write()};
+document.querySelectorAll(".zone").forEach(b=>b.onclick=()=>{state.zone=state.zone===b.dataset.zone?"all":b.dataset.zone;render();$("wall").scrollIntoView({behavior:"smooth"})});
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{state.sort=b.dataset.sort;render()});
+$("search").oninput=e=>{state.query=e.target.value.trim().toLowerCase();render()};
+$("random").onclick=()=>{const a=getVisible();if(!a.length){message("目前沒有可拆開的信");return}read(a[Math.floor(Math.random()*a.length)].id)};
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>closeDialog(b.dataset.close));
+document.querySelectorAll(".overlay").forEach(overlay=>overlay.onclick=e=>{if(e.target===overlay)closeDialog(overlay.id)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay.show").forEach(x=>closeDialog(x.id))});
+$("title").oninput=()=>{$("titleCounter").textContent=$("title").value.length+" / 70"};
+$("body").oninput=()=>{$("bodyCounter").textContent=$("body").value.length+" / 1500"};
+$("writeForm").onsubmit=e=>{
+ e.preventDefault();
+ const category=$("category").value,title=$("title").value.trim(),body=$("body").value.trim();
+ if(!labels[category]||title.length<4||body.length<20||!$("agree").checked){message("請完成欄位並確認公開提醒");return}
+ const id="test-"+Date.now()+"-"+Math.random().toString(36).slice(2,7);
+ state.posts.unshift({id,category,title,body,created:Date.now(),likes:0,sample:false});
+ save();$("writeForm").reset();$("titleCounter").textContent="0 / 70";$("bodyCounter").textContent="0 / 1500";state.zone="all";state.sort="new";state.query="";$("search").value="";closeDialog("writeModal");render();$("wall").scrollIntoView({behavior:"smooth"});message("已加到本機測試信件牆（其他訪客看不到）")
+};
+$("likeReading").onclick=()=>toggleLike(state.reading);
+$("saveReading").onclick=()=>toggleSave(state.reading);
+$("shareReading").onclick=async()=>{
+ const p=all().find(x=>x.id===state.reading);if(!p)return;
+ const text=p.title+"\n\n"+p.body+"\n\n未寄出的信（測試版）\n"+location.href.split("#")[0];
+ try{if(navigator.share)await navigator.share({title:"未寄出的信｜"+p.title,text,url:location.href.split("#")[0]});else if(navigator.clipboard){await navigator.clipboard.writeText(text);message("已複製文字及測試頁網址")}else{message("可手動複製信件文字分享")}}catch(err){if(err.name!=="AbortError")message("分享未完成")}
+};
+$("reportReading").onclick=()=>{
+ if(!state.reading)return;state.hidden.add(state.reading);save();closeDialog("readModal");render();message("已在此裝置隱藏這封信（測試模式）")
+};
+render();
+})();
+</script>
+</body>
+</html>
