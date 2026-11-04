@@ -86,13 +86,20 @@ form textarea{min-height:180px;resize:vertical;line-height:1.8}form input:focus,
 .zone-introduction{font-size:14px;color:#d8c5c3;line-height:1.9;margin:18px 0 10px;padding:12px 18px;border-left:3px solid #c8a679;background:#231f27;border-radius:0 10px 10px 0}
 .letter .excerpt{-webkit-line-clamp:5}
 @media(max-width:540px){.zone{min-height:211px}.zone em{font-size:11px}.editorial p{font-size:14px}.zone-introduction{font-size:13px}}
+
+/* Original, synthesized ambient score controls */
+.music-btn{min-width:96px;white-space:nowrap;border-color:#8f745b;color:#f1d5b7}
+.music-btn.music-on{border-color:#eac38d;background:#4a3936;color:#ffe3b4;box-shadow:0 0 0 2px #e8b56b10}
+.sound-note{font-size:11px;color:#aa969f;letter-spacing:.03em;margin:0 0 8px}
+.reader-head-actions{display:flex;align-items:center;gap:8px}
+@media(max-width:540px){.music-btn{padding:7px 9px!important;font-size:11px!important;min-width:auto}.reader-head-actions{gap:5px}.sound-note{font-size:10px;line-height:1.5}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
 <body>
 <div class="page"><div class="container">
-<header class="top"><a class="brand" href="index.html"><span class="brand-mark">✉</span><span>光光猴 <span style="color:#c7a8a1;font-weight:450">/ UNSENT LETTERS</span></span></a><nav class="toplinks"><a href="index.html">返回守護平台</a><button class="btn small gold" id="top-write">＋ 寫一封信</button></nav></header>
-<section class="hero"><div class="eyebrow">THE UNSENT LETTERS PROJECT · 2026</div><h1>未寄出的信</h1><div class="envelope-stage"><div class="envelope" aria-hidden="true"></div></div><p class="lead">有些話，不是不想說，是不知道說了會不會被聽見。<br>有些真話，從現場出發，卻未必能走到決策者耳中。<br>於是，我們把它寫成一封封沒有寄出的信。</p><p class="intro">當發問讓人猶豫、當沉默被誤以為沒有意見，願這裡成為能安心閱讀的角落。<br>無需姓名・無需登入畫面・自由拆信與留下共鳴</p><div class="hero-actions"><button class="btn gold" id="hero-write">✎　寫一封沒有寄出的信</button><button class="btn" id="hero-random">✉　隨機拆一封信</button></div>
+<header class="top"><a class="brand" href="index.html"><span class="brand-mark">✉</span><span>光光猴 <span style="color:#c7a8a1;font-weight:450">/ UNSENT LETTERS</span></span></a><nav class="toplinks"><a href="index.html">返回守護平台</a><button type="button" class="btn small music-btn" id="music-toggle" aria-pressed="false" title="開啟原創背景音樂">♫ 開啟音樂</button><button class="btn small gold" id="top-write">＋ 寫一封信</button></nav></header>
+<section class="hero"><div class="eyebrow">THE UNSENT LETTERS PROJECT · 2026</div><h1>未寄出的信</h1><div class="envelope-stage"><div class="envelope" aria-hidden="true"></div></div><p class="lead">有些話，不是不想說，是不知道說了會不會被聽見。<br>有些真話，從現場出發，卻未必能走到決策者耳中。<br>於是，我們把它寫成一封封沒有寄出的信。</p><p class="intro">當發問讓人猶豫、當沉默被誤以為沒有意見，願這裡成為能安心閱讀的角落。<br>無需姓名・無需登入畫面・自由拆信與留下共鳴</p><div class="hero-actions"><button class="btn gold" id="hero-write">✎　寫一封沒有寄出的信</button><button class="btn" id="hero-random">✉　隨機拆一封信</button></div><p class="sound-note">♫ 原創沉靜氛圍配樂｜預設不播放，點選「開啟音樂」才會有聲音</p>
 <div class="stat-wall" aria-label="信件共鳴統計">
 <div class="stat-tile"><strong id="count-total">—</strong><span>封未寄出的信</span></div>
 <div class="stat-tile"><strong id="count-hearts">—</strong><span>顆共鳴愛心</span></div>
@@ -131,7 +138,7 @@ form textarea{min-height:180px;resize:vertical;line-height:1.8}form input:focus,
 </div><div class="context-hint">最多選 2 項，避免地區、職務和年資組合後使人被辨識。這些資訊會顯示在公開信件上，無法保證完全匿名。</div>
 <label class="chkrow"><input id="consent" type="checkbox" required><span>我知道這封信在正式上線後將會公開；我有權發布這些文字，且內容不包含可識別他人的個資、騷擾或未經證實的個人指控。</span></label>
 <div class="modal-action"><button type="button" class="btn ghost" data-close="compose">取消</button><button type="submit" class="btn gold" id="submit-letter">封存並公開這封信 →</button></div></form></div></dialog>
-<dialog id="reader"><div class="modal-top"><b>✉ 你收到一封未寄出的信</b><button type="button" class="x" data-close="reader" aria-label="關閉">×</button></div><div class="modal-inner"><div class="paper" id="paper"><div class="cat" id="paper-cat"></div><h2 id="paper-title"></h2><div class="body" id="paper-body"></div><div class="tag-row" id="paper-tags"></div><div class="sign" id="paper-sign"></div></div>
+<dialog id="reader"><div class="modal-top"><b>✉ 你收到一封未寄出的信</b><div class="reader-head-actions"><button type="button" class="btn small ghost music-btn" id="reader-music" aria-pressed="false">♫ 開啟音樂</button><button type="button" class="x" data-close="reader" aria-label="關閉">×</button></div></div><div class="modal-inner"><div class="paper" id="paper"><div class="cat" id="paper-cat"></div><h2 id="paper-title"></h2><div class="body" id="paper-body"></div><div class="tag-row" id="paper-tags"></div><div class="sign" id="paper-sign"></div></div>
 <div class="paper-actions"><div class="row"><button id="paper-like" class="btn small">♡ 愛心</button><button id="paper-bookmark" class="btn small">☆ 收藏</button></div><div class="row"><button id="paper-share" class="btn small">↗ 分享</button><button id="paper-report" class="btn small ghost">檢舉</button></div></div></div></dialog>
 <dialog id="report-dialog"><div class="modal-top"><b>檢舉這封信</b><button type="button" class="x" data-close="report-dialog">×</button></div><div class="modal-inner"><p class="sub">檢舉將交由管理員處理；不會直接因檢舉數而自動下架。</p><form id="report-form"><label for="reason">檢舉原因</label><select id="reason"><option value="personal_data">揭露個人資料</option><option value="harassment">騷擾、辱罵或威脅</option><option value="spam">洗版或廣告</option><option value="other">其他不適當內容</option></select><div class="modal-action"><button class="btn gold" type="submit">送出檢舉</button></div></form></div></dialog>
 <div class="toast" id="toast" aria-live="polite"></div>
@@ -264,7 +271,98 @@ try{if(navigator.share){await navigator.share({title:'未寄出的信｜'+x.titl
 else if(navigator.clipboard){await navigator.clipboard.writeText(text);toast('已複製分享文字')}
 else toast('請使用瀏覽器的分享功能')}catch(e){if(e.name!=='AbortError')toast('分享失敗')}
 }
+
+/* "夜裡的信": original ambient instrumental generated in the browser.
+   Web Audio synthesis; no copyrighted recordings, audio files, or external audio service.
+   Audio starts only after a user clicks one of the two music buttons. */
+var musicCtx=null,musicMaster=null,musicTimer=null,musicOn=false,musicNextAt=0,musicChord=0;
+var musicScore=[
+  {pad:[164.81,220.00,261.63,329.63],melody:[329.63,392.00,440.00,392.00]}, /* Am7 */
+  {pad:[174.61,220.00,261.63,329.63],melody:[349.23,329.63,261.63,220.00]}, /* Fmaj7 */
+  {pad:[164.81,196.00,246.94,329.63],melody:[329.63,392.00,329.63,293.66]}, /* Cmaj7 */
+  {pad:[196.00,261.63,293.66,392.00],melody:[293.66,261.63,246.94,196.00]}  /* Gsus */
+];
+function musicButtons(){
+  ['music-toggle','reader-music'].forEach(function(id){
+    var el=$(id);if(!el)return;
+    el.textContent=musicOn?'♫ 關閉音樂':'♫ 開啟音樂';
+    el.setAttribute('aria-pressed',musicOn?'true':'false');
+    el.classList.toggle('music-on',musicOn);
+    el.title=musicOn?'關閉背景音樂':'播放原創沉靜氛圍配樂';
+  });
+}
+function synthPad(ctx,mix,when,duration,frequency){
+  var gain=ctx.createGain();
+  gain.gain.setValueAtTime(0.0001,when);
+  gain.gain.linearRampToValueAtTime(0.036,when+2.1);
+  gain.gain.setValueAtTime(0.036,when+duration-3.1);
+  gain.gain.exponentialRampToValueAtTime(0.0001,when+duration);
+  gain.connect(mix);
+  var sine=ctx.createOscillator();sine.type='sine';sine.frequency.setValueAtTime(frequency,when);sine.connect(gain);
+  var thin=ctx.createOscillator(),blend=ctx.createGain();
+  thin.type='triangle';thin.frequency.setValueAtTime(frequency*2,when);blend.gain.value=.17;thin.connect(blend);blend.connect(gain);
+  sine.start(when);thin.start(when);
+  sine.stop(when+duration+.08);thin.stop(when+duration+.08);
+}
+function synthBell(ctx,mix,echo,when,frequency){
+  var envelope=ctx.createGain();envelope.gain.setValueAtTime(.0001,when);
+  envelope.gain.exponentialRampToValueAtTime(0.091,when+.025);
+  envelope.gain.exponentialRampToValueAtTime(.022,when+.58);
+  envelope.gain.exponentialRampToValueAtTime(.0001,when+3.2);
+  envelope.connect(mix);envelope.connect(echo);
+  var fundamental=ctx.createOscillator();fundamental.type='sine';fundamental.frequency.value=frequency;fundamental.connect(envelope);
+  var harmonic=ctx.createOscillator(),harmonicGain=ctx.createGain();
+  harmonic.type='triangle';harmonic.frequency.value=frequency*2.01;harmonicGain.gain.value=.11;
+  harmonic.connect(harmonicGain);harmonicGain.connect(envelope);
+  fundamental.start(when);harmonic.start(when);
+  fundamental.stop(when+3.25);harmonic.stop(when+3.25);
+}
+function scheduleAmbient(){
+  if(!musicOn||!musicCtx)return;
+  var ctx=musicCtx;
+  while(musicNextAt<ctx.currentTime+4.5){
+    var chord=musicScore[musicChord%musicScore.length],at=musicNextAt;
+    chord.pad.forEach(function(f){synthPad(ctx,musicMix,at,14.8,f)});
+    chord.melody.forEach(function(f,i){synthBell(ctx,musicMix,musicEchoSend,at+1.6+i*3.0,f)});
+    musicChord+=1;musicNextAt+=13.2;
+  }
+}
+var musicMix=null,musicEchoSend=null;
+async function startAmbient(){
+  if(musicOn)return;
+  var AudioEngine=window.AudioContext||window.webkitAudioContext;
+  if(!AudioEngine){toast('這個瀏覽器不支援背景音樂');return}
+  try{
+    var ctx=new AudioEngine();musicCtx=ctx;
+    musicMaster=ctx.createGain();musicMaster.gain.value=.0001;musicMaster.connect(ctx.destination);
+    var filter=ctx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=2400;filter.Q.value=.55;filter.connect(musicMaster);
+    musicMix=filter;
+    var delay=ctx.createDelay(1.2);delay.delayTime.value=.39;
+    var feedback=ctx.createGain();feedback.gain.value=.13;delay.connect(feedback);feedback.connect(delay);
+    var echoMix=ctx.createGain();echoMix.gain.value=.18;delay.connect(echoMix);echoMix.connect(filter);
+    musicEchoSend=delay;
+    if(ctx.state!=='running')await ctx.resume();
+    musicOn=true;musicNextAt=ctx.currentTime+.12;musicChord=0;
+    musicMaster.gain.setTargetAtTime(.22,ctx.currentTime,.65);
+    scheduleAmbient();musicTimer=setInterval(scheduleAmbient,650);musicButtons();
+  }catch(e){musicOn=false;musicButtons();toast('無法啟動音樂，請確認瀏覽器播放權限');if(musicCtx){musicCtx.close().catch(function(){});musicCtx=null}}
+}
+function stopAmbient(){
+  if(!musicOn&&!musicCtx)return;
+  musicOn=false;
+  if(musicTimer){clearInterval(musicTimer);musicTimer=null}
+  var ctx=musicCtx,master=musicMaster;
+  musicCtx=null;musicMaster=null;musicMix=null;musicEchoSend=null;
+  if(ctx){try{if(master)master.gain.setTargetAtTime(.0001,ctx.currentTime,.12)}catch(e){}
+    setTimeout(function(){ctx.close().catch(function(){})},650);
+  }
+  musicButtons();
+}
+function toggleAmbient(){if(musicOn)stopAmbient();else startAmbient()}
+
 function events(){
+['music-toggle','reader-music'].forEach(function(id){$(id).addEventListener('click',toggleAmbient)});
+document.addEventListener('visibilitychange',function(){if(document.hidden&&musicOn)stopAmbient()});
 ['top-write','hero-write'].forEach(function(id){$(id).onclick=function(){openDialog('compose')}});
 $('hero-random').onclick=async function(){
 if(!live){if(letters.length)showLetter(letters[Math.floor(Math.random()*letters.length)].id);else toast('還沒有信件可以拆開');return}
