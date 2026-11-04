@@ -249,7 +249,22 @@ else toast('請使用瀏覽器的分享功能')}catch(e){if(e.name!=='AbortError
 }
 function events(){
 ['top-write','hero-write'].forEach(function(id){$(id).onclick=function(){openDialog('compose')}});
-$('hero-random').onclick=function(){if(letters.length){showLetter(letters[Math.floor(Math.random()*letters.length)].id)}else toast('還沒有信件可以拆開')};
+$('hero-random').onclick=async function(){
+if(!live){if(letters.length)showLetter(letters[Math.floor(Math.random()*letters.length)].id);else toast('還沒有信件可以拆開');return}
+try{
+var count=await client.from('letters').select('id',{head:true,count:'exact'}).eq('is_hidden',false);
+if(count.error)throw count.error;
+if(!count.count){toast('還沒有信件可以拆開');return}
+var offset=Math.floor(Math.random()*count.count);
+var one=await client.from('letters').select('id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at').eq('is_hidden',false).order('created_at',{ascending:false}).range(offset,offset);
+if(one.error)throw one.error;
+if(one.data&&one.data[0]){
+var l=one.data[0];
+if(!pickLetter(l.id))letters.push(l);
+showLetter(l.id);
+}
+}catch(e){toast('拆信失敗，請稍後再試')}
+};
 document.querySelectorAll('[data-zone]').forEach(function(el){el.onclick=function(){category=category===el.dataset.zone?'all':el.dataset.zone;displayLimit=12;if(live)refresh().catch(function(){toast('載入失敗')});else render();$('letter-list').scrollIntoView({behavior:'smooth',block:'start'})}});
 document.querySelectorAll('[data-sort]').forEach(function(el){el.onclick=function(){sort=el.dataset.sort;displayLimit=12;if(live)refresh().catch(function(){toast('載入失敗')});else render()}});
 $('show-all').onclick=function(){category='all';sort='new';displayLimit=12;if(live)refresh().catch(function(){toast('載入失敗')});else render()};
