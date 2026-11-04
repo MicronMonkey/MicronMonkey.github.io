@@ -93,10 +93,66 @@ form textarea{min-height:180px;resize:vertical;line-height:1.8}form input:focus,
 .sound-note{font-size:11px;color:#aa969f;letter-spacing:.03em;margin:0 0 8px}
 .reader-head-actions{display:flex;align-items:center;gap:8px}
 @media(max-width:540px){.music-btn{padding:7px 9px!important;font-size:11px!important;min-width:auto}.reader-head-actions{gap:5px}.sound-note{font-size:10px;line-height:1.5}}
+
+/* V4 motion design — four letters per interchangeable batch */
+.letters{align-content:start;min-height:0}
+.letters.batch-outgoing .letter{
+  animation:letterBatchExit .42s cubic-bezier(.5,0,.8,.4) both;
+  animation-delay:calc(var(--batch-i, 0)*55ms);
+  pointer-events:none;
+}
+.letters.batch-incoming .letter{
+  animation:letterBatchEnter .6s cubic-bezier(.15,.8,.22,1.1) both;
+  animation-delay:calc(var(--batch-i, 0)*95ms);
+}
+@keyframes letterBatchExit{
+  0%{opacity:1;transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  52%{opacity:.85;transform:translate3d(0,-8px,0) rotate(-1deg) scale(.96)}
+  100%{opacity:0;transform:translate3d(95px,-35px,0) rotate(8deg) scale(.79);filter:blur(2px)}
+}
+@keyframes letterBatchEnter{
+  0%{opacity:0;transform:translate3d(-65px,24px,0) rotate(-7deg) scale(.85);filter:blur(2px)}
+  65%{opacity:1;transform:translate3d(4px,-4px,0) rotate(.7deg) scale(1.02);filter:blur(0)}
+  100%{opacity:1;transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+}
+.more-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0 45px}
+.more-wrap[hidden]{display:none}
+.batch-counter{font-size:12px;letter-spacing:.11em;color:#e8c594;font-weight:800}
+.batch-button{min-width:245px;box-shadow:0 7px 30px #8e5d3a28}
+.batch-button:disabled{opacity:.6;cursor:wait}
+.batch-note{font-size:11px;color:#b3a3ac;text-align:center}
+.arrival{position:fixed;z-index:200;inset:0;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 42%,#2a2029 0%,#100d15 61%,#09090e 100%);opacity:1;transition:opacity .3s ease;isolation:isolate}
+.arrival.is-finishing{opacity:0;pointer-events:none}
+body.intro-active{overflow:hidden}
+body.intro-active .hero .envelope{opacity:0}
+.hero .envelope{transition:opacity .26s ease}
+.arrival-caption{position:absolute;z-index:2;top:13%;left:5%;right:5%;text-align:center;color:#d6b18b;font-size:11px;font-weight:800;letter-spacing:.24em;animation:arrivalCaption 2.6s ease-in both;pointer-events:none}
+.arrival-footnote{position:absolute;z-index:2;bottom:12%;left:7%;right:7%;text-align:center;font-size:clamp(13px,2vw,17px);letter-spacing:.12em;color:#e5d4c6;animation:arrivalCaption 2.8s ease-in both;pointer-events:none}
+@keyframes arrivalCaption{0%{opacity:0;transform:translateY(8px)}30%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:0}}
+.arrival-pieces{position:fixed;inset:0;pointer-events:none;perspective:900px}
+.arrival-mail{position:absolute;top:50%;left:50%;width:65px;height:42px;border-radius:3px;background:linear-gradient(130deg,#f6e7d0,#cbb394);box-shadow:0 6px 15px #0008;transform-origin:center center;will-change:transform,opacity;opacity:0}
+.arrival-mail:before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,50% 63%,100% 0);background:linear-gradient(130deg,#faecd8,#c4aa88)}
+.arrival-mail:after{content:"";position:absolute;left:calc(50% - 7px);top:calc(50% - 7px);width:14px;height:14px;background:#a65560;border-radius:50%;box-shadow:0 1px 3px #67404c77}
+.arrival-mail.last{width:205px;height:124px;z-index:3;box-shadow:0 18px 50px #000a}
+.arrival-mail.last:after{width:42px;height:42px;left:calc(50% - 21px);top:calc(50% - 21px);border:2px solid #bd6b71;background:#a24c58;box-sizing:border-box}
+.arrival-skip{position:absolute;top:max(20px,env(safe-area-inset-top));right:20px;z-index:5;border:1px solid #a68b77;border-radius:99px;color:#f1dfcb;background:#3e303acb;padding:8px 14px;cursor:pointer;font-size:12px}
+.arrival-skip:hover{background:#5a4249}
+@media(prefers-reduced-motion:reduce){
+  .arrival{display:none!important}
+  body.intro-active{overflow:auto}
+  body.intro-active .hero .envelope{opacity:1}
+  .letters.batch-outgoing .letter,.letters.batch-incoming .letter{animation:none!important}
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
-<body>
+<body class="intro-active">
+<div class="arrival" id="arrival" aria-label="三秒信封入場動畫">
+  <p class="arrival-caption">UNSENT LETTERS · 光光猴守護平台</p>
+  <button type="button" class="arrival-skip" id="arrival-skip">跳過動畫　✕</button>
+  <div class="arrival-pieces" id="arrival-pieces" aria-hidden="true"></div>
+  <div class="arrival-footnote">讓每一封沒說出口的話，都有落下的地方。</div>
+</div>
 <div class="page"><div class="container">
 <header class="top"><a class="brand" href="index.html"><span class="brand-mark">✉</span><span>光光猴 <span style="color:#c7a8a1;font-weight:450">/ UNSENT LETTERS</span></span></a><nav class="toplinks"><a href="index.html">返回守護平台</a><button type="button" class="btn small music-btn" id="music-toggle" aria-pressed="false" title="開啟原創背景音樂">♫ 開啟音樂</button><button class="btn small gold" id="top-write">＋ 寫一封信</button></nav></header>
 <section class="hero"><div class="eyebrow">THE UNSENT LETTERS PROJECT · 2026</div><h1>未寄出的信</h1><div class="envelope-stage"><div class="envelope" aria-hidden="true"></div></div><p class="lead">有些話，不是不想說，是不知道說了會不會被聽見。<br>有些真話，從現場出發，卻未必能走到決策者耳中。<br>於是，我們把它寫成一封封沒有寄出的信。</p><p class="intro">當發問讓人猶豫、當沉默被誤以為沒有意見，願這裡成為能安心閱讀的角落。<br>無需姓名・無需登入畫面・自由拆信與留下共鳴</p><div class="hero-actions"><button class="btn gold" id="hero-write">✎　寫一封沒有寄出的信</button><button class="btn" id="hero-random">✉　隨機拆一封信</button></div><p class="sound-note">♫ 原創沉靜氛圍配樂｜預設不播放，點選「開啟音樂」才會有聲音</p>
@@ -123,7 +179,12 @@ form textarea{min-height:180px;resize:vertical;line-height:1.8}form input:focus,
 </div></section>
 <section id="letter-list" aria-label="信件牆"><p id="zone-introduction" class="zone-introduction">四個收信地址，四種不同心情。先拆開一封信，也許你會在別人的文字裡，找到自己的影子。</p><div class="section-heading"><div><div class="eyebrow">THE LETTER ARCHIVE · 25 SAMPLE LETTERS</div><h2 id="list-heading">所有未寄出的信</h2></div><span class="stats" id="stats">—</span></div>
 <div class="toolbar"><div class="segment" role="group" aria-label="信件排序"><button class="on" type="button" data-sort="new">最新來信</button><button type="button" data-sort="hot">人氣熱門</button><button type="button" data-sort="saved">我的收藏</button></div><button class="btn small ghost" id="show-all">全部展區</button></div>
-<div class="signal">♡ 如果你也有同樣的感受，可以為這封信點一顆愛心。愛心代表對故事的共鳴，不是任何組織立場的投票。</div><div id="letters" class="letters"></div><div id="more-wrap" class="more-wrap" hidden><button class="btn ghost" id="load-more">再拆 12 封信　↓</button></div></section>
+<div class="signal">♡ 如果你也有同樣的感受，可以為這封信點一顆愛心。愛心代表對故事的共鳴，不是任何組織立場的投票。</div><div id="letters" class="letters"></div>
+<div id="more-wrap" class="more-wrap" hidden>
+  <span class="batch-counter" id="batch-counter" aria-live="polite"></span>
+  <button type="button" class="btn gold batch-button" id="load-more">✉　讀取下一批 4 封信　→</button>
+  <span class="batch-note">只顯示目前 4 封；換批後原本的信會收起來</span>
+</div></section>
 <footer class="footer"><p>《未寄出的信》提供個人經驗與感受的交流空間。請勿公開他人姓名、工號、電話、私人資訊或未經證實的指控。發文即代表你同意公開所寫內容；請不要投稿可能導致自己或他人被辨識的細節。</p><p>免事前人工審核不等於沒有管理。管理員可依規範移除騷擾、個資、洗版或違法內容；讀者可使用信件內的檢舉功能。</p><p><a href="index.html">← 回到光光猴守護平台</a> · <span id="privacy-mode">資料模式：本機展示</span></p></footer>
 </div></div>
 <dialog id="compose"><div class="modal-top"><b>✎ 寫一封沒有寄出的信</b><button type="button" class="x" data-close="compose" aria-label="關閉">×</button></div><div class="modal-inner"><div class="note">寫給誰都可以，但請不要留下你或別人的個資。送出後將依網站模式公開或儲存在你的測試瀏覽器。</div><form id="compose-form"><label for="category">這封信寫給誰？</label><select id="category" required><option value="a">A｜疲憊・寫給夥伴</option><option value="b">B｜疑問・寫給台中工會與公司</option><option value="c">C｜期待・寫給夢想的公司</option><option value="d">D｜未來・寫給未來的自己</option></select>
@@ -152,7 +213,7 @@ var ZONES={a:{name:'疲憊',recipient:'寫給夥伴'},b:{name:'疑問',recipient
 var SEED=[{"id":"demo-v4-01","category":"a","title":"給凌晨兩點，還在交接的你","body":"親愛的夥伴：\n\n你一定也有過這種時刻。機台警報剛停，交接紀錄還沒寫完，手機已經顯示凌晨兩點。走出廠房時，世界安靜得像只剩我們還醒著。\n\n有人問：「今天還好嗎？」我們總說還好。因為下一班已經在等，因為事情總要有人完成，因為疲憊好像不是一項可以寫進報表的數字。\n\n我想說的是，謝謝你。謝謝你在最忙的時候，還記得提醒別人吃飯；謝謝你明明也很累，仍願意幫忙多看一眼。\n\n希望有一天，努力不需要靠硬撐來證明。希望你下班回家，真的能放心休息。","nickname":"情境角色｜輪班夥伴","region":"台中","worktype":"製造相關","tenure":null,"likes_count":74,"created_at":"2026-11-04T16:42:00.000Z","example":true},{"id":"demo-v4-02","category":"a","title":"寫給颱風天仍然進廠的同事","body":"那天風真的很大。\n\n有些人評估安全後留在家裡，有些人仍然來到現場。留下的人忙著維持工作，心裡也掛念著外面的天氣與家人的安全。\n\n我知道管理者有管理的壓力，也理解現場總有工作要完成。但我希望，在評論人力怎麼這麼少之前，能先問一句：大家路上還安全嗎？今天有沒有什麼需要協助？\n\n不是每一次辛苦都要換成獎勵。有時候，一句理解和一句謝謝，就足以讓人知道自己的付出沒有被當成理所當然。\n\n寫給那天每個做出艱難決定的人。你們都值得被尊重。","nickname":"情境角色｜現場同事","region":"台中","worktype":null,"tenure":null,"likes_count":52,"created_at":"2026-11-04T16:38:00.000Z","example":true},{"id":"demo-v4-03","category":"a","title":"那張考績表，不是我的全部","body":"我盯著考績上的數字看了很久。\n\n這一年處理了多少異常、接了多少臨時工作，別人可能不記得，我自己記得。可是最後，所有努力濃縮成一個簡單的等級。我想問原因，又怕被認為不服管教。\n\n社群裡有人談到考績重打、升遷差異，也有人提醒我們每個部門情況不同。我知道不能只靠一則故事就斷言制度不公平。\n\n但有件事我很確定：當一個人連評量標準都無法理解，失落就會長成不信任。\n\n給正在懷疑自己的夥伴：請別讓那個數字決定你全部的價值。","nickname":"情境角色｜認真工作的人","region":null,"worktype":"工程支援","tenure":null,"likes_count":121,"created_at":"2026-11-04T16:34:00.000Z","example":true},{"id":"demo-v4-04","category":"a","title":"寫給夾在中間的第一線主管","body":"有時候，我們對主管很生氣。\n\n但我也看見一些第一線主管，白天要替團隊解決問題，晚上還得向上解釋數字。當團隊反映人力不足，你得想辦法；當上面要求更漂亮的結果，你也得接下來。\n\n我不知道每個主管的選擇是否一樣，也不想把所有管理者放進同一個標籤。\n\n如果你也有難以說出口的為難，我希望你不要只把壓力往下傳。願你替團隊說出真正的困難，也願團隊有機會理解你的處境。\n\n我們需要的不是彼此猜疑，而是有人敢在每一個層級都說實話。","nickname":"情境角色｜工程同仁","region":null,"worktype":"工程支援","tenure":null,"likes_count":43,"created_at":"2026-11-04T16:30:00.000Z","example":true},{"id":"demo-v4-05","category":"a","title":"給那些一直默默幫忙的人","body":"我想寫信給一些連名字都不知道的人。\n\n有人幫忙整理資訊，有人做圖、架網站，有人印資料、安排場地、回答重複出現的問題。還有人只能在下班後，利用短短的一點時間幫忙。\n\n不是每個人都適合站到台前。有人擔心工作，有人要照顧家人，有人只是還沒準備好讓同事知道自己的想法。\n\n我不覺得不露面就是沒有勇氣。選擇自己能承受的方式付出，也是一種認真。\n\n謝謝那些讓事情繼續運作的人。你們不一定被看見，但有人知道這些努力很重要。","nickname":"情境角色｜幕後的夥伴","region":null,"worktype":null,"tenure":null,"likes_count":93,"created_at":"2026-11-04T16:26:00.000Z","example":true},{"id":"demo-v4-06","category":"a","title":"給桃園與台中，那些仍願意互相傾聽的人","body":"原本我們可能只認識同廠區、同班別的人。\n\n後來才發現，不同地方也有人面對類似的擔憂：不知道接下來會發生什麼、對制度有疑問、怕自己說錯話會影響工作。\n\n我看到群組裡有人感謝桃園夥伴，也有人提醒大家冷靜、查證、不要把情緒變成對人的傷害。那些提醒讓我很感動。\n\n我們可以對不同方案有不同看法，也可以不贊成某一種行動。但希望不會因此忘記，站在對面的那個人，可能也和我一樣，只是想把生活照顧好。\n\n謝謝願意聽彼此說話的你。","nickname":"情境角色｜跨廠交流者","region":"桃園","worktype":null,"tenure":null,"likes_count":88,"created_at":"2026-11-04T16:22:00.000Z","example":true},{"id":"demo-v4-07","category":"b","title":"10 月 21 日的問題，可以好好回答嗎？","body":"寫給台中工會與公司：\n\n我想從一個日期問起。大家知道原訂的後續協商安排，也看見 10 月 21 日協議的消息。社群裡一直有人問：當時的協商過程是什麼？各方怎麼確認授權？會員是在何時、以什麼方式得知完整內容？\n\n我不想在沒有完整資料前替任何人下定論，也不想只從片段截圖拼湊答案。\n\n正因為這個決定可能影響很多人的工作與生活，程序才更值得被清楚說明。\n\n請讓我們理解事情如何發生，而不是只要我們接受事情已經發生。","nickname":"情境角色｜一位提問的會員","region":"台中","worktype":null,"tenure":null,"likes_count":156,"created_at":"2026-11-04T16:18:00.000Z","example":true},{"id":"demo-v4-08","category":"b","title":"那份協議，能不能讓會員讀懂？","body":"寫給台中工會與公司：\n\n不是每個人都熟悉法律條文，更不是每個人都懂協議裡的專有名詞。\n\n可是如果一份文件會影響員工的權益，我希望我們可以看到完整版本，知道各項承諾的期限、適用對象、限制與例外。\n\n不要只給簡報上的幾個重點，也不要讓大家在聊天室裡猜某一句話究竟代表什麼。\n\n如果有資訊依法或依約不能公開，也請說明限制依據，並提供可以理解的摘要與正式答疑。\n\n透明不等於每一個人都要同意；透明是讓不同意見也有公平討論的基礎。","nickname":"情境角色｜等待說明的人","region":null,"worktype":"行政支援","tenure":null,"likes_count":149,"created_at":"2026-11-04T16:14:00.000Z","example":true},{"id":"demo-v4-09","category":"b","title":"重大決定，會員能在哪個階段說話？","body":"寫給工會：\n\n我知道談判不容易，也知道代表不可能把每一個細節都拿出來即時討論。\n\n但我仍然想問：哪些事情是代表可以決定的？哪些重大事項應先向會員說明、討論或取得必要授權？如果會員不認同，接下來能透過什麼正式程序表達？\n\n群組裡有人討論會員大會，也有人希望制度能防止相同的爭議再次發生。我想那不只是對某一次決策的不滿。\n\n我們想知道，下一次輪到重要決定時，自己的聲音會不會真正被納入程序。\n\n請用制度回答這個問題，而不只用信任。","nickname":"情境角色｜在意程序的會員","region":"台中","worktype":null,"tenure":null,"likes_count":112,"created_at":"2026-11-04T16:10:00.000Z","example":true},{"id":"demo-v4-10","category":"b","title":"獎金公式，能不能讓我們自己算一遍？","body":"寫給公司：\n\n我沒有期待任何人保證未來一定能領到多少獎金。我知道景氣會變，公司獲利也會變。\n\n我在意的是，如果獎勵與公司表現連動，我能不能知道公式怎麼運作？分母是什麼、上限怎麼訂、哪些條件會影響最後的結果？\n\n現在常有人拿著不同版本的試算互相比較，得到完全不同的答案。資訊不足時，猜測就會填補空白。\n\n我希望公司提供清楚的例子，讓不同職等、不同情況的員工都能理解。\n\n獎勵不需要永遠是最高的數字，但計算方式應該值得信任。","nickname":"情境角色｜想看懂制度的人","region":null,"worktype":"製程相關","tenure":null,"likes_count":134,"created_at":"2026-11-04T16:06:00.000Z","example":true},{"id":"demo-v4-11","category":"b","title":"股票與資遣保障，究竟怎麼接在一起？","body":"寫給公司與工會：\n\n當大家討論 RSU 時，我聽見的不只是對獎金的期待，也有人擔心，如果未來遇到裁員、離職或職務調整，還沒歸屬的股權會怎麼處理。\n\n這些問題不是要預言公司一定會裁員，也不是否定股票獎酬的價值。\n\n我只是希望制度寫得清清楚楚：歸屬條件是什麼？不同離職情況有什麼差異？有沒有例外或保障？哪些屬於公司政策，哪些是可協商的內容？\n\n人生難免有變動。真正安心的制度，應該讓人在變動之前就知道規則。","nickname":"情境角色｜擔心未來的人","region":null,"worktype":"工程支援","tenure":null,"likes_count":97,"created_at":"2026-11-04T16:02:00.000Z","example":true},{"id":"demo-v4-12","category":"b","title":"工作聊天室裡，那句刪掉的話","body":"寫給公司：\n\n有時候我打好一段意見，卻停在送出之前。\n\n不是因為我想罵人，也不是因為我沒有事實。只是怕文字被截取一小段、怕被誤會立場、怕正常的提問變成日後被拿來解讀的標籤。\n\n社群裡出現過對 Teams 訊息與敏感詞監測的猜測；我不知道其中有多少已被證實，所以不想把猜測寫成事實。\n\n但我想問一個真正重要的問題：員工是否清楚知道工作通訊受到哪些管理、有哪些申訴與保護機制？\n\n一個讓人放心說出問題的環境，才能真的早一點發現問題。","nickname":"情境角色｜刪掉訊息的人","region":"台中","worktype":null,"tenure":null,"likes_count":175,"created_at":"2026-11-04T15:58:00.000Z","example":true},{"id":"demo-v4-13","category":"b","title":"真話傳到最高層時，還剩多少？","body":"寫給公司決策者：\n\n你們看到的報告裡，有沒有我們現場真正的樣子？\n\n人力緊繃時，報告可能只寫產出達標；同事需要支援時，簡報可能只留下問題已解決；有人提出疑問，層層往上後，會不會只剩一句「員工已了解」？\n\n這些不一定是誰故意隱瞞，也可能是每個層級都習慣把問題整理得比較好看。\n\n我希望有一條安全、可驗證的溝通路徑，讓壞消息不用修飾成好消息，也能被認真處理。\n\n如果你們願意聽，請也讓我們知道，真實的聲音究竟可以送到哪裡。","nickname":"情境角色｜現場的聲音","region":null,"worktype":"設備相關","tenure":null,"likes_count":168,"created_at":"2026-11-04T15:54:00.000Z","example":true},{"id":"demo-v4-14","category":"c","title":"我夢想的公司，不害怕壞消息","body":"寫給夢想中的公司：\n\n希望有一天，主管聽見「這個流程有問題」，第一句不是「誰說的」，而是「問題在哪裡」。\n\n希望報告裡可以同時放進漂亮的成果與難看的缺口，不必擔心說出實際情況就代表工作做不好。\n\n我想待的公司，不是從來沒有衝突，而是遇到衝突時，願意一起找證據、找方法，也願意承認有些事情需要重新做。\n\n能讓真話被接住的地方，才有機會真正進步。","nickname":"情境角色｜嚮往改變的人","region":null,"worktype":"製程相關","tenure":null,"likes_count":83,"created_at":"2026-11-04T15:50:00.000Z","example":true},{"id":"demo-v4-15","category":"c","title":"升遷應該看見做事的人","body":"寫給夢想中的公司：\n\n我希望未來談升遷時，大家能先說清楚能力、貢獻和準備程度，而不是在茶水間猜，誰和誰比較熟、誰比較會說話。\n\n有些同事願意跨廠調動，有些同事因為家庭而留在原來的地方。選擇不同，不代表努力的價值就不同。\n\n我希望所有人都知道自己可以往哪裡成長、為什麼沒有被選上，以及接下來可以怎麼努力。\n\n公平不代表每個人拿到相同結果。公平是讓人知道結果背後有可理解的理由。","nickname":"情境角色｜想好好發展的人","region":null,"worktype":"工程支援","tenure":null,"likes_count":99,"created_at":"2026-11-04T15:46:00.000Z","example":true},{"id":"demo-v4-16","category":"c","title":"別讓人力不足變成誰比較能撐","body":"寫給夢想中的公司：\n\n當現場忙到一個人要顧好幾件事，我希望不會只聽見「大家再辛苦一下」。\n\n也許有些忙碌真的只是短期尖峰，但有些問題會一再發生。當同樣的臨時支援、同樣的加班、同樣的交接風險重複出現，就值得用制度去解決。\n\n我希望輪班安排能考量休息，安全不被效率擠到後面；也希望員工說「人真的不夠」時，有人願意看見數據以外的現場。\n\n我想要的不是不用努力，而是努力不該等同永遠撐著。","nickname":"情境角色｜輪班工作者","region":null,"worktype":"製造相關","tenure":null,"likes_count":114,"created_at":"2026-11-04T15:42:00.000Z","example":true},{"id":"demo-v4-17","category":"c","title":"讓獎酬成為可以理解的承諾","body":"寫給夢想中的公司：\n\n當公司成果很好時，我會替自己參與其中感到驕傲。\n\n但如果分享成果的制度太複雜，所有人只能依賴傳聞猜結果，那份驕傲很快就會變成困惑。\n\n我希望有一天，獎金公式能用幾個例子說清楚，股票獎勵和現金給付能分別列出，員工可以自己驗算重要條件。\n\n不需要每一次都給我們想像中最好的答案。只希望答案是完整的、可以被檢查的。\n\n因為被尊重，有時候就是被當成理解得了制度的人。","nickname":"情境角色｜在意透明的人","region":null,"worktype":null,"tenure":"3～5 年","likes_count":138,"created_at":"2026-11-04T15:38:00.000Z","example":true},{"id":"demo-v4-18","category":"c","title":"景氣轉彎時，也願意好好對待人","body":"寫給夢想中的公司：\n\n景氣好的時候，我們談成長；景氣不好的時候，我希望仍然能談尊嚴。\n\n員工知道公司有營運壓力，也知道沒有人能保證永遠沒有組織調整。但如果有一天真的面臨變動，希望通知清楚、標準公平、選擇被尊重，相關的資遣、保險與股權規定事先就能查得到。\n\n不是每個人都能在突然失去工作時，立刻找到下一個方向。每個職位背後可能都有一個需要安穩生活的家庭。\n\n我希望制度在最難的時候，也能保有人情。","nickname":"情境角色｜關心保障的人","region":null,"worktype":"行政支援","tenure":null,"likes_count":76,"created_at":"2026-11-04T15:34:00.000Z","example":true},{"id":"demo-v4-19","category":"c","title":"我想在一間彼此信任的公司工作","body":"寫給夢想中的公司：\n\n我不希望員工覺得主管一定站在對面，也不希望主管認為員工提出意見就是不配合。\n\n社群裡有很多不同聲音：有人遇過願意幫忙的主管，也有人有過失望的經驗。這提醒我，不能把職稱當成一個人的全部。\n\n我希望公司建立可以被信任的回饋制度：問題有人接、過程能追蹤、結果能說明；不同意見不會隨手被貼標籤。\n\n如果有一天，我們能在會議上直接說出真實感受，不需要下班後才在私人聊天室補上後半句，那應該是很幸福的事。","nickname":"情境角色｜仍相信對話的人","region":null,"worktype":null,"tenure":null,"likes_count":67,"created_at":"2026-11-04T15:30:00.000Z","example":true},{"id":"demo-v4-20","category":"d","title":"一年後的你，還敢問「為什麼」嗎？","body":"給一年後的自己：\n\n你現在還會在會議裡提出不同意見嗎？\n\n我希望你沒有因為幾次失望，就練成了什麼都不問的本領。也希望你已經懂得，勇敢不是每一次都要站到最前面；有時候是把問題記下來、找到可靠資料、選擇適合的時機好好說。\n\n如果未來仍有人怕說真話，希望你記得今天的感受，別急著叫他閉嘴。\n\n但也請你保護自己。你還有工作、家人和生活，不需要靠耗盡自己來證明在乎。","nickname":"情境角色｜未來的我","region":null,"worktype":null,"tenure":"6～10 年","likes_count":119,"created_at":"2026-11-04T15:26:00.000Z","example":true},{"id":"demo-v4-21","category":"d","title":"寫給未來下班能準時回家的我","body":"給未來的自己：\n\n不知道你現在還是不是一樣，走出廠房先看手機，再看看今晚有沒有時間陪家人吃飯。\n\n我希望你已經不再把休息當成一種奢侈。能有精神去散步、好好睡覺、參加朋友的聚會，也能在家人問今天過得如何時，不用只回答「好累」。\n\n那些輪班和忙碌的日子，不是沒有意義。我們真的學會了很多，也一起做成一些事情。\n\n但願你終於明白，工作是生活的一部分，不是生活的全部。","nickname":"情境角色｜想好好休息的我","region":null,"worktype":"製造相關","tenure":null,"likes_count":89,"created_at":"2026-11-04T15:22:00.000Z","example":true},{"id":"demo-v4-22","category":"d","title":"如果有一天，你也成為主管","body":"給未來的自己：\n\n如果有一天你帶領團隊，拜託不要忘記現在的我們。\n\n別把願意提出問題的人，當成難管理的人。別在上面催促時，只把壓力原封不動傳下去。別忘記有些人沉默，是因為不知道說了會付出什麼代價。\n\n願你願意聽真話，也願意替夥伴向上說真話。當數字好看時，記得感謝做事的人；當事情不順利時，先問團隊需要什麼。\n\n希望你成為一個讓別人敢走進辦公室說話的人。","nickname":"情境角色｜仍在學習的我","region":null,"worktype":"工程支援","tenure":null,"likes_count":64,"created_at":"2026-11-04T15:18:00.000Z","example":true},{"id":"demo-v4-23","category":"d","title":"那段爭議過後，我們學會了什麼？","body":"給未來的自己：\n\n你還記得 2026 年秋天，很多人翻著文件、研究程序、在群組裡反覆問問題嗎？\n\n有人很氣，有人只想趕快回到正常生活；有人相信既有制度，也有人想重新思考制度該怎麼改善。每一種心情都真實存在。\n\n我希望你回頭看時，記得的不只是爭論，而是我們開始在意：重大決定如何說明、會員怎麼參與、不同意見如何被保護。\n\n不論最後結果如何，願你仍然相信清楚的程序，比猜測誰可信更值得依靠。","nickname":"情境角色｜記得那一年的人","region":"台中","worktype":null,"tenure":null,"likes_count":72,"created_at":"2026-11-04T15:14:00.000Z","example":true},{"id":"demo-v4-24","category":"d","title":"如果你選擇低調，也請別責怪自己","body":"給未來的自己：\n\n現在的你也許很想做點什麼，卻擔心曝光後工作會不會變得更困難。\n\n我知道你不是不在乎。只是安穩的薪水、家人的期待、辛苦累積的職涯，都不是一句「勇敢一點」就能放下的東西。\n\n希望一年後你能溫柔地看待今天的自己。參與可以有很多形式，保持距離也是一種需要被尊重的選擇。\n\n你不欠任何人一場公開的表態。願你把自己的安全和生活也放在心上。","nickname":"情境角色｜想守護生活的我","region":null,"worktype":null,"tenure":null,"likes_count":106,"created_at":"2026-11-04T15:10:00.000Z","example":true},{"id":"demo-v4-25","category":"d","title":"如果未來真的好一點","body":"給未來的自己：\n\n我希望你是在一個平常的早晨讀到這封信。\n\n那時候也許沒有什麼戲劇性的勝利，只有一些慢慢發生的改變：重要的文件更容易看懂，提出問題可以得到正式回覆，主管願意聽完整句話，員工不用先猜自己會不會被誤會。\n\n也許仍有不公平，仍有需要努力的地方。但希望我們不用靠一次又一次的對立，才證明彼此值得被尊重。\n\n如果真的好了一點，請記得感謝那些耐心、理性、願意傾聽不同聲音的人。\n\n也別忘了，好好生活。","nickname":"情境角色｜寫信給明天的我","region":null,"worktype":null,"tenure":null,"likes_count":81,"created_at":"2026-11-04T15:06:00.000Z","example":true}];
 var $=function(id){return document.getElementById(id)};
 var live=!!(CONFIG.supabaseUrl&&CONFIG.supabaseAnonKey),client=null,user=null;
-var letters=[],likes=new Set(),saved=new Set(),category='all',sort='new',active=null,loading=false,displayLimit=12,filteredTotal=0;
+var letters=[],likes=new Set(),saved=new Set(),category='all',sort='new',active=null,loading=false,pageIndex=0,pageSize=4,filteredTotal=0,batchSwitching=false;
 var STORE='unsent_letters_demo_v4',LIKES='unsent_letters_likes_v4',SAVED='unsent_letters_saved_v4';
 function read(k,fallback){try{var v=JSON.parse(localStorage.getItem(k));return v===null?fallback:v}catch(e){return fallback}}
 function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -193,11 +254,17 @@ document.querySelectorAll('[data-zone]').forEach(function(el){el.classList.toggl
 document.querySelectorAll('[data-sort]').forEach(function(el){el.classList.toggle('on',el.dataset.sort===sort)});
 $('list-heading').textContent=category==='all'?'所有未寄出的信':ZONES[category].name+'｜'+ZONES[category].recipient;
 $('zone-introduction').textContent=category==='all'?'四個收信地址，四種不同心情。先拆開一封信，也許你會在別人的文字裡，找到自己的影子。':({a:'寫給夥伴：我們習慣把現場撐住，卻很少問彼此是否也需要有人扶一把。',b:'寫給台中工會與公司：關於協議、授權與透明度，我們想要的是能被完整回答的問題。',c:'寫給夢想的公司：希望說真話不是風險，提出問題不被視為麻煩，現場的聲音不再消失於層層報表。',d:'寫給未來的自己：願你仍能保留勇氣與溫柔，不必犧牲安穩生活才能被聽見。'})[category];
-$('stats').textContent=letters.length+' 封信 · '+letters.reduce(function(n,x){return n+Number(x.likes_count||0)},0)+' 顆愛心'+(live?'':' · 本機展示');
-var parent=$('letters');parent.replaceChildren();var arr=sorted();if(!live)updateStats();filteredTotal=live?filteredTotal:arr.length;var visible=live?arr:arr.slice(0,displayLimit);$('more-wrap').hidden=displayLimit>=filteredTotal;
+var parent=$('letters');parent.replaceChildren();var arr=sorted();if(!live)updateStats();
+filteredTotal=live?filteredTotal:arr.length;
+var pageCount=Math.ceil(filteredTotal/pageSize);
+var visible=live?arr:arr.slice(pageIndex*pageSize,(pageIndex+1)*pageSize);
+$('stats').textContent=(live?filteredTotal:arr.length)+' 封信 · 每批最多 4 封'+(live?'':' · 本機展示');
+$('more-wrap').hidden=pageCount<=1;
+$('batch-counter').textContent='第 '+(pageCount?Math.min(pageIndex+1,pageCount):0)+' / '+pageCount+' 批';
+$('load-more').textContent=pageCount>1&&pageIndex===pageCount-1?'↺　回到第一批 4 封信':'✉　讀取下一批 4 封信　→';
 if(!arr.length){$('more-wrap').hidden=true;var e=create('div','empty',sort==='saved'?'你還沒有收藏信件。':'這裡還沒有信，寫下第一封吧。');parent.appendChild(e);return}
-visible.forEach(function(x){
-var node=create('article','letter');node.setAttribute('aria-label',x.title);
+visible.forEach(function(x,i){
+var node=create('article','letter');node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);
 node.appendChild(create('div','category','LETTER / '+label(x.category)+(x.example?' · 情境示範':'')));
 node.appendChild(create('h3','',x.title));
 node.appendChild(create('div','excerpt',x.body));
@@ -221,7 +288,7 @@ if(category!=='all')q=q.eq('category',category);
 if(sort==='saved')q=q.in('id',ids);
 if(sort==='hot')q=q.order('likes_count',{ascending:false}).order('created_at',{ascending:false});
 else q=q.order('created_at',{ascending:false});
-var r=await q.range(0,displayLimit-1);
+var r=await q.range(pageIndex*pageSize,(pageIndex+1)*pageSize-1);
 if(r.error)throw r.error;letters=r.data||[];filteredTotal=r.count||0;
 var l=await client.from('letter_likes').select('letter_id').eq('user_id',user.id).limit(1000);
 if(!l.error)likes=new Set((l.data||[]).map(function(x){return String(x.letter_id)}));
@@ -253,7 +320,7 @@ loading=true;$('submit-letter').disabled=true;$('submit-letter').textContent='�
 try{
 if(live){var insert=await client.from('letters').insert({category:c,title:t,body:b,nickname:n||'匿名來信',region:region||null,worktype:worktype||null,tenure:tenure||null,author_id:user.id});if(insert.error)throw insert.error;await refresh();toast('投稿成功！這封信已公開')}
 else{var id='demo-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);letters.unshift({id:id,category:c,title:t,body:b,nickname:n||'匿名來信',region:region||null,worktype:worktype||null,tenure:tenure||null,likes_count:0,created_at:new Date().toISOString()});saveDemo();render();toast('測試投稿成功：僅儲存在你的瀏覽器，尚未公開')}
-$('compose-form').reset();category='all';sort='new';render();closeDialog('compose');$('letter-list').scrollIntoView({behavior:'smooth',block:'start'});
+$('compose-form').reset();category='all';sort='new';pageIndex=0;render();closeDialog('compose');$('letter-list').scrollIntoView({behavior:'smooth',block:'start'});
 }catch(err){toast('投稿失敗：'+(err.message||'請再試一次'))}finally{loading=false;$('submit-letter').disabled=false;$('submit-letter').textContent='封存並公開這封信 →'}
 }
 async function report(e){
@@ -360,6 +427,98 @@ function stopAmbient(){
 }
 function toggleAmbient(){if(musicOn)stopAmbient();else startAmbient()}
 
+
+/* Four-letter batches replace each other rather than accumulate. */
+function uiWait(ms){return new Promise(function(resolve){setTimeout(resolve,ms)})}
+function reducedMotion(){return !!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)}
+async function showNextBatch(){
+  if(batchSwitching)return;
+  var pageCount=Math.ceil(filteredTotal/pageSize);
+  if(pageCount<=1)return;
+  batchSwitching=true;
+  var list=$('letters'),button=$('load-more');
+  button.disabled=true;
+  var oldIndex=pageIndex;
+  try{
+    if(!reducedMotion()){
+      list.classList.add('batch-outgoing');
+      await uiWait(590);
+      list.classList.remove('batch-outgoing');
+    }
+    pageIndex=(pageIndex+1)%pageCount;
+    if(live)await refresh();else render();
+    if(!reducedMotion())list.classList.add('batch-incoming');
+    var top=$('letters').getBoundingClientRect().top;
+    if(top<85||top>window.innerHeight*.5){
+      $('letter-list').scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'start'});
+    }
+    if(!reducedMotion())await uiWait(870);
+  }catch(e){
+    pageIndex=oldIndex;
+    toast('切換信件失敗，請再試一次');
+    if(live)await refresh().catch(function(){});
+    else render();
+  }finally{
+    list.classList.remove('batch-outgoing','batch-incoming');
+    batchSwitching=false;
+    button.disabled=false;
+  }
+}
+
+/* 3-second entrance: dozens of letters converge on the real hero envelope. */
+var introTimer=null,introClosing=false;
+function finishArrival(){
+  if(introClosing)return;
+  introClosing=true;
+  if(introTimer)clearTimeout(introTimer);
+  var gate=$('arrival');
+  document.body.classList.remove('intro-active');
+  if(gate)gate.classList.add('is-finishing');
+  setTimeout(function(){if(gate)gate.remove()},350);
+}
+function runArrival(){
+  var gate=$('arrival'),stage=$('arrival-pieces'),hero=document.querySelector('.hero .envelope');
+  if(!gate||!stage||!hero)return;
+  if(reducedMotion()||location.hash.indexOf('#letter=')===0){
+    finishArrival();return;
+  }
+  $('arrival-skip').addEventListener('click',finishArrival);
+  /* Deliberately computed from the actual hero location to avoid a visual jump. */
+  var rect=hero.getBoundingClientRect();
+  var cx=rect.left+rect.width/2-window.innerWidth/2;
+  var cy=rect.top+rect.height/2-window.innerHeight/2;
+  var wide=window.innerWidth,high=window.innerHeight;
+  for(var i=0;i<26;i++){
+    var main=i===25;
+    var item=document.createElement('span');
+    item.className='arrival-mail'+(main?' last':'');
+    stage.appendChild(item);
+    var angle=(i*137.508+25)*Math.PI/180;
+    var radial=1.12+(i%5)*.075;
+    var sx=Math.cos(angle)*wide*.77*radial;
+    var sy=Math.sin(angle)*high*.78*radial;
+    var spin=(i%2?-1:1)*(55+(i*13)%85);
+    var targetX=cx-(main?102.5:32.5);
+    var targetY=cy-(main?62:21);
+    /* element's own top-left starts at the viewport centre */
+    if(!item.animate){
+      item.style.display='none';continue;
+    }
+    item.animate([
+      {opacity:0,transform:'translate('+sx+'px,'+sy+'px) rotate('+spin+'deg) scale('+(main?.5:1)+')',offset:0},
+      {opacity:main?1:.8,transform:'translate('+(sx*.24)+'px,'+(sy*.30)+'px) rotate('+(spin*.28)+'deg) scale('+(main?.65:.93)+')',offset:.56},
+      {opacity:main?1:.72,transform:'translate('+(targetX+8)+'px,'+(targetY+5)+'px) rotate(-5deg) scale('+(main?.94:.82)+')',offset:.84},
+      {opacity:main?1:0,transform:'translate('+targetX+'px,'+targetY+'px) rotate('+(main?-7:0)+'deg) scale('+(main?1:.3)+')',offset:1}
+    ],{
+      duration:main?2760:(1900+(i%6)*110),
+      delay:main?60:(i%8)*68,
+      easing:'cubic-bezier(.2,.75,.25,1)',
+      fill:'forwards'
+    });
+  }
+  introTimer=setTimeout(finishArrival,2840);
+}
+
 function events(){
 ['music-toggle','reader-music'].forEach(function(id){$(id).addEventListener('click',toggleAmbient)});
 document.addEventListener('visibilitychange',function(){if(document.hidden&&musicOn)stopAmbient()});
@@ -380,10 +539,10 @@ showLetter(l.id);
 }
 }catch(e){toast('拆信失敗，請稍後再試')}
 };
-document.querySelectorAll('[data-zone]').forEach(function(el){el.onclick=function(){category=category===el.dataset.zone?'all':el.dataset.zone;displayLimit=12;if(live)refresh().catch(function(){toast('載入失敗')});else render();$('letter-list').scrollIntoView({behavior:'smooth',block:'start'})}});
-document.querySelectorAll('[data-sort]').forEach(function(el){el.onclick=function(){sort=el.dataset.sort;displayLimit=12;if(live)refresh().catch(function(){toast('載入失敗')});else render()}});
-$('show-all').onclick=function(){category='all';sort='new';displayLimit=12;if(live)refresh().catch(function(){toast('載入失敗')});else render()};
-$('load-more').onclick=function(){displayLimit+=12;if(live)refresh().catch(function(){toast('載入失敗')});else render()};
+document.querySelectorAll('[data-zone]').forEach(function(el){el.onclick=function(){category=category===el.dataset.zone?'all':el.dataset.zone;pageIndex=0;if(live)refresh().catch(function(){toast('載入失敗')});else render();$('letter-list').scrollIntoView({behavior:'smooth',block:'start'})}});
+document.querySelectorAll('[data-sort]').forEach(function(el){el.onclick=function(){sort=el.dataset.sort;pageIndex=0;if(live)refresh().catch(function(){toast('載入失敗')});else render()}});
+$('show-all').onclick=function(){category='all';sort='new';pageIndex=0;if(live)refresh().catch(function(){toast('載入失敗')});else render()};
+$('load-more').onclick=showNextBatch;
 document.querySelectorAll('[data-close]').forEach(function(el){el.onclick=function(){closeDialog(el.dataset.close)}});
 document.querySelectorAll('dialog').forEach(function(el){el.addEventListener('close',function(){document.body.style.overflow=''})});
 $('compose-form').addEventListener('submit',submitLetter);
@@ -394,7 +553,7 @@ $('paper-share').onclick=shareLetter;
 $('paper-report').onclick=function(){openDialog('report-dialog')};
 }
 async function init(){
-saved=new Set(read(SAVED,[]));events();
+saved=new Set(read(SAVED,[]));events();runArrival();
 if(live){
 $('mode-banner').innerHTML='<strong>即時公開模式：</strong>匿名投稿立即顯示，無需等待審核。請勿公開個資或未經證實的個人指控。';
 $('mode-banner').classList.add('live');$('privacy-mode').textContent='資料模式：雲端即時公開';
