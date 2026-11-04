@@ -120,7 +120,11 @@ for each row execute function public.sync_letter_like_count();
 revoke all on public.letters from anon, authenticated;
 revoke all on public.letter_likes from anon, authenticated;
 revoke all on public.letter_reports from anon, authenticated;
-grant select, insert on public.letters to authenticated;
+-- 隱藏投稿者的匿名 user ID，不允許前端透過 API 列出 author_id。
+grant select (id, category, title, body, nickname, likes_count, is_hidden, created_at)
+  on public.letters to authenticated;
+grant insert (category, title, body, nickname, author_id)
+  on public.letters to authenticated;
 grant select, insert, delete on public.letter_likes to authenticated;
 grant insert on public.letter_reports to authenticated;
 grant usage on sequence public.letter_reports_id_seq to authenticated;
