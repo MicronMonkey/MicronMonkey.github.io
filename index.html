@@ -117,6 +117,59 @@
 #mode0Container .u-cardgrid .u-button{min-height:64px;font-weight:900;font-size:1.05rem}
 #mode0Container .u-cardgrid .u-kicker{letter-spacing:.03em}
 @media(max-width:970px){#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:1fr}}
+
+#mode0Container #u-next .u-roadmap-done{display:inline-flex;vertical-align:middle;align-items:center;margin-left:10px;padding:3px 10px;border-radius:99px;border:1px solid #7b8794;background:#343b45;color:#d1d5db;font-size:12px;font-weight:800;white-space:nowrap}#mode0Container #u-next .u-roadmap-done .u-en{font-size:11px;color:#bec5ce}
+
+/* Completed archive: collapsed by default */
+#mode0Container #completedArchiveContent[hidden]{display:none!important}
+#mode0Container .u-archive-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 0 auto;padding:10px 17px;border-radius:12px;border:1px solid #bca174;background:#37332e;color:#f1dfbb;cursor:pointer;font-weight:800;font-size:13px}
+#mode0Container .u-archive-toggle .u-en{font-size:11px;opacity:.8}
+#mode0Container .u-archive-toggle[aria-expanded="true"] .u-archive-chevron{transform:rotate(180deg)}
+/* Entry reminder */
+#unionEntryReminder[hidden]{display:none!important}
+#unionEntryReminder{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;background:rgba(5,9,17,.82);backdrop-filter:blur(7px);padding:20px;color:#f8fafc}
+#unionEntryReminder .union-entry-dialog{position:relative;width:min(100%,520px);max-height:min(90vh,780px);overflow-y:auto;border:1px solid #a89165;border-radius:22px;background:linear-gradient(145deg,#222a35,#131923);padding:clamp(21px,4vw,34px);box-shadow:0 22px 70px #0009}
+#unionEntryReminder .union-entry-title{font-weight:900;color:#f0d6a0;font-size:clamp(21px,4vw,26px);margin:0 36px 18px 0}
+#unionEntryReminder .union-entry-close{position:absolute;top:13px;right:15px;border:1px solid #657182;border-radius:10px;background:#303a47;color:#fff;padding:5px 11px;font-size:22px;cursor:pointer}
+#unionEntryReminder .union-entry-card{border:1px solid #49586b;background:#1a2430;padding:19px;border-radius:15px;margin-top:13px}
+#unionEntryReminder .union-entry-question{font-size:clamp(18px,3vw,22px);font-weight:900;margin:0 0 12px}
+#unionEntryReminder .union-entry-count{font-size:16px;color:#d6e4f2;margin:0 0 14px}
+#unionEntryReminder .union-entry-count strong{font-size:clamp(27px,6vw,35px);color:#f9dca2;font-variant-numeric:tabular-nums}
+#unionEntryReminder .union-entry-link{display:block;width:100%;text-align:center;background:#e3be80;color:#171c23;font-size:16px;font-weight:900;border:0;border-radius:12px;padding:12px 16px;text-decoration:none;cursor:pointer}
+#unionEntryReminder .union-entry-note{margin-top:15px;color:#bec8d5;font-size:12px;line-height:1.65}
+#unionEntryReminder .union-entry-later{display:block;width:100%;margin-top:17px;padding:10px;background:transparent;border:1px solid #707b8b;border-radius:10px;color:#e8edf3;cursor:pointer}
+/* Compact, mobile-first 3-row reminder */
+#unionEntryReminder{padding:12px!important;align-items:center}
+#unionEntryReminder .union-entry-dialog{box-sizing:border-box;width:min(100%,460px);max-height:calc(100dvh - 24px);padding:19px 17px 16px;border-radius:18px;overflow-y:auto}
+#unionEntryReminder .union-entry-title{font-size:clamp(18px,4.5vw,21px);line-height:1.3;margin:0 38px 14px 0;letter-spacing:-.02em}
+#unionEntryReminder .union-entry-close{top:10px;right:11px;width:36px;height:36px;padding:0;border-radius:9px;font-size:23px;line-height:1}
+#unionEntryReminder .union-entry-card{display:grid;grid-template-columns:minmax(0,1fr) 102px;grid-template-areas:"question action" "count action";align-items:center;column-gap:10px;row-gap:4px;padding:12px 13px;margin-top:9px;border-radius:12px}
+#unionEntryReminder .union-entry-question{grid-area:question;min-width:0;margin:0;font-size:clamp(14px,3.6vw,16px);line-height:1.35}
+#unionEntryReminder .union-entry-count{grid-area:count;margin:0;font-size:13px;line-height:1.45;white-space:normal}
+#unionEntryReminder .union-entry-count strong{font-size:clamp(20px,5.8vw,25px);line-height:1.1}
+#unionEntryReminder .union-entry-link{grid-area:action;display:flex;align-items:center;justify-content:center;width:100%;min-height:42px;padding:8px 5px;border-radius:9px;font-size:12px;line-height:1.35;white-space:nowrap}
+#unionEntryReminder .union-entry-note{font-size:10px;line-height:1.5;margin:11px 2px 0}
+#unionEntryReminder .union-entry-later{font-size:13px;font-weight:700;margin-top:12px;min-height:41px;padding:8px;border-radius:9px}
+@media(max-width:350px){#unionEntryReminder .union-entry-dialog{padding:16px 12px 13px}#unionEntryReminder .union-entry-card{grid-template-columns:minmax(0,1fr) 90px;padding:10px}#unionEntryReminder .union-entry-question{font-size:13px}#unionEntryReminder .union-entry-link{font-size:11px}}
+@media(max-height:590px){#unionEntryReminder .union-entry-dialog{padding-top:13px;padding-bottom:12px}#unionEntryReminder .union-entry-card{padding-top:9px;padding-bottom:9px;margin-top:7px}#unionEntryReminder .union-entry-note{margin-top:7px}#unionEntryReminder .union-entry-later{margin-top:8px}}
+
+#unionEntryReminder .union-entry-member-stats{font-size:11px;line-height:1.4}
+#unionEntryReminder .union-entry-member-stats strong{font-size:clamp(19px,5vw,24px)}
+#unionEntryReminder .union-entry-breakdown{font-size:10px;color:#c9d5e3;margin-top:3px;white-space:normal}
+#unionEntryReminder .union-entry-breakdown .entry-member-breakdown-number{font-size:12px;font-weight:900;color:#f3d397}
+/* Compact countdown displayed at top of entry reminder */
+#unionEntryReminder .meeting-countdown-pill{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 8px;width:100%;padding:9px 35px 9px 9px;margin:0 0 12px;border:1px solid #cba866;border-radius:11px;background:linear-gradient(110deg,#3a3022,#222a33);color:#f7e8c7;text-align:left}
+#unionEntryReminder .meeting-countdown-icon{font-size:17px}
+#unionEntryReminder .meeting-countdown-copy{font-weight:800;font-size:12px;line-height:1.35;flex:1 1 155px}
+#unionEntryReminder .meeting-countdown-copy .u-en{display:none}
+#unionEntryReminder #meetingCountdownDays{font-size:22px;line-height:1.1;color:#ffe0a0;font-variant-numeric:tabular-nums;white-space:nowrap}
+#unionEntryReminder .meeting-countdown-date{width:100%;font-size:10px;color:#c4cbd4;text-align:right}
+@media(max-width:375px){#unionEntryReminder .meeting-countdown-pill{padding:8px 30px 8px 8px}#unionEntryReminder .meeting-countdown-copy{font-size:11px}#unionEntryReminder #meetingCountdownDays{font-size:20px}}
+/* Nov 3 update: completed timeline items and archived briefing */
+#mode0Container #u-next .u-roadmap-item.roadmap-completed{--phase-color:#94a3b8;--phase-panel:#292d34;filter:grayscale(1);opacity:.68}
+#mode0Container #u-next .u-roadmap-item.roadmap-completed .u-roadmap-date,#mode0Container #u-next .u-roadmap-item.roadmap-completed h4{color:#b5bdc8}
+#mode0Container #u-completed-milestones #u-nov3-briefing{margin-top:22px;padding:20px;border:1px solid #657080;border-radius:14px;background:#1a2028}
+#mode0Container #u-completed-milestones #u-nov3-briefing .u-step{background:#64748b;color:#fff}
 </style>
 <link href="manifest.webmanifest" rel="manifest"/>
 <meta content="#0f172a" name="theme-color"/>
@@ -601,12 +654,14 @@ html{scroll-behavior:smooth}
 <a id="intentCountDebugLink" class="u-intent-diagnostic-link" href="https://script.google.com/macros/s/AKfycbxNb1ZowLH51RlsLYWh0WYCKGz85WlyZ4uYYz3QTz5SXgfukNAKgUqXdXuaYmKU64mh/exec?action=count" rel="noopener noreferrer" target="_blank">檢查統計連線 / Check count service ↗</a>
 </div>
 </section>
-<div class="u-action-stack"><section class="u-surface u-action-step" id="u-nov3-briefing"><div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker">11/3 · PRESS CONFERENCE &amp; UNION BRIEFING</span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">📅 11/3 台中記者會暨美光關工說明會｜報名</span><span class="u-en" lang="en">📅 Nov 3 Press Conference &amp; Union Briefing · Registration</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">11/3（二）下午記者會與晚上關工說明會開放報名，請在表單分別勾選參加意願，也可提出相關問題。</span><span class="u-en" lang="en">Register separately for the Nov 3 afternoon press conference and evening union briefing using the form. You can also submit questions.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4 text-sm" id="briefingEventDetails">
-<p><strong>📍 下午記者會｜11/3（二）13:00</strong><br>台中科管局門口（科雅路旗桿處）；地址：臺中市西屯區林厝里中科路 2 號。請於 13:00 前報到領取物資。可停中科管理局地下停車場。</p>
-<p class="u-muted u-mini mt-1" lang="en">Press conference: Tue, Nov 3 at 13:00, outside the Central Taiwan Science Park Bureau (flagpole area on Keya Road), No. 2, Zhongke Rd., Xitun Dist., Taichung. Check in before 13:00. Underground parking is available.</p>
-<p class="mt-3"><strong>🌙 晚上關工說明會｜11/3（二）・后里</strong><br>統計報名人數至 11/1（日）中午，再以簡訊通知確切時間與地點。歡迎台中、台南、銅鑼夥伴參加；無法到場者也可在表單勾選希望續辦或提供影片，並留下問題。</p>
-<p class="u-muted u-mini mt-1" lang="en">Evening union briefing: Nov 3 in Houli. Attendance is being counted until noon on Nov 1; the exact time and venue will be sent by SMS. If you cannot attend, use the form to request another session or a video and submit questions.</p>
-</div><div class="grid grid-cols-2 gap-3 mt-4"><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">13:00 記者會 / Press conference</div><strong class="block text-3xl" id="briefingNoonCount">—</strong><small class="u-muted">有意願 / Interested</small></div><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">晚上說明會 / Evening briefing</div><strong class="block text-3xl" id="briefingEveningCount">—</strong><small class="u-muted">有意願 / Interested</small></div></div><p class="u-muted u-mini mt-3" id="briefingCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:12px">↻ 更新數字 / Update counts</button><a class="u-button u-primary w-full mt-5" href="https://docs.google.com/forms/d/e/1FAIpQLSd6-wvSV2brvOfbbG_FNVAtHl_MxOZdyddepiZoHQCpw0FpHg/viewform" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">報名 11/3 記者會／說明會 ↗</span><span class="u-en" lang="en">Register for Nov 3 events ↗</span></span></a></section><section class="u-surface" id="u-affiliated-union"><div class="u-kicker">UNION MEMBERSHIP</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4"><div class="u-muted text-sm">入會申請資料筆數 / Membership applications</div><strong class="block text-4xl mt-2" id="affiliatedUnionInterestCount">—</strong><p class="u-muted u-mini mt-2">申請資料筆數，尚非核准會員數。 / Application records, not approved members.</p></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
+<div class="u-action-stack"><section class="u-surface" id="u-affiliated-union"><div class="u-kicker">UNION MEMBERSHIP</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4">
+<div class="u-muted text-sm">桃園＋台中入會申請合計 / Taoyuan + Taichung membership applications</div>
+<div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人（估計） / estimated</span></div>
+<div class="grid grid-cols-2 gap-3 mt-4">
+ <div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-sm">台中 / Taichung <span class="text-xs">· 即時更新 / Live</span></div><strong class="block text-2xl mt-1" id="affiliatedUnionInterestCount">—</strong><small class="u-muted">人 · 申請資料筆數</small></div>
+ <div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-sm">桃園 / Taoyuan</div><strong class="block text-2xl mt-1">2,200+</strong><small class="u-muted">人 · 預計直接入會 / Estimated direct enrollment</small></div>
+</div>
+<p class="u-muted u-mini mt-3">合計依「台中即時申請筆數＋桃園預估 2,200+ 人」計算，非已核准會員數。 / Combined estimate based on live Taichung applications plus 2,200+ expected Taoyuan direct enrollments; not approved members.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:12px">↻ 更新數字 / Update counts</button></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
 <section class="u-surface u-action-step">
 <div class="flex items-center gap-3"><span class="u-step">03</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">已開放審核 · LINE 群組</span><span class="u-en" lang="en">OPEN · LINE group</span></span></span></div>
 <h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">LINE 群組已重新開放入群審核</span><span class="u-en" lang="en">LINE group approvals have reopened</span></span></h3>
@@ -617,7 +672,7 @@ html{scroll-behavior:smooth}
 <section class="u-surface u-action-step">
 <div class="flex items-center gap-3"><span class="u-step">04</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">後續 · 臨時會員大會</span><span class="u-en" lang="en">NEXT · Extraordinary union meeting</span></span></span></div>
 <h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">關注臨時會員大會召集進度</span><span class="u-en" lang="en">Follow the extraordinary members’ meeting progress</span></span></h3>
-<p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">整理完有效連署後，預計 10/30 正式向台中工會提出召集臨時會員大會的請求；若依法定期限未召集，將視情況向主管機關申請指定召集人。</span><span class="u-en" lang="en">Following verification, a formal request to convene an extraordinary union meeting is planned for Oct 30. If no lawful convening occurs within the required period, the requesters may seek an authority-designated convener.</span></span></p>
+<p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">11/3 台中工會會長已正式簽收連署書，啟動十日召集期限倒數，持續關注臨時會員大會辦理進度。</span><span class="u-en" lang="en">On Nov 3, the Taichung union chairperson formally acknowledged receipt of the petition. The 10-day convening period is now being tracked. Follow updates on the extraordinary members’ meeting.</span></span></p>
 <a class="u-button u-secondary w-full mt-5" href="#u-next"><span class="u-bilingual"><span class="u-zh">查看完整後續時間軸 ↓</span><span class="u-en" lang="en">See the full timeline ↓</span></span></a>
 <p class="u-muted u-mini mt-3"><span class="u-bilingual"><span class="u-zh">召集時間、地點與議程尚未正式公告。</span><span class="u-en" lang="en">The meeting date, venue, and agenda have not been announced.</span></span></p>
 </section></div></div><section class="u-surface u-recruit-highlight" id="u-participate">
@@ -632,12 +687,12 @@ html{scroll-behavior:smooth}
 <h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">台中自救行動｜後續行動時間表</span><span class="u-en" lang="en">Taichung Self-Action | Next Steps Timeline</span></span></h3>
 <p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">連署不是終點，而是正式行動的開始。請大家持續關注並共同參與！</span><span class="u-en" lang="en">This is not the end — it is the start of our collective action. Please stay informed and involved!</span></span></p>
 <div class="u-roadmap">
-<div class="u-roadmap-item roadmap-stop"><div class="u-roadmap-date">10/28（三）<br>21:00</div><div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式連署募集暫停，轉入資料整理</span><span class="u-en" lang="en">Formal petition collection paused; review begins</span></span></h4><p><span class="u-bilingual"><span class="u-zh">依先前公告規劃暫停新的正式連署收件，進行<strong>移除重複連署書、核對及建檔</strong>，準備正式送件。此為流程時點，不代表網站後端已自動停止接收。</span><span class="u-en" lang="en">Based on the announced schedule, new formal petition submissions are to pause at 21:00. The next stage is deduplication, verification, and record preparation. Removing the link does not automatically disable the submission backend.</span></span></p></div></div>
-<div class="u-roadmap-item "><div class="u-roadmap-date">10/30（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式向台中工會送件（預計）</span><span class="u-en" lang="en">Formal submission to Taichung Union (planned)</span></span></h4><p><span class="u-bilingual"><span class="u-zh">待連署資料完成核對，正式提出召集<strong>臨時會員大會</strong>之請求，啟動相關法定程序；實際送件以公告為準。</span><span class="u-en" lang="en">After verifying the submissions, formally request an extraordinary union members’ meeting and start the relevant legal procedures. The actual submission will be confirmed by announcement.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-stop roadmap-completed"><div class="u-roadmap-date">10/28（三）<br>21:00</div><div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">正式連署募集暫停，轉入資料整理</span><span class="u-en" lang="en">Formal petition collection paused; review begins</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4><p><span class="u-bilingual"><span class="u-zh">依先前公告規劃暫停新的正式連署收件，進行<strong>移除重複連署書、核對及建檔</strong>，準備正式送件。此為流程時點，不代表網站後端已自動停止接收。</span><span class="u-en" lang="en">Based on the announced schedule, new formal petition submissions are to pause at 21:00. The next stage is deduplication, verification, and record preparation. Removing the link does not automatically disable the submission backend.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-completed"><div class="u-roadmap-date">11/3（二）</div><div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">台中工會會長已簽收連署書</span><span class="u-en" lang="en">Petition received by Taichung union chairperson</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4><p><span class="u-bilingual"><span class="u-zh">11/3 台中工會會長已正式簽收連署書，啟動<strong>十日倒數</strong>，關注臨時會員大會召集與辦理進度。</span><span class="u-en" lang="en">The Taichung union chairperson formally acknowledged receipt of the petition on Nov 3, starting the 10-day countdown to convene the extraordinary members’ meeting.</span></span></p></div></div>
 <div class="u-roadmap-item roadmap-google"><div class="u-roadmap-date">現在－11/6（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>03</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">Google 意向書全力衝刺！</span><span class="u-en" lang="en">Make your voice heard via Google Form!</span></span></h4><p><span class="u-bilingual"><span class="u-zh">邀請尚未填寫的會員持續表達真實立場，讓 <span class='u-spotlight'>11/6 桃園協調會</span> 聽見更多台中會員的聲音。已填者請勿重複提交。</span><span class="u-en" lang="en">If you have not yet responded, please share your genuine views so the <span class='u-spotlight'>Nov 6 Taoyuan coordination meeting</span> can hear more voices from Taichung. Please avoid duplicates.</span></span></p></div></div>
-<div class="u-roadmap-item roadmap-volunteer"><div class="u-roadmap-date">現在－11/9（一）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
-<div class="u-roadmap-item roadmap-brief"><div class="u-roadmap-date">11/3</div><div class="u-roadmap-marker" aria-hidden="true"><span>05</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">台中記者會暨美光關係企業工會說明會</span><span class="u-en" lang="en">Taichung press conference &amp; affiliated union briefing</span></span></h4><p><span class="u-bilingual"><span class="u-zh">下午 <strong>13:00 台中科管局記者會</strong>，請提前報到；晚上移至<strong>后里舉行美光關係企業工會說明會</strong>。晚場人數統計至 11/1（日）中午，確切時間與地點將以簡訊通知報名者，歡迎台中、台南、銅鑼夥伴參與。</span><span class="u-en" lang="en">A <strong>13:00 press conference at the Central Taiwan Science Park Bureau</strong> is followed by an <strong>evening affiliated union briefing in Houli</strong>. Please arrive before 13:00 to check in. Evening attendance is being counted until noon on Nov 1; registered participants will receive the exact time and venue by SMS. Colleagues from Taichung, Tainan and Tongluo are welcome.</span></span></p></div></div>
-<div class="u-roadmap-item "><div class="u-roadmap-date">11/9（一）</div><div class="u-roadmap-marker" aria-hidden="true"><span>06</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">關注臨時會員大會召集進度</span><span class="u-en" lang="en">Follow the extraordinary members’ meeting convening process</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/9 為預定追蹤日期，請以實際送達日與法定期限確認。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. Nov 9 is a planned follow-up date; the actual deadline depends on service of the request.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-volunteer"><div class="u-roadmap-date">現在－11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-brief roadmap-completed"><div class="u-roadmap-date">11/3（二）<br>✓ 已完成</div><div class="u-roadmap-marker" aria-hidden="true"><span>05</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">台中記者會暨美光關係企業工會說明會</span><span class="u-en" lang="en">Taichung press conference &amp; affiliated union briefing</span></span></h4><p><span class="u-bilingual"><span class="u-zh">下午 <strong>13:00 台中科管局記者會</strong>及晚上<strong>后里美光關係企業工會說明會</strong>皆已辦理完成。</span><span class="u-en" lang="en">The <strong>13:00 press conference at the Central Taiwan Science Park Bureau</strong> and the <strong>evening affiliated union briefing in Houli</strong> were completed on Nov 3.</span></span></p></div></div>
+<div class="u-roadmap-item "><div class="u-roadmap-date">11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>06</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">關注臨時會員大會召集進度</span><span class="u-en" lang="en">Follow the extraordinary members’ meeting convening process</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/3 已簽收連署書，11/13 為十日倒數追蹤日期；實際期限及程序仍以適用法令為準。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. The petition was received on Nov 3; Nov 13 is the 10-day follow-up date. Applicable legal deadlines and procedures should still be confirmed.</span></span></p></div></div>
 </div>
 <div class="u-timefoot"><span class="u-bilingual"><span class="u-zh">每一份連署、每一份真實意見、每一位願意挺身而出的會員，都是守護自身權益的重要力量。</span><span class="u-en" lang="en">Every petition, every genuine opinion, and every member who steps up helps protect our rights.</span></span></div>
 </section><section><div id="u-quick-faq" style="scroll-margin-top:24px"></div><div class="u-kicker">LEGAL &amp; PROCEDURAL FAQ</div><h3 class="u-heading mt-2 mb-5"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">點擊查看詳細議事指引</span><span class="u-en" lang="en">Expand the detailed meeting and legal guide</span></span></h3><div class="space-y-3">
@@ -647,7 +702,12 @@ html{scroll-behavior:smooth}
 <details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">委託書、電子投票與會員代表怎麼計算？</span><span class="u-en" lang="en">How are proxies, online voting, and delegate numbers counted?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">原始指引將紙本委託書直接納入出席數，但這不能直接當作通則；須核對適用法令、組織形式及章程，確認是否可委託、如何計票及是否採會員代表制。</span><span class="u-en" lang="en">The earlier guide automatically counted paper proxies as attendance, but that is not a general rule. Verify applicable law, organizational structure, and bylaws before accepting proxies or counting votes.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">建議由具勞動法經驗的律師或主管機關協助事先審查會議議程與程序。</span><span class="u-en" lang="en">Ask an employment-law attorney or the competent authority to review the proposed meeting agenda and procedures beforehand.</span></span></p></div></details>
 <details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">大會後有哪些必須保留的證據？</span><span class="u-en" lang="en">What evidence should be kept after the meeting?</span></span></summary><div class="u-details-body"><ul><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">正式協議全文、附件、簽署頁與相關公告</span><span class="u-en" lang="en">The complete agreement, attachments, signature pages, and related notices</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">工會章程、會員名冊計算基準、召集通知及有效連署紀錄</span><span class="u-en" lang="en">Union bylaws, membership-count basis, meeting notice, and valid petition records</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">議程、簽到、表決票數、會議紀錄及送達憑證</span><span class="u-en" lang="en">Agenda, attendance records, vote totals, minutes, and proof of service</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">如有不利待遇，保留可合法取得的人事與對話紀錄</span><span class="u-en" lang="en">Legally obtained personnel and communication records if adverse treatment occurs</span></span></li></ul><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">送交主管機關的文件、期限與通知資方的方式，應依實際決議事項及適用規定辦理，不能一概認定「會後十五日內全部備查」。</span><span class="u-en" lang="en">Filing documents, deadlines, and employer notifications depend on the specific decision and applicable rules; do not assume every document must be filed within 15 days.</span></span></p></div></details>
 <details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">政府救濟、工會保障與法律依據</span><span class="u-en" lang="en">Government remedies, union protections, and applicable law</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">可向台中市勞工局或勞動部詢問工會會議召集、章程及團體協約爭議；是否可申請調解、裁決或提起訴訟，須依爭議類型判斷。雇主若因正當工會活動給予不利待遇，可能涉及《工會法》第 35 條。</span><span class="u-en" lang="en">Ask the Taichung City Labor Affairs Bureau or Ministry of Labor about meeting procedures, bylaws, and collective-agreement disputes. Whether mediation, unfair-labor-practice adjudication, or litigation is available depends on the type of dispute. Adverse treatment by an employer for lawful union activity may implicate Article 35 of the Labor Union Act.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">官方法條：</span><span class="u-en" lang="en">Official legislation:</span></span><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020001" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》</span><span class="u-en" lang="en">Labor Union Act</span></span></a>、<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020006" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《團體協約法》</span><span class="u-en" lang="en">Collective Agreement Act</span></span></a><span class="u-bilingual" data-u-translated="1"><span class="u-zh">。可洽</span><span class="u-en" lang="en">You may contact</span></span><a href="https://www.mol.gov.tw/" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">勞動部</span><span class="u-en" lang="en">Ministry of Labor</span></span></a><span class="u-bilingual" data-u-translated="1"><span class="u-zh">或</span><span class="u-en" lang="en">or</span></span><a href="https://www.labor.taichung.gov.tw/" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">台中市勞工局</span><span class="u-en" lang="en">Taichung City Labor Affairs Bureau</span></span></a>。</p></div></details>
-</div></section><section class="u-surface"><h3 class="text-xl font-black"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">目前最重要的三個待確認問題</span><span class="u-en" lang="en">Four key questions still need answers</span></span></h3><div class="u-cardgrid mt-4"><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">協議是哪一種文件？</span><span class="u-en" lang="en">What kind of agreement was signed?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認全文、法律性質、生效條件。</span><span class="u-en" lang="en">Obtain the full text and verify its legal character and effective date.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">章程怎麼規定？</span><span class="u-en" lang="en">What do the bylaws require?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認授權、召集、投票與解任程序。</span><span class="u-en" lang="en">Check authorization, meeting notices, voting, and removal procedures.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">有效會員數多少？</span><span class="u-en" lang="en">How many eligible members are there?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">依法計算請求與開會門檻。</span><span class="u-en" lang="en">Calculate petition and quorum thresholds under the applicable rules.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">正式會議何時公告？</span><span class="u-en" lang="en">When will a formal meeting be announced?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">等待具召集權者的正式通知。</span><span class="u-en" lang="en">Wait for an official notice from an authorized convener.</span></span></p></div></div></section><section class="u-surface u-completed-archive" id="u-completed-milestones" aria-labelledby="u-completed-title"><div class="u-archive-ribbon">✓ COMPLETED MILESTONES · 已達成任務</div><div class="u-archive-head"><div class="u-archive-icon">✓</div><div><h3 class="u-heading" id="u-completed-title"><span class="u-bilingual"><span class="u-zh">已達成任務｜階段性成果紀錄</span><span class="u-en" lang="en">Completed milestones · Progress archive</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">已完成項目集中於此，未來持續新增階段成果。</span><span class="u-en" lang="en">Completed milestones will be archived here.</span></span></p></div></div><div class="u-archive-entry"><strong class="u-archive-chip"><span class="u-bilingual"><span class="u-zh">✓ 連署收件階段已達標</span><span class="u-en" lang="en">✓ Petition collection target reached</span></span></strong><div class="u-archive-number">2,708 <small>/ 2,600</small></div><p class="u-muted text-sm"><span class="u-bilingual"><span class="u-zh">階段性收件里程碑；預計有效連署書 2,596 份、法定五分之一門檻 2,239 人，仍以正式最終確認為準。</span><span class="u-en" lang="en">Collection milestone; estimated valid petitions 2,596, one-fifth threshold 2,239, subject to final confirmation.</span></span></p></div></section><footer class="u-muted text-xs pb-3"><span class="u-bilingual"><span class="u-zh">本頁更新：2026/10/31 · 正式連署收件數依資料夾 PDF 數量或既有回報呈現；尚須去重、資格核對及建檔。正式送件、說明會與臨時會員大會資訊以後續公告為準。請勿散布未經查證的指控或個人資料。</span><span class="u-en" lang="en">Updated Oct 31, 2026 · Petition totals are based on reported or counted PDFs and remain subject to duplicate removal and verification. Formal submissions, briefing details, and meeting notices are subject to later announcements. Do not share unverified accusations or personal information.</span></span></footer></div>
+</div></section><section class="u-surface"><h3 class="text-xl font-black"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">目前最重要的三個待確認問題</span><span class="u-en" lang="en">Four key questions still need answers</span></span></h3><div class="u-cardgrid mt-4"><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">協議是哪一種文件？</span><span class="u-en" lang="en">What kind of agreement was signed?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認全文、法律性質、生效條件。</span><span class="u-en" lang="en">Obtain the full text and verify its legal character and effective date.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">章程怎麼規定？</span><span class="u-en" lang="en">What do the bylaws require?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">確認授權、召集、投票與解任程序。</span><span class="u-en" lang="en">Check authorization, meeting notices, voting, and removal procedures.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">有效會員數多少？</span><span class="u-en" lang="en">How many eligible members are there?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">依法計算請求與開會門檻。</span><span class="u-en" lang="en">Calculate petition and quorum thresholds under the applicable rules.</span></span></p></div><div><b><span class="u-bilingual" data-u-translated="1"><span class="u-zh">正式會議何時公告？</span><span class="u-en" lang="en">When will a formal meeting be announced?</span></span></b><p class="u-muted text-sm mt-1"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">等待具召集權者的正式通知。</span><span class="u-en" lang="en">Wait for an official notice from an authorized convener.</span></span></p></div></div></section><section class="u-surface u-completed-archive" id="u-completed-milestones" aria-labelledby="u-completed-title"><div class="u-archive-ribbon">✓ COMPLETED MILESTONES · 已達成任務</div><div class="u-archive-head"><div class="u-archive-icon">✓</div><div><h3 class="u-heading" id="u-completed-title"><span class="u-bilingual"><span class="u-zh">已達成任務｜階段性成果紀錄</span><span class="u-en" lang="en">Completed milestones · Progress archive</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">已完成項目集中於此，未來持續新增階段成果。</span><span class="u-en" lang="en">Completed milestones will be archived here.</span></span></p></div><button type="button" id="completedArchiveToggle" class="u-archive-toggle" aria-controls="completedArchiveContent" aria-expanded="false"><span class="u-zh">展開已達成任務</span><span class="u-en" lang="en">Show completed milestones</span><span aria-hidden="true" class="u-archive-chevron">⌄</span></button></div><div id="completedArchiveContent" hidden><section class="u-archive-entry u-briefing-archived" id="u-nov3-briefing"><div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker">11/3 · PRESS CONFERENCE &amp; UNION BRIEFING</span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">✓ 11/3 台中記者會暨美光關工說明會｜已完成</span><span class="u-en" lang="en">✓ Nov 3 Press Conference &amp; Union Briefing · Completed</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">11/3（二）下午台中記者會與晚上后里美光關工說明會已完成，活動紀錄保留供會員參考。</span><span class="u-en" lang="en">The Nov 3 press conference and evening union briefing have concluded. Event details remain for reference.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4 text-sm" id="briefingEventDetails">
+<p><strong>📍 下午記者會｜11/3（二）13:00</strong><br>台中科管局門口（科雅路旗桿處）；地址：臺中市西屯區林厝里中科路 2 號。請於 13:00 前報到領取物資。可停中科管理局地下停車場。</p>
+<p class="u-muted u-mini mt-1" lang="en">Press conference: Tue, Nov 3 at 13:00, outside the Central Taiwan Science Park Bureau (flagpole area on Keya Road), No. 2, Zhongke Rd., Xitun Dist., Taichung. Check in before 13:00. Underground parking is available.</p>
+<p class="mt-3"><strong>🌙 晚上關工說明會｜11/3（二）・后里</strong><br>11/3 晚間后里說明會已辦理完成，保留活動資訊供參考。</p>
+<p class="u-muted u-mini mt-1" lang="en">Evening union briefing: Nov 3 in Houli. The evening briefing in Houli was held on Nov 3. Event information is retained for reference.</p>
+</div><div class="grid grid-cols-2 gap-3 mt-4"><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">13:00 記者會 / Press conference</div><strong class="block text-3xl" id="briefingNoonCount">—</strong><small class="u-muted">有意願 / Interested</small></div><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">晚上說明會 / Evening briefing</div><strong class="block text-3xl" id="briefingEveningCount">—</strong><small class="u-muted">有意願 / Interested</small></div></div><p class="u-muted u-mini mt-3" id="briefingCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:12px">↻ 更新數字 / Update counts</button></section><div class="u-archive-entry"><strong class="u-archive-chip"><span class="u-bilingual"><span class="u-zh">✓ 連署收件階段已達標</span><span class="u-en" lang="en">✓ Petition collection target reached</span></span></strong><div class="u-archive-number">2,708 <small>/ 2,600</small></div><p class="u-muted text-sm"><span class="u-bilingual"><span class="u-zh">階段性收件里程碑；預計有效連署書 2,596 份、法定五分之一門檻 2,239 人，仍以正式最終確認為準。</span><span class="u-en" lang="en">Collection milestone; estimated valid petitions 2,596, one-fifth threshold 2,239, subject to final confirmation.</span></span></p></div></div></section><footer class="u-muted text-xs pb-3"><span class="u-bilingual"><span class="u-zh">本頁更新：2026/11/03 · 正式連署收件數依資料夾 PDF 數量或既有回報呈現；尚須去重、資格核對及建檔。正式送件、說明會與臨時會員大會資訊以後續公告為準。請勿散布未經查證的指控或個人資料。</span><span class="u-en" lang="en">Updated Nov 3, 2026 · Petition totals are based on reported or counted PDFs and remain subject to duplicate removal and verification. Formal submissions, briefing details, and meeting notices are subject to later announcements. Do not share unverified accusations or personal information.</span></span></footer></div>
 </div>
 <div aria-label="志工意願申請" aria-modal="true" id="volunteerModal" onclick="if(event.target===this)closeVolunteerSignup()" role="dialog">
 <div class="vol-dialog"><div class="vol-toolbar"><strong>志工意願登記｜匿名／具名</strong><button aria-label="關閉" onclick="closeVolunteerSignup()" type="button">✕ 關閉</button></div>
@@ -849,8 +909,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
 <nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation">
 <a href="#u-intent-progress" onclick="return portalNavigateTo('u-intent-progress')" title="聲援桃園" aria-label="聲援桃園">
 <span class="float-icon" aria-hidden="true">📣</span><span class="float-label"><span class="float-label-zh">聲援桃園</span><span class="float-label-en" lang="en">Support Taoyuan</span></span></a>
-<a href="#u-nov3-briefing" onclick="return portalNavigateTo('u-nov3-briefing')" title="記者會／關工說明會" aria-label="記者會／關工說明會">
-<span class="float-icon" aria-hidden="true">🎤</span><span class="float-label"><span class="float-label-zh">記者會<br>關工說明會</span><span class="float-label-en" lang="en">Press / Union Briefing</span></span></a>
 <a href="#u-affiliated-union" onclick="return portalNavigateTo('u-affiliated-union')" title="美光關工 / Micron Affiliated Union" aria-label="美光關工 / Micron Affiliated Union">
 <span class="float-icon" aria-hidden="true">🧔🏻‍♂️</span><span class="float-label"><span class="float-label-zh">美光關工</span><span class="float-label-en" lang="en">Micron Union</span></span></a>
 <a href="#u-participate" onclick="return portalNavigateTo('u-participate')" title="幹部/志工" aria-label="幹部/志工">
@@ -860,6 +918,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
 <a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="常見問答 / FAQ" aria-label="常見問答 / FAQ">
 <span class="float-icon" aria-hidden="true">❓</span><span class="float-label"><span class="float-label-zh">常見問答</span><span class="float-label-en" lang="en">FAQ</span></span></a>
 <button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
+<a href="https://micronmonkey.github.io/Game/fack.html" target="_self" title="全民找法克 / Find Fack" aria-label="全民找法克 / Find Fack">
+<span class="float-icon" aria-hidden="true">🎮</span><span class="float-label"><span class="float-label-zh">全民找法克</span><span class="float-label-en" lang="en">Find Fack</span></span></a>
 <a href="Salary.html" target="_self" title="去薪情平台 / Salary Platform" aria-label="去薪情平台 / Salary Platform"><span class="float-icon" aria-hidden="true">📊</span><span class="float-label"><span class="float-label-zh">去薪情平台</span><span class="float-label-en" lang="en">Salary Platform</span></span></a>
 <button id="portalNavToggle" type="button" aria-expanded="true" aria-label="收摺導覽 / Collapse navigation" title="收摺導覽 / Collapse navigation"><span class="float-icon" aria-hidden="true">◀</span><span class="float-label"><span class="float-label-zh">收摺</span><span class="float-label-en" lang="en">Collapse</span></span></button>
 </nav>
@@ -895,8 +955,14 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  'use strict';
  const endpoint='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec';
  const refreshMs=120000,retryMs=15000;
- const ids={noon:'briefingNoonCount',evening:'briefingEveningCount'};
- const statuses=['briefingCountsStatus'].map(id=>document.getElementById(id));
+ const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionInterestCount'};
+ const combinedMembership=document.getElementById('affiliatedUnionCombinedCount');
+ function renderCombinedMembership(taichung){
+  if(!combinedMembership)return;
+  combinedMembership.textContent=Number.isSafeInteger(taichung)&&taichung>=0
+   ?(taichung+2200).toLocaleString('en-US')+'+':'—';
+ }
+ const statuses=['briefingCountsStatus','membershipCountsStatus'].map(id=>document.getElementById(id));
  const buttons=[...document.querySelectorAll('[data-organizing-refresh]')];
  let busy=false,lastSuccess='',retryTimer=null,failures=0;
  function status(message){statuses.forEach(el=>{if(el)el.textContent=message;});}
@@ -951,6 +1017,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
     catch(secondError){throw firstError;}
    }
    Object.keys(ids).forEach(key=>{const el=document.getElementById(ids[key]);if(el)el.textContent=data[key].toLocaleString('en-US');});
+   renderCombinedMembership(data.membership);
    // A missing optional backend timestamp must not suppress valid counts.
    const timestamp=typeof data.updatedAt==='string'&&Number.isFinite(Date.parse(data.updatedAt))?new Date(data.updatedAt):new Date();
    lastSuccess=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(timestamp);
@@ -962,6 +1029,8 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    const reason=reasons[error.message]||'統計連線失敗 / Connection failed';
    const previous=lastSuccess?' · 上次同步：'+lastSuccess+'，保留上次人數 / Keeping last counts':'';
    status(reason+previous+(failures<=2?' · 15 秒後重試，也可按更新數字 / Retry in 15 sec, or refresh now':' · 每 2 分鐘重試，也可按更新數字 / Retry every 2 min, or refresh now'));
+   // No last verified Taichung count available: do not display a made-up combined total.
+   if(!lastSuccess)renderCombinedMembership(null);
    if(failures<=2)retryTimer=setTimeout(refresh,retryMs);
   }finally{busy=false;buttons.forEach(button=>button.disabled=false)}
  }
@@ -970,5 +1039,106 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  setInterval(refresh,refreshMs);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 })();
-</script></body>
+</script>
+<div id="unionEntryReminder" role="dialog" aria-modal="true" aria-labelledby="unionEntryReminderTitle" hidden>
+ <div class="union-entry-dialog">
+  <div id="meetingCountdownPill" class="meeting-countdown-pill" role="status" aria-live="polite">
+ <span class="meeting-countdown-icon" aria-hidden="true">⏳</span>
+ <span class="meeting-countdown-copy"><span class="u-zh">距離辦理臨時會員大會召集程序，還剩</span><span class="u-en" lang="en">Countdown to extraordinary members’ meeting convening process</span></span>
+ <strong id="meetingCountdownDays">— 天</strong>
+ <span class="meeting-countdown-date">截至 11/13（五）</span>
+</div>
+  <button type="button" class="union-entry-close" id="unionEntryClose" aria-label="關閉提醒 / Close">×</button>
+  <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 三件事，一起守護權益</h2>
+  <div class="union-entry-card">
+   <p class="union-entry-question">📣 填意向書了嗎？</p>
+   <p class="union-entry-count">目前台中 <strong id="entryIntentCount">同步中…</strong> 人</p>
+   <a class="union-entry-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" target="_blank" rel="noopener noreferrer">填意向書 ↗</a>
+  </div>
+  <div class="union-entry-card">
+   <p class="union-entry-question">🤝 加入關工了嗎？</p>
+   <div class="union-entry-count union-entry-member-stats"><div>桃園＋台中 <strong id="entryMembershipCount">同步中…</strong> 人（估計）</div><div class="union-entry-breakdown">台中 <strong class="entry-member-breakdown-number" id="entryMembershipTaichung">同步中…</strong> 人 · 桃園約 <strong class="entry-member-breakdown-number">2,200+</strong> 人</div></div>
+   <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">申請入會 ↗</a>
+  </div>
+  <div class="union-entry-card">
+   <p class="union-entry-question">🌱 有意願擔任志工嗎？</p>
+   <p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p>
+   <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">報名志工 ↗</button>
+  </div>
+  <p class="union-entry-note">數字自動更新；關工顯示申請筆數，非核准會員數。</p>
+  <button type="button" id="unionEntryLater" class="union-entry-later">進入網站</button>
+ </div>
+</div>
+<script id="entry-reminder-and-archive-v1">
+(function(){
+ const toggle=document.getElementById('completedArchiveToggle');
+ const content=document.getElementById('completedArchiveContent');
+ if(toggle&&content)toggle.addEventListener('click',()=>{
+  const expanded=toggle.getAttribute('aria-expanded')==='true';
+  toggle.setAttribute('aria-expanded',String(!expanded));content.hidden=expanded;
+  const zh=toggle.querySelector('.u-zh'),en=toggle.querySelector('.u-en');
+  if(zh)zh.textContent=expanded?'展開已達成任務':'收摺已達成任務';
+  if(en)en.textContent=expanded?'Show completed milestones':'Hide completed milestones';
+ });
+ const dialog=document.getElementById('unionEntryReminder');
+ if(!dialog)return;
+ const focusTarget=document.getElementById('unionEntryClose');
+ let previousFocus=document.activeElement;
+ function close(){dialog.hidden=true;document.body.style.overflow='';if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();}
+ document.getElementById('unionEntryClose').addEventListener('click',close);
+ document.getElementById('unionEntryLater').addEventListener('click',close);
+ dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
+ document.addEventListener('keydown',e=>{if(!dialog.hidden&&e.key==='Escape')close()});
+ function copyCount(sourceId,targetId){
+  const source=document.getElementById(sourceId),target=document.getElementById(targetId);
+  if(!source||!target)return;
+  const update=()=>{const raw=source.textContent.trim(),match=raw.match(/^([0-9,]+\+?)/);
+   target.textContent=match?match[1]:(raw==='—'||raw.startsWith('— ')?'尚未取得':'同步中…');};
+  update();new MutationObserver(update).observe(source,{childList:true,characterData:true,subtree:true});
+ }
+ copyCount('intentTaichungCount','entryIntentCount');
+ copyCount('affiliatedUnionInterestCount','entryMembershipTaichung');
+ copyCount('affiliatedUnionCombinedCount','entryMembershipCount');
+ const volunteerSource=document.getElementById('volunteerPublicCount');
+ const volunteerTarget=document.getElementById('entryVolunteerCount');
+ if(volunteerSource&&volunteerTarget){
+  const syncVolunteer=()=>{
+   const value=volunteerSource.textContent.trim();
+   const match=value.match(/目前已有\s*([0-9,]+)\s*人報名/);
+   volunteerTarget.textContent=match?match[1]:/無法取得|暫時無法取得|unavailable/i.test(value)?'尚未取得':'同步中…';
+  };
+  syncVolunteer();
+  new MutationObserver(syncVolunteer).observe(volunteerSource,{childList:true,characterData:true,subtree:true});
+ }
+ document.getElementById('entryVolunteerSignup').addEventListener('click',()=>{
+  close();
+  if(typeof openVolunteerSignup==='function')openVolunteerSignup();
+ });
+ dialog.hidden=false;previousFocus=document.activeElement;focusTarget.focus();
+})();
+</script>
+<script id="meeting-countdown-20261113">
+(function(){
+ 'use strict';
+ const target=document.getElementById('meetingCountdownDays');
+ const pill=document.getElementById('meetingCountdownPill');
+ if(!target||!pill)return;
+ const deadline=Date.UTC(2026,10,13);
+ const formatter=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'numeric',day:'numeric'});
+ function update(){
+  const parts=formatter.formatToParts(new Date());
+  const values={};
+  parts.forEach(part=>{if(part.type==='year'||part.type==='month'||part.type==='day')values[part.type]=Number(part.value)});
+  const today=Date.UTC(values.year,values.month-1,values.day);
+  const remaining=Math.round((deadline-today)/86400000);
+  if(remaining>0){target.textContent=remaining+' 天';pill.dataset.state='counting'}
+  else if(remaining===0){target.textContent='今天到期';pill.dataset.state='due'}
+  else{target.textContent='期限已過';pill.dataset.state='past'}
+ }
+ update();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+ setInterval(()=>{if(!document.hidden)update()},60000);
+})();
+</script>
+</body>
 </html>
