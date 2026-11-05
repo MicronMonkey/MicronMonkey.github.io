@@ -173,6 +173,23 @@ dialog#reader .modal-inner{
   dialog#reader .paper h2{font-size:23px;}
   dialog#reader .reader-head-actions{flex-shrink:0}
 }
+
+/* Compose dialog: 80% of the previous 90vh / 900px height limit. */
+dialog#compose{
+  max-height:min(72vh,720px);
+  max-height:min(72dvh,720px);
+  overflow:hidden;
+}
+dialog#compose[open]{display:flex;flex-direction:column;}
+dialog#compose .modal-top{flex:0 0 auto;}
+dialog#compose .modal-inner{
+  flex:1 1 auto;
+  min-height:0;
+  max-height:none;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
