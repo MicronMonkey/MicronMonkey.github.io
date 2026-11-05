@@ -10,7 +10,7 @@ alter table public.letters
   drop constraint if exists letters_region_safe;
 alter table public.letters
   add constraint letters_region_safe
-    check (region is null or region in ('台中','桃園','新竹','台南','其他地區'));
+    check (region is null or region in ('台北','桃園','新竹','銅鑼','台中','台南','其他地區'));
 
 alter table public.letters
   drop constraint if exists letters_worktype_safe;
