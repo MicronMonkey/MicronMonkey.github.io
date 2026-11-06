@@ -362,13 +362,20 @@ var EN={
 '留言功能尚未啟用，請管理員先套用 Supabase 留言資料庫設定。':'Comments require the new Supabase migration.',
 '你已讀完目前所有信件，等新信來了再拆吧':'You have read every available letter. Come back for new ones!',
 '資料模式：雲端即時公開':'Data: live cloud publishing',
+'即時公開模式：':'Live publishing:',
+'匿名投稿立即顯示，無需等待審核。留言及閱讀人數需要額外安裝社交功能資料表。請勿公開個資或未經證實的個人指控。':'Anonymous letters are published immediately. Comments and reader counts need the database migration. Do not disclose private data or unverified accusations.',
+'送出中…':'Sending…','正在寄出…':'Publishing…',
+'請輸入 1–200 字的留言，署名不超過 20 字。':'Use 1–200 characters and a nickname of up to 20 characters.',
+'背景資訊最多選 2 項，請取消其中一項以保護匿名性':'Choose no more than 2 optional background details.',
+'背景資訊最多選 2 項，請減少一項以保護匿名性':'Choose no more than 2 optional background details.',
+'一天最多三封信（最近 24 小時）。請稍後再來寫信。':'Only 3 letters may be posted per rolling 24 hours. Please come back later.',
 '8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。':'Demo letters and hearts are fictional.'
 };
 function ui(x){
   x=String(x);
   if(siteLang!=='en')return x;
   var k=x.trim();if(Object.prototype.hasOwnProperty.call(EN,k))return x.replace(k,EN[k]);
-  return x.replace(/(\d+|—) 人讀過/g,'$1 readers').replace(/(\d+|—) 人留言/g,'$1 commenters')
+  return x.replace(/(\d+|—) 封/g,'$1 letters').replace(/(\d+|—) 人讀過/g,'$1 readers').replace(/(\d+|—) 人留言/g,'$1 commenters')
     .replace(/留言（(\d+|—)）/g,'Comments ($1)').replace(/(\d+) 共鳴/g,'$1 hearts')
     .replace(/第 (\d+) \/ (\d+) 批/g,'Batch $1 / $2')
     .replace(/(\d+) 封信 · 每批最多 4 封/g,'$1 letters · 4 per batch')
@@ -395,7 +402,7 @@ function applyStaticLanguage(){
   document.documentElement.lang=siteLang==='en'?'en':'zh-Hant';
 }
 function applyDynamicLanguage(){
-  document.querySelectorAll('#list-heading,#zone-introduction,#stats,#batch-counter,#load-more,#count-note,#privacy-mode,#paper-cat,#paper-read-count,#paper-comments,#paper-like,#paper-bookmark,#comment-meta,.read-count,.read-status,.letter .category,.letter .controls button,.letter .tag,.paper .tag,.comment-empty').forEach(function(el){
+  document.querySelectorAll('#list-heading,#zone-introduction,#stats,#batch-counter,#load-more,#count-note,#privacy-mode,#paper-cat,#paper-read-count,#paper-comments,#paper-like,#paper-bookmark,#comment-meta,.read-count,.read-status,.letter .category,.letter .controls button,.letter .tag,.paper .tag,.comment-empty,[id^="zone-count-"]').forEach(function(el){
     if(siteLang==='en')el.textContent=ui(el.textContent);
   });
 }
@@ -467,6 +474,7 @@ async function syncEngagement(ids){
     var x=pickLetter(active);
     if(x){$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}
   }
+  applyDynamicLanguage();
 }
 function sorted(){if(live)return letters;var arr=letters.filter(function(x){return category==='all'||x.category===category});if(sort==='saved')arr=arr.filter(function(x){return saved.has(String(x.id))});arr.sort(function(a,b){return sort==='hot'?(Number(b.likes_count||0)-Number(a.likes_count||0))||(new Date(b.created_at)-new Date(a.created_at)):new Date(b.created_at)-new Date(a.created_at)});return arr}
 function tagData(x){return [x.region,x.worktype,x.tenure].filter(function(v){return !!v})}
@@ -491,7 +499,7 @@ $('count-week').textContent=result[4].error?'—':(result[4].count||0).toLocaleS
 var hearts=await client.rpc('public_letter_heart_total');
 $('count-hearts').textContent=hearts.error?'—':Number(hearts.data||0).toLocaleString('zh-TW');
 $('count-note').textContent=ui('信件數與愛心數不等於不同投稿人數；本網站不公開個別讀者身分。');
-}catch(e){$('count-note').textContent=ui('統計資料暫時無法更新，信件內容仍可閱讀。')}
+}catch(e){$('count-note').textContent=ui('統計資料暫時無法更新，信件內容仍可閱讀。')}finally{applyDynamicLanguage()}
 }
 function render(){
 document.querySelectorAll('[data-zone]').forEach(function(el){el.classList.toggle('active',el.dataset.zone===category)});
@@ -565,7 +573,7 @@ function paintComments(items){
  var list=$('comment-log');list.replaceChildren();
  if(!items.length)list.appendChild(create('div','comment-empty','還沒有留言，留下第一句鼓勵吧。'));
  else items.forEach(function(m){list.appendChild(chatRow(m))});
- list.scrollTop=list.scrollHeight;
+ list.scrollTop=list.scrollHeight;applyDynamicLanguage();
 }
 async function loadComments(){
  var id=commentTarget;if(!id)return;
@@ -600,7 +608,7 @@ async function submitComment(e){
  if(!body||body.length>200||name.length>20){fail('請輸入 1–200 字的留言，署名不超過 20 字。');return}
  if(/(?:https?:\/\/|www\.|\S+@\S+\.\S+|09\d{8})/i.test(name+' '+body)){fail('請移除網址、Email 或手機號碼等個人資料。');return}
  if(live&&!socialReady){fail('留言服務尚未啟用，請管理員先安裝資料庫設定。');return}
- commentSending=true;$('comment-send').disabled=true;$('comment-send').textContent='送出中…';
+ commentSending=true;$('comment-send').disabled=true;$('comment-send').textContent=ui('送出中…');
  var id=commentTarget;
  try{
   var message;
@@ -619,7 +627,7 @@ async function submitComment(e){
    $('comment-meta').textContent='共 '+(live?(pickLetter(id).comment_messages_count??commentTotal(pickLetter(id))):(demoComments[id]||[]).length)+' 則留言';applyDynamicLanguage();
   }
  }catch(err){fail('留言未送出：'+(err.message||'請稍後再試'))}
- finally{commentSending=false;$('comment-send').disabled=false;$('comment-send').textContent='送出'}
+ finally{commentSending=false;$('comment-send').disabled=false;$('comment-send').textContent=ui('送出')}
 }
 async function submitLetter(e){
 e.preventDefault();if(loading)return;
@@ -630,12 +638,12 @@ if(/(?:https?:\/\/|www\.|\S+@\S+\.\S+|09\d{8})/i.test(t+' '+b)){composeFeedback(
 if([region,worktype,tenure].filter(Boolean).length>2){composeFeedback('背景資訊最多選 2 項，請減少一項以保護匿名性');return}
 if(!$('consent').checked){composeFeedback('請先確認公開內容注意事項');return}
 if(recentPosts().length>=3||(!live&&letters.filter(function(x){return !x.example&&Date.now()-new Date(x.created_at).getTime()<86400000}).length>=3)){composeFeedback('一天最多三封信（最近 24 小時）。請稍後再來寫信。');return}
-loading=true;$('submit-letter').disabled=true;$('submit-letter').textContent='正在寄出…';
+loading=true;$('submit-letter').disabled=true;$('submit-letter').textContent=ui('正在寄出…');
 try{
 if(live){var insert=await client.from('letters').insert({category:c,title:t,body:b,nickname:n||'匿名來信',region:region||null,worktype:worktype||null,tenure:tenure||null,author_id:user.id});if(insert.error)throw insert.error;recordPost();await refresh();toast('投稿成功！這封信已公開')}
 else{var id='demo-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);letters.unshift({id:id,category:c,title:t,body:b,nickname:n||'匿名來信',region:region||null,worktype:worktype||null,tenure:tenure||null,likes_count:0,created_at:new Date().toISOString()});recordPost();saveDemo();render();toast('測試投稿成功：僅儲存在你的瀏覽器，尚未公開')}
 $('compose-form').reset();category='all';sort='new';pageIndex=0;render();closeDialog('compose');$('letter-list').scrollIntoView({behavior:'smooth',block:'start'});
-}catch(err){var msg=err.message||'請再試一次';composeFeedback(/24 小時|24 hours|投稿 3 封/i.test(msg)?'一天最多三封信（最近 24 小時）。請稍後再來寫信。':'投稿失敗：'+msg)}finally{loading=false;$('submit-letter').disabled=false;$('submit-letter').textContent='封存並公開這封信 →'}
+}catch(err){var msg=err.message||'請再試一次';composeFeedback(/24 小時|24 hours|投稿 3 封/i.test(msg)?'一天最多三封信（最近 24 小時）。請稍後再來寫信。':'投稿失敗：'+msg)}finally{loading=false;$('submit-letter').disabled=false;$('submit-letter').textContent=ui('封存並公開這封信 →')}
 }
 async function report(e){
 e.preventDefault();if(!active)return;try{
