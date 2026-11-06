@@ -215,7 +215,8 @@ dialog#compose .modal-inner{
 .letter.is-read{background:#c9bfaf;border-color:#d2c7b5;opacity:.74;box-shadow:0 9px 19px #0003}
 .letter.is-read:hover{opacity:1}
 .letter.is-read .read-status{background:#ded5c6;border-color:#b8ada0;color:#756c62}
-.toplinks{gap:8px}.lang-btn{min-width:44px;border-color:#b89b75;color:#f3d9b5}@media(max-width:540px){.toplinks{gap:4px}.lang-btn{padding:7px 8px!important;font-size:11px!important}}</style>
+.toplinks{gap:8px}.lang-btn{min-width:44px;border-color:#b89b75;color:#f3d9b5}@media(max-width:540px){.toplinks{gap:4px}.lang-btn{padding:7px 8px!important;font-size:11px!important}}.chat-item.pending{opacity:.55}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
 <body class="intro-active">
@@ -609,7 +610,11 @@ async function submitComment(e){
  if(/(?:https?:\/\/|www\.|\S+@\S+\.\S+|09\d{8})/i.test(name+' '+body)){fail('請移除網址、Email 或手機號碼等個人資料。');return}
  if(live&&!socialReady){fail('留言服務尚未啟用，請管理員先安裝資料庫設定。');return}
  commentSending=true;$('comment-send').disabled=true;$('comment-send').textContent=ui('送出中…');
- var id=commentTarget;
+ var id=commentTarget,log=$('comment-log'),empty=log.querySelector('.comment-empty');
+ if(empty)empty.remove();
+ var pending=chatRow({nickname:name,body:body});
+ pending.classList.add('pending');log.appendChild(pending);log.scrollTop=log.scrollHeight;
+ $('comment-text').value='';
  try{
   var message;
   if(live){
@@ -620,14 +625,16 @@ async function submitComment(e){
    if(!demoComments[id])demoComments[id]=[];demoComments[id].push(message);save(COMMENT_STORE,demoComments);
   }
   if(commentTarget===id){
-   var log=$('comment-log'),empty=log.querySelector('.comment-empty');if(empty)empty.remove();
-   log.appendChild(chatRow(message));log.scrollTop=log.scrollHeight;
-   $('comment-text').value='';$('comment-text').focus();
+   pending.replaceWith(chatRow(message));$('comment-text').focus();
    if(live)await syncEngagement([id]);else updateLocalCount(id,'comments_count',1);
-   $('comment-meta').textContent='共 '+(live?(pickLetter(id).comment_messages_count??commentTotal(pickLetter(id))):(demoComments[id]||[]).length)+' 則留言';applyDynamicLanguage();
+   $('comment-meta').textContent='共 '+(live?(pickLetter(id).comment_messages_count??commentTotal(pickLetter(id))):(demoComments[id]||[]).length)+' 則留言';
+   applyDynamicLanguage();
   }
- }catch(err){fail('留言未送出：'+(err.message||'請稍後再試'))}
- finally{commentSending=false;$('comment-send').disabled=false;$('comment-send').textContent=ui('送出')}
+ }catch(err){
+  if(pending.isConnected)pending.remove();
+  if(commentTarget===id)$('comment-text').value=body;
+  fail((siteLang==='en'?'Comment not sent: ':'留言未送出：')+(err.message||'請稍後再試'));
+ }finally{commentSending=false;$('comment-send').disabled=false;$('comment-send').textContent=ui('送出')}
 }
 async function submitLetter(e){
 e.preventDefault();if(loading)return;
