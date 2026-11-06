@@ -61,7 +61,7 @@ create policy letter_comments_insert_own on public.letter_comments
     )
   );
 
--- 降低洗版風險：同一匿名帳號的留言間隔 >= 30 秒，每 24 小時最多 30 則。
+-- 降低洗版風險：同一匿名帳號的留言間隔 >= 10 秒，每 24 小時最多 30 則。
 create or replace function public.limit_letter_comments()
 returns trigger language plpgsql security definer
 set search_path = public
@@ -70,9 +70,9 @@ begin
   if exists (
     select 1 from public.letter_comments c
     where c.author_id = new.author_id
-      and c.created_at > now() - interval '30 seconds'
+      and c.created_at > now() - interval '10 seconds'
   ) then
-    raise exception '留言太頻繁，請於 30 秒後再試';
+    raise exception '留言太頻繁，請間隔 10 秒再送出';
   end if;
   if (
     select count(*) from public.letter_comments c
