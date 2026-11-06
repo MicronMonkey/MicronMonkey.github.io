@@ -1,0 +1,59 @@
+name: One-time commit email privacy cleanup
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/privacy-rewrite.yml
+permissions:
+  contents: write
+jobs:
+  rewrite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Rewrite authors and force-push cleaned branches
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 -m pip install --user git-filter-repo
+          export PATH="$HOME/.local/bin:$PATH"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*' --prune
+          : > "$RUNNER_TEMP/branch-leases"
+          while read -r hash ref; do
+            branch="${ref#refs/remotes/origin/}"
+            if [ "$branch" = HEAD ]; then continue; fi
+            printf '%s %s\n' "$branch" "$hash" >> "$RUNNER_TEMP/branch-leases"
+            if ! git show-ref --verify --quiet "refs/heads/$branch"; then git branch "$branch" "$hash"; fi
+          done < <(git for-each-ref --format='%(objectname) %(refname)' refs/remotes/origin)
+          git filter-repo --force --commit-callback '
+          replacement = b"289396021+MicronMonkey@users.noreply.github.com"
+          if commit.author_email.lower().endswith(b"@gmail.com"):
+              commit.author_email = replacement
+              commit.author_name = b"MicronMonkey"
+          if commit.committer_email.lower().endswith(b"@gmail.com"):
+              commit.committer_email = replacement
+              commit.committer_name = b"MicronMonkey"
+          '
+          git remote remove origin 2>/dev/null || true
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git checkout main
+          if [ -f .github/workflows/privacy-rewrite.yml ]; then
+            git rm -f .github/workflows/privacy-rewrite.yml
+            git -c user.name=MicronMonkey -c user.email=289396021+MicronMonkey@users.noreply.github.com commit -m 'Finish commit email privacy cleanup'
+          fi
+          if git log --all --format='%ae%n%ce' | grep -E '@gmail\.com$'; then
+            echo 'Some Gmail author or committer addresses remain; refusing push' >&2
+            exit 1
+          fi
+          while read -r branch expected_sha; do
+            git push --force-with-lease="refs/heads/${branch}:${expected_sha}" origin "refs/heads/${branch}:refs/heads/${branch}"
+          done < "$RUNNER_TEMP/branch-leases"
+          echo 'Cleaned all discovered branches'
