@@ -264,7 +264,7 @@ dialog#compose .modal-inner{
 </div></section>
 <section id="letter-list" aria-label="信件牆"><p id="zone-introduction" class="zone-introduction">四個收信地址，四種不同心情。先拆開一封信，也許你會在別人的文字裡，找到自己的影子。</p><div class="section-heading"><div><div class="eyebrow">THE LETTER ARCHIVE · SAMPLE LETTERS</div><h2 id="list-heading">所有未寄出的信</h2></div><span class="stats" id="stats">—</span></div>
 <div id="translation-notice" class="translation-notice" hidden>English translations are automatically generated and may be imperfect. Where device translation is unavailable, published letter text is sent to MyMemory for translation. The original Chinese remains available using the 中文 switch.</div>
-<div class="toolbar"><div class="segment" role="group" aria-label="信件排序"><button class="on" type="button" data-sort="new">最新來信</button><button type="button" data-sort="hot">人氣熱門</button><button type="button" data-sort="saved">我的收藏</button></div><button class="btn small ghost" id="show-all">全部展區</button></div>
+<div class="toolbar"><div class="segment" role="group" aria-label="信件排序"><button class="on" type="button" data-sort="new">最新未讀</button><button type="button" data-sort="hot">人氣熱門</button><button type="button" data-sort="saved">我的收藏</button><button type="button" data-sort="read">已讀信</button></div><button class="btn small ghost" id="show-all">全部展區</button></div>
 <div class="signal">♡ 如果你也有同樣的感受，可以為這封信點一顆愛心。愛心代表對故事的共鳴，不是任何組織立場的投票。</div><div id="letters" class="letters"></div>
 <div id="more-wrap" class="more-wrap" hidden>
   <span class="batch-counter" id="batch-counter" aria-live="polite"></span>
@@ -342,7 +342,7 @@ var EN={
 '希望真實的聲音，也能到達決策桌前':'Let real voices reach the decision-makers',
 '請記得，今天的你曾經努力發聲':'Remember the courage you showed today',
 '四個收信地址，四種不同心情。先拆開一封信，也許你會在別人的文字裡，找到自己的影子。':'Four destinations, four moods. Open a letter and you may see your own story reflected.',
-'所有未寄出的信':'All unsent letters','最新來信':'Newest','人氣熱門':'Most loved','我的收藏':'Saved','全部展區':'All chapters',
+'所有未寄出的信':'All unsent letters','最新未讀':'Newest unread','人氣熱門':'Most loved','我的收藏':'Saved','已讀信':'Read letters','全部展區':'All chapters',
 '♡ 如果你也有同樣的感受，可以為這封信點一顆愛心。愛心代表對故事的共鳴，不是任何組織立場的投票。':'♡ Give a heart if a letter resonates with you. It is empathy, not a vote for an organization.',
 '✉　讀取下一批 4 封信　→':'✉ Next 4 letters →','只顯示目前 4 封；換批後原本的信會收起來':'Four letters are shown per batch.',
 '《未寄出的信》提供個人經驗與感受的交流空間。請勿公開他人姓名、工號、電話、私人資訊或未經證實的指控。發文即代表你同意公開所寫內容；請不要投稿可能導致自己或他人被辨識的細節。':'This space is for personal experiences and feelings. Never disclose names, employee IDs, contacts, private data or unverified accusations. Posted words are public.',
@@ -640,7 +640,20 @@ async function syncEngagement(ids){
   }
   applyDynamicLanguage();
 }
-function sorted(){if(live)return letters;var arr=letters.filter(function(x){return category==='all'||x.category===category});if(sort==='saved')arr=arr.filter(function(x){return saved.has(String(x.id))});arr.sort(function(a,b){return sort==='hot'?(Number(b.likes_count||0)-Number(a.likes_count||0))||(new Date(b.created_at)-new Date(a.created_at)):new Date(b.created_at)-new Date(a.created_at)});return arr}
+function isLetterRead(x){return readIds.has(String(x.id))||likes.has(String(x.id))}
+function sorted(){
+ if(live)return letters;
+ var arr=letters.filter(function(x){return category==='all'||x.category===category});
+ if(sort==='new')arr=arr.filter(function(x){return !isLetterRead(x)});
+ if(sort==='read')arr=arr.filter(isLetterRead);
+ if(sort==='saved')arr=arr.filter(function(x){return saved.has(String(x.id))});
+ arr.sort(function(a,b){
+   if(sort==='hot')return (Number(b.likes_count||0)-Number(a.likes_count||0))||(new Date(b.created_at)-new Date(a.created_at));
+   if(sort==='saved')return Number(isLetterRead(a))-Number(isLetterRead(b))||(new Date(b.created_at)-new Date(a.created_at));
+   return new Date(b.created_at)-new Date(a.created_at);
+ });
+ return arr
+}
 function tagData(x){return [x.region,x.worktype,x.tenure].filter(function(v){return !!v})}
 function appendTags(parent,x){var tags=tagData(x);if(!tags.length)return;var wrap=create('div','tag-row');tags.forEach(function(tag){wrap.appendChild(create('span','tag',tag))});parent.appendChild(wrap)}
 function updateStats(){
@@ -678,9 +691,14 @@ $('stats').textContent=(live?filteredTotal:arr.length)+' 封信 · 每批最多 
 $('more-wrap').hidden=pageCount<=1;
 $('batch-counter').textContent='第 '+(pageCount?Math.min(pageIndex+1,pageCount):0)+' / '+pageCount+' 批';
 $('load-more').textContent=pageCount>1&&pageIndex===pageCount-1?'↺　回到第一批 4 封信':'✉　讀取下一批 4 封信　→';
-if(!arr.length){$('more-wrap').hidden=true;var e=create('div','empty',siteLang==='en'?(sort==='saved'?'No saved letters yet.':'No letters here yet. Write the first one!'):(sort==='saved'?'你還沒有收藏信件。':'這裡還沒有信，寫下第一封吧。'));parent.appendChild(e);applyDynamicLanguage();return}
+if(!arr.length){
+ $('more-wrap').hidden=true;
+ var zh=sort==='saved'?'你還沒有收藏信件。':sort==='read'?'你目前還沒有已讀信件。':sort==='new'?'這個展區的未讀信已看完，試試其他展區或等待新投稿。':'這裡還沒有信，寫下第一封吧。';
+ var en=sort==='saved'?'No saved letters yet.':sort==='read'?'You have not read any letters yet.':sort==='new'?'You are all caught up! Try another chapter or come back for new letters.':'No letters here yet. Write the first one!';
+ parent.appendChild(create('div','empty',siteLang==='en'?en:zh));applyDynamicLanguage();return
+}
 visible.forEach(function(x,i){
-var alreadyRead=readIds.has(String(x.id))||likes.has(String(x.id));var node=create('article','letter'+(alreadyRead?' is-read':''));node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);
+var alreadyRead=isLetterRead(x);var node=create('article','letter'+(alreadyRead?' is-read':''));node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);
 var topLine=create('div','letter-topline');
 var topActions=create('div','letter-top-actions');
 var bookmark=create('button','bookmark-button',saved.has(String(x.id))?'★ 已收藏':'☆ 收藏');bookmark.type='button';bookmark.onclick=function(){toggleSaved(x.id)};
@@ -701,24 +719,44 @@ actions.append(readerAction,heart,commentButton);node.appendChild(actions);paren
 });applyDynamicLanguage();
 if(siteLang==='en')visible.forEach(queueLetterTranslation);
 }
-function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render();applyDynamicLanguage();displayOpenLetterTranslation()}
+function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render();applyDynamicLanguage();displayOpenLetterTranslation();if(live&&sort==='new')refresh().catch(function(e){console.warn('未讀清單更新失敗',e.message||e)})}
 function toggleSaved(id){id=String(id);if(saved.has(id))saved.delete(id);else saved.add(id);save(SAVED,Array.from(saved));render();if(active===id&&$('reader').open)$('paper-bookmark').textContent=saved.has(id)?'★ 已收藏':'☆ 收藏';toast(saved.has(id)?'已收藏到這個裝置':'已取消收藏')}
 function saveDemo(){save(STORE,letters.filter(function(x){return !x.example}));save(LIKES,Array.from(likes))}
 async function refresh(){
-if(!live){render();return}
-var ids=Array.from(saved).filter(function(x){return /^[0-9a-f-]{36}$/i.test(x)});
-if(sort==='saved'&&!ids.length){letters=[];filteredTotal=0;render();await liveStats();return}
-var cols='id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at';
-var q=client.from('letters').select(cols,{count:'exact'}).eq('is_hidden',false);
-if(category!=='all')q=q.eq('category',category);
-if(sort==='saved')q=q.in('id',ids);
-if(sort==='hot')q=q.order('likes_count',{ascending:false}).order('created_at',{ascending:false});
-else q=q.order('created_at',{ascending:false});
-var r=await q.range(pageIndex*pageSize,(pageIndex+1)*pageSize-1);
-if(r.error)throw r.error;letters=r.data||[];filteredTotal=r.count||0;
-var l=await client.from('letter_likes').select('letter_id').eq('user_id',user.id).limit(1000);
-if(!l.error){likes=new Set((l.data||[]).map(function(x){return String(x.letter_id)}));var touched=false;likes.forEach(function(id){if(!readIds.has(id)){readIds.add(id);touched=true}});if(touched)save(READ_KEY,Array.from(readIds))}
-render();await Promise.all([liveStats(),syncEngagement(letters.map(function(x){return x.id}).concat(active?[active]:[]))]);
+ if(!live){render();return}
+ var readSet=new Set(Array.from(readIds).concat(Array.from(likes)));
+ var savedIds=Array.from(saved).filter(function(id){return /^[0-9a-f-]{36}$/i.test(id)});
+ var readUuidIds=Array.from(readSet).filter(function(id){return /^[0-9a-f-]{36}$/i.test(id)});
+ if((sort==='saved'&&!savedIds.length)||(sort==='read'&&!readUuidIds.length)){
+   letters=[];filteredTotal=0;pageIndex=0;render();await liveStats();return
+ }
+ var cols='id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at';
+ var q=client.from('letters').select(cols,{count:'exact'}).eq('is_hidden',false);
+ if(category!=='all')q=q.eq('category',category);
+ if(sort==='saved')q=q.in('id',savedIds);
+ if(sort==='read')q=q.in('id',readUuidIds);
+ if(sort==='new'&&readUuidIds.length)q=q.not('id','in','('+readUuidIds.join(',')+')');
+ if(sort==='hot')q=q.order('likes_count',{ascending:false}).order('created_at',{ascending:false});
+ else q=q.order('created_at',{ascending:false});
+ var r=await q.range(pageIndex*pageSize,(pageIndex+1)*pageSize-1);
+ if(r.error)throw r.error;
+ var newTotal=r.count||0;
+ if(newTotal>0&&pageIndex>=Math.ceil(newTotal/pageSize)){
+   pageIndex=Math.ceil(newTotal/pageSize)-1;
+   return refresh();
+ }
+ letters=r.data||[];filteredTotal=newTotal;
+ var l=await client.from('letter_likes').select('letter_id').eq('user_id',user.id).limit(1000);
+ if(!l.error){
+   likes=new Set((l.data||[]).map(function(x){return String(x.letter_id)}));
+   var touched=false;
+   likes.forEach(function(id){if(!readIds.has(id)){readIds.add(id);touched=true}});
+   if(touched){
+     save(READ_KEY,Array.from(readIds));
+     if(sort==='new'||sort==='read')return refresh();
+   }
+ }
+ render();await Promise.all([liveStats(),syncEngagement(letters.map(function(x){return x.id}).concat(active?[active]:[]))]);
 }
 async function toggleLike(id){
 if(loading)return;loading=true;
