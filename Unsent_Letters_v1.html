@@ -490,8 +490,8 @@ $('count-total').textContent=total.toLocaleString('zh-TW');
 $('count-week').textContent=result[4].error?'—':(result[4].count||0).toLocaleString('zh-TW');
 var hearts=await client.rpc('public_letter_heart_total');
 $('count-hearts').textContent=hearts.error?'—':Number(hearts.data||0).toLocaleString('zh-TW');
-$('count-note').textContent='信件數與愛心數不等於不同投稿人數；本網站不公開個別讀者身分。';
-}catch(e){$('count-note').textContent='統計資料暫時無法更新，信件內容仍可閱讀。'}
+$('count-note').textContent=ui('信件數與愛心數不等於不同投稿人數；本網站不公開個別讀者身分。');
+}catch(e){$('count-note').textContent=ui('統計資料暫時無法更新，信件內容仍可閱讀。')}
 }
 function render(){
 document.querySelectorAll('[data-zone]').forEach(function(el){el.classList.toggle('active',el.dataset.zone===category)});
@@ -523,7 +523,7 @@ var bookmark=create('button','',saved.has(String(x.id))?'★ 已收藏':'☆ 收
 actions.append(readerAction,heart,commentButton,bookmark);node.appendChild(actions);parent.appendChild(node);
 });applyDynamicLanguage();
 }
-function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render()}
+function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render();applyDynamicLanguage()}
 function toggleSaved(id){id=String(id);if(saved.has(id))saved.delete(id);else saved.add(id);save(SAVED,Array.from(saved));render();if(active===id&&$('reader').open)$('paper-bookmark').textContent=saved.has(id)?'★ 已收藏':'☆ 收藏';toast(saved.has(id)?'已收藏到這個裝置':'已取消收藏')}
 function saveDemo(){save(STORE,letters.filter(function(x){return !x.example}));save(LIKES,Array.from(likes))}
 async function refresh(){
@@ -569,13 +569,13 @@ function paintComments(items){
 }
 async function loadComments(){
  var id=commentTarget;if(!id)return;
- if(!live){var items=demoComments[id]||[];paintComments(items);$('comment-meta').textContent='共 '+items.length+' 則留言 · 本機展示';return}
+ if(!live){var items=demoComments[id]||[];paintComments(items);$('comment-meta').textContent=ui('共 '+items.length+' 則留言 · 本機展示');return}
  if(!socialReady){$('comment-meta').textContent='尚未啟用留言服務';paintComments([]);return}
  try{
   var res=await client.from('letter_comments').select('id,nickname,body,created_at').eq('letter_id',id).order('created_at',{ascending:false}).limit(100);
   if(res.error)throw res.error;if(commentTarget!==id)return;
   var items=(res.data||[]).reverse();paintComments(items);
-  $('comment-meta').textContent='共 '+commentTotal(pickLetter(id))+' 則留言'+(commentTotal(pickLetter(id))>100?' · 顯示最新 100 則':'');
+  $('comment-meta').textContent='共 '+(pickLetter(id).comment_messages_count??commentTotal(pickLetter(id)))+' 則留言'+((pickLetter(id).comment_messages_count||0)>100?' · 顯示最新 100 則':'');applyDynamicLanguage();
  }catch(e){$('comment-meta').textContent='留言載入失敗：'+(e.message||'請稍後再試')}
 }
 function openComments(id,fromReader){
@@ -616,7 +616,7 @@ async function submitComment(e){
    log.appendChild(chatRow(message));log.scrollTop=log.scrollHeight;
    $('comment-text').value='';$('comment-text').focus();
    if(live)await syncEngagement([id]);else updateLocalCount(id,'comments_count',1);
-   $('comment-meta').textContent='共 '+commentTotal(pickLetter(id))+' 則留言';
+   $('comment-meta').textContent='共 '+(live?(pickLetter(id).comment_messages_count??commentTotal(pickLetter(id))):(demoComments[id]||[]).length)+' 則留言';applyDynamicLanguage();
   }
  }catch(err){fail('留言未送出：'+(err.message||'請稍後再試'))}
  finally{commentSending=false;$('comment-send').disabled=false;$('comment-send').textContent='送出'}
@@ -886,7 +886,7 @@ $('paper-report').onclick=function(){openDialog('report-dialog')};
 async function init(){
 saved=new Set(read(SAVED,[]));readIds=new Set(read(READ_KEY,[]));demoComments=read(COMMENT_STORE,{});siteLang=read('unsent_letters_language_v1','zh')==='en'?'en':'zh';captureLanguageNodes();applyStaticLanguage();events();runArrival();
 if(live){
-$('mode-banner').innerHTML='<strong>即時公開模式：</strong>匿名投稿立即顯示，無需等待審核。留言及閱讀人數需要額外安裝社交功能資料表。請勿公開個資或未經證實的個人指控。';
+$('mode-banner').innerHTML='<strong>'+ui('即時公開模式：')+'</strong>'+ui('匿名投稿立即顯示，無需等待審核。留言及閱讀人數需要額外安裝社交功能資料表。請勿公開個資或未經證實的個人指控。');
 $('mode-banner').hidden=false;$('mode-banner').classList.add('live');$('privacy-mode').textContent='資料模式：雲端即時公開';
 try{
 if(!window.supabase)throw new Error('Supabase SDK 載入失敗');
@@ -899,7 +899,7 @@ setInterval(function(){if($('comments-dialog').open&&socialReady)loadComments()}
 var hash=location.hash.match(/^#letter=([a-f0-9-]{36})$/);if(hash&&pickLetter(hash[1]))showLetter(hash[1]);
 }catch(e){$('mode-banner').textContent='資料庫連線失敗：'+e.message;toast('連線失敗，請通知網站管理員');document.querySelectorAll('#top-write,#hero-write').forEach(function(x){x.disabled=true})}
 }else{
-letters=SEED.concat(read(STORE,[]));letters.forEach(function(x){x.comments_count=(demoComments[String(x.id)]||[]).length?1:0;x.reads_count=readIds.has(String(x.id))?1:0});likes=new Set(read(LIKES,[]));$('count-note').textContent='8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。';render();
+letters=SEED.concat(read(STORE,[]));letters.forEach(function(x){x.comments_count=(demoComments[String(x.id)]||[]).length?1:0;x.reads_count=readIds.has(String(x.id))?1:0});likes=new Set(read(LIKES,[]));$('count-note').textContent=ui('8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。');render();
 }
 }
 window.addEventListener('DOMContentLoaded',init);
