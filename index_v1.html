@@ -636,12 +636,11 @@ body { font-size: calc(16px - 1pt); }
 #mode0Container .u-membership-target-line{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:calc(13px - 1pt);color:#e2f7f4}
 #mode0Container .u-membership-target-line{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
 #mode0Container .u-membership-target-values{display:flex;align-items:center;justify-content:flex-start;gap:16px;flex-wrap:nowrap}
-#mode0Container .u-membership-percent{display:inline-block;padding:7px 15px;border-radius:12px;background:linear-gradient(135deg,#ffedc5,#e6cf9e);border:1px solid #fce9be;box-shadow:0 0 0 3px rgba(252,233,190,.11),0 4px 18px rgba(0,0,0,.18);color:#3c3124;font-size:calc(clamp(30px,5vw,42px) - 1pt);font-weight:1000;letter-spacing:-.04em;line-height:1.16;font-variant-numeric:tabular-nums}
-#mode0Container .u-membership-target-caption{font-size:calc(16px - 1pt);font-weight:850;letter-spacing:.01em;color:#e7edf4}
-#mode0Container .u-membership-signal{--signal:#64748b;display:block;flex:none;width:22px;height:22px;border-radius:50%;background:var(--signal);border:3px solid rgba(255,255,255,.6);box-shadow:0 0 0 4px color-mix(in srgb,var(--signal) 22%,transparent),0 0 14px var(--signal)}
-#mode0Container .u-membership-signal[data-level="red"]{--signal:#ed4555}
-#mode0Container .u-membership-signal[data-level="yellow"]{--signal:#f7c746}
-#mode0Container .u-membership-signal[data-level="green"]{--signal:#37c977}
+#mode0Container .u-membership-percent{display:inline-block;padding:0;border:0;background:none;box-shadow:none;color:#ed4555;font-size:calc(clamp(30px,5vw,42px) - 1pt);font-weight:1000;letter-spacing:-.04em;line-height:1.16;font-variant-numeric:tabular-nums}
+#mode0Container .u-membership-percent[data-level="red"]{color:#ff5966}
+#mode0Container .u-membership-percent[data-level="yellow"]{color:#f7cf53}
+#mode0Container .u-membership-percent[data-level="green"]{color:#4adb91}
+#mode0Container .u-membership-target-caption{font-size:calc(18px - 1pt);font-weight:850;letter-spacing:.01em;color:#e7edf4}
 #mode0Container #u-next .u-roadmap-collapsible{padding:0;margin:0;border:0;background:transparent}
 #mode0Container #u-next .u-roadmap-collapsible summary{padding:0;display:flex;align-items:center;gap:12px;min-height:26px;cursor:pointer;list-style:none}
 #mode0Container #u-next .u-roadmap-collapsible summary::-webkit-details-marker{display:none}
@@ -655,7 +654,7 @@ body { font-size: calc(16px - 1pt); }
 #mode0Container #u-completed-milestones .u-intent-archived{border-color:#78838f;background:#1a2028}
 #mode0Container .u-intent-archived>.flex .u-step{background:#64748b;color:#fff}
 #mode0Container #u-next .u-roadmap-item.roadmap-mediation{--phase-color:#84c3c5;--phase-panel:#20383c}
-@media(max-width:640px){#mode0Container .u-membership-target-values{gap:14px}#mode0Container .u-membership-percent{font-size:calc(36px - 1pt);padding:6px 12px}#mode0Container .u-membership-target-caption{font-size:calc(15px - 1pt)}#mode0Container .u-membership-signal{width:20px;height:20px}}
+@media(max-width:640px){#mode0Container .u-membership-target-values{gap:14px}#mode0Container .u-membership-percent{font-size:calc(36px - 1pt);padding:0}#mode0Container .u-membership-target-caption{font-size:calc(17px - 1pt)}}
 </style>
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
@@ -677,7 +676,7 @@ body { font-size: calc(16px - 1pt); }
 <div class="u-muted text-sm">桃園＋台中入會申請合計 / Taoyuan + Taichung membership applications</div>
 <div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人（申請＋入會，供追蹤） / tracking total</span></div>
 <div class="u-membership-target" role="group" aria-label="11/13 前桃園與台中合計目標 11000 人">
-<div class="u-membership-target-line"><div class="u-membership-target-values"><span id="affiliatedUnionTargetPercent" class="u-membership-percent" aria-live="polite">—%</span><span id="affiliatedUnionTargetSignal" class="u-membership-signal" data-level="pending" role="img" aria-label="Progress not yet available" title="Progress not yet available"></span></div><div class="u-membership-target-caption" lang="en">Target 11,000 people</div></div>
+<div class="u-membership-target-line"><div class="u-membership-target-values"><span id="affiliatedUnionTargetPercent" class="u-membership-percent" data-level="pending" aria-live="polite">—%</span></div><div class="u-membership-target-caption" lang="en">Target: 11,000 people</div></div>
 <progress id="affiliatedUnionTargetProgress" value="0" max="11000" aria-label="Combined memberships toward 11000 people"></progress>
 <div class="u-muted u-mini mt-2" id="affiliatedUnionTargetStatus">載入台中即時數據後更新 / Updating when Taichung count loads</div>
 </div>
@@ -1022,17 +1021,13 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    const targetBar=document.getElementById('affiliatedUnionTargetProgress');
    const targetText=document.getElementById('affiliatedUnionTargetStatus');
    const targetPercent=document.getElementById('affiliatedUnionTargetPercent');
-   const targetSignal=document.getElementById('affiliatedUnionTargetSignal');
-   if(targetBar&&targetText&&targetPercent&&targetSignal&&Number.isSafeInteger(taichung)&&taichung>=0){
+   if(targetBar&&targetText&&targetPercent&&Number.isSafeInteger(taichung)&&taichung>=0){
      const total=taichung+2400,goal=11000;
      const percentage=total/goal*100;
      const level=percentage>100?'green':percentage>80?'yellow':'red';
-     const levelName=level==='green'?'Above 100% (green)':level==='yellow'?'Above 80% (yellow)':'80% or below (red)';
      targetBar.value=Math.min(total,goal);
      targetPercent.textContent=percentage.toFixed(1)+'%';
-     targetSignal.dataset.level=level;
-     targetSignal.setAttribute('aria-label',levelName);
-     targetSignal.title=levelName;
+     targetPercent.dataset.level=level;
      targetText.textContent=total.toLocaleString('en-US')+' / 11,000 · 台中即時申請＋桃園 2,400 人 / Taichung live applications + 2,400 Taoyuan';
    }
  }
