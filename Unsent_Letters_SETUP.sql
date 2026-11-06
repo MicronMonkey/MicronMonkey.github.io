@@ -89,7 +89,7 @@ drop trigger if exists sync_letter_likes_trigger on public.letter_likes;
 create trigger sync_letter_likes_trigger after insert or delete on public.letter_likes
 for each row execute function public.sync_letter_likes();
 
--- 每個匿名登入身分每 120 秒最多投稿一封。
+-- 每個匿名登入身分每 30 秒最多投稿一封。
 -- 注意：換裝置/清除匿名身分仍可能繞過，正式公開前應加入 CAPTCHA/WAF 與後台告警。
 create or replace function public.limit_letter_posting()
 returns trigger language plpgsql security definer set search_path = ''
@@ -97,9 +97,9 @@ as $$
 begin
   if exists (
     select 1 from public.letters
-    where author_id = new.author_id and created_at > now() - interval '120 seconds'
+    where author_id = new.author_id and created_at > now() - interval '30 seconds'
   ) then
-    raise exception '請至少間隔兩分鐘再投稿';
+    raise exception '請至少間隔 30 秒再投稿';
   end if;
   return new;
 end;
