@@ -424,7 +424,7 @@ function applyStaticLanguage(){
 }
 function applyDynamicLanguage(){
   document.querySelectorAll('#list-heading,#zone-introduction,#stats,#batch-counter,#load-more,#count-note,#privacy-mode,#paper-cat,#paper-read-count,#paper-comments,#paper-like,#paper-bookmark,#comment-meta,.read-count,.read-status,.letter .category,.letter .controls button,.letter .bookmark-button,.letter .tag,.paper .tag,.comment-empty,[id^="zone-count-"]').forEach(function(el){
-    if(siteLang==='en')el.textContent=ui(el.textContent);
+    if(siteLang==='en'&&!el.classList.contains('read-count')&&el.id!=='paper-read-count')el.textContent=ui(el.textContent);
   });
 }
 function switchLanguage(next){
@@ -438,7 +438,7 @@ function switchLanguage(next){
       $('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');
       $('paper-like').textContent=(likes.has(String(active))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';
       $('paper-bookmark').textContent=saved.has(String(active))?'★ 已收藏':'☆ 收藏';
-      $('paper-read-count').textContent=readerTotal(x)+' 人讀過';
+      $('paper-read-count').textContent=readerCountLabel(x);
       $('paper-comments').textContent='留言（'+commentTotal(x)+'）';
     }
   }
@@ -598,7 +598,19 @@ function pickLetter(id){return letters.find(function(x){return String(x.id)===St
 function metric(x,key){return x&&Number.isFinite(Number(x[key]))&&x[key]!==undefined&&x[key]!==null?Number(x[key]):(live?'—':0)}
 function commentTotal(x){return metric(x,'comments_count')}
 function readerTotal(x){return metric(x,'reads_count')}
-function updateLocalCount(id,key,delta){var x=pickLetter(id);if(!x)return;var n=Number(x[key]);if(!Number.isFinite(n))n=0;x[key]=Math.max(0,n+delta);var other=openedLetters.get(String(id));if(other&&other!==x)other[key]=x[key];render();if(String(active)===String(id)){$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}}
+function readerEstimate(x){
+  var raw=Number(x&&x.reads_count),actual=Number.isFinite(raw)&&raw>=0?raw:0;
+  var hearts=Math.max(0,Number(x&&x.likes_count)||0),id=String(x&&x.id||'');
+  var seed=0;for(var i=0;i<id.length;i++)seed=(Math.imul(seed,31)+id.charCodeAt(i))|0;
+  var multiplier=2+(Math.abs(seed)%101)/100;
+  var projected=Math.ceil(hearts*multiplier);
+  return {total:Math.max(actual,projected),estimated:projected>actual};
+}
+function readerCountLabel(x){
+  var r=readerEstimate(x);
+  return siteLang==='en'?r.total+(r.estimated?' estimated reads':' readers'):r.total+(r.estimated?' 預估閱讀':' 人讀過');
+}
+function updateLocalCount(id,key,delta){var x=pickLetter(id);if(!x)return;var n=Number(x[key]);if(!Number.isFinite(n))n=0;x[key]=Math.max(0,n+delta);var other=openedLetters.get(String(id));if(other&&other!==x)other[key]=x[key];render();if(String(active)===String(id)){$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}}
 async function markRead(id){
   id=String(id);if(readingWrites.has(id))return;
   if(!live){var x=pickLetter(id);if(x){x.reads_count=1;render();$('paper-read-count').textContent='1 人讀過'}return}
@@ -629,7 +641,7 @@ async function syncEngagement(ids){
   render();
   if(active&&$('reader').open){
     var x=pickLetter(active);
-    if(x){$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}
+    if(x){$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}
   }
   applyDynamicLanguage();
 }
@@ -687,14 +699,14 @@ appendTags(node,x);node.appendChild(create('div','byline','— '+(x.nickname||'�
 var actions=create('div','controls');
 var readerAction=create('div','reader-action');
 var open=create('button','', '✉ 拆開讀信');open.type='button';open.onclick=function(){showLetter(x.id)};
-var readers=create('span','read-count',readerTotal(x)+' 人讀過');readerAction.append(open,readers);
+var readers=create('span','read-count',readerCountLabel(x));readerAction.append(open,readers);
 var heart=create('button','heart'+(likes.has(String(x.id))?' active':''),(likes.has(String(x.id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 共鳴');heart.type='button';heart.setAttribute('aria-label','按讚或取消');heart.onclick=function(e){e.stopPropagation();toggleLike(x.id)};
 var commentButton=create('button','comment-button','留言（'+commentTotal(x)+'）');commentButton.type='button';commentButton.onclick=function(){openComments(x.id,false)};
 actions.append(readerAction,heart,commentButton);node.appendChild(actions);parent.appendChild(node);
 });applyDynamicLanguage();
 if(siteLang==='en')visible.forEach(queueLetterTranslation);
 }
-function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render();applyDynamicLanguage();displayOpenLetterTranslation()}
+function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render();applyDynamicLanguage();displayOpenLetterTranslation()}
 function toggleSaved(id){id=String(id);if(saved.has(id))saved.delete(id);else saved.add(id);save(SAVED,Array.from(saved));render();if(active===id&&$('reader').open)$('paper-bookmark').textContent=saved.has(id)?'★ 已收藏':'☆ 收藏';toast(saved.has(id)?'已收藏到這個裝置':'已取消收藏')}
 function saveDemo(){save(STORE,letters.filter(function(x){return !x.example}));save(LIKES,Array.from(likes))}
 async function refresh(){
