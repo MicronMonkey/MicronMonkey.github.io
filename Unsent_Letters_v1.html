@@ -455,7 +455,7 @@ async function submitComment(e){
  function fail(msg){$('comment-feedback').textContent=msg;$('comment-feedback').hidden=false}
  $('comment-feedback').hidden=true;
  if(!body||body.length>200||name.length>20){fail('請輸入 1–200 字的留言，署名不超過 20 字。');return}
- if(/(?:https?:\\/\\/|www\\.|\\S+@\\S+\\.\\S+|09\\d{8})/i.test(name+' '+body)){fail('請移除網址、Email 或手機號碼等個人資料。');return}
+ if(/(?:https?:\/\/|www\.|\S+@\S+\.\S+|09\d{8})/i.test(name+' '+body)){fail('請移除網址、Email 或手機號碼等個人資料。');return}
  if(live&&!socialReady){fail('留言服務尚未啟用，請管理員先安裝資料庫設定。');return}
  commentSending=true;$('comment-send').disabled=true;$('comment-send').textContent='送出中…';
  var id=commentTarget;
@@ -728,8 +728,8 @@ document.querySelectorAll('[data-zone]').forEach(function(el){el.onclick=functio
 document.querySelectorAll('[data-sort]').forEach(function(el){el.onclick=function(){sort=el.dataset.sort;pageIndex=0;if(live)refresh().catch(function(){toast('載入失敗')});else render()}});
 $('show-all').onclick=function(){category='all';sort='new';pageIndex=0;if(live)refresh().catch(function(){toast('載入失敗')});else render()};
 $('load-more').onclick=showNextBatch;
-document.querySelectorAll('[data-close]').forEach(function(el){el.onclick=function(){var id=el.dataset.close;closeDialog(id);if(id==='comments-dialog'&&commentsReturnToReader){commentsReturnToReader=false;showLetter(active)}}});
-document.querySelectorAll('dialog').forEach(function(el){el.addEventListener('close',function(){document.body.style.overflow=''})});
+document.querySelectorAll('[data-close]').forEach(function(el){el.onclick=function(){closeDialog(el.dataset.close)}});
+document.querySelectorAll('dialog').forEach(function(el){el.addEventListener('close',function(){document.body.style.overflow=document.querySelector('dialog[open]')?'hidden':'';if(el.id==='comments-dialog'&&commentsReturnToReader){commentsReturnToReader=false;showLetter(active)}})});
 $('compose-form').addEventListener('submit',submitLetter);
 $('report-form').addEventListener('submit',report);
 $('comment-form').addEventListener('submit',submitComment);
