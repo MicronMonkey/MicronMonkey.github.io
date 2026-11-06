@@ -598,22 +598,17 @@ function pickLetter(id){return letters.find(function(x){return String(x.id)===St
 function metric(x,key){return x&&Number.isFinite(Number(x[key]))&&x[key]!==undefined&&x[key]!==null?Number(x[key]):(live?'—':0)}
 function commentTotal(x){return metric(x,'comments_count')}
 function readerTotal(x){return metric(x,'reads_count')}
-function readerEstimate(x){
-  var raw=Number(x&&x.reads_count),actual=Number.isFinite(raw)&&raw>=0?raw:0;
-  var hearts=Math.max(0,Number(x&&x.likes_count)||0),id=String(x&&x.id||'');
-  var seed=0;for(var i=0;i<id.length;i++)seed=(Math.imul(seed,31)+id.charCodeAt(i))|0;
-  var multiplier=2+(Math.abs(seed)%101)/100;
-  var projected=Math.ceil(hearts*multiplier);
-  return {total:Math.max(actual,projected),estimated:projected>actual};
-}
 function readerCountLabel(x){
-  var r=readerEstimate(x);
-  return siteLang==='en'?r.total+(r.estimated?' estimated reads':' readers'):r.total+(r.estimated?' 預估閱讀':' 人讀過');
+  var count=readerTotal(x);
+  // DB read_count is a fixed historical estimate plus actual recorded reads.
+  // Never re-infer this baseline from likes on page render.
+  if(siteLang==='en')return count+' reads (incl. initial estimate)';
+  return count+' 次閱讀（含起始估算）';
 }
 function updateLocalCount(id,key,delta){var x=pickLetter(id);if(!x)return;var n=Number(x[key]);if(!Number.isFinite(n))n=0;x[key]=Math.max(0,n+delta);var other=openedLetters.get(String(id));if(other&&other!==x)other[key]=x[key];render();if(String(active)===String(id)){$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}}
 async function markRead(id){
   id=String(id);if(readingWrites.has(id))return;
-  if(!live){var x=pickLetter(id);if(x){x.reads_count=1;render();$('paper-read-count').textContent='1 人讀過'}return}
+  if(!live){var x=pickLetter(id);if(x){x.reads_count=1;render();$('paper-read-count').textContent=readerCountLabel(x)}return}
   if(!socialReady||!user)return;readingWrites.add(id);
   try{
     var res=await client.rpc('mark_letter_read',{p_letter_id:id});
