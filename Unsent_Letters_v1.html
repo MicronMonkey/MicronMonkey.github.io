@@ -209,6 +209,12 @@ dialog#compose .modal-inner{
   overscroll-behavior:contain;
   -webkit-overflow-scrolling:touch;
 }
+/* Subtle per-device read status */
+.letter .category{padding-right:67px}
+.read-status{position:absolute;right:12px;top:12px;font-size:11px;font-weight:850;border:1px solid #c6a88a;border-radius:999px;padding:2px 9px;background:#f7e5ca;color:#795845}
+.letter.is-read{background:#c9bfaf;border-color:#d2c7b5;opacity:.74;box-shadow:0 9px 19px #0003}
+.letter.is-read:hover{opacity:1}
+.letter.is-read .read-status{background:#ded5c6;border-color:#b8ada0;color:#756c62}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
@@ -225,7 +231,7 @@ dialog#compose .modal-inner{
 <div class="stat-wall" aria-label="信件共鳴統計">
 <div class="stat-tile"><strong id="count-total">—</strong><span>封信</span></div>
 <div class="stat-tile"><strong id="count-hearts">—</strong><span>次共鳴</span></div>
-<div class="stat-tile"><strong id="count-week">—</strong><span>封今日新信</span></div>
+<div class="stat-tile"><strong id="count-week">—</strong><span>封新信（近 3 天）</span></div>
 <div class="stat-note" id="count-note">正式啟用前，數字僅供本機測試；不代表實際參與人數。</div></div></section>
 <div id="mode-banner" class="demo" hidden></div>
 
@@ -313,24 +319,44 @@ function commentTotal(x){return metric(x,'comments_count')}
 function readerTotal(x){return metric(x,'reads_count')}
 function updateLocalCount(id,key,delta){var x=pickLetter(id);if(!x)return;var n=Number(x[key]);if(!Number.isFinite(n))n=0;x[key]=Math.max(0,n+delta);var other=openedLetters.get(String(id));if(other&&other!==x)other[key]=x[key];render();if(String(active)===String(id)){$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}}
 async function markRead(id){
- id=String(id);if(readingWrites.has(id))return;
- var x=pickLetter(id);if(!x)return;
- if(!live){x.reads_count=1;render();$('paper-read-count').textContent='1 人讀過';return}
- if(!socialReady||!user)return;
- readingWrites.add(id);
- try{
-  var q=await client.from('letter_reads').insert({letter_id:id,user_id:user.id});
-  if(q.error&&q.error.code!=='23505')throw q.error;
-  if(!q.error)updateLocalCount(id,'reads_count',1);
- }catch(e){console.warn('閱讀人數暫未記錄',e.message||e)}
- finally{readingWrites.delete(id)}
+  id=String(id);if(readingWrites.has(id))return;
+  if(!live){var x=pickLetter(id);if(x){x.reads_count=1;render();$('paper-read-count').textContent='1 人讀過'}return}
+  if(!socialReady||!user)return;readingWrites.add(id);
+  try{
+    var res=await client.rpc('mark_letter_read',{p_letter_id:id});
+    if(res.error)throw res.error;
+    await syncEngagement([id]);
+  }catch(e){console.warn('閱讀數暫未記錄',e.message||e)}
+  finally{readingWrites.delete(id)}
+}
+async function syncEngagement(ids){
+  if(!live||!socialReady)return;
+  ids=Array.from(new Set(ids.filter(function(x){return /^[0-9a-f-]{36}$/i.test(String(x))}).map(String))).slice(0,100);
+  if(!ids.length)return;
+  var res=await client.rpc('letter_engagement_stats',{p_letter_ids:ids});
+  if(res.error){console.warn('留言/閱讀統計暫不可用',res.error.message);return}
+  (res.data||[]).forEach(function(z){
+    var x=pickLetter(z.letter_id);if(!x)return;
+    x.reads_count=Number(z.read_count||0);
+    x.comments_count=Number(z.comment_people||0);
+    x.comment_messages_count=Number(z.comment_count||0);
+    if(openedLetters.has(String(z.letter_id))){
+      var p=openedLetters.get(String(z.letter_id));
+      p.reads_count=x.reads_count;p.comments_count=x.comments_count;p.comment_messages_count=x.comment_messages_count;
+    }
+  });
+  render();
+  if(active&&$('reader').open){
+    var x=pickLetter(active);
+    if(x){$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}
+  }
 }
 function sorted(){if(live)return letters;var arr=letters.filter(function(x){return category==='all'||x.category===category});if(sort==='saved')arr=arr.filter(function(x){return saved.has(String(x.id))});arr.sort(function(a,b){return sort==='hot'?(Number(b.likes_count||0)-Number(a.likes_count||0))||(new Date(b.created_at)-new Date(a.created_at)):new Date(b.created_at)-new Date(a.created_at)});return arr}
 function tagData(x){return [x.region,x.worktype,x.tenure].filter(function(v){return !!v})}
 function appendTags(parent,x){var tags=tagData(x);if(!tags.length)return;var wrap=create('div','tag-row');tags.forEach(function(tag){wrap.appendChild(create('span','tag',tag))});parent.appendChild(wrap)}
 function updateStats(){
 if(live)return;
-var now=Date.now(),start=new Date(taipeiDayStartISO()).getTime();
+var now=Date.now(),start=now-259200000;
 $('count-total').textContent=letters.length.toLocaleString('zh-TW');
 $('count-hearts').textContent=letters.reduce(function(s,x){return s+(Number(x.likes_count)||0)},0).toLocaleString('zh-TW');
 $('count-week').textContent=letters.filter(function(x){var t=new Date(x.created_at).getTime();return t>=start&&t<=now}).length.toLocaleString('zh-TW');
@@ -340,7 +366,7 @@ async function liveStats(){
 if(!live)return;
 try{
 var requests=Object.keys(ZONES).map(function(z){return client.from('letters').select('id',{head:true,count:'exact'}).eq('is_hidden',false).eq('category',z)});
-requests.push(client.from('letters').select('id',{head:true,count:'exact'}).eq('is_hidden',false).gte('created_at',taipeiDayStartISO()));
+requests.push(client.from('letters').select('id',{head:true,count:'exact'}).eq('is_hidden',false).gte('created_at',new Date(Date.now()-259200000).toISOString()));
 var result=await Promise.all(requests);
 var total=0;for(var j=0;j<4;j++){var v=result[j].error?0:(result[j].count||0);$('zone-count-'+Object.keys(ZONES)[j]).textContent=v.toLocaleString('zh-TW')+' 封';total+=v}
 $('count-total').textContent=total.toLocaleString('zh-TW');
@@ -365,7 +391,7 @@ $('batch-counter').textContent='第 '+(pageCount?Math.min(pageIndex+1,pageCount)
 $('load-more').textContent=pageCount>1&&pageIndex===pageCount-1?'↺　回到第一批 4 封信':'✉　讀取下一批 4 封信　→';
 if(!arr.length){$('more-wrap').hidden=true;var e=create('div','empty',sort==='saved'?'你還沒有收藏信件。':'這裡還沒有信，寫下第一封吧。');parent.appendChild(e);return}
 visible.forEach(function(x,i){
-var node=create('article','letter');node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);
+var alreadyRead=readIds.has(String(x.id))||likes.has(String(x.id));var node=create('article','letter'+(alreadyRead?' is-read':''));node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);node.appendChild(create('span','read-status',alreadyRead?'已讀':'未讀'));
 node.appendChild(create('div','category','LETTER / '+label(x.category)+(x.example?' · 情境示範':'')));
 node.appendChild(create('h3','',x.title));
 node.appendChild(create('div','excerpt',x.body));
@@ -380,14 +406,14 @@ var bookmark=create('button','',saved.has(String(x.id))?'★ 已收藏':'☆ 收
 actions.append(readerAction,heart,commentButton,bookmark);node.appendChild(actions);parent.appendChild(node);
 });
 }
-function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id)}
+function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render()}
 function toggleSaved(id){id=String(id);if(saved.has(id))saved.delete(id);else saved.add(id);save(SAVED,Array.from(saved));render();if(active===id&&$('reader').open)$('paper-bookmark').textContent=saved.has(id)?'★ 已收藏':'☆ 收藏';toast(saved.has(id)?'已收藏到這個裝置':'已取消收藏')}
 function saveDemo(){save(STORE,letters.filter(function(x){return !x.example}));save(LIKES,Array.from(likes))}
 async function refresh(){
 if(!live){render();return}
 var ids=Array.from(saved).filter(function(x){return /^[0-9a-f-]{36}$/i.test(x)});
 if(sort==='saved'&&!ids.length){letters=[];filteredTotal=0;render();await liveStats();return}
-var cols='id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at'+(socialReady?',comments_count,reads_count':'');
+var cols='id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at';
 var q=client.from('letters').select(cols,{count:'exact'}).eq('is_hidden',false);
 if(category!=='all')q=q.eq('category',category);
 if(sort==='saved')q=q.in('id',ids);
@@ -396,13 +422,13 @@ else q=q.order('created_at',{ascending:false});
 var r=await q.range(pageIndex*pageSize,(pageIndex+1)*pageSize-1);
 if(r.error)throw r.error;letters=r.data||[];filteredTotal=r.count||0;
 var l=await client.from('letter_likes').select('letter_id').eq('user_id',user.id).limit(1000);
-if(!l.error)likes=new Set((l.data||[]).map(function(x){return String(x.letter_id)}));
-render();await liveStats();
+if(!l.error){likes=new Set((l.data||[]).map(function(x){return String(x.letter_id)}));var touched=false;likes.forEach(function(id){if(!readIds.has(id)){readIds.add(id);touched=true}});if(touched)save(READ_KEY,Array.from(readIds))}
+render();await Promise.all([liveStats(),syncEngagement(letters.map(function(x){return x.id}).concat(active?[active]:[]))]);
 }
 async function toggleLike(id){
 if(loading)return;loading=true;
 try{
-var k=String(id),x=pickLetter(id);if(!x)return;
+var k=String(id),x=pickLetter(id);if(!x)return;readIds.add(k);save(READ_KEY,Array.from(readIds));render();if(live&&socialReady)markRead(id);
 if(live){
 if(likes.has(k)){var d=await client.from('letter_likes').delete().eq('letter_id',id).eq('user_id',user.id);if(d.error)throw d.error}
 else{var ins=await client.from('letter_likes').insert({letter_id:id,user_id:user.id});if(ins.error)throw ins.error}
@@ -472,7 +498,7 @@ async function submitComment(e){
    var log=$('comment-log'),empty=log.querySelector('.comment-empty');if(empty)empty.remove();
    log.appendChild(chatRow(message));log.scrollTop=log.scrollHeight;
    $('comment-text').value='';$('comment-text').focus();
-   updateLocalCount(id,'comments_count',1);
+   if(live)await syncEngagement([id]);else updateLocalCount(id,'comments_count',1);
    $('comment-meta').textContent='共 '+commentTotal(pickLetter(id))+' 則留言';
   }
  }catch(err){fail('留言未送出：'+(err.message||'請稍後再試'))}
@@ -698,7 +724,7 @@ document.addEventListener('visibilitychange',function(){if(document.hidden&&musi
 $('hero-random').onclick=async function(){
  if(loading)return;
  if(!live){
-   var unread=letters.filter(function(x){return !readIds.has(String(x.id))});
+   var unread=letters.filter(function(x){return !readIds.has(String(x.id))&&!likes.has(String(x.id))});
    if(!unread.length){toast('你已讀完目前所有信件，等新信來了再拆吧');return}
    showLetter(unread[Math.floor(Math.random()*unread.length)].id);return;
  }
@@ -709,17 +735,17 @@ $('hero-random').onclick=async function(){
    while(true){
      var batch=await client.from('letters').select('id').eq('is_hidden',false).order('created_at',{ascending:false}).range(start,start+chunk-1);
      if(batch.error)throw batch.error;
-     var rows=batch.data||[];rows.forEach(function(x){if(!readIds.has(String(x.id)))ids.push(x.id)});
+     var rows=batch.data||[];rows.forEach(function(x){if(!readIds.has(String(x.id))&&!likes.has(String(x.id)))ids.push(x.id)});
      if(rows.length<chunk)break;
      start+=chunk;
    }
    if(!ids.length){toast('你已讀完目前所有信件，等新信來了再拆吧');return}
    var selected=ids[Math.floor(Math.random()*ids.length)];
-   var one=await client.from('letters').select('id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at'+(socialReady?',comments_count,reads_count':'')).eq('is_hidden',false).eq('id',selected).limit(1);
+   var one=await client.from('letters').select('id,category,title,body,nickname,region,worktype,tenure,likes_count,created_at').eq('is_hidden',false).eq('id',selected).limit(1);
    if(one.error)throw one.error;
    if(!one.data||!one.data.length){toast('這封信剛好已下架，請再試一次');return}
    var chosen=one.data[0];
-   if(!pickLetter(chosen.id))letters.push(chosen);
+   if(!pickLetter(chosen.id))letters.push(chosen);if(socialReady)await syncEngagement([chosen.id]);
    showLetter(chosen.id);
  }catch(e){toast('拆信失敗，請稍後再試')}
  finally{loading=false;$('hero-random').disabled=false}
@@ -749,13 +775,13 @@ if(!window.supabase)throw new Error('Supabase SDK 載入失敗');
 client=window.supabase.createClient(CONFIG.supabaseUrl,CONFIG.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true}});
 var session=await client.auth.getSession();user=session.data.session&&session.data.session.user;
 if(!user){var s=await client.auth.signInAnonymously();if(s.error)throw s.error;user=s.data.user}
-var socialProbe=await client.from('letters').select('id,comments_count,reads_count').limit(1);socialReady=!socialProbe.error;
+var socialProbe=await client.rpc('letter_engagement_stats',{p_letter_ids:[]});socialReady=!socialProbe.error;
 await refresh();setInterval(function(){refresh().catch(function(){})},30000);
 setInterval(function(){if($('comments-dialog').open&&socialReady)loadComments()},30000);
 var hash=location.hash.match(/^#letter=([a-f0-9-]{36})$/);if(hash&&pickLetter(hash[1]))showLetter(hash[1]);
 }catch(e){$('mode-banner').textContent='資料庫連線失敗：'+e.message;toast('連線失敗，請通知網站管理員');document.querySelectorAll('#top-write,#hero-write').forEach(function(x){x.disabled=true})}
 }else{
-letters=SEED.concat(read(STORE,[]));letters.forEach(function(x){x.comments_count=(demoComments[String(x.id)]||[]).length;x.reads_count=readIds.has(String(x.id))?1:0});likes=new Set(read(LIKES,[]));$('count-note').textContent='8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。';render();
+letters=SEED.concat(read(STORE,[]));letters.forEach(function(x){x.comments_count=(demoComments[String(x.id)]||[]).length?1:0;x.reads_count=readIds.has(String(x.id))?1:0});likes=new Set(read(LIKES,[]));$('count-note').textContent='8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。';render();
 }
 }
 window.addEventListener('DOMContentLoaded',init);
