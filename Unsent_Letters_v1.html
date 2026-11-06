@@ -215,7 +215,7 @@ dialog#compose .modal-inner{
 .letter.is-read{background:#c9bfaf;border-color:#d2c7b5;opacity:.74;box-shadow:0 9px 19px #0003}
 .letter.is-read:hover{opacity:1}
 .letter.is-read .read-status{background:#ded5c6;border-color:#b8ada0;color:#756c62}
-</style>
+.toplinks{gap:8px}.lang-btn{min-width:44px;border-color:#b89b75;color:#f3d9b5}@media(max-width:540px){.toplinks{gap:4px}.lang-btn{padding:7px 8px!important;font-size:11px!important}}</style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
 <body class="intro-active">
@@ -226,7 +226,7 @@ dialog#compose .modal-inner{
   <div class="arrival-footnote">讓每一封沒說出口的話，都有落下的地方。</div>
 </div>
 <div class="page"><div class="container">
-<header class="top"><a class="brand" href="index.html"><span class="brand-mark">✉</span><span>光光猴 <span style="color:#c7a8a1;font-weight:450">/ UNSENT LETTERS</span></span></a><nav class="toplinks"><a href="index.html">返回守護平台</a><button type="button" class="btn small music-btn" id="music-toggle" aria-pressed="false" title="開啟原創背景音樂">♫ 開啟音樂</button><button class="btn small gold" id="top-write">＋ 寫一封信</button></nav></header>
+<header class="top"><a class="brand" href="index.html"><span class="brand-mark">✉</span><span>光光猴 <span style="color:#c7a8a1;font-weight:450">/ UNSENT LETTERS</span></span></a><nav class="toplinks"><a href="index.html">返回守護平台</a><button type="button" class="btn small lang-btn" id="lang-switch" aria-label="切換中英文">EN</button><button type="button" class="btn small music-btn" id="music-toggle" aria-pressed="false" title="開啟原創背景音樂">♫ 開啟音樂</button><button class="btn small gold" id="top-write">＋ 寫一封信</button></nav></header>
 <section class="hero"><div class="eyebrow">THE UNSENT LETTERS PROJECT · 2026</div><h1>未寄出的信</h1><div class="envelope-stage"><div class="envelope" aria-hidden="true"></div></div><p class="lead">有些話，不是不想說，是不知道說了會不會被聽見。<br>有些真話，從現場出發，卻未必能走到決策者耳中。<br>於是，我們把它寫成一封封沒有寄出的信。</p><div class="hero-actions"><button class="btn gold" id="hero-write">✎　寫一封沒有寄出的信</button><button class="btn" id="hero-random">✉　隨機拆一封信</button></div><p class="sound-note">♫ 原創沉靜氛圍配樂｜預設不播放，點選「開啟音樂」才會有聲音</p>
 <div class="stat-wall" aria-label="信件共鳴統計">
 <div class="stat-tile"><strong id="count-total">—</strong><span>封信</span></div>
@@ -299,17 +299,134 @@ var $=function(id){return document.getElementById(id)};
 var live=!!(CONFIG.supabaseUrl&&CONFIG.supabaseAnonKey),client=null,user=null;
 var letters=[],likes=new Set(),saved=new Set(),category='all',sort='new',active=null,loading=false,pageIndex=0,pageSize=4,filteredTotal=0,batchSwitching=false;
 var STORE='unsent_letters_demo_public_v1',LIKES='unsent_letters_likes_public_v1',SAVED='unsent_letters_saved_public_v1',READ_KEY='unsent_letters_read_public_v1',POSTS_KEY='unsent_letters_post_events_v1';
-var readIds=new Set(),openedLetters=new Map(),socialReady=false,commentTarget=null,commentSending=false,commentsReturnToReader=false,readingWrites=new Set(),demoComments={};var COMMENT_STORE='unsent_letters_demo_comments_v1';
+var readIds=new Set(),openedLetters=new Map(),socialReady=false,commentTarget=null,commentSending=false,commentsReturnToReader=false,readingWrites=new Set(),demoComments={},siteLang='zh',originalNodes=[],originalAttrs=[];var COMMENT_STORE='unsent_letters_demo_comments_v1';
+
+/* Bilingual presentation. Letters and readers' comments remain in their original wording. */
+var EN={
+'返回守護平台':'Back to platform','＋ 寫一封信':'+ Write a letter','未寄出的信':'Unsent Letters',
+'跳過動畫　✕':'Skip intro ×','讓每一封沒說出口的話，都有落下的地方。':'May every unsaid word find a home.',
+'有些話，不是不想說，是不知道說了會不會被聽見。':'Some words go unsaid because we fear they will not be heard.',
+'有些真話，從現場出發，卻未必能走到決策者耳中。':'Some truths from the workplace never reach decision-makers.',
+'於是，我們把它寫成一封封沒有寄出的信。':'So we write them as letters we never sent.',
+'✎　寫一封沒有寄出的信':'✎ Write an unsent letter','✉　隨機拆一封信':'✉ Open a random unread letter',
+'♫ 原創沉靜氛圍配樂｜預設不播放，點選「開啟音樂」才會有聲音':'♫ Original ambient score · Off by default; tap Play to listen.',
+'♫ 開啟音樂':'♫ Play music','♫ 關閉音樂':'♫ Stop music',
+'封信':'Letters','次共鳴':'Hearts','封新信（近 3 天）':'New letters (last 3 days)',
+'四個收信地址':'Four destinations','點選展區，讀一讀大家想說的話':'Choose a chapter and read what others want to say.',
+'疲憊':'Fatigue','疑問':'Questions','期待':'Hopes','未來':'Tomorrow',
+'寫給夥伴':'To teammates','寫給一路同行的夥伴':'To our teammates',
+'寫給台中工會與公司':'To the Taichung union and company','寫給夢想的公司':'To our ideal company',
+'寫給未來的自己':'To my future self','那些撐住現場，卻沒被看見的疲憊':'The unseen work that keeps things going',
+'有些疑問，我們希望得到清楚的回答':'We hope for clear answers to our questions',
+'希望真實的聲音，也能到達決策桌前':'Let real voices reach the decision-makers',
+'請記得，今天的你曾經努力發聲':'Remember the courage you showed today',
+'四個收信地址，四種不同心情。先拆開一封信，也許你會在別人的文字裡，找到自己的影子。':'Four destinations, four moods. Open a letter and you may see your own story reflected.',
+'所有未寄出的信':'All unsent letters','最新來信':'Newest','人氣熱門':'Most loved','我的收藏':'Saved','全部展區':'All chapters',
+'♡ 如果你也有同樣的感受，可以為這封信點一顆愛心。愛心代表對故事的共鳴，不是任何組織立場的投票。':'♡ Give a heart if a letter resonates with you. It is empathy, not a vote for an organization.',
+'✉　讀取下一批 4 封信　→':'✉ Next 4 letters →','只顯示目前 4 封；換批後原本的信會收起來':'Four letters are shown per batch.',
+'《未寄出的信》提供個人經驗與感受的交流空間。請勿公開他人姓名、工號、電話、私人資訊或未經證實的指控。發文即代表你同意公開所寫內容；請不要投稿可能導致自己或他人被辨識的細節。':'This space is for personal experiences and feelings. Never disclose names, employee IDs, contacts, private data or unverified accusations. Posted words are public.',
+'免事前人工審核不等於沒有管理。管理員可依規範移除騷擾、個資、洗版或違法內容；讀者可使用信件內的檢舉功能。':'Letters appear without prior review but remain moderated. Harassment, personal data, spam and illegal content may be removed.',
+'← 回到光光猴守護平台':'← Back to platform','資料模式：本機展示':'Data: local demo',
+'✎ 寫一封沒有寄出的信':'✎ Write an unsent letter',
+'寫給誰都可以，但請不要留下你或別人的個資。送出後將依網站模式公開或儲存在你的測試瀏覽器。':'Write to anyone, but do not include personal data. Your letter will be published or stored in demo mode.',
+'一天最多三封信':'Up to 3 letters per day','這封信寫給誰？':'Who is this for?',
+'A｜疲憊・寫給夥伴':'A | Fatigue · Teammates','B｜疑問・寫給台中工會與公司':'B | Questions · Union and company',
+'C｜期待・寫給夢想的公司':'C | Hopes · Ideal company','D｜未來・寫給未來的自己':'D | Tomorrow · Future me',
+'信件標題':'Letter title','例如：給努力撐過每一天的我們':'e.g. To everyone doing their best',
+'想說的話':'Your words','親愛的……\n\n那些一直放在心裡的話，今天想寫下來。':'Dear …\n\nToday I want to put my thoughts into words.',
+'至少 15 字、最多 1,200 字；請勿填寫個人識別資訊。':'15–1,200 characters; avoid identifying information.',
+'署名（可留空）':'Signature (optional)','不填寫即顯示「匿名來信」':'Blank = Anonymous letter',
+'想留下的背景（完全自願，預設不公開）':'Background (optional; hidden by default)',
+'地區不公開':'Hide location','工作類型不公開':'Hide role','年資不公開':'Hide tenure',
+'台北':'Taipei','桃園':'Taoyuan','新竹':'Hsinchu','銅鑼':'Tongluo','台中':'Taichung','台南':'Tainan','其他地區':'Other',
+'製程相關':'Process','設備相關':'Equipment','製造相關':'Manufacturing','工程支援':'Engineering support','行政支援':'Administrative support','其他職務':'Other role',
+'未滿 3 年':'Under 3 years','3～5 年':'3–5 years','6～10 年':'6–10 years','10 年以上':'Over 10 years',
+'最多選 2 項':'Choose up to 2',
+'，避免地區、職務和年資組合後使人被辨識。這些資訊會顯示在公開信件上，無法保證完全匿名。':'. Combining location, role and tenure may identify you. These selections appear publicly.',
+'我知道這封信在正式上線後將會公開；我有權發布這些文字，且內容不包含可識別他人的個資、騷擾或未經證實的個人指控。':'I understand this letter is public and confirm I have the right to post it without personal data, harassment or unverified accusations.',
+'取消':'Cancel','封存並公開這封信 →':'Publish this letter →',
+'✉ 你收到一封未寄出的信':'✉ You received an unsent letter','♡ 愛心':'♡ Heart','☆ 收藏':'☆ Save','↗ 分享':'↗ Share','檢舉':'Report',
+'檢舉這封信':'Report this letter','檢舉將交由管理員處理；不會直接因檢舉數而自動下架。':'Moderators review reports; a letter is not removed automatically.',
+'檢舉原因':'Reason','揭露個人資料':'Personal data','騷擾、辱罵或威脅':'Harassment or threats','洗版或廣告':'Spam or ads','其他不適當內容':'Other','送出檢舉':'Send report',
+'♡ 留言打氣':'♡ Anonymous encouragement','誰':'Who','要回應什麼':'Message','匿名夥伴':'Anonymous friend',
+'想說的打氣話…':'Leave a kind message…','送出':'Send','最多 200 字，匿名留言立即公開。請勿留下姓名、工號、聯絡資訊或人身攻擊。':'Max 200 characters. Comments are public; do not share identifying data or personal attacks.',
+'已讀':'Read','未讀':'Unread','情境示範':'Example','匿名來信':'Anonymous letter','來信':'Letter',
+'寫給夥伴：我們習慣把現場撐住，卻很少問彼此是否也需要有人扶一把。':'To teammates: we hold everything together but rarely ask if we need support too.',
+'寫給台中工會與公司：關於協議、授權與透明度，我們想要的是能被完整回答的問題。':'To the union and company: we need complete answers about agreements and transparency.',
+'寫給夢想的公司：希望說真話不是風險，提出問題不被視為麻煩，現場的聲音不再消失於層層報表。':'To our ideal company: honesty should not be a risk, and workplace voices should not disappear into reports.',
+'寫給未來的自己：願你仍能保留勇氣與溫柔，不必犧牲安穩生活才能被聽見。':'To future me: keep your courage and kindness without sacrificing stability to be heard.',
+'信件數與愛心數不等於不同投稿人數；本網站不公開個別讀者身分。':'Letter and heart totals do not represent distinct people; reader identities remain private.',
+'統計資料暫時無法更新，信件內容仍可閱讀。':'Statistics are temporarily unavailable.',
+'還沒有留言，留下第一句鼓勵吧。':'No comments yet. Leave the first kind note!',
+'正在載入留言…':'Loading comments…','尚未啟用留言服務':'Comments are not enabled yet',
+'留言功能尚未啟用，請管理員先套用 Supabase 留言資料庫設定。':'Comments require the new Supabase migration.',
+'你已讀完目前所有信件，等新信來了再拆吧':'You have read every available letter. Come back for new ones!',
+'資料模式：雲端即時公開':'Data: live cloud publishing',
+'8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。':'Demo letters and hearts are fictional.'
+};
+function ui(x){
+  x=String(x);
+  if(siteLang!=='en')return x;
+  var k=x.trim();if(Object.prototype.hasOwnProperty.call(EN,k))return x.replace(k,EN[k]);
+  return x.replace(/(\d+|—) 人讀過/g,'$1 readers').replace(/(\d+|—) 人留言/g,'$1 commenters')
+    .replace(/留言（(\d+|—)）/g,'Comments ($1)').replace(/(\d+) 共鳴/g,'$1 hearts')
+    .replace(/第 (\d+) \/ (\d+) 批/g,'Batch $1 / $2')
+    .replace(/(\d+) 封信 · 每批最多 4 封/g,'$1 letters · 4 per batch')
+    .replace(/ · 本機展示/g,' · local demo')
+    .replace(/✉ 拆開讀信/g,'✉ Open letter').replace(/↺　回到第一批 4 封信/g,'↺ Back to first 4 letters')
+    .replace(/✉　讀取下一批 4 封信　→/g,'✉ Next 4 letters →')
+    .replace(/^☆ 收藏$/,'☆ Save').replace(/^★ 已收藏$/,'★ Saved')
+    .replace(/ 愛心$/,' hearts').replace(/共 (\d+) 則留言/g,'$1 messages');
+}
+function captureLanguageNodes(){
+  var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
+  while((n=walker.nextNode())){
+    if(!n.parentElement||n.parentElement.closest('script,style,#letters,#paper,#comment-log,#toast,#zone-introduction,#list-heading,#stats,#batch-counter,#load-more,#count-note,#mode-banner,#comment-meta,#paper-read-count,#paper-comments'))continue;
+    if(/[\u3400-\u9fff]/.test(n.nodeValue))originalNodes.push([n,n.nodeValue]);
+  }
+  document.querySelectorAll('[placeholder],[title],[aria-label]').forEach(function(el){
+    ['placeholder','title','aria-label'].forEach(function(a){if(el.hasAttribute(a))originalAttrs.push([el,a,el.getAttribute(a)])});
+  });
+}
+function applyStaticLanguage(){
+  originalNodes.forEach(function(x){x[0].nodeValue=ui(x[1])});
+  originalAttrs.forEach(function(x){x[0].setAttribute(x[1],ui(x[2]))});
+  $('lang-switch').textContent=siteLang==='en'?'中文':'EN';
+  document.documentElement.lang=siteLang==='en'?'en':'zh-Hant';
+}
+function applyDynamicLanguage(){
+  document.querySelectorAll('#list-heading,#zone-introduction,#stats,#batch-counter,#load-more,#count-note,#privacy-mode,#paper-cat,#paper-read-count,#paper-comments,#paper-like,#paper-bookmark,#comment-meta,.read-count,.read-status,.letter .category,.letter .controls button,.letter .tag,.paper .tag,.comment-empty').forEach(function(el){
+    if(siteLang==='en')el.textContent=ui(el.textContent);
+  });
+}
+function switchLanguage(next){
+  siteLang=next==='en'?'en':'zh';save('unsent_letters_language_v1',siteLang);
+  applyStaticLanguage();
+  render();musicButtons();
+  if(active&&$('reader').open){
+    var x=pickLetter(active);
+    if(x){
+      $('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');
+      $('paper-like').textContent=(likes.has(String(active))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';
+      $('paper-bookmark').textContent=saved.has(String(active))?'★ 已收藏':'☆ 收藏';
+      $('paper-read-count').textContent=readerTotal(x)+' 人讀過';
+      $('paper-comments').textContent='留言（'+commentTotal(x)+'）';
+    }
+  }
+  applyDynamicLanguage();
+  if(live)liveStats().then(applyDynamicLanguage).catch(function(){});
+}
+
 function read(k,fallback){try{var v=JSON.parse(localStorage.getItem(k));return v===null?fallback:v}catch(e){return fallback}}
 function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-function toast(m){var n=$('toast'),parent=document.querySelector('dialog[open]')||document.body;if(n.parentElement!==parent)parent.appendChild(n);n.textContent=m;n.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(function(){n.classList.remove('show')},3500)}
-function composeFeedback(m){var n=$('compose-feedback');n.textContent=m;n.hidden=false;n.scrollIntoView({block:'nearest',behavior:'smooth'})}
+function toast(m){var n=$('toast'),parent=document.querySelector('dialog[open]')||document.body;if(n.parentElement!==parent)parent.appendChild(n);n.textContent=ui(m);n.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(function(){n.classList.remove('show')},3500)}
+function composeFeedback(m){var n=$('compose-feedback');n.textContent=ui(m);n.hidden=false;n.scrollIntoView({block:'nearest',behavior:'smooth'})}
 function clearComposeFeedback(){var n=$('compose-feedback');n.hidden=true;n.textContent=''}
 function recentPosts(){var now=Date.now();return read(POSTS_KEY,[]).filter(function(t){return Number.isFinite(Number(t))&&Number(t)<=now&&now-Number(t)<86400000})}
 function recordPost(){var p=recentPosts();p.push(Date.now());save(POSTS_KEY,p)}
 function taipeiDayStartISO(){/* Taiwan uses UTC+08:00 and has no daylight saving time. */var d=new Date(Date.now()+8*3600000);return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-8*3600000).toISOString()}
-function displayDate(s){try{return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'numeric',day:'numeric'}).format(new Date(s))}catch(e){return ''}}
-function label(c){return ZONES[c]?(ZONES[c].name+' · '+ZONES[c].recipient):'來信'}
+function displayDate(s){try{return new Intl.DateTimeFormat(siteLang==='en'?'en-US':'zh-TW',{timeZone:'Asia/Taipei',month:'numeric',day:'numeric'}).format(new Date(s))}catch(e){return ''}}
+function label(c){return ZONES[c]?(ui(ZONES[c].name)+' · '+ui(ZONES[c].recipient)):ui('來信')}
 function create(tag,cls,text){var el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function openDialog(id){$(id).showModal();document.body.style.overflow='hidden'}
 function closeDialog(id){$(id).close();var parent=document.querySelector('dialog[open]')||document.body;if($('toast').parentElement!==parent)parent.appendChild($('toast'));if(!document.querySelector('dialog[open]'))document.body.style.overflow=''}
@@ -389,7 +506,7 @@ $('stats').textContent=(live?filteredTotal:arr.length)+' 封信 · 每批最多 
 $('more-wrap').hidden=pageCount<=1;
 $('batch-counter').textContent='第 '+(pageCount?Math.min(pageIndex+1,pageCount):0)+' / '+pageCount+' 批';
 $('load-more').textContent=pageCount>1&&pageIndex===pageCount-1?'↺　回到第一批 4 封信':'✉　讀取下一批 4 封信　→';
-if(!arr.length){$('more-wrap').hidden=true;var e=create('div','empty',sort==='saved'?'你還沒有收藏信件。':'這裡還沒有信，寫下第一封吧。');parent.appendChild(e);return}
+if(!arr.length){$('more-wrap').hidden=true;var e=create('div','empty',siteLang==='en'?(sort==='saved'?'No saved letters yet.':'No letters here yet. Write the first one!'):(sort==='saved'?'你還沒有收藏信件。':'這裡還沒有信，寫下第一封吧。'));parent.appendChild(e);applyDynamicLanguage();return}
 visible.forEach(function(x,i){
 var alreadyRead=readIds.has(String(x.id))||likes.has(String(x.id));var node=create('article','letter'+(alreadyRead?' is-read':''));node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);node.appendChild(create('span','read-status',alreadyRead?'已讀':'未讀'));
 node.appendChild(create('div','category','LETTER / '+label(x.category)+(x.example?' · 情境示範':'')));
@@ -404,7 +521,7 @@ var heart=create('button','heart'+(likes.has(String(x.id))?' active':''),(likes.
 var commentButton=create('button','comment-button','留言（'+commentTotal(x)+'）');commentButton.type='button';commentButton.onclick=function(){openComments(x.id,false)};
 var bookmark=create('button','',saved.has(String(x.id))?'★ 已收藏':'☆ 收藏');bookmark.type='button';bookmark.onclick=function(){toggleSaved(x.id)};
 actions.append(readerAction,heart,commentButton,bookmark);node.appendChild(actions);parent.appendChild(node);
-});
+});applyDynamicLanguage();
 }
 function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerTotal(x)+' 人讀過';$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render()}
 function toggleSaved(id){id=String(id);if(saved.has(id))saved.delete(id);else saved.add(id);save(SAVED,Array.from(saved));render();if(active===id&&$('reader').open)$('paper-bookmark').textContent=saved.has(id)?'★ 已收藏':'☆ 收藏';toast(saved.has(id)?'已收藏到這個裝置':'已取消收藏')}
@@ -549,7 +666,7 @@ var musicScore=[
 function musicButtons(){
   ['music-toggle','reader-music'].forEach(function(id){
     var el=$(id);if(!el)return;
-    el.textContent=musicOn?'♫ 關閉音樂':'♫ 開啟音樂';
+    el.textContent=ui(musicOn?'♫ 關閉音樂':'♫ 開啟音樂');
     el.setAttribute('aria-pressed',musicOn?'true':'false');
     el.classList.toggle('music-on',musicOn);
     el.title=musicOn?'關閉背景音樂':'播放原創沉靜氛圍配樂';
@@ -717,6 +834,7 @@ function runArrival(){
 }
 
 function events(){
+$('lang-switch').addEventListener('click',function(){switchLanguage(siteLang==='en'?'zh':'en')});
 ['music-toggle','reader-music'].forEach(function(id){$(id).addEventListener('click',toggleAmbient)});
 document.addEventListener('visibilitychange',function(){if(document.hidden&&musicOn)stopAmbient()});
 ['top-write','hero-write'].forEach(function(id){$(id).onclick=function(){clearComposeFeedback();openDialog('compose')}});
@@ -766,7 +884,7 @@ $('paper-share').onclick=shareLetter;
 $('paper-report').onclick=function(){openDialog('report-dialog')};
 }
 async function init(){
-saved=new Set(read(SAVED,[]));readIds=new Set(read(READ_KEY,[]));demoComments=read(COMMENT_STORE,{});events();runArrival();
+saved=new Set(read(SAVED,[]));readIds=new Set(read(READ_KEY,[]));demoComments=read(COMMENT_STORE,{});siteLang=read('unsent_letters_language_v1','zh')==='en'?'en':'zh';captureLanguageNodes();applyStaticLanguage();events();runArrival();
 if(live){
 $('mode-banner').innerHTML='<strong>即時公開模式：</strong>匿名投稿立即顯示，無需等待審核。留言及閱讀人數需要額外安裝社交功能資料表。請勿公開個資或未經證實的個人指控。';
 $('mode-banner').hidden=false;$('mode-banner').classList.add('live');$('privacy-mode').textContent='資料模式：雲端即時公開';
