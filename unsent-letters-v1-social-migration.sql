@@ -109,7 +109,7 @@ declare
   letter_target uuid;
   delta integer := 0;
 begin
-  letter_target := coalesce(new.letter_id, old.letter_id);
+  letter_target := case when tg_op = 'DELETE' then old.letter_id else new.letter_id end;
   if tg_op = 'INSERT' then
     if not new.is_hidden then delta := 1; end if;
   elsif tg_op = 'DELETE' then
