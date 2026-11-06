@@ -602,8 +602,8 @@ function readerCountLabel(x){
   var count=readerTotal(x);
   // DB read_count is a fixed historical estimate plus actual recorded reads.
   // Never re-infer this baseline from likes on page render.
-  if(siteLang==='en')return count+' reads (incl. initial estimate)';
-  return count+' 次閱讀（含起始估算）';
+  if(siteLang==='en')return count+' reads';
+  return count+' 次閱讀';
 }
 function updateLocalCount(id,key,delta){var x=pickLetter(id);if(!x)return;var n=Number(x[key]);if(!Number.isFinite(n))n=0;x[key]=Math.max(0,n+delta);var other=openedLetters.get(String(id));if(other&&other!==x)other[key]=x[key];render();if(String(active)===String(id)){$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）'}}
 async function markRead(id){
