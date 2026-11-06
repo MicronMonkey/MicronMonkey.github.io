@@ -25,7 +25,7 @@ alter table public.letters
 alter table public.letters
   alter column historical_read_baseline set not null;
 
-do $
+do $$
 begin
   if not exists (
     select 1 from pg_constraint
@@ -37,7 +37,7 @@ begin
       check (historical_read_baseline >= 0);
   end if;
 end;
-$;
+$$;
 
 -- Keep the existing RPC interface (read_count, comment_people, comment_count).
 -- read_count means recorded unique anonymous accounts + fixed historical estimate.
