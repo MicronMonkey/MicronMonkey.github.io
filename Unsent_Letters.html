@@ -273,7 +273,7 @@ dialog#compose .modal-inner{
 </div></section>
 <footer class="footer"><p>《未寄出的信》提供個人經驗與感受的交流空間。請勿公開他人姓名、工號、電話、私人資訊或未經證實的指控。發文即代表你同意公開所寫內容；請不要投稿可能導致自己或他人被辨識的細節。</p><p>免事前人工審核不等於沒有管理。管理員可依規範移除騷擾、個資、洗版或違法內容；讀者可使用信件內的檢舉功能。</p><p><a href="index.html">← 回到光光猴守護平台</a> · <span id="privacy-mode">資料模式：本機展示</span></p></footer>
 </div></div>
-<dialog id="compose"><div class="modal-top"><b>✎ 寫一封沒有寄出的信</b><button type="button" class="x" data-close="compose" aria-label="關閉">×</button></div><div class="modal-inner"><div class="note">寫給誰都可以，但請不要留下你或別人的個資。送出後將依網站模式公開或儲存在你的測試瀏覽器。</div><div class="post-limit-note">24小時內最多三封信</div><form id="compose-form"><label for="category">這封信寫給誰？</label><select id="category" required><option value="a">A｜疲憊・寫給夥伴</option><option value="b">B｜疑問・寫給台中工會與公司</option><option value="c">C｜期待・寫給夢想的公司</option><option value="d">D｜未來・寫給未來的自己</option></select>
+<dialog id="compose"><div class="modal-top"><b>✎ 寫一封沒有寄出的信</b><button type="button" class="x" data-close="compose" aria-label="關閉">×</button></div><div class="modal-inner"><div class="note">寫給誰都可以，但請不要留下你或別人的個資。送出後將依網站模式公開或儲存在你的測試瀏覽器。</div><div class="post-limit-note">24小時內最多5封信，每封至少間隔30秒</div><form id="compose-form"><label for="category">這封信寫給誰？</label><select id="category" required><option value="a">A｜疲憊・寫給夥伴</option><option value="b">B｜疑問・寫給台中工會與公司</option><option value="c">C｜期待・寫給夢想的公司</option><option value="d">D｜未來・寫給未來的自己</option></select>
 <label for="letter-title">信件標題</label><input id="letter-title" maxlength="40" required placeholder="例如：給努力撐過每一天的我們">
 <label for="letter-body">想說的話</label><textarea id="letter-body" maxlength="1200" minlength="15" required placeholder="親愛的……&#10;&#10;那些一直放在心裡的話，今天想寫下來。"></textarea><small>至少 15 字、最多 1,200 字；請勿填寫個人識別資訊。</small>
 <label for="nickname">署名（可留空）</label><input id="nickname" maxlength="20" placeholder="不填寫即顯示「匿名來信」">
@@ -350,7 +350,7 @@ var EN={
 '← 回到光光猴守護平台':'← Back to platform','資料模式：本機展示':'Data: local demo',
 '✎ 寫一封沒有寄出的信':'✎ Write an unsent letter',
 '寫給誰都可以，但請不要留下你或別人的個資。送出後將依網站模式公開或儲存在你的測試瀏覽器。':'Write to anyone, but do not include personal data. Your letter will be published or stored in demo mode.',
-'24小時內最多三封信':'Up to 3 letters in 24 hours','這封信寫給誰？':'Who is this for?',
+'24小時內最多5封信，每封至少間隔30秒':'Up to 5 letters per 24 hours, at least 30 seconds apart','這封信寫給誰？':'Who is this for?',
 'A｜疲憊・寫給夥伴':'A | Fatigue · Teammates','B｜疑問・寫給台中工會與公司':'B | Questions · Union and company',
 'C｜期待・寫給夢想的公司':'C | Hopes · Ideal company','D｜未來・寫給未來的自己':'D | Tomorrow · Future me',
 '信件標題':'Letter title','例如：給努力撐過每一天的我們':'e.g. To everyone doing their best',
@@ -389,7 +389,7 @@ var EN={
 '請輸入 1–200 字的留言，署名不超過 20 字。':'Use 1–200 characters and a nickname of up to 20 characters.',
 '背景資訊最多選 2 項，請取消其中一項以保護匿名性':'Choose no more than 2 optional background details.',
 '背景資訊最多選 2 項，請減少一項以保護匿名性':'Choose no more than 2 optional background details.',
-'一天最多三封信（最近 24 小時）。請稍後再來寫信。':'Only 3 letters may be posted per rolling 24 hours. Please come back later.',
+'最近 24 小時最多投稿 5 封信，請稍後再試。':'Up to 5 letters per rolling 24 hours. Please try later.',
 '8 封情境信、愛心與背景標籤均屬模擬展示，不代表實際投稿與員工支持人數。':'Demo letters and hearts are fictional.'
 };
 function ui(x){
@@ -851,13 +851,14 @@ if(!ZONES[c]||t.length<3||b.length<15){composeFeedback('請填寫標題與至少
 if(/(?:https?:\/\/|www\.|\S+@\S+\.\S+|09\d{8})/i.test(t+' '+b)){composeFeedback('為保護隱私，請移除網址、Email 或手機號碼');return}
 if([region,worktype,tenure].filter(Boolean).length>2){composeFeedback('背景資訊最多選 2 項，請減少一項以保護匿名性');return}
 if(!$('consent').checked){composeFeedback('請先確認公開內容注意事項');return}
-if(recentPosts().length>=3||(!live&&letters.filter(function(x){return !x.example&&Date.now()-new Date(x.created_at).getTime()<86400000}).length>=3)){composeFeedback('一天最多三封信（最近 24 小時）。請稍後再來寫信。');return}
+if(recentPosts().length>=5||(!live&&letters.filter(function(x){return !x.example&&Date.now()-new Date(x.created_at).getTime()<86400000}).length>=5)){composeFeedback('最近 24 小時最多投稿 5 封信，請稍後再試。');return}
+if(recentPosts().length&&Date.now()-Math.max.apply(null,recentPosts())<30000){composeFeedback('每封信至少間隔 30 秒，請稍後再投稿。');return}
 loading=true;$('submit-letter').disabled=true;$('submit-letter').textContent=ui('正在寄出…');
 try{
 if(live){var insert=await client.from('letters').insert({category:c,title:t,body:b,nickname:n||'匿名來信',region:region||null,worktype:worktype||null,tenure:tenure||null,author_id:user.id});if(insert.error)throw insert.error;recordPost();await refresh();toast('投稿成功！這封信已公開')}
 else{var id='demo-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);letters.unshift({id:id,category:c,title:t,body:b,nickname:n||'匿名來信',region:region||null,worktype:worktype||null,tenure:tenure||null,likes_count:0,created_at:new Date().toISOString()});recordPost();saveDemo();render();toast('測試投稿成功：僅儲存在你的瀏覽器，尚未公開')}
 $('compose-form').reset();category='all';sort='new';pageIndex=0;render();closeDialog('compose');$('letter-list').scrollIntoView({behavior:'smooth',block:'start'});
-}catch(err){var msg=err.message||'請再試一次';composeFeedback(/24 小時|24 hours|投稿 3 封/i.test(msg)?'一天最多三封信（最近 24 小時）。請稍後再來寫信。':'投稿失敗：'+msg)}finally{loading=false;$('submit-letter').disabled=false;$('submit-letter').textContent=ui('封存並公開這封信 →')}
+}catch(err){var msg=err.message||'請再試一次';composeFeedback(/24 小時|24 hours|投稿 5 封/i.test(msg)?'最近 24 小時最多投稿 5 封信，請稍後再試。':'投稿失敗：'+msg)}finally{loading=false;$('submit-letter').disabled=false;$('submit-letter').textContent=ui('封存並公開這封信 →')}
 }
 async function report(e){
 e.preventDefault();if(!active)return;try{
