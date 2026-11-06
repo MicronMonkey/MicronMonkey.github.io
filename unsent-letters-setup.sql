@@ -75,17 +75,20 @@ for insert to authenticated with check (
   and exists(select 1 from public.letters l where l.id = letter_id and l.is_hidden = false)
 );
 
--- 觸發器：每名匿名登入使用者 24 小時最多 3 封新信。
+-- 觸發器：每名匿名登入使用者 24 小時最多 5 封新信，每封至少間隔 30 秒。
 -- 注意：使用者可清除瀏覽資料建立新匿名身分，因此此限制不是完整的防機器人方案。
 create or replace function public.limit_letter_posts()
 returns trigger language plpgsql security definer
 set search_path = public
 as $$
 begin
+  if exists (select 1 from public.letters l where l.author_id = new.author_id and l.created_at > now() - interval '30 seconds') then
+    raise exception '每封信至少間隔 30 秒，請稍後再投稿';
+  end if;
   if (select count(*) from public.letters l
       where l.author_id = new.author_id
-      and l.created_at > now() - interval '24 hours') >= 3 then
-    raise exception '每 24 小時最多投稿 3 封信，請稍後再試';
+      and l.created_at > now() - interval '24 hours') >= 5 then
+    raise exception '每 24 小時最多投稿 5 封信，請稍後再試';
   end if;
   return new;
 end;
