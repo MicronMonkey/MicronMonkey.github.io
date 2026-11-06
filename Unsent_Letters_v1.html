@@ -589,7 +589,7 @@ function clearComposeFeedback(){var n=$('compose-feedback');n.hidden=true;n.text
 function recentPosts(){var now=Date.now();return read(POSTS_KEY,[]).filter(function(t){return Number.isFinite(Number(t))&&Number(t)<=now&&now-Number(t)<86400000})}
 function recordPost(){var p=recentPosts();p.push(Date.now());save(POSTS_KEY,p)}
 function taipeiDayStartISO(){/* Taiwan uses UTC+08:00 and has no daylight saving time. */var d=new Date(Date.now()+8*3600000);return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-8*3600000).toISOString()}
-function displayDate(s){try{return new Intl.DateTimeFormat(siteLang==='en'?'en-US':'zh-TW',{timeZone:'Asia/Taipei',month:'numeric',day:'numeric'}).format(new Date(s))}catch(e){return ''}}
+function displayDate(s){try{return new Intl.DateTimeFormat(siteLang==='en'?'en-US':'zh-TW',{timeZone:'Asia/Taipei',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(s))}catch(e){return ''}}
 function label(c){return ZONES[c]?(ui(ZONES[c].name)+' · '+ui(ZONES[c].recipient)):ui('來信')}
 function create(tag,cls,text){var el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function openDialog(id){$(id).showModal();document.body.style.overflow='hidden'}
