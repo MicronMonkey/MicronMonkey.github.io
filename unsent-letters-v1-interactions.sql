@@ -16,7 +16,7 @@ create table if not exists public.letter_comments (
   letter_id uuid not null references public.letters(id) on delete cascade,
   author_id uuid not null references auth.users(id) on delete cascade,
   nickname text not null default '匿名夥伴' check (char_length(btrim(nickname)) between 1 and 20),
-  body text not null check (char_length(btrim(body)) between 1 and 180),
+  body text not null check (char_length(btrim(body)) between 1 and 200),
   is_hidden boolean not null default false,
   created_at timestamptz not null default now()
 );
