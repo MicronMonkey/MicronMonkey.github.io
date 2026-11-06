@@ -222,6 +222,19 @@ dialog#compose .modal-inner{
 .translation-progress{font-size:11px;color:#806857;border-left:2px solid #b99b7c;padding:4px 8px;margin:-6px 0 16px;line-height:1.5}
 .translation-progress[hidden],.translation-notice[hidden]{display:none}
 .letter .translation-pending{font-size:10px;color:#806c57;margin:-3px 0 5px}
+/* V1 card action layout: saved bookmark sits before read status; three even-spaced actions. */
+.letter .letter-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;min-height:26px}
+.letter .letter-topline .category{flex:1 1 auto;min-width:0;padding-right:0;overflow-wrap:anywhere;line-height:1.45}
+.letter .letter-top-actions{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.letter .letter-top-actions .read-status{position:static;top:auto;right:auto;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;line-height:1.5}
+.letter .bookmark-button{white-space:nowrap;padding:3px 8px;border:1px solid #bba58e;border-radius:999px;background:#e7d7c0;color:#604a40;line-height:1.5;font-size:11px}
+.letter .bookmark-button:hover{background:#f4e3cc;color:#9f4860}
+.letter.is-read .bookmark-button{background:#dbcfbe;border-color:#b1a396}
+.letter .controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;justify-content:initial;gap:8px;flex-wrap:nowrap}
+.letter .controls .reader-action{width:100%;min-width:0;justify-self:stretch}
+.letter .controls .reader-action button,.letter .controls .heart,.letter .controls .comment-button{width:100%;text-align:center;white-space:nowrap;min-width:0}
+.letter .controls .heart,.letter .controls .comment-button{justify-self:stretch;padding:4px 1px}
+@media(max-width:430px){.letter .controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));justify-content:initial;gap:6px}.letter .letter-top-actions{gap:5px}.letter .bookmark-button{padding:3px 6px;font-size:10px}.letter .letter-topline .category{font-size:9px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
@@ -410,7 +423,7 @@ function applyStaticLanguage(){
   document.documentElement.lang=siteLang==='en'?'en':'zh-Hant';
 }
 function applyDynamicLanguage(){
-  document.querySelectorAll('#list-heading,#zone-introduction,#stats,#batch-counter,#load-more,#count-note,#privacy-mode,#paper-cat,#paper-read-count,#paper-comments,#paper-like,#paper-bookmark,#comment-meta,.read-count,.read-status,.letter .category,.letter .controls button,.letter .tag,.paper .tag,.comment-empty,[id^="zone-count-"]').forEach(function(el){
+  document.querySelectorAll('#list-heading,#zone-introduction,#stats,#batch-counter,#load-more,#count-note,#privacy-mode,#paper-cat,#paper-read-count,#paper-comments,#paper-like,#paper-bookmark,#comment-meta,.read-count,.read-status,.letter .category,.letter .controls button,.letter .bookmark-button,.letter .tag,.paper .tag,.comment-empty,[id^="zone-count-"]').forEach(function(el){
     if(siteLang==='en')el.textContent=ui(el.textContent);
   });
 }
@@ -660,8 +673,13 @@ $('batch-counter').textContent='第 '+(pageCount?Math.min(pageIndex+1,pageCount)
 $('load-more').textContent=pageCount>1&&pageIndex===pageCount-1?'↺　回到第一批 4 封信':'✉　讀取下一批 4 封信　→';
 if(!arr.length){$('more-wrap').hidden=true;var e=create('div','empty',siteLang==='en'?(sort==='saved'?'No saved letters yet.':'No letters here yet. Write the first one!'):(sort==='saved'?'你還沒有收藏信件。':'這裡還沒有信，寫下第一封吧。'));parent.appendChild(e);applyDynamicLanguage();return}
 visible.forEach(function(x,i){
-var alreadyRead=readIds.has(String(x.id))||likes.has(String(x.id));var node=create('article','letter'+(alreadyRead?' is-read':''));node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);node.appendChild(create('span','read-status',alreadyRead?'已讀':'未讀'));
-node.appendChild(create('div','category','LETTER / '+label(x.category)+(x.example?' · 情境示範':'')));
+var alreadyRead=readIds.has(String(x.id))||likes.has(String(x.id));var node=create('article','letter'+(alreadyRead?' is-read':''));node.style.setProperty('--batch-i',i);node.setAttribute('aria-label',x.title);
+var topLine=create('div','letter-topline');
+var topActions=create('div','letter-top-actions');
+var bookmark=create('button','bookmark-button',saved.has(String(x.id))?'★ 已收藏':'☆ 收藏');bookmark.type='button';bookmark.onclick=function(){toggleSaved(x.id)};
+topActions.append(bookmark,create('span','read-status',alreadyRead?'已讀':'未讀'));
+topLine.append(create('div','category','LETTER / '+label(x.category)+(x.example?' · 情境示範':'')),topActions);
+node.appendChild(topLine);
 var translated=siteLang==='en'?translatedLetter(x):null;
 node.appendChild(create('h3','',translated?translated.title:x.title));
 node.appendChild(create('div','excerpt',translated?translated.body:x.body));
@@ -672,8 +690,7 @@ var open=create('button','', '✉ 拆開讀信');open.type='button';open.onclick
 var readers=create('span','read-count',readerTotal(x)+' 人讀過');readerAction.append(open,readers);
 var heart=create('button','heart'+(likes.has(String(x.id))?' active':''),(likes.has(String(x.id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 共鳴');heart.type='button';heart.setAttribute('aria-label','按讚或取消');heart.onclick=function(e){e.stopPropagation();toggleLike(x.id)};
 var commentButton=create('button','comment-button','留言（'+commentTotal(x)+'）');commentButton.type='button';commentButton.onclick=function(){openComments(x.id,false)};
-var bookmark=create('button','',saved.has(String(x.id))?'★ 已收藏':'☆ 收藏');bookmark.type='button';bookmark.onclick=function(){toggleSaved(x.id)};
-actions.append(readerAction,heart,commentButton,bookmark);node.appendChild(actions);parent.appendChild(node);
+actions.append(readerAction,heart,commentButton);node.appendChild(actions);parent.appendChild(node);
 });applyDynamicLanguage();
 if(siteLang==='en')visible.forEach(queueLetterTranslation);
 }
