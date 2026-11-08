@@ -165,6 +165,23 @@
 #unionEntryReminder #meetingCountdownDays{font-size:calc(22px - 1pt);line-height:1.1;color:#ffe0a0;font-variant-numeric:tabular-nums;white-space:nowrap}
 #unionEntryReminder .meeting-countdown-date{width:100%;font-size:calc(10px - 1pt);color:#c4cbd4;text-align:right}
 @media(max-width:375px){#unionEntryReminder .meeting-countdown-pill{padding:8px 30px 8px 8px}#unionEntryReminder .meeting-countdown-copy{font-size:calc(11px - 1pt)}#unionEntryReminder #meetingCountdownDays{font-size:calc(20px - 1pt)}}
+/* Entry reminder: membership primary, volunteers secondary */
+#unionEntryReminder .union-entry-card-primary{display:flex;flex-direction:column;align-items:stretch;gap:13px;padding:22px 20px 20px;border:1px solid #c3a36e;background:linear-gradient(145deg,#293a43,#192632)}
+#unionEntryReminder .union-entry-card-primary .union-entry-question{font-size:calc(clamp(18px,4.3vw,22px) - 1pt);margin:0}
+#unionEntryReminder .union-entry-card-primary .union-entry-member-stats{margin:0}
+#unionEntryReminder .union-entry-total-label{color:#cbd8e5;font-size:calc(13px - 1pt);font-weight:750;margin-bottom:2px}
+#unionEntryReminder .union-entry-total{display:flex;align-items:baseline;gap:8px;margin:5px 0 13px;line-height:1.1}
+#unionEntryReminder .union-entry-total strong{font-size:clamp(37px,9vw,51px);color:#ffdfa2;letter-spacing:-.04em;font-weight:950;font-variant-numeric:tabular-nums}
+#unionEntryReminder .union-entry-total span{font-size:calc(15px - 1pt);color:#dae4f1}
+#unionEntryReminder .union-entry-card-primary .union-entry-breakdown{display:flex;flex-wrap:wrap;gap:7px 15px;font-size:calc(12px - 1pt);margin:0;color:#d4dfeb}
+#unionEntryReminder .union-entry-card-primary .union-entry-breakdown strong{font-size:calc(15px - 1pt)}
+#unionEntryReminder .union-entry-card-primary .union-entry-link{font-size:calc(15px - 1pt);min-height:49px;padding:12px 16px}
+#unionEntryReminder .union-entry-card-secondary{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;background:#1b2530;border-color:#455161}
+#unionEntryReminder .union-entry-card-secondary .union-entry-question{font-size:calc(13px - 1pt);margin:0 0 3px}
+#unionEntryReminder .union-entry-card-secondary .union-entry-count{font-size:calc(11px - 1pt);margin:0}
+#unionEntryReminder .union-entry-card-secondary .union-entry-count strong{font-size:calc(15px - 1pt);color:#e2d0ab}
+#unionEntryReminder .union-entry-card-secondary .union-entry-link{flex:0 0 auto;width:auto;min-width:102px;padding:9px 10px;font-size:calc(12px - 1pt);background:#394b57;color:#eff6fc;border:1px solid #758697}
+@media(max-width:350px){#unionEntryReminder .union-entry-card-primary{padding:16px 13px}#unionEntryReminder .union-entry-card-primary .union-entry-breakdown{gap:4px 9px}#unionEntryReminder .union-entry-card-secondary .union-entry-link{min-width:88px}}
 /* Nov 3 update: completed timeline items and archived briefing */
 #mode0Container #u-next .u-roadmap-item.roadmap-completed{--phase-color:#94a3b8;--phase-panel:#292d34;filter:grayscale(1);opacity:.68}
 #mode0Container #u-next .u-roadmap-item.roadmap-completed .u-roadmap-date,#mode0Container #u-next .u-roadmap-item.roadmap-completed h4{color:#b5bdc8}
@@ -1118,21 +1135,19 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  <span class="meeting-countdown-date">截至 11/13（五）</span>
 </div>
   <button type="button" class="union-entry-close" id="unionEntryClose" aria-label="關閉提醒 / Close">×</button>
-  <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 三件事，一起守護權益</h2>
-  <div class="union-entry-card">
-   <p class="union-entry-question">📣 Google 意向書階段性募集已完成</p>
-   <p class="union-entry-count">目前台中 <strong id="entryIntentCount">同步中…</strong> 人</p>
-   <a class="union-entry-link" href="#u-completed-milestones" onclick="document.getElementById('unionEntryClose').click();if(document.getElementById('completedArchiveToggle').getAttribute('aria-expanded')==='false')document.getElementById('completedArchiveToggle').click();">查看完成紀錄 ↓</a>
+  <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 一起壯大美光關工</h2>
+  <div class="union-entry-card union-entry-card-primary">
+   <p class="union-entry-question">🤝 美光關係企業工會｜加入我們</p>
+   <div class="union-entry-count union-entry-member-stats">
+    <div class="union-entry-total-label">桃園＋台中入會申請合計（估計）</div>
+    <div class="union-entry-total"><strong id="entryMembershipCount">同步中…</strong><span>人</span></div>
+    <div class="union-entry-breakdown"><span>台中 <strong class="entry-member-breakdown-number" id="entryMembershipTaichung">同步中…</strong> 人</span><span>桃園直接入會 <strong class="entry-member-breakdown-number">2,400</strong> 人</span></div>
+   </div>
+   <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">立即申請加入關工 ↗</a>
   </div>
-  <div class="union-entry-card">
-   <p class="union-entry-question">🤝 加入關工了嗎？</p>
-   <div class="union-entry-count union-entry-member-stats"><div>桃園＋台中 <strong id="entryMembershipCount">同步中…</strong> 人（估計）</div><div class="union-entry-breakdown">台中 <strong class="entry-member-breakdown-number" id="entryMembershipTaichung">同步中…</strong> 人 · 桃園直接入會 <strong class="entry-member-breakdown-number">2,400</strong> 人</div></div>
-   <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">申請入會 ↗</a>
-  </div>
-  <div class="union-entry-card">
-   <p class="union-entry-question">🌱 有意願擔任志工嗎？</p>
-   <p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p>
-   <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">報名志工 ↗</button>
+  <div class="union-entry-card union-entry-card-secondary">
+   <div class="union-entry-volunteer-copy"><p class="union-entry-question">🌱 一起當志工</p><p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p></div>
+   <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">志工報名 ↗</button>
   </div>
   <p class="union-entry-note">數字自動更新；關工顯示申請筆數，非核准會員數。</p>
   <button type="button" id="unionEntryLater" class="union-entry-later">進入網站</button>
