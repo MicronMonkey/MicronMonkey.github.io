@@ -739,6 +739,20 @@ body { font-size: calc(16px - 1pt); }
 #mode0Container #u-weekly-announcement .wa-fee-footnote strong{color:#ffe3a2;font-size:13px}
 #mode0Container #u-weekly-announcement .wa-fee-footnote p{margin:7px 0}
 #mode0Container #u-weekly-announcement .wa-fee-footnote a{color:#ffe1a5;text-decoration:underline}
+</style><style id="weekly-timeline-v2a">
+#mode0Container #u-next .u-past-timeline{border:1px solid #657486;border-radius:15px;background:#19232e;margin:22px 0 8px;overflow:hidden}
+#mode0Container #u-next .u-past-timeline>summary{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:15px 17px;color:#dfe8f4;font-size:14px;font-weight:800;list-style:none}
+#mode0Container #u-next .u-past-timeline>summary::-webkit-details-marker{display:none}
+#mode0Container #u-next .u-past-timeline>summary::after{content:'＋';font-size:18px;color:#edc281}
+#mode0Container #u-next .u-past-timeline[open]>summary::after{content:'−'}
+#mode0Container #u-next .u-roadmap-past{margin:0;padding:13px 11px 17px;border-top:1px solid #3c4d5c}
+#mode0Container #u-next .u-roadmap-past .u-roadmap-item{opacity:.84}
+#mode0Container #u-next .u-roadmap-upcoming{margin-top:20px}
+#mode0Container #u-next .wa-timeline-link{display:inline-flex;min-height:36px;align-items:center;justify-content:center;padding:7px 13px;margin-top:12px;border-radius:9px;background:linear-gradient(120deg,#f9d99b,#d8a74c);color:#38280f!important;font-size:12px;font-weight:900;text-decoration:none}
+#mode0Container #u-next .wa-timeline-link:hover{filter:brightness(1.08)}
+#mode0Container #u-next .roadmap-fee .u-roadmap-copy{background:linear-gradient(110deg,#353023,#202a35)}
+#mode0Container #u-next .roadmap-briefing .u-roadmap-copy{background:linear-gradient(110deg,#322d27,#202a35)}
+@media(max-width:650px){#mode0Container #u-next .u-roadmap-past{padding:10px 4px 16px}#mode0Container #u-next .u-past-timeline>summary{padding:13px 12px;font-size:12px}}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -846,19 +860,55 @@ body { font-size: calc(16px - 1pt); }
 <div class="u-recruit-item"><span class="u-tag">志工／專長支援</span><h4 class="text-xl font-black mt-3">我想協助，但不擔任幹部</h4><p class="u-muted text-sm mt-2">可選擇匿名或具名，勾選設計、活動、資料、翻譯、溝通等能幫忙的項目。</p><button class="u-button u-primary w-full mt-4" onclick="openVolunteerSignup()" type="button">填寫志工意願表 ↗</button><div id="volunteerPublicCount" class="vol-count-public" role="status" aria-live="polite">志工報名人數讀取中… / Loading volunteer count…</div><button class="u-admin-link mt-3" onclick="openVolunteerAdmin()" type="button">🔒 管理員查看志工資料（需密碼） ↗</button></div>
 </div>
 </section><section class="u-surface" id="u-next">
-<div class="u-kicker">TAICHUNG SELF-ACTION · NEXT STEPS TIMELINE</div>
-<h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">台中自救行動｜後續行動時間表</span><span class="u-en" lang="en">Taichung Self-Action | Next Steps Timeline</span></span></h3>
+<div class="u-kicker">UPCOMING UNION ACTIONS · EVENT TIMELINE</div>
+<h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">近期行動｜繳費、說明會與後續時間表</span><span class="u-en" lang="en">Upcoming union actions · Event timeline</span></span></h3>
 <p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">連署不是終點，而是正式行動的開始。請大家持續關注並共同參與！</span><span class="u-en" lang="en">This is not the end — it is the start of our collective action. Please stay informed and involved!</span></span></p>
-<div class="u-roadmap">
+
+<details class="u-past-timeline" id="u-past-timeline">
+ <summary><span class="u-bilingual"><span class="u-zh">🗂️ 已過去的行動紀錄（<span id="u-past-event-count">4</span> 則）</span><span class="u-en" lang="en">🗂️ Past events (<span id="u-past-event-count-en">4</span>)</span></span></summary>
+ <div class="u-roadmap u-roadmap-past" id="u-past-timeline-events">
 <div class="u-roadmap-item roadmap-stop roadmap-completed"><div class="u-roadmap-date">10/28（三）<br>21:00</div><div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">正式連署募集暫停，轉入資料整理</span><span class="u-en" lang="en">Formal petition collection paused; review begins</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">依先前公告規劃暫停新的正式連署收件，進行<strong>移除重複連署書、核對及建檔</strong>，準備正式送件。此為流程時點，不代表網站後端已自動停止接收。</span><span class="u-en" lang="en">Based on the announced schedule, new formal petition submissions are to pause at 21:00. The next stage is deduplication, verification, and record preparation. Removing the link does not automatically disable the submission backend.</span></span></p></details></div></div>
 <div class="u-roadmap-item roadmap-completed"><div class="u-roadmap-date">11/3（二）</div><div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">台中工會會長已簽收連署書</span><span class="u-en" lang="en">Petition received by Taichung union chairperson</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">11/3 台中工會會長已正式簽收連署書，啟動<strong>十日倒數</strong>，關注臨時會員大會召集與辦理進度。</span><span class="u-en" lang="en">The Taichung union chairperson formally acknowledged receipt of the petition on Nov 3, starting the 10-day countdown to convene the extraordinary members’ meeting.</span></span></p></details></div></div>
 <div class="u-roadmap-item roadmap-brief roadmap-completed"><div class="u-roadmap-date">11/3（二）<br>✓ 已完成</div><div class="u-roadmap-marker" aria-hidden="true"><span>03</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">台中記者會暨美光關係企業工會說明會</span><span class="u-en" lang="en">Taichung press conference &amp; affiliated union briefing</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">下午 <strong>13:00 台中科管局記者會</strong>及晚上<strong>后里美光關係企業工會說明會</strong>皆已辦理完成。</span><span class="u-en" lang="en">The <strong>13:00 press conference at the Central Taiwan Science Park Bureau</strong> and the <strong>evening affiliated union briefing in Houli</strong> were completed on Nov 3.</span></span></p></details></div></div>
 <div class="u-roadmap-item roadmap-google roadmap-completed"><div class="u-roadmap-date">截止 11/6（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">Google 意向書階段性募集已完成</span><span class="u-en" lang="en">Google Form campaign phase completed</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">原訂至 11/6 的 Google 意向書階段性募集已列為完成事項。回覆統計保留在下方「已達成任務」供會員查看。</span><span class="u-en" lang="en">The Google Form response campaign scheduled through Nov 6 is archived as a completed phase. Response statistics remain accessible under Completed Milestones.</span></span></p></details></div></div>
-<div class="u-roadmap-item roadmap-volunteer"><div class="u-roadmap-date">現在－11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>05</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
-<div class="u-roadmap-item "><div class="u-roadmap-date">11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>06</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">關注臨時會員大會召集進度</span><span class="u-en" lang="en">Follow the extraordinary members’ meeting convening process</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/3 已簽收連署書，11/13 為十日倒數追蹤日期；實際期限及程序仍以適用法令為準。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. The petition was received on Nov 3; Nov 13 is the 10-day follow-up date. Applicable legal deadlines and procedures should still be confirmed.</span></span></p></div></div>
-<div class="u-roadmap-item roadmap-mediation"><div class="u-roadmap-date">11/17（二）</div><div class="u-roadmap-marker" aria-hidden="true"><span>07</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">桃園勞資調解會</span><span class="u-en" lang="en">Taoyuan labor-management mediation meeting</span></span></h4><p><span class="u-bilingual"><span class="u-zh">預定於 <strong>11/17（二）</strong> 進行桃園勞資調解；實際時間、地點、討論事項及後續結果，以正式公告為準。</span><span class="u-en" lang="en">The Taoyuan labor-management mediation meeting is scheduled for <strong>Tuesday, Nov 17</strong>. Venue, time, agenda and outcome are subject to official announcements.</span></span></p></div></div>
+ </div>
+</details>
+<div class="u-roadmap u-roadmap-upcoming" id="u-timeline-upcoming">
+
+<div class="u-roadmap-item roadmap-fee" data-timeline-end="2026-11-12T20:00:00+08:00" style="--phase-color:#ebc17d;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/9–11/12<br>每日雙時段</div>
+ <div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div>
+ <div class="u-roadmap-copy">
+  <h4><span class="u-bilingual"><span class="u-zh">關係企業工會｜台中會費繳納</span><span class="u-en" lang="en">Union dues · Taichung</span></span></h4>
+  <p><span class="u-bilingual"><span class="u-zh"><strong>后里星巴克會議室</strong>。12:00–13:00、18:00–20:00；11、12 月會費共 <strong>NT$100</strong>。請於廠外休息或下班時段辦理。</span><span class="u-en" lang="en">Houli Starbucks, noon and evening windows; NT$100 for two months.</span></span></p>
+  <a class="wa-timeline-link" href="#u-weekly-announcement" >查看詳情 ↗</a>
+ </div>
 </div>
-<div class="u-timefoot"><span class="u-bilingual"><span class="u-zh">每一份連署、每一份真實意見、每一位願意挺身而出的會員，都是守護自身權益的重要力量。</span><span class="u-en" lang="en">Every petition, every genuine opinion, and every member who steps up helps protect our rights.</span></span></div>
+
+<div class="u-roadmap-item roadmap-briefing" data-timeline-end="2026-11-10T23:59:59+08:00" style="--phase-color:#f2ce81;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/10（二）</div>
+ <div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div>
+ <div class="u-roadmap-copy">
+  <h4><span class="u-bilingual"><span class="u-zh">台中會員實體說明會</span><span class="u-en" lang="en">Taichung member briefing</span></span></h4>
+  <p><span class="u-bilingual"><span class="u-zh">台中場實體說明會，歡迎同仁報名。<strong>場地、時間及其他事項</strong>以報名表與主辦方通知為準。</span><span class="u-en" lang="en">Member briefing on Nov 10. Registration form confirms venue and time.</span></span></p>
+  <a class="wa-timeline-link" href="https://forms.gle/napfFDhwGJNEuYSa8" target="_blank" rel="noopener noreferrer">查看詳情 ↗</a>
+ </div>
+</div>
+
+<div class="u-roadmap-item roadmap-briefing" data-timeline-end="2026-11-11T20:00:00+08:00" style="--phase-color:#f2ce81;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/11（三）<br>18:00–20:00</div>
+ <div class="u-roadmap-marker" aria-hidden="true"><span>03</span></div>
+ <div class="u-roadmap-copy">
+  <h4><span class="u-bilingual"><span class="u-zh">台南會員實體說明會</span><span class="u-en" lang="en">Tainan member briefing</span></span></h4>
+  <p><span class="u-bilingual"><span class="u-zh"><strong>11/10 中午</strong>前完成報名統計；說明會地點將<strong>簡訊通知報名者</strong>。</span><span class="u-en" lang="en">Nov 11, 18:00–20:00. Headcount by Nov 10 noon; venue via SMS.</span></span></p>
+  <a class="wa-timeline-link" href="https://forms.gle/1n62ugArcXKvvyt5A" target="_blank" rel="noopener noreferrer">查看詳情 ↗</a>
+ </div>
+</div>
+<div class="u-roadmap-item roadmap-volunteer"><div class="u-roadmap-date">現在－11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
+<div class="u-roadmap-item "><div class="u-roadmap-date">11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>05</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">臨時會員大會召集程序｜11/13 期限追蹤</span><span class="u-en" lang="en">Extraordinary meeting · Nov 13 deadline tracking</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/3 已簽收連署書，11/13 為十日倒數追蹤日期；實際期限及程序仍以適用法令為準。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. The petition was received on Nov 3; Nov 13 is the 10-day follow-up date. Applicable legal deadlines and procedures should still be confirmed.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-mediation"><div class="u-roadmap-date">11/17（二）</div><div class="u-roadmap-marker" aria-hidden="true"><span>06</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">桃園勞資調解會</span><span class="u-en" lang="en">Taoyuan labor-management mediation meeting</span></span></h4><p><span class="u-bilingual"><span class="u-zh">預定於 <strong>11/17（二）</strong> 進行桃園勞資調解；實際時間、地點、討論事項及後續結果，以正式公告為準。</span><span class="u-en" lang="en">The Taoyuan labor-management mediation meeting is scheduled for <strong>Tuesday, Nov 17</strong>. Venue, time, agenda and outcome are subject to official announcements.</span></span></p></div></div>
+</div>
+
 </section><section><div id="u-quick-faq" style="scroll-margin-top:24px"></div><div class="u-kicker">LEGAL &amp; PROCEDURAL FAQ</div><h3 class="u-heading mt-2 mb-5"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">點擊查看詳細議事指引</span><span class="u-en" lang="en">Expand the detailed meeting and legal guide</span></span></h3><div class="space-y-3">
 <details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">臨時會員大會如何發起？</span><span class="u-en" lang="en">How can members request an extraordinary meeting?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》第 23 條：會員五分之一以上，或會員代表三分之一以上，可請求理事長召開臨時會員（代表）大會；監事也可請求。通常須提前三日通知，緊急事故得於會前一日通知。</span><span class="u-en" lang="en">Under Article 23 of the Labor Union Act, at least one-fifth of members or one-third of delegates may request the chairperson to convene an extraordinary meeting; supervisors may also request one. Notice is generally required three days in advance, or one day in urgent circumstances.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">若理事長自請求日起十日內不召集，原請求人得依第 25 條申請主管機關指定召集。連署人數須按有資格的會員總數計算。</span><span class="u-en" lang="en">If the chairperson does not convene the meeting within ten days of the request, the original requesters may apply under Article 25 for the authority to designate a convener. Valid signatures must be counted against eligible membership.</span></span></p></div></details>
 <details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">協議能否拒絕追認？哪些程序需要核對？</span><span class="u-en" lang="en">Can members decline ratification, and what procedures need review?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">第一步是確認 10/21 文件究竟屬於正式「團體協約」、一般勞資協議或調解紀錄，並取得全文及工會章程。</span><span class="u-en" lang="en">First determine whether the October 21 document is a collective agreement, an ordinary labor-management agreement, or a mediation record, and obtain its full text and the union bylaws.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">若屬正式團體協約，《團體協約法》第 9 條規定，除依章程簽訂外，須符合會員（代表）大會法定決議或全體會員書面同意方式；未符合者於補行追認前不生效力。不能僅憑「未開會員大會」便直接斷定無效，因條文有章程及書面同意途徑。</span><span class="u-en" lang="en">If it is a formal collective agreement, Article 9 of the Collective Agreement Act allows procedures specified in the bylaws, a legally required members’ or delegates’ resolution, or written approval by all members. An agreement that does not satisfy the relevant requirements does not take effect before ratification. The lack of a members’ meeting alone does not prove invalidity because other routes may apply.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">會員大會可提出不予追認、要求公開協議與重新協商的提案，但對外效力仍要依法及個案事實確認。</span><span class="u-en" lang="en">A members’ meeting may propose non-ratification, disclosure, or renewed negotiations; the effect outside the union depends on the applicable law and case facts.</span></span></p></div></details>
@@ -1359,5 +1409,26 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
 })();
 </script>
-</body>
+<script id="v2-timeline-auto-archive">
+(function(){
+ const current=document.getElementById('u-timeline-upcoming'),old=document.getElementById('u-past-timeline-events');
+ if(!current||!old)return;
+ function refresh(){
+  const now=Date.now();
+  [...current.querySelectorAll('.u-roadmap-item[data-timeline-end]')].forEach(item=>{
+   const expiry=Date.parse(item.getAttribute('data-timeline-end'));
+   if(Number.isFinite(expiry)&&now>expiry){
+    item.classList.add('roadmap-completed');
+    const a=item.querySelector('a.wa-timeline-link');
+    if(a)a.remove();
+    old.appendChild(item);
+   }
+  });
+  const total=old.querySelectorAll('.u-roadmap-item').length;
+  ['u-past-event-count','u-past-event-count-en'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=String(total)});
+ }
+ refresh();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+})();
+</script></body>
 </html>
