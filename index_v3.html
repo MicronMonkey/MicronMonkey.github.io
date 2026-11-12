@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>光光猴守護平台｜V3 關工重要公告與11/17行動</title>
+<meta content="光光猴守護平台：11/13 前台中＋桃園關工入會目標 11,000 人，桃園直接入會 2,400 人；Google 意向書進度歸檔，關注 11/17 桃園調解會，歡迎閱讀未寄出的信。" name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="zh_TW" property="og:locale"/>
+<meta content="光光猴守護平台" property="og:site_name"/>
+<meta content="光光猴守護平台｜11/13 目標與 11/17 桃園調解會" property="og:title"/>
+<meta content="台中＋桃園關工入會目標：11/13 前合計 11,000 人。11/17 桃園勞資調解會，Google 意向書階段性完成；匿名心聲「未寄出的信」歡迎閱讀。" property="og:description"/>
+<!-- LINE 等社群平台通常偏好完整 HTTPS 圖片網址。請將下方相對路徑換成圖片實際上線後的絕對網址，例如 https://你的網站/share-preview-v15.png -->
+<meta content="share-preview-v15.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="光光猴守護平台 — 沉痛，但我們仍有選擇" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="光光猴守護平台｜連署收件達標・後續行動" name="twitter:title"/>
+<meta content="感謝每位參與連署的會員！正式連署收件達標，後續進入核對、建檔與依法請求召集臨時會員大會的階段。Google 意向書持續開放。" name="twitter:description"/>
+<meta content="share-preview-v15.png" name="twitter:image"/>
+<link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Chart.js -->
+
+<style>
+        body { background-color: #f8fafc; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        .tab-active { background-color: #0066cc; color: white; border-color: #0066cc; }
+        .btn-series-active { background-color: #0066cc; color: white; border-color: #0066cc; box-shadow: 0 2px 4px rgba(0,102,204,0.25); }
+        .btn-grade-active { background-color: #0284c7; color: white; border-color: #0284c7; font-weight: bold; }
+        .heatmap-cell { transition: all 0.2s; }
+        .heatmap-cell:hover { transform: scale(1.02); filter: brightness(0.95); }
+        .mode-btn-active { background-image: linear-gradient(to right, #3b82f6, #8b5cf6); color: white; box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39); border-color: transparent; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); z-index: 50; backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        /* Table Sort Icon */
+        th.sortable:hover { background-color: #e2e8f0; cursor: pointer; transition: background 0.2s; }
+        #dataTableWrap thead, #dataTableWrap thead th, #dataTableWrap thead tr { background-color: #f1f5f9 !important; opacity: 1 !important; }
+        #dataTableWrap thead th { position: sticky; top: 0; z-index: 5; background-color: #f1f5f9 !important; }
+    
+        /* ===== UX upgrades ===== */
+        .portal-poll-scroll { max-height: 520px; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
+        .portal-poll-scroll::-webkit-scrollbar { width: 8px; }
+        .portal-poll-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+        .portal-report-viewport { height: 540px; overflow: hidden; position: relative; }
+        .portal-report-track { display: flex; flex-direction: column; gap: 8px; transition: transform .6s ease; }
+        .portal-report-row { height: 100px; min-height: 100px; max-height: 100px; box-sizing: border-box; overflow: hidden; }
+        .portal-stock-bar { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(10px); }
+        .portal-stock-up { color:#34d399; } .portal-stock-down { color:#fb7185; }
+        .portal-report-content { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:5; overflow:hidden; line-height:1.35; }
+        .keyword-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:9px 13px;min-height:150px;padding:14px;border-radius:16px;background:linear-gradient(135deg,#f8fafc,#eef2ff);overflow:hidden}
+        .external-news-item{display:block;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}
+        .external-news-item:hover{background:#eef2ff}
+        .event-timeline{position:relative;padding-left:22px}
+        .event-timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e2e8f0}
+        .event-item{position:relative;padding:12px 0 12px 14px}
+        .event-item:before{content:"";position:absolute;left:-1px;top:19px;width:11px;height:11px;border-radius:999px;background:#6366f1;border:3px solid white;box-shadow:0 0 0 2px #c7d2fe}
+        .event-date-hero{font-size:calc(1.05rem - 1pt);font-weight:900;color:#be123c}
+        .event-range{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;background:#fff1f2;color:#be123c;font-weight:900;font-size:calc(.8rem - 1pt)}
+        .news-meta{display:inline-flex;align-items:center;gap:7px;font-size:calc(14px - 1pt);line-height:1.35;color:#475569;font-weight:800;margin-bottom:4px}
+        .news-meta .news-source-tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-size:calc(13px - 1pt);font-weight:900}
+        .news-meta .news-date{font-size:calc(14px - 1pt);font-weight:800;color:#64748b}
+        .external-news-item .news-title{font-size:calc(1rem - 1pt);line-height:1.5;font-weight:900;color:#0f172a}
+        .external-status{font-size:calc(11px - 1pt)}
+        .news-filter{transition:.15s}
+        .event-countdown{font-weight:900}
+        .mood-btn.mood-selected-today{background:#0f172a!important;color:#fff!important;border-color:#0f172a!important;box-shadow:0 0 0 2px rgba(15,23,42,.12);transform:translateY(-1px);}
+
+/* Emergency microsite: scoped to #mode0Container; existing charts and app unchanged */
+#mode0Container {--u-bg:#121820;--u-panel:#1e2732;--u-border:#3c4753;--u-fg:#f3f4f6;--u-muted:#b4bfca;--u-accent:#d6b77a;--u-tint:#29323d;color:var(--u-fg);font-size:calc(15px - 1pt);line-height:1.7}
+#mode0Container .u-surface{background:var(--u-panel);border:1px solid var(--u-border);border-radius:20px;padding:clamp(19px,3vw,30px)}
+#mode0Container .u-muted{color:var(--u-muted)}
+#mode0Container .u-kicker{font-size:calc(11px - 1pt);letter-spacing:.18em;font-weight:800;color:var(--u-accent)}
+#mode0Container .u-heading{font-size:calc(clamp(23px,3vw,32px) - 1pt);font-weight:900;letter-spacing:-.025em;line-height:1.25}
+#mode0Container .u-button{display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:13px 19px;min-height:46px;border-radius:12px;text-decoration:none;font-weight:800;transition:transform .15s,filter .15s}
+#mode0Container .u-button:hover{transform:translateY(-2px);filter:brightness(1.12)}
+#mode0Container .u-primary{background:var(--u-accent);color:#151a20}
+#mode0Container .u-secondary{border:1px solid #77808c;background:#303a45;color:#fff}
+#mode0Container .u-step{display:inline-flex;align-items:center;justify-content:center;width:35px;height:35px;border-radius:10px;background:var(--u-tint);border:1px solid var(--u-border);color:var(--u-accent);font-weight:900}
+#mode0Container details{background:var(--u-panel);border:1px solid var(--u-border);border-radius:14px;overflow:hidden}
+#mode0Container summary{cursor:pointer;padding:17px 20px;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:14px}
+#mode0Container summary::after{content:'＋';color:var(--u-accent);font-size:calc(20px - 1pt)}
+#mode0Container details[open] summary::after{content:'−'}
+#mode0Container .u-details-body{padding:0 20px 20px;color:var(--u-muted)}
+#mode0Container .u-details-body p{margin:0 0 12px}
+#mode0Container .u-details-body ul{list-style:disc;padding-left:20px;margin:8px 0}
+#mode0Container .u-details-body li{margin:7px 0}
+#mode0Container .u-details-body a{color:var(--u-accent);text-decoration:underline}
+#mode0Container .u-cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#mode0Container .u-stat{font-size:calc(clamp(40px,6vw,64px) - 1pt);font-weight:900;line-height:1.05;letter-spacing:-.05em}
+#mode0Container .u-rail{border-left:2px solid var(--u-border);margin-left:16px;padding-left:26px}
+#mode0Container .u-rail-item{position:relative;padding:0 0 25px}
+#mode0Container .u-rail-item::before{content:'';position:absolute;left:-34px;top:7px;width:14px;height:14px;background:var(--u-accent);border:3px solid var(--u-bg);border-radius:50%}
+#mode0Container .u-rail-item:last-child{padding-bottom:0}
+#mode0Container .u-mini{font-size:calc(12px - 1pt)}
+#mode0Container .u-divider{height:1px;background:var(--u-border);margin:22px 0}
+#mode0Container .u-highlight{border-left:4px solid var(--u-accent);padding-left:17px}
+@media(max-width:690px){#mode0Container .u-cardgrid{grid-template-columns:1fr}#mode0Container .u-stat{font-size:calc(46px - 1pt)}}
+#mode0Container{--u-bg:#101216;--u-panel:#1b1e24;--u-border:#3a3e45;--u-accent:#d2bd9e;--u-tint:#292b30;background:#101216}body{background:#e6e6e6!important}body>div>header{filter:grayscale(1)}#muStockBar{filter:grayscale(1)}#mode0Container .u-hero{background:radial-gradient(circle at 78% 10%,#30333b,#101216 62%);border:1px solid #4a4c51}
+
+/* V13: prominent step-by-step action sequence */
+#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#mode0Container .u-cardgrid > section.u-surface{position:relative;border:2px solid #a68b58;box-shadow:0 12px 28px rgba(0,0,0,.18);padding-top:26px}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(1){border-color:#d9b46b}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(2){border-color:#9a9a9a}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(3){border-color:#7e8895}
+#mode0Container .u-cardgrid .u-step{width:58px;height:58px;border-radius:15px;background:#e4c58b;color:#191919;border:2px solid #f5e1b7;font-size:calc(1.55rem - 1pt);box-shadow:0 5px 14px rgba(0,0,0,.22)}
+#mode0Container .u-cardgrid > section:nth-child(2) .u-step{background:#d7d9dd;border-color:#fff}
+#mode0Container .u-cardgrid > section:nth-child(3) .u-step{background:#aeb8c4;border-color:#e3e8ee}
+#mode0Container .u-cardgrid h3{font-size:calc(1.4rem - 1pt);line-height:1.4}
+#mode0Container .u-cardgrid .u-button{min-height:64px;font-weight:900;font-size:calc(1.05rem - 1pt)}
+#mode0Container .u-cardgrid .u-kicker{letter-spacing:.03em}
+@media(max-width:970px){#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:1fr}}
+
+#mode0Container #u-next .u-roadmap-done{display:inline-flex;vertical-align:middle;align-items:center;margin-left:10px;padding:3px 10px;border-radius:99px;border:1px solid #7b8794;background:#343b45;color:#d1d5db;font-size:calc(12px - 1pt);font-weight:800;white-space:nowrap}#mode0Container #u-next .u-roadmap-done .u-en{font-size:calc(11px - 1pt);color:#bec5ce}
+
+/* Completed archive: collapsed by default */
+#mode0Container #completedArchiveContent[hidden]{display:none!important}
+#mode0Container .u-archive-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 0 auto;padding:10px 17px;border-radius:12px;border:1px solid #bca174;background:#37332e;color:#f1dfbb;cursor:pointer;font-weight:800;font-size:calc(13px - 1pt)}
+#mode0Container .u-archive-toggle .u-en{font-size:calc(11px - 1pt);opacity:.8}
+#mode0Container .u-archive-toggle[aria-expanded="true"] .u-archive-chevron{transform:rotate(180deg)}
+/* Entry reminder */
+#unionEntryReminder[hidden]{display:none!important}
+#unionEntryReminder{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;background:rgba(5,9,17,.82);backdrop-filter:blur(7px);padding:20px;color:#f8fafc}
+#unionEntryReminder .union-entry-dialog{position:relative;width:min(100%,520px);max-height:min(90vh,780px);overflow-y:auto;border:1px solid #a89165;border-radius:22px;background:linear-gradient(145deg,#222a35,#131923);padding:clamp(21px,4vw,34px);box-shadow:0 22px 70px #0009}
+#unionEntryReminder .union-entry-title{font-weight:900;color:#f0d6a0;font-size:calc(clamp(21px,4vw,26px) - 1pt);margin:0 36px 18px 0}
+#unionEntryReminder .union-entry-close{position:absolute;top:13px;right:15px;border:1px solid #657182;border-radius:10px;background:#303a47;color:#fff;padding:5px 11px;font-size:calc(22px - 1pt);cursor:pointer}
+#unionEntryReminder .union-entry-card{border:1px solid #49586b;background:#1a2430;padding:19px;border-radius:15px;margin-top:13px}
+#unionEntryReminder .union-entry-question{font-size:calc(clamp(18px,3vw,22px) - 1pt);font-weight:900;margin:0 0 12px}
+#unionEntryReminder .union-entry-count{font-size:calc(16px - 1pt);color:#d6e4f2;margin:0 0 14px}
+#unionEntryReminder .union-entry-count strong{font-size:calc(clamp(27px,6vw,35px) - 1pt);color:#f9dca2;font-variant-numeric:tabular-nums}
+#unionEntryReminder .union-entry-link{display:block;width:100%;text-align:center;background:#e3be80;color:#171c23;font-size:calc(16px - 1pt);font-weight:900;border:0;border-radius:12px;padding:12px 16px;text-decoration:none;cursor:pointer}
+#unionEntryReminder .union-entry-note{margin-top:15px;color:#bec8d5;font-size:calc(12px - 1pt);line-height:1.65}
+#unionEntryReminder .union-entry-later{display:block;width:100%;margin-top:17px;padding:10px;background:transparent;border:1px solid #707b8b;border-radius:10px;color:#e8edf3;cursor:pointer}
+/* Compact, mobile-first 3-row reminder */
+#unionEntryReminder{padding:12px!important;align-items:center}
+#unionEntryReminder .union-entry-dialog{box-sizing:border-box;width:min(100%,460px);max-height:calc(100dvh - 24px);padding:19px 17px 16px;border-radius:18px;overflow-y:auto}
+#unionEntryReminder .union-entry-title{font-size:calc(clamp(18px,4.5vw,21px) - 1pt);line-height:1.3;margin:0 38px 14px 0;letter-spacing:-.02em}
+#unionEntryReminder .union-entry-close{top:10px;right:11px;width:36px;height:36px;padding:0;border-radius:9px;font-size:calc(23px - 1pt);line-height:1}
+#unionEntryReminder .union-entry-card{display:grid;grid-template-columns:minmax(0,1fr) 102px;grid-template-areas:"question action" "count action";align-items:center;column-gap:10px;row-gap:4px;padding:12px 13px;margin-top:9px;border-radius:12px}
+#unionEntryReminder .union-entry-question{grid-area:question;min-width:0;margin:0;font-size:calc(clamp(14px,3.6vw,16px) - 1pt);line-height:1.35}
+#unionEntryReminder .union-entry-count{grid-area:count;margin:0;font-size:calc(13px - 1pt);line-height:1.45;white-space:normal}
+#unionEntryReminder .union-entry-count strong{font-size:calc(clamp(20px,5.8vw,25px) - 1pt);line-height:1.1}
+#unionEntryReminder .union-entry-link{grid-area:action;display:flex;align-items:center;justify-content:center;width:100%;min-height:42px;padding:8px 5px;border-radius:9px;font-size:calc(12px - 1pt);line-height:1.35;white-space:nowrap}
+#unionEntryReminder .union-entry-note{font-size:calc(10px - 1pt);line-height:1.5;margin:11px 2px 0}
+#unionEntryReminder .union-entry-later{font-size:calc(13px - 1pt);font-weight:700;margin-top:12px;min-height:41px;padding:8px;border-radius:9px}
+@media(max-width:350px){#unionEntryReminder .union-entry-dialog{padding:16px 12px 13px}#unionEntryReminder .union-entry-card{grid-template-columns:minmax(0,1fr) 90px;padding:10px}#unionEntryReminder .union-entry-question{font-size:calc(13px - 1pt)}#unionEntryReminder .union-entry-link{font-size:calc(11px - 1pt)}}
+@media(max-height:590px){#unionEntryReminder .union-entry-dialog{padding-top:13px;padding-bottom:12px}#unionEntryReminder .union-entry-card{padding-top:9px;padding-bottom:9px;margin-top:7px}#unionEntryReminder .union-entry-note{margin-top:7px}#unionEntryReminder .union-entry-later{margin-top:8px}}
+
+#unionEntryReminder .union-entry-member-stats{font-size:calc(11px - 1pt);line-height:1.4}
+#unionEntryReminder .union-entry-member-stats strong{font-size:calc(clamp(19px,5vw,24px) - 1pt)}
+#unionEntryReminder .union-entry-breakdown{font-size:calc(10px - 1pt);color:#c9d5e3;margin-top:3px;white-space:normal}
+#unionEntryReminder .union-entry-breakdown .entry-member-breakdown-number{font-size:calc(12px - 1pt);font-weight:900;color:#f3d397}
+/* Compact countdown displayed at top of entry reminder */
+#unionEntryReminder .meeting-countdown-pill{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 8px;width:100%;padding:9px 35px 9px 9px;margin:0 0 12px;border:1px solid #cba866;border-radius:11px;background:linear-gradient(110deg,#3a3022,#222a33);color:#f7e8c7;text-align:left}
+#unionEntryReminder .meeting-countdown-icon{font-size:calc(17px - 1pt)}
+#unionEntryReminder .meeting-countdown-copy{font-weight:800;font-size:calc(12px - 1pt);line-height:1.35;flex:1 1 155px}
+#unionEntryReminder .meeting-countdown-copy .u-en{display:none}
+#unionEntryReminder #meetingCountdownDays{font-size:calc(22px - 1pt);line-height:1.1;color:#ffe0a0;font-variant-numeric:tabular-nums;white-space:nowrap}
+#unionEntryReminder .meeting-countdown-date{width:100%;font-size:calc(10px - 1pt);color:#c4cbd4;text-align:right}
+@media(max-width:375px){#unionEntryReminder .meeting-countdown-pill{padding:8px 30px 8px 8px}#unionEntryReminder .meeting-countdown-copy{font-size:calc(11px - 1pt)}#unionEntryReminder #meetingCountdownDays{font-size:calc(20px - 1pt)}}
+/* Entry reminder: membership primary, volunteers secondary */
+#unionEntryReminder .union-entry-card-primary{display:flex;flex-direction:column;align-items:stretch;gap:13px;padding:22px 20px 20px;border:1px solid #c3a36e;background:linear-gradient(145deg,#293a43,#192632)}
+#unionEntryReminder .union-entry-card-primary .union-entry-question{font-size:calc(clamp(18px,4.3vw,22px) - 1pt);margin:0}
+#unionEntryReminder .union-entry-card-primary .union-entry-member-stats{margin:0}
+#unionEntryReminder .union-entry-total-label{color:#cbd8e5;font-size:calc(13px - 1pt);font-weight:750;margin-bottom:2px}
+#unionEntryReminder .union-entry-total{display:flex;align-items:baseline;gap:8px;margin:5px 0 13px;line-height:1.1}
+#unionEntryReminder .union-entry-total strong{font-size:clamp(37px,9vw,51px);color:#ffdfa2;letter-spacing:-.04em;font-weight:950;font-variant-numeric:tabular-nums}
+#unionEntryReminder .union-entry-total span{font-size:calc(15px - 1pt);color:#dae4f1}
+#unionEntryReminder .union-entry-card-primary .union-entry-breakdown{display:flex;flex-wrap:wrap;gap:7px 15px;font-size:calc(12px - 1pt);margin:0;color:#d4dfeb}
+#unionEntryReminder .union-entry-card-primary .union-entry-breakdown strong{font-size:calc(15px - 1pt)}
+#unionEntryReminder .union-entry-card-primary .union-entry-link{font-size:calc(15px - 1pt);min-height:49px;padding:12px 16px}
+#unionEntryReminder .union-entry-card-secondary{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;background:#1b2530;border-color:#455161}
+#unionEntryReminder .union-entry-card-secondary .union-entry-question{font-size:calc(13px - 1pt);margin:0 0 3px}
+#unionEntryReminder .union-entry-card-secondary .union-entry-count{font-size:calc(11px - 1pt);margin:0}
+#unionEntryReminder .union-entry-card-secondary .union-entry-count strong{font-size:calc(15px - 1pt);color:#e2d0ab}
+#unionEntryReminder .union-entry-card-secondary .union-entry-link{flex:0 0 auto;width:auto;min-width:102px;padding:9px 10px;font-size:calc(12px - 1pt);background:#394b57;color:#eff6fc;border:1px solid #758697}
+@media(max-width:350px){#unionEntryReminder .union-entry-card-primary{padding:16px 13px}#unionEntryReminder .union-entry-card-primary .union-entry-breakdown{gap:4px 9px}#unionEntryReminder .union-entry-card-secondary .union-entry-link{min-width:88px}}
+/* Nov 3 update: completed timeline items and archived briefing */
+#mode0Container #u-next .u-roadmap-item.roadmap-completed{--phase-color:#94a3b8;--phase-panel:#292d34;filter:grayscale(1);opacity:.68}
+#mode0Container #u-next .u-roadmap-item.roadmap-completed .u-roadmap-date,#mode0Container #u-next .u-roadmap-item.roadmap-completed h4{color:#b5bdc8}
+#mode0Container #u-completed-milestones #u-nov3-briefing{margin-top:22px;padding:20px;border:1px solid #657080;border-radius:14px;background:#1a2028}
+#mode0Container #u-completed-milestones #u-nov3-briefing .u-step{background:#64748b;color:#fff}
+</style>
+<link href="manifest.webmanifest" rel="manifest"/>
+<meta content="#0f172a" name="theme-color"/>
+<style id="chart-tooltip-readability-v20">
+/* Long bilingual Chart.js tooltip content: keep enough vertical room and prevent clipped HTML tooltip text. */
+.chartjs-tooltip, .chart-tooltip, [role="tooltip"] {
+  max-width: min(92vw, 360px) !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+</style>
+<style id="emergency-v12-bilingual">
+#u-emergency-hero {scroll-margin-top:92px}
+#mode0Container .u-bilingual{display:inline}
+#mode0Container .u-bilingual .u-zh{display:block}
+#mode0Container .u-bilingual .u-en{display:block;font-size:.84em;line-height:1.48;font-weight:400;letter-spacing:normal;color:#bfc6cf;margin-top:3px;overflow-wrap:anywhere}
+#mode0Container .u-hero-heading .u-en{font-size:calc(clamp(17px,2.5vw,25px) - 1pt);line-height:1.35;margin-top:14px;color:#d8c7ac;font-weight:500;letter-spacing:.01em}
+#mode0Container .u-kicker .u-en{font-size:calc(11px - 1pt);letter-spacing:.07em;color:#bfc6cf}
+#mode0Container a.u-button .u-en{font-size:calc(11px - 1pt);color:inherit;opacity:.84;margin-top:1px}
+#mode0Container .u-rail-item .u-en{max-width:850px}
+#mode0Container summary .u-en{font-size:calc(12px - 1pt)}
+#mode0Container .u-stat .u-en{font-size:calc(12px - 1pt);letter-spacing:0}
+.u-emergency-notice .u-banner-en{display:block;font-size:calc(11px - 1pt);line-height:1.4;color:#cbd5e1;margin-top:3px;font-weight:400}
+.u-emergency-notice button .u-banner-en{color:#475569;font-size:calc(10px - 1pt);font-weight:500}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<style id="v14-editorial-layout">
+/* V14 | Memorial editorial / mobile-first emergency landing */
+body {background:#0e1014!important;}
+body > .max-w-7xl {position:relative;}
+body.emergency-active #portalContributeActions {display:none!important;}
+body.emergency-active header {margin-bottom:0!important;border-radius:24px 24px 0 0!important;border-bottom-color:#34373b!important;}
+body.emergency-active #mode0Container {background:#121418!important;border-radius:0 0 24px 24px!important;padding:clamp(12px,2.2vw,28px)!important;border:1px solid #303238;border-top:0;margin-bottom:20px;}
+body.emergency-active #u-emergency-hero {min-height:390px;display:flex;flex-direction:column;justify-content:center;border:1px solid #74634b;background:radial-gradient(ellipse at 90% 2%,rgba(188,153,102,.19),transparent 48%),linear-gradient(120deg,#080a0e,#171b21 65%,#111317)!important;box-shadow:inset 0 0 0 1px rgba(210,183,134,.11);}
+body.emergency-active #u-emergency-hero:before {content:'IN SOLIDARITY · 2026';position:absolute;right:26px;top:24px;color:#c4aa7a;letter-spacing:.26em;font-size:calc(10px - 1pt);font-weight:800;opacity:.65;}
+body.emergency-active #u-emergency-hero h2 {max-width:900px;text-wrap:balance;}
+body.emergency-active .u-v14-date {letter-spacing:.21em!important;}
+body.emergency-active #portalNavFooter {background:#1d2026!important;border:1px solid #40444b!important;padding:12px!important;border-radius:18px!important;margin-top:12px!important;}
+body.emergency-active #portalNavFooter button {min-height:46px;}
+body.emergency-active #portalNavFooter #btnMode0 {background:#8f7858!important;color:#fff!important;}
+body.emergency-active #muStockBar {position:static!important;background:#11151b!important;opacity:.85;margin-bottom:28px!important;}
+body:not(.emergency-active) #portalNavFooter {margin-top:16px;}
+body:not(.emergency-active) #muStockBar {position:sticky;top:0;}
+body:not(.emergency-active) header {margin-bottom:20px!important;}
+body.emergency-active #mode0Container .u-action-card {transition:transform .2s ease,box-shadow .2s ease;}
+body.emergency-active #mode0Container .u-action-card:hover {transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,.15);}
+#portalNavFooter {scroll-margin-top:20px;}
+@media(max-width:640px){body.emergency-active #u-emergency-hero{min-height:340px;padding:55px 22px 30px!important;}body.emergency-active #u-emergency-hero:before{right:18px;top:14px;font-size:calc(8px - 1pt);}body.emergency-active #u-emergency-hero h2{font-size:calc(clamp(2rem,8vw,3rem) - 1pt)!important;line-height:1.16!important;}body.emergency-active #mode0Container{padding:10px!important;}body.emergency-active header{padding:18px!important;}}
+</style>
+<style id="emergency-20261024-update">
+body.emergency-active #u-emergency-hero{min-height:290px!important}
+@media(max-width:640px){body.emergency-active #u-emergency-hero{min-height:275px!important}}
+/* Latest action notice: everything scoped to emergency page, no impact on finance charts. */
+#mode0Container .u-live-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:15px;padding:12px 18px;background:linear-gradient(100deg,#3b2d1f,#222529);border:1px solid #a78352;color:#ffe7b3;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+#mode0Container .u-live-strip>div{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:calc(13px - 1pt)}
+#mode0Container .u-live-strip a{color:#ffe7b3;font-size:calc(13px - 1pt);font-weight:900;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+#mode0Container .u-live-dot{width:8px;height:8px;border-radius:50%;background:#facc15;box-shadow:0 0 0 5px rgba(250,204,21,.11)}
+#mode0Container .u-live-brief{color:#e4d4bd}
+#mode0Container .u-latest-news{border:1px solid #ae936a;background:linear-gradient(165deg,#242426 0%,#1c1e24 70%);box-shadow:0 8px 26px rgba(0,0,0,.14)}
+#mode0Container .u-news-topline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+#mode0Container .u-news-pill{display:inline-flex;align-items:center;border-radius:100px;background:#dbc098;color:#211a12;padding:5px 12px;font-weight:900;font-size:calc(11px - 1pt);letter-spacing:.06em}
+#mode0Container .u-news-byline{color:#b7bdc4;font-size:calc(12px - 1pt);font-weight:600}
+#mode0Container .u-latest-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,.9fr);gap:24px;align-items:stretch}
+#mode0Container .u-principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+#mode0Container .u-principles>div{background:#12151b;border:1px solid #41434b;border-radius:14px;padding:14px 13px}
+#mode0Container .u-principles b{font-size:calc(14px - 1pt);color:#f3e2c7;display:block}
+#mode0Container .u-principles p{font-size:calc(12px - 1pt);color:#bac2ca;line-height:1.65;margin-top:7px}
+#mode0Container .u-principles .u-en{font-size:calc(11px - 1pt)}
+#mode0Container .u-event-spotlight{padding:21px;border-radius:17px;background:linear-gradient(155deg,#353023,#1d2229 65%);border:1px solid #817050;display:flex;flex-direction:column;justify-content:center;min-width:0}
+#mode0Container .u-spotlight-date{font-size:calc(clamp(54px,5vw,76px) - 1pt);font-weight:1000;line-height:1;letter-spacing:-.065em;color:#f3d7a5;margin:12px 0}
+#mode0Container .u-spotlight-date span{color:#95866d;padding:0 5px}
+#mode0Container .u-spotlight-times{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
+#mode0Container .u-spotlight-times>span{font-size:calc(19px - 1pt);font-weight:900;padding:10px 8px;border-radius:9px;background:#151a20;color:#ffe0a7}
+#mode0Container .u-spotlight-times small{display:block;font-size:calc(10px - 1pt);color:#c9c3b7;font-weight:600}
+#mode0Container .u-recruit-cta{display:flex;gap:18px;justify-content:space-between;align-items:center;padding:19px 20px;margin-top:22px;border-radius:15px;background:#121923;border:1px solid #58687d}
+#mode0Container .u-recruit-copy{min-width:0;max-width:850px}
+#mode0Container .u-recruit-mail{flex:none;min-width:190px}
+#mode0Container .u-recruit-email{font-size:calc(15px - 1pt);font-weight:900;margin-top:8px;overflow-wrap:anywhere}
+#mode0Container .u-recruit-email a{color:#e9cb91;text-decoration:underline;text-underline-offset:3px}
+#mode0Container .u-event-details{scroll-margin-top:28px;border:1px solid #9b8058}
+#mode0Container .u-event-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#mode0Container .u-event-facts>div{border-radius:12px;background:#12161d;border:1px solid #4e535d;padding:17px;display:flex;flex-direction:column;gap:6px}
+#mode0Container .u-event-facts .u-fact-wide{grid-column:1 / -1}
+#mode0Container .u-fact-label{color:#d7c09c;font-size:calc(12px - 1pt);font-weight:900}
+#mode0Container .u-event-facts b{font-weight:900;font-size:calc(17px - 1pt);line-height:1.5}
+#mode0Container .u-event-facts b .u-en{font-size:calc(12px - 1pt);color:#aeb9c5;font-weight:500}
+#mode0Container .u-event-advisory{border-left:3px solid #d2bd9e;background:#2a2b2e;border-radius:0 12px 12px 0;padding:14px 17px}
+#mode0Container .u-event-details .u-button{max-width:100%}
+#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(3){border-color:#e2ba70}
+#mode0Container .u-cardgrid > section.u-surface:nth-child(4){border-color:#8390a1}
+#mode0Container .u-cardgrid > section:nth-child(3) .u-step{background:#f0d49a;border-color:#fff0c7;color:#17191e}
+#mode0Container .u-cardgrid > section:nth-child(4) .u-step{background:#aeb8c4;border-color:#e3e8ee;color:#17191e}
+#mode0Container .u-event-step{background:linear-gradient(115deg,#302b25,#1b1e24)}
+#mode0Container .u-event-parking a{overflow-wrap:anywhere}
+@media (max-width:970px){#mode0Container .u-latest-layout{grid-template-columns:1fr}#mode0Container .u-principles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:780px){#mode0Container .u-cardgrid:has(.u-action-step){grid-template-columns:1fr}}
+@media (max-width:640px){
+ #mode0Container .u-live-strip{align-items:flex-start;flex-direction:column;padding:12px 14px}
+ #mode0Container .u-live-strip>div{line-height:1.55}
+ #mode0Container .u-live-strip a{margin-left:17px}
+ #mode0Container .u-principles{grid-template-columns:1fr;gap:9px}
+ #mode0Container .u-latest-layout{gap:15px}
+ #mode0Container .u-recruit-cta{flex-direction:column;align-items:stretch}
+ #mode0Container .u-recruit-mail{min-width:0;width:100%}
+ #mode0Container .u-event-facts{grid-template-columns:1fr}
+ #mode0Container .u-event-facts .u-fact-wide{grid-column:1}
+ #mode0Container .u-spotlight-date{font-size:calc(65px - 1pt)}
+}
+@media(prefers-reduced-motion:reduce){#mode0Container .u-live-dot{animation:none}}
+</style>
+<style id="emergency-20261024-compact-v17">
+#mode0Container .u-note-condensed{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#151b23;border:1px solid #434b56;border-radius:13px;padding:12px 15px;font-size:calc(12px - 1pt);color:#e2dfd7}
+#mode0Container .u-note-condensed strong{color:#eac991;margin-right:9px}#mode0Container .u-note-condensed span{padding:3px 10px;border-radius:40px;background:#29313b}
+#mode0Container .u-three-actions:has(.u-action-step){grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:15px}
+#mode0Container .u-three-actions>section{display:flex;flex-direction:column;min-height:275px}#mode0Container .u-three-actions>section .u-button{margin-top:auto!important}
+#mode0Container .u-three-actions h3{font-size:calc(21px - 1pt)!important}
+#mode0Container .u-optional-event{margin-top:16px;padding:19px 22px;border:1px solid #aa8d5d;border-radius:17px;background:linear-gradient(115deg,#342a1c,#20242a);display:flex;align-items:center;justify-content:space-between;gap:18px}
+#mode0Container .u-optional-event .u-button{flex:none}
+#mode0Container .u-recruit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#mode0Container .u-recruit-item{padding:20px;border-radius:15px;background:#121922;border:1px solid #4b5666;display:flex;flex-direction:column}
+#mode0Container .u-recruit-item .u-button{margin-top:auto!important}
+#mode0Container .u-tag{font-size:calc(11px - 1pt);color:#d6bd93;font-weight:900;letter-spacing:.13em}
+#mode0Container .u-recruit-item strong{overflow-wrap:anywhere;color:#eee0c7}
+#mode0Container .u-admin-link{background:transparent;border:0;color:#c9d2de;text-decoration:underline;font-size:calc(12px - 1pt);cursor:pointer;text-align:center;padding:9px}
+#mode0Container .u-subtle-info{background:#171a20;border:1px solid #343941}
+#mode0Container .u-legal-outer{border-color:#505661}#mode0Container .u-legal-inside{padding:0 19px 17px}
+#mode0Container .u-legal-inside details{margin:12px 0}#mode0Container .u-legal-inside details summary{font-size:calc(14px - 1pt)}
+#mode0Container .u-legal-inside .u-details-body{font-size:calc(13px - 1pt)}
+#volunteerModal{position:fixed;z-index:120;inset:0;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+#volunteerModal.is-open{display:flex}#volunteerModal .vol-dialog{background:#111821;border:1px solid #697482;border-radius:18px;overflow:hidden;width:min(740px,100%);height:min(92vh,920px);display:flex;flex-direction:column;box-shadow:0 25px 70px rgba(0,0,0,.48)}
+#volunteerModal .vol-toolbar{background:#202935;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 17px;color:#fff}
+#volunteerModal button{color:#fff;background:#455466;border:0;padding:7px 12px;cursor:pointer;border-radius:8px;font-weight:900}
+#volunteerModal iframe{flex:1;width:100%;border:0;background:#121923}
+#volunteerModal .vol-setup{overflow-y:auto;flex:1;padding:25px;color:#e9edf4;line-height:1.7;font-size:calc(14px - 1pt)}
+#volunteerModal .vol-setup ul{margin:15px 0 0;padding-left:20px}
+#volunteerModal .vol-setup button{margin-top:15px;background:#cfb17c;color:#171b24}
+#volunteerModal .vol-preview{border:1px solid #566273;border-radius:15px;padding:17px;margin-top:17px;background:#17212b}
+#volunteerModal .vol-preview label{display:block;margin:8px 0;color:#f2eadc}
+#volunteerModal .vol-preview input:not([type=checkbox]):not([type=radio]),#volunteerModal .vol-preview select{display:block;width:100%;padding:9px;background:#283546;color:#acb7c6;border:1px solid #546479;border-radius:8px;margin:5px 0}
+#volunteerModal .vol-preview .vol-choice{display:flex;gap:15px;flex-wrap:wrap}
+#volunteerModal .vol-preview fieldset{border:1px solid #516070;border-radius:12px;margin-top:13px}
+#volunteerModal .vol-preview fieldset label{font-size:calc(13px - 1pt);margin:5px 0}
+#volunteerModal .vol-preview button:disabled{opacity:.55;cursor:not-allowed}
+@media(max-width:970px){#mode0Container .u-three-actions:has(.u-action-step){grid-template-columns:1fr!important}#mode0Container .u-three-actions>section{min-height:unset}#mode0Container .u-optional-event{flex-direction:column;align-items:stretch}#mode0Container .u-recruit-grid{grid-template-columns:1fr}}
+@media(max-width:640px){#mode0Container .u-optional-event{padding:17px}#mode0Container .u-note-condensed span{width:100%}#mode0Container .u-recruit-item{padding:15px}}
+</style>
+<style id="emergency-v18-restored">
+/* V18: Restore original V15 narrative, large petition figure and four-stage timeline. */
+body.emergency-active #u-emergency-hero{min-height:390px!important}
+#mode0Container #u-actions{scroll-margin-top:18px}
+#mode0Container #u-next{scroll-margin-top:24px}
+#mode0Container #u-emergency-hero .u-hero-heading{letter-spacing:-.045em}
+#mode0Container .u-stat{font-size:calc(clamp(52px,6.5vw,76px) - 1pt)!important;letter-spacing:-.06em;line-height:1.04}
+#mode0Container .u-v18-news-copy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#mode0Container .u-v18-news-copy p{background:#171b22;padding:17px;border:1px solid #44484f;border-radius:13px;font-size:calc(14px - 1pt);line-height:1.77}
+#mode0Container .u-v18-news-emphasis{background:#332e26;border-left:4px solid #ddbf8b;border-radius:8px;padding:14px 17px;font-size:calc(14px - 1pt)}
+#mode0Container .u-v18-optional-note{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 24px;border:1px solid #9d855c;background:linear-gradient(110deg,#362e23,#20252b);border-radius:17px}
+#mode0Container .u-v18-optional-note .u-button{flex-shrink:0;display:flex;flex-direction:column;line-height:1.35;gap:2px}
+#mode0Container .u-v18-optional-note .u-en{display:block;font-size:calc(11px - 1pt);font-weight:500;opacity:.88}
+#mode0Container .u-cardgrid.u-three-actions>section{min-height:unset}
+#mode0Container .u-cardgrid.u-three-actions h3{font-size:calc(1.35rem - 1pt)!important}
+#mode0Container .u-rail-item{padding-bottom:28px}
+#mode0Container .u-rail-item:last-child{padding-bottom:0}
+#mode0Container #u-latest-announcement{scroll-margin-top:18px}
+#mode0Container .u-cardgrid.u-three-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media(max-width:970px){#mode0Container .u-v18-news-copy{grid-template-columns:1fr}#mode0Container .u-v18-optional-note{flex-direction:column;align-items:stretch}#mode0Container .u-cardgrid.u-three-actions{grid-template-columns:1fr!important}}
+@media(max-width:640px){body.emergency-active #u-emergency-hero{min-height:340px!important}#mode0Container .u-stat{font-size:calc(58px - 1pt)!important}#mode0Container .u-v18-optional-note{padding:18px}#mode0Container .u-v18-news-copy p{padding:15px}}
+</style><style id="petition-goal-style">
+#u-petition-count{scroll-margin-top:24px}
+#u-petition-count .petition-count-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+#u-petition-count .petition-count-main{padding:22px 0}
+#u-petition-count .petition-count-number{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;font-variant-numeric:tabular-nums;line-height:1.2}
+#u-petition-count .petition-count-number strong{color:#e4c58b;font-size:calc(clamp(42px,8vw,76px) - 1pt);font-weight:900;overflow-wrap:anywhere;max-width:100%}
+#u-petition-count .petition-count-number>span{font-size:calc(clamp(24px,4vw,36px) - 1pt);color:var(--u-muted,#acb8c4)}
+#u-petition-count .petition-count-number small{font-size:calc(18px - 1pt)}
+#u-petition-count .petition-goals{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#u-petition-count .petition-goal{border:1px solid #ffffff26;border-radius:14px;padding:18px;background:#ffffff06;min-width:0}
+#u-petition-count .petition-goal-buffer{border-color:#e4c58b80;background:#e4c58b0a}
+#u-petition-count .petition-goal-title{font-size:calc(15px - 1pt);font-weight:700}
+#u-petition-count .petition-goal-title b{white-space:nowrap}
+#u-petition-count .petition-goal-summary{font-size:calc(20px - 1pt);font-weight:800;font-variant-numeric:tabular-nums;margin:14px 0 10px}
+#u-petition-count progress{width:100%;height:10px;border:0;border-radius:99px;overflow:hidden;appearance:none;background:#ffffff18;margin-bottom:10px}
+#u-petition-count progress::-webkit-progress-bar{background:#ffffff18;border-radius:99px}
+#u-petition-count progress::-webkit-progress-value{background:#e4c58b;border-radius:99px}
+#u-petition-count progress::-moz-progress-bar{background:#e4c58b;border-radius:99px}
+#u-petition-count button:disabled{opacity:.5;cursor:wait}
+@media(max-width:580px){#u-petition-count .petition-goals{grid-template-columns:1fr}#u-petition-count .u-heading{font-size:calc(22px - 1pt)}}
+</style><style id="volunteer-public-count-v1">#mode0Container .vol-count-public{margin-top:11px;padding:11px 14px;border-radius:12px;border:1px solid #6aaa84;background:#14382a;color:#d4fce3;font-size:calc(15px - 1pt);font-weight:800;text-align:center}#mode0Container .vol-count-public.is-error{border-color:#6b7280;background:#24272d;color:#bbc5d1}</style><style id="test1-form-first">#mode0Container #u-actions{scroll-margin-top:26px}#mode0Container #u-actions .u-three-actions>section:nth-child(1){border-color:#e8bd69;background:linear-gradient(145deg,#31281c,#1b1e24)}#mode0Container #u-actions .u-three-actions>section:nth-child(2){border-color:#9db4c6}#mode0Container #u-actions .u-three-actions>section:nth-child(3){border-color:#667681}#mode0Container #u-actions .u-three-actions>section:nth-child(1) .u-step{background:#e8bd69;color:#1a1713}#mode0Container #u-actions .u-three-actions>section:nth-child(2) .u-step{background:#b8cfdb;color:#14202a}#mode0Container #u-actions .u-three-actions>section:nth-child(3) .u-step{background:#acb7c4;color:#14202a}</style><style id="test1-four-steps">#mode0Container .u-four-actions:has(.u-action-step){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}#mode0Container .u-four-actions>section{min-height:unset}#mode0Container .u-four-actions>section:nth-child(4){border-color:#8390a1}#mode0Container .u-four-actions>section:nth-child(4) .u-step{background:#acb7c4;color:#14202a}@media(max-width:780px){#mode0Container .u-four-actions:has(.u-action-step){grid-template-columns:1fr!important}}</style><style id="test1-parallel-petitions">
+#mode0Container .u-quick-actions{display:grid;gap:14px}
+#mode0Container .u-quick-major{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#mode0Container .u-quick-major .u-button{background:#e7be72;color:#15191f;border:1px solid #f5d9a7;font-size:calc(16px - 1pt);min-height:76px}
+#mode0Container .u-quick-minor{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#mode0Container .u-quick-minor .u-button{padding:12px 7px;min-width:0;font-size:calc(13px - 1pt)}
+#mode0Container .u-quick-actions .u-en{display:block;font-size:calc(11px - 1pt);line-height:1.4;opacity:.85}
+#mode0Container #u-intent-progress{margin-top:15px;background:#171d26;border:1px solid #56636f;border-radius:13px;padding:17px}
+#mode0Container .u-intent-numbers{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:9px 0}
+#mode0Container .u-intent-numbers strong{font-size:calc(35px - 1pt);color:#f0cd87;line-height:1.2}
+#mode0Container #u-intent-progress progress{width:100%;height:13px;accent-color:#e7be72}
+#mode0Container #u-actions>.u-cardgrid{margin-bottom:18px}
+#mode0Container #u-petition-count{margin:18px 0}
+#mode0Container .u-followup-actions>section:nth-child(1){border-color:#9db4c6}
+#mode0Container .u-followup-actions>section:nth-child(2){border-color:#8390a1}
+@media(max-width:700px){#mode0Container .u-quick-major{grid-template-columns:1fr}#mode0Container .u-quick-minor{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style><style id="test1-unified-card-layout">
+#mode0Container .u-four-actions>.u-step2-combined{min-width:0;border:2px solid #9db4c6;border-radius:20px;background:#1b1e24;padding:16px;display:flex;flex-direction:column;gap:14px}
+#mode0Container .u-step2-combined>.u-surface{width:100%;box-shadow:none;border:1px solid #47515e;padding:20px}
+#mode0Container .u-step2-combined>#u-petition-count{margin:0;width:100%}
+#mode0Container .u-event-combined{border:1px solid #aa8d5d;border-radius:20px;background:#1b1e24;padding:16px;margin-top:18px;display:flex;flex-direction:column;gap:12px}
+#mode0Container .u-event-combined>.u-v18-optional-note{margin:0}
+#mode0Container .u-event-combined>#u-event-info{margin:0;width:100%}
+@media(max-width:640px){#mode0Container .u-four-actions>.u-step2-combined,#mode0Container .u-event-combined{padding:10px}#mode0Container .u-step2-combined>.u-surface{padding:15px}}
+</style><style id="test1-browser-emphasis">#mode0Container .u-browser-notice{display:block;font-weight:900;color:#ffdf97;background:#383021;border-left:4px solid #e7bb60;border-radius:6px;padding:11px 13px;line-height:1.75}#mode0Container .u-browser-notice.u-en{color:#ffe6b2}</style><style id="intent-regional-test1">
+#u-intent-progress .u-intent-regional-bars{display:grid;gap:14px;margin:16px 0 12px}
+#u-intent-progress .u-intent-region-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:calc(16px - 1pt);font-weight:800;margin-bottom:6px}
+#u-intent-progress .u-intent-region-heading strong{font-variant-numeric:tabular-nums}
+#u-intent-progress .u-intent-regional-bars progress{display:block;width:100%;height:13px;border:0;border-radius:999px;overflow:hidden;appearance:none;-webkit-appearance:none;background:#ffffff28}
+#u-intent-progress .u-intent-regional-bars progress::-webkit-progress-bar{background:#ffffff28;border-radius:999px}
+#u-intent-progress .u-intent-regional-bars .u-intent-taoyuan{accent-color:#16a34a}
+#u-intent-progress .u-intent-regional-bars .u-intent-taoyuan::-webkit-progress-value{background:#16a34a;border-radius:999px}
+#u-intent-progress .u-intent-regional-bars .u-intent-taoyuan::-moz-progress-bar{background:#16a34a;border-radius:999px}
+#u-intent-progress .u-intent-regional-bars .u-intent-taichung{accent-color:#3b82f6}
+#u-intent-progress .u-intent-regional-bars .u-intent-taichung::-webkit-progress-value{background:#3b82f6;border-radius:999px}
+#u-intent-progress .u-intent-regional-bars .u-intent-taichung::-moz-progress-bar{background:#3b82f6;border-radius:999px}
+</style>
+
+<style id="petition-milestone-v19">
+#mode0Container .u-celebration{margin-top:28px;padding:22px 24px;border:1px solid #c4ab74;border-radius:19px;background:linear-gradient(120deg,#254538 0%,#1d3330 48%,#2c3229 100%);position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px #fff1}
+#mode0Container .u-celebration:after{content:"✦";position:absolute;right:20px;top:5px;font-size:calc(78px - 1pt);line-height:1;color:#bde6bc20;pointer-events:none}
+#mode0Container .u-celebration .u-celebrate-kicker{font-weight:900;font-size:calc(13px - 1pt);letter-spacing:.05em;color:#bef3ce}
+#mode0Container .u-celebration .u-celebrate-figure{font-weight:900;font-size:calc(clamp(30px,6vw,52px) - 1pt);letter-spacing:-.035em;line-height:1.18;margin:7px 0;color:#fff3ce}
+#mode0Container .u-celebration .u-celebrate-sub{font-size:calc(14px - 1pt);line-height:1.65;color:#e2eee5;max-width:900px}
+#mode0Container .u-banner-caveat{display:inline-block;margin-top:13px;border-radius:10px;padding:9px 12px;background:#102b2699;color:#d9ecdd;font-size:calc(12px - 1pt)}
+#mode0Container .u-quick-major{grid-template-columns:1fr!important}
+#mode0Container .u-quick-major .u-button{min-height:65px;background:#e7be72;color:#18202a}
+#mode0Container .u-quick-minor{grid-template-columns:repeat(3,minmax(0,1fr))}
+#mode0Container .u-status-chip{display:inline-flex;border:1px solid #8ab99c;background:#214335;color:#cdf1d7;border-radius:99px;padding:5px 11px;font-size:calc(12px - 1pt);font-weight:900}
+#mode0Container .u-wait-chip{display:inline-flex;border:1px solid #e5c486;background:#463923;color:#ffdda0;border-radius:99px;padding:5px 11px;font-size:calc(12px - 1pt);font-weight:900}
+#mode0Container .u-action-step{min-width:0}
+#mode0Container .u-action-step h3{line-height:1.35}
+#mode0Container .u-action-step .u-en{line-height:1.45}
+#mode0Container .u-petition-milestone{border:1px solid #6fab87;background:#172e28;border-radius:14px;padding:16px;margin-top:18px}
+#mode0Container .u-petition-milestone strong{font-size:calc(clamp(33px,5vw,53px) - 1pt);font-weight:900;color:#e9f4b8;font-variant-numeric:tabular-nums}
+#mode0Container #petitionCountRefresh{padding:9px 14px;min-height:36px;font-size:calc(12px - 1pt)}
+/* Real connected, accessible vertical timeline (desktop and mobile). */
+#mode0Container #u-next{overflow:hidden}
+#mode0Container #u-next .u-roadmap{
+ --timeline-rail-x:158px;
+ display:flex;flex-direction:column;gap:0;position:relative;
+ margin:28px 0 0;padding:0;
+}
+#mode0Container #u-next .u-roadmap::before{
+ content:"";position:absolute;left:calc(var(--timeline-rail-x) - 2px);top:26px;bottom:48px;
+ width:4px;border-radius:999px;z-index:0;pointer-events:none;
+ background:linear-gradient(180deg,#f27d91 0%,#f5aa54 18%,#55a6ed 38%,#8b73d5 58%,#59b587 79%,#d3ad73 100%);
+ box-shadow:0 0 0 4px #243444,0 0 18px #68a5d22b;
+}
+#mode0Container #u-next .u-roadmap-item{
+ --phase-color:#7dacc6;
+ --phase-panel:#1a2938;
+ position:relative;isolation:isolate;display:grid;
+ grid-template-columns:136px 44px minmax(0,1fr);
+ align-items:start;column-gap:0;padding:0 0 18px;min-width:0;
+}
+#mode0Container #u-next .u-roadmap-item:last-child{padding-bottom:0}
+#mode0Container #u-next .u-roadmap-date{
+ grid-column:1;grid-row:1;display:block;align-self:start;
+ text-align:right;background:transparent;border:0;border-radius:0;
+ margin:10px 10px 0 0;padding:1px 0;
+ font-size:calc(clamp(14px,1.5vw,17px) - 1pt);font-weight:900;line-height:1.5;
+ letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#e7edf7;
+}
+#mode0Container #u-next .u-roadmap-marker{
+ grid-column:2;grid-row:1;position:relative;z-index:2;
+ width:36px;height:36px;margin:11px auto 0;
+ border:5px solid #162330;border-radius:50%;
+ background:var(--phase-color);color:#101c28;box-shadow:0 0 0 2px var(--phase-color),0 5px 14px #0007;
+ display:flex;align-items:center;justify-content:center;
+ font-size:calc(11px - 1pt);font-weight:1000;line-height:1;font-variant-numeric:tabular-nums;
+}
+#mode0Container #u-next .u-roadmap-item::after{
+ content:"";position:absolute;top:28px;left:calc(var(--timeline-rail-x) + 19px);
+ width:14px;height:2px;background:var(--phase-color);opacity:.8;z-index:1;
+}
+#mode0Container #u-next .u-roadmap-copy{
+ grid-column:3;grid-row:1;margin-left:12px;min-width:0;position:relative;
+ border:1px solid color-mix(in srgb,var(--phase-color) 46%,#3a4e61);
+ border-left:4px solid var(--phase-color);border-radius:16px;
+ background:linear-gradient(115deg,var(--phase-panel),#1b2632 88%);
+ padding:17px 21px 18px;box-shadow:0 8px 22px #070d162d;
+ transition:transform .2s ease, box-shadow .2s ease;
+}
+#mode0Container #u-next .u-roadmap-copy::before{
+ content:"";position:absolute;left:-11px;top:18px;
+ width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;
+ border-right:8px solid var(--phase-color);
+}
+#mode0Container #u-next .u-roadmap-item:hover .u-roadmap-copy{transform:translateY(-2px);box-shadow:0 12px 26px #03091155}
+#mode0Container #u-next .u-roadmap-item h4{font-size:calc(clamp(16px,1.8vw,19px) - 1pt);font-weight:900;line-height:1.43;color:#fff;margin:0 0 7px}
+#mode0Container #u-next .u-roadmap-item p{color:#d0d9e5;line-height:1.72;font-size:calc(14px - 1pt);margin:0}
+#mode0Container #u-next .u-roadmap-item.roadmap-stop{--phase-color:#f48198;--phase-panel:#34252d}
+#mode0Container #u-next .u-roadmap-item.roadmap-google{--phase-color:#58aff2;--phase-panel:#1b344e}
+#mode0Container #u-next .u-roadmap-item.roadmap-volunteer{--phase-color:#ab8aec;--phase-panel:#302a43}
+#mode0Container #u-next .u-roadmap-item.roadmap-brief{--phase-color:#70c993;--phase-panel:#1d3930}
+#mode0Container #u-next .u-roadmap-item:last-child{--phase-color:#e5c281;--phase-panel:#37301e}
+#mode0Container #u-next .u-roadmap-item:nth-child(2){--phase-color:#efa263;--phase-panel:#332b24}
+#mode0Container #u-next .u-spotlight{color:#9cccfb;font-weight:900}
+#mode0Container #u-next .u-green-emphasis{color:#8edda0;font-weight:900}
+#mode0Container #u-next .u-caution{color:#ffb1b1;font-weight:900}
+#mode0Container #u-next .u-timefoot{margin-top:19px;padding:13px 16px;border:1px solid #49617b;background:#1a2838;border-radius:12px;color:#cbd9e6}
+@media(max-width:700px){
+ #mode0Container #u-next .u-roadmap{--timeline-rail-x:18px;margin-top:23px}
+ #mode0Container #u-next .u-roadmap::before{left:16px;top:19px;bottom:70px;width:4px}
+ #mode0Container #u-next .u-roadmap-item{grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto;column-gap:0;padding-bottom:18px}
+ #mode0Container #u-next .u-roadmap-date{
+  grid-column:2;grid-row:1;margin:0 0 7px 1px;padding:0;
+  font-size:calc(15px - 1pt);color:var(--phase-color);text-align:left;line-height:1.4;
+ }
+ #mode0Container #u-next .u-roadmap-date br{display:none}
+ #mode0Container #u-next .u-roadmap-marker{
+  grid-column:1;grid-row:1 / span 2;justify-self:start;align-self:start;
+  margin:0 0 0 0;width:36px;height:36px;
+ }
+ #mode0Container #u-next .u-roadmap-item::after{top:41px;left:18px;width:2px;height:15px}
+ #mode0Container #u-next .u-roadmap-copy{grid-column:2;grid-row:2;margin:0;padding:15px 16px;border-radius:13px}
+ #mode0Container #u-next .u-roadmap-copy::before{top:14px;left:-10px}
+ #mode0Container .u-celebration{padding:19px}
+ #mode0Container .u-quick-minor{grid-template-columns:1fr}
+ #mode0Container .u-quick-minor .u-button{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){
+ #mode0Container #u-next .u-roadmap-copy{transition:none}
+ #mode0Container #u-next .u-roadmap-item:hover .u-roadmap-copy{transform:none}
+}
+</style>
+<style id="action-navigation-recruit-v20">
+#mode0Container .u-quick-timeline{display:grid;grid-template-columns:1fr}
+#mode0Container .u-quick-timeline .u-timeline-cta{width:100%;min-height:66px;background:linear-gradient(105deg,#155e75,#14839a)!important;border:1px solid #75c7d4!important;color:#f4fdff!important;box-shadow:0 5px 19px #0e536359}
+#mode0Container .u-quick-timeline .u-timeline-cta:hover{background:linear-gradient(105deg,#137991,#259db4)!important}
+#mode0Container .u-quick-timeline .u-timeline-cta .u-en{display:block;font-size:calc(12px - 1pt);color:#d5f5ff!important}
+#mode0Container .u-quick-minor .u-volunteer-cta{background:linear-gradient(112deg,#7041b5,#8e51c4)!important;border:1px solid #b89bee!important;color:#fff!important;box-shadow:0 5px 16px #3919685e}
+#mode0Container .u-quick-minor .u-volunteer-cta:hover{background:linear-gradient(112deg,#8551c9,#a16ad8)!important}
+#mode0Container .u-quick-minor .u-volunteer-cta .u-en{color:inherit!important}
+#mode0Container #u-participate.u-recruit-highlight{border:1px solid #a281db;border-left:5px solid #b691ed;background:radial-gradient(ellipse at 100% 0%,#483260 0%,transparent 45%),linear-gradient(135deg,#24213e,#1a2938 82%);box-shadow:0 7px 30px #26133f5c;scroll-margin-top:24px}
+#mode0Container #u-participate.u-recruit-highlight>.u-kicker{color:#cba9ff;letter-spacing:.13em}
+#mode0Container #u-participate.u-recruit-highlight>.u-heading{color:#faf0ff}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item{background:#1b2535;border:1px solid #7c6295}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item:nth-child(2){background:#1c2e36;border-color:#659c9b}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item .u-button.u-secondary{background:#68419c;border-color:#aa8bda;color:#fff}
+#mode0Container #u-participate.u-recruit-highlight .u-recruit-item .u-button.u-primary{background:#248b84;border-color:#6ccdc0;color:#fff}
+@media(max-width:640px){#mode0Container .u-quick-timeline .u-timeline-cta{min-height:62px}#mode0Container #u-participate.u-recruit-highlight{padding:19px}}
+</style><style id="intent-live-progress-v20">
+#mode0Container #u-intent-progress .u-intent-region-foot{color:#b9c7d7;font-size:calc(12px - 1pt);margin-top:5px;line-height:1.6}
+#mode0Container #u-intent-progress .intent-taichung-first{border-radius:12px;padding:11px 13px;background:linear-gradient(110deg,#203f5c,#1c334b);border:1px solid #477daa}
+#mode0Container #u-intent-progress #intentTaichungCount{font-size:calc(17px - 1pt);color:#b7e1ff;font-variant-numeric:tabular-nums}
+#mode0Container #u-intent-progress #intentTaichungCount small{display:block;text-align:right;font-size:calc(10px - 1pt);color:#c6d2df;font-weight:500}
+#mode0Container #u-intent-progress .u-intent-region-heading{flex-wrap:wrap}
+#mode0Container #u-intent-progress #intentCountStatus{border-top:1px solid #4a6172;padding-top:12px;line-height:1.7}
+#mode0Container #u-intent-progress #intentCountUpdated{font-size:calc(11px - 1pt);color:#a8b8c9}
+</style><style id="intent-sync-diagnostics-v21">
+#mode0Container #u-intent-progress .u-intent-sync-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+#mode0Container #u-intent-progress .u-intent-sync-badge{font-weight:800;font-size:calc(12px - 1pt);line-height:1.4;padding:7px 12px;border-radius:999px;border:1px solid #9badbb;color:#f1f5f9;background:#334155}
+#mode0Container #u-intent-progress .u-intent-sync-badge[data-state="success"]{background:#153e30;border-color:#7cc5a3;color:#c7fae0}
+#mode0Container #u-intent-progress .u-intent-sync-badge[data-state="error"]{background:#4d2926;border-color:#e0a09b;color:#ffe0da}
+#mode0Container #u-intent-progress .u-intent-sync-refresh{background:#246e91;border:1px solid #78b6d0;color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-size:calc(12px - 1pt);font-weight:850}
+#mode0Container #u-intent-progress .u-intent-sync-refresh:hover{background:#2d86a9}
+#mode0Container #u-intent-progress .u-intent-sync-refresh:disabled{opacity:.6;cursor:wait}
+#mode0Container #u-intent-progress .u-intent-diagnostic-link{display:inline-block;color:#a0c5eb;text-decoration:underline;margin-top:8px;font-size:calc(12px - 1pt)}
+#mode0Container #u-intent-progress #intentCombinedCount{font-variant-numeric:tabular-nums}
+</style><style id="test1-float-rebuild">
+html{scroll-behavior:smooth}
+#mode0Container .u-action-stack{min-width:0;display:flex;flex-direction:column;gap:16px}
+#mode0Container .u-action-stack>section{margin:0}
+#mode0Container #u-nov3-briefing{border:2px solid #e0b76c}
+#mode0Container #u-affiliated-union{border:2px solid #74a5a5;background:linear-gradient(145deg,#203640,#1b1e24)}
+#mode0Container #u-completed-milestones{position:relative;margin-top:48px;padding:32px 24px 24px;border:2px solid #c69f60;border-radius:21px;background:linear-gradient(145deg,#322b21,#1a1d25);box-shadow:0 0 0 7px rgba(194,154,98,.12),0 18px 35px rgba(0,0,0,.28)}
+#mode0Container .u-archive-ribbon{display:table;margin:-49px auto 26px;padding:8px 17px;border-radius:99px;background:#e2bd7b;color:#241e16;box-shadow:0 5px 12px rgba(0,0,0,.3);font-size:calc(11px - 1pt);font-weight:900;letter-spacing:.06em}
+#mode0Container .u-archive-head{display:flex;align-items:center;gap:14px}
+#mode0Container .u-archive-icon{display:grid;place-items:center;flex:0 0 50px;height:50px;border-radius:15px;background:#d5b377;color:#201c16;font-size:calc(27px - 1pt);font-weight:900}
+#mode0Container .u-archive-entry{margin-top:22px;padding:20px;border:1px solid #886f4a;border-radius:14px;background:#141b22}
+#mode0Container .u-archive-chip{display:inline-flex;padding:7px 12px;border-radius:30px;background:#2b4735;color:#e3f5e7;font-size:calc(12px - 1pt)}
+#mode0Container .u-archive-number{font-size:calc(clamp(32px,6vw,54px) - 1pt);font-weight:900;color:#f4d59c;line-height:1.2;margin:13px 0}
+#mode0Container .u-archive-number small{font-size:.47em;color:#d2cfca}
+#portalFloatingNav{position:fixed;z-index:75;top:50%;left:max(3px,env(safe-area-inset-left));transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;pointer-events:none}
+#portalFloatingNav a,#portalFloatingNav button{display:grid;place-items:center;pointer-events:auto;width:40px;height:40px;border:1px solid rgba(231,232,234,.26);border-radius:10px;background:rgba(21,28,39,.55);color:#fff;font-size:calc(19px - 1pt);opacity:.72;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);box-shadow:0 3px 12px #0003;text-decoration:none;cursor:pointer;transition:opacity .15s,background .15s}
+#portalFloatingNav a:hover,#portalFloatingNav button:hover,#portalFloatingNav a:focus-visible,#portalFloatingNav button:focus-visible{opacity:1;background:rgba(35,50,67,.96);outline:2px solid #d5b680;outline-offset:1px}
+#portalFloatingNav .back-top{border-color:#bf9c64;color:#ffe4b5}
+#portalFloatingNav .float-tip{pointer-events:none;position:absolute;left:47px;padding:5px 8px;border-radius:7px;border:1px solid #5c6b7b;background:#233140;color:#fff;font:700 12px sans-serif;white-space:nowrap;visibility:hidden;opacity:0}
+#portalFloatingNav a:hover .float-tip,#portalFloatingNav button:hover .float-tip,#portalFloatingNav a:focus-visible .float-tip,#portalFloatingNav button:focus-visible .float-tip{visibility:visible;opacity:1}
+@media(max-width:700px){#portalFloatingNav{gap:5px;left:max(2px,env(safe-area-inset-left))}#portalFloatingNav a,#portalFloatingNav button{width:34px;height:35px;font-size:calc(16px - 1pt);opacity:.62;border-radius:8px}
+#portalFloatingNav .float-tip{display:none}
+#mode0Container #u-completed-milestones{padding:25px 12px 17px}#mode0Container .u-archive-ribbon{font-size:calc(9px - 1pt);padding:8px 9px}#mode0Container .u-archive-icon{flex-basis:40px;height:40px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Test1: translucent six-button floating nav with bilingual captions. */
+#portalFloatingNav{gap:7px;left:max(5px,env(safe-area-inset-left))}
+#portalFloatingNav a,#portalFloatingNav button{
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+ width:76px;height:78px;padding:5px 3px;box-sizing:border-box;
+ background:rgba(21,28,39,.54);opacity:.83;text-align:center;line-height:1.12;
+}
+#portalFloatingNav .float-icon{display:block;font-size:calc(21px - 1pt);line-height:1.18;flex:none}
+#portalFloatingNav .float-label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+ position:static;opacity:1;visibility:visible;color:#fff;
+ max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center}
+#portalFloatingNav .float-label-zh{display:block;font-size:calc(10px - 1pt);font-weight:850;line-height:1.15}
+#portalFloatingNav .float-label-en{display:block;font-size:calc(9px - 1pt);font-weight:650;line-height:1.13;color:#e4eaf0}
+#portalFloatingNav .back-top .float-label-zh,#portalFloatingNav .back-top .float-label-en{color:#ffe4b5}
+#portalFloatingNav .float-tip{display:none!important}
+@media(max-width:700px){
+ #portalFloatingNav{gap:6px;left:max(3px,env(safe-area-inset-left))}
+ #portalFloatingNav a,#portalFloatingNav button{
+   width:60px;height:70px;padding:4px 2px;gap:2px;opacity:.74;border-radius:8px
+ }
+ #portalFloatingNav .float-icon{font-size:calc(18px - 1pt)}
+ #portalFloatingNav .float-label{gap:1px}
+ #portalFloatingNav .float-label-zh{font-size:calc(9px - 1pt);line-height:1.12}
+ #portalFloatingNav .float-label-en{font-size:calc(8px - 1pt);line-height:1.09}
+}
+@media(max-height:690px){
+ #portalFloatingNav{gap:3px}
+ #portalFloatingNav a,#portalFloatingNav button{height:66px}
+ #portalFloatingNav .float-icon{font-size:calc(17px - 1pt)}
+ #portalFloatingNav .float-label-zh{font-size:calc(9px - 1pt)}
+ #portalFloatingNav .float-label-en{font-size:calc(8px - 1pt)}
+}
+</style><style id="focused-emergency-header">
+#portalSimpleHeader{background:linear-gradient(110deg,#101820,#1e2835);border:1px solid #3d4a59;border-radius:18px;padding:16px 20px;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+#portalSimpleHeader .portal-mark{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:#e8d7b3;color:#202731;font-size:calc(26px - 1pt)}
+#portalSimpleHeader h1{font-size:calc(clamp(18px,2.8vw,24px) - 1pt);font-weight:900;line-height:1.3}
+#portalSimpleHeader p{font-size:calc(12px - 1pt);color:#c3c9d1;margin-top:3px}
+#portalFloatingNav a,#portalFloatingNav button{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 2px 5px rgba(0,0,0,.16)!important;transition:opacity .15s}
+#portalFloatingNav .float-tip{display:none!important}
+#mode0Container .u-intent-sync-badge{font-variant-numeric:tabular-nums}
+@media(max-width:640px){#portalSimpleHeader{padding:14px 12px;margin-bottom:10px}#portalSimpleHeader .portal-mark{width:38px;height:38px;flex:none;font-size:calc(22px - 1pt)}#portalSimpleHeader p{font-size:calc(11px - 1pt)}}
+</style><style id="page-view-counter-style">#portalViewStats{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}#portalViewStats span{font-size:calc(11px - 1pt);font-weight:700;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:4px 10px;color:#e2e8f0}#portalViewStats b{font-weight:900;color:#fff;font-variant-numeric:tabular-nums}</style><style id="floating-nav-collapse">
+#portalFloatingNav{max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain;pointer-events:auto}
+#portalFloatingNav>a,#portalFloatingNav>button{flex-shrink:0}
+#portalFloatingNav.is-collapsed>a,#portalFloatingNav.is-collapsed>.back-top{display:none}
+#portalNavToggle{border-color:#bf9c64!important}
+</style><style id="typography-minus-one-point">
+/* Site-wide typography adjustment: 1pt smaller (index_v1 only).
+   Keep dimensions, gaps, images and page layout unchanged. */
+body { font-size: calc(16px - 1pt); }
+.text-xs { font-size: calc(0.75rem - 1pt); }
+.text-sm { font-size: calc(0.875rem - 1pt); }
+.text-base { font-size: calc(1rem - 1pt); }
+.text-lg { font-size: calc(1.125rem - 1pt); }
+.text-xl { font-size: calc(1.25rem - 1pt); }
+.text-2xl { font-size: calc(1.5rem - 1pt); }
+.text-3xl { font-size: calc(1.875rem - 1pt); }
+.text-4xl { font-size: calc(2.25rem - 1pt); }
+@media (min-width: 768px) {
+  .md\\:text-xl { font-size: calc(1.25rem - 1pt); }
+  .md\\:text-6xl { font-size: calc(3.75rem - 1pt); }
+}
+</style>
+<style id="index-v1-nov6-updates">
+#mode0Container #u-unsent-letters{scroll-margin-top:26px;border:2px solid #9d86bd;background:radial-gradient(ellipse at 100% 0%,rgba(147,115,189,.19),transparent 52%),linear-gradient(145deg,#2b2438,#1b242d);box-shadow:0 7px 26px #0002}
+#mode0Container #u-unsent-letters .u-step{background:#ae8cce;color:#1c1621}
+#mode0Container #u-unsent-letters a.u-button{background:linear-gradient(110deg,#9f79cb,#7769bd);color:#fff;border:1px solid #c5a9eb}
+#mode0Container .u-membership-target{margin-top:16px;padding:14px;border:1px solid #6eabb9;border-radius:13px;background:#142f39}
+#mode0Container .u-membership-target-line{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:calc(13px - 1pt);color:#e2f7f4}
+#mode0Container .u-membership-target-line{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+#mode0Container .u-membership-target-values{display:flex;align-items:center;justify-content:flex-start;gap:16px;flex-wrap:nowrap}
+#mode0Container .u-membership-percent{display:inline-block;padding:0;border:0;background:none;box-shadow:none;color:#ed4555;font-size:calc(clamp(30px,5vw,42px) - 1pt);font-weight:1000;letter-spacing:-.04em;line-height:1.16;font-variant-numeric:tabular-nums}
+#mode0Container .u-membership-percent[data-level="red"]{color:#ff5966}
+#mode0Container .u-membership-percent[data-level="yellow"]{color:#f7cf53}
+#mode0Container .u-membership-percent[data-level="green"]{color:#4adb91}
+#mode0Container .u-membership-target-caption{font-size:calc(18px - 1pt);font-weight:850;letter-spacing:.01em;color:#e7edf4}
+#mode0Container #u-next .u-roadmap-collapsible{padding:0;margin:0;border:0;background:transparent}
+#mode0Container #u-next .u-roadmap-collapsible summary{padding:0;display:flex;align-items:center;gap:12px;min-height:26px;cursor:pointer;list-style:none}
+#mode0Container #u-next .u-roadmap-collapsible summary::-webkit-details-marker{display:none}
+#mode0Container #u-next .u-roadmap-collapsible summary h4{flex:1;margin:0}
+#mode0Container #u-next .u-roadmap-collapsible summary::after{content:'＋';display:grid;place-items:center;flex:0 0 29px;width:29px;height:29px;border-radius:50%;background:#566477;border:1px solid #8490a0;color:#fff;font-size:19px;line-height:1}
+#mode0Container #u-next .u-roadmap-collapsible[open] summary::after{content:'−'}
+#mode0Container #u-next .u-roadmap-collapsible p{margin-top:14px;padding-top:11px;border-top:1px solid rgba(155,169,181,.24)}
+#mode0Container #u-next .roadmap-completed .u-roadmap-copy{padding-top:13px;padding-bottom:13px}
+#mode0Container #u-next .u-roadmap-collapsible summary:focus-visible{outline:2px solid #c8d3de;outline-offset:4px;border-radius:5px}
+#mode0Container #affiliatedUnionTargetProgress{display:block;width:100%;height:14px;margin-top:12px;accent-color:#6dcbac}
+#mode0Container #u-completed-milestones .u-intent-archived{border-color:#78838f;background:#1a2028}
+#mode0Container .u-intent-archived>.flex .u-step{background:#64748b;color:#fff}
+#mode0Container #u-next .u-roadmap-item.roadmap-mediation{--phase-color:#84c3c5;--phase-panel:#20383c}
+@media(max-width:640px){#mode0Container .u-membership-target-values{gap:14px}#mode0Container .u-membership-percent{font-size:calc(36px - 1pt);padding:0}#mode0Container .u-membership-target-caption{font-size:calc(17px - 1pt)}}
+</style>
+
+<style id="weekly-union-announcement-v2">
+#mode0Container #u-weekly-announcement{scroll-margin-top:30px;border:1px solid #566b83!important;border-top:3px solid #f0c078!important;border-radius:23px;padding:clamp(17px,3vw,30px)!important;margin:0 0 24px!important;background:linear-gradient(145deg,#222a35,#171d27 64%,#121922)!important;color:#f0f5fa;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+#u-weekly-announcement *{box-sizing:border-box}
+#u-weekly-announcement .wa-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:13px;margin-bottom:20px}
+#u-weekly-announcement .wa-eyebrow,#u-weekly-announcement .wa-kicker{font-size:11px;font-weight:800;letter-spacing:.095em;color:#eac58a;line-height:1.55}
+#u-weekly-announcement .wa-heading h2{font-size:clamp(23px,4vw,33px);font-weight:900;letter-spacing:-.025em;margin:6px 0 5px;line-height:1.3;color:#fff}
+#u-weekly-announcement .wa-heading p{font-size:13px;color:#bfcad6;line-height:1.7}
+#u-weekly-announcement .wa-top-chip{white-space:nowrap;flex:0 0 auto;border-radius:999px;padding:7px 11px;background:#6e4936;color:#ffdfae;font-size:12px;font-weight:800;border:1px solid #a67a5b}
+#u-weekly-announcement .wa-main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(180px,.8fr);gap:18px;padding:22px;border-radius:18px;background:#293340;border:1px solid #465568}
+#u-weekly-announcement .wa-main h3{font-size:clamp(18px,2.7vw,23px);font-weight:850;color:#fff;margin:7px 0 13px}
+#u-weekly-announcement .wa-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:8px 0 12px}
+#u-weekly-announcement .wa-price strong{font-size:clamp(31px,5vw,40px);color:#fff6d9;letter-spacing:-.035em;font-weight:950;line-height:1.1}
+#u-weekly-announcement .wa-price span{font-size:13px;color:#cbd5e1}
+#u-weekly-announcement .wa-schedule{display:flex;gap:9px;align-items:flex-start;color:#fff;font-size:15px;line-height:1.75}
+#u-weekly-announcement .wa-schedule strong{font-weight:850}
+#u-weekly-announcement .wa-schedule em{font-style:normal;color:#8195a8;padding:0 3px}
+#u-weekly-announcement .wa-address{display:flex;align-items:flex-start;gap:7px;color:#c6d3e2;font-size:13px;line-height:1.8;margin-top:6px}
+#u-weekly-announcement .wa-fee-notes{font-size:12px;color:#b9c8d4;margin:11px 0;line-height:1.7}
+#u-weekly-announcement .wa-buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+#u-weekly-announcement .wa-btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none!important;min-height:43px;border-radius:11px;padding:10px 14px;line-height:1.35;font-size:13px;font-weight:850;transition:filter .18s,transform .18s;max-width:100%}
+#u-weekly-announcement .wa-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#u-weekly-announcement .wa-btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+#u-weekly-announcement .wa-btn-primary{background:#f1c784;color:#232126!important;border:1px solid #f4d7aa}
+#u-weekly-announcement .wa-btn-secondary{background:#202b39;color:#eaf3ff!important;border:1px solid #63829d}
+#u-weekly-announcement .wa-photo{margin:0;align-self:center;min-width:0}
+#u-weekly-announcement .wa-photo img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:14px;border:1px solid #697988}
+#u-weekly-announcement .wa-photo figcaption{font-size:11px;color:#aab8c8;text-align:center;margin-top:8px}
+#u-weekly-announcement .wa-legal,#u-weekly-announcement .wa-warning{display:flex;gap:10px;align-items:flex-start;padding:12px 15px;border-radius:12px;margin-top:11px;line-height:1.7;font-size:12px}
+#u-weekly-announcement .wa-legal{background:#1a303a;border:1px solid #477a7e;color:#d9f3ec}
+#u-weekly-announcement .wa-warning{background:#382c2a;border:1px solid #7e5550;color:#ffe9d7}
+#u-weekly-announcement .wa-legal p,#u-weekly-announcement .wa-warning p{margin:0}
+#u-weekly-announcement .wa-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:15px}
+#u-weekly-announcement .wa-subcard{min-width:0;border-radius:16px;padding:20px;background:#1b2430;border:1px solid #435365}
+#u-weekly-announcement .wa-subcard h3{font-size:19px;color:#fff;font-weight:850;line-height:1.4;margin:7px 0 13px}
+#u-weekly-announcement .wa-description{font-size:13px;color:#c7d3df;line-height:1.8;margin-bottom:15px}
+#u-weekly-announcement .wa-details{margin-top:14px;border-top:1px solid #3e5064;padding-top:13px;font-size:12px;color:#cbd5e1;line-height:1.75}
+#u-weekly-announcement details summary{cursor:pointer;color:#d4eaff;font-size:13px;font-weight:750;list-style-position:inside}
+#u-weekly-announcement details summary:focus-visible{outline:2px solid #f1c784;outline-offset:4px}
+#u-weekly-announcement .wa-details ol{padding-left:20px;margin:10px 0 8px;list-style:decimal}
+#u-weekly-announcement .wa-details li{margin-bottom:5px}
+#u-weekly-announcement .wa-details p{margin:9px 0 0}
+#u-weekly-announcement .wa-meeting{border-top:1px solid #425265;padding:13px 0}
+#u-weekly-announcement .wa-meeting:last-child{padding-bottom:0}
+#u-weekly-announcement .wa-meeting-heading{display:flex;align-items:center;gap:9px;justify-content:space-between;flex-wrap:wrap;font-size:14px}
+#u-weekly-announcement .wa-event-pill{border:1px solid #50776a;color:#b5e5d0;background:#20372f;border-radius:100px;padding:3px 8px;font-size:11px;font-weight:700}
+#u-weekly-announcement .wa-event-pill.is-ended{background:#343b46;border-color:#5a626f;color:#bbc5d0}
+#u-weekly-announcement .wa-meeting p{font-size:12px;line-height:1.75;color:#c0cdd9;margin:7px 0 10px}
+#u-weekly-announcement .wa-final-details{margin-top:15px;padding:15px 17px;border-radius:14px;border:1px solid #4f6072;background:#1a222c;line-height:1.7;color:#c8d4e2;font-size:12px}
+#u-weekly-announcement .wa-procedure{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+#u-weekly-announcement .wa-procedure span{border-radius:8px;padding:6px 10px;background:#2a3947;border:1px solid #41586b}
+#u-weekly-announcement .wa-final-details p{margin:9px 0 0}
+#u-weekly-announcement .wa-final-details a{color:#a7d9ff;text-decoration:underline}
+#u-weekly-announcement .wa-small{font-size:11px;color:#9aafc0}
+#unionEntryReminder .wa-entry-jump{display:block;margin:9px auto 4px;padding:9px 12px;min-height:38px;border-radius:10px;background:#e7be86;border:1px solid #f0d4ac;color:#302216;font-size:13px;font-weight:850;cursor:pointer}
+@media(max-width:780px){#u-weekly-announcement .wa-main{grid-template-columns:1fr}#u-weekly-announcement .wa-photo{max-width:320px;width:100%;margin:0 auto}#u-weekly-announcement .wa-grid{grid-template-columns:1fr}#u-weekly-announcement .wa-main{padding:16px}#u-weekly-announcement .wa-subcard{padding:17px}}
+@media(max-width:480px){#mode0Container #u-weekly-announcement{padding:15px!important}#u-weekly-announcement .wa-heading{align-items:flex-start}#u-weekly-announcement .wa-heading h2{font-size:23px}#u-weekly-announcement .wa-top-chip{padding:5px 8px;font-size:10px}#u-weekly-announcement .wa-buttons{display:grid;grid-template-columns:1fr}#u-weekly-announcement .wa-buttons .wa-btn{width:100%}#u-weekly-announcement .wa-photo{max-width:260px}#u-weekly-announcement .wa-subcard .wa-btn{width:100%}}
+</style>
+<style id="weekly-enhancements-v2a">
+#mode0Container #u-weekly-announcement .wa-meeting .wa-btn-gold{background:linear-gradient(130deg,#ffe49b,#d5a03c)!important;color:#382604!important;border:1px solid #ffeab3!important;box-shadow:0 4px 13px #d5a03a44!important;font-weight:900!important}
+#mode0Container #u-weekly-announcement .wa-meeting .wa-btn-gold:hover{filter:brightness(1.1)}
+#mode0Container #u-weekly-announcement .wa-briefing-overview{color:#cbd7e3;font-size:12px;line-height:1.8;margin:-3px 0 12px}
+#mode0Container #u-weekly-announcement .wa-fee-footnote{margin-top:16px;border-top:1px solid #65778a;padding:13px 12px 6px;background:#1f2b36;border-radius:11px;color:#d7e3ed;font-size:12px;line-height:1.75}
+#mode0Container #u-weekly-announcement .wa-fee-footnote strong{color:#ffe3a2;font-size:13px}
+#mode0Container #u-weekly-announcement .wa-fee-footnote p{margin:7px 0}
+#mode0Container #u-weekly-announcement .wa-fee-footnote a{color:#ffe1a5;text-decoration:underline}
+</style><style id="weekly-timeline-v2a">
+#mode0Container #u-next .u-past-timeline{border:1px solid #657486;border-radius:15px;background:#19232e;margin:22px 0 8px;overflow:hidden}
+#mode0Container #u-next .u-past-timeline>summary{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:15px 17px;color:#dfe8f4;font-size:14px;font-weight:800;list-style:none}
+#mode0Container #u-next .u-past-timeline>summary::-webkit-details-marker{display:none}
+#mode0Container #u-next .u-past-timeline>summary::after{content:'＋';font-size:18px;color:#edc281}
+#mode0Container #u-next .u-past-timeline[open]>summary::after{content:'−'}
+#mode0Container #u-next .u-roadmap-past{margin:0;padding:13px 11px 17px;border-top:1px solid #3c4d5c}
+#mode0Container #u-next .u-roadmap-past .u-roadmap-item{opacity:.84}
+#mode0Container #u-next .u-roadmap-upcoming{margin-top:20px}
+#mode0Container #u-next .wa-timeline-link{display:inline-flex;min-height:36px;align-items:center;justify-content:center;padding:7px 13px;margin-top:12px;border-radius:9px;background:linear-gradient(120deg,#f9d99b,#d8a74c);color:#38280f!important;font-size:12px;font-weight:900;text-decoration:none}
+#mode0Container #u-next .wa-timeline-link:hover{filter:brightness(1.08)}
+#mode0Container #u-next .roadmap-fee .u-roadmap-copy{background:linear-gradient(110deg,#353023,#202a35)}
+#mode0Container #u-next .roadmap-briefing .u-roadmap-copy{background:linear-gradient(110deg,#322d27,#202a35)}
+@media(max-width:650px){#mode0Container #u-next .u-roadmap-past{padding:10px 4px 16px}#mode0Container #u-next .u-past-timeline>summary{padding:13px 12px;font-size:12px}}
+</style><style id="nov17-action-v3">
+#u-weekly-announcement .wa-nov17-feature{display:grid;grid-template-columns:minmax(220px,.74fr) minmax(0,1fr);gap:21px;padding:20px;margin:15px 0 20px;border:2px solid #d9ad59;border-radius:19px;background:linear-gradient(125deg,#30261e,#1c2632);box-shadow:0 12px 30px #0005}
+#u-weekly-announcement .wa-nov17-art img{display:block;width:100%;height:auto;max-height:510px;object-fit:contain;border-radius:12px;background:#111827}
+#u-weekly-announcement .wa-nov17-content{min-width:0;align-self:center}
+#u-weekly-announcement .wa-nov17-kicker{font-weight:900;letter-spacing:.055em;color:#fbd47e;font-size:13px}
+#u-weekly-announcement .wa-nov17-content h3{font-size:clamp(23px,3vw,35px);font-weight:950;line-height:1.3;color:#fff;margin:12px 0!important}
+#u-weekly-announcement .wa-nov17-intro{font-size:16px!important;color:#f4d995!important;line-height:1.7!important;font-weight:800}
+#u-weekly-announcement .wa-nov17-list{display:grid;gap:13px;margin:17px 0}
+#u-weekly-announcement .wa-nov17-list>div{padding:12px 14px;border:1px solid #5e6371;border-radius:11px;background:#1b2431}
+#u-weekly-announcement .wa-nov17-list strong{font-size:17px;color:#ffe2a2}
+#u-weekly-announcement .wa-nov17-list p{margin-top:5px;font-size:14px;color:#eef2f7;line-height:1.65}
+#u-weekly-announcement .wa-nov17-note{font-size:12px;color:#cbd5e1;margin-bottom:12px}
+#u-weekly-announcement .wa-nov17-register{display:flex;width:100%;justify-content:center;padding:15px 14px;font-size:17px!important;font-weight:900;border-radius:12px}
+#u-completed-milestones #u-briefings-archived{margin:20px 0}
+#u-completed-milestones #u-briefings-archived .wa-subcard{background:#202a34;border:1px solid #627083;border-radius:15px;padding:17px}
+#u-completed-milestones #u-briefings-archived .wa-meeting{margin-top:14px;border-top:1px solid #5d6976;padding-top:12px}
+#u-completed-milestones #u-briefings-archived .wa-btn{display:inline-flex;padding:8px 13px;margin-top:8px;color:#eac57c}
+@media(max-width:760px){#u-weekly-announcement .wa-nov17-feature{grid-template-columns:1fr;padding:13px;gap:13px}#u-weekly-announcement .wa-nov17-art img{max-height:440px}#u-weekly-announcement .wa-nov17-content h3{font-size:25px}}
+</style></head>
+<body class="p-4 md:p-8 relative emergency-active">
+<div class="max-w-7xl mx-auto">
+<header id="portalSimpleHeader"><div class="portal-mark" aria-hidden="true">🐵</div><div>
+<h1>光光猴守護平台 <span style="font-size:calc(11px - 1pt);font-weight:600;color:#b2c5da">· GUARDIAN</span></h1>
+<p>我們不生產錢，我們只是香蕉農。</p><div id="portalViewStats"><span>👁 總瀏覽 / Total <b id="pageViewTotal">—</b></span><span>🔥 今日 / Today <b id="pageViewToday">—</b></span></div>
+</div></header>
+<div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)"><section class="u-hero rounded-[24px] p-6 md:p-11 relative overflow-hidden u-v14-hero" id="u-emergency-hero"><div class="u-kicker u-v14-date">10.21 / 2026 · TAICHUNG · EMPLOYEE RESPONSE</div><h2 class="text-4xl md:text-6xl font-black mt-5 leading-tight u-hero-heading" style="letter-spacing:-.045em"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">以發聲拒絕失望，以行動守住權利</span><span class="u-en" lang="en">Speak out against disappointment. Take action to defend our rights.</span></span></h2><p class="text-lg md:text-xl u-muted mt-4"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">拒絕黑箱協議，要求資訊透明；用參與與行動守護勞動權益。</span><span class="u-en" lang="en">Reject opaque agreements, demand transparency, and protect our rights through collective participation.</span></span></p></section><section id="u-current-strategy" class="u-surface" style="padding:clamp(16px,3vw,28px);margin-bottom:24px;text-align:center;">
+  <h2 style="font-size:calc(clamp(1.45rem,4.5vw,2.15rem) - 1pt);font-weight:900;line-height:1.35;margin:0 0 16px;"><span class="u-bilingual"><span class="u-zh">雙線並進｜兩路突破</span><span class="u-en" lang="en">What Are We Doing Now?</span></span></h2>
+  <img src="./current-action-overview.jpeg" alt="台中與桃園聯合作戰：原工會內部改革及成立台灣美光關係企業工會，雙線並進、兩路突破" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;max-width:760px;margin:0 auto;border-radius:16px;" />
+  <a class="u-button" href="./Connected_Union_QA.html" target="_blank" rel="noopener noreferrer" aria-label="查看美光關係企業工會常見問題 Q&A，另開新分頁" style="display:inline-flex;align-items:center;justify-content:center;max-width:100%;min-height:48px;margin:20px auto 0;padding:12px 24px;border-radius:14px;font-weight:850;text-decoration:none;gap:8px;background:#b83f45;color:#fff;border:1px solid #d26368;box-shadow:0 6px 18px rgba(131,32,42,.28);">
+    <span aria-hidden="true">📖</span><span class="u-bilingual"><span class="u-zh">關係企業工會常見問題 Q&amp;A</span><span class="u-en" lang="en">Affiliated Union FAQ</span></span><span aria-hidden="true">↗</span>
+  </a>
+</section>
+<section id="u-weekly-announcement" class="u-surface" aria-labelledby="wa-title">
+  <div class="wa-heading">
+    <div><div class="wa-eyebrow">📣 UNION ACTION UPDATE · 2026/11/13–11/17</div>
+      <h2 id="wa-title"><span class="u-bilingual"><span class="u-zh">關工重要公告</span><span class="u-en" lang="en">This Week’s Union Updates</span></span></h2>
+      <p><span class="u-bilingual"><span class="u-zh">黑衣集結、11/17 記者會與報名資訊｜行動重點一次看懂</span><span class="u-en" lang="en">Black-shirt gathering, Nov 17 press event and registration.</span></span></p>
+    </div>
+    <span class="wa-top-chip" id="wa-event-status" role="status">11/13–11/17</span>
+  </div>
+<article class="wa-nov17-feature" id="u-nov17-action" aria-labelledby="nov17-action-title">
+<div class="wa-nov17-art"><img src="assets/union-black-shirt-20261117.svg" alt="美光關工黑衣集結活動：11/13 午休集結，11/17 記者會，拒絕黑箱協議、抗議濫訴打壓" loading="eager" decoding="async"></div>
+<div class="wa-nov17-content"><div class="wa-nov17-kicker">📣 重要活動｜11/13 &amp; 11/17</div>
+<h3 id="nov17-action-title">美光關工・黑衣集結活動</h3>
+<p class="wa-nov17-intro">拒絕黑箱協議、要求資訊透明，聲援桃園工會，呼籲儘速核發「美光關工」登記證書。</p>
+<div class="wa-nov17-list"><div><strong>11/13（五）｜午休集結</strong><p>12:30 · 公共藝術「飛越AI」裝置藝術前（后科路、三豐路轉角）</p></div>
+<div><strong>11/17（二）｜記者會與北上聲援</strong><p>10:00 · 桃園市政府，民進黨中央黨部記者會；一起搭車北上。</p></div></div>
+<p class="wa-nov17-note">報名表請依主辦方最新通知確認集合、交通與搭車資訊。</p>
+<a class="wa-btn wa-btn-gold wa-nov17-register" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 11/17 報名抗爭、爭取關工牌 ↗</a>
+</div></article>
+  <div class="wa-main">
+    <div class="wa-fee-copy">
+      <div class="wa-kicker">01 · MEMBERSHIP DUES / 會費繳納</div>
+      <h3><span class="u-bilingual"><span class="u-zh">📍 台中｜后里星巴克會議室</span><span class="u-en" lang="en">📍 Taichung · Houli Starbucks</span></span></h3>
+      <div class="wa-price"><strong>NT$100</strong><span><span class="u-bilingual"><span class="u-zh">11、12 月會費各 50 元</span><span class="u-en" lang="en">NT$50 for each of Nov &amp; Dec</span></span></span></div>
+      <div class="wa-schedule"><span class="wa-icon" aria-hidden="true">🗓</span><div><strong>11/9（一）– 11/12（四）</strong><div>12:00–13:00 <em>／</em> 18:00–20:00</div></div></div>
+      <div class="wa-address"><span aria-hidden="true">📌</span><span>421 臺中市后里區三豐路四段 115 號</span></div>
+      <div class="wa-fee-notes"><span class="u-bilingual"><span class="u-zh">現場收取現金，建議備妥百元整鈔；完成資料核對並領取黃色收據。</span><span class="u-en" lang="en">Cash only. Please bring NT$100 and collect your yellow receipt after verification.</span></span></div>
+      <div class="wa-buttons">
+        <a class="wa-btn wa-btn-primary" href="https://maps.app.goo.gl/oK213tV2ovvCVCCA7?g_st=il" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">🧭 前往繳費地點 ↗</span><span class="u-en" lang="en">🧭 Open directions ↗</span></span></a>
+        <a class="wa-btn wa-btn-secondary" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">先填入會申請 ↗</span><span class="u-en" lang="en">Membership form ↗</span></span></a>
+      </div>
+<aside class="wa-fee-footnote" aria-label="個人繳費流程及聯絡方式">
+ <strong>📋 <span class="u-bilingual"><span class="u-zh">個人繳費流程與聯絡方式</span><span class="u-en" lang="en">Payment steps &amp; contact</span></span></strong>
+ <p><span class="u-bilingual"><span class="u-zh">① 先填入會申請 → ② 現場核對工號 → ③ 現金繳費 → ④ 領取黃色收據（白單由工會留存）。請妥善保管收據。</span><span class="u-en" lang="en">1. Apply online → 2. Verify employee ID → 3. Pay cash → 4. Keep your yellow receipt.</span></span></p>
+ <p><span class="u-bilingual"><span class="u-zh">工會秘書豫綾：<a href="tel:0912862820">0912-862820</a>。繳費、會員資格及場次以工會最新公告為準。</span><span class="u-en" lang="en">Union secretary: <a href="tel:0912862820">0912-862820</a>. Official notices take precedence.</span></span></p>
+</aside>
+    </div>
+    <figure class="wa-photo">
+      <img src="data:image/jpeg;base64,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" width="240" height="180" loading="lazy" decoding="async" alt="后里星巴克實際室內照片，紅色箭頭指向靠內側的會議空間"/>
+      <figcaption><span class="u-bilingual"><span class="u-zh">📷 后里星巴克實際場地照片</span><span class="u-en" lang="en">📷 Actual venue photo</span></span></figcaption>
+    </figure>
+  </div>
+  <div class="wa-legal"><span aria-hidden="true">ℹ️</span><p><span class="u-bilingual"><span class="u-zh">完成入會申請及會費繳納，是取得正式會員資格的重要程序；會員資格以工會章程及審查結果為準。</span><span class="u-en" lang="en">Applying and paying dues are important steps. Official membership depends on the union's bylaws and approval process.</span></span></p></div>
+  <div class="wa-warning"><span aria-hidden="true">⚠️</span><p><span class="u-bilingual"><span class="u-zh"><strong>請勿在廠區內或工作時間辦理繳費、代收及發收據。</strong>請於廠外公開地點、休息或下班時段進行。</span><span class="u-en" lang="en"><strong>No dues collection or receipts inside the plant or during working hours.</strong> Use off-site locations and break or off-duty hours.</span></span></p></div>
+  <div class="wa-grid">
+    <article class="wa-subcard"><div class="wa-kicker">02 · GROUP PAYMENT</div>
+      <h3><span class="u-bilingual"><span class="u-zh">⚡ 部門團體代繳｜快速核銷</span><span class="u-en" lang="en">⚡ Group Payments · Fast Check-in</span></span></h3>
+      <p class="wa-description"><span class="u-bilingual"><span class="u-zh">由部門或班別熱心夥伴集中代繳，出發前先線上預約，取得 <strong>4 碼核銷代碼</strong>，縮短現場等候。</span><span class="u-en" lang="en">A trusted representative can organize payments. Pre-register to receive a <strong>4-digit check-in code</strong>.</span></span></p>
+      <a class="wa-btn wa-btn-primary" href="https://tmeau-reserve.web.app" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">立即預約團體代繳 ↗</span><span class="u-en" lang="en">Pre-register group payments ↗</span></span></a>
+      <details class="wa-details"><summary><span class="u-bilingual"><span class="u-zh">代繳前需要準備什麼？</span><span class="u-en" lang="en">What to prepare</span></span></summary>
+        <ol><li>先確認所有同仁已填入會申請，並收齊每人 NT$100。</li><li>備妥<strong>工號＋姓名名冊兩份</strong>（工會存根與代繳代表各一份）。</li><li>前往廠外繳費點，核對名單、交付現金並領回收據。</li><li>銅鑼、台南夥伴亦可委託台中同事代繳；後續場次以工會公告為準。</li></ol>
+        <p>僅交由可信任代表處理名冊，勿在公開群組傳送完整工號與姓名。本網站不蒐集名冊。</p>
+      </details>
+    </article>
+    
+  </div>
+  
+</section><div id="u-actions">
+<div class="u-kicker mb-3"><span class="u-bilingual"><span class="u-zh">維護權益3步驟 · 現階段重要行動</span><span class="u-en" lang="en">3 STEPS TO PROTECT OUR RIGHTS · Current priorities</span></span></div>
+<div class="u-cardgrid u-three-actions u-four-actions">
+<div class="u-action-stack"><section class="u-surface" id="u-affiliated-union"><div class="flex items-center gap-3"><span class="u-step">01</span><span class="u-kicker">UNION MEMBERSHIP · JOIN THE UNION</span></div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4">
+<div class="u-muted text-sm">桃園＋台中入會申請合計 / Taoyuan + Taichung membership applications</div>
+<div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人（申請＋入會，供追蹤） / tracking total</span></div>
+<div class="u-membership-target" role="group" aria-label="11/13 前桃園與台中合計目標 11000 人">
+<div class="u-membership-target-line"><div class="u-membership-target-values"><span id="affiliatedUnionTargetPercent" class="u-membership-percent" data-level="pending" aria-live="polite">—%</span></div><div class="u-membership-target-caption" lang="en">Target: 11,000 people by <strong>11/13</strong></div></div>
+<progress id="affiliatedUnionTargetProgress" value="0" max="11000" aria-label="Combined memberships toward 11000 people"></progress>
+<div class="u-muted u-mini mt-2" id="affiliatedUnionTargetStatus">載入台中即時數據後更新 / Updating when Taichung count loads</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-4">
+ <div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-sm">台中 / Taichung <span class="text-xs">· 即時更新 / Live</span></div><strong class="block text-2xl mt-1" id="affiliatedUnionInterestCount">—</strong><small class="u-muted">人 · 申請資料筆數</small></div>
+ <div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-sm">桃園 / Taoyuan</div><strong class="block text-2xl mt-1">2,400</strong><small class="u-muted">人 · 直接入會 / Direct enrollment (reported)</small></div>
+</div>
+<p class="u-muted u-mini mt-3">合計依「台中即時申請筆數＋桃園直接入會 2,400 人」計算，供追蹤使用，非已核准會員數。 / Combined tracking total uses live Taichung application entries plus 2,400 reported Taoyuan direct enrollments; it is not a count of approved memberships.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:calc(12px - 1pt)">↻ 更新數字 / Update counts</button></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
+<section class="u-surface u-action-step u-unsent-letters" id="u-unsent-letters" aria-labelledby="u-unsent-letters-title">
+<div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">匿名心聲 · 未寄出的信</span><span class="u-en" lang="en">ANONYMOUS VOICES · Unsent Letters</span></span></span></div>
+<h3 class="text-xl font-black mt-3" id="u-unsent-letters-title"><span class="u-bilingual"><span class="u-zh">✉️ 未寄出的信｜讓心裡的話被看見</span><span class="u-en" lang="en">✉️ Unsent Letters · A place for unheard voices</span></span></h3>
+<p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有些話不容易說出口。寫給夥伴、工會與公司、理想中的職場，或未來的自己。在這裡匿名寫信、拆信閱讀，也能透過共鳴與留言給彼此一點力量。請勿填寫可辨識個人的資料。</span><span class="u-en" lang="en">Some thoughts are hard to say out loud. Write anonymously to a colleague, the union and company, your ideal workplace, or your future self. Read, react, and leave encouraging comments. Please do not include identifying personal details.</span></span></p>
+<a class="u-button u-primary w-full mt-5" href="Unsent_Letters.html" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">✉️ 前往未寄出的信 ↗</span><span class="u-en" lang="en">✉️ Visit Unsent Letters ↗</span></span></a>
+</section>
+<section class="u-surface u-action-step">
+<div class="flex items-center gap-3"><span class="u-step">03</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">已開放審核 · LINE 群組</span><span class="u-en" lang="en">OPEN · LINE group</span></span></span></div>
+<h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">LINE 群組已重新開放入群審核</span><span class="u-en" lang="en">LINE group approvals have reopened</span></span></h3>
+<span class="u-wait-chip mt-4"><span class="u-bilingual"><span class="u-zh">已升級為 10,000 人大群</span><span class="u-en" lang="en">Expanded to 10,000 members</span></span></span>
+<p class="u-muted text-sm mt-4"><span class="u-bilingual"><span class="u-zh">LINE 群組已擴充為 10,000 人大群，目前已重新開放入群審核，歡迎同仁申請加入。</span><span class="u-en" lang="en">Our LINE group has expanded to a 10,000-member capacity, and membership approvals are now open again. Members are welcome to apply to join.</span></span></p>
+<a class="u-button u-primary w-full mt-5" href="https://reurl.cc/WzKNrk" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">加入 LINE 群組 ↗</span><span class="u-en" lang="en">Join the LINE group ↗</span></span></a>
+</section>
+</div></div><section class="u-surface u-recruit-highlight" id="u-participate">
+<div class="u-kicker">HELP MAKE IT HAPPEN · 我願意幫忙</div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">幹部自薦與志工協助</span><span class="u-en" lang="en">Organizers and volunteers</span></span></h3>
+<p class="u-muted text-sm mt-2">希望承擔幹部／代表工作，和願意提供專長或時間協助的志工，請依不同管道登記。</p>
+<div class="u-recruit-grid mt-5">
+<div class="u-recruit-item"><span class="u-tag">幹部／代表</span><h4 class="text-xl font-black mt-3">願意擔任臨時幹部？</h4><p class="u-muted text-sm mt-2">請寄信到桃園工會信箱 <strong>micronunions@gmail.com</strong>；由桃園工會秘書協助轉交台中臨時幹部群。</p><a class="u-button u-secondary w-full mt-4" href="mailto:micronunions@gmail.com?subject=%E5%8F%B0%E4%B8%AD%E8%87%A8%E6%99%82%E5%B9%B9%E9%83%A8%E5%8F%83%E8%88%87%E6%84%8F%E9%A1%98">寄信申請幹部 ↗</a></div>
+<div class="u-recruit-item"><span class="u-tag">志工／專長支援</span><h4 class="text-xl font-black mt-3">我想協助，但不擔任幹部</h4><p class="u-muted text-sm mt-2">可選擇匿名或具名，勾選設計、活動、資料、翻譯、溝通等能幫忙的項目。</p><button class="u-button u-primary w-full mt-4" onclick="openVolunteerSignup()" type="button">填寫志工意願表 ↗</button><div id="volunteerPublicCount" class="vol-count-public" role="status" aria-live="polite">志工報名人數讀取中… / Loading volunteer count…</div><button class="u-admin-link mt-3" onclick="openVolunteerAdmin()" type="button">🔒 管理員查看志工資料（需密碼） ↗</button></div>
+</div>
+</section><section class="u-surface" id="u-next">
+<div class="u-kicker">UPCOMING UNION ACTIONS · EVENT TIMELINE</div>
+<h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">近期行動｜繳費、說明會與後續時間表</span><span class="u-en" lang="en">Upcoming union actions · Event timeline</span></span></h3>
+<p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">連署不是終點，而是正式行動的開始。請大家持續關注並共同參與！</span><span class="u-en" lang="en">This is not the end — it is the start of our collective action. Please stay informed and involved!</span></span></p>
+
+<details class="u-past-timeline" id="u-past-timeline">
+ <summary><span class="u-bilingual"><span class="u-zh">🗂️ 已過去的行動紀錄（<span id="u-past-event-count">4</span> 則）</span><span class="u-en" lang="en">🗂️ Past events (<span id="u-past-event-count-en">4</span>)</span></span></summary>
+ <div class="u-roadmap u-roadmap-past" id="u-past-timeline-events">
+<div class="u-roadmap-item roadmap-stop roadmap-completed"><div class="u-roadmap-date">10/28（三）<br>21:00</div><div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">正式連署募集暫停，轉入資料整理</span><span class="u-en" lang="en">Formal petition collection paused; review begins</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">依先前公告規劃暫停新的正式連署收件，進行<strong>移除重複連署書、核對及建檔</strong>，準備正式送件。此為流程時點，不代表網站後端已自動停止接收。</span><span class="u-en" lang="en">Based on the announced schedule, new formal petition submissions are to pause at 21:00. The next stage is deduplication, verification, and record preparation. Removing the link does not automatically disable the submission backend.</span></span></p></details></div></div>
+<div class="u-roadmap-item roadmap-completed"><div class="u-roadmap-date">11/3（二）</div><div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">台中工會會長已簽收連署書</span><span class="u-en" lang="en">Petition received by Taichung union chairperson</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">11/3 台中工會會長已正式簽收連署書，啟動<strong>十日倒數</strong>，關注臨時會員大會召集與辦理進度。</span><span class="u-en" lang="en">The Taichung union chairperson formally acknowledged receipt of the petition on Nov 3, starting the 10-day countdown to convene the extraordinary members’ meeting.</span></span></p></details></div></div>
+<div class="u-roadmap-item roadmap-brief roadmap-completed"><div class="u-roadmap-date">11/3（二）<br>✓ 已完成</div><div class="u-roadmap-marker" aria-hidden="true"><span>03</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">台中記者會暨美光關係企業工會說明會</span><span class="u-en" lang="en">Taichung press conference &amp; affiliated union briefing</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">下午 <strong>13:00 台中科管局記者會</strong>及晚上<strong>后里美光關係企業工會說明會</strong>皆已辦理完成。</span><span class="u-en" lang="en">The <strong>13:00 press conference at the Central Taiwan Science Park Bureau</strong> and the <strong>evening affiliated union briefing in Houli</strong> were completed on Nov 3.</span></span></p></details></div></div>
+<div class="u-roadmap-item roadmap-google roadmap-completed"><div class="u-roadmap-date">截止 11/6（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><details class="u-roadmap-collapsible"><summary><h4><span class="u-bilingual"><span class="u-zh">Google 意向書階段性募集已完成</span><span class="u-en" lang="en">Google Form campaign phase completed</span></span><span class="u-roadmap-done"><span class="u-zh">✓ 已完成</span><span class="u-en" lang="en">✓ Completed</span></span></h4></summary><p><span class="u-bilingual"><span class="u-zh">原訂至 11/6 的 Google 意向書階段性募集已列為完成事項。回覆統計保留在下方「已達成任務」供會員查看。</span><span class="u-en" lang="en">The Google Form response campaign scheduled through Nov 6 is archived as a completed phase. Response statistics remain accessible under Completed Milestones.</span></span></p></details></div></div>
+ </div>
+</details>
+<div class="u-roadmap u-roadmap-upcoming" id="u-timeline-upcoming">
+
+<div class="u-roadmap-item roadmap-fee" data-timeline-end="2026-11-12T20:00:00+08:00" style="--phase-color:#ebc17d;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/9–11/12<br>每日雙時段</div>
+ <div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div>
+ <div class="u-roadmap-copy">
+  <h4><span class="u-bilingual"><span class="u-zh">關係企業工會｜台中會費繳納</span><span class="u-en" lang="en">Union dues · Taichung</span></span></h4>
+  <p><span class="u-bilingual"><span class="u-zh"><strong>后里星巴克會議室</strong>。12:00–13:00、18:00–20:00；11、12 月會費共 <strong>NT$100</strong>。請於廠外休息或下班時段辦理。</span><span class="u-en" lang="en">Houli Starbucks, noon and evening windows; NT$100 for two months.</span></span></p>
+  <a class="wa-timeline-link" href="#u-weekly-announcement" >查看詳情 ↗</a>
+ </div>
+</div>
+
+<div class="u-roadmap-item roadmap-briefing" data-timeline-end="2026-11-10T23:59:59+08:00" style="--phase-color:#f2ce81;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/10（二）</div>
+ <div class="u-roadmap-marker" aria-hidden="true"><span>02</span></div>
+ <div class="u-roadmap-copy">
+  <h4><span class="u-bilingual"><span class="u-zh">台中會員實體說明會</span><span class="u-en" lang="en">Taichung member briefing</span></span></h4>
+  <p><span class="u-bilingual"><span class="u-zh">台中場實體說明會，歡迎同仁報名。<strong>場地、時間及其他事項</strong>以報名表與主辦方通知為準。</span><span class="u-en" lang="en">Member briefing on Nov 10. Registration form confirms venue and time.</span></span></p>
+  <a class="wa-timeline-link" href="https://forms.gle/napfFDhwGJNEuYSa8" target="_blank" rel="noopener noreferrer">查看詳情 ↗</a>
+ </div>
+</div>
+
+<div class="u-roadmap-item roadmap-briefing" data-timeline-end="2026-11-11T20:00:00+08:00" style="--phase-color:#f2ce81;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/11（三）<br>18:00–20:00</div>
+ <div class="u-roadmap-marker" aria-hidden="true"><span>03</span></div>
+ <div class="u-roadmap-copy">
+  <h4><span class="u-bilingual"><span class="u-zh">台南會員實體說明會</span><span class="u-en" lang="en">Tainan member briefing</span></span></h4>
+  <p><span class="u-bilingual"><span class="u-zh"><strong>11/10 中午</strong>前完成報名統計；說明會地點將<strong>簡訊通知報名者</strong>。</span><span class="u-en" lang="en">Nov 11, 18:00–20:00. Headcount by Nov 10 noon; venue via SMS.</span></span></p>
+  <a class="wa-timeline-link" href="https://forms.gle/1n62ugArcXKvvyt5A" target="_blank" rel="noopener noreferrer">查看詳情 ↗</a>
+ </div>
+</div>
+<div class="u-roadmap-item roadmap-volunteer" data-timeline-end="2026-11-13T23:59:59+08:00"><div class="u-roadmap-date">現在－11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>04</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">持續招募志工及自願工會幹部</span><span class="u-en" lang="en">Continue recruiting volunteers and prospective union organizers</span></span></h4><p><span class="u-bilingual"><span class="u-zh">擴大自救團隊，為後續會員大會及相關行動準備；無論<strong>匿名</strong>或<strong>具名</strong>，都歡迎加入協助。</span><span class="u-en" lang="en">Help expand the action team and prepare for the members’ meeting. Both <strong>anonymous</strong> and <strong>named</strong> volunteer applications are welcome.</span></span></p></div></div>
+<div class="u-roadmap-item " data-timeline-end="2026-11-13T23:59:59+08:00"><div class="u-roadmap-date">11/13（五）</div><div class="u-roadmap-marker" aria-hidden="true"><span>05</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">臨時會員大會召集程序｜11/13 期限追蹤</span><span class="u-en" lang="en">Extraordinary meeting · Nov 13 deadline tracking</span></span></h4><p><span class="u-bilingual"><span class="u-zh">工會收到正式請求後，應依相關法令於<strong>十日內</strong>辦理召集。若屆期未依法召集，原請求人將依法向主管機關申請指定召集人；11/3 已簽收連署書，11/13 為十日倒數追蹤日期；實際期限及程序仍以適用法令為準。</span><span class="u-en" lang="en">After receipt of a valid formal request, the union must follow the legal 10-day convening requirement. If the meeting is not lawfully convened by the applicable deadline, the original requesters may apply to the competent authority for a designated convener. The petition was received on Nov 3; Nov 13 is the 10-day follow-up date. Applicable legal deadlines and procedures should still be confirmed.</span></span></p></div></div>
+<div class="u-roadmap-item roadmap-mediation" data-timeline-end="2026-11-17T23:59:59+08:00"><div class="u-roadmap-date">11/17（二）</div><div class="u-roadmap-marker" aria-hidden="true"><span>06</span></div><div class="u-roadmap-copy"><h4><span class="u-bilingual"><span class="u-zh">桃園勞資調解會</span><span class="u-en" lang="en">Taoyuan labor-management mediation meeting</span></span></h4><p><span class="u-bilingual"><span class="u-zh">預定於 <strong>11/17（二）</strong> 進行桃園勞資調解；實際時間、地點、討論事項及後續結果，以正式公告為準。</span><span class="u-en" lang="en">The Taoyuan labor-management mediation meeting is scheduled for <strong>Tuesday, Nov 17</strong>. Venue, time, agenda and outcome are subject to official announcements.</span></span></p></div></div>
+</div>
+
+</section><section><div id="u-quick-faq" style="scroll-margin-top:24px"></div><div class="u-kicker">LEGAL &amp; PROCEDURAL FAQ</div><h3 class="u-heading mt-2 mb-5"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">點擊查看詳細議事指引</span><span class="u-en" lang="en">Expand the detailed meeting and legal guide</span></span></h3><div class="space-y-3">
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">臨時會員大會如何發起？</span><span class="u-en" lang="en">How can members request an extraordinary meeting?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》第 23 條：會員五分之一以上，或會員代表三分之一以上，可請求理事長召開臨時會員（代表）大會；監事也可請求。通常須提前三日通知，緊急事故得於會前一日通知。</span><span class="u-en" lang="en">Under Article 23 of the Labor Union Act, at least one-fifth of members or one-third of delegates may request the chairperson to convene an extraordinary meeting; supervisors may also request one. Notice is generally required three days in advance, or one day in urgent circumstances.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">若理事長自請求日起十日內不召集，原請求人得依第 25 條申請主管機關指定召集。連署人數須按有資格的會員總數計算。</span><span class="u-en" lang="en">If the chairperson does not convene the meeting within ten days of the request, the original requesters may apply under Article 25 for the authority to designate a convener. Valid signatures must be counted against eligible membership.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">協議能否拒絕追認？哪些程序需要核對？</span><span class="u-en" lang="en">Can members decline ratification, and what procedures need review?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">第一步是確認 10/21 文件究竟屬於正式「團體協約」、一般勞資協議或調解紀錄，並取得全文及工會章程。</span><span class="u-en" lang="en">First determine whether the October 21 document is a collective agreement, an ordinary labor-management agreement, or a mediation record, and obtain its full text and the union bylaws.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">若屬正式團體協約，《團體協約法》第 9 條規定，除依章程簽訂外，須符合會員（代表）大會法定決議或全體會員書面同意方式；未符合者於補行追認前不生效力。不能僅憑「未開會員大會」便直接斷定無效，因條文有章程及書面同意途徑。</span><span class="u-en" lang="en">If it is a formal collective agreement, Article 9 of the Collective Agreement Act allows procedures specified in the bylaws, a legally required members’ or delegates’ resolution, or written approval by all members. An agreement that does not satisfy the relevant requirements does not take effect before ratification. The lack of a members’ meeting alone does not prove invalidity because other routes may apply.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">會員大會可提出不予追認、要求公開協議與重新協商的提案，但對外效力仍要依法及個案事實確認。</span><span class="u-en" lang="en">A members’ meeting may propose non-ratification, disclosure, or renewed negotiations; the effect outside the union depends on the applicable law and case facts.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">理監事解任（罷免）門檻怎麼算？</span><span class="u-en" lang="en">What vote is required to remove union directors or supervisors?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》第 26 條將解任規定列為會員（代表）大會議決事項。依第 27 條，會員（代表）大會原則上須過半數出席才能開會；涉及第 26 條第 1 至 5 款事項，須</span><span class="u-en" lang="en">Article 26 of the Labor Union Act lists removal among matters for the members’ or delegates’ meeting. Under Article 27, the meeting generally needs more than half of members or delegates in attendance. For matters in Article 26(1)–(5), the vote requires </span></span><strong><span class="u-bilingual" data-u-translated="1"><span class="u-zh">出席會員（代表）三分之二以上同意</span><span class="u-en" lang="en">at least two-thirds of those attending</span></span></strong><span class="u-bilingual" data-u-translated="1"><span class="u-zh">，不是全體會員三分之二。</span><span class="u-en" lang="en">—not two-thirds of the entire membership.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">解任對象、提案、投票及補選方式仍須核對工會章程、選任解任規定，勿在未確認前宣稱職務已被解除。</span><span class="u-en" lang="en">Check the bylaws and election/removal rules for motions, voting, and replacement elections. Do not announce a removal before it has lawfully occurred.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">委託書、電子投票與會員代表怎麼計算？</span><span class="u-en" lang="en">How are proxies, online voting, and delegate numbers counted?</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">原始指引將紙本委託書直接納入出席數，但這不能直接當作通則；須核對適用法令、組織形式及章程，確認是否可委託、如何計票及是否採會員代表制。</span><span class="u-en" lang="en">The earlier guide automatically counted paper proxies as attendance, but that is not a general rule. Verify applicable law, organizational structure, and bylaws before accepting proxies or counting votes.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">建議由具勞動法經驗的律師或主管機關協助事先審查會議議程與程序。</span><span class="u-en" lang="en">Ask an employment-law attorney or the competent authority to review the proposed meeting agenda and procedures beforehand.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">大會後有哪些必須保留的證據？</span><span class="u-en" lang="en">What evidence should be kept after the meeting?</span></span></summary><div class="u-details-body"><ul><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">正式協議全文、附件、簽署頁與相關公告</span><span class="u-en" lang="en">The complete agreement, attachments, signature pages, and related notices</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">工會章程、會員名冊計算基準、召集通知及有效連署紀錄</span><span class="u-en" lang="en">Union bylaws, membership-count basis, meeting notice, and valid petition records</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">議程、簽到、表決票數、會議紀錄及送達憑證</span><span class="u-en" lang="en">Agenda, attendance records, vote totals, minutes, and proof of service</span></span></li><li><span class="u-bilingual" data-u-translated="1"><span class="u-zh">如有不利待遇，保留可合法取得的人事與對話紀錄</span><span class="u-en" lang="en">Legally obtained personnel and communication records if adverse treatment occurs</span></span></li></ul><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">送交主管機關的文件、期限與通知資方的方式，應依實際決議事項及適用規定辦理，不能一概認定「會後十五日內全部備查」。</span><span class="u-en" lang="en">Filing documents, deadlines, and employer notifications depend on the specific decision and applicable rules; do not assume every document must be filed within 15 days.</span></span></p></div></details>
+<details><summary><span class="u-bilingual" data-u-translated="1"><span class="u-zh">政府救濟、工會保障與法律依據</span><span class="u-en" lang="en">Government remedies, union protections, and applicable law</span></span></summary><div class="u-details-body"><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">可向台中市勞工局或勞動部詢問工會會議召集、章程及團體協約爭議；是否可申請調解、裁決或提起訴訟，須依爭議類型判斷。雇主若因正當工會活動給予不利待遇，可能涉及《工會法》第 35 條。</span><span class="u-en" lang="en">Ask the Taichung City Labor Affairs Bureau or Ministry of Labor about meeting procedures, bylaws, and collective-agreement disputes. Whether mediation, unfair-labor-practice adjudication, or litigation is available depends on the type of dispute. Adverse treatment by an employer for lawful union activity may implicate Article 35 of the Labor Union Act.</span></span></p><p><span class="u-bilingual" data-u-translated="1"><span class="u-zh">官方法條：</span><span class="u-en" lang="en">Official legislation:</span></span><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020001" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《工會法》</span><span class="u-en" lang="en">Labor Union Act</span></span></a>、<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0020006" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">《團體協約法》</span><span class="u-en" lang="en">Collective Agreement Act</span></span></a><span class="u-bilingual" data-u-translated="1"><span class="u-zh">。可洽</span><span class="u-en" lang="en">You may contact</span></span><a href="https://www.mol.gov.tw/" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">勞動部</span><span class="u-en" lang="en">Ministry of Labor</span></span></a><span class="u-bilingual" data-u-translated="1"><span class="u-zh">或</span><span class="u-en" lang="en">or</span></span><a href="https://www.labor.taichung.gov.tw/" rel="noopener noreferrer" target="_blank"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">台中市勞工局</span><span class="u-en" lang="en">Taichung City Labor Affairs Bureau</span></span></a>。</p></div></details>
+</div></section><section class="u-surface u-completed-archive" id="u-completed-milestones" aria-labelledby="u-completed-title"><div class="u-archive-ribbon">✓ COMPLETED MILESTONES · 已達成任務</div><div class="u-archive-head"><div class="u-archive-icon">✓</div><div><h3 class="u-heading" id="u-completed-title"><span class="u-bilingual"><span class="u-zh">已達成任務｜階段性成果紀錄</span><span class="u-en" lang="en">Completed milestones · Progress archive</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">已完成項目集中於此，未來持續新增階段成果。</span><span class="u-en" lang="en">Completed milestones will be archived here.</span></span></p></div><button type="button" id="completedArchiveToggle" class="u-archive-toggle" aria-controls="completedArchiveContent" aria-expanded="false"><span class="u-zh">展開已達成任務</span><span class="u-en" lang="en">Show completed milestones</span><span aria-hidden="true" class="u-archive-chevron">⌄</span></button></div><div id="completedArchiveContent" hidden><section class="u-archive-entry" id="u-briefings-archived"><div class="u-kicker">11/10–11/11 · COMPLETED MEMBER BRIEFINGS</div><article class="wa-subcard"><div class="wa-kicker">COMPLETED · IN-PERSON BRIEFINGS</div>
+      <h3><span class="u-bilingual"><span class="u-zh">🗣️ 會員實體說明會</span><span class="u-en" lang="en">🗣️ In-Person Member Briefings</span></span></h3><p class="wa-briefing-overview"><span class="u-bilingual"><span class="u-zh">11/10 台中及 11/11 台南場已過，以下保留活動資訊作為歷史紀錄。</span><span class="u-en" lang="en">Past member briefings on Nov 10 and Nov 11 are archived for reference.</span></span></p>
+      <div class="wa-meeting"><div class="wa-meeting-heading"><strong>台中場｜11/10（二）</strong><span class="wa-event-pill" data-wa-expire="2026-11-10T23:59:59+08:00">開放報名</span></div>
+        <p><span class="u-bilingual"><span class="u-zh"><strong>11/10（二）台中場</strong>，歡迎會員及有意參與的夥伴報名。<strong>實際時間、場地與入場安排</strong>，請以報名表及主辦方通知為準。</span><span class="u-en" lang="en">Taichung on Nov 10. Registration and event logistics are provided in the form or organizer notice.</span></span></p>
+        <a class="wa-btn wa-btn-gold" href="https://forms.gle/napfFDhwGJNEuYSa8" target="_blank" rel="noopener noreferrer">台中場報名 ↗</a>
+      </div>
+      <div class="wa-meeting"><div class="wa-meeting-heading"><strong>台南場｜11/11（三）</strong><span class="wa-event-pill" data-wa-expire="2026-11-11T20:00:00+08:00">報名中</span></div>
+        <p><strong>18:00–20:00</strong> · <span class="u-bilingual"><span class="u-zh">地點將依報名人數確認後，<strong>以簡訊通知報名者</strong>。<strong>11/10（二）中午 12:00 前</strong>填寫表單，以利統計人數。</span><span class="u-en" lang="en">18:00–20:00. Location sent by SMS. Registration tally until noon on Nov 10.</span></span></p>
+        <a class="wa-btn wa-btn-gold" href="https://forms.gle/1n62ugArcXKvvyt5A" target="_blank" rel="noopener noreferrer">台南場報名 ↗</a>
+      </div>
+    </article></section>
+<section class="u-archive-entry u-intent-archived" id="u-google-archive">
+<div class="flex items-center gap-3"><span class="u-step">✓</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">11/6 · 意向書階段結束</span><span class="u-en" lang="en">NOV 6 · Form campaign archived</span></span></span></div>
+<h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">✓ Google 意向書｜階段性募集已結束</span><span class="u-en" lang="en">✓ Google Form · Campaign phase completed</span></span></h3>
+<p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">Google 意向書與正式連署為不同管道。原訂截至 11/6 的階段性意見募集已列為完成任務；下方保留回覆進度供會員查閱，統計不代表有效連署或核准會員。</span><span class="u-en" lang="en">The Google Form and formal petition are separate channels. The response campaign scheduled through Nov 6 is archived as a completed phase. Response totals are retained below for reference; they do not represent verified petition signatures or approved union members.</span></span></p>
+<a class="u-button u-primary w-full mt-5" href="https://docs.google.com/forms/d/e/1FAIpQLSd2a1Jvw-yx5g0wJOseh3IER0SAKFGweV7Euc9fGIANadPjlQ/viewform" rel="noopener noreferrer" target="_blank"><span class="u-bilingual"><span class="u-zh">📄 查看原意向書 ↗</span><span class="u-en" lang="en">📄 View the original Google Form ↗</span></span></a>
+<div class="u-intent-progress" id="u-intent-progress">
+<div class="u-kicker"><span class="u-bilingual"><span class="u-zh">GOOGLE 意向書 · 回覆進度</span><span class="u-en" lang="en">GOOGLE FORM · Response progress</span></span></div>
+<div class="u-intent-numbers"><strong id="intentCombinedCount">—</strong><span><span class="u-bilingual"><span class="u-zh">／7,000+ 原階段性目標（含桃園舊估算）</span><span class="u-en" lang="en">/ Original 7,000+ campaign goal (Taoyuan remains an estimate)</span></span></span></div>
+<div class="u-intent-regional-bars">
+<div class="u-intent-region intent-taichung-first">
+<div class="u-intent-region-heading"><span><span class="u-bilingual"><span class="u-zh">台中</span><span class="u-en" lang="en">Taichung</span></span></span><strong id="intentTaichungCount">— <small>連線中 · Connecting</small></strong></div>
+<progress class="u-intent-taichung" id="intentTaichungProgress" value="0" max="11000" aria-label="台中意向書回覆數 / Taichung Form responses"></progress>
+<div class="u-intent-region-foot" id="intentTaichungDetail"><span class="u-bilingual"><span class="u-zh">台中約 11,000 名會員 · 自動同步 Google 表單回覆數</span><span class="u-en" lang="en">Approx. 11,000 Taichung members · Auto-syncs Google Form count</span></span></div></div>
+<div class="u-intent-region">
+<div class="u-intent-region-heading"><span><span class="u-bilingual"><span class="u-zh">桃園</span><span class="u-en" lang="en">Taoyuan</span></span></span><strong>1,700+ / 2,200</strong></div>
+<progress class="u-intent-taoyuan" value="1700" max="2200" aria-label="桃園既有回報估計數 / Previously reported Taoyuan estimate"></progress>
+<div class="u-intent-region-foot"><span class="u-bilingual"><span class="u-zh">桃園為既有回報估算，並非即時統計</span><span class="u-en" lang="en">Taoyuan is a previous reported estimate, not live</span></span></div></div>
+</div>
+<div class="u-intent-sync-controls mt-3">
+<span id="intentLiveBadge" class="u-intent-sync-badge" data-state="pending" role="status">◌ 同步中 / Connecting</span>
+<button type="button" id="intentCountRefresh" class="u-intent-sync-refresh">↻ 立即更新 / Refresh now</button>
+</div>
+<p class="u-muted u-mini mt-2" id="intentCountStatus" role="status" aria-live="polite">正在向 Google 表單取得台中回覆總數… / Loading Google Form response count…</p>
+<p class="u-muted u-mini mt-2" id="intentCountUpdated">每 3 分鐘自動更新（頁面開啟時） · 不公開個人資料 / Auto-refresh every 3 minutes while open · No personal data</p>
+<a id="intentCountDebugLink" class="u-intent-diagnostic-link" href="https://script.google.com/macros/s/AKfycbxNb1ZowLH51RlsLYWh0WYCKGz85WlyZ4uYYz3QTz5SXgfukNAKgUqXdXuaYmKU64mh/exec?action=count" rel="noopener noreferrer" target="_blank">檢查統計連線 / Check count service ↗</a>
+</div>
+</section>
+<section class="u-archive-entry u-briefing-archived" id="u-nov3-briefing"><div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker">11/3 · PRESS CONFERENCE &amp; UNION BRIEFING</span></div><h3 class="text-xl font-black mt-3"><span class="u-bilingual"><span class="u-zh">✓ 11/3 台中記者會暨美光關工說明會｜已完成</span><span class="u-en" lang="en">✓ Nov 3 Press Conference &amp; Union Briefing · Completed</span></span></h3><p class="u-muted text-sm mt-2"><span class="u-bilingual"><span class="u-zh">11/3（二）下午台中記者會與晚上后里美光關工說明會已完成，活動紀錄保留供會員參考。</span><span class="u-en" lang="en">The Nov 3 press conference and evening union briefing have concluded. Event details remain for reference.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4 text-sm" id="briefingEventDetails">
+<p><strong>📍 下午記者會｜11/3（二）13:00</strong><br>台中科管局門口（科雅路旗桿處）；地址：臺中市西屯區林厝里中科路 2 號。請於 13:00 前報到領取物資。可停中科管理局地下停車場。</p>
+<p class="u-muted u-mini mt-1" lang="en">Press conference: Tue, Nov 3 at 13:00, outside the Central Taiwan Science Park Bureau (flagpole area on Keya Road), No. 2, Zhongke Rd., Xitun Dist., Taichung. Check in before 13:00. Underground parking is available.</p>
+<p class="mt-3"><strong>🌙 晚上關工說明會｜11/3（二）・后里</strong><br>11/3 晚間后里說明會已辦理完成，保留活動資訊供參考。</p>
+<p class="u-muted u-mini mt-1" lang="en">Evening union briefing: Nov 3 in Houli. The evening briefing in Houli was held on Nov 3. Event information is retained for reference.</p>
+</div><div class="grid grid-cols-2 gap-3 mt-4"><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">13:00 記者會 / Press conference</div><strong class="block text-3xl" id="briefingNoonCount">—</strong><small class="u-muted">有意願 / Interested</small></div><div class="u-subtle-info rounded-xl p-3"><div class="u-muted text-xs">晚上說明會 / Evening briefing</div><strong class="block text-3xl" id="briefingEveningCount">—</strong><small class="u-muted">有意願 / Interested</small></div></div><p class="u-muted u-mini mt-3" id="briefingCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:calc(12px - 1pt)">↻ 更新數字 / Update counts</button></section><div class="u-archive-entry"><strong class="u-archive-chip"><span class="u-bilingual"><span class="u-zh">✓ 連署收件階段已達標</span><span class="u-en" lang="en">✓ Petition collection target reached</span></span></strong><div class="u-archive-number">2,708 <small>/ 2,600</small></div><p class="u-muted text-sm"><span class="u-bilingual"><span class="u-zh">階段性收件里程碑；預計有效連署書 2,596 份、法定五分之一門檻 2,239 人，仍以正式最終確認為準。</span><span class="u-en" lang="en">Collection milestone; estimated valid petitions 2,596, one-fifth threshold 2,239, subject to final confirmation.</span></span></p></div></div></section><footer class="u-muted text-xs pb-3"><span class="u-bilingual"><span class="u-zh">本頁更新：2026/11/09 · 正式連署收件數依資料夾 PDF 數量或既有回報呈現；尚須去重、資格核對及建檔。正式送件、說明會與臨時會員大會資訊以後續公告為準。請勿散布未經查證的指控或個人資料。</span><span class="u-en" lang="en">Updated Nov 6, 2026 · Petition totals are based on reported or counted PDFs and remain subject to duplicate removal and verification. Formal submissions, briefing details, and meeting notices are subject to later announcements. Do not share unverified accusations or personal information.</span></span></footer></div>
+</div>
+<div aria-label="志工意願申請" aria-modal="true" id="volunteerModal" onclick="if(event.target===this)closeVolunteerSignup()" role="dialog">
+<div class="vol-dialog"><div class="vol-toolbar"><strong>志工意願登記｜匿名／具名</strong><button aria-label="關閉" onclick="closeVolunteerSignup()" type="button">✕ 關閉</button></div>
+<iframe id="volunteerFrame" loading="lazy" referrerpolicy="no-referrer" title="志工登記表"></iframe>
+<a hidden="" id="volunteerOpenExternal" rel="noopener noreferrer" style="padding:8px 15px;text-align:center;background:#263340;color:#e8d3ae;font-size:calc(12px - 1pt);text-decoration:underline" target="_blank">表單無法顯示？另開報名頁 ↗</a>
+<div class="vol-setup" hidden="" id="volunteerNotConfigured">
+<strong>表單介面已建置，後台尚未連接</strong>
+<p>為避免志工資料誤送或公開，正式申請前必須由管理員將附檔中的 Google Apps Script 部署至指定試算表，並在本檔設定 <code>VOLUNTEER_WEBAPP_URL</code>。</p>
+<p>以下為表單欄位預覽，<strong>未串接期間不開放資料提交</strong>。</p>
+<div class="vol-preview"><div class="vol-choice"><label><input checked="" name="volDemoMode" onchange="toggleVolunteerPreview()" type="radio" value="anonymous"/> 匿名志工</label><label><input name="volDemoMode" onchange="toggleVolunteerPreview()" type="radio" value="named"/> 具名志工</label></div>
+<div hidden="" id="volDemoName"><label>姓名（具名必填）<input disabled="" placeholder="姓名"/></label><label>工號（選填）<input disabled="" placeholder="工號"/></label><label>部門（選填）<input disabled="" placeholder="部門"/></label></div>
+<label>廠區（選填）<select disabled=""><option>不提供</option><option>台中</option><option>桃園</option><option>銅鑼</option><option>台南</option></select></label>
+<label>聯絡方式（匿名選填／具名必填）<input disabled="" placeholder="Email、LINE ID 或手機號碼"/></label>
+<fieldset><legend>我能協助的工作（可複選）</legend><label><input disabled="" type="checkbox"/> 海報與視覺設計</label><label><input disabled="" type="checkbox"/> 群組資訊與同仁溝通</label><label><input disabled="" type="checkbox"/> 活動支援與現場工作</label><label><input disabled="" type="checkbox"/> 資料整理／分析／AI</label><label><input disabled="" type="checkbox"/> 外語翻譯</label><label><input disabled="" type="checkbox"/> 媒體／影音協助</label><label><input disabled="" type="checkbox"/> 議題整理與研究</label><label><input disabled="" type="checkbox"/> 其他</label></fieldset>
+<fieldset><legend>可協助時段</legend><label><input disabled="" type="checkbox"/> 平日白天</label><label><input disabled="" type="checkbox"/> 平日晚上</label><label><input disabled="" type="checkbox"/> 週末／假日</label><label><input disabled="" type="checkbox"/> 遠端線上</label><label><input disabled="" type="checkbox"/> 不固定</label></fieldset>
+<p>匿名志工不必提供姓名或工號；若留下聯絡方式則可能被識別。具名志工需填姓名及聯絡方式。</p>
+<button disabled="" type="button">後台尚未串接，暫無法送出</button></div>
+</div></div></div>
+
+<script id="volunteer-integration-v17">
+// 管理員部署 volunteer_backend 後，將新 Web App 的 https://script.google.com/macros/s/.../exec 貼在下方。
+// 不要把密碼放在這個檔案：密碼應留在 Google Apps Script 的 Script Properties 中。
+const VOLUNTEER_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw3QP4UvS8MAu2LyNfqFfA1jISzPOH_wUEZcLyKvt98lg8wYT6l2VP92c2yjt4LciFdHA/exec';
+function isVolunteerConnected(){return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(VOLUNTEER_WEBAPP_URL.trim());}
+function openVolunteerSignup(){
+  const modal=document.getElementById('volunteerModal'),iframe=document.getElementById('volunteerFrame'),notice=document.getElementById('volunteerNotConfigured');
+  const ready=isVolunteerConnected();iframe.style.display=ready?'block':'none';notice.hidden=ready;
+  const external=document.getElementById('volunteerOpenExternal');external.hidden=!ready;if(ready)external.href=VOLUNTEER_WEBAPP_URL.split('?')[0]+'?view=apply';
+  if(ready && !iframe.src)iframe.src=VOLUNTEER_WEBAPP_URL.split('?')[0]+'?view=apply';
+  modal.classList.add('is-open');document.body.style.overflow='hidden';
+}
+function toggleVolunteerPreview(){const v=document.querySelector('input[name=volDemoMode]:checked')?.value;document.getElementById('volDemoName').hidden=v!=='named';}
+function closeVolunteerSignup(){const m=document.getElementById('volunteerModal');m.classList.remove('is-open');document.body.style.overflow='';}
+function openVolunteerAdmin(){
+  if(!isVolunteerConnected()){openVolunteerSignup();return;}
+  window.open(VOLUNTEER_WEBAPP_URL.split('?')[0]+'?view=admin','_blank','noopener,noreferrer');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('volunteerModal')?.classList.contains('is-open'))closeVolunteerSignup()});
+</script>
+<script id="volunteer-count-v1">(function(){
+  const url=typeof VOLUNTEER_WEBAPP_URL==='string'?VOLUNTEER_WEBAPP_URL:'';
+  const target=document.getElementById('volunteerPublicCount');
+  if(!target)return;
+  function update(){
+    if(!url){target.textContent='目前無法取得志工人數 / Count unavailable';target.classList.add('is-error');return;}
+    const name='volunteerCountCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const tag=document.createElement('script');let done=false;
+    const finish=(data)=>{if(done)return;done=true;clearTimeout(timer);tag.remove();window[name]=()=>{};setTimeout(()=>{delete window[name]},60000);
+      if(data&&data.ok&&Number.isInteger(data.count)&&data.count>=0){target.classList.remove('is-error');target.textContent='🌱 目前已有 '+data.count.toLocaleString('en-US')+' 人報名志工 / '+data.count.toLocaleString('en-US')+' volunteers registered';}
+      else{target.classList.add('is-error');target.textContent='志工人數暫時無法取得 / Count temporarily unavailable';}};
+    const timer=setTimeout(()=>finish(null),18000);window[name]=finish;tag.onerror=()=>finish(null);
+    const u=new URL(url);u.searchParams.set('action','count');u.searchParams.set('prefix',name);u.searchParams.set('_',Date.now());tag.src=u.href;tag.async=true;document.head.appendChild(tag);
+  }
+  update();setInterval(()=>{if(!document.hidden)update()},120000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+})();</script>
+<script id="taichung-google-form-count-v1">
+/* Aggregate-only Google Form response count; no personal data is requested or shown. */
+(() => {
+  'use strict';
+  const FORM_COUNT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbxNb1ZowLH51RlsLYWh0WYCKGz85WlyZ4uYYz3QTz5SXgfukNAKgUqXdXuaYmKU64mh/exec';
+  const EXPECTED_FORM_ID = '1cTxACRUTPrsZdk-fIOabrXhWkJgf65k_NPQogqddO9E';
+  const REFRESH_MS = 3 * 60 * 1000;
+  const GET_TIMEOUT_MS = 40000;
+  const $ = id => document.getElementById(id);
+  const els = {
+    count: $('intentTaichungCount'), bar: $('intentTaichungProgress'),
+    combined: $('intentCombinedCount'), status: $('intentCountStatus'),
+    updated: $('intentCountUpdated'), detail: $('intentTaichungDetail'),
+    badge: $('intentLiveBadge'), refresh: $('intentCountRefresh'),
+    debug: $('intentCountDebugLink')
+  };
+  if (Object.values(els).some(el => !el)) return;
+  let inFlight = false;
+  let lastAttempt = 0;
+  let lastData = null;
+  const formNumber = n => Number(n).toLocaleString('en-US');
+  function displayState(state,label,description) {
+    els.badge.dataset.state = state;
+    els.badge.textContent = label;
+    els.status.textContent = description;
+  }
+  function taiwanTime(value) {
+    return new Intl.DateTimeFormat('zh-TW', {
+      timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false
+    }).format(new Date(value));
+  }
+  function requestJsonp() {
+    return new Promise((resolve,reject) => {
+      const cb = 'formCountCb_' + Date.now() + '_' + Math.random().toString(36).slice(2,9);
+      const tag = document.createElement('script');
+      let finished = false;
+      const finish = (err,data) => {
+        if(finished) return;
+        finished = true;
+        clearTimeout(timeout);
+        tag.remove();
+        window[cb] = () => {};
+        setTimeout(() => { delete window[cb]; },60000);
+        if(err) reject(err); else resolve(data);
+      };
+      const timeout = setTimeout(() => finish(new Error('timeout')), GET_TIMEOUT_MS);
+      window[cb] = data => finish(null,data);
+      tag.onerror = () => finish(new Error('script_blocked'));
+      const url = new URL(FORM_COUNT_WEBAPP_URL);
+      url.searchParams.set('action','count');
+      url.searchParams.set('prefix',cb);
+      url.searchParams.set('_',String(Date.now()));
+      tag.src = url.toString();
+      tag.async = true;
+      tag.referrerPolicy = 'no-referrer';
+      document.head.appendChild(tag);
+    });
+  }
+  async function requestJson() {
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 15000);
+    try {
+      const url = new URL(FORM_COUNT_WEBAPP_URL);
+      url.searchParams.set('action','count');
+      url.searchParams.set('_',String(Date.now()));
+      const r = await fetch(url.toString(),{
+        mode:'cors',credentials:'omit',cache:'no-store',redirect:'follow',signal:ctrl.signal
+      });
+      if(!r.ok) throw new Error('http_'+r.status);
+      return await r.json();
+    } finally { clearTimeout(timeout); }
+  }
+  function validate(data) {
+    if(!data || data.ok !== true) throw new Error(data && data.error || 'backend');
+    if(data.source !== 'google_form' || data.formId !== EXPECTED_FORM_ID)
+      throw new Error('form_mismatch');
+    if(!Number.isSafeInteger(data.count) || data.count < 0
+       || typeof data.updatedAt !== 'string' || !Number.isFinite(Date.parse(data.updatedAt)))
+      throw new Error('invalid_data');
+    return data;
+  }
+  async function getCount() {
+    try { return validate(await requestJsonp()); }
+    catch(firstError) {
+      try { return validate(await requestJson()); }
+      catch(secondError) {
+        if(['count_unavailable','form_mismatch','invalid_data','backend'].includes(firstError.message))
+          throw firstError;
+        throw secondError.message === 'Failed to fetch' ? firstError : secondError;
+      }
+    }
+  }
+  async function updateCount(force=false) {
+    if(inFlight || document.hidden || (!force && Date.now()-lastAttempt < REFRESH_MS))return;
+    lastAttempt = Date.now();
+    inFlight = true;
+    els.refresh.disabled = true;
+    displayState('pending','◌ 正在同步 / Syncing','正在讀取 Google 表單回覆數… / Checking Google Form responses…');
+    try {
+      const data = await getCount();
+      const n = data.count;
+      lastData = data;
+      els.count.textContent = formNumber(n) + ' / 11,000';
+      els.bar.value = Math.min(n,11000);
+      // Taoyuan 1,700+ is not connected to this API.
+      els.combined.textContent = '約 ' + formNumber(n+1700) + '+';
+      els.detail.textContent = '台中已同步 Google 表單回覆數：' + formNumber(n) + ' 份 / Synced Taichung responses: ' + formNumber(n);
+      displayState('success','✓ 已同步 / Synced',
+        '台中 Google 表單 ' + formNumber(n) + ' 份回覆；桃園 1,700+ 為舊估算。 / ' + formNumber(n) + ' Taichung responses ; Taoyuan remains an estimate.');
+      els.updated.textContent='最近同步（台灣時間）：'+taiwanTime(data.updatedAt)
+        +' · 每 3 分鐘自動更新（頁面開啟時） / Last sync (Taiwan): '+taiwanTime(data.updatedAt)+' · auto-refresh every 3 min while open';
+    }catch(error) {
+      const code=String(error && error.message || 'unknown');
+      let reason='統計服務未成功回應，請檢查 Script 部署權限與執行身分。 / Count service failed; check Apps Script deployment access and execution permissions.';
+      if(code==='count_unavailable') reason='Google Script 已回應，但無法讀取表單回覆。請確認部署帳號具有表單回覆檢視權限。 / Script responded but cannot read the form. Verify the deployment account has access to responses.';
+      if(code==='form_mismatch') reason='回傳表單 ID 不符合預期，請檢查 Google Script 使用的表單。 / Form ID returned by Script does not match the configured form.';
+      if(code==='invalid_data') reason='Google Script 回傳統計格式不符，請檢查程式版本。 / Invalid count response format; verify the deployed script version.';
+      if(code==='timeout' || code==='script_blocked') reason='統計連線逾時或遭瀏覽器封鎖，可點「檢查統計連線」。 / Count request timed out or was blocked. Use “Check count service” to diagnose.';
+      displayState('error','! 同步失敗 / Sync failed',reason);
+      if(!lastData) {
+        els.count.textContent='—';
+        els.combined.textContent='—';
+        els.detail.textContent='目前尚未取得台中即時回覆數 / Live Taichung count unavailable';
+        els.updated.textContent='尚無成功同步紀錄 · 每 3 分鐘自動重試 / No successful sync yet · Retries every 3 minutes';
+      } else {
+        els.updated.textContent='上次成功同步（台灣時間）：'+taiwanTime(lastData.updatedAt)
+          +' · 正在保留舊數據，每 3 分鐘重試 / Showing last successful count; retrying every 3 minutes';
+      }
+    }finally {
+      inFlight=false;
+      els.refresh.disabled=false;
+    }
+  }
+  els.refresh.addEventListener('click', () => updateCount(true));
+  updateCount();
+  setInterval(() => { if(!document.hidden)updateCount(); },REFRESH_MS);
+  document.addEventListener('visibilitychange', () => {
+    if(!document.hidden) updateCount();
+  });
+})();
+</script>
+<nav id="portalFloatingNav" aria-label="浮動快速導覽 / Floating quick navigation">
+<a href="#u-affiliated-union" onclick="return portalNavigateTo('u-affiliated-union')" title="美光關工 / Micron Affiliated Union" aria-label="美光關工 / Micron Affiliated Union">
+<span class="float-icon" aria-hidden="true">🧔🏻‍♂️</span><span class="float-label"><span class="float-label-zh">美光關工</span><span class="float-label-en" lang="en">Micron Union</span></span></a>
+<a href="#u-participate" onclick="return portalNavigateTo('u-participate')" title="幹部/志工" aria-label="幹部/志工">
+<span class="float-icon" aria-hidden="true">🤝</span><span class="float-label"><span class="float-label-zh">幹部/志工</span><span class="float-label-en" lang="en">Organizers / Volunteers</span></span></a>
+<a href="#u-next" onclick="return portalNavigateTo('u-next')" title="自救時間線" aria-label="自救時間線">
+<span class="float-icon" aria-hidden="true">📅</span><span class="float-label"><span class="float-label-zh">自救時間線</span><span class="float-label-en" lang="en">Action Timeline</span></span></a>
+<a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="常見問答 / FAQ" aria-label="常見問答 / FAQ">
+<span class="float-icon" aria-hidden="true">❓</span><span class="float-label"><span class="float-label-zh">常見問答</span><span class="float-label-en" lang="en">FAQ</span></span></a>
+<a href="#u-unsent-letters" onclick="return portalNavigateTo('u-unsent-letters')" title="未寄出的信 / Unsent Letters" aria-label="未寄出的信 / Unsent Letters"><span class="float-icon" aria-hidden="true">✉️</span><span class="float-label"><span class="float-label-zh">未寄出的信</span><span class="float-label-en" lang="en">Unsent Letters</span></span></a>
+<button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
+<a href="https://micronmonkey.github.io/Game/fack.html" target="_self" title="全民找法克 / Find Fack" aria-label="全民找法克 / Find Fack">
+<span class="float-icon" aria-hidden="true">🎮</span><span class="float-label"><span class="float-label-zh">全民找法克</span><span class="float-label-en" lang="en">Find Fack</span></span></a>
+<a href="Salary.html" target="_self" title="去薪情平台 / Salary Platform" aria-label="去薪情平台 / Salary Platform"><span class="float-icon" aria-hidden="true">📊</span><span class="float-label"><span class="float-label-zh">去薪情平台</span><span class="float-label-en" lang="en">Salary Platform</span></span></a>
+<button id="portalNavToggle" type="button" aria-expanded="true" aria-label="收摺導覽 / Collapse navigation" title="收摺導覽 / Collapse navigation"><span class="float-icon" aria-hidden="true">◀</span><span class="float-label"><span class="float-label-zh">收摺</span><span class="float-label-en" lang="en">Collapse</span></span></button>
+</nav>
+<script id="test1-float-navigation">
+(function(){
+ const nav=document.getElementById('portalFloatingNav'),toggle=document.getElementById('portalNavToggle');
+ toggle.addEventListener('click',()=>{
+  const collapsed=nav.classList.toggle('is-collapsed');
+  toggle.setAttribute('aria-expanded',String(!collapsed));
+  toggle.title=collapsed?'展開導覽 / Expand navigation':'收摺導覽 / Collapse navigation';
+  toggle.setAttribute('aria-label',toggle.title);
+  toggle.querySelector('.float-icon').textContent=collapsed?'▶':'◀';
+  toggle.querySelector('.float-label-zh').textContent=collapsed?'展開':'收摺';
+  toggle.querySelector('.float-label-en').textContent=collapsed?'Expand':'Collapse';
+ });
+})();
+
+function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()=>{let el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}));return false;}
+
+</script>
+<script id="page-views-restored-v1">
+(function(){
+ const endpoint='https://script.google.com/macros/s/AKfycbxBKnwm1dobNMGrCOYx0V5me_xz0wPQ4td4-tZc8Lvr3T_UBZvVr_WIPWfWGvddxljO/exec';
+ const total=document.getElementById('pageViewTotal'),today=document.getElementById('pageViewToday');
+ function getToken(){try{let t=localStorage.getItem('micron_anon_token');if(!t){t=crypto.randomUUID?crypto.randomUUID():'anon-'+Date.now()+'-'+Math.random().toString(36).slice(2);localStorage.setItem('micron_anon_token',t);}return t;}catch(e){return 'anon-'+Date.now()+'-'+Math.random().toString(36).slice(2);}}
+ async function record(){try{const body=new URLSearchParams({action:'pageview',Timestamp:new Date().toISOString(),Page:'portal',AnonToken:getToken()});await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:body.toString(),keepalive:true});}catch(e){}}
+ async function read(){try{const q=new URLSearchParams({action:'page_stats',t:String(Date.now())});const resp=await fetch(endpoint+'?'+q,{redirect:'follow',cache:'no-store'});if(!resp.ok)throw Error('HTTP '+resp.status);const json=await resp.json();if(json&&json.ok===false)throw Error('API error');const data=json&&json.data?json.data:json;if(data&&Number.isFinite(Number(data.total)))total.textContent=Number(data.total).toLocaleString();if(data&&Number.isFinite(Number(data.today)))today.textContent=Number(data.today).toLocaleString();}catch(e){total.title=today.title='統計暫時無法載入';}}
+ record().then(read);
+})();
+</script><script id="organizing-counts-sync-v3">
+/* Read-only aggregate counts. JSONP first, CORS JSON fallback; no records requested. */
+(function(){
+ 'use strict';
+ const endpoint='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec';
+ const refreshMs=120000,retryMs=15000;
+ const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionInterestCount'};
+ const combinedMembership=document.getElementById('affiliatedUnionCombinedCount');
+ function renderCombinedMembership(taichung){
+  if(!combinedMembership)return;
+  combinedMembership.textContent=Number.isSafeInteger(taichung)&&taichung>=0
+   ?(taichung+2400).toLocaleString('en-US'):'—';
+   const targetBar=document.getElementById('affiliatedUnionTargetProgress');
+   const targetText=document.getElementById('affiliatedUnionTargetStatus');
+   const targetPercent=document.getElementById('affiliatedUnionTargetPercent');
+   if(targetBar&&targetText&&targetPercent&&Number.isSafeInteger(taichung)&&taichung>=0){
+     const total=taichung+2400,goal=11000;
+     const percentage=total/goal*100;
+     const level=percentage>100?'green':percentage>80?'yellow':'red';
+     targetBar.value=Math.min(total,goal);
+     targetPercent.textContent=percentage.toFixed(1)+'%';
+     targetPercent.dataset.level=level;
+     targetText.textContent=total.toLocaleString('en-US')+' / 11,000 · 台中即時申請＋桃園 2,400 人 / Taichung live applications + 2,400 Taoyuan';
+   }
+ }
+ const statuses=['briefingCountsStatus','membershipCountsStatus'].map(id=>document.getElementById(id));
+ const buttons=[...document.querySelectorAll('[data-organizing-refresh]')];
+ let busy=false,lastSuccess='',retryTimer=null,failures=0;
+ function status(message){statuses.forEach(el=>{if(el)el.textContent=message;});}
+ function validate(data){
+  if(!data||data.ok!==true)throw new Error('backend');
+  if(!Object.keys(ids).every(key=>Number.isSafeInteger(data[key])&&data[key]>=0))
+   throw new Error('invalid_counts');
+  return data;
+ }
+ function requestJsonp(){
+  return new Promise((resolve,reject)=>{
+   const callback='organizingAggregateCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+   const tag=document.createElement('script');
+   let done=false;
+   const timer=setTimeout(()=>finish(new Error('timeout')),45000);
+   function finish(error,data){
+    if(done)return;
+    done=true;clearTimeout(timer);tag.remove();
+    window[callback]=()=>{};setTimeout(()=>{delete window[callback]},60000);
+    if(error)reject(error);else resolve(data);
+   }
+   window[callback]=data=>finish(null,data);
+   tag.onerror=()=>finish(new Error('script_blocked'));
+   const url=new URL(endpoint);
+   url.searchParams.set('callback',callback);
+   url.searchParams.set('prefix',callback);
+   url.searchParams.set('_',String(Date.now()));
+   tag.src=url.href;tag.async=true;tag.referrerPolicy='no-referrer';
+   document.head.appendChild(tag);
+  });
+ }
+ async function requestJson(){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),20000);
+  try{
+   const url=new URL(endpoint);url.searchParams.set('_',String(Date.now()));
+   const response=await fetch(url.href,{mode:'cors',credentials:'omit',cache:'no-store',redirect:'follow',signal:controller.signal});
+   if(!response.ok)throw new Error('http_'+response.status);
+   return await response.json();
+  }finally{clearTimeout(timer)}
+ }
+ async function refresh(){
+  if(busy||document.hidden)return;
+  clearTimeout(retryTimer);retryTimer=null;busy=true;
+  buttons.forEach(button=>button.disabled=true);
+  status('正在同步… / Syncing…');
+  try{
+   let data;
+   try{data=validate(await requestJsonp());}
+   catch(firstError){
+    try{data=validate(await requestJson());}
+    catch(secondError){throw firstError;}
+   }
+   Object.keys(ids).forEach(key=>{const el=document.getElementById(ids[key]);if(el)el.textContent=data[key].toLocaleString('en-US');});
+   renderCombinedMembership(data.membership);
+   // A missing optional backend timestamp must not suppress valid counts.
+   const timestamp=typeof data.updatedAt==='string'&&Number.isFinite(Date.parse(data.updatedAt))?new Date(data.updatedAt):new Date();
+   lastSuccess=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(timestamp);
+   failures=0;
+   status('最近同步（台灣時間）：'+lastSuccess+' · 每 2 分鐘自動更新 / Synced (Taiwan): '+lastSuccess+' · Auto-refresh every 2 min');
+  }catch(error){
+   failures++;
+   const reasons={timeout:'統計服務回應逾時 / Service timed out',script_blocked:'統計連線失敗或被封鎖 / Connection failed or blocked',backend:'統計服務回報錯誤 / Service returned an error',invalid_counts:'統計數字格式不符 / Invalid count format'};
+   const reason=reasons[error.message]||'統計連線失敗 / Connection failed';
+   const previous=lastSuccess?' · 上次同步：'+lastSuccess+'，保留上次人數 / Keeping last counts':'';
+   status(reason+previous+(failures<=2?' · 15 秒後重試，也可按更新數字 / Retry in 15 sec, or refresh now':' · 每 2 分鐘重試，也可按更新數字 / Retry every 2 min, or refresh now'));
+   // No last verified Taichung count available: do not display a made-up combined total.
+   if(!lastSuccess)renderCombinedMembership(null);
+   if(failures<=2)retryTimer=setTimeout(refresh,retryMs);
+  }finally{busy=false;buttons.forEach(button=>button.disabled=false)}
+ }
+ buttons.forEach(button=>button.addEventListener('click',refresh));
+ refresh();
+ setInterval(refresh,refreshMs);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+})();
+</script>
+<div id="unionEntryReminder" role="dialog" aria-modal="true" aria-labelledby="unionEntryReminderTitle" hidden>
+ <div class="union-entry-dialog">
+  <div id="meetingCountdownPill" class="meeting-countdown-pill" role="status" aria-live="polite">
+ <span class="meeting-countdown-icon" aria-hidden="true">⏳</span>
+ <span class="meeting-countdown-copy"><span class="u-zh">距離辦理臨時會員大會召集程序，還剩</span><span class="u-en" lang="en">Countdown to extraordinary members’ meeting convening process</span></span>
+ <strong id="meetingCountdownDays">— 天</strong>
+ <span class="meeting-countdown-date">截至 11/13（五）</span>
+</div>
+  <button type="button" class="union-entry-close" id="unionEntryClose" aria-label="關閉提醒 / Close">×</button>
+  <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 一起壯大美光關工</h2>
+  <div class="union-entry-card union-entry-card-primary">
+   <p class="union-entry-question">🤝 美光關係企業工會｜加入我們</p>
+   <div class="union-entry-count union-entry-member-stats">
+    <div class="union-entry-total-label">桃園＋台中入會申請合計（估計）</div>
+    <div class="union-entry-total"><strong id="entryMembershipCount">同步中…</strong><span>人</span></div>
+    <div class="union-entry-breakdown"><span>台中 <strong class="entry-member-breakdown-number" id="entryMembershipTaichung">同步中…</strong> 人</span><span>桃園直接入會 <strong class="entry-member-breakdown-number">2,400</strong> 人</span></div>
+   </div>
+   <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">立即申請加入關工 ↗</a>
+  </div>
+  <div class="union-entry-card union-entry-card-secondary">
+   <div class="union-entry-volunteer-copy"><p class="union-entry-question">🌱 一起當志工</p><p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p></div>
+   <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">志工報名 ↗</button>
+  </div>
+  <p class="union-entry-note">數字自動更新；關工顯示申請筆數，非核准會員數。</p>
+  <button type="button" class="wa-entry-jump" onclick="document.getElementById('unionEntryLater').click();document.getElementById('u-weekly-announcement').scrollIntoView({behavior:'smooth',block:'start'})">📣 查看本週繳費與說明會 ↓</button><button type="button" id="unionEntryLater" class="union-entry-later">進入網站</button>
+ </div>
+</div>
+<script id="entry-reminder-and-archive-v1">
+(function(){
+ const toggle=document.getElementById('completedArchiveToggle');
+ const content=document.getElementById('completedArchiveContent');
+ if(toggle&&content)toggle.addEventListener('click',()=>{
+  const expanded=toggle.getAttribute('aria-expanded')==='true';
+  toggle.setAttribute('aria-expanded',String(!expanded));content.hidden=expanded;
+  const zh=toggle.querySelector('.u-zh'),en=toggle.querySelector('.u-en');
+  if(zh)zh.textContent=expanded?'展開已達成任務':'收摺已達成任務';
+  if(en)en.textContent=expanded?'Show completed milestones':'Hide completed milestones';
+ });
+ const dialog=document.getElementById('unionEntryReminder');
+ if(!dialog)return;
+ const focusTarget=document.getElementById('unionEntryClose');
+ let previousFocus=document.activeElement;
+ function close(){dialog.hidden=true;document.body.style.overflow='';if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();}
+ document.getElementById('unionEntryClose').addEventListener('click',close);
+ document.getElementById('unionEntryLater').addEventListener('click',close);
+ dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
+ document.addEventListener('keydown',e=>{if(!dialog.hidden&&e.key==='Escape')close()});
+ function copyCount(sourceId,targetId){
+  const source=document.getElementById(sourceId),target=document.getElementById(targetId);
+  if(!source||!target)return;
+  const update=()=>{const raw=source.textContent.trim(),match=raw.match(/^([0-9,]+\+?)/);
+   target.textContent=match?match[1]:(raw==='—'||raw.startsWith('— ')?'尚未取得':'同步中…');};
+  update();new MutationObserver(update).observe(source,{childList:true,characterData:true,subtree:true});
+ }
+ copyCount('intentTaichungCount','entryIntentCount');
+ copyCount('affiliatedUnionInterestCount','entryMembershipTaichung');
+ copyCount('affiliatedUnionCombinedCount','entryMembershipCount');
+ const volunteerSource=document.getElementById('volunteerPublicCount');
+ const volunteerTarget=document.getElementById('entryVolunteerCount');
+ if(volunteerSource&&volunteerTarget){
+  const syncVolunteer=()=>{
+   const value=volunteerSource.textContent.trim();
+   const match=value.match(/目前已有\s*([0-9,]+)\s*人報名/);
+   volunteerTarget.textContent=match?match[1]:/無法取得|暫時無法取得|unavailable/i.test(value)?'尚未取得':'同步中…';
+  };
+  syncVolunteer();
+  new MutationObserver(syncVolunteer).observe(volunteerSource,{childList:true,characterData:true,subtree:true});
+ }
+ document.getElementById('entryVolunteerSignup').addEventListener('click',()=>{
+  close();
+  if(typeof openVolunteerSignup==='function')openVolunteerSignup();
+ });
+ dialog.hidden=false;previousFocus=document.activeElement;focusTarget.focus();
+})();
+</script>
+<script id="meeting-countdown-20261113">
+(function(){
+ 'use strict';
+ const target=document.getElementById('meetingCountdownDays');
+ const pill=document.getElementById('meetingCountdownPill');
+ if(!target||!pill)return;
+ const deadline=Date.UTC(2026,10,13);
+ const formatter=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'numeric',day:'numeric'});
+ function update(){
+  const parts=formatter.formatToParts(new Date());
+  const values={};
+  parts.forEach(part=>{if(part.type==='year'||part.type==='month'||part.type==='day')values[part.type]=Number(part.value)});
+  const today=Date.UTC(values.year,values.month-1,values.day);
+  const remaining=Math.round((deadline-today)/86400000);
+  if(remaining>0){target.textContent=remaining+' 天';pill.dataset.state='counting'}
+  else if(remaining===0){target.textContent='今天到期';pill.dataset.state='due'}
+  else{target.textContent='期限已過';pill.dataset.state='past'}
+ }
+ update();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+ setInterval(()=>{if(!document.hidden)update()},60000);
+})();
+</script>
+
+<script id="weekly-announcement-expiry-v2">
+(function(){
+ const root=document.getElementById('u-weekly-announcement');if(!root)return;
+ function update(){
+   const now=Date.now();
+   const feeEnd=Date.parse('2026-11-12T20:00:00+08:00');
+   const feeStart=Date.parse('2026-11-09T12:00:00+08:00');
+   const status=document.getElementById('wa-event-status');
+   if(status)status.textContent=now>feeEnd?'本期時段已結束':now>=feeStart?'11/9–11/12 · 繳費期間':'11/9–11/12';
+   root.querySelectorAll('[data-wa-expire]').forEach(el=>{
+     const t=Date.parse(el.getAttribute('data-wa-expire'));
+     if(now>t){el.textContent='已結束';el.classList.add('is-ended')}
+   });
+ }
+ update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
+})();
+</script>
+<script id="v2-timeline-auto-archive">
+(function(){
+ const current=document.getElementById('u-timeline-upcoming'),old=document.getElementById('u-past-timeline-events');
+ if(!current||!old)return;
+ function refresh(){
+  const now=Date.now();
+  [...current.querySelectorAll('.u-roadmap-item[data-timeline-end]')].forEach(item=>{
+   const expiry=Date.parse(item.getAttribute('data-timeline-end'));
+   if(Number.isFinite(expiry)&&now>expiry){
+    item.classList.add('roadmap-completed');
+    const a=item.querySelector('a.wa-timeline-link');
+    if(a)a.remove();
+    old.appendChild(item);
+   }
+  });
+  const total=old.querySelectorAll('.u-roadmap-item').length;
+  ['u-past-event-count','u-past-event-count-en'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=String(total)});
+ }
+ refresh();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+})();
+</script></body>
+</html>
