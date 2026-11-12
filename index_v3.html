@@ -771,6 +771,16 @@ body { font-size: calc(16px - 1pt); }
 #u-completed-milestones #u-briefings-archived .wa-meeting{margin-top:14px;border-top:1px solid #5d6976;padding-top:12px}
 #u-completed-milestones #u-briefings-archived .wa-btn{display:inline-flex;padding:8px 13px;margin-top:8px;color:#eac57c}
 @media(max-width:760px){#u-weekly-announcement .wa-nov17-feature{grid-template-columns:1fr;padding:13px;gap:13px}#u-weekly-announcement .wa-nov17-art img{max-height:440px}#u-weekly-announcement .wa-nov17-content h3{font-size:25px}}
+
+#u-current-strategy .u-join-actions{display:flex;justify-content:center;margin-top:22px}
+#u-current-strategy .u-join-btn{display:inline-flex;gap:10px;align-items:center;justify-content:center;width:min(100%,500px);min-height:62px;padding:15px 24px;border-radius:15px!important;background:linear-gradient(115deg,#ffdf9d,#d8ac5b)!important;color:#211b12!important;border:2px solid #fff0b9!important;box-shadow:0 9px 26px #bc8e4c6b!important;font-size:20px!important;font-weight:950!important;letter-spacing:.02em}
+#u-current-strategy .u-join-btn .u-en{color:#513c20!important}
+#u-current-strategy .u-join-btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+#u-weekly-announcement a.wa-nov17-register{display:flex!important;align-items:center;justify-content:center;min-height:70px;width:100%;padding:18px 22px!important;border-radius:15px!important;background:linear-gradient(115deg,#ffe8a5,#f1bd58)!important;color:#24190a!important;border:2px solid #fff0ba!important;box-shadow:0 0 0 5px rgba(255,216,116,.13),0 9px 22px rgba(0,0,0,.35)!important;font-size:clamp(17px,2.6vw,22px)!important;font-weight:950!important;text-align:center;line-height:1.45;animation:nov17-cta-pulse 2.8s ease-in-out infinite}
+#u-weekly-announcement a.wa-nov17-register:hover{filter:brightness(1.06);transform:translateY(-2px)}
+@keyframes nov17-cta-pulse{50%{box-shadow:0 0 0 10px rgba(255,216,116,.07),0 9px 24px rgba(0,0,0,.38)}}
+@media(prefers-reduced-motion:reduce){#u-weekly-announcement a.wa-nov17-register{animation:none}}
+@media(max-width:600px){#u-current-strategy .u-join-btn{font-size:18px!important;min-height:58px}#u-weekly-announcement a.wa-nov17-register{min-height:74px;padding:15px!important}}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -781,6 +791,7 @@ body { font-size: calc(16px - 1pt); }
 <div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)"><section class="u-hero rounded-[24px] p-6 md:p-11 relative overflow-hidden u-v14-hero" id="u-emergency-hero"><div class="u-kicker u-v14-date">10.21 / 2026 · TAICHUNG · EMPLOYEE RESPONSE</div><h2 class="text-4xl md:text-6xl font-black mt-5 leading-tight u-hero-heading" style="letter-spacing:-.045em"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">以發聲拒絕失望，以行動守住權利</span><span class="u-en" lang="en">Speak out against disappointment. Take action to defend our rights.</span></span></h2><p class="text-lg md:text-xl u-muted mt-4"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">拒絕黑箱協議，要求資訊透明；用參與與行動守護勞動權益。</span><span class="u-en" lang="en">Reject opaque agreements, demand transparency, and protect our rights through collective participation.</span></span></p></section><section id="u-current-strategy" class="u-surface" style="padding:clamp(16px,3vw,28px);margin-bottom:24px;text-align:center;">
   <h2 style="font-size:calc(clamp(1.45rem,4.5vw,2.15rem) - 1pt);font-weight:900;line-height:1.35;margin:0 0 16px;"><span class="u-bilingual"><span class="u-zh">雙線並進｜兩路突破</span><span class="u-en" lang="en">What Are We Doing Now?</span></span></h2>
   <img src="./current-action-overview.jpeg" alt="台中與桃園聯合作戰：原工會內部改革及成立台灣美光關係企業工會，雙線並進、兩路突破" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;max-width:760px;margin:0 auto;border-radius:16px;" />
+  <div class="u-join-actions"><a class="u-button u-join-btn" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🤝</span><span class="u-bilingual"><span class="u-zh">立即加入關工</span><span class="u-en" lang="en">Join the Affiliated Union</span></span><span aria-hidden="true">↗</span></a></div>
   <a class="u-button" href="./Connected_Union_QA.html" target="_blank" rel="noopener noreferrer" aria-label="查看美光關係企業工會常見問題 Q&A，另開新分頁" style="display:inline-flex;align-items:center;justify-content:center;max-width:100%;min-height:48px;margin:20px auto 0;padding:12px 24px;border-radius:14px;font-weight:850;text-decoration:none;gap:8px;background:#b83f45;color:#fff;border:1px solid #d26368;box-shadow:0 6px 18px rgba(131,32,42,.28);">
     <span aria-hidden="true">📖</span><span class="u-bilingual"><span class="u-zh">關係企業工會常見問題 Q&amp;A</span><span class="u-en" lang="en">Affiliated Union FAQ</span></span><span aria-hidden="true">↗</span>
   </a>
@@ -794,14 +805,14 @@ body { font-size: calc(16px - 1pt); }
     <span class="wa-top-chip" id="wa-event-status" role="status">11/13–11/17</span>
   </div>
 <article class="wa-nov17-feature" id="u-nov17-action" aria-labelledby="nov17-action-title">
-<div class="wa-nov17-art"><img src="assets/union-black-shirt-20261117.svg" alt="美光關工黑衣集結活動：11/13 午休集結，11/17 記者會，拒絕黑箱協議、抗議濫訴打壓" loading="eager" decoding="async"></div>
+<div class="wa-nov17-art"><img src="assets/union-black-shirt-original.jpg" onerror="this.onerror=null;this.src='assets/union-black-shirt-20261117.svg'" alt="美光關工黑衣集結活動：11/13 午休集結，11/17 記者會，拒絕黑箱協議、抗議濫訴打壓" loading="eager" decoding="async"></div>
 <div class="wa-nov17-content"><div class="wa-nov17-kicker">📣 重要活動｜11/13 &amp; 11/17</div>
-<h3 id="nov17-action-title">美光關工・黑衣集結活動</h3>
+<h3 id="nov17-action-title">美光關工・午休黑衣集結</h3>
 <p class="wa-nov17-intro">拒絕黑箱協議、要求資訊透明，聲援桃園工會，呼籲儘速核發「美光關工」登記證書。</p>
-<div class="wa-nov17-list"><div><strong>11/13（五）｜午休集結</strong><p>12:30 · 公共藝術「飛越AI」裝置藝術前（后科路、三豐路轉角）</p></div>
+<div class="wa-nov17-list"><div><strong>11/13（五）｜午休黑衣集結</strong><p>12:30 · 公共藝術「飛越AI」裝置藝術前（后科路、三豐路轉角）</p></div>
 <div><strong>11/17（二）｜記者會與北上聲援</strong><p>10:00 · 記者會與北上聲援；海報列示民進黨中央黨部及桃園市政府，確切集合與交通資訊以報名通知為準。</p></div></div>
 <p class="wa-nov17-note">報名表請依主辦方最新通知確認集合、交通與搭車資訊。</p>
-<a class="wa-btn wa-btn-gold wa-nov17-register" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 11/17 報名抗爭、爭取關工牌 ↗</a>
+<a class="wa-btn wa-btn-gold wa-nov17-register" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 立即報名 11/17 北上聲援・爭取關工牌 ↗</a>
 </div></article>
   <div class="wa-main">
     <div class="wa-fee-copy">
