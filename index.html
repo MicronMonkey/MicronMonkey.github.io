@@ -129,7 +129,7 @@
 #unionEntryReminder[hidden]{display:none!important}
 #unionEntryReminder{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;background:rgba(5,9,17,.82);backdrop-filter:blur(7px);padding:20px;color:#f8fafc}
 #unionEntryReminder .union-entry-dialog{position:relative;width:min(100%,520px);max-height:min(90vh,780px);overflow-y:auto;border:1px solid #a89165;border-radius:22px;background:linear-gradient(145deg,#222a35,#131923);padding:clamp(21px,4vw,34px);box-shadow:0 22px 70px #0009}
-#unionEntryReminder .union-entry-title{font-weight:900;color:#f0d6a0;font-size:calc(clamp(21px,4vw,26px) - 1pt);margin:0 36px 18px 0}
+#unionEntryReminder .union-entry-title{font-weight:900;color:#f0d6a0;font-size:calc(clamp(21px,4vw,26px) - 3pt);margin:0 36px 18px 0}
 #unionEntryReminder .union-entry-close{position:absolute;top:13px;right:15px;border:1px solid #657182;border-radius:10px;background:#303a47;color:#fff;padding:5px 11px;font-size:calc(22px - 1pt);cursor:pointer}
 #unionEntryReminder .union-entry-card{border:1px solid #49586b;background:#1a2430;padding:19px;border-radius:15px;margin-top:13px}
 #unionEntryReminder .union-entry-question{font-size:calc(clamp(18px,3vw,22px) - 1pt);font-weight:900;margin:0 0 12px}
@@ -141,7 +141,7 @@
 /* Compact, mobile-first 3-row reminder */
 #unionEntryReminder{padding:12px!important;align-items:center}
 #unionEntryReminder .union-entry-dialog{box-sizing:border-box;width:min(100%,460px);max-height:calc(100dvh - 24px);padding:19px 17px 16px;border-radius:18px;overflow-y:auto}
-#unionEntryReminder .union-entry-title{font-size:calc(clamp(18px,4.5vw,21px) - 1pt);line-height:1.3;margin:0 38px 14px 0;letter-spacing:-.02em}
+#unionEntryReminder .union-entry-title{font-size:calc(clamp(18px,4.5vw,21px) - 3pt);line-height:1.3;margin:0 38px 14px 0;letter-spacing:-.02em}
 #unionEntryReminder .union-entry-close{top:10px;right:11px;width:36px;height:36px;padding:0;border-radius:9px;font-size:calc(23px - 1pt);line-height:1}
 #unionEntryReminder .union-entry-card{display:grid;grid-template-columns:minmax(0,1fr) 102px;grid-template-areas:"question action" "count action";align-items:center;column-gap:10px;row-gap:4px;padding:12px 13px;margin-top:9px;border-radius:12px}
 #unionEntryReminder .union-entry-question{grid-area:question;min-width:0;margin:0;font-size:calc(clamp(14px,3.6vw,16px) - 1pt);line-height:1.35}
@@ -167,11 +167,11 @@
 @media(max-width:375px){#unionEntryReminder .meeting-countdown-pill{padding:8px 30px 8px 8px}#unionEntryReminder .meeting-countdown-copy{font-size:calc(11px - 1pt)}#unionEntryReminder #meetingCountdownDays{font-size:calc(20px - 1pt)}}
 /* Entry reminder: membership primary, volunteers secondary */
 #unionEntryReminder .union-entry-card-primary{display:flex;flex-direction:column;align-items:stretch;gap:13px;padding:22px 20px 20px;border:1px solid #c3a36e;background:linear-gradient(145deg,#293a43,#192632)}
-#unionEntryReminder .union-entry-card-primary .union-entry-question{font-size:calc(clamp(18px,4.3vw,22px) - 1pt);margin:0}
+#unionEntryReminder .union-entry-card-primary .union-entry-question{font-size:calc(clamp(18px,4.3vw,22px) - 3pt);margin:0}
 #unionEntryReminder .union-entry-card-primary .union-entry-member-stats{margin:0}
 #unionEntryReminder .union-entry-total-label{color:#cbd8e5;font-size:calc(13px - 1pt);font-weight:750;margin-bottom:2px}
 #unionEntryReminder .union-entry-total{display:flex;align-items:baseline;gap:8px;margin:5px 0 13px;line-height:1.1}
-#unionEntryReminder .union-entry-total strong{font-size:clamp(37px,9vw,51px);color:#ffdfa2;letter-spacing:-.04em;font-weight:950;font-variant-numeric:tabular-nums}
+#unionEntryReminder .union-entry-total strong{font-size:calc(clamp(37px,9vw,51px) - 8pt);color:#ffdfa2;letter-spacing:-.04em;font-weight:950;font-variant-numeric:tabular-nums}
 #unionEntryReminder .union-entry-total span{font-size:calc(15px - 1pt);color:#dae4f1}
 #unionEntryReminder .union-entry-card-primary .union-entry-breakdown{display:flex;flex-wrap:wrap;gap:7px 15px;font-size:calc(12px - 1pt);margin:0;color:#d4dfeb}
 #unionEntryReminder .union-entry-card-primary .union-entry-breakdown strong{font-size:calc(15px - 1pt)}
@@ -572,12 +572,12 @@ html{scroll-behavior:smooth}
 #mode0Container .u-archive-number{font-size:calc(clamp(32px,6vw,54px) - 1pt);font-weight:900;color:#f4d59c;line-height:1.2;margin:13px 0}
 #mode0Container .u-archive-number small{font-size:.47em;color:#d2cfca}
 #portalFloatingNav{position:fixed;z-index:75;top:50%;left:max(3px,env(safe-area-inset-left));transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;pointer-events:none}
-#portalFloatingNav a,#portalFloatingNav button{display:grid;place-items:center;pointer-events:auto;width:40px;height:40px;border:1px solid rgba(231,232,234,.26);border-radius:10px;background:rgba(21,28,39,.55);color:#fff;font-size:calc(19px - 1pt);opacity:.72;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);box-shadow:0 3px 12px #0003;text-decoration:none;cursor:pointer;transition:opacity .15s,background .15s}
+#portalFloatingNav a,#portalFloatingNav button{display:grid;place-items:center;pointer-events:auto;width:40px;height:32px;border:1px solid rgba(231,232,234,.26);border-radius:10px;background:rgba(21,28,39,.55);color:#fff;font-size:calc(19px - 1pt);opacity:.72;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);box-shadow:0 3px 12px #0003;text-decoration:none;cursor:pointer;transition:opacity .15s,background .15s}
 #portalFloatingNav a:hover,#portalFloatingNav button:hover,#portalFloatingNav a:focus-visible,#portalFloatingNav button:focus-visible{opacity:1;background:rgba(35,50,67,.96);outline:2px solid #d5b680;outline-offset:1px}
 #portalFloatingNav .back-top{border-color:#bf9c64;color:#ffe4b5}
 #portalFloatingNav .float-tip{pointer-events:none;position:absolute;left:47px;padding:5px 8px;border-radius:7px;border:1px solid #5c6b7b;background:#233140;color:#fff;font:700 12px sans-serif;white-space:nowrap;visibility:hidden;opacity:0}
 #portalFloatingNav a:hover .float-tip,#portalFloatingNav button:hover .float-tip,#portalFloatingNav a:focus-visible .float-tip,#portalFloatingNav button:focus-visible .float-tip{visibility:visible;opacity:1}
-@media(max-width:700px){#portalFloatingNav{gap:5px;left:max(2px,env(safe-area-inset-left))}#portalFloatingNav a,#portalFloatingNav button{width:34px;height:35px;font-size:calc(16px - 1pt);opacity:.62;border-radius:8px}
+@media(max-width:700px){#portalFloatingNav{gap:5px;left:max(2px,env(safe-area-inset-left))}#portalFloatingNav a,#portalFloatingNav button{width:34px;height:28px;font-size:calc(16px - 1pt);opacity:.62;border-radius:8px}
 #portalFloatingNav .float-tip{display:none}
 #mode0Container #u-completed-milestones{padding:25px 12px 17px}#mode0Container .u-archive-ribbon{font-size:calc(9px - 1pt);padding:8px 9px}#mode0Container .u-archive-icon{flex-basis:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -586,7 +586,7 @@ html{scroll-behavior:smooth}
 #portalFloatingNav{gap:7px;left:max(5px,env(safe-area-inset-left))}
 #portalFloatingNav a,#portalFloatingNav button{
  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
- width:76px;height:78px;padding:5px 3px;box-sizing:border-box;
+ width:76px;height:62.4px;padding:5px 3px;box-sizing:border-box;
  background:rgba(21,28,39,.54);opacity:.83;text-align:center;line-height:1.12;
 }
 #portalFloatingNav .float-icon{display:block;font-size:calc(21px - 1pt);line-height:1.18;flex:none}
@@ -600,7 +600,7 @@ html{scroll-behavior:smooth}
 @media(max-width:700px){
  #portalFloatingNav{gap:6px;left:max(3px,env(safe-area-inset-left))}
  #portalFloatingNav a,#portalFloatingNav button{
-   width:60px;height:70px;padding:4px 2px;gap:2px;opacity:.74;border-radius:8px
+   width:60px;height:56px;padding:4px 2px;gap:2px;opacity:.74;border-radius:8px
  }
  #portalFloatingNav .float-icon{font-size:calc(18px - 1pt)}
  #portalFloatingNav .float-label{gap:1px}
@@ -609,7 +609,7 @@ html{scroll-behavior:smooth}
 }
 @media(max-height:690px){
  #portalFloatingNav{gap:3px}
- #portalFloatingNav a,#portalFloatingNav button{height:66px}
+ #portalFloatingNav a,#portalFloatingNav button{height:52.8px}
  #portalFloatingNav .float-icon{font-size:calc(17px - 1pt)}
  #portalFloatingNav .float-label-zh{font-size:calc(9px - 1pt)}
  #portalFloatingNav .float-label-en{font-size:calc(8px - 1pt)}
@@ -781,7 +781,11 @@ body { font-size: calc(16px - 1pt); }
 @keyframes nov17-cta-pulse{50%{box-shadow:0 0 0 10px rgba(255,216,116,.07),0 9px 24px rgba(0,0,0,.38)}}
 @media(prefers-reduced-motion:reduce){#u-weekly-announcement a.wa-nov17-register{animation:none}}
 @media(max-width:600px){#u-current-strategy .u-join-btn{font-size:18px!important;min-height:58px}#u-weekly-announcement a.wa-nov17-register{min-height:74px;padding:15px!important}}
-</style></head>
+</style><style>
+#unionEntryReminder #meetingCountdownPill[data-state="due"] #meetingCountdownDays{font-size:calc(22px - 3pt)}
+@media(max-width:375px){#unionEntryReminder #meetingCountdownPill[data-state="due"] #meetingCountdownDays{font-size:calc(20px - 3pt)}}
+</style>
+</head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
 <header id="portalSimpleHeader"><div class="portal-mark" aria-hidden="true">🐵</div><div>
@@ -856,15 +860,16 @@ body { font-size: calc(16px - 1pt); }
 <div class="u-kicker mb-3"><span class="u-bilingual"><span class="u-zh">維護權益3步驟 · 現階段重要行動</span><span class="u-en" lang="en">3 STEPS TO PROTECT OUR RIGHTS · Current priorities</span></span></div>
 <div class="u-cardgrid u-three-actions u-four-actions">
 <div class="u-action-stack"><section class="u-surface" id="u-affiliated-union"><div class="flex items-center gap-3"><span class="u-step">01</span><span class="u-kicker">UNION MEMBERSHIP · JOIN THE UNION</span></div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4">
-<div class="u-muted text-sm">全台美光申請入會人數 / Nationwide Micron membership applications</div>
-<div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人 · 申請資料筆數 / applications</span></div>
-<p class="u-mini mt-2" style="color:#d58b16;font-weight:700;line-height:1.5">⚠ 數字下降：桃園同仁重新以個人名義申請加入中</p>
+<div class="u-muted text-sm">關工追蹤合計 / Union tracking total</div>
+<div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" style="color:#f7cf53" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人 · 直接入會與申請合計 / Direct enrollments and applications</span></div>
+<p class="u-mini mt-2" style="color:#d58b16;font-weight:700;line-height:1.5">⚠ 桃園同仁個人申請書補件中</p>
 <div class="u-membership-target" role="group" aria-label="全台美光申請入會目標 11000 人">
-<div class="u-membership-target-line"><div class="u-membership-target-values"><span id="affiliatedUnionTargetPercent" class="u-membership-percent" data-level="pending" aria-live="polite">—%</span></div><div class="u-membership-target-caption" lang="en">Target: 11,000 people by <strong>11/13</strong></div></div>
+<div class="u-membership-target-line"><div class="u-membership-target-values"><span id="affiliatedUnionTargetPercent" class="u-membership-percent" data-level="pending" aria-live="polite">—%</span></div><div class="u-membership-target-caption" lang="en">Target: 11,000 people</div></div>
 <progress id="affiliatedUnionTargetProgress" value="0" max="11000" aria-label="Nationwide applications toward 11000 people"></progress>
-<div class="u-muted u-mini mt-2" id="affiliatedUnionTargetStatus">載入全台申請數據後更新 / Updating nationwide application count</div>
+<div class="u-muted u-mini mt-2" id="affiliatedUnionTargetStatus">同步申請數後更新 / Updating after counts sync</div>
+<ul class="mt-3 space-y-1 text-sm"><li>台中＋其他廠區申請 / Non-Taoyuan applications: <strong style="color:#f7cf53;font-size:calc(1em + 1pt)" id="otherApplicationsCount">—</strong> 人</li><li>桃園申請書補件 / Taoyuan applications: <strong style="color:#f7cf53" id="taoyuanApplicationsCount">—</strong> 人 / 2,400 人</li><li style="font-size:calc(1em - 2pt)">（桃園經會員大會決議，會費由桃園工會直接撥出，全體一同成為關工會員: <strong>2,400</strong> 人）</li></ul>
 </div>
-<p class="u-muted u-mini mt-3">依申請系統即時回傳的資料筆數統計，供進度追蹤，非已核准會員數。 / Live application entries for progress tracking; not approved membership totals.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:calc(12px - 1pt)">↻ 更新數字 / Update counts</button></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
+<p class="u-muted u-mini mt-3">依申請系統即時回傳的資料筆數統計，供進度追蹤，非已核准會員數。 / Live application entries for progress tracking; not approved membership totals.</p><p class="u-muted u-mini mt-2" id="membershipCountsStatus" role="status" aria-live="polite">正在同步人數… / Syncing counts…</p><button type="button" data-membership-refresh data-organizing-refresh class="u-button u-secondary mt-2" style="min-height:36px;padding:7px 12px;font-size:calc(12px - 1pt)">↻ 更新數字 / Update counts</button></div><a class="u-button u-primary w-full mt-5" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span class="u-bilingual"><span class="u-zh">前往關係企業工會入會申請 ↗</span><span class="u-en" lang="en">Open membership application ↗</span></span></a></section></div>
 <section class="u-surface u-action-step u-unsent-letters" id="u-unsent-letters" aria-labelledby="u-unsent-letters-title">
 <div class="flex items-center gap-3"><span class="u-step">02</span><span class="u-kicker"><span class="u-bilingual"><span class="u-zh">匿名心聲 · 未寄出的信</span><span class="u-en" lang="en">ANONYMOUS VOICES · Unsent Letters</span></span></span></div>
 <h3 class="text-xl font-black mt-3" id="u-unsent-letters-title"><span class="u-bilingual"><span class="u-zh">✉️ 未寄出的信｜讓心裡的話被看見</span><span class="u-en" lang="en">✉️ Unsent Letters · A place for unheard voices</span></span></h3>
@@ -1233,27 +1238,9 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  'use strict';
  const endpoint='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec';
  const refreshMs=120000,retryMs=15000;
- const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',membership:'affiliatedUnionCombinedCount'};
- const combinedMembership=document.getElementById('affiliatedUnionCombinedCount');
- function renderCombinedMembership(taichung){
-  if(!combinedMembership)return;
-  combinedMembership.textContent=Number.isSafeInteger(taichung)&&taichung>=0
-   ?taichung.toLocaleString('en-US'):'—';
-   const targetBar=document.getElementById('affiliatedUnionTargetProgress');
-   const targetText=document.getElementById('affiliatedUnionTargetStatus');
-   const targetPercent=document.getElementById('affiliatedUnionTargetPercent');
-   if(targetBar&&targetText&&targetPercent&&Number.isSafeInteger(taichung)&&taichung>=0){
-     const total=taichung,goal=11000;
-     const percentage=total/goal*100;
-     const level=percentage>100?'green':percentage>80?'yellow':'red';
-     targetBar.value=Math.min(total,goal);
-     targetPercent.textContent=percentage.toFixed(1)+'%';
-     targetPercent.dataset.level=level;
-     targetText.textContent=total.toLocaleString('en-US')+' / 11,000 · 全台美光申請入會人數 / Nationwide Micron membership applications';
-   }
- }
- const statuses=['briefingCountsStatus','membershipCountsStatus'].map(id=>document.getElementById(id));
- const buttons=[...document.querySelectorAll('[data-organizing-refresh]')];
+ const ids={noon:'briefingNoonCount',evening:'briefingEveningCount',};
+ const statuses=['briefingCountsStatus'].map(id=>document.getElementById(id));
+ const buttons=[...document.querySelectorAll('[data-organizing-refresh]:not([data-membership-refresh])')];
  let busy=false,lastSuccess='',retryTimer=null,failures=0;
  function status(message){statuses.forEach(el=>{if(el)el.textContent=message;});}
  function validate(data){
@@ -1307,7 +1294,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
     catch(secondError){throw firstError;}
    }
    Object.keys(ids).forEach(key=>{const el=document.getElementById(ids[key]);if(el)el.textContent=data[key].toLocaleString('en-US');});
-   renderCombinedMembership(data.membership);
+
    // A missing optional backend timestamp must not suppress valid counts.
    const timestamp=typeof data.updatedAt==='string'&&Number.isFinite(Date.parse(data.updatedAt))?new Date(data.updatedAt):new Date();
    lastSuccess=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(timestamp);
@@ -1320,6 +1307,108 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    const previous=lastSuccess?' · 上次同步：'+lastSuccess+'，保留上次人數 / Keeping last counts':'';
    status(reason+previous+(failures<=2?' · 15 秒後重試，也可按更新數字 / Retry in 15 sec, or refresh now':' · 每 2 分鐘重試，也可按更新數字 / Retry every 2 min, or refresh now'));
    // No last verified Taichung count available: do not display a made-up combined total.
+
+   if(failures<=2)retryTimer=setTimeout(refresh,retryMs);
+  }finally{busy=false;buttons.forEach(button=>button.disabled=false)}
+ }
+ buttons.forEach(button=>button.addEventListener('click',refresh));
+ refresh();
+ setInterval(refresh,refreshMs);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+})();
+</script>
+<script id="membership-site-counts">
+/* Read-only aggregate counts. JSONP first, CORS JSON fallback; no records requested. */
+(function(){
+ 'use strict';
+ const endpoint='https://script.google.com/macros/s/AKfycbwnasA5QgXOfyh_pD0cO6ex1ho5PxZhLGHtujM8Rm-ecAgmsnPNtxjsaPKzK--hF6L6/exec';
+ const refreshMs=120000,retryMs=15000;
+ const ids={otherApplications:'otherApplicationsCount',taoyuanApplications:'taoyuanApplicationsCount'};
+ const combinedMembership=document.getElementById('affiliatedUnionCombinedCount');
+ function renderCombinedMembership(total){
+  if(!combinedMembership)return;
+  combinedMembership.textContent=Number.isSafeInteger(total)&&total>=0
+   ?total.toLocaleString('en-US'):'—';
+   const targetBar=document.getElementById('affiliatedUnionTargetProgress');
+   const targetText=document.getElementById('affiliatedUnionTargetStatus');
+   const targetPercent=document.getElementById('affiliatedUnionTargetPercent');
+   if(targetBar&&targetText&&targetPercent&&Number.isSafeInteger(total)&&total>=0){
+     const goal=11000;
+     const percentage=total/goal*100;
+     const level=percentage>=100?'green':percentage>80?'yellow':'red';
+     targetBar.value=Math.min(total,goal);
+     targetPercent.textContent=percentage.toFixed(1)+'%';
+     targetPercent.dataset.level=level;
+     targetText.textContent=total.toLocaleString('en-US')+' / 11,000 · 關工追蹤合計 / Union tracking total';
+   }
+ }
+ const statuses=['membershipCountsStatus'].map(id=>document.getElementById(id));
+ const buttons=[...document.querySelectorAll('[data-membership-refresh]')];
+ let busy=false,lastSuccess='',retryTimer=null,failures=0;
+ function status(message){statuses.forEach(el=>{if(el)el.textContent=message;});}
+ function validate(data){
+  if(!data||data.ok!==true)throw new Error('backend');
+  if(!Object.keys(ids).every(key=>Number.isSafeInteger(data[key])&&data[key]>=0))
+   throw new Error('invalid_counts');
+  return data;
+ }
+ function requestJsonp(){
+  return new Promise((resolve,reject)=>{
+   const callback='organizingAggregateCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+   const tag=document.createElement('script');
+   let done=false;
+   const timer=setTimeout(()=>finish(new Error('timeout')),45000);
+   function finish(error,data){
+    if(done)return;
+    done=true;clearTimeout(timer);tag.remove();
+    window[callback]=()=>{};setTimeout(()=>{delete window[callback]},60000);
+    if(error)reject(error);else resolve(data);
+   }
+   window[callback]=data=>finish(null,data);
+   tag.onerror=()=>finish(new Error('script_blocked'));
+   const url=new URL(endpoint);url.searchParams.set('action','membershipSiteCounts');
+   url.searchParams.set('callback',callback);
+   url.searchParams.set('prefix',callback);
+   url.searchParams.set('_',String(Date.now()));
+   tag.src=url.href;tag.async=true;tag.referrerPolicy='no-referrer';
+   document.head.appendChild(tag);
+  });
+ }
+ async function requestJson(){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),20000);
+  try{
+   const url=new URL(endpoint);url.searchParams.set('action','membershipSiteCounts');url.searchParams.set('_',String(Date.now()));
+   const response=await fetch(url.href,{mode:'cors',credentials:'omit',cache:'no-store',redirect:'follow',signal:controller.signal});
+   if(!response.ok)throw new Error('http_'+response.status);
+   return await response.json();
+  }finally{clearTimeout(timer)}
+ }
+ async function refresh(){
+  if(busy||document.hidden)return;
+  clearTimeout(retryTimer);retryTimer=null;busy=true;
+  buttons.forEach(button=>button.disabled=true);
+  status('正在同步… / Syncing…');
+  try{
+   let data;
+   try{data=validate(await requestJsonp());}
+   catch(firstError){
+    try{data=validate(await requestJson());}
+    catch(secondError){throw firstError;}
+   }
+   Object.keys(ids).forEach(key=>{const el=document.getElementById(ids[key]);if(el)el.textContent=data[key].toLocaleString('en-US');});
+   renderCombinedMembership(2400+data.otherApplications);
+   // A missing optional backend timestamp must not suppress valid counts.
+   const timestamp=typeof data.updatedAt==='string'&&Number.isFinite(Date.parse(data.updatedAt))?new Date(data.updatedAt):new Date();
+   lastSuccess=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(timestamp);
+   failures=0;
+   status('最近同步（台灣時間）：'+lastSuccess+' · 每 2 分鐘自動更新 / Synced (Taiwan): '+lastSuccess+' · Auto-refresh every 2 min');
+  }catch(error){
+   failures++;
+   const reasons={timeout:'統計服務回應逾時 / Service timed out',script_blocked:'統計連線失敗或被封鎖 / Connection failed or blocked',backend:'統計服務回報錯誤 / Service returned an error',invalid_counts:'統計數字格式不符 / Invalid count format'};
+   const reason=reasons[error.message]||'統計連線失敗 / Connection failed';
+   const previous=lastSuccess?' · 上次同步：'+lastSuccess+'，保留上次人數 / Keeping last counts':'';
+   status(reason+previous+(failures<=2?' · 15 秒後重試，也可按更新數字 / Retry in 15 sec, or refresh now':' · 每 2 分鐘重試，也可按更新數字 / Retry every 2 min, or refresh now'));
    if(!lastSuccess)renderCombinedMembership(null);
    if(failures<=2)retryTimer=setTimeout(refresh,retryMs);
   }finally{busy=false;buttons.forEach(button=>button.disabled=false)}
@@ -1343,10 +1432,10 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   <div class="union-entry-card union-entry-card-primary">
    <p class="union-entry-question">🤝 美光關係企業工會｜加入我們</p>
    <div class="union-entry-count union-entry-member-stats">
-    <div class="union-entry-total-label">全台美光申請入會人數</div>
-    <div class="union-entry-total"><strong id="entryMembershipCount">同步中…</strong><span>人</span></div>
-    <p style="font-size:12px;color:#f7cf53;font-weight:700;line-height:1.5;margin:6px 0 0;text-align:center">⚠ 數字下降：桃園同仁重新以個人名義申請加入中</p>
-    <div style="margin-top:12px;text-align:center"><strong id="entryMembershipPercent" style="font-size:26px;color:#f7cf53;font-weight:900">—%</strong><div style="font-size:13px;margin:4px 0 8px">目標 11,000 人 · 11/13 前</div><progress id="entryMembershipProgress" value="0" max="11000" aria-label="全台美光入會申請目標進度" style="display:block;width:100%;height:12px;accent-color:#d6ae50"></progress></div>
+    <div class="union-entry-total-label">關工追蹤合計</div>
+    <div class="union-entry-total"><strong id="entryMembershipCount" style="color:#f7cf53">同步中…</strong><span>人</span></div><table class="mt-3 text-sm" style="width:100%"><tbody><tr><th scope="row" style="text-align:left;padding:5px 8px 5px 0;font-weight:500;font-size:calc(1em - 1pt)">台中＋其他廠區申請<br><span lang="en">Non-Taoyuan applications</span></th><td style="text-align:right;white-space:nowrap"><strong id="entry-otherApplicationsCount" style="color:#f7cf53;font-size:calc(1em + 2pt)">—</strong> 人</td></tr><tr><th scope="row" style="text-align:left;padding:5px 8px 5px 0;font-weight:500;font-size:calc(1em - 1pt)">桃園申請書補件<br><span lang="en">Taoyuan applications</span></th><td style="text-align:right;white-space:nowrap"><strong id="entry-taoyuanApplicationsCount" style="color:#f7cf53;font-size:1em">—</strong> 人 / 2,400 人</td></tr></tbody></table><p class="text-sm mt-2"><strong style="font-size:calc(1em - 2pt)">⚠ 桃園同仁個人申請書補件中</strong></p><p class="text-sm" style="font-size:calc(.875rem - 3pt)">（桃園經會員大會決議，會費由桃園工會直接撥出，全體一同成為關工會員: 2,400 人）</p>
+    
+    <div style="display:flex;align-items:center;gap:8px;margin-top:12px;white-space:nowrap"><strong id="entryMembershipPercent" style="font-size:26px;color:#f7cf53;font-weight:900">—%</strong><span style="font-size:13px">目標 11,000 人</span><progress id="entryMembershipProgress" value="0" max="11000" aria-label="全台美光入會申請目標進度" style="display:block;width:auto;min-width:0;flex:1;height:12px;accent-color:#d6ae50"></progress></div>
    </div>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">立即申請加入關工 ↗</a>
   </div>
@@ -1354,8 +1443,8 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    <div class="union-entry-volunteer-copy"><p class="union-entry-question">🌱 一起當志工</p><p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p></div>
    <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">志工報名 ↗</button>
   </div>
-  <p class="union-entry-note">數字自動更新；關工顯示申請筆數，非核准會員數。</p>
-  <button type="button" class="wa-entry-jump" onclick="document.getElementById('unionEntryLater').click();document.getElementById('u-weekly-announcement').scrollIntoView({behavior:'smooth',block:'start'})">📣 查看本週繳費與說明會 ↓</button><button type="button" id="unionEntryLater" class="union-entry-later">進入網站</button>
+  
+  <button type="button" id="unionEntryLater" class="union-entry-later">進入網站</button>
  </div>
 </div>
 <script id="entry-reminder-and-archive-v1">
@@ -1387,6 +1476,8 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  }
  copyCount('intentTaichungCount','entryIntentCount');
  copyCount('affiliatedUnionCombinedCount','entryMembershipCount');
+ copyCount('otherApplicationsCount','entry-otherApplicationsCount');
+ copyCount('taoyuanApplicationsCount','entry-taoyuanApplicationsCount');
   const entryPercent=document.getElementById('entryMembershipPercent');
   const entryProgress=document.getElementById('entryMembershipProgress');
   const mainPercent=document.getElementById('affiliatedUnionTargetPercent');
