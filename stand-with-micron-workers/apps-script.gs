@@ -9,8 +9,8 @@
  * Names of people who chose not to be shown are never returned by doGet.
  */
 var SHEET = 'signatures';
-var ROLES = ['current', 'former', 'family', 'semi', 'worker', 'student', 'public'];
-var SITES = ['', 'ty', 'tc', 'other', 'abroad'];
+var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public'];
+var SITES = ['', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
 
 function sheet_() {
   var ss = SpreadsheetApp.getActive();

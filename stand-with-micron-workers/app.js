@@ -12,11 +12,12 @@
   var KEY = 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
-  var ROLES = ['current', 'former', 'family', 'semi', 'worker', 'student', 'public'];
-  var SITES = ['none', 'ty', 'tc', 'other', 'abroad'];
+  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public'];
+  var SITES = ['none', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
   var FILTERS = [
     { id: 'all', label: 'filter.all', match: null },
     { id: 'current', label: 'role.current', match: ['current'] },
+    { id: 'overseas', label: 'filter.overseas', match: ['overseas'] },
     { id: 'former', label: 'role.former', match: ['former'] },
     { id: 'family', label: 'role.family', match: ['family'] },
     { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
@@ -50,6 +51,7 @@
     for (var i = 0; i < LANGS.length; i++) if (LANGS[i].code === code) return code;
     return null;
   }
+  function locale() { return { 'zh-Hant': 'zh-TW', 'zh-Hans': 'zh-CN' }[lang] || lang; }
   function detect() {
     var p = new URLSearchParams(location.search).get('lang');
     if (supported(p)) return p;
@@ -57,6 +59,7 @@
     var navs = navigator.languages || [navigator.language || ''];
     for (var i = 0; i < navs.length; i++) {
       var n = (navs[i] || '').toLowerCase();
+      if (/^zh-(cn|sg|hans|my)/.test(n)) return supported('zh-Hans') || 'zh-Hant';
       if (n.indexOf('zh') === 0) return 'zh-Hant';
       if (n.indexOf('ja') === 0) return 'ja';
       if (n.indexOf('ko') === 0) return 'ko';
@@ -172,7 +175,7 @@
   var shown = 0;
   function renderCount(animate) {
     var target = state.count, el = $('heroCount');
-    var fmt = function (n) { return n.toLocaleString(lang === 'zh-Hant' ? 'zh-TW' : lang); };
+    var fmt = function (n) { return n.toLocaleString(locale()); };
     if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches || target === shown) {
       el.textContent = fmt(target); shown = target;
     } else {
@@ -224,7 +227,7 @@
       if (SITES.indexOf(s.site) > 0) badge(who, t('site.' + s.site), 'alt');
       if (s.t) {
         var w = document.createElement('span'); w.className = 'when';
-        w.textContent = new Date(s.t).toLocaleDateString(lang === 'zh-Hant' ? 'zh-TW' : lang);
+        w.textContent = new Date(s.t).toLocaleDateString(locale());
         who.appendChild(w);
       }
       li.appendChild(who);
@@ -275,6 +278,13 @@
   $('clear').addEventListener('click', function () {
     if (!loadLocal().length) { toast(t('toast.none')); return; }
     if (confirm(t('confirm.clear'))) { try { localStorage.removeItem(KEY); } catch (e) {} refresh(); toast(t('toast.cleared')); }
+  });
+
+  $('copyMsg').addEventListener('click', function () {
+    var txt = $('solMsg').textContent + ' ' + URL_ + (lang === 'zh-Hant' ? '' : '?lang=' + lang);
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(txt).then(function () { toast(t('toast.msgcopied')); }, function () { prompt(t('share.prompt'), txt); });
+    } else prompt(t('share.prompt'), txt);
   });
 
   /* ── share / toast ────────────────────────────────────── */

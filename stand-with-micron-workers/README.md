@@ -2,8 +2,11 @@
 
 支持台灣美光勞工的獨立公開信頁面。網址：https://micronmonkey.github.io/stand-with-micron-workers/
 
-- 紫／黑配色，右上角語言選單：繁體中文、English、日本語、한국어（`?lang=en|ja|ko` 可直接連到指定語言）。
-- 繁體中文文字寫在 `index.html`；其他語言在 `i18n.js`；邏輯在 `app.js`。
+- 紫／黑配色，右上角語言選單：繁體中文、简体中文、English、日本語、한국어（`?lang=zh-Hans|en|ja|ko` 可直接連到指定語言）。
+- 區塊：最新消息橫幅、公開信、簽署＋簽署人、工會公開信（摘錄＋全文＋美光回應）、致全球美光夥伴、事件經過、安全提醒、FAQ、資料來源。
+- 繁體中文文字寫在 `index.html`；English／日本語／한국어在 `i18n.js`；邏輯在 `app.js`。
+- 简体中文 `i18n-zh-hans.js` 由繁中自動轉換，**改完繁中後要重產**：
+  `node tools/dump-zh.cjs http://localhost:8000/stand-with-micron-workers/ > zh.json && python3 tools/gen_zh_hans.py zh.json > i18n-zh-hans.js`（需 `pip install opencc` 與 Playwright）。
 - `og.png` 是分享到 LINE／FB 時的預覽圖（1200×630）。
 
 ## 連署目前是「本機測試模式」

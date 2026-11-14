@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title data-i18n="meta.title">致台灣美光與 Micron 董事會的公開信｜挺光連署 Stand with Micron Workers</title>
-<meta name="description" data-i18n-content="meta.desc" content="支持台灣美光勞工的獨立公開信：要求與獲利連動、公開透明的分潤制度，並尊重工會會員的知情權與協商權。">
+<title data-i18n="meta.title">我們挺美光勞工｜挺光連署 Stand with Micron Workers</title>
+<meta name="description" data-i18n-content="meta.desc" content="支持台灣美光勞工的獨立公開信：要求與獲利連動、公開透明的分潤制度，不以獎金換取放棄權利、停止報復。歡迎全球美光廠區的同事一起簽署。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Stand with Micron Workers">
 <meta property="og:title" content="挺光連署｜Stand with Micron Workers">
@@ -61,8 +61,8 @@ a{color:var(--pu3)}
 .lang>button svg{flex:none}
 .lang>button .chev{transition:transform .2s}
 .lang>button[aria-expanded=true] .chev{transform:rotate(180deg)}
-.lang ul{position:absolute;right:0;top:calc(100% + 8px);min-width:230px;margin:0;padding:6px;list-style:none;background:var(--card2);border:1px solid var(--line2);border-radius:14px;box-shadow:0 18px 50px #000b;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.18s}
-.lang ul.open{opacity:1;visibility:visible;transform:none}
+.lang ul{position:absolute;right:0;top:calc(100% + 8px);min-width:230px;margin:0;padding:6px;list-style:none;background:var(--card2);border:1px solid var(--line2);border-radius:14px;box-shadow:0 18px 50px #000b;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s,transform .18s,visibility 0s .18s}
+.lang ul.open{opacity:1;visibility:visible;transform:none;transition:opacity .18s,transform .18s,visibility 0s}
 .lang li button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:0;border-radius:9px;background:none;color:var(--fg);font:500 14px var(--sans);cursor:pointer;text-align:left}
 .lang li button span,.lang li button small{white-space:nowrap}
 .lang li button small{color:var(--dim);font-size:12px;margin-left:auto}
@@ -72,7 +72,8 @@ a{color:var(--pu3)}
 .lang li button[aria-checked=true]::after{content:"✓";color:var(--pu2);font-weight:800}
 @media(max-width:560px){.lang>button .lname{display:none}.brand small{display:none}}
 html[lang=en] .brand small{display:none}
-html[lang=en] .hero h1{font-size:clamp(32px,4.8vw,56px);letter-spacing:0}
+html[lang=en]{--serif:Georgia,"Times New Roman",serif}
+html[lang=en] .hero h1{font-size:clamp(38px,6vw,70px);letter-spacing:0}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:12px 24px;font:700 15px var(--sans);cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;white-space:nowrap}
 .btn:active{transform:translateY(1px)}
@@ -93,7 +94,7 @@ html[lang=en] .hero h1{font-size:clamp(32px,4.8vw,56px);letter-spacing:0}
 .kick{display:inline-flex;align-items:center;gap:9px;font:600 12px var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--pu3);border:1px solid var(--line2);background:#1c153099;padding:6px 14px;border-radius:999px}
 .kick i{width:7px;height:7px;border-radius:50%;background:var(--mag);box-shadow:0 0 10px var(--mag);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.35}}
-.hero h1{font:900 clamp(34px,5.6vw,64px)/1.15 var(--serif);margin:22px 0 18px;letter-spacing:.5px}
+.hero h1{font:900 clamp(44px,7.4vw,84px)/1.12 var(--serif);margin:22px 0 18px;letter-spacing:.5px}
 .hero h1 .nw{white-space:nowrap}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--pu2),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .sub{font-size:clamp(16px,2vw,18px);color:var(--mut);margin:0 0 28px;max-width:600px}
@@ -202,13 +203,64 @@ textarea{min-height:100px;resize:vertical}
 .tl p{margin:0;color:var(--mut);font-size:14.5px;line-height:1.7}
 
 /* safety */
-.safe{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:860px){.safe{grid-template-columns:1fr}}
+.safe{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:1000px){.safe{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.safe{grid-template-columns:1fr}}
 @media(max-width:560px){.cmp .row{grid-template-columns:1fr 52px;gap:6px 12px}.cmp .row label{grid-column:1/-1}}
 .safe>div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
 .safe .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:#8b5cf61f;border:1px solid #8b5cf655;margin-bottom:12px}
 .safe h3{margin:0 0 6px;font-size:17px}
 .safe p{margin:0;color:var(--mut);font-size:15px}
+
+
+/* banner */
+.banner{display:block;background:linear-gradient(90deg,#3b0764,#581c87 50%,#701a75);color:#fff;text-decoration:none;font-size:14px;line-height:1.6;border-bottom:1px solid var(--line2)}
+.banner .wrap{display:flex;gap:12px;align-items:center;padding-top:10px;padding-bottom:10px}
+.banner b{flex:none;background:#fff;color:#581c87;font-size:12px;padding:2px 9px;border-radius:99px}
+.banner .go{margin-left:auto;flex:none;font-weight:700;color:var(--pu3)}
+.banner:hover .go{text-decoration:underline}
+@media(max-width:560px){.banner .go{display:none}.banner{font-size:13px}.banner .wrap>span:nth-child(2){display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
+
+/* union */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.quotes{grid-template-columns:1fr}}
+.quote{margin:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px 22px;position:relative}
+.quote::before{content:"\201C";position:absolute;top:2px;left:18px;font:900 56px/1 Georgia,serif;color:var(--pu)}
+.quote blockquote{margin:22px 0 0;font:700 17px/1.85 var(--serif)}
+.quote.big{grid-column:1/-1;background:linear-gradient(135deg,#2e1065,#1c1530 55%,#3b0a45);border-color:var(--line2);padding:34px clamp(22px,4vw,44px) 28px}
+.quote.big blockquote{font-size:clamp(22px,3.4vw,34px);line-height:1.5}
+.quote figcaption{margin-top:12px;color:var(--pu3);font-size:14px;font-weight:600}
+.steps{margin:12px 0 0;padding-left:1.3em}
+.steps li{margin:0 0 12px;color:var(--mut);line-height:1.8}
+.steps li b{color:var(--fg)}
+.steps li::marker{color:var(--pu2);font-weight:800}
+.resp{background:linear-gradient(180deg,#131826,#151021);border-color:#33405a}
+.resp h3::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#7dd3fc;margin-right:10px;vertical-align:middle}
+.resp p{color:var(--mut);margin:10px 0 0}
+.full{margin-top:24px}
+.fulltext{padding:0 clamp(18px,4vw,34px) 26px}
+.fulltext h4{font:900 19px/1.6 var(--serif);margin:0 0 16px}
+details .fulltext p{padding:0;margin:0 0 14px;color:#d9d1ea;line-height:1.95}
+details .fulltext p.contact{color:var(--dim);margin-top:20px}
+
+/* global */
+.sites{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:0 0 24px}
+@media(max-width:1000px){.sites{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){.sites{grid-template-columns:repeat(2,1fr)}}
+.site{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.site i{flex:none;width:9px;height:9px;margin-top:8px;border-radius:50%;background:var(--pu2);box-shadow:0 0 10px var(--pu2)}
+.site.home{border-color:#d946ef88}
+.site.home i{background:var(--mag);box-shadow:0 0 12px var(--mag)}
+.site span{font-size:13px;color:var(--mut);line-height:1.5}
+.site b{display:block;color:var(--fg);font-size:15px}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.steps3{grid-template-columns:1fr}}
+.steps3 .num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--pu),var(--mag));font-weight:800;margin-bottom:12px}
+.steps3 h3{font-size:18px;margin:0 0 6px}
+.steps3 p{margin:0;color:var(--mut);font-size:15px}
+.msgcard{margin-top:24px;border:1px dashed var(--pu2);border-radius:18px;padding:clamp(20px,4vw,30px);background:#8b5cf60d}
+.msgcard .lab{font:700 12px var(--sans);letter-spacing:2px;color:var(--pu2);text-transform:uppercase}
+.msgcard p{font:600 clamp(16px,2vw,19px)/1.8 var(--serif);margin:10px 0 16px}
 
 /* faq */
 details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 10px}
@@ -236,12 +288,13 @@ footer p{margin:0;max-width:680px}
 <nav class="nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="#top">
-      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#bg1)"/><circle cx="16" cy="16" r="8.5" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M11.5 16h9M16 11.5v9" stroke="#fff" stroke-width="1.8"/><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs></svg>
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#bg1)"/><path d="M16 24c-2-1.6-8.5-5.6-8.5-10.4 0-2.9 2.2-4.8 4.5-4.8 1.7 0 3 .9 4 2.2 1-1.3 2.3-2.2 4-2.2 2.3 0 4.5 1.9 4.5 4.8 0 4.8-6.5 8.8-8.5 10.4z" fill="#fff"/><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs></svg>
       <span><span data-i18n="brand.name">挺光連署</span><small>Stand with Micron Workers</small></span>
     </a>
     <ul class="links">
       <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
-      <li><a href="#signers" data-i18n="nav.signers">簽署人</a></li>
+      <li><a href="#union" data-i18n="nav.union">工會的話</a></li>
+      <li><a href="#global" data-i18n="nav.global">全球夥伴</a></li>
       <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
       <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
     </ul>
@@ -260,12 +313,16 @@ footer p{margin:0;max-width:680px}
   </div>
 </nav>
 
+<a class="banner" href="#union">
+  <span class="wrap"><b data-i18n="banner.tag">最新</b><span data-i18n="banner.text">11/12 美光桃園工會發表公開信：承認這次爭取分潤失利、不參加 11/17 協商，並將於當天赴民進黨中央黨部召開記者會。</span><span class="go" data-i18n="banner.go">閱讀 →</span></span>
+</a>
+
 <header class="hero" id="top">
   <div class="wrap">
     <div>
       <span class="kick"><i></i><span data-i18n="hero.kick">Open Letter・公開信</span></span>
-      <h1 data-i18n="hero.title">致台灣美光與 Micron 董事會：<br><em>請站在員工這一邊</em></h1>
-      <p class="sub" data-i18n="hero.sub">AI 帶動記憶體大賺，做出這些晶片的，是在無塵室裡輪班的台灣員工。我們支持台灣美光員工爭取與獲利連動、公開透明的分潤制度，也支持工會會員知道自己被代表簽下了什麼。</p>
+      <h1 data-i18n="hero.title">我們挺<br><em>美光勞工</em></h1>
+      <p class="sub" data-i18n="hero.sub">AI 讓記憶體大賺，做出晶片的台灣員工卻爭取不到透明的分潤制度。桃園工會撐了一個多月，11 月 12 日宣布這次暫時失利——但這不是結束。從台灣到全球每一座美光廠，請用一個簽名告訴他們：你們並不孤單。</p>
       <div class="counter" aria-live="polite">
         <div><b id="heroCount">0</b></div>
         <div class="lab"><span data-i18n="count.unit">份簽名</span><br><span class="live off" id="liveTag" data-i18n="count.local">本機示範</span></div>
@@ -273,10 +330,10 @@ footer p{margin:0;max-width:680px}
       </div>
       <div class="acts">
         <a class="btn p" href="#sign" data-i18n="hero.cta">簽署公開信</a>
-        <a class="btn g" href="#letter" data-i18n="hero.read">閱讀全文</a>
+        <a class="btn g" href="#union" data-i18n="hero.union">讀工會的公開信</a>
         <button class="btn g" type="button" data-share data-i18n="hero.share">分享</button>
       </div>
-      <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司及任何工會皆無隸屬關係。數字取自公開新聞報導，見頁尾資料來源。</p>
+      <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司無隸屬關係，也不代表任何工會發言。數字取自公開新聞報導與工會聲明，見頁尾資料來源。</p>
     </div>
     <div class="art" aria-hidden="true">
       <svg viewBox="0 0 400 400">
@@ -312,17 +369,18 @@ footer p{margin:0;max-width:680px}
   <div class="wrap narrow">
     <article class="paper">
       <div class="head"><span data-i18n="letter.label">Open Letter</span><span data-i18n="letter.date">2026 年 11 月</span></div>
-      <h2 data-i18n="letter.title">致台灣美光經營團隊與 Micron Technology 董事會的公開信</h2>
+      <h2 data-i18n="letter.title">致美光公司經營團隊與 Micron Technology 董事會的公開信</h2>
       <p data-i18n="letter.p1">記憶體產業正迎來 AI 帶來的榮景。美光是台灣規模最大的外資企業之一，在桃園與台中的廠區，數千名員工日夜輪班，撐起了這波成長。</p>
-      <p data-i18n="letter.p2">今年十月，桃園工會以近九成會員、投票者約 99% 的同意取得罷工權；台中工會則在 10 月 21 日與公司簽下協議。同一家公司、相近的訴求，卻走向截然不同的結果，也讓許多會員在事後才知道協議的存在。</p>
-      <p data-i18n="letter.p3">我們不認為這是一場「員工對公司」的對抗，而是一個簡單的問題：<b>當公司賺得越多，做出產品的人是否也能透明、可預期地分享成果？</b>因此我們請求：</p>
+      <p data-i18n="letter.p2">十月，桃園工會以投票者約 99% 的同意取得罷工權；台中工會則在 10 月 21 日簽下受保密條款約束的協議。桃園工會又堅持了將近一個月，11 月 12 日宣布這次爭取分潤沒有成功，並表示會員正承受約談、考績與「簽了才有獎金」的壓力。</p>
+      <p data-i18n="letter.p3">分潤沒有爭取到，不代表問題消失了。我們想問的仍然很簡單：<b>當公司賺得越多，做出產品的人能不能透明、可預期地分享成果？</b>因此我們請求：</p>
       <ol>
-        <li data-i18n="letter.d1"><b>建立與營業利益連動的分潤制度</b>，並公開計算方式，讓員工可以預期、可以驗證。</li>
-        <li data-i18n="letter.d2"><b>提升 IPP 績效獎金與股票獎酬的透明度</b>，說明分配標準，縮小高階主管與第一線員工之間難以理解的落差。</li>
-        <li data-i18n="letter.d3"><b>讓會員知情</b>：任何代表全體會員簽署的勞資協議，內容都應讓會員完整閱讀；保密條款不應讓會員無從得知自己的權利義務。</li>
-        <li data-i18n="letter.d4"><b>以誠意回到談判桌</b>，持續與桃園工會協商，並尊重勞工依法行使的協商與爭議權利，不因員工參與工會或罷工而有任何不利對待。</li>
+        <li data-i18n="letter.d1"><b>不以獎金換取放棄權利</b>：任何新增獎金與勞動條件，都不應附帶要求員工個別簽署放棄未來爭議權的協議。美光已公開否認有此要求，我們請公司以書面向全體員工確認。</li>
+        <li data-i18n="letter.d2"><b>停止任何形式的報復</b>：不因員工參與工會、罷工或連署，在考績、約談、工作分配或去留上給予不利對待。</li>
+        <li data-i18n="letter.d3"><b>建立與營業利益連動的分潤制度</b>，公開計算方式，並提升 IPP 績效獎金與股票獎酬的透明度。</li>
+        <li data-i18n="letter.d4"><b>讓會員知情</b>：以全體會員名義簽署的勞資協議，內容應讓會員完整閱讀。</li>
       </ol>
-      <p data-i18n="letter.p4">一家偉大的科技公司，不只靠製程與良率，也靠願意留下來的人。我們希望美光選擇站在員工這一邊。</p>
+      <p data-i18n="letter.p5">我們也呼籲主管機關依法、中立地處理這場勞資爭議，並儘速審查「美光關係企業工會」的成立登記，保障跨廠區員工的團結權。</p>
+      <p data-i18n="letter.p4">從台中、桃園，到博伊西、廣島、新加坡與檳城，每一座美光廠都是由願意留下來的人撐起來的。我們希望美光選擇站在員工這一邊。</p>
       <div class="sig">
         <p data-i18n="letter.sig">— 挺光連署全體簽署人</p>
         <a class="btn p sm" href="#sign" data-i18n="letter.cta">加入簽署</a>
@@ -337,16 +395,16 @@ footer p{margin:0;max-width:680px}
     <div class="signgrid">
       <form class="panel" id="sign" novalidate>
         <h3 data-i18n="form.title">我要簽署</h3>
-        <p class="s" data-i18n="form.s">約 30 秒即可完成。</p>
+        <p class="s" data-i18n="form.s">約 30 秒即可完成。請用私人裝置，不要用公司電腦或公司信箱。</p>
         <div class="note warn" id="modeNote" role="note"><span aria-hidden="true">⚠️</span><span data-i18n="form.demo"><b>測試版：</b>尚未連接共用資料庫，簽名只會存在你這台裝置的瀏覽器，不會送出或公開。</span></div>
         <div class="f"><label for="nm"><span data-i18n="form.name">稱呼</span> <small data-i18n="form.name_h">可用暱稱</small></label><input id="nm" type="text" maxlength="40" autocomplete="nickname" data-i18n-ph="form.name_ph" placeholder="例如：桃園三班小陳"></div>
         <div class="row2">
           <div class="f"><label for="role" data-i18n="form.role">身分</label>
             <select id="role"><option value="" data-i18n="form.role_ph">請選擇</option></select></div>
-          <div class="f"><label for="site"><span data-i18n="form.site">地區</span> <small data-i18n="form.opt">選填</small></label>
+          <div class="f"><label for="site"><span data-i18n="form.site">所在地</span> <small data-i18n="form.opt">選填</small></label>
             <select id="site"></select></div>
         </div>
-        <div class="f"><label for="msg"><span data-i18n="form.msg">想說的話</span> <small data-i18n="form.msg_h">選填，最多 200 字</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea></div>
+        <div class="f"><label for="msg"><span data-i18n="form.msg">想說的話</span> <small data-i18n="form.msg_h">選填，最多 200 字，可用任何語言</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea></div>
         <label class="chk"><input id="pub" type="checkbox" checked><span data-i18n="form.pub">在簽署人名單顯示我的稱呼（未勾選則顯示為「匿名支持者」）</span></label>
         <label class="chk"><input id="agree" type="checkbox"><span data-i18n="form.agree">我已閱讀公開信，並確認沒有填入個資或公司機密。</span></label>
         <div class="err" id="err" aria-live="assertive"></div>
@@ -368,26 +426,102 @@ footer p{margin:0;max-width:680px}
   </div>
 </section>
 
+<section id="union">
+  <div class="wrap">
+    <div class="sh"><div class="tag" data-i18n="union.tag">From the union</div><h2 data-i18n="union.title">美光桃園工會的公開信</h2><p data-i18n="union.sub">2026 年 11 月 12 日，美光桃園工會發表〈給工會會員和台灣社會的一封公開信〉。以下摘錄其內容，所述為工會的立場與說法。</p></div>
+    <div class="quotes">
+      <figure class="quote big"><blockquote data-i18n="union.q1">爭取分潤未能成功，我們還需要更團結往前進。</blockquote><figcaption data-i18n="union.cap">— 美光桃園工會</figcaption></figure>
+      <figure class="quote"><blockquote data-i18n="union.q2">明天大家如果無法承受壓力，就簽署協議領取獎金也沒關係。</blockquote></figure>
+      <figure class="quote"><blockquote data-i18n="union.q3">我們直到最後一刻，也都堅持沒有在黑箱文件上簽字。</blockquote></figure>
+      <figure class="quote"><blockquote data-i18n="union.q4">未來的某一天，透過我們的團結，我們或許真的能抬頭挺胸，有尊嚴地與資方對等協商，爭取合理分潤！</blockquote></figure>
+    </div>
+    <div class="twocol">
+      <div class="panel">
+        <h3 data-i18n="union.next">工會宣布的三個方向</h3>
+        <ol class="steps">
+          <li data-i18n="union.n1"><b>不參加 11 月 17 日的勞資協商。</b>工會認為資方在協商中不提供分潤數字或試算資料，已失去誠信協商的意義。</li>
+          <li data-i18n="union.n2"><b>11 月 17 日（二）赴民進黨中央黨部召開記者會</b>，向全台科技業工程師說明，並表達對政府處理方式的不滿；呼籲桃園、台中會員一同到場。</li>
+          <li data-i18n="union.n3"><b>呼籲桃園市政府核發「美光關係企業工會」成立證書</b>，盼成立涵蓋台中、桃園、苗栗、台南等全台美光勞工的自主工會；工會表示台中已有超過 6 千名會員申請加入。</li>
+        </ol>
+        <p class="s" style="margin:14px 0 0" data-i18n="union.claims">工會在信中亦表示：會員反映遭主管約談、考績被打低；11 月 6 日協商後，公司指稱有成員洩密並報案，工會秘書長經地檢署傳喚後以新台幣 10 萬元交保。</p>
+      </div>
+      <div class="panel resp">
+        <h3 data-i18n="resp.title">美光的回應</h3>
+        <p data-i18n="resp.p">美光隨後發表四點聲明，否認以簽署協議作為領取新增獎金的條件，表示已開放個人季度利潤獎金試算功能，並將持續與工會對話。</p>
+        <p class="s" data-i18n="resp.s">為求完整，我們同時列出公司方的說法。資料來源見頁尾。</p>
+      </div>
+    </div>
+    <details class="full">
+      <summary data-i18n="union.full">閱讀公開信全文（中文原文）</summary>
+      <div class="fulltext" lang="zh-Hant">
+        <h4>美光桃園工會給工會會員和台灣社會的一封公開信：爭取分潤未能成功，我們還需要更團結往前進</h4>
+        <p>各位美光桃園工會的會員，晚上我們不斷收到消息，說公司接下來會要求大家，如果要拿獎金等新增的勞動條件，每個人可能都得簽署個人協議，放棄未來的爭議權。我們知道，大家又焦慮又憤怒，同時，也有更多人會擔心，如果拒絕會更被公司針對。因此，美光桃園工會要向大家宣布一件事情，我們要正式承認這次爭取分潤制度的行動沒能成功，只能未來繼續努力。</p>
+        <p>接下來，請讓我們更詳細的說明。</p>
+        <p>首先，美光桃園工會要對各位會員大家說，明天大家如果無法承受壓力，就簽署協議領取獎金也沒關係，因為大家從10月21日少數台中工會幹部背叛，導致我們喪失最有利的談判籌碼與時機，至今已經又繼續堅持了將近一個月。</p>
+        <p>這段時間，我們遭受來自美國資方和台灣政府，包括從賴清德總統、到勞動部、再到桃園市政府和中科管理局、以及司法檢調系統，再加上各種在媒體輿論上的全面攻擊，包跨外資撤資、停止建廠、轉投資新加坡、甚至影響台灣AI及半導體產業發展與國家安全等，而甚至，從明天開始，大家會直接面臨到資方對每一位會員的直接施壓，不簽就沒錢，不簽就會更被針對，大家在這段時間面對的攻擊與壓力實在太大了。</p>
+        <p>而且，外界可能不知道，在11月6日桃園市政府的勞資協商後，檢調單位就配合美光公司宣稱有工會成員洩密並報警後，檢調馬上以超乎想像的速度約談工會成員，同時工會秘書長魏豫綾甚至在地檢署傳喚後以10萬元交保，創下近20年台灣勞工運動案件中最高的保釋金。再加上，工會持續收到許多會員反映，近來遭到主管約談、考績遭到刁難打低，甚至可能會被解僱，這些問題如果再加上即將發生的施壓，要求每個人要簽署協議，不然就沒錢，一定會讓大家受到超級大的壓力。</p>
+        <p>我們認為，這些壓力不該再讓美光桃園工會的大家承擔，因為，今天真正造成這種狀況的，是美光公司、台灣各級政府，以及10月21日少數私下簽約的台中工會幹部。</p>
+        <p>美光桃園工會未來將會繼續努力，但是現在這個時間點，我們得向大家正式承認我們的失利，也要跟大家說，謝謝大家這幾個月的同行奮戰。我們最後要向大家宣布未來的三個動作和方向。</p>
+        <p>第一，美光桃園工會將不會再參加11月17日（二）的勞資協商，這種放任資方在協商過程中完全不用提供分潤數字或試算資料，並且縱容資方在每次協商前各種惡質動作頻出，已經完全失去誠信協商的意義和可能性。</p>
+        <p>無法達成原訂目標，幫大家爭取到四大訴求，是美光桃園工會努力不夠，但是我們直到最後一刻，也都堅持沒有在黑箱文件上簽字。</p>
+        <p>第二，桃園美光工會11月17日（二）當天，會前往民進黨中央黨部召開記者會，除了向全台灣所有科技業工程師道歉，沒辦法成功爭取分潤制度外，也要表達對於這次爭取過程中，執政黨各種荒腔走板的作法的失望與憤怒，你們包庇資方和少數幹部簽署背叛台灣勞工的協議在先，檢調單位快速配合打壓在後。</p>
+        <p>賴清德總統，你讓台灣科技業工程師徹底失望，我們也呼籲所有不甘心的桃園、台中工會會員，那天一起來民進黨中央黨部前，告訴台灣社會，台中美光的勞資爭議根本沒解決、桃園會員遭受嚴酷打壓！</p>
+        <p>第三，對於桃園市政府在工會會員奮戰堅持那麼久的狀況中，至今還是沒發給「美光關係企業工會」成立證書，我們真的是非常遺憾，這份證書到現在已經是台中超過6千名會員申請加入的期待，但因為沒有這份成立證書，美光桃園工會的會員只能在網路和輿論上承受作為公司打手的網紅帶風向、攻擊說「台中已經解決，只剩桃園在鬧」，或是各種宣稱未來員工會拿到600萬的假新聞，我們相信，這些無聊的口水和謊言終會有被拆穿的一天，但希望這天來臨前，美光基層員工可以有個涵蓋台中、桃園、苗栗和台南等全台美光勞工的自主工會。</p>
+        <p>再過兩個星期，11月28日那天，將會有很多政治人物選上心目中渴望的高位，開啟他們步步高升的政治前途，但是同時間，在台灣各地的無塵室裡、產線上、在需要熬夜開跨國會議的視窗中，一群又一群努力創造台灣半導體奇蹟與AI獲利的工程師和技術員，面對跨國財團與賴清德政府的阻擋，仍無法享有合理的分潤制度。</p>
+        <p>最後，我們想對全台灣的工程師與勞工說，在這麼嚴峻的政治現實和勞資力量差距下，我們的確被逼得只能暫時低頭，但未來的某一天，透過我們的團結，我們或許真的能抬頭挺胸，有尊嚴地與資方對等協商，爭取合理分潤！直到那一天到來之前，請大家和我們一起繼續向前走！</p>
+        <p>#戰鬥協商</p>
+        <p class="contact">聯絡人：美光桃園工會秘書長 魏豫綾</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="global" class="alt">
+  <div class="wrap">
+    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">致全球美光夥伴</h2><p data-i18n="global.sub">你可能在博伊西的研發中心、廣島的晶圓廠、新加坡的 NAND 廠，或檳城的封測廠。我們做的是同一顆晶片，面對的是同一家公司。台灣同事爭取的透明分潤與不被報復的權利，和每一座廠的員工都有關。</p></div>
+    <div class="sites">
+      <div class="site home"><i></i><span data-i18n="gs.tw"><b>台灣</b>台中・桃園</span></div>
+      <div class="site"><i></i><span data-i18n="gs.us"><b>美國</b>博伊西・馬納薩斯</span></div>
+      <div class="site"><i></i><span data-i18n="gs.jp"><b>日本</b>廣島</span></div>
+      <div class="site"><i></i><span data-i18n="gs.sg"><b>新加坡</b>Singapore</span></div>
+      <div class="site"><i></i><span data-i18n="gs.my"><b>馬來西亞</b>檳城</span></div>
+      <div class="site"><i></i><span data-i18n="gs.cn"><b>中國</b>西安</span></div>
+      <div class="site"><i></i><span data-i18n="gs.in"><b>印度</b>薩南德</span></div>
+    </div>
+    <div class="steps3">
+      <div class="panel"><div class="num">1</div><h3 data-i18n="global.a1h">簽下名字，選你的廠區</h3><p data-i18n="global.a1p">簽署人名單會顯示你來自哪個國家。對台灣同事來說，海外同事的一個簽名，就是「你們並不孤單」最直接的證明。</p></div>
+      <div class="panel"><div class="num">2</div><h3 data-i18n="global.a2h">分享到你的團隊群組</h3><p data-i18n="global.a2p">本頁有繁中、简中、English、日本語、한국어五種語言，右上角就能切換。請用私人帳號分享。</p></div>
+      <div class="panel"><div class="num">3</div><h3 data-i18n="global.a3h">用你的語言說一句話</h3><p data-i18n="global.a3p">在簽名留言寫一句聲援，或複製下面的訊息貼到社群，加上 #StandWithMicronWorkers。</p></div>
+    </div>
+    <div class="msgcard">
+      <div class="lab" data-i18n="global.msglab">聲援訊息範本</div>
+      <p id="solMsg" data-i18n="global.msg">我支持台灣美光員工。做出晶片的人，應該得到透明、公平的分潤，也有權組織工會而不被報復。 #StandWithMicronWorkers #戰鬥協商</p>
+      <div class="acts"><button class="btn p sm" type="button" id="copyMsg" data-i18n="global.copy">複製聲援訊息</button><button class="btn g sm" type="button" data-share data-i18n="hero.share">分享</button></div>
+    </div>
+  </div>
+</section>
+
 <section id="facts">
   <div class="wrap">
-    <div class="sh"><div class="tag" data-i18n="facts.tag">Background</div><h2 data-i18n="facts.title">事件經過</h2><p data-i18n="facts.sub">依公開報導整理；細節以原始報導為準，各媒體之間偶有出入。</p></div>
+    <div class="sh"><div class="tag" data-i18n="facts.tag">Background</div><h2 data-i18n="facts.title">事件經過</h2><p data-i18n="facts.sub">依公開報導與工會聲明整理；細節以原始報導為準，各媒體之間偶有出入。</p></div>
     <div class="stats">
       <div class="stat"><b>99<small>%</small></b><span data-i18n="stat.1">桃園工會罷工權投票同意率（1,994／2,012 票，10/7 公布）</span></div>
       <div class="stat"><b>15<small>%</small></b><span data-i18n="stat.2">工會提出：以營業利益的 15% 作為員工分潤</span></div>
       <div class="stat"><b>1,633</b><span data-i18n="stat.3">10/22 罷工現場投票反對公司方案的會員人數（約 99%）</span></div>
-      <div class="stat"><b>4.4<small>%</small></b><span data-i18n="stat.4">工會試算的美光員工分潤比例；三星約 12%、SK 海力士約 10%</span></div>
+      <div class="stat"><b>6,000<small>+</small></b><span data-i18n="stat.4">工會表示申請加入「美光關係企業工會」的台中會員人數，成立證書尚未核發</span></div>
     </div>
     <div class="twocol">
       <div class="panel">
         <h3 data-i18n="tl.title">時間線</h3>
         <p class="s" data-i18n="tl.s">2026 年</p>
         <ol class="tl">
-          <li><time data-i18n="tl.1d">9 月底–10 月初</time><h4 data-i18n="tl.1h">工會調查與罷工投票</h4><p data-i18n="tl.1p">工會內部調查顯示逾八成參與會員支持罷工；桃園工會隨後辦理罷工權投票。</p></li>
-          <li class="hot"><time data-i18n="tl.2d">10 月 7 日</time><h4 data-i18n="tl.2h">桃園工會取得罷工權</h4><p data-i18n="tl.2p">投票 2,012 人，同意 1,994 票、不同意 14 票，投票率 89.1%。美光回應尊重員工權利並持續溝通。</p></li>
-          <li class="hot"><time data-i18n="tl.3d">10 月 21 日</time><h4 data-i18n="tl.3h">台中工會簽署協議</h4><p data-i18n="tl.3p">撤回原定 10/22 的調解。報導指出內容包括季度分潤（一半現金、一半股票）、調整 IPP 上限、調薪、勞退提撥率由 8% 提高到 10%；協議受保密條款約束。</p></li>
-          <li class="hot"><time data-i18n="tl.4d">10 月 22 日</time><h4 data-i18n="tl.4h">桃園工會幹部罷工 24 小時</h4><p data-i18n="tl.4p">11 名幹部罷工一天，台灣美光董事長出面協商；現場會員投票 1,633 人反對公司方案（約 99%）。</p></li>
-          <li><time data-i18n="tl.5d">10 月下旬</time><h4 data-i18n="tl.5h">協議效力受質疑</h4><p data-i18n="tl.5p">部分台中會員表示事前不知情並發起撤銷授權連署；報導指協議生效後 3 年內不得罷工。勞動部表示屬一般性協議，有疑義可循民事訴訟處理。</p></li>
-          <li><time data-i18n="tl.6d">其後</time><h4 data-i18n="tl.6h">協商仍在進行</h4><p data-i18n="tl.6p">《彭博》報導美光暫緩桃園擴廠計畫。截至本頁整理時，桃園工會與公司尚未公開達成協議。</p></li>
+          <li class="hot"><time data-i18n="tl.2d">10 月 7 日</time><h4 data-i18n="tl.2h">桃園工會取得罷工權</h4><p data-i18n="tl.2p">投票 2,012 人，同意 1,994 票、不同意 14 票，投票率 89.1%。核心訴求是與營業利益連動的分潤制度。</p></li>
+          <li class="hot"><time data-i18n="tl.3d">10 月 21 日</time><h4 data-i18n="tl.3h">台中工會簽署協議</h4><p data-i18n="tl.3p">撤回原定 10/22 的調解。報導指出內容包括季度分潤（一半現金、一半股票）、調整 IPP 上限、調薪、勞退提撥率由 8% 提高到 10%；協議受保密條款約束，報導指生效後 3 年內不得罷工。</p></li>
+          <li class="hot"><time data-i18n="tl.4d">10 月 22 日</time><h4 data-i18n="tl.4h">桃園工會幹部罷工 24 小時</h4><p data-i18n="tl.4p">11 名幹部罷工一天；現場會員投票 1,633 人反對公司方案（約 99%）。</p></li>
+          <li><time data-i18n="tl.5d">10 月下旬</time><h4 data-i18n="tl.5h">協議效力受質疑</h4><p data-i18n="tl.5p">部分台中會員表示事前不知情並發起撤銷授權連署。勞動部表示屬一般性協議，有疑義可循民事訴訟處理。《彭博》報導美光暫緩桃園擴廠計畫。</p></li>
+          <li><time data-i18n="tl.6d">11 月 6 日</time><h4 data-i18n="tl.6h">桃園市政府居中協商</h4><p data-i18n="tl.6p">雙方約定在公司獎金查詢系統公布後，於 11/17 進行第四次協商。工會表示，此後公司指稱有成員洩密並報案，檢調約談工會成員。</p></li>
+          <li class="hot"><time data-i18n="tl.7d">11 月 12 日</time><h4 data-i18n="tl.7h">工會公開信：承認失利、退出協商</h4><p data-i18n="tl.7p">工會宣布不參加 11/17 協商，改赴民進黨中央黨部召開記者會。美光發表聲明，否認要求員工簽約才能領獎金。</p></li>
+          <li><time data-i18n="tl.8d">11 月 17 日</time><h4 data-i18n="tl.8h">工會記者會（預定）</h4><p data-i18n="tl.8p">依工會公告，於民進黨中央黨部召開記者會。實際時間地點以工會公告為準。</p></li>
         </ol>
       </div>
       <div class="panel cmp">
@@ -408,8 +542,9 @@ footer p{margin:0;max-width:680px}
     <div class="sh"><div class="tag" data-i18n="safe.tag">Security notice</div><h2 data-i18n="safe.title">安全提醒</h2><p data-i18n="safe.sub">連署越多人，越容易出現冒用與假訊息。請保護自己。</p></div>
     <div class="safe">
       <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3 data-i18n="safe.1h">不會跟你要帳密</h3><p data-i18n="safe.1p">本站不會要求員工編號、公司帳號、密碼或身分證字號。任何自稱本站並索取這些資料的訊息都是假的。</p></div>
+      <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></svg></div><h3 data-i18n="safe.4h">用私人裝置參與</h3><p data-i18n="safe.4p">請用自己的手機與網路，不要用公司電腦、公司網路或公司信箱簽署與分享。</p></div>
       <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l6 0"/></svg></div><h3 data-i18n="safe.2h">不要外流機密</h3><p data-i18n="safe.2p">留言請勿包含公司內部文件、製程或客戶資訊，以免讓自己承擔不必要的法律風險。</p></div>
-      <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg></div><h3 data-i18n="safe.3h">以工會公告為準</h3><p data-i18n="safe.3p">罷工、集會等行動資訊，請以各工會官方管道的公告為準。本站只是聲援平台，不代表任何工會發言。</p></div>
+      <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg></div><h3 data-i18n="safe.3h">以工會公告為準</h3><p data-i18n="safe.3p">記者會、集會等行動資訊，請以工會官方管道的公告為準。本站只是聲援平台，不代表任何工會發言。</p></div>
     </div>
   </div>
 </section>
@@ -417,12 +552,14 @@ footer p{margin:0;max-width:680px}
 <section id="faq">
   <div class="wrap narrow">
     <div class="sh c"><div class="tag" data-i18n="faq.tag">Common questions</div><h2 data-i18n="faq.title">常見問題</h2></div>
-    <details><summary data-i18n="faq.1q">這是工會或美光公司的網站嗎？</summary><p data-i18n="faq.1a">都不是。這是支持者獨立製作的聲援頁面，與美光公司、桃園工會、台中工會皆無隸屬關係，也不代表任何一方發言。</p></details>
-    <details><summary data-i18n="faq.2q">簽了會不會被公司知道？</summary><p data-i18n="faq.2a">測試版的簽名只存在你自己的瀏覽器，不會上傳。正式開放後也建議使用暱稱，不要填寫可辨識身分的資訊；勾掉「顯示稱呼」就會以匿名支持者呈現。</p></details>
-    <details><summary data-i18n="faq.3q">台中工會不是已經簽協議了嗎？</summary><p data-i18n="faq.3a">是的，台中工會已於 10 月 21 日簽署協議，內容包括季度分潤與勞退提撥提高等。但部分會員表示事前不知情，協議效力也受到質疑；桃園工會則仍在協商中。我們支持所有美光勞工，也支持會員對協議內容的知情權。</p></details>
+    <details><summary data-i18n="faq.7q">工會不是已經宣布失利了嗎？為什麼還要連署？</summary><p data-i18n="faq.7a">工會說的是「這次」沒能成功，並表示未來會繼續努力。新增獎金是否附帶條件、會員是否遭到報復、分潤制度是否透明、跨廠區工會能否成立——這些問題都還在。社會的關注，是讓這些問題不被遺忘的最好方式。</p></details>
+    <details><summary data-i18n="faq.8q">我是海外美光員工，簽署安全嗎？</summary><p data-i18n="faq.8a">請使用私人裝置與網路，不要用公司信箱或帳號；稱呼可以用暱稱，或取消勾選以匿名顯示。表達支持是你的權利，但請勿分享任何公司內部資訊，並留意你所在國家的相關規定。</p></details>
+    <details><summary data-i18n="faq.1q">這是工會或美光公司的網站嗎？</summary><p data-i18n="faq.1a">都不是。這是支持者獨立製作的聲援頁面，與美光公司無隸屬關係，也不代表任何工會發言。工會公開信的內容為工會的立場。</p></details>
+    <details><summary data-i18n="faq.2q">簽了會不會被公司知道？</summary><p data-i18n="faq.2a">測試版的簽名只存在你自己的瀏覽器，不會上傳。正式開放後也建議使用暱稱，不要填寫可辨識身分的資訊；取消勾選「顯示稱呼」就會以匿名支持者呈現。</p></details>
+    <details><summary data-i18n="faq.3q">台中工會不是已經簽協議了嗎？</summary><p data-i18n="faq.3a">是的，台中工會已於 10 月 21 日簽署協議，內容包括季度分潤與勞退提撥提高等。但部分會員表示事前不知情，協議效力也受到質疑。我們支持所有美光勞工，也支持會員對協議內容的知情權。</p></details>
     <details><summary data-i18n="faq.4q">不是員工也能簽嗎？</summary><p data-i18n="faq.4a">可以。家屬、其他產業的勞工、學生與一般民眾都可以表達支持，簽名時請選擇正確的身分。</p></details>
     <details><summary data-i18n="faq.5q">簽署人的身分有經過驗證嗎？</summary><p data-i18n="faq.5a">沒有。身分為簽署者自行填寫，僅供參考；我們會移除明顯的假簽名與不當內容，但不保證每一筆的真實性。</p></details>
-    <details><summary data-i18n="faq.6q">資料有錯怎麼辦？</summary><p data-i18n="faq.6a">本頁資訊整理自公開新聞報導，若發現錯誤或有新進展，歡迎回報修正。所有說法以原始報導與當事方正式公告為準。</p></details>
+    <details><summary data-i18n="faq.6q">資料有錯怎麼辦？</summary><p data-i18n="faq.6a">本頁資訊整理自公開新聞報導與工會聲明，若發現錯誤或有新進展，歡迎回報修正。所有說法以原始報導與當事方正式公告為準。</p></details>
   </div>
 </section>
 
@@ -430,15 +567,18 @@ footer p{margin:0;max-width:680px}
   <div class="wrap narrow">
     <div class="sh"><div class="tag" data-i18n="src.tag">Sources</div><h2 data-i18n="src.title">資料來源</h2><p data-i18n="src.s">整理日期：2026 年 11 月 14 日。新聞標題保留原文。</p></div>
     <ul class="src">
+      <li><a href="https://tw.news.yahoo.com/%E6%8B%92%E7%B5%95%E5%8F%83%E5%8A%A0%E7%AC%AC%E5%9B%9B%E6%AC%A1%E5%8D%94%E5%95%86-%E7%BE%8E%E5%85%89%E6%A1%83%E5%9C%92%E5%B7%A5%E6%9C%83%E7%B5%A6%E6%9C%83%E5%93%A1%E5%92%8C%E7%A4%BE%E6%9C%83-%E5%B0%81%E5%85%AC%E9%96%8B%E4%BF%A1-032410544.html" target="_blank" rel="noopener">Yahoo 新聞：拒絕參加第四次協商 美光桃園工會給會員和社會一封公開信</a><span>2026/11/12</span></li>
+      <li><a href="https://tw.news.yahoo.com/%E7%BE%8E%E5%85%89%E6%A1%83%E5%9C%92%E5%B7%A5%E6%9C%83%E5%AE%A3%E5%B8%83%E4%B8%8D%E5%8F%83%E5%8A%A017%E6%97%A5%E5%8D%94%E5%95%86-%E5%85%AC%E5%8F%B8%E7%99%BC%E5%9B%9B%E9%BB%9E%E8%81%B2%E6%98%8E-%E5%90%A6%E8%AA%8D%E8%A6%81%E6%B1%82%E5%93%A1%E5%B7%A5%E7%B0%BD%E7%B4%84%E9%A0%98%E7%8D%8E%E9%87%91-152545688.html" target="_blank" rel="noopener">Yahoo 新聞：美光桃園工會宣布不參加17日協商！公司發四點聲明，否認要求員工簽約領獎金</a><span>2026/11/12</span></li>
+      <li><a href="https://www.chinatimes.com/realtimenews/20261112002320-260402" target="_blank" rel="noopener">中時新聞網：拋震撼彈！美光桃園工會認爭分潤失利 曝未來3動向</a><span>2026/11/12</span></li>
+      <li><a href="https://udn.com/news/story/7240/9873823" target="_blank" rel="noopener">聯合新聞網：美光桃園廠勞資爭議 工會宣布不參加17日協商</a><span>2026/11/12</span></li>
       <li><a href="https://cna.com.tw/news/afe/202610070247.aspx" target="_blank" rel="noopener">中央社：桃園廠工會取得罷工權 美光：尊重員工權利持續溝通</a><span>2026/10/07</span></li>
       <li><a href="https://statementdog.com/news/17837" target="_blank" rel="noopener">財報狗：美光桃園工會近 9 成會員投票挺罷工 要求建立獲利分潤機制</a></li>
       <li><a href="https://www.cw.com.tw/article/5143092" target="_blank" rel="noopener">天下雜誌：同業分潤比例比較</a></li>
-      <li><a href="https://www.ctee.com.tw/news/20261007701552-430501" target="_blank" rel="noopener">工商時報：美光董事會面臨最後通牒！台灣工會高票取得罷工權</a></li>
       <li><a href="https://news.cnyes.com/news/id/6634988" target="_blank" rel="noopener">鉅亨網：台灣美光與台中工會簽署協議 撤回 10/22 調解程序</a></li>
       <li><a href="https://technews.tw/?p=1641136" target="_blank" rel="noopener">科技新報：台中協議內容與兩工會分歧</a></li>
-      <li><a href="https://news.pts.org.tw/article/832461" target="_blank" rel="noopener">公視新聞：美光勞資協商兩地不同調 台中簽協議、桃園發動罷工</a></li>
       <li><a href="https://cna.com.tw/news/afe/202610220037.aspx" target="_blank" rel="noopener">中央社：美光與桃園工會協商未達成共識 工會幹部罷工 1 天</a><span>2026/10/22</span></li>
       <li><a href="https://udn.com/news/story/7269/9842427" target="_blank" rel="noopener">聯合新聞網：美光工會質疑勞資和平協議合法性 勞動部：有疑慮可走民事訴訟</a></li>
+      <li><a href="https://www.facebook.com/share/1AEq91rPqw/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook：美光相關貼文</a></li>
       <li><a href="https://zh.wikipedia.org/zh-tw/2026%E5%B9%B4%E8%87%BA%E7%81%A3%E7%BE%8E%E5%85%89%E5%8B%9E%E8%B3%87%E7%88%AD%E8%AD%B0" target="_blank" rel="noopener">維基百科：2026年臺灣美光勞資爭議</a><span data-i18n="src.wiki">次級整理，僅供延伸閱讀</span></li>
     </ul>
   </div>
@@ -447,13 +587,15 @@ footer p{margin:0;max-width:680px}
 
 <footer>
   <div class="wrap">
-    <p data-i18n="foot.text">挺光連署 Stand with Micron Workers 為獨立聲援頁面，與美光科技（Micron Technology）及其台灣子公司、任何工會皆無隸屬關係。「美光」「Micron」為其所有者之商標，本站僅用於指稱事件。本頁不構成法律意見。</p>
+    <p data-i18n="foot.text">挺光連署 Stand with Micron Workers 為獨立聲援頁面，與美光科技（Micron Technology）及其子公司皆無隸屬關係，也不代表任何工會發言。「美光」「Micron」為其所有者之商標，本站僅用於指稱事件。本頁不構成法律意見。</p>
     <p><a href="/index.html" data-i18n="foot.back">← 返回光光猴平台</a></p>
   </div>
 </footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
-<script src="i18n.js?v=1"></script>
-<script src="app.js?v=1"></script>
+<script src="i18n.js?v=2"></script>
+<script src="i18n-zh-hans.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
+
 </html>
