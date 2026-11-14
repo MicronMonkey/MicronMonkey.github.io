@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-i18n="meta.title">致台灣美光與 Micron 董事會的公開信｜挺光連署 Stand with Micron Workers</title>
+<meta name="description" data-i18n-content="meta.desc" content="支持台灣美光勞工的獨立公開信：要求與獲利連動、公開透明的分潤制度，並尊重工會會員的知情權與協商權。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Stand with Micron Workers">
+<meta property="og:title" content="挺光連署｜Stand with Micron Workers">
+<meta property="og:description" content="AI 記憶體賺翻了，做出晶片的人也該分得到。一起簽署支持台灣美光勞工的公開信。">
+<meta property="og:url" content="https://micronmonkey.github.io/stand-with-micron-workers/">
+<meta property="og:image" content="https://micronmonkey.github.io/stand-with-micron-workers/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#09060f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c3aed'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='white' stroke-width='2.5'/%3E%3Cpath d='M11 16h10M16 11v10' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09060f; --bg2:#0f0a18; --card:#151021; --card2:#1c1530; --ink:#0c0814;
+  --line:#2a2040; --line2:#463466;
+  --fg:#f2edfb; --mut:#b5a9cd; --dim:#82769b;
+  --pu:#8b5cf6; --pu2:#a78bfa; --pu3:#ddd6fe; --vio:#7c3aed; --mag:#d946ef;
+  --r:16px;
+  --sans:"Inter","Noto Sans TC",system-ui,"PingFang TC","Microsoft JhengHei","Hiragino Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --serif:"Noto Serif TC","Songti TC","Hiragino Mincho ProN","AppleMyungjo",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--pu3)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.narrow{max-width:760px;margin:0 auto}
+@media(max-width:560px){.wrap{padding:0 16px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;z-index:99;background:var(--pu);color:#fff;padding:8px 14px;border-radius:8px}
+.skip:focus{top:12px}
+
+/* ── top bar ── */
+.nav{position:sticky;top:0;z-index:40;background:rgba(9,6,15,.8);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:12px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:800;white-space:nowrap;min-width:0}
+.brand svg{flex:none}
+.brand span{overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;font:600 10px/1 var(--sans);letter-spacing:2.5px;color:var(--dim);text-transform:uppercase;margin-top:3px}
+.links{display:flex;gap:2px;list-style:none;margin:0 0 0 auto;padding:0}
+.links a{display:block;padding:7px 12px;border-radius:999px;color:var(--mut);text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap}
+.links a:hover{color:var(--fg);background:var(--card)}
+.tools{display:flex;align-items:center;gap:8px;margin-left:8px}
+@media(max-width:940px){.links{display:none}.tools{margin-left:auto}}
+@media(max-width:420px){.nav .btn.sm{display:none}}
+
+/* language dropdown */
+.lang{position:relative}
+.lang>button{display:flex;align-items:center;gap:7px;height:38px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--card);color:var(--fg);font:600 14px var(--sans);cursor:pointer;white-space:nowrap}
+.lang>button:hover{border-color:var(--pu2)}
+.lang>button svg{flex:none}
+.lang>button .chev{transition:transform .2s}
+.lang>button[aria-expanded=true] .chev{transform:rotate(180deg)}
+.lang ul{position:absolute;right:0;top:calc(100% + 8px);min-width:230px;margin:0;padding:6px;list-style:none;background:var(--card2);border:1px solid var(--line2);border-radius:14px;box-shadow:0 18px 50px #000b;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.18s}
+.lang ul.open{opacity:1;visibility:visible;transform:none}
+.lang li button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:0;border-radius:9px;background:none;color:var(--fg);font:500 14px var(--sans);cursor:pointer;text-align:left}
+.lang li button span,.lang li button small{white-space:nowrap}
+.lang li button small{color:var(--dim);font-size:12px;margin-left:auto}
+.lang li button[aria-checked=true] small{display:none}
+.lang li button:hover,.lang li button:focus-visible{background:#8b5cf622;outline:none}
+.lang li button[aria-checked=true]{color:var(--pu3)}
+.lang li button[aria-checked=true]::after{content:"✓";color:var(--pu2);font-weight:800}
+@media(max-width:560px){.lang>button .lname{display:none}.brand small{display:none}}
+html[lang=en] .brand small{display:none}
+html[lang=en] .hero h1{font-size:clamp(32px,4.8vw,56px);letter-spacing:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:12px 24px;font:700 15px var(--sans);cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn.p{background:linear-gradient(135deg,var(--pu),var(--vio) 55%,var(--mag));color:#fff;box-shadow:0 10px 30px #7c3aed55}
+.btn.p:hover{box-shadow:0 12px 40px #a855f799}
+.btn.g{background:transparent;color:var(--fg);border-color:var(--line2)}
+.btn.g:hover{background:var(--card);border-color:var(--pu2)}
+.btn.sm{padding:8px 16px;font-size:14px}
+.btn[disabled]{opacity:.6;cursor:wait}
+:focus-visible{outline:3px solid var(--pu2);outline-offset:2px}
+
+/* ── hero ── */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);padding:72px 0 80px}
+.hero::before{content:"";position:absolute;inset:-30% -20% auto;height:760px;background:radial-gradient(ellipse at 25% 30%,#7c3aed4d,transparent 60%),radial-gradient(ellipse at 85% 0%,#d946ef2e,transparent 55%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero{padding:48px 0 60px}.hero .wrap{grid-template-columns:1fr;gap:28px}.hero .art{order:-1;max-width:260px;margin:0 auto}}
+@media(max-width:560px){.hero .art{max-width:170px}}
+.kick{display:inline-flex;align-items:center;gap:9px;font:600 12px var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--pu3);border:1px solid var(--line2);background:#1c153099;padding:6px 14px;border-radius:999px}
+.kick i{width:7px;height:7px;border-radius:50%;background:var(--mag);box-shadow:0 0 10px var(--mag);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{font:900 clamp(34px,5.6vw,64px)/1.15 var(--serif);margin:22px 0 18px;letter-spacing:.5px}
+.hero h1 .nw{white-space:nowrap}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--pu2),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:clamp(16px,2vw,18px);color:var(--mut);margin:0 0 28px;max-width:600px}
+.counter{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:18px 22px;margin:0 0 24px;max-width:600px}
+.counter b{font:800 clamp(34px,5vw,46px)/1 var(--sans);font-variant-numeric:tabular-nums;color:#fff}
+.counter .lab{font-size:14px;color:var(--mut);line-height:1.5}
+.counter .live{display:inline-flex;align-items:center;gap:6px;font:700 11px var(--sans);letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:99px;margin-top:4px}
+.counter .live.on{color:#86efac;background:#22c55e1a;border:1px solid #22c55e55}
+.counter .live.off{color:#fcd34d;background:#f59e0b1a;border:1px solid #f59e0b55}
+.counter .live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.counter .bar{flex:1 1 160px;min-width:140px}
+.counter .bar .t{height:8px;border-radius:99px;background:#ffffff10;overflow:hidden}
+.counter .bar .t i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--pu),var(--mag));transition:width 1s}
+.counter .bar small{display:block;margin-top:6px;color:var(--dim);font-size:12px}
+.acts{display:flex;flex-wrap:wrap;gap:12px}
+.hero .disc{margin:20px 0 0;font-size:13px;color:var(--dim);max-width:600px}
+.art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 60px #7c3aed40)}
+.art .spin{transform-origin:200px 200px;animation:spin 90s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── sections ── */
+section{padding:88px 0;border-bottom:1px solid var(--line)}
+@media(max-width:560px){section{padding:60px 0}.paper{padding:26px 20px}.paper p,.paper li{font-size:16.5px;line-height:1.9}.paper ol{padding-left:1.2em}}
+html[lang=ko] body{word-break:keep-all}
+html[lang=ja] body{line-break:strict}
+section.alt{background:var(--bg2)}
+.sh{margin:0 0 36px}
+.sh.c{text-align:center}
+.sh.c p{margin-left:auto;margin-right:auto}
+.tag{font:700 12px var(--sans);letter-spacing:3px;color:var(--pu2);text-transform:uppercase}
+.sh h2{font:900 clamp(28px,4.2vw,42px)/1.3 var(--serif);margin:8px 0 10px}
+.sh p{color:var(--mut);max-width:660px;margin:0}
+
+/* letter (document style) */
+.paper{position:relative;background:linear-gradient(180deg,#171125,#120d1d);border:1px solid var(--line);border-radius:24px;padding:clamp(28px,6vw,64px);box-shadow:0 40px 100px #000a}
+.paper::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;border-radius:24px 24px 0 0;background:linear-gradient(90deg,var(--pu),var(--mag))}
+.paper .head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:600 12px var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--dim);padding-bottom:18px;margin-bottom:28px;border-bottom:1px dashed var(--line2)}
+.paper h2{font:900 clamp(24px,3.6vw,34px)/1.4 var(--serif);margin:0 0 22px}
+.paper p,.paper li{font:500 17.5px/2 var(--serif);color:#e7e0f5}
+.paper p{margin:0 0 20px}
+.paper ol{margin:4px 0 24px;padding-left:1.4em}
+.paper li{margin:0 0 14px}
+.paper li::marker{color:var(--pu2);font-family:var(--sans);font-weight:800}
+.paper b{color:#fff}
+.paper .sig{margin-top:34px;padding-top:22px;border-top:1px dashed var(--line2);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.paper .sig p{margin:0;font-style:italic;color:var(--mut)}
+
+/* sign + signers */
+.signgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:900px){.signgrid{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,32px)}
+.panel h3{margin:0 0 4px;font-size:20px}
+.panel .s{color:var(--dim);font-size:13px;margin:0 0 18px}
+.note{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.65;margin:0 0 20px}
+.note.warn{background:#f59e0b12;border:1px solid #f59e0b55;color:#fde68a}
+.note.info{background:#8b5cf612;border:1px solid #8b5cf655;color:var(--pu3)}
+.f{margin-bottom:16px}
+.f label,.f .lb{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.f label small{font-weight:400;color:var(--dim);margin-left:6px}
+input[type=text],input[type=search],select,textarea{width:100%;background:var(--ink);border:1px solid var(--line2);color:var(--fg);border-radius:11px;padding:12px 14px;font:16px var(--sans)}
+input::placeholder,textarea::placeholder{color:#6f6488}
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a78bfa' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+textarea{min-height:100px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row2{grid-template-columns:1fr}}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mut);margin:8px 0 10px;cursor:pointer}
+.chk input{margin-top:5px;width:16px;height:16px;accent-color:var(--pu);flex:none}
+.err{color:#fda4af;font-size:14px;min-height:1.4em;margin:4px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chips button{border:1px solid var(--line2);background:transparent;color:var(--mut);font:600 13px var(--sans);min-height:36px;padding:6px 14px;border-radius:99px;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--pu);border-color:var(--pu);color:#fff}
+.sigs{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;max-height:520px;overflow:auto;overscroll-behavior:contain}
+.sigs li{background:var(--ink);border:1px solid var(--line);border-radius:13px;padding:13px 15px}
+.sigs .who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700}
+.badge{font:600 11px var(--sans);padding:2px 9px;border-radius:99px;background:#8b5cf622;color:var(--pu3);border:1px solid #8b5cf655}
+.badge.alt{background:#d946ef1a;color:#f5d0fe;border-color:#d946ef55}
+.sigs .msg{margin:6px 0 0;color:var(--mut);font-size:14px;line-height:1.65;word-break:break-word}
+.sigs .when{font-size:12px;color:var(--dim);font-weight:400;margin-left:auto}
+.empty{color:var(--dim);font-size:14px;border:1px dashed var(--line2);border-radius:12px;padding:22px;text-align:center}
+.panel .acts{margin-top:16px}
+
+/* facts */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:var(--r);padding:22px 20px}
+.stat b{display:block;font:800 clamp(30px,4vw,42px)/1.1 var(--sans);color:#fff;font-variant-numeric:tabular-nums}
+.stat b small{font-size:.5em;color:var(--pu2);margin-left:2px}
+.stat span{display:block;margin-top:10px;font-size:13.5px;line-height:1.6;color:var(--mut)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;align-items:start}
+@media(max-width:900px){.twocol{grid-template-columns:1fr}}
+.cmp .row{display:grid;grid-template-columns:minmax(90px,130px) 1fr 52px;align-items:center;gap:12px;margin:14px 0}
+.cmp label{font-size:14px;color:var(--mut)}
+.cmp .t{height:14px;background:#ffffff0d;border-radius:99px;overflow:hidden}
+.cmp .t i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5b21b6,var(--pu2))}
+.cmp .me .t i{background:linear-gradient(90deg,#86198f,var(--mag))}
+.cmp .ask .t i{background:repeating-linear-gradient(45deg,var(--pu2) 0 6px,var(--vio) 6px 12px)}
+.cmp b{font-variant-numeric:tabular-nums;text-align:right}
+.tl{position:relative;list-style:none;margin:0;padding:0 0 0 28px}
+.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--pu),var(--line))}
+.tl li{position:relative;margin:0 0 22px}
+.tl li:last-child{margin:0}
+.tl li::before{content:"";position:absolute;left:-27px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--pu2)}
+.tl li.hot::before{border-color:var(--mag);box-shadow:0 0 12px var(--mag)}
+.tl time{font:700 13px var(--sans);color:var(--pu2);letter-spacing:.5px}
+.tl h4{margin:2px 0 4px;font-size:16.5px}
+.tl p{margin:0;color:var(--mut);font-size:14.5px;line-height:1.7}
+
+/* safety */
+.safe{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:860px){.safe{grid-template-columns:1fr}}
+@media(max-width:560px){.cmp .row{grid-template-columns:1fr 52px;gap:6px 12px}.cmp .row label{grid-column:1/-1}}
+.safe>div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.safe .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:#8b5cf61f;border:1px solid #8b5cf655;margin-bottom:12px}
+.safe h3{margin:0 0 6px;font-size:17px}
+.safe p{margin:0;color:var(--mut);font-size:15px}
+
+/* faq */
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 10px}
+summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--pu2);font-size:24px;line-height:1;font-weight:400;flex:none}
+details[open] summary::after{content:"−"}
+details p{margin:0;padding:0 22px 20px;color:var(--mut)}
+
+.src{list-style:none;margin:0;padding:0}
+.src li{padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
+.src li span{display:block;color:var(--dim);font-size:13px}
+footer{padding:44px 0 64px;color:var(--dim);font-size:13px;line-height:1.8}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:flex-start}
+footer p{margin:0;max-width:680px}
+
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);transform:translateX(-50%) translateY(20px);background:var(--pu);color:#fff;font-weight:700;padding:11px 20px;border-radius:999px;opacity:0;transition:.3s;pointer-events:none;z-index:60;box-shadow:0 10px 30px #0009;max-width:calc(100vw - 32px);text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#letter" data-i18n="nav.skip">跳到公開信</a>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#bg1)"/><circle cx="16" cy="16" r="8.5" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M11.5 16h9M16 11.5v9" stroke="#fff" stroke-width="1.8"/><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs></svg>
+      <span><span data-i18n="brand.name">挺光連署</span><small>Stand with Micron Workers</small></span>
+    </a>
+    <ul class="links">
+      <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
+      <li><a href="#signers" data-i18n="nav.signers">簽署人</a></li>
+      <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
+    </ul>
+    <div class="tools">
+      <a class="btn p sm" href="#sign" data-i18n="nav.sign">簽署</a>
+      <div class="lang" id="lang">
+        <button type="button" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.8 3 2.8 16 0 19M12 2.5c-2.8 3-2.8 16 0 19"/></svg>
+          <span class="lname" id="langName">繁體中文</span>
+          <svg class="chev" width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          <span class="sr" data-i18n="lang.label">選擇語言</span>
+        </button>
+        <ul id="langMenu" role="menu" aria-labelledby="langBtn"></ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="kick"><i></i><span data-i18n="hero.kick">Open Letter・公開信</span></span>
+      <h1 data-i18n="hero.title">致台灣美光與 Micron 董事會：<br><em>請站在員工這一邊</em></h1>
+      <p class="sub" data-i18n="hero.sub">AI 帶動記憶體大賺，做出這些晶片的，是在無塵室裡輪班的台灣員工。我們支持台灣美光員工爭取與獲利連動、公開透明的分潤制度，也支持工會會員知道自己被代表簽下了什麼。</p>
+      <div class="counter" aria-live="polite">
+        <div><b id="heroCount">0</b></div>
+        <div class="lab"><span data-i18n="count.unit">份簽名</span><br><span class="live off" id="liveTag" data-i18n="count.local">本機示範</span></div>
+        <div class="bar"><div class="t"><i id="goalBar"></i></div><small id="goalTxt"></small></div>
+      </div>
+      <div class="acts">
+        <a class="btn p" href="#sign" data-i18n="hero.cta">簽署公開信</a>
+        <a class="btn g" href="#letter" data-i18n="hero.read">閱讀全文</a>
+        <button class="btn g" type="button" data-share data-i18n="hero.share">分享</button>
+      </div>
+      <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司及任何工會皆無隸屬關係。數字取自公開新聞報導，見頁尾資料來源。</p>
+    </div>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <defs>
+          <radialGradient id="wf" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#3b2a63"/><stop offset=".55" stop-color="#1d1433"/><stop offset="1" stop-color="#0d0918"/></radialGradient>
+          <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c4b5fd"/><stop offset=".5" stop-color="#7c3aed"/><stop offset="1" stop-color="#d946ef"/></linearGradient>
+          <pattern id="die" width="22" height="22" patternUnits="userSpaceOnUse" x="2" y="2"><rect x="1.5" y="1.5" width="19" height="19" rx="2" fill="#8b5cf614" stroke="#a78bfa40" stroke-width=".8"/></pattern>
+          <clipPath id="cw"><circle cx="200" cy="200" r="158"/></clipPath>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#d946ef" stop-opacity=".55"/><stop offset="1" stop-color="#d946ef" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="196" fill="none" stroke="#a78bfa22" stroke-dasharray="2 8"/>
+        <g class="spin">
+          <circle cx="200" cy="200" r="170" fill="url(#wf)" stroke="url(#rim)" stroke-width="3"/>
+          <path d="M188 30h24l-4 8h-16z" fill="#09060f"/>
+          <g clip-path="url(#cw)"><rect width="400" height="400" fill="url(#die)"/>
+            <g fill="#a78bfa"><rect x="157" y="135" width="19" height="19" rx="2" opacity=".55"/><rect x="223" y="179" width="19" height="19" rx="2" opacity=".4"/><rect x="113" y="223" width="19" height="19" rx="2" opacity=".35"/><rect x="267" y="245" width="19" height="19" rx="2" opacity=".5"/><rect x="201" y="289" width="19" height="19" rx="2" opacity=".3"/><rect x="245" y="91" width="19" height="19" rx="2" opacity=".35"/></g>
+          </g>
+        </g>
+        <circle cx="200" cy="200" r="86" fill="url(#glow)"/>
+        <g transform="translate(200 200)">
+          <rect x="-46" y="-46" width="92" height="92" rx="16" fill="#120c1f" stroke="url(#rim)" stroke-width="2.5"/>
+          <path d="M0 24C-6 19-26 7-26-8c0-9 7-15 14-15 5 0 9 3 12 7 3-4 7-7 12-7 7 0 14 6 14 15C26 7 6 19 0 24z" fill="url(#rim)"/>
+          <path d="M-13-8c0-4 3-6 6-6" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <g stroke="#a78bfa66" stroke-width="2"><path d="M154 186h-30M154 200h-40M154 214h-30M246 186h30M246 200h40M246 214h30M186 154v-30M200 154v-40M214 154v-30M186 246v30M200 246v40M214 246v30"/></g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="letter">
+  <div class="wrap narrow">
+    <article class="paper">
+      <div class="head"><span data-i18n="letter.label">Open Letter</span><span data-i18n="letter.date">2026 年 11 月</span></div>
+      <h2 data-i18n="letter.title">致台灣美光經營團隊與 Micron Technology 董事會的公開信</h2>
+      <p data-i18n="letter.p1">記憶體產業正迎來 AI 帶來的榮景。美光是台灣規模最大的外資企業之一，在桃園與台中的廠區，數千名員工日夜輪班，撐起了這波成長。</p>
+      <p data-i18n="letter.p2">今年十月，桃園工會以近九成會員、投票者約 99% 的同意取得罷工權；台中工會則在 10 月 21 日與公司簽下協議。同一家公司、相近的訴求，卻走向截然不同的結果，也讓許多會員在事後才知道協議的存在。</p>
+      <p data-i18n="letter.p3">我們不認為這是一場「員工對公司」的對抗，而是一個簡單的問題：<b>當公司賺得越多，做出產品的人是否也能透明、可預期地分享成果？</b>因此我們請求：</p>
+      <ol>
+        <li data-i18n="letter.d1"><b>建立與營業利益連動的分潤制度</b>，並公開計算方式，讓員工可以預期、可以驗證。</li>
+        <li data-i18n="letter.d2"><b>提升 IPP 績效獎金與股票獎酬的透明度</b>，說明分配標準，縮小高階主管與第一線員工之間難以理解的落差。</li>
+        <li data-i18n="letter.d3"><b>讓會員知情</b>：任何代表全體會員簽署的勞資協議，內容都應讓會員完整閱讀；保密條款不應讓會員無從得知自己的權利義務。</li>
+        <li data-i18n="letter.d4"><b>以誠意回到談判桌</b>，持續與桃園工會協商，並尊重勞工依法行使的協商與爭議權利，不因員工參與工會或罷工而有任何不利對待。</li>
+      </ol>
+      <p data-i18n="letter.p4">一家偉大的科技公司，不只靠製程與良率，也靠願意留下來的人。我們希望美光選擇站在員工這一邊。</p>
+      <div class="sig">
+        <p data-i18n="letter.sig">— 挺光連署全體簽署人</p>
+        <a class="btn p sm" href="#sign" data-i18n="letter.cta">加入簽署</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="signers" class="alt">
+  <div class="wrap">
+    <div class="sh c"><div class="tag" data-i18n="sign.tag">Sign the letter</div><h2 data-i18n="sign.title">簽署公開信</h2><p data-i18n="sign.sub">不需要員工編號，也請不要寫任何公司機密。身分為自行填寫，本站不做驗證。</p></div>
+    <div class="signgrid">
+      <form class="panel" id="sign" novalidate>
+        <h3 data-i18n="form.title">我要簽署</h3>
+        <p class="s" data-i18n="form.s">約 30 秒即可完成。</p>
+        <div class="note warn" id="modeNote" role="note"><span aria-hidden="true">⚠️</span><span data-i18n="form.demo"><b>測試版：</b>尚未連接共用資料庫，簽名只會存在你這台裝置的瀏覽器，不會送出或公開。</span></div>
+        <div class="f"><label for="nm"><span data-i18n="form.name">稱呼</span> <small data-i18n="form.name_h">可用暱稱</small></label><input id="nm" type="text" maxlength="40" autocomplete="nickname" data-i18n-ph="form.name_ph" placeholder="例如：桃園三班小陳"></div>
+        <div class="row2">
+          <div class="f"><label for="role" data-i18n="form.role">身分</label>
+            <select id="role"><option value="" data-i18n="form.role_ph">請選擇</option></select></div>
+          <div class="f"><label for="site"><span data-i18n="form.site">地區</span> <small data-i18n="form.opt">選填</small></label>
+            <select id="site"></select></div>
+        </div>
+        <div class="f"><label for="msg"><span data-i18n="form.msg">想說的話</span> <small data-i18n="form.msg_h">選填，最多 200 字</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea></div>
+        <label class="chk"><input id="pub" type="checkbox" checked><span data-i18n="form.pub">在簽署人名單顯示我的稱呼（未勾選則顯示為「匿名支持者」）</span></label>
+        <label class="chk"><input id="agree" type="checkbox"><span data-i18n="form.agree">我已閱讀公開信，並確認沒有填入個資或公司機密。</span></label>
+        <div class="err" id="err" aria-live="assertive"></div>
+        <button class="btn p" type="submit" id="submit" style="width:100%" data-i18n="form.submit">簽署公開信</button>
+      </form>
+
+      <div class="panel" aria-labelledby="sigTitle">
+        <h3 id="sigTitle" data-i18n="list.title">簽署人</h3>
+        <p class="s" id="listSub" data-i18n="list.sub_local">測試版：只顯示這台裝置上的簽名。</p>
+        <div class="chips" id="chips" role="group" data-i18n-aria="list.filter" aria-label="依身分篩選"></div>
+        <input type="search" id="q" data-i18n-ph="list.search" placeholder="搜尋稱呼或留言" data-i18n-aria="list.search" aria-label="搜尋稱呼或留言">
+        <ul class="sigs" id="sigs"></ul>
+        <div class="acts">
+          <button class="btn g sm" type="button" data-share data-i18n="list.share">分享給同事</button>
+          <button class="btn g sm" type="button" id="clear" data-i18n="list.clear">清除本機簽名</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="facts">
+  <div class="wrap">
+    <div class="sh"><div class="tag" data-i18n="facts.tag">Background</div><h2 data-i18n="facts.title">事件經過</h2><p data-i18n="facts.sub">依公開報導整理；細節以原始報導為準，各媒體之間偶有出入。</p></div>
+    <div class="stats">
+      <div class="stat"><b>99<small>%</small></b><span data-i18n="stat.1">桃園工會罷工權投票同意率（1,994／2,012 票，10/7 公布）</span></div>
+      <div class="stat"><b>15<small>%</small></b><span data-i18n="stat.2">工會提出：以營業利益的 15% 作為員工分潤</span></div>
+      <div class="stat"><b>1,633</b><span data-i18n="stat.3">10/22 罷工現場投票反對公司方案的會員人數（約 99%）</span></div>
+      <div class="stat"><b>4.4<small>%</small></b><span data-i18n="stat.4">工會試算的美光員工分潤比例；三星約 12%、SK 海力士約 10%</span></div>
+    </div>
+    <div class="twocol">
+      <div class="panel">
+        <h3 data-i18n="tl.title">時間線</h3>
+        <p class="s" data-i18n="tl.s">2026 年</p>
+        <ol class="tl">
+          <li><time data-i18n="tl.1d">9 月底–10 月初</time><h4 data-i18n="tl.1h">工會調查與罷工投票</h4><p data-i18n="tl.1p">工會內部調查顯示逾八成參與會員支持罷工；桃園工會隨後辦理罷工權投票。</p></li>
+          <li class="hot"><time data-i18n="tl.2d">10 月 7 日</time><h4 data-i18n="tl.2h">桃園工會取得罷工權</h4><p data-i18n="tl.2p">投票 2,012 人，同意 1,994 票、不同意 14 票，投票率 89.1%。美光回應尊重員工權利並持續溝通。</p></li>
+          <li class="hot"><time data-i18n="tl.3d">10 月 21 日</time><h4 data-i18n="tl.3h">台中工會簽署協議</h4><p data-i18n="tl.3p">撤回原定 10/22 的調解。報導指出內容包括季度分潤（一半現金、一半股票）、調整 IPP 上限、調薪、勞退提撥率由 8% 提高到 10%；協議受保密條款約束。</p></li>
+          <li class="hot"><time data-i18n="tl.4d">10 月 22 日</time><h4 data-i18n="tl.4h">桃園工會幹部罷工 24 小時</h4><p data-i18n="tl.4p">11 名幹部罷工一天，台灣美光董事長出面協商；現場會員投票 1,633 人反對公司方案（約 99%）。</p></li>
+          <li><time data-i18n="tl.5d">10 月下旬</time><h4 data-i18n="tl.5h">協議效力受質疑</h4><p data-i18n="tl.5p">部分台中會員表示事前不知情並發起撤銷授權連署；報導指協議生效後 3 年內不得罷工。勞動部表示屬一般性協議，有疑義可循民事訴訟處理。</p></li>
+          <li><time data-i18n="tl.6d">其後</time><h4 data-i18n="tl.6h">協商仍在進行</h4><p data-i18n="tl.6p">《彭博》報導美光暫緩桃園擴廠計畫。截至本頁整理時，桃園工會與公司尚未公開達成協議。</p></li>
+        </ol>
+      </div>
+      <div class="panel cmp">
+        <h3 data-i18n="cmp.title">員工分潤占營業利益比例</h3>
+        <p class="s" data-i18n="cmp.s">工會引述與試算（天下雜誌報導）；非官方財報數字。</p>
+        <div class="row"><label data-i18n="cmp.samsung">三星半導體</label><div class="t"><i style="width:80%"></i></div><b>12%</b></div>
+        <div class="row"><label data-i18n="cmp.hynix">SK 海力士</label><div class="t"><i style="width:66.7%"></i></div><b>10%</b></div>
+        <div class="row me"><label data-i18n="cmp.micron">美光（試算）</label><div class="t"><i style="width:29.3%"></i></div><b>4.4%</b></div>
+        <div class="row ask"><label data-i18n="cmp.ask">工會提案</label><div class="t"><i style="width:100%"></i></div><b>15%</b></div>
+        <div class="note info" style="margin:22px 0 0"><span aria-hidden="true">💡</span><span data-i18n="cmp.note">工會表示，爭議核心不是一次性獎金，而是長期、制度化、與獲利連動的分配方式。</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="safety" class="alt">
+  <div class="wrap">
+    <div class="sh"><div class="tag" data-i18n="safe.tag">Security notice</div><h2 data-i18n="safe.title">安全提醒</h2><p data-i18n="safe.sub">連署越多人，越容易出現冒用與假訊息。請保護自己。</p></div>
+    <div class="safe">
+      <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3 data-i18n="safe.1h">不會跟你要帳密</h3><p data-i18n="safe.1p">本站不會要求員工編號、公司帳號、密碼或身分證字號。任何自稱本站並索取這些資料的訊息都是假的。</p></div>
+      <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l6 0"/></svg></div><h3 data-i18n="safe.2h">不要外流機密</h3><p data-i18n="safe.2p">留言請勿包含公司內部文件、製程或客戶資訊，以免讓自己承擔不必要的法律風險。</p></div>
+      <div><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg></div><h3 data-i18n="safe.3h">以工會公告為準</h3><p data-i18n="safe.3p">罷工、集會等行動資訊，請以各工會官方管道的公告為準。本站只是聲援平台，不代表任何工會發言。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap narrow">
+    <div class="sh c"><div class="tag" data-i18n="faq.tag">Common questions</div><h2 data-i18n="faq.title">常見問題</h2></div>
+    <details><summary data-i18n="faq.1q">這是工會或美光公司的網站嗎？</summary><p data-i18n="faq.1a">都不是。這是支持者獨立製作的聲援頁面，與美光公司、桃園工會、台中工會皆無隸屬關係，也不代表任何一方發言。</p></details>
+    <details><summary data-i18n="faq.2q">簽了會不會被公司知道？</summary><p data-i18n="faq.2a">測試版的簽名只存在你自己的瀏覽器，不會上傳。正式開放後也建議使用暱稱，不要填寫可辨識身分的資訊；勾掉「顯示稱呼」就會以匿名支持者呈現。</p></details>
+    <details><summary data-i18n="faq.3q">台中工會不是已經簽協議了嗎？</summary><p data-i18n="faq.3a">是的，台中工會已於 10 月 21 日簽署協議，內容包括季度分潤與勞退提撥提高等。但部分會員表示事前不知情，協議效力也受到質疑；桃園工會則仍在協商中。我們支持所有美光勞工，也支持會員對協議內容的知情權。</p></details>
+    <details><summary data-i18n="faq.4q">不是員工也能簽嗎？</summary><p data-i18n="faq.4a">可以。家屬、其他產業的勞工、學生與一般民眾都可以表達支持，簽名時請選擇正確的身分。</p></details>
+    <details><summary data-i18n="faq.5q">簽署人的身分有經過驗證嗎？</summary><p data-i18n="faq.5a">沒有。身分為簽署者自行填寫，僅供參考；我們會移除明顯的假簽名與不當內容，但不保證每一筆的真實性。</p></details>
+    <details><summary data-i18n="faq.6q">資料有錯怎麼辦？</summary><p data-i18n="faq.6a">本頁資訊整理自公開新聞報導，若發現錯誤或有新進展，歡迎回報修正。所有說法以原始報導與當事方正式公告為準。</p></details>
+  </div>
+</section>
+
+<section id="sources" class="alt">
+  <div class="wrap narrow">
+    <div class="sh"><div class="tag" data-i18n="src.tag">Sources</div><h2 data-i18n="src.title">資料來源</h2><p data-i18n="src.s">整理日期：2026 年 11 月 14 日。新聞標題保留原文。</p></div>
+    <ul class="src">
+      <li><a href="https://cna.com.tw/news/afe/202610070247.aspx" target="_blank" rel="noopener">中央社：桃園廠工會取得罷工權 美光：尊重員工權利持續溝通</a><span>2026/10/07</span></li>
+      <li><a href="https://statementdog.com/news/17837" target="_blank" rel="noopener">財報狗：美光桃園工會近 9 成會員投票挺罷工 要求建立獲利分潤機制</a></li>
+      <li><a href="https://www.cw.com.tw/article/5143092" target="_blank" rel="noopener">天下雜誌：同業分潤比例比較</a></li>
+      <li><a href="https://www.ctee.com.tw/news/20261007701552-430501" target="_blank" rel="noopener">工商時報：美光董事會面臨最後通牒！台灣工會高票取得罷工權</a></li>
+      <li><a href="https://news.cnyes.com/news/id/6634988" target="_blank" rel="noopener">鉅亨網：台灣美光與台中工會簽署協議 撤回 10/22 調解程序</a></li>
+      <li><a href="https://technews.tw/?p=1641136" target="_blank" rel="noopener">科技新報：台中協議內容與兩工會分歧</a></li>
+      <li><a href="https://news.pts.org.tw/article/832461" target="_blank" rel="noopener">公視新聞：美光勞資協商兩地不同調 台中簽協議、桃園發動罷工</a></li>
+      <li><a href="https://cna.com.tw/news/afe/202610220037.aspx" target="_blank" rel="noopener">中央社：美光與桃園工會協商未達成共識 工會幹部罷工 1 天</a><span>2026/10/22</span></li>
+      <li><a href="https://udn.com/news/story/7269/9842427" target="_blank" rel="noopener">聯合新聞網：美光工會質疑勞資和平協議合法性 勞動部：有疑慮可走民事訴訟</a></li>
+      <li><a href="https://zh.wikipedia.org/zh-tw/2026%E5%B9%B4%E8%87%BA%E7%81%A3%E7%BE%8E%E5%85%89%E5%8B%9E%E8%B3%87%E7%88%AD%E8%AD%B0" target="_blank" rel="noopener">維基百科：2026年臺灣美光勞資爭議</a><span data-i18n="src.wiki">次級整理，僅供延伸閱讀</span></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="foot.text">挺光連署 Stand with Micron Workers 為獨立聲援頁面，與美光科技（Micron Technology）及其台灣子公司、任何工會皆無隸屬關係。「美光」「Micron」為其所有者之商標，本站僅用於指稱事件。本頁不構成法律意見。</p>
+    <p><a href="/index.html" data-i18n="foot.back">← 返回光光猴平台</a></p>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="i18n.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>

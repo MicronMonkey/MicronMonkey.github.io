@@ -1,0 +1,302 @@
+/* 挺光連署 — page logic: language switcher, signature form, signatory list. */
+(function () {
+  'use strict';
+
+  /* ── settings ──────────────────────────────────────────────
+   * endpoint: leave '' for the local test mode (signatures stay in this
+   * browser). Paste a deployed Google Apps Script web-app URL (see
+   * apps-script.gs in this folder) to collect real, shared signatures. */
+  var CONFIG = { endpoint: '', goal: 10000 };
+
+  var URL_ = 'https://micronmonkey.github.io/stand-with-micron-workers/';
+  var KEY = 'swmw.signatures.v1';
+  var SIGNED_KEY = 'swmw.signed.v1';
+  var LANG_KEY = 'swmw.lang';
+  var ROLES = ['current', 'former', 'family', 'semi', 'worker', 'student', 'public'];
+  var SITES = ['none', 'ty', 'tc', 'other', 'abroad'];
+  var FILTERS = [
+    { id: 'all', label: 'filter.all', match: null },
+    { id: 'current', label: 'role.current', match: ['current'] },
+    { id: 'former', label: 'role.former', match: ['former'] },
+    { id: 'family', label: 'role.family', match: ['family'] },
+    { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
+  ];
+  var LIVE = !!CONFIG.endpoint;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var LANGS = window.SWMW_LANGS || [{ code: 'zh-Hant', name: '繁體中文' }];
+  var DICT = window.SWMW_I18N || {};
+  var zh = DICT['zh-Hant'] = DICT['zh-Hant'] || {};
+  var lang = 'zh-Hant';
+  var state = { list: [], count: 0, filter: 'all', q: '' };
+
+  /* ── i18n ─────────────────────────────────────────────── */
+  // Read the Traditional Chinese baseline straight from the markup.
+  each('[data-i18n]', function (el) {
+    var k = el.getAttribute('data-i18n');
+    if (!(k in zh)) zh[k] = el.tagName === 'TITLE' ? el.textContent : el.innerHTML;
+  });
+  each('[data-i18n-ph]', function (el) { zh[el.getAttribute('data-i18n-ph')] = el.getAttribute('placeholder'); });
+  each('[data-i18n-aria]', function (el) { zh[el.getAttribute('data-i18n-aria')] = zh[el.getAttribute('data-i18n-aria')] || el.getAttribute('aria-label'); });
+  each('[data-i18n-content]', function (el) { zh[el.getAttribute('data-i18n-content')] = el.getAttribute('content'); });
+
+  function t(k, vars) {
+    var s = (DICT[lang] && DICT[lang][k] != null) ? DICT[lang][k] : (zh[k] != null ? zh[k] : k);
+    if (vars) for (var v in vars) s = s.replace('{' + v + '}', vars[v]);
+    return s;
+  }
+  function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
+  function supported(code) {
+    for (var i = 0; i < LANGS.length; i++) if (LANGS[i].code === code) return code;
+    return null;
+  }
+  function detect() {
+    var p = new URLSearchParams(location.search).get('lang');
+    if (supported(p)) return p;
+    try { var s = localStorage.getItem(LANG_KEY); if (supported(s)) return s; } catch (e) {}
+    var navs = navigator.languages || [navigator.language || ''];
+    for (var i = 0; i < navs.length; i++) {
+      var n = (navs[i] || '').toLowerCase();
+      if (n.indexOf('zh') === 0) return 'zh-Hant';
+      if (n.indexOf('ja') === 0) return 'ja';
+      if (n.indexOf('ko') === 0) return 'ko';
+      if (n.indexOf('en') === 0) return 'en';
+    }
+    return 'zh-Hant';
+  }
+
+  function applyLang(code, persist) {
+    lang = supported(code) || 'zh-Hant';
+    document.documentElement.lang = lang;
+    each('[data-i18n]', function (el) {
+      var k = el.getAttribute('data-i18n');
+      if (el.tagName === 'TITLE') { document.title = t(k); return; }
+      el.innerHTML = t(k);
+    });
+    each('[data-i18n-ph]', function (el) { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
+    each('[data-i18n-aria]', function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
+    each('[data-i18n-content]', function (el) { el.setAttribute('content', t(el.getAttribute('data-i18n-content'))); });
+    var cur = LANGS.filter(function (l) { return l.code === lang; })[0];
+    $('langName').textContent = cur ? cur.name : lang;
+    each('#langMenu button', function (b) { b.setAttribute('aria-checked', String(b.dataset.lang === lang)); });
+    fillSelects();
+    renderChips();
+    setMode();
+    renderCount(false);
+    renderList();
+    if (persist) {
+      try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+      var u = new URL(location.href);
+      if (lang === 'zh-Hant') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    }
+  }
+
+  /* ── language dropdown (top right) ────────────────────── */
+  var menu = $('langMenu'), btn = $('langBtn');
+  LANGS.forEach(function (l) {
+    var li = document.createElement('li'); li.setAttribute('role', 'none');
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'menuitemradio'); b.dataset.lang = l.code; b.lang = l.code;
+    b.innerHTML = '<span></span><small></small>';
+    b.firstChild.textContent = l.name;
+    b.lastChild.textContent = l.code === 'en' ? '' : l.en;
+    b.addEventListener('click', function () { applyLang(l.code, true); closeMenu(); btn.focus(); });
+    li.appendChild(b); menu.appendChild(li);
+  });
+  function openMenu() {
+    menu.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+    var cur = menu.querySelector('[aria-checked=true]') || menu.querySelector('button');
+    cur.focus();
+  }
+  function closeMenu() { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  btn.addEventListener('click', function () { menu.classList.contains('open') ? closeMenu() : openMenu(); });
+  document.addEventListener('click', function (e) { if (!$('lang').contains(e.target)) closeMenu(); });
+  menu.addEventListener('keydown', function (e) {
+    var items = Array.prototype.slice.call(menu.querySelectorAll('button'));
+    var i = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    else if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+    else if (e.key === 'End') { e.preventDefault(); items[items.length - 1].focus(); }
+    else if (e.key === 'Escape' || e.key === 'Tab') { closeMenu(); if (e.key === 'Escape') btn.focus(); }
+  });
+  btn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); openMenu(); } });
+
+  /* ── form selects / chips ─────────────────────────────── */
+  function fillSelects() {
+    var role = $('role'), site = $('site'), rv = role.value, sv = site.value;
+    role.length = 1; role.options[0].textContent = t('form.role_ph');
+    ROLES.forEach(function (r) { role.add(new Option(t('role.' + r), r)); });
+    role.value = rv;
+    site.length = 0;
+    SITES.forEach(function (s) { site.add(new Option(t('site.' + s), s === 'none' ? '' : s)); });
+    site.value = sv;
+  }
+  function renderChips() {
+    var box = $('chips'); box.textContent = '';
+    FILTERS.forEach(function (f) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = t(f.label);
+      b.setAttribute('aria-pressed', String(state.filter === f.id));
+      b.addEventListener('click', function () { state.filter = f.id; renderChips(); renderList(); });
+      box.appendChild(b);
+    });
+  }
+
+  /* ── data ─────────────────────────────────────────────── */
+  function loadLocal() {
+    try { var v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+  }
+  function saveLocal(list) { try { localStorage.setItem(KEY, JSON.stringify(list)); return true; } catch (e) { return false; } }
+  function hasSigned() { try { return localStorage.getItem(SIGNED_KEY) === '1'; } catch (e) { return false; } }
+
+  function refresh() {
+    if (!LIVE) {
+      state.list = loadLocal().slice().reverse();
+      state.count = state.list.length;
+      renderCount(true); renderList();
+      return Promise.resolve();
+    }
+    return fetch(CONFIG.endpoint + (CONFIG.endpoint.indexOf('?') < 0 ? '?' : '&') + 'action=list', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        state.count = +d.count || 0;
+        state.list = Array.isArray(d.signatures) ? d.signatures : [];
+        renderCount(true); renderList();
+      })
+      .catch(function () { /* keep previous state */ });
+  }
+
+  /* ── rendering ────────────────────────────────────────── */
+  var shown = 0;
+  function renderCount(animate) {
+    var target = state.count, el = $('heroCount');
+    var fmt = function (n) { return n.toLocaleString(lang === 'zh-Hant' ? 'zh-TW' : lang); };
+    if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches || target === shown) {
+      el.textContent = fmt(target); shown = target;
+    } else {
+      var from = shown, start = performance.now(), dur = 900;
+      (function step(now) {
+        var p = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(from + (target - from) * e));
+        if (p < 1) requestAnimationFrame(step); else shown = target;
+      })(start);
+    }
+    $('goalBar').style.width = Math.min(100, target / CONFIG.goal * 100) + '%';
+    $('goalTxt').textContent = t('count.goal', { n: fmt(CONFIG.goal) });
+  }
+  function setMode() {
+    var tag = $('liveTag'), note = $('modeNote');
+    tag.className = 'live ' + (LIVE ? 'on' : 'off');
+    tag.textContent = LIVE ? t('count.live') : t('count.local');
+    if (LIVE) {
+      note.className = 'note info';
+      note.lastElementChild.innerHTML = t('form.live');
+      $('listSub').textContent = t('list.sub_live');
+      $('clear').hidden = true;
+    }
+  }
+  function renderList() {
+    var ul = $('sigs'); ul.textContent = '';
+    var f = FILTERS.filter(function (x) { return x.id === state.filter; })[0];
+    var q = state.q.toLowerCase();
+    var items = state.list.filter(function (s) {
+      if (f && f.match && f.match.indexOf(s.role) < 0) return false;
+      if (q) {
+        var hay = ((s.pub !== false && s.name ? s.name : '') + ' ' + (s.msg || '')).toLowerCase();
+        if (hay.indexOf(q) < 0) return false;
+      }
+      return true;
+    }).slice(0, 300);
+    if (!items.length) {
+      var e = document.createElement('li'); e.className = 'empty';
+      e.textContent = state.list.length ? t('list.nomatch') : t('list.empty');
+      ul.appendChild(e); return;
+    }
+    items.forEach(function (s) {
+      var li = document.createElement('li'), who = document.createElement('div');
+      who.className = 'who';
+      var n = document.createElement('span');
+      n.textContent = (s.pub !== false && s.name) ? s.name : t('list.anon');
+      who.appendChild(n);
+      if (ROLES.indexOf(s.role) >= 0) badge(who, t('role.' + s.role), '');
+      if (SITES.indexOf(s.site) > 0) badge(who, t('site.' + s.site), 'alt');
+      if (s.t) {
+        var w = document.createElement('span'); w.className = 'when';
+        w.textContent = new Date(s.t).toLocaleDateString(lang === 'zh-Hant' ? 'zh-TW' : lang);
+        who.appendChild(w);
+      }
+      li.appendChild(who);
+      if (s.msg) { var m = document.createElement('p'); m.className = 'msg'; m.textContent = s.msg; li.appendChild(m); }
+      ul.appendChild(li);
+    });
+  }
+  function badge(parent, text, cls) {
+    var b = document.createElement('span'); b.className = 'badge ' + cls; b.textContent = text; parent.appendChild(b);
+  }
+
+  /* ── form ─────────────────────────────────────────────── */
+  $('sign').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var err = $('err'), name = $('nm').value.trim(), role = $('role').value, pub = $('pub').checked;
+    if (!role) { err.textContent = t('err.role'); $('role').focus(); return; }
+    if (pub && !name) { err.textContent = t('err.name'); $('nm').focus(); return; }
+    if (!$('agree').checked) { err.textContent = t('err.agree'); $('agree').focus(); return; }
+    if (LIVE && hasSigned()) { err.textContent = t('err.dup'); return; }
+    err.textContent = '';
+    var sig = { name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
+    var form = this, submit = $('submit');
+
+    function done() {
+      form.reset(); $('pub').checked = true; fillSelects();
+      toast(t('toast.signed'));
+      $('signers').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    if (!LIVE) {
+      var list = loadLocal(); list.push(sig);
+      if (!saveLocal(list)) { err.textContent = t('err.store'); return; }
+      refresh(); done(); return;
+    }
+    submit.disabled = true; submit.textContent = t('form.sending');
+    // Apps Script web apps don't answer CORS preflights: send as text/plain, no-cors.
+    fetch(CONFIG.endpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(sig) })
+      .then(function () {
+        try { localStorage.setItem(SIGNED_KEY, '1'); } catch (e) {}
+        state.count += 1; state.list.unshift(sig); renderCount(true); renderList();
+        done();
+        setTimeout(refresh, 2500);
+      })
+      .catch(function () { err.textContent = t('err.net'); })
+      .then(function () { submit.disabled = false; submit.textContent = t('form.submit'); });
+  });
+
+  $('q').addEventListener('input', function () { state.q = this.value.trim(); renderList(); });
+  $('clear').addEventListener('click', function () {
+    if (!loadLocal().length) { toast(t('toast.none')); return; }
+    if (confirm(t('confirm.clear'))) { try { localStorage.removeItem(KEY); } catch (e) {} refresh(); toast(t('toast.cleared')); }
+  });
+
+  /* ── share / toast ────────────────────────────────────── */
+  var toastT;
+  function toast(msg) {
+    var el = $('toast'); el.textContent = msg; el.classList.add('on');
+    clearTimeout(toastT); toastT = setTimeout(function () { el.classList.remove('on'); }, 2400);
+  }
+  each('[data-share]', function (b) {
+    b.addEventListener('click', function () {
+      var link = URL_ + (lang === 'zh-Hant' ? '' : '?lang=' + lang);
+      var data = { title: document.title, text: t('share.text'), url: link };
+      if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+      var fallback = function () { prompt(t('share.prompt'), link); };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(data.text + ' ' + link).then(function () { toast(t('toast.copied')); }, fallback);
+      } else fallback();
+    });
+  });
+
+  /* ── boot ─────────────────────────────────────────────── */
+  applyLang(detect(), false);
+  refresh();
+  if (LIVE) setInterval(function () { if (!document.hidden) refresh(); }, 30000);
+})();
