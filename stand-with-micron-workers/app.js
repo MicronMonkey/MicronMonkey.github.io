@@ -6,13 +6,13 @@
    * endpoint: leave '' for the local test mode (signatures stay in this
    * browser). Paste a deployed Google Apps Script web-app URL (see
    * apps-script.gs in this folder) to collect real, shared signatures. */
-  var CONFIG = { endpoint: '', goal: 10000 };
+  var CONFIG = { endpoint: '', turnstileSiteKey: '', goal: 10000 };
 
   var URL_ = 'https://micronmonkey.github.io/stand-with-micron-workers/';
   var KEY = 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
-  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public'];
+  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'shareholder'];
   var SITES = ['none', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
   var FILTERS = [
     { id: 'all', label: 'filter.all', match: null },
@@ -20,7 +20,7 @@
     { id: 'overseas', label: 'filter.overseas', match: ['overseas'] },
     { id: 'former', label: 'role.former', match: ['former'] },
     { id: 'family', label: 'role.family', match: ['family'] },
-    { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
+    { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public', 'shareholder'] }
   ];
   var LIVE = !!CONFIG.endpoint;
 
@@ -80,13 +80,15 @@
     each('[data-i18n-aria]', function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
     each('[data-i18n-content]', function (el) { el.setAttribute('content', t(el.getAttribute('data-i18n-content'))); });
     var cur = LANGS.filter(function (l) { return l.code === lang; })[0];
-    $('langName').textContent = cur ? cur.name : lang;
+    $('langName').textContent = cur ? cur.name + (lang === 'en' ? ' / 繁體中文' : ' / English') : lang;
     each('#langMenu button', function (b) { b.setAttribute('aria-checked', String(b.dataset.lang === lang)); });
     fillSelects();
     renderChips();
     setMode();
     renderCount(false);
     renderList();
+    updatePrivacy();
+    updateSecurity();
     if (persist) {
       try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
       var u = new URL(location.href);
@@ -128,10 +130,17 @@
 
   /* ── form selects / chips ─────────────────────────────── */
   function fillSelects() {
-    var role = $('role'), site = $('site'), rv = role.value, sv = site.value;
-    role.length = 1; role.options[0].textContent = t('form.role_ph');
-    ROLES.forEach(function (r) { role.add(new Option(t('role.' + r), r)); });
-    role.value = rv;
+    var site = $('site'), sv = site.value;
+    var selected = document.querySelector('input[name="role"]:checked');
+    var rv = selected ? selected.value : '';
+    $('roleChoices').textContent = '';
+    ROLES.forEach(function (r) {
+      var label = document.createElement('label'); label.className = 'role-choice';
+      var input = document.createElement('input'); input.type = 'radio'; input.name = 'role'; input.value = r; input.required = true; input.checked = rv === r;
+      var text = document.createElement('span'); text.textContent = t('role.' + r);
+      input.addEventListener('change', updatePrivacy);
+      label.appendChild(input); label.appendChild(text); $('roleChoices').appendChild(label);
+    });
     site.length = 0;
     SITES.forEach(function (s) { site.add(new Option(t('site.' + s), s === 'none' ? '' : s)); });
     site.value = sv;
@@ -191,6 +200,7 @@
   }
   function setMode() {
     var tag = $('liveTag'), note = $('modeNote');
+    $('submit').textContent = t(LIVE ? 'form.submit_live' : 'form.submit');
     tag.className = 'live ' + (LIVE ? 'on' : 'off');
     tag.textContent = LIVE ? t('count.live') : t('count.local');
     if (LIVE) {
@@ -205,9 +215,9 @@
     var f = FILTERS.filter(function (x) { return x.id === state.filter; })[0];
     var q = state.q.toLowerCase();
     var items = state.list.filter(function (s) {
-      if (f && f.match && f.match.indexOf(s.role) < 0) return false;
+      if (f && f.match && (!(s.pub === true && s.pubRole === true) || f.match.indexOf(s.role) < 0)) return false;
       if (q) {
-        var hay = ((s.pub !== false && s.name ? s.name : '') + ' ' + (s.msg || '')).toLowerCase();
+        var hay = ((s.pub === true && s.name ? s.name : '') + ' ' + (s.pub === true && s.pubMsg === true ? s.msg || '' : '')).toLowerCase();
         if (hay.indexOf(q) < 0) return false;
       }
       return true;
@@ -221,17 +231,18 @@
       var li = document.createElement('li'), who = document.createElement('div');
       who.className = 'who';
       var n = document.createElement('span');
-      n.textContent = (s.pub !== false && s.name) ? s.name : t('list.anon');
+      n.textContent = (s.pub === true && s.name) ? s.name : t('list.anon');
       who.appendChild(n);
-      if (ROLES.indexOf(s.role) >= 0) badge(who, t('role.' + s.role), '');
-      if (SITES.indexOf(s.site) > 0) badge(who, t('site.' + s.site), 'alt');
+      if (s.pub === true && s.title) badge(who, s.title, 'alt');
+      if (s.pub === true && s.pubRole === true && ROLES.indexOf(s.role) >= 0) badge(who, t('role.' + s.role), '');
+      if (s.pub === true && s.pubRole === true && SITES.indexOf(s.site) > 0) badge(who, t('site.' + s.site), 'alt');
       if (s.t) {
         var w = document.createElement('span'); w.className = 'when';
         w.textContent = new Date(s.t).toLocaleDateString(locale());
         who.appendChild(w);
       }
       li.appendChild(who);
-      if (s.msg) { var m = document.createElement('p'); m.className = 'msg'; m.textContent = s.msg; li.appendChild(m); }
+      if (s.pub === true && s.pubMsg === true && s.msg) { var m = document.createElement('p'); m.className = 'msg'; m.textContent = s.msg; li.appendChild(m); }
       ul.appendChild(li);
     });
   }
@@ -242,36 +253,39 @@
   /* ── form ─────────────────────────────────────────────── */
   $('sign').addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var err = $('err'), name = $('nm').value.trim(), role = $('role').value, pub = $('pub').checked;
-    if (!role) { err.textContent = t('err.role'); $('role').focus(); return; }
-    if (pub && !name) { err.textContent = t('err.name'); $('nm').focus(); return; }
+    var err = $('err'), name = $('nm').value.trim(), role = (document.querySelector('input[name="role"]:checked') || {}).value, pub = $('pub').checked;
+    if (!role) { err.textContent = t('err.role'); $('roleChoices').querySelector('input').focus(); return; }
+    if (!name) { err.textContent = t('err.name'); $('nm').focus(); return; }
+    if (!$('email').checkValidity() || !$('email').value.trim()) { err.textContent = t('err.email'); $('email').focus(); return; }
+    if (LIVE && (!CONFIG.turnstileSiteKey || !securityToken)) { err.textContent = t('security.required'); return; }
     if (!$('agree').checked) { err.textContent = t('err.agree'); $('agree').focus(); return; }
     if (LIVE && hasSigned()) { err.textContent = t('err.dup'); return; }
     err.textContent = '';
-    var sig = { name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
+    var sig = { title: $('jobTitle').value.trim().slice(0,80), email: $('email').value.trim(), pubRole: pub && $('pubRole').checked, pubMsg: pub && $('pubMsg').checked, token: securityToken, agree: true, name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
     var form = this, submit = $('submit');
 
     function done() {
-      form.reset(); $('pub').checked = true; fillSelects();
-      toast(t('toast.signed'));
+      form.reset(); fillSelects(); updatePrivacy(); resetSecurity();
+      toast(t(LIVE ? 'toast.signed' : 'toast.demo'));
       $('signers').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     if (!LIVE) {
-      var list = loadLocal(); list.push(sig);
+      var list = loadLocal(); list.push(publicSignature(sig));
       if (!saveLocal(list)) { err.textContent = t('err.store'); return; }
       refresh(); done(); return;
     }
     submit.disabled = true; submit.textContent = t('form.sending');
-    // Apps Script web apps don't answer CORS preflights: send as text/plain, no-cors.
-    fetch(CONFIG.endpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(sig) })
-      .then(function () {
+    // Require a readable server acknowledgement. Opaque no-cors responses are not success.
+    fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(sig) })
+      .then(function (r) { if (!r.ok) throw new Error('network'); return r.json(); })
+      .then(function (d) {
+        if (!d.ok) throw new Error(d.error || 'rejected');
         try { localStorage.setItem(SIGNED_KEY, '1'); } catch (e) {}
-        state.count += 1; state.list.unshift(sig); renderCount(true); renderList();
-        done();
-        setTimeout(refresh, 2500);
+        done(); return refresh();
       })
-      .catch(function () { err.textContent = t('err.net'); })
-      .then(function () { submit.disabled = false; submit.textContent = t('form.submit'); });
+      .catch(function () { err.textContent = t('err.net'); resetSecurity(); })
+      .then(function () { submit.disabled = false; submit.textContent = t(LIVE ? 'form.submit_live' : 'form.submit'); });
+
   });
 
   $('q').addEventListener('input', function () { state.q = this.value.trim(); renderList(); });
@@ -304,6 +318,52 @@
       } else fallback();
     });
   });
+
+
+  var securityToken = '', widgetId = null;
+  function publicSignature(s) {
+    return {t:s.t, pub:s.pub === true, name:s.pub ? s.name : '', title:s.pub ? s.title : '',
+      pubRole:s.pub && s.pubRole, role:s.pub && s.pubRole ? s.role : '', site:s.pub && s.pubRole ? s.site : '',
+      pubMsg:s.pub && s.pubMsg, msg:s.pub && s.pubMsg ? s.msg : ''};
+  }
+  function updatePrivacy() {
+    var pub = $('pub').checked, selected = document.querySelector('input[name="role"]:checked');
+    $('pubRole').disabled = !pub || !selected; $('pubMsg').disabled = !pub;
+    if (!pub) $('pubMsg').checked = false;
+    var lines = [pub ? ($('nm').value.trim() || t('form.name')) : t('list.anon')];
+    if (pub && $('jobTitle').value.trim()) lines.push($('jobTitle').value.trim());
+    if (pub && selected && $('pubRole').checked) {
+      lines.push(t('role.' + selected.value));
+      if ($('site').value) lines.push(t('site.' + $('site').value));
+    }
+    if (pub && $('pubMsg').checked && $('msg').value.trim()) lines.push($('msg').value.trim());
+    $('publicPreview').textContent = lines.join('\n');
+    $('msgCount').textContent = $('msg').value.length + ' / 200';
+  }
+  function updateSecurity() {
+    $('securityStatus').textContent = t(!LIVE ? 'security.demo' : (!CONFIG.turnstileSiteKey ? 'security.off' : securityToken ? 'security.ok' : 'security.required'));
+  }
+  function resetSecurity() {
+    securityToken = '';
+    if (window.turnstile && widgetId !== null) window.turnstile.reset(widgetId);
+    updateSecurity();
+  }
+  if (LIVE && CONFIG.turnstileSiteKey) {
+    window.swmwTurnstileReady = function () {
+      widgetId = window.turnstile.render('#turnstile', {
+        sitekey:CONFIG.turnstileSiteKey, action:'sign', theme:'dark',
+        callback:function(token){securityToken=token;updateSecurity();},
+        'expired-callback':function(){securityToken='';updateSecurity();},
+        'error-callback':function(){securityToken='';updateSecurity();}
+      });
+    };
+    var script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=swmwTurnstileReady&render=explicit';
+    script.async = true; script.onerror = function(){securityToken='';updateSecurity();};
+    document.head.appendChild(script);
+  }
+  $('sign').addEventListener('input', updatePrivacy);
+  $('sign').addEventListener('change', updatePrivacy);
 
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);

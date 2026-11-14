@@ -70,7 +70,7 @@ a{color:var(--pu3)}
 .lang li button:hover,.lang li button:focus-visible{background:#8b5cf622;outline:none}
 .lang li button[aria-checked=true]{color:var(--pu3)}
 .lang li button[aria-checked=true]::after{content:"✓";color:var(--pu2);font-weight:800}
-@media(max-width:560px){.lang>button .lname{display:none}.brand small{display:none}}
+@media(max-width:560px){.lang>button .lname{display:inline}.brand small{display:none}}
 html[lang=en] .brand small{display:none}
 html[lang=en]{--serif:Georgia,"Times New Roman",serif}
 html[lang=en] .hero h1{font-size:clamp(38px,6vw,70px);letter-spacing:0}
@@ -154,7 +154,7 @@ section.alt{background:var(--bg2)}
 .f{margin-bottom:16px}
 .f label,.f .lb{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
 .f label small{font-weight:400;color:var(--dim);margin-left:6px}
-input[type=text],input[type=search],select,textarea{width:100%;background:var(--ink);border:1px solid var(--line2);color:var(--fg);border-radius:11px;padding:12px 14px;font:16px var(--sans)}
+input[type=email],input[type=text],input[type=search],select,textarea{width:100%;background:var(--ink);border:1px solid var(--line2);color:var(--fg);border-radius:11px;padding:12px 14px;font:16px var(--sans)}
 input::placeholder,textarea::placeholder{color:#6f6488}
 select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a78bfa' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
 textarea{min-height:100px;resize:vertical}
@@ -280,6 +280,28 @@ footer p{margin:0;max-width:680px}
 #toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);transform:translateX(-50%) translateY(20px);background:var(--pu);color:#fff;font-weight:700;padding:11px 20px;border-radius:999px;opacity:0;transition:.3s;pointer-events:none;z-index:60;box-shadow:0 10px 30px #0009;max-width:calc(100vw - 32px);text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before{animation:none!important;transition:none!important}}
+
+/* Review 1–5: readable language control, choice buttons, consent preview, focus, responsive form */
+.role-field,.privacy-options{min-width:0;border:0;padding:0;margin:24px 0}
+.role-field legend,.privacy-options legend{font-weight:700;margin-bottom:12px}
+.role-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.role-choice{position:relative;cursor:pointer}
+.role-choice input{position:absolute;opacity:0;width:1px;height:1px}
+.role-choice span{display:flex;align-items:center;min-height:48px;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--bg2);font-size:14px}
+.role-choice input:checked+span{background:#31204e;border-color:var(--pu2);box-shadow:inset 3px 0 var(--pu2)}
+.role-choice input:checked+span:before{content:'✓';margin-right:7px;color:var(--pu3)}
+.role-choice input:focus-visible+span{outline:3px solid var(--pu2);outline-offset:3px}
+.field-hint{font-size:12px;color:var(--mut);margin:6px 0 16px;line-height:1.7}
+.counter{text-align:right;margin-bottom:20px}
+.public-preview,.verification{border:1px solid var(--line2);border-radius:12px;padding:16px;margin:20px 0;background:var(--bg2)}
+.public-preview strong{font-size:12px;letter-spacing:.05em;color:var(--pu2)}
+#publicPreview{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px;font-size:14px}
+.verification h4{margin:0 0 8px}.verification p{font-size:13px;color:var(--mut)}
+.chk:has(input:disabled){opacity:.55}
+:focus-visible{outline:3px solid var(--pu2);outline-offset:4px}
+.who,.msg{overflow-wrap:anywhere}.panel{min-width:0}
+@media(max-width:560px){.nav .wrap{gap:6px}.brand{font-size:13px}.brand svg{width:24px}.lang>button{padding:0 9px;font-size:12px}.role-choices{gap:6px}.role-choice span{padding:9px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -397,16 +419,23 @@ footer p{margin:0;max-width:680px}
         <h3 data-i18n="form.title">我要簽署</h3>
         <p class="s" data-i18n="form.s">約 30 秒即可完成。請用私人裝置，不要用公司電腦或公司信箱。</p>
         <div class="note warn" id="modeNote" role="note"><span aria-hidden="true">⚠️</span><span data-i18n="form.demo"><b>測試版：</b>尚未連接共用資料庫，簽名只會存在你這台裝置的瀏覽器，不會送出或公開。</span></div>
-        <div class="f"><label for="nm"><span data-i18n="form.name">稱呼</span> <small data-i18n="form.name_h">可用暱稱</small></label><input id="nm" type="text" maxlength="40" autocomplete="nickname" data-i18n-ph="form.name_ph" placeholder="例如：桃園三班小陳"></div>
-        <div class="row2">
-          <div class="f"><label for="role" data-i18n="form.role">身分</label>
-            <select id="role"><option value="" data-i18n="form.role_ph">請選擇</option></select></div>
+        <div class="f"><label for="nm"><span data-i18n="form.name">全名</span> <small data-i18n="form.name_h">必填</small></label><input id="nm" type="text" maxlength="40" autocomplete="name" required data-i18n-ph="form.name_ph" placeholder="請填寫全名"></div>
+        <fieldset class="f role-field"><legend data-i18n="form.role">身分類別</legend><div id="roleChoices" class="role-choices"></div></fieldset>
+        <div class="row2"><div class="f"><label for="jobTitle" data-i18n="form.job">職稱（選填）</label><input id="jobTitle" type="text" maxlength="80" autocomplete="organization-title"></div>
           <div class="f"><label for="site"><span data-i18n="form.site">所在地</span> <small data-i18n="form.opt">選填</small></label>
             <select id="site"></select></div>
         </div>
-        <div class="f"><label for="msg"><span data-i18n="form.msg">想說的話</span> <small data-i18n="form.msg_h">選填，最多 200 字，可用任何語言</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea></div>
-        <label class="chk"><input id="pub" type="checkbox" checked><span data-i18n="form.pub">在簽署人名單顯示我的稱呼（未勾選則顯示為「匿名支持者」）</span></label>
-        <label class="chk"><input id="agree" type="checkbox"><span data-i18n="form.agree">我已閱讀公開信，並確認沒有填入個資或公司機密。</span></label>
+        <div class="f"><label for="email"><span data-i18n="form.email">電子信箱</span> <small data-i18n="form.private">絕不公開</small></label><input id="email" type="email" maxlength="254" autocomplete="email" required aria-describedby="emailHint"><p class="field-hint" id="emailHint" data-i18n="form.email_hint">請使用私人信箱。僅供連署確認與防止重複使用，不顯示於公開名單。</p></div>
+        <div class="f"><label for="msg"><span data-i18n="form.msg">給美光員工的話</span> <small data-i18n="form.msg_h">選填，最多 200 字，可用任何語言</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea><div class="field-hint counter" id="msgCount">0 / 200</div></div>
+        <fieldset class="privacy-options"><legend data-i18n="form.visibility">公開設定</legend>
+<label class="chk"><input id="pub" type="checkbox"><span data-i18n="form.pub">在公開支持者名單中顯示我的姓名和職稱。</span></label>
+<label class="chk"><input id="pubRole" type="checkbox" checked disabled aria-describedby="roleHint"><span data-i18n="form.pub_role">公開我的身分類別標籤</span></label>
+<p class="field-hint" id="roleHint" data-i18n="form.role_hint">選擇身分類別並公開姓名後，類別標籤預設顯示。取消勾選即可隱藏此標籤。您的公開姓名、職稱及公開留言中填寫的資訊仍會顯示。</p>
+<label class="chk"><input id="pubMsg" type="checkbox" disabled><span data-i18n="form.pub_msg">同時將我的留言與我的姓名一併發布。（需先選擇顯示您的姓名。）</span></label>
+</fieldset>
+<div class="public-preview"><strong data-i18n="form.preview">公開內容預覽</strong><div id="publicPreview" aria-live="polite"></div></div>
+<div class="verification"><h4 data-i18n="form.security">安全驗證</h4><div id="turnstile"></div><p id="securityStatus" role="status"></p></div>
+        <label class="chk"><input id="agree" type="checkbox"><span data-i18n="form.agree">我已閱讀公開信，確認公開內容沒有他人個資或公司機密，並同意依上述公開設定處理本次連署。</span></label>
         <div class="err" id="err" aria-live="assertive"></div>
         <button class="btn p" type="submit" id="submit" style="width:100%" data-i18n="form.submit">簽署公開信</button>
       </form>
@@ -595,7 +624,8 @@ footer p{margin:0;max-width:680px}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="app.js?v=2"></script>
+<script src="form-i18n.js?v=3"></script>
+<script src="app.js?v=3"></script>
 </body>
 
 </html>
