@@ -179,6 +179,11 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'stat.5': '員工四天內徵集實名連署達標，要求拒絕追認協議並召開臨時會員大會',
+    'form.submit': '提交我的簽署',
+    'form.submit_live': '提交我的簽署',
+    'toast.demo': '已提交。目前為測試模式，簽署只儲存在此裝置，尚未送到正式名單。',
+    'security.demo': '目前為測試模式，安全驗證尚未啟用。簽署只儲存在此裝置，不會送出資料，也不會儲存信箱。',
     'directory.all': '查看所有簽署 →',
     'directory.latest': '最新簽署', 'ux.lightList': '閱讀每一份聲援 →',
     'letter.p1': '我們是來自世界各地、各行各業的勞工、學生、家屬與社會支持者。今天站在美光員工身邊，也是為所有工作現場守住知情、發聲和協商的空間。',
@@ -202,6 +207,11 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'stat.5': 'Employees gathered enough named signatures within four days to demand the agreement not be ratified and an extraordinary general meeting be called',
+    'form.submit': 'Submit my signature',
+    'form.submit_live': 'Submit my signature',
+    'toast.demo': 'Submitted. In test mode your signature is saved on this device only and has not reached the official list.',
+    'security.demo': 'Test mode: security verification is not active. Your signature stays on this device; nothing is sent and your email is not saved.',
     'directory.all': 'See all signatures →',
     'directory.latest': 'Latest signatures', 'ux.lightList': 'Read the messages of support →',
     'letter.p1': 'We are workers in every line of work around the world, students, families and members of the public. We stand with Micron workers to defend the right to know, speak and negotiate in every workplace.',
@@ -225,6 +235,11 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'stat.5': '従業員が4日間で実名署名の目標を達成し、協定の追認拒否と臨時組合員大会の開催を要求',
+    'form.submit': '署名を送信',
+    'form.submit_live': '署名を送信',
+    'toast.demo': '送信しました。テストモードのため、署名はこの端末にのみ保存され、正式な名簿には届いていません。',
+    'security.demo': 'テストモード：認証は未稼働です。署名はこの端末にのみ保存され、送信もメールの保存も行いません。',
     'directory.all': 'すべての署名を見る →',
     'directory.latest': '最新の署名', 'ux.lightList': '応援メッセージをすべて読む →',
     'letter.p1': '私たちは世界各地のあらゆる職業の労働者、学生、家族、そして市民です。マイクロンの従業員の側に立つことは、すべての職場で知る権利、声を上げる権利、交渉する権利を守ることでもあります。',
@@ -248,6 +263,11 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'stat.5': '직원들이 4일 만에 실명 서명 목표를 달성해 협약 추인 거부와 임시 조합원 총회 소집을 요구',
+    'form.submit': '서명 제출',
+    'form.submit_live': '서명 제출',
+    'toast.demo': '제출되었습니다. 테스트 모드에서는 서명이 이 기기에만 저장되며 정식 명단에는 반영되지 않았습니다.',
+    'security.demo': '테스트 모드: 인증이 아직 활성화되지 않았습니다. 서명은 이 기기에만 저장되며 전송이나 이메일 저장은 하지 않습니다.',
     'directory.all': '모든 서명 보기 →',
     'directory.latest': '최신 서명', 'ux.lightList': '모든 응원 메시지 읽기 →',
     'letter.p1': '우리는 세계 각지, 모든 업종의 노동자, 학생, 가족, 그리고 시민입니다. 마이크론 직원들 곁에 서는 것은 모든 일터에서 알 권리, 말할 권리, 교섭할 권리를 지키는 일이기도 합니다.',
