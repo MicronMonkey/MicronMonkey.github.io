@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-i18n="meta.title">我們挺美光勞工｜挺光連署 Stand with Micron Workers</title>
-<meta name="description" data-i18n-content="meta.desc" content="支持台灣美光勞工的獨立公開信：要求與獲利連動、公開透明的分潤制度，不以獎金換取放棄權利、停止報復。歡迎全球美光廠區的同事一起簽署。">
+<meta name="description" data-i18n-content="meta.desc" content="勞工團結，是大家的事。拒絕黑箱簽署、反對司法打壓、要求誠意協商。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Stand with Micron Workers">
 <meta property="og:title" content="挺光連署｜Stand with Micron Workers">
-<meta property="og:description" content="AI 記憶體賺翻了，做出晶片的人也該分得到。一起簽署支持台灣美光勞工的公開信。">
+<meta property="og:description" content="勞工團結，是大家的事。拒絕黑箱簽署、反對司法打壓、要求誠意協商。">
 <meta property="og:url" content="https://micronmonkey.github.io/stand-with-micron-workers/">
 <meta property="og:image" content="https://micronmonkey.github.io/stand-with-micron-workers/og.png">
 <meta property="og:image:width" content="1200">
@@ -302,6 +302,7 @@ footer p{margin:0;max-width:680px}
 .who,.msg{overflow-wrap:anywhere}.panel{min-width:0}
 @media(max-width:560px){.nav .wrap{gap:6px}.brand{font-size:13px}.brand svg{width:24px}.lang>button{padding:0 9px;font-size:12px}.role-choices{gap:6px}.role-choice span{padding:9px;font-size:13px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+.light-panel{text-align:center;padding:24px;border:1px solid var(--line2);border-radius:20px;background:radial-gradient(ellipse at 50% 70%,#30204e,#100b1a 68%)} #lightSky{display:block;width:100%;height:clamp(150px,27vw,300px)} #lightSky[hidden]{display:none} #lightCount{color:var(--pu3);font-weight:700}.event-photos{display:grid;grid-template-columns:1fr 1fr;gap:20px}.event-photos figure{margin:0;min-width:0}.event-photos img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#0c0814;border-radius:12px}.event-photos figcaption{color:var(--mut);padding-top:8px}@media(max-width:600px){.event-photos{grid-template-columns:1fr}.light-panel{padding:16px}}
 </style>
 </head>
 <body>
@@ -335,16 +336,16 @@ footer p{margin:0;max-width:680px}
   </div>
 </nav>
 
-<a class="banner" href="#union">
-  <span class="wrap"><b data-i18n="banner.tag">最新</b><span data-i18n="banner.text">11/12 美光桃園工會發表公開信：承認這次爭取分潤失利、不參加 11/17 協商，並將於當天赴民進黨中央黨部召開記者會。</span><span class="go" data-i18n="banner.go">閱讀 →</span></span>
+<a class="banner" href="#letter">
+  <span class="wrap"><b data-i18n="banner.tag">最新</b><span data-i18n="banner.text">拒絕黑箱簽署・反對司法打壓・要求誠意協商</span><span class="go" data-i18n="banner.go">閱讀 →</span></span>
 </a>
 
 <header class="hero" id="top">
   <div class="wrap">
     <div>
       <span class="kick"><i></i><span data-i18n="hero.kick">Open Letter・公開信</span></span>
-      <h1 data-i18n="hero.title">我們挺<br><em>美光勞工</em></h1>
-      <p class="sub" data-i18n="hero.sub">AI 讓記憶體大賺，做出晶片的台灣員工卻爭取不到透明的分潤制度。桃園工會撐了一個多月，11 月 12 日宣布這次暫時失利——但這不是結束。從台灣到全球每一座美光廠，請用一個簽名告訴他們：你們並不孤單。</p>
+      <h1 data-i18n="hero.title">勞工團結<br><em>是大家的事</em></h1>
+      <p class="sub" data-i18n="hero.sub">從美光員工的處境出發，邀請各行各業一起聲援。拒絕黑箱簽署、反對司法打壓、要求誠意協商。工作不同，我們都值得知情、安心發聲，也值得被認真傾聽。</p>
       <div class="counter" aria-live="polite">
         <div><b id="heroCount">0</b></div>
         <div class="lab"><span data-i18n="count.unit">份簽名</span><br><span class="live off" id="liveTag" data-i18n="count.local">本機示範</span></div>
@@ -387,22 +388,28 @@ footer p{margin:0;max-width:680px}
 </header>
 
 <main>
+<section id="solidarity"><div class="wrap"><div class="sh c">
+<h2 data-i18n="lights.title">每一份聲援，都有光</h2><p data-i18n="lights.note">每個光點代表一份支持，包含匿名簽署。</p></div>
+<div class="light-panel"><p id="lightCount" role="status"></p><canvas id="lightSky" aria-hidden="true"></canvas><p id="lightEmpty" data-i18n="lights.empty">這片光海，等你一起點亮。</p><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
+</div></section>
+<section class="alt"><div class="wrap"><div class="sh c"><h2 data-i18n="photo.title">11/13 台中與桃園集結</h2><p data-i18n="photo.note">活動夥伴提供，沿用已做臉部遮蔽的公開版本。</p></div>
+<div class="event-photos"><figure><img loading="lazy" src="assets/taichung-1113.webp" alt="" width="1477" height="1108"><figcaption>Taichung · 11/13</figcaption></figure><figure><img loading="lazy" src="assets/taoyuan-1113.webp" alt="" width="1083" height="768"><figcaption>Taoyuan · 11/13</figcaption></figure></div></div></section>
 <section id="letter">
   <div class="wrap narrow">
     <article class="paper">
       <div class="head"><span data-i18n="letter.label">Open Letter</span><span data-i18n="letter.date">2026 年 11 月</span></div>
       <h2 data-i18n="letter.title">致美光公司經營團隊與 Micron Technology 董事會的公開信</h2>
-      <p data-i18n="letter.p1">記憶體產業正迎來 AI 帶來的榮景。美光是台灣規模最大的外資企業之一，在桃園與台中的廠區，數千名員工日夜輪班，撐起了這波成長。</p>
-      <p data-i18n="letter.p2">十月，桃園工會以投票者約 99% 的同意取得罷工權；台中工會則在 10 月 21 日簽下受保密條款約束的協議。桃園工會又堅持了將近一個月，11 月 12 日宣布這次爭取分潤沒有成功，並表示會員正承受約談、考績與「簽了才有獎金」的壓力。</p>
-      <p data-i18n="letter.p3">分潤沒有爭取到，不代表問題消失了。我們想問的仍然很簡單：<b>當公司賺得越多，做出產品的人能不能透明、可預期地分享成果？</b>因此我們請求：</p>
+      <p data-i18n="letter.p1">我們是各行各業的勞工、學生、家屬與社會支持者。今天站在美光員工身邊，也是為所有工作現場守住知情、發聲和協商的空間。</p>
+      <p data-i18n="letter.p2">影響勞工權益的決定，應讓當事人充分知情與參與。勞工提出疑問時，應得到具體回應，也應有安心表達意見的空間。</p>
+      <p data-i18n="letter.p3">我們提出以下共同訴求。</p>
       <ol>
-        <li data-i18n="letter.d1"><b>不以獎金換取放棄權利</b>：任何新增獎金與勞動條件，都不應附帶要求員工個別簽署放棄未來爭議權的協議。美光已公開否認有此要求，我們請公司以書面向全體員工確認。</li>
-        <li data-i18n="letter.d2"><b>停止任何形式的報復</b>：不因員工參與工會、罷工或連署，在考績、約談、工作分配或去留上給予不利對待。</li>
-        <li data-i18n="letter.d3"><b>建立與營業利益連動的分潤制度</b>，公開計算方式，並提升 IPP 績效獎金與股票獎酬的透明度。</li>
-        <li data-i18n="letter.d4"><b>讓會員知情</b>：以全體會員名義簽署的勞資協議，內容應讓會員完整閱讀。</li>
+        <li data-i18n="letter.d1"><b>拒絕黑箱簽署。</b>公開影響會員權益的協議、授權依據及簽署程序，讓會員有充分時間閱讀、討論與表達意見。</li>
+        <li data-i18n="letter.d2"><b>反對司法打壓。</b>反對以提告或職場壓力壓縮勞工發聲與團結的空間。個案應依證據及正當程序釐清。</li>
+        <li data-i18n="letter.d3"><b>要求誠意協商。</b>請資方提供可供討論的資料、具體回應爭點，與勞方共同確認議程、時程及後續追蹤。</li>
+        <li data-i18n="letter.d4"><b>保障員工參與。</b>讓員工能表達意見與參與團結，免於考績、工作安排或雇用上的不利對待。</li>
       </ol>
       <p data-i18n="letter.p5">我們也呼籲主管機關依法、中立地處理這場勞資爭議，並儘速審查「美光關係企業工會」的成立登記，保障跨廠區員工的團結權。</p>
-      <p data-i18n="letter.p4">從台中、桃園，到博伊西、廣島、新加坡與檳城，每一座美光廠都是由願意留下來的人撐起來的。我們希望美光選擇站在員工這一邊。</p>
+      <p data-i18n="letter.p4">今天替別人的處境發聲，也是在守護自己和身邊的人。從工廠、辦公室到門市，工作不同，對公平與尊嚴的期待相同。勞工團結，是大家的事。</p>
       <div class="sig">
         <p data-i18n="letter.sig">— 挺光連署全體簽署人</p>
         <a class="btn p sm" href="#sign" data-i18n="letter.cta">加入簽署</a>
@@ -413,7 +420,7 @@ footer p{margin:0;max-width:680px}
 
 <section id="signers" class="alt">
   <div class="wrap">
-    <div class="sh c"><div class="tag" data-i18n="sign.tag">Sign the letter</div><h2 data-i18n="sign.title">簽署公開信</h2><p data-i18n="sign.sub">不需要員工編號，也請不要寫任何公司機密。身分為自行填寫，本站不做驗證。</p></div>
+    <div class="sh c"><div class="tag" data-i18n="sign.tag">Sign the letter</div><h2 data-i18n="sign.title">簽署公開信</h2><p data-i18n="sign.sub">歡迎各行各業、學生、家屬與社會大眾參與。可選擇無所屬標籤，並自行設定公開內容。</p></div>
     <div class="signgrid">
       <form class="panel" id="sign" novalidate>
         <h3 data-i18n="form.title">我要簽署</h3>
@@ -421,14 +428,14 @@ footer p{margin:0;max-width:680px}
         <div class="note warn" id="modeNote" role="note"><span aria-hidden="true">⚠️</span><span data-i18n="form.demo"><b>測試版：</b>尚未連接共用資料庫，簽名只會存在你這台裝置的瀏覽器，不會送出或公開。</span></div>
         <div class="f"><label for="nm"><span data-i18n="form.name">全名</span> <small data-i18n="form.name_h">必填</small></label><input id="nm" type="text" maxlength="40" autocomplete="name" required data-i18n-ph="form.name_ph" placeholder="請填寫全名"></div>
         <fieldset class="f role-field"><legend data-i18n="form.role">身分類別</legend><div id="roleChoices" class="role-choices"></div></fieldset>
-        <div class="row2"><div class="f"><label for="jobTitle" data-i18n="form.job">職稱（選填）</label><input id="jobTitle" type="text" maxlength="80" autocomplete="organization-title"></div>
+        <div class="row2"><div class="f"><label for="jobTitle" data-i18n="form.job">職稱 / 機構（必填）</label><input id="jobTitle" type="text" maxlength="80" autocomplete="organization-title" required aria-describedby="jobHint"><p id="jobHint" class="field-hint" data-i18n="form.jobhint">職稱或機構擇一即可。也可寫「學生」、「自由工作者」或「待業中」。</p></div>
           <div class="f"><label for="site"><span data-i18n="form.site">所在地</span> <small data-i18n="form.opt">選填</small></label>
             <select id="site"></select></div>
         </div>
         <div class="f"><label for="email"><span data-i18n="form.email">電子信箱</span> <small data-i18n="form.private">絕不公開</small></label><input id="email" type="email" maxlength="254" autocomplete="email" required aria-describedby="emailHint"><p class="field-hint" id="emailHint" data-i18n="form.email_hint">請使用私人信箱。僅供連署確認與防止重複使用，不顯示於公開名單。</p></div>
         <div class="f"><label for="msg"><span data-i18n="form.msg">給美光員工的話</span> <small data-i18n="form.msg_h">選填，最多 200 字，可用任何語言</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea><div class="field-hint counter" id="msgCount">0 / 200</div></div>
         <fieldset class="privacy-options"><legend data-i18n="form.visibility">公開設定</legend>
-<label class="chk"><input id="pub" type="checkbox"><span data-i18n="form.pub">在公開支持者名單中顯示我的姓名和職稱。</span></label>
+<label class="chk"><input id="pub" type="checkbox"><span data-i18n="form.pub">在公開支持者名單中顯示我的姓名和職稱 / 機構。</span></label>
 <label class="chk"><input id="pubRole" type="checkbox" checked disabled aria-describedby="roleHint"><span data-i18n="form.pub_role">公開我的身分類別標籤</span></label>
 <p class="field-hint" id="roleHint" data-i18n="form.role_hint">選擇身分類別並公開姓名後，類別標籤預設顯示。取消勾選即可隱藏此標籤。您的公開姓名、職稱及公開留言中填寫的資訊仍會顯示。</p>
 <label class="chk"><input id="pubMsg" type="checkbox" disabled><span data-i18n="form.pub_msg">同時將我的留言與我的姓名一併發布。（需先選擇顯示您的姓名。）</span></label>
@@ -507,7 +514,7 @@ footer p{margin:0;max-width:680px}
 
 <section id="global" class="alt">
   <div class="wrap">
-    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">致全球美光夥伴</h2><p data-i18n="global.sub">你可能在博伊西的研發中心、廣島的晶圓廠、新加坡的 NAND 廠，或檳城的封測廠。我們做的是同一顆晶片，面對的是同一家公司。台灣同事爭取的透明分潤與不被報復的權利，和每一座廠的員工都有關。</p></div>
+    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">各行各業，都能站在一起</h2><p data-i18n="global.sub">不論你在產線輪班、在門市服務、正在求學或照顧家人，都可以參與。每一次支持，都讓第一線的聲音多一個被聽見的機會。</p></div>
     <div class="sites">
       <div class="site home"><i></i><span data-i18n="gs.tw"><b>台灣</b>台中・桃園</span></div>
       <div class="site"><i></i><span data-i18n="gs.us"><b>美國</b>博伊西・馬納薩斯</span></div>
@@ -535,7 +542,7 @@ footer p{margin:0;max-width:680px}
     <div class="sh"><div class="tag" data-i18n="facts.tag">Background</div><h2 data-i18n="facts.title">事件經過</h2><p data-i18n="facts.sub">依公開報導與工會聲明整理；細節以原始報導為準，各媒體之間偶有出入。</p></div>
     <div class="stats">
       <div class="stat"><b>99<small>%</small></b><span data-i18n="stat.1">桃園工會罷工權投票同意率（1,994／2,012 票，10/7 公布）</span></div>
-      <div class="stat"><b>15<small>%</small></b><span data-i18n="stat.2">工會提出：以營業利益的 15% 作為員工分潤</span></div>
+
       <div class="stat"><b>1,633</b><span data-i18n="stat.3">10/22 罷工現場投票反對公司方案的會員人數（約 99%）</span></div>
       <div class="stat"><b>6,000<small>+</small></b><span data-i18n="stat.4">工會表示申請加入「美光關係企業工會」的台中會員人數，成立證書尚未核發</span></div>
     </div>
@@ -553,15 +560,7 @@ footer p{margin:0;max-width:680px}
           <li><time data-i18n="tl.8d">11 月 17 日</time><h4 data-i18n="tl.8h">工會記者會（預定）</h4><p data-i18n="tl.8p">依工會公告，於民進黨中央黨部召開記者會。實際時間地點以工會公告為準。</p></li>
         </ol>
       </div>
-      <div class="panel cmp">
-        <h3 data-i18n="cmp.title">員工分潤占營業利益比例</h3>
-        <p class="s" data-i18n="cmp.s">工會引述與試算（天下雜誌報導）；非官方財報數字。</p>
-        <div class="row"><label data-i18n="cmp.samsung">三星半導體</label><div class="t"><i style="width:80%"></i></div><b>12%</b></div>
-        <div class="row"><label data-i18n="cmp.hynix">SK 海力士</label><div class="t"><i style="width:66.7%"></i></div><b>10%</b></div>
-        <div class="row me"><label data-i18n="cmp.micron">美光（試算）</label><div class="t"><i style="width:29.3%"></i></div><b>4.4%</b></div>
-        <div class="row ask"><label data-i18n="cmp.ask">工會提案</label><div class="t"><i style="width:100%"></i></div><b>15%</b></div>
-        <div class="note info" style="margin:22px 0 0"><span aria-hidden="true">💡</span><span data-i18n="cmp.note">工會表示，爭議核心不是一次性獎金，而是長期、制度化、與獲利連動的分配方式。</span></div>
-      </div>
+      <aside class="panel"><h3 data-i18n="banner.text">拒絕黑箱簽署・反對司法打壓・要求誠意協商</h3></aside>
     </div>
   </div>
 </section>
@@ -624,8 +623,8 @@ footer p{margin:0;max-width:680px}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="form-i18n.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 
 </html>

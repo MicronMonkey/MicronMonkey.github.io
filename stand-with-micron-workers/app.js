@@ -12,7 +12,7 @@
   var KEY = 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
-  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'shareholder'];
+  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'unaffiliated'];
   var SITES = ['none', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
   var FILTERS = [
     { id: 'all', label: 'filter.all', match: null },
@@ -20,7 +20,7 @@
     { id: 'overseas', label: 'filter.overseas', match: ['overseas'] },
     { id: 'former', label: 'role.former', match: ['former'] },
     { id: 'family', label: 'role.family', match: ['family'] },
-    { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public', 'shareholder'] }
+    { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
   ];
   var LIVE = !!CONFIG.endpoint;
 
@@ -173,7 +173,7 @@
     return fetch(CONFIG.endpoint + (CONFIG.endpoint.indexOf('?') < 0 ? '?' : '&') + 'action=list', { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        state.count = +d.count || 0;
+        state.count = Number.isFinite(+d.count) ? Math.max(0, Math.floor(+d.count)) : 0;
         state.list = Array.isArray(d.signatures) ? d.signatures : [];
         renderCount(true); renderList();
       })
@@ -195,6 +195,7 @@
         if (p < 1) requestAnimationFrame(step); else shown = target;
       })(start);
     }
+    renderLights();
     $('goalBar').style.width = Math.min(100, target / CONFIG.goal * 100) + '%';
     $('goalTxt').textContent = t('count.goal', { n: fmt(CONFIG.goal) });
   }
@@ -234,7 +235,7 @@
       n.textContent = (s.pub === true && s.name) ? s.name : t('list.anon');
       who.appendChild(n);
       if (s.pub === true && s.title) badge(who, s.title, 'alt');
-      if (s.pub === true && s.pubRole === true && ROLES.indexOf(s.role) >= 0) badge(who, t('role.' + s.role), '');
+      if (s.pub === true && s.pubRole === true && s.role !== 'unaffiliated' && ROLES.indexOf(s.role) >= 0) badge(who, t('role.' + s.role), '');
       if (s.pub === true && s.pubRole === true && SITES.indexOf(s.site) > 0) badge(who, t('site.' + s.site), 'alt');
       if (s.t) {
         var w = document.createElement('span'); w.className = 'when';
@@ -255,13 +256,14 @@
     ev.preventDefault();
     var err = $('err'), name = $('nm').value.trim(), role = (document.querySelector('input[name="role"]:checked') || {}).value, pub = $('pub').checked;
     if (!role) { err.textContent = t('err.role'); $('roleChoices').querySelector('input').focus(); return; }
+    if (!$('jobTitle').value.trim()) { err.textContent = t('err.title'); $('jobTitle').focus(); return; }
     if (!name) { err.textContent = t('err.name'); $('nm').focus(); return; }
     if (!$('email').checkValidity() || !$('email').value.trim()) { err.textContent = t('err.email'); $('email').focus(); return; }
     if (LIVE && (!CONFIG.turnstileSiteKey || !securityToken)) { err.textContent = t('security.required'); return; }
     if (!$('agree').checked) { err.textContent = t('err.agree'); $('agree').focus(); return; }
     if (LIVE && hasSigned()) { err.textContent = t('err.dup'); return; }
     err.textContent = '';
-    var sig = { title: $('jobTitle').value.trim().slice(0,80), email: $('email').value.trim(), pubRole: pub && $('pubRole').checked, pubMsg: pub && $('pubMsg').checked, token: securityToken, agree: true, name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
+    var sig = { title: $('jobTitle').value.trim().slice(0,80), email: $('email').value.trim(), pubRole: pub && role !== 'unaffiliated' && $('pubRole').checked, pubMsg: pub && $('pubMsg').checked, token: securityToken, agree: true, name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
     var form = this, submit = $('submit');
 
     function done() {
@@ -328,11 +330,11 @@
   }
   function updatePrivacy() {
     var pub = $('pub').checked, selected = document.querySelector('input[name="role"]:checked');
-    $('pubRole').disabled = !pub || !selected; $('pubMsg').disabled = !pub;
+    $('pubRole').disabled = !pub || !selected || selected.value === 'unaffiliated'; $('pubMsg').disabled = !pub;
     if (!pub) $('pubMsg').checked = false;
     var lines = [pub ? ($('nm').value.trim() || t('form.name')) : t('list.anon')];
     if (pub && $('jobTitle').value.trim()) lines.push($('jobTitle').value.trim());
-    if (pub && selected && $('pubRole').checked) {
+    if (pub && selected && selected.value !== 'unaffiliated' && $('pubRole').checked) {
       lines.push(t('role.' + selected.value));
       if ($('site').value) lines.push(t('site.' + $('site').value));
     }
@@ -364,6 +366,37 @@
   }
   $('sign').addEventListener('input', updatePrivacy);
   $('sign').addEventListener('change', updatePrivacy);
+
+  function renderLights() {
+    var count = Math.max(0, Math.floor(state.count));
+    var sky = $('lightSky');
+    sky.hidden = count === 0;
+    $('lightEmpty').hidden = count > 0;
+    $('lightMode').textContent = LIVE ? '' : t('lights.demo');
+    $('lightCount').textContent = t('lights.count', {n: count.toLocaleString(locale())});
+    if (!count) return;
+    var scale = window.devicePixelRatio || 1;
+    var width = sky.clientWidth, height = sky.clientHeight;
+    sky.width = Math.round(width * scale);
+    sky.height = Math.round(height * scale);
+    var ctx = sky.getContext('2d');
+    if (!ctx) return;
+    ctx.scale(scale, scale);
+    var points = count;
+    for (var i = 0; i < points; i++) {
+      var angle = i * 2.3999632297;
+      var radius = Math.sqrt(i / points);
+      var x = width * (.5 + .46 * radius * Math.cos(angle));
+      var y = height * (.5 + .42 * radius * Math.sin(angle));
+      ctx.fillStyle = i % 3 === 0 ? '#e1c8ff' : '#ffe0a2';
+      ctx.shadowColor = ctx.fillStyle;
+      ctx.shadowBlur = points < 400 ? 8 : 0;
+      ctx.beginPath();
+      ctx.arc(x, y, points < 100 ? 2.8 : 1.15, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  window.addEventListener('resize', renderLights);
 
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);

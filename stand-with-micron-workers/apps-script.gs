@@ -4,7 +4,7 @@
  * Never publish the spreadsheet or place the secret in frontend source.
  */
 var SHEET = 'signatures';
-var ROLES = ['current','overseas','former','family','semi','worker','student','public','shareholder'];
+var ROLES = ['current','overseas','former','family','semi','worker','student','public','unaffiliated'];
 var SITES = ['','tc','ty','other','us','jp','sg','my','cn','in','abroad'];
 var HEADERS = ['time','name','role','site','message','public','lang','hidden','title','email','publicRole','publicMessage','consent','tokenHash'];
 function sheet_() {
@@ -25,7 +25,7 @@ function doPost(e) {
     if(!e || !e.postData || e.postData.contents.length>12000) return json_({ok:false,error:'invalid'});
     var d=JSON.parse(e.postData.contents);
     var name=clean_(d.name,40), email=String(d.email||'').trim().toLowerCase();
-    if(!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length>254 || ROLES.indexOf(d.role)<0 || d.agree!==true) return json_({ok:false,error:'invalid'});
+    if(!clean_(d.title,80) || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length>254 || ROLES.indexOf(d.role)<0 || d.agree!==true) return json_({ok:false,error:'invalid'});
     var props=PropertiesService.getScriptProperties(), secret=props.getProperty('TURNSTILE_SECRET'), host=props.getProperty('ALLOWED_HOSTNAME');
     if(!secret || !host || typeof d.token!=='string' || !d.token || d.token.length>2048) return json_({ok:false,error:'verification'});
     var check=JSON.parse(UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify',{
@@ -37,13 +37,13 @@ function doPost(e) {
     if(rows.some(function(r){return r[13]===tokenHash;})) return json_({ok:false,error:'verification'});
     if(rows.some(function(r){return String(r[9]||'').replace(/^'/,'').toLowerCase()===email;})) return json_({ok:false,error:'duplicate'});
     var pub=d.pub===true;
-    sh.appendRow([new Date(),name,d.role,SITES.indexOf(d.site)>=0?d.site:'',clean_(d.msg,200),pub,clean_(d.lang,8),false,clean_(d.title,80),"'"+email,pub && d.pubRole===true,pub && d.pubMsg===true,true,tokenHash]);
+    sh.appendRow([new Date(),name,d.role,SITES.indexOf(d.site)>=0?d.site:'',clean_(d.msg,200),pub,clean_(d.lang,8),false,clean_(d.title,80),"'"+email,pub && d.role!=='unaffiliated' && d.pubRole===true,pub && d.pubMsg===true,true,tokenHash]);
     return json_({ok:true});
   } catch(err) {return json_({ok:false,error:'unavailable'});}
   finally {if(locked) lock.releaseLock();}
 }
 function publicRow_(r) {
-  var pub=r[5]===true, role=pub && r[10]===true, msg=pub && r[11]===true;
+  var pub=r[5]===true, role=pub && ROLES.indexOf(r[2])>=0 && r[2]!=='unaffiliated' && r[10]===true, msg=pub && r[11]===true;
   return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:role?r[3]:'',pubMsg:msg,msg:msg?r[4]:''};
 }
 function doGet() {
