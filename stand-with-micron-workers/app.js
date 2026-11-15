@@ -6,7 +6,7 @@
    * endpoint: leave '' for the local test mode (signatures stay in this
    * browser). Paste a deployed Google Apps Script web-app URL (see
    * apps-script.gs in this folder) to collect real, shared signatures. */
-  var CONFIG = { endpoint: 'https://script.google.com/macros/s/AKfycby-Y346676o_7RN5hqSHyt3GtZz14A1shI1OuCxJGrA7M7s-btlbO-R1pI7LLzT2Yvlxw/exec', turnstileSiteKey: '0x4AAAAAAFkskb0YOnrxwIHt', preview: true };
+  var CONFIG = { endpoint: 'https://script.google.com/macros/s/AKfycby-Y346676o_7RN5hqSHyt3GtZz14A1shI1OuCxJGrA7M7s-btlbO-R1pI7LLzT2Yvlxw/exec', turnstileSiteKey: '0x4AAAAAAFkskb0YOnrxwIHt', preview: false };
   // Live test before launch: open the page with ?demo=0 (uses the real backend while visitors still see the preview).
   // preview: show 2,345 labelled sample signatures by default (add ?demo=0 to hide). Set to false before launch.
 
