@@ -309,6 +309,7 @@ footer p{margin:0;max-width:680px}
 .event-photos figure{background:var(--card);border:1px solid var(--line2);border-radius:14px;overflow:hidden}.event-photos figcaption{padding:10px 14px}
 #turnstile{max-width:100%;overflow:auto}
 .quick-path{display:flex;gap:12px;flex-wrap:wrap;padding-top:20px;padding-bottom:20px}.quick-path a{flex:1;min-width:140px;padding:12px 16px;background:var(--card);border:1px solid var(--line2);border-radius:12px;text-align:center}.form-progress{margin-bottom:22px;padding:16px;background:#ffffff08;border-radius:12px}.form-progress progress{display:block;width:100%;height:8px;margin:12px 0;accent-color:#ba91ff}.list-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.list-tools p{color:var(--mut)}#moreSigners{display:block;margin:24px auto}#moreSigners[hidden],#resetSearch[hidden]{display:none}.light-list-link{display:block;margin:14px 0}.photo-open{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}.photo-open:hover{filter:brightness(1.12)}#photoDialog{width:min(960px,94vw);max-height:92dvh;overflow:auto;background:#171020;color:#fff;border:1px solid #745590;border-radius:16px;padding:18px}#photoDialog::backdrop{background:#000c}#photoFull{display:block;max-width:100%;max-height:72dvh;object-fit:contain;margin:16px auto}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #e7bd71;outline-offset:4px}#sign,#signers,#letter{scroll-margin-top:100px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media(max-width:600px){.quick-path{gap:6px}.quick-path a{min-width:0;padding:12px 6px;font-size:12px}}
+.hero{isolation:isolate;background:#120d20}.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:saturate(.22);z-index:-2}.hero::before{inset:0;height:auto;z-index:-1;background:linear-gradient(90deg,#100a19f2,#100a19bd 52%,#100a1955),linear-gradient(0deg,#100a19,#100a1922 55%)}.hero-subtitle{font-size:clamp(20px,3vw,33px);font-weight:700;color:#e9dcff;margin:0 0 12px}.hero .sub,.hero .disc,.hero-credit a{color:#e0d7ea}.hero-credit{font-size:12px;margin:8px 0 0}@media(max-width:650px){.hero::before{background:linear-gradient(90deg,#100a19ed,#100a19a6),linear-gradient(0deg,#100a19,transparent)}}
 </style>
 </head>
 <body>
@@ -322,7 +323,6 @@ footer p{margin:0;max-width:680px}
     </a>
     <ul class="links">
       <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
-      <li><a href="#union" data-i18n="nav.union">工會的話</a></li>
       <li><a href="#global" data-i18n="nav.global">全球夥伴</a></li>
       <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
       <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
@@ -347,10 +347,12 @@ footer p{margin:0;max-width:680px}
 </a>
 
 <header class="hero" id="top">
+  <img class="hero-photo" src="https://images.newtalk.tw/resize_action2/1200/album/news/1068/6ada11da67d8f.jpeg" alt="" fetchpriority="high" referrerpolicy="no-referrer">
   <div class="wrap">
     <div>
       <span class="kick"><i></i><span data-i18n="hero.kick">Open Letter・公開信</span></span>
-      <h1 data-i18n="hero.title">勞工團結<br><em>是大家的事</em></h1>
+      <h1 data-i18n="hero.title">挺美光勞工</h1>
+      <p class="hero-subtitle" data-i18n="hero.solidarity">勞工團結是所有人的事</p>
       <p class="sub" data-i18n="hero.sub">從美光員工的處境出發，邀請各行各業一起聲援。拒絕黑箱簽署、反對司法打壓、要求誠意協商。工作不同，我們都值得知情、安心發聲，也值得被認真傾聽。</p>
       <div class="counter" aria-live="polite">
         <div><b id="heroCount">0</b></div>
@@ -359,37 +361,12 @@ footer p{margin:0;max-width:680px}
       </div>
       <div class="acts">
         <a class="btn p" href="#sign" data-i18n="hero.cta">簽署公開信</a>
-        <a class="btn g" href="#union" data-i18n="hero.union">讀工會的公開信</a>
         <button class="btn g" type="button" data-share data-i18n="hero.share">分享</button>
       </div>
       <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司無隸屬關係，也不代表任何工會發言。數字取自公開新聞報導與工會聲明，見頁尾資料來源。</p>
+      <p class="hero-credit"><a href="https://newtalk.tw/news/view/2026-10-22/1067124" data-i18n="hero.credit">背景照片：Newtalk 新聞／李宣萱攝</a></p>
     </div>
-    <div class="art" aria-hidden="true">
-      <svg viewBox="0 0 400 400">
-        <defs>
-          <radialGradient id="wf" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#3b2a63"/><stop offset=".55" stop-color="#1d1433"/><stop offset="1" stop-color="#0d0918"/></radialGradient>
-          <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c4b5fd"/><stop offset=".5" stop-color="#7c3aed"/><stop offset="1" stop-color="#d946ef"/></linearGradient>
-          <pattern id="die" width="22" height="22" patternUnits="userSpaceOnUse" x="2" y="2"><rect x="1.5" y="1.5" width="19" height="19" rx="2" fill="#8b5cf614" stroke="#a78bfa40" stroke-width=".8"/></pattern>
-          <clipPath id="cw"><circle cx="200" cy="200" r="158"/></clipPath>
-          <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#d946ef" stop-opacity=".55"/><stop offset="1" stop-color="#d946ef" stop-opacity="0"/></radialGradient>
-        </defs>
-        <circle cx="200" cy="200" r="196" fill="none" stroke="#a78bfa22" stroke-dasharray="2 8"/>
-        <g class="spin">
-          <circle cx="200" cy="200" r="170" fill="url(#wf)" stroke="url(#rim)" stroke-width="3"/>
-          <path d="M188 30h24l-4 8h-16z" fill="#09060f"/>
-          <g clip-path="url(#cw)"><rect width="400" height="400" fill="url(#die)"/>
-            <g fill="#a78bfa"><rect x="157" y="135" width="19" height="19" rx="2" opacity=".55"/><rect x="223" y="179" width="19" height="19" rx="2" opacity=".4"/><rect x="113" y="223" width="19" height="19" rx="2" opacity=".35"/><rect x="267" y="245" width="19" height="19" rx="2" opacity=".5"/><rect x="201" y="289" width="19" height="19" rx="2" opacity=".3"/><rect x="245" y="91" width="19" height="19" rx="2" opacity=".35"/></g>
-          </g>
-        </g>
-        <circle cx="200" cy="200" r="86" fill="url(#glow)"/>
-        <g transform="translate(200 200)">
-          <rect x="-46" y="-46" width="92" height="92" rx="16" fill="#120c1f" stroke="url(#rim)" stroke-width="2.5"/>
-          <path d="M0 24C-6 19-26 7-26-8c0-9 7-15 14-15 5 0 9 3 12 7 3-4 7-7 12-7 7 0 14 6 14 15C26 7 6 19 0 24z" fill="url(#rim)"/>
-          <path d="M-13-8c0-4 3-6 6-6" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>
-        </g>
-        <g stroke="#a78bfa66" stroke-width="2"><path d="M154 186h-30M154 200h-40M154 214h-30M246 186h30M246 200h40M246 214h30M186 154v-30M200 154v-40M214 154v-30M186 246v30M200 246v40M214 246v30"/></g>
-      </svg>
-    </div>
+    
   </div>
 </header>
 
@@ -398,8 +375,6 @@ footer p{margin:0;max-width:680px}
 <h2 data-i18n="lights.title">每一份聲援，都有光</h2><p data-i18n="lights.note">每個光點代表一份支持，包含匿名簽署。</p></div>
 <div class="light-panel"><p id="lightCount" role="status"></p><canvas id="lightSky" aria-hidden="true"></canvas><p id="lightEmpty" data-i18n="lights.empty">這片光海，等你一起點亮。</p><p class="field-hint" id="lightDensity"></p><a class="light-list-link" href="#signers" data-i18n="ux.lightList">閱讀每一份聲援 →</a><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
 </div></section>
-<section class="alt"><div class="wrap"><div class="sh c"><h2 data-i18n="photo.title">11/13 台中與桃園集結</h2><p data-i18n="photo.note">活動夥伴提供，沿用已做臉部遮蔽的公開版本。</p></div>
-<div class="event-photos"><figure><button type="button" class="photo-open" data-i18n-aria="ux.zoom" aria-label="放大活動照片"><img loading="lazy" src="assets/taichung-1113.webp" alt="台中 11/13 黑衣集結現場" width="1477" height="1108"></button><figcaption data-i18n="photo.taichung">台中 · 11/13</figcaption></figure><figure><button type="button" class="photo-open" data-i18n-aria="ux.zoom" aria-label="放大活動照片"><img loading="lazy" src="assets/taoyuan-1113.webp" alt="桃園 11/13 黑衣集結現場" width="1083" height="768"></button><figcaption data-i18n="photo.taoyuan">桃園 · 11/13</figcaption></figure></div></div></section>
 <section id="letter">
   <div class="wrap narrow">
     <article class="paper">
@@ -456,65 +431,14 @@ footer p{margin:0;max-width:680px}
       <div class="panel" aria-labelledby="sigTitle">
         <h3 id="sigTitle" data-i18n="list.title">簽署人</h3>
         <p class="s" id="listSub" data-i18n="list.sub_local">測試版：只顯示這台裝置上的簽名。</p>
-        <div class="chips" id="chips" role="group" data-i18n-aria="list.filter" aria-label="依身分篩選"></div>
         <input type="search" id="q" data-i18n-ph="list.search" placeholder="搜尋公開姓名、職稱或留言" data-i18n-aria="list.search" aria-label="搜尋公開姓名、職稱或留言">
-        <div class="list-tools"><p id="listResults" role="status"></p><button id="resetSearch" type="button" class="btn sm" data-i18n="ux.reset" hidden>清除搜尋與篩選</button></div><ul class="sigs" id="sigs"></ul><button type="button" class="btn sm" id="moreSigners" data-i18n="ux.more" hidden>再看 12 位支持者</button>
+        <div class="list-tools"><p id="listResults" role="status"></p><button id="resetSearch" type="button" class="btn sm" data-i18n="ux.reset" hidden>清除搜尋</button></div><ul class="sigs" id="sigs"></ul><button type="button" class="btn sm" id="moreSigners" data-i18n="ux.more" hidden>再看 12 位支持者</button>
         <div class="acts">
           <button class="btn g sm" type="button" data-share data-i18n="list.share">分享給同事</button>
           <button class="btn g sm" type="button" id="clear" data-i18n="list.clear">清除本機簽名</button>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="union">
-  <div class="wrap">
-    <div class="sh"><div class="tag" data-i18n="union.tag">From the union</div><h2 data-i18n="union.title">美光桃園工會的公開信</h2><p data-i18n="union.sub">2026 年 11 月 12 日，美光桃園工會發表〈給工會會員和台灣社會的一封公開信〉。以下摘錄其內容，所述為工會的立場與說法。</p></div>
-    <div class="quotes">
-      <figure class="quote big"><blockquote data-i18n="union.q1">爭取分潤未能成功，我們還需要更團結往前進。</blockquote><figcaption data-i18n="union.cap">— 美光桃園工會</figcaption></figure>
-      <figure class="quote"><blockquote data-i18n="union.q2">明天大家如果無法承受壓力，就簽署協議領取獎金也沒關係。</blockquote></figure>
-      <figure class="quote"><blockquote data-i18n="union.q3">我們直到最後一刻，也都堅持沒有在黑箱文件上簽字。</blockquote></figure>
-      <figure class="quote"><blockquote data-i18n="union.q4">未來的某一天，透過我們的團結，我們或許真的能抬頭挺胸，有尊嚴地與資方對等協商，爭取合理分潤！</blockquote></figure>
-    </div>
-    <div class="twocol">
-      <div class="panel">
-        <h3 data-i18n="union.next">工會宣布的三個方向</h3>
-        <ol class="steps">
-          <li data-i18n="union.n1"><b>不參加 11 月 17 日的勞資協商。</b>工會認為資方在協商中不提供分潤數字或試算資料，已失去誠信協商的意義。</li>
-          <li data-i18n="union.n2"><b>11 月 17 日（二）赴民進黨中央黨部召開記者會</b>，向全台科技業工程師說明，並表達對政府處理方式的不滿；呼籲桃園、台中會員一同到場。</li>
-          <li data-i18n="union.n3"><b>呼籲桃園市政府核發「美光關係企業工會」成立證書</b>，盼成立涵蓋台中、桃園、苗栗、台南等全台美光勞工的自主工會；工會表示台中已有超過 6 千名會員申請加入。</li>
-        </ol>
-        <p class="s" style="margin:14px 0 0" data-i18n="union.claims">工會在信中亦表示：會員反映遭主管約談、考績被打低；11 月 6 日協商後，公司指稱有成員洩密並報案，工會秘書長經地檢署傳喚後以新台幣 10 萬元交保。</p>
-      </div>
-      <div class="panel resp">
-        <h3 data-i18n="resp.title">美光的回應</h3>
-        <p data-i18n="resp.p">美光隨後發表四點聲明，否認以簽署協議作為領取新增獎金的條件，表示已開放個人季度利潤獎金試算功能，並將持續與工會對話。</p>
-        <p class="s" data-i18n="resp.s">為求完整，我們同時列出公司方的說法。資料來源見頁尾。</p>
-      </div>
-    </div>
-    <details class="full">
-      <summary data-i18n="union.full">閱讀公開信全文（中文原文）</summary>
-      <div class="fulltext" lang="zh-Hant">
-        <h4>美光桃園工會給工會會員和台灣社會的一封公開信：爭取分潤未能成功，我們還需要更團結往前進</h4>
-        <p>各位美光桃園工會的會員，晚上我們不斷收到消息，說公司接下來會要求大家，如果要拿獎金等新增的勞動條件，每個人可能都得簽署個人協議，放棄未來的爭議權。我們知道，大家又焦慮又憤怒，同時，也有更多人會擔心，如果拒絕會更被公司針對。因此，美光桃園工會要向大家宣布一件事情，我們要正式承認這次爭取分潤制度的行動沒能成功，只能未來繼續努力。</p>
-        <p>接下來，請讓我們更詳細的說明。</p>
-        <p>首先，美光桃園工會要對各位會員大家說，明天大家如果無法承受壓力，就簽署協議領取獎金也沒關係，因為大家從10月21日少數台中工會幹部背叛，導致我們喪失最有利的談判籌碼與時機，至今已經又繼續堅持了將近一個月。</p>
-        <p>這段時間，我們遭受來自美國資方和台灣政府，包括從賴清德總統、到勞動部、再到桃園市政府和中科管理局、以及司法檢調系統，再加上各種在媒體輿論上的全面攻擊，包跨外資撤資、停止建廠、轉投資新加坡、甚至影響台灣AI及半導體產業發展與國家安全等，而甚至，從明天開始，大家會直接面臨到資方對每一位會員的直接施壓，不簽就沒錢，不簽就會更被針對，大家在這段時間面對的攻擊與壓力實在太大了。</p>
-        <p>而且，外界可能不知道，在11月6日桃園市政府的勞資協商後，檢調單位就配合美光公司宣稱有工會成員洩密並報警後，檢調馬上以超乎想像的速度約談工會成員，同時工會秘書長魏豫綾甚至在地檢署傳喚後以10萬元交保，創下近20年台灣勞工運動案件中最高的保釋金。再加上，工會持續收到許多會員反映，近來遭到主管約談、考績遭到刁難打低，甚至可能會被解僱，這些問題如果再加上即將發生的施壓，要求每個人要簽署協議，不然就沒錢，一定會讓大家受到超級大的壓力。</p>
-        <p>我們認為，這些壓力不該再讓美光桃園工會的大家承擔，因為，今天真正造成這種狀況的，是美光公司、台灣各級政府，以及10月21日少數私下簽約的台中工會幹部。</p>
-        <p>美光桃園工會未來將會繼續努力，但是現在這個時間點，我們得向大家正式承認我們的失利，也要跟大家說，謝謝大家這幾個月的同行奮戰。我們最後要向大家宣布未來的三個動作和方向。</p>
-        <p>第一，美光桃園工會將不會再參加11月17日（二）的勞資協商，這種放任資方在協商過程中完全不用提供分潤數字或試算資料，並且縱容資方在每次協商前各種惡質動作頻出，已經完全失去誠信協商的意義和可能性。</p>
-        <p>無法達成原訂目標，幫大家爭取到四大訴求，是美光桃園工會努力不夠，但是我們直到最後一刻，也都堅持沒有在黑箱文件上簽字。</p>
-        <p>第二，桃園美光工會11月17日（二）當天，會前往民進黨中央黨部召開記者會，除了向全台灣所有科技業工程師道歉，沒辦法成功爭取分潤制度外，也要表達對於這次爭取過程中，執政黨各種荒腔走板的作法的失望與憤怒，你們包庇資方和少數幹部簽署背叛台灣勞工的協議在先，檢調單位快速配合打壓在後。</p>
-        <p>賴清德總統，你讓台灣科技業工程師徹底失望，我們也呼籲所有不甘心的桃園、台中工會會員，那天一起來民進黨中央黨部前，告訴台灣社會，台中美光的勞資爭議根本沒解決、桃園會員遭受嚴酷打壓！</p>
-        <p>第三，對於桃園市政府在工會會員奮戰堅持那麼久的狀況中，至今還是沒發給「美光關係企業工會」成立證書，我們真的是非常遺憾，這份證書到現在已經是台中超過6千名會員申請加入的期待，但因為沒有這份成立證書，美光桃園工會的會員只能在網路和輿論上承受作為公司打手的網紅帶風向、攻擊說「台中已經解決，只剩桃園在鬧」，或是各種宣稱未來員工會拿到600萬的假新聞，我們相信，這些無聊的口水和謊言終會有被拆穿的一天，但希望這天來臨前，美光基層員工可以有個涵蓋台中、桃園、苗栗和台南等全台美光勞工的自主工會。</p>
-        <p>再過兩個星期，11月28日那天，將會有很多政治人物選上心目中渴望的高位，開啟他們步步高升的政治前途，但是同時間，在台灣各地的無塵室裡、產線上、在需要熬夜開跨國會議的視窗中，一群又一群努力創造台灣半導體奇蹟與AI獲利的工程師和技術員，面對跨國財團與賴清德政府的阻擋，仍無法享有合理的分潤制度。</p>
-        <p>最後，我們想對全台灣的工程師與勞工說，在這麼嚴峻的政治現實和勞資力量差距下，我們的確被逼得只能暫時低頭，但未來的某一天，透過我們的團結，我們或許真的能抬頭挺胸，有尊嚴地與資方對等協商，爭取合理分潤！直到那一天到來之前，請大家和我們一起繼續向前走！</p>
-        <p>#戰鬥協商</p>
-        <p class="contact">聯絡人：美光桃園工會秘書長 魏豫綾</p>
-      </div>
-    </details>
   </div>
 </section>
 
@@ -566,7 +490,6 @@ footer p{margin:0;max-width:680px}
           <li><time data-i18n="tl.8d">11 月 17 日</time><h4 data-i18n="tl.8h">工會記者會（預定）</h4><p data-i18n="tl.8p">依工會公告，於民進黨中央黨部召開記者會。實際時間地點以工會公告為準。</p></li>
         </ol>
       </div>
-      <aside class="panel"><h3 data-i18n="banner.text">拒絕黑箱簽署・反對司法打壓・要求誠意協商</h3></aside>
     </div>
   </div>
 </section>
@@ -626,11 +549,11 @@ footer p{margin:0;max-width:680px}
   </div>
 </footer>
 
-<dialog id="photoDialog" aria-labelledby="photoCaption"><button type="button" class="btn sm" id="photoClose" data-i18n="ux.close">關閉照片</button><img id="photoFull" alt=""><p id="photoCaption"></p></dialog><div id="toast" role="status" aria-live="polite"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=6"></script>
-<script src="app.js?v=6"></script>
+<script src="form-i18n.js?v=7"></script>
+<script src="app.js?v=7"></script>
 </body>
 
 </html>

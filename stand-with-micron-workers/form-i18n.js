@@ -235,3 +235,44 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
 })();
 
 (function(){var values={"zh-Hant":["① 了解訴求","② 留下聲援","③ 看見團結","必填項目已完成 {n} / 5","先選身分，再填全名、職稱／機構與信箱，最後確認同意事項。公開資料由你決定。","顯示 {shown} / {total} 份聲援","清除搜尋與篩選","再看 12 位支持者","閱讀每一份聲援 →","每一個光點，代表一份聲援。","聲援超過 2,000 份時，以 2,000 個光點呈現光海；總數以上方數字為準。","放大活動照片","關閉照片"],"en":["① Read our demands","② Add your support","③ Meet supporters","Required items completed: {n} / 5","Choose a category, enter your full name, title / organization and email, then confirm consent. You decide what is public.","Showing {shown} of {total} supporters","Clear search and filters","Show 12 more supporters","Read the messages of support →","Each light represents one signature.","Above 2,000 signatures, the sky displays 2,000 representative lights. The counter shows the full total.","Enlarge event photo","Close photo"]};var keys=["read","sign","people","progress","required","results","reset","more","lightList","oneLight","density","zoom","close"];Object.keys(window.SWMW_I18N).forEach(function(lang){var dict=window.SWMW_I18N[lang];delete dict['role.shareholder'];var list=values[lang]||values.en;keys.forEach(function(key,i){dict['ux.'+key]=list[i];});});})();
+
+(function () {
+  var labels = {
+  "zh-Hant": [
+    "挺美光勞工",
+    "勞工團結是所有人的事",
+    "台灣",
+    "清除搜尋"
+  ],
+  "zh-Hans": [
+    "挺美光劳工",
+    "劳工团结是所有人的事",
+    "台湾",
+    "清除搜索"
+  ],
+  "en": [
+    "Stand with Micron Workers",
+    "Workers’ solidarity concerns us all",
+    "Taiwan",
+    "Clear search"
+  ],
+  "ja": [
+    "マイクロンの労働者を支えよう",
+    "労働者の連帯はみんなのこと",
+    "台湾",
+    "検索をクリア"
+  ],
+  "ko": [
+    "마이크론 노동자와 함께",
+    "노동자의 연대는 모두의 일입니다",
+    "대만",
+    "검색 지우기"
+  ]
+};
+  var keys = ['hero.title', 'hero.solidarity', 'site.tw', 'ux.reset'];
+  Object.keys(labels).forEach(function (language) {
+    var dict = window.SWMW_I18N[language];
+    keys.forEach(function (key, index) { dict[key] = labels[language][index]; });
+    if (language !== 'zh-Hant' && language !== 'zh-Hans') dict['hero.credit'] = 'Photo: Li Hsuan-hsuan / Newtalk';
+  });
+})();

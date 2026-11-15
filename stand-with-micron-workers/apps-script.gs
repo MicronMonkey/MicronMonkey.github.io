@@ -5,7 +5,7 @@
  */
 var SHEET = 'signatures';
 var ROLES = ['current','overseas','former','family','semi','worker','student','public','unaffiliated'];
-var SITES = ['','tc','ty','other','us','jp','sg','my','cn','in','abroad'];
+var SITES = ['','tw','us','jp','sg','my','cn','in','abroad'];
 var HEADERS = ['time','name','role','site','message','public','lang','hidden','title','email','publicRole','publicMessage','consent','tokenHash'];
 function sheet_() {
   var ss=SpreadsheetApp.getActive(), sh=ss.getSheetByName(SHEET);
@@ -44,10 +44,14 @@ function doPost(e) {
 }
 function publicRow_(r) {
   var pub=r[5]===true, role=pub && ROLES.indexOf(r[2])>=0 && r[2]!=='unaffiliated' && r[10]===true, msg=pub && r[11]===true;
-  return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:role?r[3]:'',pubMsg:msg,msg:msg?r[4]:''};
+  return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:role?normalizeSite_(r[3]):'',pubMsg:msg,msg:msg?r[4]:''};
 }
 function doGet() {
   var rows=sheet_().getDataRange().getValues().slice(1).filter(function(r){return r[7]!==true && String(r[7]).toUpperCase()!=='TRUE';});
   return json_({count:rows.length,signatures:rows.slice(-300).reverse().map(publicRow_)});
 }
 function json_(o) {return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);}
+
+function normalizeSite_(site) {
+  return ['tc', 'ty', 'other'].indexOf(site) >= 0 ? 'tw' : site;
+}

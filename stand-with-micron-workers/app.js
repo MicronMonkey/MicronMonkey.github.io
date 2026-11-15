@@ -13,15 +13,7 @@
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
   var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'unaffiliated'];
-  var SITES = ['none', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
-  var FILTERS = [
-    { id: 'all', label: 'filter.all', match: null },
-    { id: 'current', label: 'role.current', match: ['current'] },
-    { id: 'overseas', label: 'filter.overseas', match: ['overseas'] },
-    { id: 'former', label: 'role.former', match: ['former'] },
-    { id: 'family', label: 'role.family', match: ['family'] },
-    { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
-  ];
+  var SITES = ['none', 'tw', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
   var LIVE = !!CONFIG.endpoint;
 
   var $ = function (id) { return document.getElementById(id); };
@@ -29,7 +21,7 @@
   var DICT = window.SWMW_I18N || {};
   var zh = DICT['zh-Hant'] = DICT['zh-Hant'] || {};
   var lang = 'zh-Hant';
-  var state = { list: [], count: 0, filter: 'all', q: '', limit: 12 };
+  var state = { list: [], count: 0, q: '', limit: 12 };
 
   /* ── i18n ─────────────────────────────────────────────── */
   // Read the Traditional Chinese baseline straight from the markup.
@@ -83,7 +75,7 @@
     $('langName').textContent = cur ? cur.name + (lang === 'en' ? ' / 繁體中文' : ' / English') : lang;
     each('#langMenu button', function (b) { b.setAttribute('aria-checked', String(b.dataset.lang === lang)); });
     fillSelects();
-    renderChips();
+    
     setMode();
     renderCount(false);
     renderList();
@@ -145,16 +137,6 @@
     SITES.forEach(function (s) { site.add(new Option(t('site.' + s), s === 'none' ? '' : s)); });
     site.value = sv;
   }
-  function renderChips() {
-    var box = $('chips'); box.textContent = '';
-    FILTERS.forEach(function (f) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.textContent = t(f.label);
-      b.setAttribute('aria-pressed', String(state.filter === f.id));
-      b.addEventListener('click', function () { state.filter = f.id; state.limit = 12; renderChips(); renderList(); });
-      box.appendChild(b);
-    });
-  }
 
   /* ── data ─────────────────────────────────────────────── */
   function loadLocal() {
@@ -213,10 +195,8 @@
   }
   function renderList() {
     var ul = $('sigs'); ul.textContent = '';
-    var f = FILTERS.filter(function (x) { return x.id === state.filter; })[0];
     var q = state.q.toLowerCase();
     var items = state.list.filter(function (s) {
-      if (f && f.match && (!(s.pub === true && s.pubRole === true) || f.match.indexOf(s.role) < 0)) return false;
       if (q) {
         var hay = ((s.pub === true && s.name ? s.name : '') + ' ' + (s.pub === true ? s.title || '' : '') + ' ' + (s.pub === true && s.pubMsg === true ? s.msg || '' : '')).toLowerCase();
         if (hay.indexOf(q) < 0) return false;
@@ -225,7 +205,7 @@
     }).slice(0, 300);
     $('listResults').textContent = t('ux.results', {shown: Math.min(state.limit, items.length), total: items.length});
     $('moreSigners').hidden = items.length <= state.limit;
-    $('resetSearch').hidden = !state.q && state.filter === 'all';
+    $('resetSearch').hidden = !state.q;
     if (!items.length) {
       var e = document.createElement('li'); e.className = 'empty';
       e.textContent = state.list.length ? t('list.nomatch') : t('list.empty');
@@ -239,7 +219,8 @@
       who.appendChild(n);
       if (s.pub === true && s.title) badge(who, s.title, 'alt');
       if (s.pub === true && s.pubRole === true && s.role !== 'unaffiliated' && ROLES.indexOf(s.role) >= 0) badge(who, t('role.' + s.role), '');
-      if (s.pub === true && s.pubRole === true && SITES.indexOf(s.site) > 0) badge(who, t('site.' + s.site), 'alt');
+      var site = ['tc', 'ty', 'other'].indexOf(s.site) >= 0 ? 'tw' : s.site;
+      if (s.pub === true && s.pubRole === true && SITES.indexOf(site) > 0) badge(who, t('site.' + site), 'alt');
       if (s.t) {
         var w = document.createElement('span'); w.className = 'when';
         w.textContent = new Date(s.t).toLocaleDateString(locale());
@@ -294,7 +275,7 @@
   });
 
   $('moreSigners').addEventListener('click', function () { state.limit += 12; renderList(); });
-  $('resetSearch').addEventListener('click', function () { state.q = ''; state.filter = 'all'; state.limit = 12; $('q').value = ''; renderChips(); renderList(); $('q').focus(); });
+  $('resetSearch').addEventListener('click', function () { state.q = ''; state.limit = 12; $('q').value = ''; renderList(); $('q').focus(); });
   $('q').addEventListener('input', function () { state.q = this.value.trim(); state.limit = 12; renderList(); });
   $('clear').addEventListener('click', function () {
     if (!loadLocal().length) { toast(t('toast.none')); return; }
@@ -408,18 +389,6 @@
   }
   var resizeFrame;
   window.addEventListener('resize', function () { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(renderLights); });
-  each('.photo-open', function (button) {
-    button.addEventListener('click', function () {
-      var source = button.querySelector('img');
-      $('photoFull').src = source.src; $('photoFull').alt = source.alt;
-      $('photoCaption').textContent = button.parentNode.querySelector('figcaption').textContent;
-      $('photoDialog').showModal();
-    });
-  });
-  $('photoClose').addEventListener('click', function () { $('photoDialog').close(); });
-  $('photoDialog').addEventListener('click', function (e) { if (e.target === this) this.close(); });
-
-
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
   refresh();
