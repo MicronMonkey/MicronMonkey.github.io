@@ -347,6 +347,17 @@ footer p{margin:0;max-width:680px}
 .nav .header-actions{flex:none}
 @media(max-width:420px){.nav .header-top .social-shortcuts a[aria-label="Share on X"],.nav .header-top .social-shortcuts #shareInstagram{display:none}.header-actions .btn{padding:8px 10px}.page-menu summary{padding:8px 10px}}
 @media(max-width:340px){.page-menu summary [data-i18n="nav.menu"]{display:none}}
+
+/* global sites + hero buttons + compact menu */
+.sites-head{margin:8px 0 14px}
+.sites-head h3{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-size:18px}
+.sites-head h3::before{content:"";width:22px;height:22px;flex:none;border-radius:6px;background:linear-gradient(135deg,var(--pu),var(--mag));-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 21V10l6 3V10l6 3V6l8-3v18z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 21V10l6 3V10l6 3V6l8-3v18z'/%3E%3C/svg%3E") center/contain no-repeat}
+.sites-head p{margin:0;color:var(--mut);font-size:14px}
+.hero-acts{margin:0 0 20px}
+.page-menu summary{padding:7px 10px;gap:5px;font-size:13px}
+.nav .header-top{justify-content:flex-start}
+.nav .header-actions{margin-left:auto;gap:6px}
+.header-actions .btn.sm{padding:7px 12px}
 </style>
 </head>
 <body>
@@ -379,16 +390,16 @@ footer p{margin:0;max-width:680px}
       <span class="kick"><i></i><span data-i18n="hero.kick">Open Letter・公開信</span></span>
       <h1 data-i18n="hero.title">挺美光勞工</h1>
       <p class="hero-subtitle" data-i18n="hero.solidarity">勞工團結是所有人的事</p>
-      <p class="sub" data-i18n="hero.sub">從美光員工的處境出發，邀請各行各業一起聲援。拒絕黑箱簽署、反對司法打壓、要求誠意協商。工作不同，我們都值得知情、安心發聲，也值得被認真傾聽。</p>
-      <p id="demoNotice" class="demo-notice" hidden data-i18n="demo.notice">示範模式 · 預載 2,334 筆模擬簽署</p>
+      <p class="sub" data-i18n="hero.sub">從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。</p>
+      <p id="demoNotice" class="demo-notice" hidden data-i18n="demo.notice">示範模式 · 預載 2,345 筆模擬簽署</p>
+      <div class="acts hero-acts">
+        <a class="btn p" href="#sign" data-i18n="hero.cta">簽署公開信</a>
+        <a class="btn g" href="#letter" data-i18n="hero.read">閱讀此內容</a>
+      </div>
       <div class="counter">
         <div class="total"><span data-i18n="dash.total">連署總數</span><b id="heroCount">0</b></div>
         <div class="lab"><span data-i18n="count.unit">份簽名</span><br><span class="live off" id="liveTag" data-i18n="count.local">本機示範</span></div>
         <dl class="count-breakdown"><div><dt data-i18n="dash.current">現任員工</dt><dd id="stat-current">0</dd></div><div><dt data-i18n="dash.former">前員工</dt><dd id="stat-former">0</dd></div><div><dt data-i18n="dash.support">支持者</dt><dd id="stat-support">0</dd></div><div><dt data-i18n="dash.other">其他</dt><dd id="stat-other">0</dd></div></dl><p class="count-note" data-i18n="dash.note">依名單上公開的身分統計，其餘計入其他。</p>
-      </div>
-      <div class="acts">
-        <a class="btn p" href="#sign" data-i18n="hero.cta">簽署公開信</a>
-        <a class="btn g" href="#letter" data-i18n="hero.read">閱讀此內容</a>
       </div>
       <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司無隸屬關係，也不代表任何工會發言。數字取自公開新聞報導與工會聲明，見頁尾資料來源。</p>
       <div class="hero-photo-controls"><p class="hero-credit" data-i18n="hero.credit">背景照片：Newtalk 新聞／李宣萱攝</p></div>
@@ -401,7 +412,8 @@ footer p{margin:0;max-width:680px}
 <section id="signers" class="latest-signers"><div class="wrap"><div class="feed-head"><h2 data-i18n="directory.latest">最新簽署</h2><span id="feedStatus" data-state="waiting"></span></div><p id="listSub" data-i18n="list.sub_local"></p><ul id="latestSigs" class="sigs latest-twelve"></ul></div></section>
 <section id="global" class="alt">
   <div class="wrap">
-    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">各行各業，都能站在一起</h2><p data-i18n="global.sub">不論你在產線輪班、在門市服務、正在求學或照顧家人，都可以參與。每一次支持，都讓第一線的聲音多一個被聽見的機會。</p></div>
+    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">全球聲援美光勞工</h2><p data-i18n="global.sub">從台灣到世界各地，不論你是美光同事、半導體業夥伴，或其他行業的勞工、學生與社會大眾，都可以留下支持。讓台灣美光員工知道：全世界都看見了，也和他們站在一起。</p></div>
+    <div class="sites-head"><h3 data-i18n="global.sitesTitle">美光全球廠區</h3><p data-i18n="global.sitesNote">以下是美光（Micron）在全球的主要營運與製造據點，數字為來自該地的公開簽署數。</p></div>
     <div class="sites country-stats"><div class="site home"><span data-i18n="site.tw">台灣</span><strong id="country-tw"></strong><small data-i18n="country.tw">台中・桃園</small></div><div class="site"><span data-i18n="site.us">美國</span><strong id="country-us"></strong><small data-i18n="country.us">博伊西・馬納薩斯</small></div><div class="site"><span data-i18n="site.jp">日本</span><strong id="country-jp"></strong><small data-i18n="country.jp">廣島</small></div><div class="site"><span data-i18n="site.sg">新加坡</span><strong id="country-sg"></strong><small data-i18n="country.sg">新加坡</small></div><div class="site"><span data-i18n="site.my">馬來西亞</span><strong id="country-my"></strong><small data-i18n="country.my">檳城</small></div><div class="site"><span data-i18n="site.cn">中國</span><strong id="country-cn"></strong><small data-i18n="country.cn">西安</small></div><div class="site"><span data-i18n="site.in">印度</span><strong id="country-in"></strong><small data-i18n="country.in">薩南德</small></div><div class="site"><span data-i18n="site.abroad">其他國家</span><strong id="country-abroad"></strong></div></div><p class="country-note" data-i18n="country.note">人數依簽署名單上公開的所在地統計。廠區名稱僅供參考。</p>
     <div class="steps3">
       <div class="panel"><div class="num">1</div><h3 data-i18n="global.a1h">簽下名字，選你的廠區</h3><p data-i18n="global.a1p">簽署人名單會顯示你來自哪個國家。對台灣同事來說，海外同事的一個簽名，就是「你們並不孤單」最直接的證明。</p></div>
@@ -494,13 +506,19 @@ footer p{margin:0;max-width:680px}
         <h3 data-i18n="tl.title">時間線</h3>
         <p class="s" data-i18n="tl.s">2026 年</p>
         <ol class="tl">
-          <li class="hot"><time data-i18n="tl.2d">10 月 7 日</time><h4 data-i18n="tl.2h">桃園工會取得罷工權</h4><p data-i18n="tl.2p">投票 2,012 人，同意 1,994 票、不同意 14 票，投票率 89.1%。核心訴求是與營業利益連動的分潤制度。</p></li>
-          <li class="hot"><time data-i18n="tl.3d">10 月 21 日</time><h4 data-i18n="tl.3h">台中工會簽署協議</h4><p data-i18n="tl.3p">撤回原定 10/22 的調解。報導指出內容包括季度分潤（一半現金、一半股票）、調整 IPP 上限、調薪、勞退提撥率由 8% 提高到 10%；協議受保密條款約束，報導指生效後 3 年內不得罷工。</p></li>
-          <li class="hot"><time data-i18n="tl.4d">10 月 22 日</time><h4 data-i18n="tl.4h">桃園工會幹部罷工 24 小時</h4><p data-i18n="tl.4p">11 名幹部罷工一天；現場會員投票 1,633 人反對公司方案（約 99%）。</p></li>
-          <li><time data-i18n="tl.5d">10 月下旬</time><h4 data-i18n="tl.5h">協議效力受質疑</h4><p data-i18n="tl.5p">部分台中會員表示事前不知情並發起撤銷授權連署。勞動部表示屬一般性協議，有疑義可循民事訴訟處理。《彭博》報導美光暫緩桃園擴廠計畫。</p></li>
-          <li><time data-i18n="tl.6d">11 月 6 日</time><h4 data-i18n="tl.6h">桃園市政府居中協商</h4><p data-i18n="tl.6p">雙方約定在公司獎金查詢系統公布後，於 11/17 進行第四次協商。工會表示，此後公司指稱有成員洩密並報案，檢調約談工會成員。</p></li>
-          <li class="hot"><time data-i18n="tl.7d">11 月 12 日</time><h4 data-i18n="tl.7h">工會公開信：承認失利、退出協商</h4><p data-i18n="tl.7p">工會宣布不參加 11/17 協商，改赴民進黨中央黨部召開記者會。美光發表聲明，否認要求員工簽約才能領獎金。</p></li>
-          <li><time data-i18n="tl.8d">11 月 17 日</time><h4 data-i18n="tl.8h">工會記者會（預定）</h4><p data-i18n="tl.8p">依工會公告，於民進黨中央黨部召開記者會。實際時間地點以工會公告為準。</p></li>
+          <li><time data-i18n="ev.1d">8 月 20 日 – 9 月 21 日</time><h4 data-i18n="ev.1h">申請調解，兩度破局</h4><p data-i18n="ev.1p">桃園工會 8/20 申請勞資爭議調解；9/4、9/18（台中）、9/21 調解均未達共識，桃園市勞動局宣布調解不成立。</p></li>
+          <li><time data-i18n="ev.2d">9 月 11 日</time><h4 data-i18n="ev.2h">美光宣布 FY26 獎酬</h4><p data-i18n="ev.2p">台灣同仁每人 100 萬元感謝獎金。工會認為一次性獎金無法取代制度，堅持以營業利益 15% 建立透明分潤。</p></li>
+          <li class="hot"><time data-i18n="ev.3d">10 月 7 日</time><h4 data-i18n="ev.3h">台灣晶圓廠首例合法罷工權</h4><p data-i18n="ev.3p">桃園工會 2,335 名會員中 2,012 人投票，1,994 票同意（占全體 88.3%、投票者 99%）。</p></li>
+          <li><time data-i18n="ev.4d">10 月 15 日</time><h4 data-i18n="ev.4h">總統出席美光台中新廠啟用</h4><p data-i18n="ev.4p">賴清德總統於台中先進封裝與測試二廠啟用典禮上，呼籲勞資秉持「魚幫水、水幫魚」持續協商。</p></li>
+          <li class="hot"><time data-i18n="ev.5d">10 月 21 日</time><h4 data-i18n="ev.5h">台中工會簽署不公開協議</h4><p data-i18n="ev.5p">據報導，台中工會理事會以 9 票同意、2 票反對、1 票廢票通過，與公司簽署受保密條款約束的協議並撤回調解。同日桃園工會於桃園市政府進行首次協商，未有結果。</p></li>
+          <li class="hot"><time data-i18n="ev.6d">10 月 22 日</time><h4 data-i18n="ev.6h">桃園工會幹部罷工 24 小時</h4><p data-i18n="ev.6p">11 名幹部罷工一天，會員投票 1,633 票（99%）反對公司方案。台中會員發起撤銷授權連署，逾 2,600 人參與。</p></li>
+          <li><time data-i18n="ev.7d">10 月 27 日</time><h4 data-i18n="ev.7h">桃園市政府第二次協商破局</h4><p data-i18n="ev.7p">雙方仍無共識。</p></li>
+          <li><time data-i18n="ev.8d">11 月 2 日 – 4 日</time><h4 data-i18n="ev.8h">勞動部回應、工會陳情</h4><p data-i18n="ev.8p">勞動部長洪申翰表示台中協議屬民法一般性契約，有爭議可循民事訴訟。工會 11/3 赴中科管理局陳情，11/4 於立法院前召開記者會。</p></li>
+          <li><time data-i18n="ev.9d">11 月 5 日</time><h4 data-i18n="ev.9h">外媒：桃園新廠暫緩</h4><p data-i18n="ev.9p">《彭博》引述知情人士報導，美光大致暫緩約 45 億美元的桃園新廠（Fab 11E）計畫。</p></li>
+          <li><time data-i18n="ev.10d">11 月 6 日</time><h4 data-i18n="ev.10h">第三次協商未果</h4><p data-i18n="ev.10p">公司表示將上線員工獎酬試算系統、暫定 11/17 第四次協商，並稱工會成員洩漏營業秘密、已提告。</p></li>
+          <li class="hot"><time data-i18n="ev.11d">11 月 10 日</time><h4 data-i18n="ev.11h">工會秘書長遭偵辦、10 萬元交保</h4><p data-i18n="ev.11p">據工會公開信，秘書長魏豫綾經地檢署偵訊後以 10 萬元交保，工會稱為近 20 年勞運案件最高。OSINT 查核報告指其未經傳喚即遭拘提。</p></li>
+          <li class="hot"><time data-i18n="ev.12d">11 月 12 日</time><h4 data-i18n="ev.12h">工會公開信：承認失利、退出協商</h4><p data-i18n="ev.12p">工會宣布不參加 11/17 協商，並指會員面臨「不簽就沒錢」的壓力；美光聲明否認以簽約作為領獎金條件。工會表示逾 6,000 名台中員工申請加入「美光關係企業工會」，成立證書尚未核發。</p></li>
+          <li><time data-i18n="ev.13d">11 月 17 日</time><h4 data-i18n="ev.13h">工會記者會（預定）</h4><p data-i18n="ev.13p">依工會公告，於民進黨中央黨部召開記者會。實際時間地點以工會公告為準。</p></li>
         </ol>
       </div>
     </div>
@@ -541,6 +559,9 @@ footer p{margin:0;max-width:680px}
       <li><a href="https://tw.news.yahoo.com/%E7%BE%8E%E5%85%89%E6%A1%83%E5%9C%92%E5%B7%A5%E6%9C%83%E5%AE%A3%E5%B8%83%E4%B8%8D%E5%8F%83%E5%8A%A017%E6%97%A5%E5%8D%94%E5%95%86-%E5%85%AC%E5%8F%B8%E7%99%BC%E5%9B%9B%E9%BB%9E%E8%81%B2%E6%98%8E-%E5%90%A6%E8%AA%8D%E8%A6%81%E6%B1%82%E5%93%A1%E5%B7%A5%E7%B0%BD%E7%B4%84%E9%A0%98%E7%8D%8E%E9%87%91-152545688.html" target="_blank" rel="noopener">Yahoo 新聞：美光桃園工會宣布不參加17日協商！公司發四點聲明，否認要求員工簽約領獎金</a><span>2026/11/12</span></li>
       <li><a href="https://www.chinatimes.com/realtimenews/20261112002320-260402" target="_blank" rel="noopener">中時新聞網：拋震撼彈！美光桃園工會認爭分潤失利 曝未來3動向</a><span>2026/11/12</span></li>
       <li><a href="https://udn.com/news/story/7240/9873823" target="_blank" rel="noopener">聯合新聞網：美光桃園廠勞資爭議 工會宣布不參加17日協商</a><span>2026/11/12</span></li>
+      <li><a href="https://micron-tw-labor-dispute-osint-report.netlify.app/" target="_blank" rel="noopener">臺灣美光勞資爭議 OSINT 查核分析報告（事件時間軸）</a><span>2026/08/20 – 11/12</span></li>
+      <li><a href="https://finance.technews.tw/2026/09/11/micron-taiwan-employees-each-receive-a-nt1-million-appreciation-bonus/" target="_blank" rel="noopener">科技新報：美光台灣員工每人 100 萬元感謝獎金</a><span>2026/09/11</span></li>
+      <li><a href="https://finance.technews.tw/2026/10/15/micron-taiwans-advanced-packaging-and-testing-plant-2-commences-operation/" target="_blank" rel="noopener">科技新報：台灣美光先進封裝與測試二廠啟用</a><span>2026/10/15</span></li>
       <li><a href="https://cna.com.tw/news/afe/202610070247.aspx" target="_blank" rel="noopener">中央社：桃園廠工會取得罷工權 美光：尊重員工權利持續溝通</a><span>2026/10/07</span></li>
       <li><a href="https://statementdog.com/news/17837" target="_blank" rel="noopener">財報狗：美光桃園工會近 9 成會員投票挺罷工 要求建立獲利分潤機制</a></li>
       <li><a href="https://www.cw.com.tw/article/5143092" target="_blank" rel="noopener">天下雜誌：同業分潤比例比較</a></li>
@@ -576,7 +597,8 @@ footer p{margin:0;max-width:680px}
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
 <script src="form-i18n.js?v=16"></script>
-<script src="app.js?v=16"></script>
+<script src="overrides.js?v=1"></script>
+<script src="app.js?v=17"></script>
 </body>
 
 </html>

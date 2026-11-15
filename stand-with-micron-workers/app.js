@@ -6,10 +6,12 @@
    * endpoint: leave '' for the local test mode (signatures stay in this
    * browser). Paste a deployed Google Apps Script web-app URL (see
    * apps-script.gs in this folder) to collect real, shared signatures. */
-  var CONFIG = { endpoint: '', turnstileSiteKey: '' };
+  var CONFIG = { endpoint: '', turnstileSiteKey: '', preview: true };
+  // preview: show 2,345 labelled sample signatures by default (add ?demo=0 to hide). Set to false before launch.
 
   var URL_ = 'https://micronmonkey.github.io/stand-with-micron-workers/';
-  var DEMO = new URLSearchParams(location.search).get('demo') === '1';
+  var DEMO_PARAM = new URLSearchParams(location.search).get('demo');
+  var DEMO = DEMO_PARAM === '1' || (CONFIG.preview && DEMO_PARAM !== '0');
   var KEY = DEMO ? 'swmw.preview.signatures.v1' : 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
@@ -565,15 +567,15 @@
 
   function makeDemoSignatures() {
     var titles = ['設備工程師', '製程工程師', '門市人員', '物流人員', '研究生', '自由工作者', '護理師', '技術員'];
-    var messages = ['跨產業一起聲援，勞工團結是大家的事。', '支持公開透明，也期待有誠意的協商。', '每位勞工都該有安心發聲的空間。', '謝謝你們讓第一線的聲音被聽見。', 'Standing with workers in Taiwan.', '支持平等對話，讓勞工參與影響自己的決定。'];
+    var messages = ['全球一起聲援，勞工團結是大家的事。', '支持公開透明，也期待有誠意的協商。', '每位勞工都該有安心發聲的空間。', '謝謝你們讓第一線的聲音被聽見。', 'Standing with workers in Taiwan.', '支持平等對話，讓勞工參與影響自己的決定。'];
     var locations = SITES.slice(1);
-    var seed = 2334;
+    var seed = 2345;
     function pick(values) {
       seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
       return values[Math.floor(seed / 4294967296 * values.length)];
     }
     var now = Date.now();
-    return Array.from({ length: 2334 }, function (_, index) {
+    return Array.from({ length: 2345 }, function (_, index) {
       var role = pick(ROLES);
       return {
         name: 'Demo ' + String(index + 1).padStart(4, '0'),
