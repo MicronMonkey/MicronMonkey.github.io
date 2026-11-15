@@ -316,6 +316,7 @@ footer p{margin:0;max-width:680px}
 .country-stats.sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.country-stats .site{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;min-width:0;padding:clamp(12px,2vw,20px)}.country-stats .site>span{font-size:16px;color:#f1e5fc;font-weight:700}.country-stats strong{color:#dfb8ff;font-size:clamp(23px,4vw,44px);font-variant-numeric:tabular-nums;line-height:1.15;overflow-wrap:anywhere}.country-stats small,.country-note{color:var(--mut);font-size:13px}.country-note{margin:0 0 24px}#global,#solidarity{scroll-margin-top:100px}@media(max-width:700px){.country-stats.sites{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .demo-notice{width:fit-content;padding:8px 12px;border:1px solid #fbbf65;border-radius:8px;color:#ffdd9c;background:#211727;font-weight:700}.demo-notice[hidden]{display:none}
 .brand-wordmark{font-size:15px;line-height:1.25}.brand-wordmark strong{color:#dfb8ff}.social-shortcuts{display:flex;gap:6px;align-items:center}.social-shortcuts a,.social-shortcuts button{display:grid;place-items:center;min-width:34px;height:34px;border:1px solid var(--line);border-radius:7px;background:transparent;color:#fff;font-size:14px;font-weight:700;padding:0 6px;cursor:pointer}.page-menu{position:relative}.page-menu summary{list-style:none;cursor:pointer;padding:9px;border:1px solid var(--line);border-radius:8px}.page-menu summary::-webkit-details-marker{display:none}.menu-links{position:absolute;right:0;top:100%;width:240px;padding:8px;margin:10px 0 0;list-style:none;background:#191021;border:1px solid #705781;border-radius:12px;box-shadow:0 14px 40px #0009;z-index:50}.menu-links a{display:block;padding:12px;border-radius:6px}.menu-links a:hover{background:#ffffff10}.nav .wrap{flex-wrap:wrap;gap:10px}.nav .tools{margin-left:auto}@media(max-width:650px){.nav .brand{flex:1}.social-shortcuts{order:2}.nav .tools{order:3}.nav .tools>.btn{display:none}.nav .wrap{padding-top:10px;padding-bottom:10px}.page-menu summary{font-size:13px}}
+.voice-stage{position:relative;min-height:370px;isolation:isolate;background:radial-gradient(ellipse at center,#38205188,transparent 70%);overflow:hidden;border-radius:18px}.voice-stage #lightSky{position:absolute;inset:0;height:100%;opacity:.6;animation:sky-breathe 7s ease-in-out infinite}#voiceMessages{position:relative;min-height:370px;display:grid;grid-template-columns:1fr 1fr;align-content:center;gap:24px;padding:30px}.voice{margin:0;color:#ffe8bd;font:600 clamp(17px,2.7vw,25px)/1.7 var(--serif);text-shadow:0 0 22px #e3bc7677;animation:voice-breathe 8s ease-in-out infinite;overflow-wrap:anywhere}.voice cite{display:block;font:400 12px var(--sans);color:#ccb9df;margin-top:8px}.voice:nth-child(2){animation-delay:-4s;color:#e2cbff}@keyframes voice-breathe{0%,100%{opacity:.25;transform:translateY(4px)}45%,65%{opacity:1;transform:translateY(0)}}@keyframes sky-breathe{50%{opacity:1;filter:drop-shadow(0 0 5px #f9d99c)}}.latest-twelve{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-height:none}.directory-list{max-height:none!important}.directory-list[data-layout="grid"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.directory-list[data-layout="rows"] .msg,.directory-list[data-layout="grid"] .msg{display:none}.directory-list li{padding:22px!important}.layout-options,.pagination,.page-jump,#pageButtons{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:18px 0}.layout-options button,.pagination button,.page-jump button{padding:10px 16px;background:var(--card);color:#fff;border:1px solid var(--line);cursor:pointer}.layout-options [aria-pressed="true"],.pagination [aria-current="page"]{background:#b68af3;color:#160d25}.pagination button:disabled{opacity:.4;cursor:default}.page-jump input{width:90px!important}.latest-twelve .who{align-items:flex-start}.latest-twelve li,.directory-list li{min-width:0;overflow-wrap:anywhere}@media(max-width:700px){.latest-twelve,.directory-list[data-layout="grid"]{grid-template-columns:1fr 1fr}#voiceMessages{grid-template-columns:1fr;padding:24px;gap:25px}.voice{font-size:19px}.latest-twelve .who>span:first-child{font-size:18px}}@media(prefers-reduced-motion:reduce){.voice,.voice-stage #lightSky{animation:none;opacity:1}}
 </style>
 </head>
 <body>
@@ -378,6 +379,7 @@ footer p{margin:0;max-width:680px}
 </header>
 
 <main><nav class="quick-path wrap" aria-label="Quick navigation"><a href="#letter" data-i18n="ux.read">① 了解訴求</a><a href="#sign" data-i18n="ux.sign">② 留下聲援</a><a href="#signers" data-i18n="ux.people">③ 看見團結</a></nav>
+<section id="signers" class="latest-signers"><div class="wrap"><div class="feed-head"><h2 data-i18n="directory.latest">最新簽署</h2><span id="feedStatus" data-state="waiting"></span></div><p id="listSub" data-i18n="list.sub_local"></p><ul id="latestSigs" class="sigs latest-twelve"></ul></div></section>
 <section id="global" class="alt">
   <div class="wrap">
     <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">各行各業，都能站在一起</h2><p data-i18n="global.sub">不論你在產線輪班、在門市服務、正在求學或照顧家人，都可以參與。每一次支持，都讓第一線的聲音多一個被聽見的機會。</p></div>
@@ -396,18 +398,9 @@ footer p{margin:0;max-width:680px}
 </section>
 <section id="solidarity"><div class="wrap"><div class="sh c">
 <h2 data-i18n="lights.title">每一份聲援，都有光</h2><p data-i18n="lights.note">每個光點代表一份支持，包含匿名簽署。</p></div>
-<div class="light-panel"><p id="lightCount" role="status"></p><canvas id="lightSky" aria-hidden="true"></canvas><p id="lightEmpty" data-i18n="lights.empty">這片光海，等你一起點亮。</p><p class="field-hint" id="lightDensity"></p><a class="light-list-link" href="#signers" data-i18n="ux.lightList">閱讀每一份聲援 →</a><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
+<div class="light-panel"><p id="lightCount" role="status"></p><div class="voice-stage"><canvas id="lightSky" aria-hidden="true"></canvas><div id="voiceMessages"></div></div><p id="lightEmpty" data-i18n="lights.empty">這片光海，等你一起點亮。</p><p class="field-hint" id="lightDensity"></p><a class="light-list-link" href="#public-signers" data-i18n="ux.lightList">閱讀每一份聲援 →</a><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
 </div></section>
-<section id="signers" class="latest-signers"><div class="wrap">      <div class="panel" aria-labelledby="sigTitle">
-        <div class="feed-head"><h2 id="sigTitle" data-i18n="dash.feed">最新簽署名單</h2><span id="feedStatus" data-state="waiting"></span></div>
-        <p class="s" id="listSub" data-i18n="list.sub_local">測試版：只顯示這台裝置上的簽名。</p>
-        <input type="search" id="q" data-i18n-ph="list.search" placeholder="搜尋公開姓名、職稱或留言" data-i18n-aria="list.search" aria-label="搜尋公開姓名、職稱或留言">
-        <div class="list-tools"><p id="listResults" role="status"></p><button id="resetSearch" type="button" class="btn sm" data-i18n="ux.reset" hidden>清除搜尋</button></div><ul class="sigs" id="sigs"></ul><button type="button" class="btn sm" id="moreSigners" data-i18n="ux.more" hidden>再看 12 位支持者</button>
-        <div class="acts">
-          <button class="btn g sm" type="button" data-share data-i18n="list.share">分享給同事</button>
-          <button class="btn g sm" type="button" id="clear" data-i18n="list.clear">清除本機簽名</button>
-        </div>
-      </div></div></section>
+
 <section id="letter">
   <div class="wrap narrow">
     <article class="paper">
@@ -541,6 +534,16 @@ footer p{margin:0;max-width:680px}
     </ul>
   </div>
 </section>
+<section id="public-signers" class="latest-signers"><div class="wrap">      <div class="panel" aria-labelledby="sigTitle">
+        <h2 id="sigTitle" data-i18n="directory.title">公開簽署者</h2><p data-i18n="directory.order">顯示順序由活動發起人設定優先順序，其次依最新加入時間排序。隨著新增、撤回及優先順序調整，排名可能變動。身分由簽署者自行填寫，留言為個人觀點。</p>
+        
+        <input type="search" id="q" data-i18n-ph="directory.search" placeholder="輸入完整或部分姓名" data-i18n-aria="directory.search" aria-label="輸入完整或部分姓名">
+        <div class="layout-options" role="group" aria-label="Layout"><button type="button" data-layout="rows" aria-pressed="true" data-i18n="directory.rows">列</button><button type="button" data-layout="grid" aria-pressed="false" data-i18n="directory.grid">網格</button><button type="button" data-layout="full" aria-pressed="false" data-i18n="directory.full">全文</button></div><div class="list-tools"><p id="listResults" role="status"></p><button id="resetSearch" type="button" class="btn sm" data-i18n="ux.reset" hidden>清除搜尋</button></div><ul class="sigs directory-list" id="sigs" data-layout="rows"></ul><nav class="pagination" aria-label="Pagination"><button type="button" id="prevPage" data-i18n="directory.prev">上一頁</button><span id="pageButtons"></span><button type="button" id="nextPage" data-i18n="directory.next">下一頁</button></nav><form id="pageJump" class="page-jump"><label for="pageNumber" data-i18n="directory.page">頁碼</label><input id="pageNumber" type="number" min="1" step="1" value="1" required><button type="submit" data-i18n="directory.go">前往</button><span id="pageSummary"></span></form>
+        <div class="acts">
+          <button class="btn g sm" type="button" data-share data-i18n="list.share">分享給同事</button>
+          <button class="btn g sm" type="button" id="clear" data-i18n="list.clear">清除本機簽名</button>
+        </div>
+      </div></div></section>
 </main>
 
 <footer>
@@ -553,8 +556,8 @@ footer p{margin:0;max-width:680px}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=13"></script>
-<script src="app.js?v=13"></script>
+<script src="form-i18n.js?v=14"></script>
+<script src="app.js?v=14"></script>
 </body>
 
 </html>

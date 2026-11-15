@@ -505,3 +505,43 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     window.SWMW_I18N[lang]['hero.read'] = labels[lang][1];
   });
 })();
+
+(function () {
+ var labels = {
+  "zh-Hant": [
+    "公開簽署者",
+    "顯示順序由活動發起人設定優先順序，其次依最新加入時間排序。隨著新增、撤回及優先順序調整，排名可能變動。身分由簽署者自行填寫，留言為個人觀點。",
+    "輸入完整或部分姓名",
+    "列",
+    "網格",
+    "全文",
+    "上一頁",
+    "下一頁",
+    "頁碼",
+    "前往",
+    "第 {page} 頁，共 {pages} 頁",
+    "{first}–{last}，共 {total} 位公開簽署者",
+    "最新簽署"
+  ],
+  "en": [
+    "Public signatories",
+    "Organizer priorities appear first, followed by the newest signatures. Order may change as signatures are added, withdrawn or reprioritized. Affiliations are self-reported and messages reflect individual views.",
+    "Enter a full or partial name",
+    "List",
+    "Grid",
+    "Full text",
+    "Previous",
+    "Next",
+    "Page",
+    "Go",
+    "Page {page} of {pages}",
+    "{first}–{last} of {total} public signatories",
+    "Latest signatures"
+  ]
+};
+ var keys = ['title','order','search','rows','grid','full','prev','next','page','go','pages','results','latest'];
+ Object.keys(window.SWMW_I18N).forEach(function (lang) {
+ var values = labels[lang] || labels.en;
+ keys.forEach(function (key, index) { window.SWMW_I18N[lang]['directory.' + key] = values[index]; });
+ });
+})();
