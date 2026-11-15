@@ -179,6 +179,8 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'meta.title': '挺美光勞工｜全球聲援 Stand with Micron Workers',
+    'meta.desc': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
     'stat.5': '員工四天內徵集實名連署達標，要求拒絕追認協議並召開臨時會員大會',
     'form.submit': '提交我的簽署',
     'form.submit_live': '提交我的簽署',
@@ -207,6 +209,8 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'meta.title': 'Stand with Micron Workers | Worldwide solidarity',
+    'meta.desc': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers. No closed-door agreements, no legal intimidation, good-faith negotiations.',
     'stat.5': 'Employees gathered enough named signatures within four days to demand the agreement not be ratified and an extraordinary general meeting be called',
     'form.submit': 'Submit my signature',
     'form.submit_live': 'Submit my signature',
@@ -235,6 +239,8 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'meta.title': 'マイクロンの労働者を支持｜Stand with Micron Workers',
+    'meta.desc': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。ブラックボックスの署名、司法による圧力に反対し、誠実な交渉を求めます。',
     'stat.5': '従業員が4日間で実名署名の目標を達成し、協定の追認拒否と臨時組合員大会の開催を要求',
     'form.submit': '署名を送信',
     'form.submit_live': '署名を送信',
@@ -263,6 +269,8 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'meta.title': '마이크론 노동자와 함께｜Stand with Micron Workers',
+    'meta.desc': '마이크론 직원들의 처지에서 출발해, 전 세계 모든 직업의 사람들에게 마이크론 노동자와의 연대를 호소합니다. 밀실 서명 반대, 사법적 압박 반대, 성실한 교섭 요구.',
     'stat.5': '직원들이 4일 만에 실명 서명 목표를 달성해 협약 추인 거부와 임시 조합원 총회 소집을 요구',
     'form.submit': '서명 제출',
     'form.submit_live': '서명 제출',
