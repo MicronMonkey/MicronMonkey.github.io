@@ -315,13 +315,14 @@
     }).sort(function (a, b) {
       return (Number(b.priority) || 0) - (Number(a.priority) || 0) || Number(b.t || 0) - Number(a.t || 0);
     });
-    var pages = Math.max(1, Math.ceil(items.length / 30));
+    var per = window.matchMedia('(max-width: 700px)').matches ? 12 : 30;
+    var pages = Math.max(1, Math.ceil(items.length / per));
     state.page = Math.min(state.page, pages);
-    var start = (state.page - 1) * 30;
+    var start = (state.page - 1) * per;
     $('sigs').textContent = '';
-    items.slice(start, start + 30).forEach(function (s) { $('sigs').appendChild(signatureCard(s)); });
+    items.slice(start, start + per).forEach(function (s) { $('sigs').appendChild(signatureCard(s)); });
     if (!items.length) $('sigs').textContent = t('list.nomatch');
-    $('listResults').textContent = t('directory.results', { first: items.length ? start + 1 : 0, last: Math.min(start + 30, items.length), total: items.length });
+    $('listResults').textContent = t('directory.results', { first: items.length ? start + 1 : 0, last: Math.min(start + per, items.length), total: items.length });
     $('resetSearch').hidden = !state.q;
     $('prevPage').disabled = state.page === 1;
     $('nextPage').disabled = state.page === pages;
@@ -673,7 +674,28 @@
     var el = $('ctaCount'); if (!el) return;
     el.innerHTML = t('ux.ctaCount', { n: '<b>' + state.count.toLocaleString(locale()) + '</b>' });
   }
-  function uxLang() { uxCount(); }
+  function uxLang() { uxCount(); syncFolds(); }
+  // Long lists start folded: the timeline shows its latest events, the sources their first few.
+  var folds = [
+    { btn: 'tlMore', list: 'tlList', keep: 6, from: 'end', more: 'ux.tlMore', less: 'ux.tlLess', open: false },
+    { btn: 'srcMore', list: 'srcList', keep: 5, from: 'start', more: 'ux.srcMore', less: 'ux.srcLess', open: false }
+  ];
+  function syncFolds() {
+    folds.forEach(function (f) {
+      var btn = $(f.btn), items = Array.prototype.slice.call($(f.list).children);
+      var hidden = Math.max(0, items.length - f.keep);
+      btn.hidden = !hidden;
+      items.forEach(function (li, i) {
+        var fold = !f.open && (f.from === 'end' ? i < hidden : i >= f.keep);
+        li.classList.toggle('folded', fold);
+      });
+      btn.setAttribute('aria-expanded', String(f.open));
+      btn.textContent = t(f.open ? f.less : f.more, { n: hidden, total: items.length });
+    });
+  }
+  folds.forEach(function (f) {
+    $(f.btn).addEventListener('click', function () { f.open = !f.open; syncFolds(); });
+  });
   (function () {
     var bar = $('readProgress').firstElementChild, cta = $('ctaBar'), top = $('toTop');
     var heroGone = false, formSeen = false, footSeen = false, ticking = false;

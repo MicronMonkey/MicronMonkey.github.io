@@ -179,6 +179,10 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'ux.tlMore': '顯示更早的 {n} 個事件',
+    'ux.tlLess': '收合較早的事件',
+    'ux.srcMore': '查看全部 {total} 個資料來源',
+    'ux.srcLess': '收合資料來源',
     'ux.ctaCount': '已有 {n} 人簽署',
     'ux.top': '回到頂端',
     'meta.title': '挺美光勞工｜全球聲援 Stand with Micron Workers',
@@ -211,6 +215,10 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'ux.tlMore': 'Show {n} earlier events',
+    'ux.tlLess': 'Hide earlier events',
+    'ux.srcMore': 'See all {total} sources',
+    'ux.srcLess': 'Show fewer sources',
     'ux.ctaCount': '{n} people have signed',
     'ux.top': 'Back to top',
     'meta.title': 'Stand with Micron Workers | Worldwide solidarity',
@@ -243,6 +251,10 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'ux.tlMore': 'それ以前の {n} 件を表示',
+    'ux.tlLess': '以前の出来事を閉じる',
+    'ux.srcMore': '出典 {total} 件をすべて表示',
+    'ux.srcLess': '出典を閉じる',
     'ux.ctaCount': '{n} 人が署名',
     'ux.top': 'ページの先頭へ',
     'meta.title': 'マイクロンの労働者を支持｜Stand with Micron Workers',
@@ -275,6 +287,10 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'ux.tlMore': '이전 사건 {n}개 보기',
+    'ux.tlLess': '이전 사건 접기',
+    'ux.srcMore': '출처 {total}개 모두 보기',
+    'ux.srcLess': '출처 접기',
     'ux.ctaCount': '{n}명이 서명했습니다',
     'ux.top': '맨 위로',
     'meta.title': '마이크론 노동자와 함께｜Stand with Micron Workers',
@@ -308,7 +324,7 @@ KO.update({
 })
 
 cc = opencc.OpenCC('tw2sp')
-HANS = {k: cc.convert(v) for k, v in ZH.items()}
+HANS = {k: cc.convert(v).replace('数据源', '资料来源') for k, v in ZH.items()}
 for d in (ZH, EN, JA, KO, HANS):
     assert set(d) == set(ZH), set(ZH) ^ set(d)
 
