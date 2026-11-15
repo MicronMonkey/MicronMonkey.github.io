@@ -382,12 +382,14 @@ footer p{margin:0;max-width:680px}
 .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:860px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Micron site pillars are supporting numbers: 2pt smaller */
-.country-stats .site>span{font-size:calc(16px - 2pt)}
-.country-stats strong{font-size:clamp(calc(23px - 2pt),calc(4vw - 2pt),calc(44px - 2pt))}
+.country-stats .site>span{font-size:max(12px,calc(16px - 4pt))}
+.country-stats strong{font-size:clamp(calc(23px - 4pt),calc(4vw - 4pt),calc(44px - 4pt))}
 .country-stats small{font-size:max(11px,calc(13px - 2pt))}
-.country-stats .site .flag{width:24px;height:16px}
+.country-stats .site .flag{width:21px;height:14px}
 /* headline total and breakdown: 2pt larger */
-.counter #heroCount{font-size:clamp(calc(42px + 2pt),calc(10vw + 2pt),calc(92px + 2pt))}
+.counter #heroCount{font-size:clamp(calc(42px + 6pt),calc(10vw + 6pt),calc(92px + 6pt))}
+.counter .total span{font-size:calc(16px + 4pt)}
+.counter .lab>span:first-child{font-size:calc(14px + 4pt)}
 .count-breakdown dd{font-size:clamp(calc(22px + 2pt),calc(5vw + 2pt),calc(40px + 2pt))}
 </style>
 </head>
