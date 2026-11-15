@@ -1,41 +1,39 @@
-/* Single-language view: show only the chosen side of the bilingual pairs. */
-html[data-portal-lang^="zh"] .u-en,
-html[data-portal-lang^="zh"] .float-label-en { display: none !important; }
+/* Single-language view: show only the chosen side of the bilingual pairs.
+ * English shows the .u-en text; every other language shows (and translates) the .u-zh text. */
+html[data-portal-lang]:not([data-portal-lang="en"]) .u-en,
+html[data-portal-lang]:not([data-portal-lang="en"]) .float-label-en { display: none !important; }
 html[data-portal-lang="en"] .u-zh,
 html[data-portal-lang="en"] .float-label-zh { display: none !important; }
-
-/* Top bar */
-#mmTopbar { position: sticky; top: 0; z-index: 80; margin: 0 0 14px; padding: 8px 16px 8px; background: rgba(15, 20, 28, .9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #3d4a59; color: #f3f4f6; font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
-@media (min-width: 768px) { #mmTopbar { padding: 10px 32px; } }
-#mmTopbar .mm-row { display: flex; align-items: center; gap: 12px; max-width: 80rem; margin: 0 auto; }
-#mmTopbar .mm-brand { display: flex; align-items: center; gap: 9px; min-width: 0; color: #fff; text-decoration: none; font-weight: 900; font-size: 17px; }
-#mmTopbar .mm-logo { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, #e3be80, #b88a3e); font-size: 18px; flex: none; }
-#mmTopbar .mm-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#mmTopbar .mm-lang { position: relative; margin-left: auto; flex: none; }
-#mmTopbar .mm-lang-btn { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px; border-radius: 999px; border: 1px solid #5a6878; background: #1b2530; color: #f3f4f6; font: 700 14px system-ui, sans-serif; cursor: pointer; }
-#mmTopbar .mm-lang-btn:hover { border-color: #e3be80; }
-#mmTopbar .mm-lang-menu { position: absolute; right: 0; top: calc(100% + 8px); min-width: 160px; margin: 0; padding: 6px; list-style: none; background: #1b2530; border: 1px solid #5a6878; border-radius: 12px; box-shadow: 0 16px 40px rgba(0, 0, 0, .55); display: none; }
-#mmTopbar .mm-lang-menu.open { display: block; }
-#mmTopbar .mm-lang-menu button { display: flex; width: 100%; justify-content: space-between; padding: 10px 12px; border: 0; border-radius: 8px; background: none; color: #f3f4f6; font: 600 14px system-ui, sans-serif; cursor: pointer; text-align: left; }
-#mmTopbar .mm-lang-menu button:hover, #mmTopbar .mm-lang-menu button:focus-visible { background: rgba(227, 190, 128, .16); outline: none; }
-#mmTopbar .mm-lang-menu button[aria-checked="true"] { color: #f7cf53; }
-#mmTopbar .mm-lang-menu button[aria-checked="true"]::after { content: "✓"; }
-#mmTopbar .mm-share { display: flex; align-items: center; gap: 6px; max-width: 80rem; margin: 8px auto 0; }
-#mmTopbar .mm-share a, #mmTopbar .mm-share button { display: inline-grid; place-items: center; min-width: 34px; height: 32px; padding: 0 8px; border-radius: 9px; border: 1px solid #4a5868; background: transparent; color: #f3f4f6; font: 800 12px system-ui, sans-serif; text-decoration: none; cursor: pointer; }
-#mmTopbar .mm-share a:hover, #mmTopbar .mm-share button:hover { border-color: #e3be80; }
-#mmTopbar .mm-share .mm-wa { color: #4ade80; }
-#mmTopbar .mm-share .mm-copy { display: inline-flex; gap: 6px; margin-left: auto; padding: 0 12px; border-color: #c3a36e; color: #f7cf53; }
-#mmTopbar :focus-visible { outline: 3px solid #f7cf53; outline-offset: 2px; }
-#mmTopbar .mm-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 9px 18px; border-radius: 999px; background: #e3be80; color: #171c23; font-weight: 800; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 2000; }
-#mmTopbar .mm-toast.on { opacity: 1; }
-
-/* keep the floating nav below the bar */
-#portalFloatingNav { top: calc(50% + var(--mm-top, 0px) / 2) !important; max-height: calc(100dvh - var(--mm-top, 0px) - 16px) !important; }
 
 /* English view: the English text becomes the main text, not a small caption under Chinese */
 html[data-portal-lang="en"] .u-en { display: inline !important; font-size: inherit !important; line-height: inherit !important; font-weight: inherit !important; letter-spacing: inherit !important; color: inherit !important; opacity: 1 !important; margin-top: 0 !important; }
 html[data-portal-lang="en"] #unionEntryReminder .meeting-countdown-copy .u-en { display: inline !important; }
-html[data-portal-lang="en"] #portalSimpleHeader h1 > span { display: none; }
+html[data-portal-lang]:not([data-portal-lang^="zh"]) #portalSimpleHeader h1 > span { display: none; }
+
+/* Top bar — same grey palette and logo as the original page header */
+#mmTopbar { position: sticky; top: 0; z-index: 80; margin: 0 0 14px; padding: 8px 16px; background: linear-gradient(110deg, #101820, #1e2835); border-bottom: 1px solid #3d4a59; color: #fff; font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Hiragino Sans", "Malgun Gothic", "Noto Sans Devanagari", sans-serif; }
+@media (min-width: 768px) { #mmTopbar { padding: 10px 32px; } }
+#mmTopbar .mm-row { display: flex; align-items: center; gap: 12px; max-width: 80rem; margin: 0 auto; }
+#mmTopbar .mm-brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: #fff; text-decoration: none; font-weight: 900; font-size: 17px; }
+#mmTopbar .mm-logo { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: #e8d7b3; color: #202731; font-size: 20px; flex: none; }
+#mmTopbar .mm-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#mmTopbar .mm-lang { position: relative; margin-left: auto; flex: none; }
+#mmTopbar .mm-lang-btn { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px; border-radius: 999px; border: 1px solid #4a5868; background: #1e2835; color: #fff; font: 700 14px system-ui, sans-serif; cursor: pointer; }
+#mmTopbar .mm-lang-btn:hover { border-color: #8a9aac; }
+#mmTopbar .mm-lang-menu { position: absolute; right: 0; top: calc(100% + 8px); min-width: 170px; margin: 0; padding: 6px; list-style: none; background: #1e2835; border: 1px solid #4a5868; border-radius: 12px; box-shadow: 0 16px 40px rgba(0, 0, 0, .55); display: none; }
+#mmTopbar .mm-lang-menu.open { display: block; }
+#mmTopbar .mm-lang-menu button { display: flex; width: 100%; justify-content: space-between; padding: 10px 12px; border: 0; border-radius: 8px; background: none; color: #e5e7eb; font: 600 14px system-ui, sans-serif; cursor: pointer; text-align: left; }
+#mmTopbar .mm-lang-menu button:hover, #mmTopbar .mm-lang-menu button:focus-visible { background: rgba(255, 255, 255, .08); outline: none; }
+#mmTopbar .mm-lang-menu button[aria-checked="true"] { color: #fff; font-weight: 800; }
+#mmTopbar .mm-lang-menu button[aria-checked="true"]::after { content: "✓"; }
+#mmTopbar .mm-share { display: flex; align-items: center; gap: 6px; max-width: 80rem; margin: 8px auto 0; }
+#mmTopbar .mm-share a, #mmTopbar .mm-share button { display: inline-grid; place-items: center; min-width: 34px; height: 32px; padding: 0 8px; border-radius: 9px; border: 1px solid #4a5868; background: transparent; color: #f3f4f6; font: 800 12px system-ui, sans-serif; text-decoration: none; cursor: pointer; }
+#mmTopbar .mm-share a:hover, #mmTopbar .mm-share button:hover { border-color: #8a9aac; background: rgba(255, 255, 255, .05); }
+#mmTopbar .mm-share .mm-wa { color: #4ade80; }
+#mmTopbar .mm-share .mm-copy { display: inline-flex; gap: 6px; margin-left: auto; padding: 0 12px; white-space: nowrap; }
+#mmTopbar :focus-visible { outline: 3px solid #cbd5e1; outline-offset: 2px; }
+#mmTopbar .mm-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 9px 18px; border-radius: 999px; background: #e5e7eb; color: #111827; font-weight: 800; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 2000; }
+#mmTopbar .mm-toast.on { opacity: 1; }
 
 /* Desktop: title, share buttons and language menu on one line */
 @media (min-width: 900px) {
@@ -46,3 +44,6 @@ html[data-portal-lang="en"] #portalSimpleHeader h1 > span { display: none; }
   #mmTopbar .mm-share .mm-copy { margin-left: 4px; }
   #mmTopbar .mm-lang { order: 3; margin-left: 4px; }
 }
+
+/* keep the floating nav below the bar */
+#portalFloatingNav { top: calc(50% + var(--mm-top, 0px) / 2) !important; max-height: calc(100dvh - var(--mm-top, 0px) - 16px) !important; }

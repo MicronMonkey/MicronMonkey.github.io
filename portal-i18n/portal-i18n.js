@@ -7,7 +7,9 @@
   'use strict';
   var D = window.PORTAL_I18N || { en: {}, zhHant: {}, zhHans: {}, charmap: {} };
   var CFG = window.PORTAL_I18N_CONFIG || {};
-  var LANGS = [{ code: 'zh-Hant', name: '繁體中文' }, { code: 'zh-Hans', name: '简体中文' }, { code: 'en', name: 'English' }];
+  var LANGS = [{ code: 'zh-Hant', name: '繁體中文' }, { code: 'zh-Hans', name: '简体中文' }, { code: 'en', name: 'English' },
+               { code: 'ja', name: '日本語' }, { code: 'ko', name: '한국어' }, { code: 'hi', name: 'हिन्दी' }];
+  var FULL = { ja: 1, ko: 1, hi: 1 }; // translated from the Chinese text
   var KEY = 'mm.portal.lang';
   var CJK = /[一-鿿]/;
   var SPLIT = /^(.*[一-鿿].*?)\s+\/\s+([^一-鿿]+)$/;
@@ -25,11 +27,14 @@
       var n = String(navs[i] || '').toLowerCase();
       if (/^zh-(cn|sg|my|hans)/.test(n)) return 'zh-Hans';
       if (n.indexOf('zh') === 0) return 'zh-Hant';
+      if (n.indexOf('ja') === 0) return 'ja';
+      if (n.indexOf('ko') === 0) return 'ko';
+      if (n.indexOf('hi') === 0) return 'hi';
       if (n) return 'en';
     }
     return 'zh-Hant';
   }
-  function ui(k) { return lang === 'en' ? D.en[k] : lang === 'zh-Hans' ? (D.zhHans[k] || hans(D.zhHant[k] || '')) : D.zhHant[k]; }
+  function ui(k) { return FULL[lang] ? D[lang][k] : lang === 'en' ? D.en[k] : lang === 'zh-Hans' ? (D.zhHans[k] || hans(D.zhHant[k] || '')) : D.zhHant[k]; }
   function hans(t) { var out = ''; for (var i = 0; i < t.length; i++) out += D.charmap[t[i]] || t[i]; return out; }
 
   // Translate one string (whitespace preserved around it).
@@ -44,26 +49,40 @@
         out = (pre && m[2].indexOf(pre.trim()) !== 0 ? pre : '') + m[2];
       } else out = m[1];
     }
-    if (lang === 'en' && CJK.test(out)) {
-      if (D.en[out] != null) out = D.en[out];
-      else out = rule(out);
+    if ((lang === 'en' || FULL[lang]) && CJK.test(out)) {
+      var table = D[lang];
+      if (table[out] != null) out = table[out];
+      else out = pieces(rule(out), table);
     } else if (lang === 'zh-Hans') {
       out = D.zhHans[out] || hans(out);
     }
     return lead + out + trail;
   }
+  // Text with live numbers: whole-string patterns first …
+  var RULES = [
+    [/^([\d,]+|—)\s*天$/, { en: '$1 days', ja: '$1日', ko: '$1일', hi: '$1 दिन' }],
+    [/^約\s*([\d,]+\+?)$/, { en: 'About $1', ja: '約 $1', ko: '약 $1', hi: 'लगभग $1' }],
+    [/^目標\s*([\d,]+)\s*人$/, { en: 'Goal: $1', ja: '目標 $1人', ko: '목표 $1명', hi: 'लक्ष्य $1' }],
+    [/^目前\s*([\d,]+)\s*人報名$/, { en: '$1 signed up', ja: '現在 $1人が登録', ko: '현재 $1명 신청', hi: 'अब तक $1 पंजीकरण' }],
+    [/^([\d,]+)\s*份$/, { en: '$1', ja: '$1件', ko: '$1건', hi: '$1' }]
+  ];
   function rule(t) {
-    var m;
-    if ((m = t.match(/^([\d,]+|—)\s*天$/))) return m[1] + ' days';
-    if ((m = t.match(/^約\s*([\d,]+\+?)$/))) return 'About ' + m[1];
-    if ((m = t.match(/^目標\s*([\d,]+)\s*人$/))) return 'Goal: ' + m[1];
-    if ((m = t.match(/^目前\s*([\d,]+)\s*人報名$/))) return m[1] + ' signed up';
+    for (var i = 0; i < RULES.length; i++) { var m = t.match(RULES[i][0]); if (m) return RULES[i][1][lang].replace('$1', m[1]); }
+    return t;
+  }
+  // … then known phrases inside a longer string (e.g. "最近同步（台灣時間）：11/15 19:30 · 每 2 分鐘自動更新").
+  var phraseCache = {};
+  function pieces(t, table) {
+    if (!CJK.test(t)) return t;
+    var keys = phraseCache[lang] || (phraseCache[lang] = Object.keys(table).filter(function (k) { return k.length > 1 && CJK.test(k) && k.indexOf('ui.') && k.indexOf('meta.'); }).sort(function (a, b) { return b.length - a.length; }));
+    for (var i = 0; i < keys.length && CJK.test(t); i++) if (t.indexOf(keys[i]) >= 0) t = t.split(keys[i]).join(table[keys[i]]);
+    t = t.replace(/([\d,]+)\s*份/g, function (_, n) { return rule(n + '份'); });
     return t;
   }
   function skip(el) {
     if (!el || el.closest('script,style,noscript,#mmTopbar .mm-lang-menu')) return true;
     if (el.closest('.u-en,.float-label-en,body [lang="en"]')) return true; // not <html lang>, which follows the chosen language
-    if (lang === 'en' && el.closest('.u-zh,.float-label-zh')) return true; // hidden in English
+    if (lang === 'en' && el.closest('.u-zh,.float-label-zh')) return true; // hidden in English (its .u-en twin shows)
     return false;
   }
   function doText(n) {
