@@ -12,7 +12,7 @@
   var KEY = 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
-  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'shareholder', 'unaffiliated'];
+  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'unaffiliated'];
   var SITES = ['none', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
   var FILTERS = [
     { id: 'all', label: 'filter.all', match: null },
@@ -20,7 +20,6 @@
     { id: 'overseas', label: 'filter.overseas', match: ['overseas'] },
     { id: 'former', label: 'role.former', match: ['former'] },
     { id: 'family', label: 'role.family', match: ['family'] },
-    { id: 'shareholder', label: 'role.shareholder', match: ['shareholder'] },
     { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
   ];
   var LIVE = !!CONFIG.endpoint;
@@ -30,7 +29,7 @@
   var DICT = window.SWMW_I18N || {};
   var zh = DICT['zh-Hant'] = DICT['zh-Hant'] || {};
   var lang = 'zh-Hant';
-  var state = { list: [], count: 0, filter: 'all', q: '' };
+  var state = { list: [], count: 0, filter: 'all', q: '', limit: 12 };
 
   /* ── i18n ─────────────────────────────────────────────── */
   // Read the Traditional Chinese baseline straight from the markup.
@@ -152,7 +151,7 @@
       var b = document.createElement('button');
       b.type = 'button'; b.textContent = t(f.label);
       b.setAttribute('aria-pressed', String(state.filter === f.id));
-      b.addEventListener('click', function () { state.filter = f.id; renderChips(); renderList(); });
+      b.addEventListener('click', function () { state.filter = f.id; state.limit = 12; renderChips(); renderList(); });
       box.appendChild(b);
     });
   }
@@ -219,17 +218,20 @@
     var items = state.list.filter(function (s) {
       if (f && f.match && (!(s.pub === true && s.pubRole === true) || f.match.indexOf(s.role) < 0)) return false;
       if (q) {
-        var hay = ((s.pub === true && s.name ? s.name : '') + ' ' + (s.pub === true && s.pubMsg === true ? s.msg || '' : '')).toLowerCase();
+        var hay = ((s.pub === true && s.name ? s.name : '') + ' ' + (s.pub === true ? s.title || '' : '') + ' ' + (s.pub === true && s.pubMsg === true ? s.msg || '' : '')).toLowerCase();
         if (hay.indexOf(q) < 0) return false;
       }
       return true;
     }).slice(0, 300);
+    $('listResults').textContent = t('ux.results', {shown: Math.min(state.limit, items.length), total: items.length});
+    $('moreSigners').hidden = items.length <= state.limit;
+    $('resetSearch').hidden = !state.q && state.filter === 'all';
     if (!items.length) {
       var e = document.createElement('li'); e.className = 'empty';
       e.textContent = state.list.length ? t('list.nomatch') : t('list.empty');
       ul.appendChild(e); return;
     }
-    items.forEach(function (s) {
+    items.slice(0, state.limit).forEach(function (s) {
       var li = document.createElement('li'), who = document.createElement('div');
       who.className = 'who';
       var n = document.createElement('span');
@@ -291,7 +293,9 @@
 
   });
 
-  $('q').addEventListener('input', function () { state.q = this.value.trim(); renderList(); });
+  $('moreSigners').addEventListener('click', function () { state.limit += 12; renderList(); });
+  $('resetSearch').addEventListener('click', function () { state.q = ''; state.filter = 'all'; state.limit = 12; $('q').value = ''; renderChips(); renderList(); $('q').focus(); });
+  $('q').addEventListener('input', function () { state.q = this.value.trim(); state.limit = 12; renderList(); });
   $('clear').addEventListener('click', function () {
     if (!loadLocal().length) { toast(t('toast.none')); return; }
     if (confirm(t('confirm.clear'))) { try { localStorage.removeItem(KEY); } catch (e) {} refresh(); toast(t('toast.cleared')); }
@@ -341,6 +345,9 @@
     }
     if (pub && $('pubMsg').checked && $('msg').value.trim()) lines.push($('msg').value.trim());
     $('publicPreview').textContent = lines.join('\n');
+    var complete = [!!selected, !!$('nm').value.trim(), !!$('jobTitle').value.trim(), !!$('email').value.trim() && $('email').checkValidity(), $('agree').checked].filter(Boolean).length;
+    $('formProgress').value = complete;
+    $('formProgressText').textContent = t('ux.progress', {n: complete});
     $('msgCount').textContent = $('msg').value.length + ' / 200';
   }
   function updateSecurity() {
@@ -369,21 +376,23 @@
   $('sign').addEventListener('change', updatePrivacy);
 
   function renderLights() {
-    var count = Math.max(0, Math.floor(state.count));
+    var count = Number.isFinite(Number(state.count)) ? Math.max(0, Math.floor(Number(state.count))) : 0;
     var sky = $('lightSky');
     sky.hidden = count === 0;
     $('lightEmpty').hidden = count > 0;
     $('lightMode').textContent = LIVE ? '' : t('lights.demo');
     $('lightCount').textContent = t('lights.count', {n: count.toLocaleString(locale())});
+    $('lightDensity').textContent = count ? t('ux.oneLight') : '';
     if (!count) return;
-    var scale = window.devicePixelRatio || 1;
+    var scale = Math.min(window.devicePixelRatio || 1, 2);
     var width = sky.clientWidth, height = sky.clientHeight;
     sky.width = Math.round(width * scale);
     sky.height = Math.round(height * scale);
     var ctx = sky.getContext('2d');
     if (!ctx) return;
     ctx.scale(scale, scale);
-    var points = count;
+    var points = Math.min(count, 2000);
+    $('lightDensity').textContent = count > 2000 ? t('ux.density') : t('ux.oneLight');
     for (var i = 0; i < points; i++) {
       var angle = i * 2.3999632297;
       var radius = Math.sqrt(i / points);
@@ -397,7 +406,19 @@
       ctx.fill();
     }
   }
-  window.addEventListener('resize', renderLights);
+  var resizeFrame;
+  window.addEventListener('resize', function () { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(renderLights); });
+  each('.photo-open', function (button) {
+    button.addEventListener('click', function () {
+      var source = button.querySelector('img');
+      $('photoFull').src = source.src; $('photoFull').alt = source.alt;
+      $('photoCaption').textContent = button.parentNode.querySelector('figcaption').textContent;
+      $('photoDialog').showModal();
+    });
+  });
+  $('photoClose').addEventListener('click', function () { $('photoDialog').close(); });
+  $('photoDialog').addEventListener('click', function (e) { if (e.target === this) this.close(); });
+
 
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);

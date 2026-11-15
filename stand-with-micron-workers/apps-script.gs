@@ -4,7 +4,7 @@
  * Never publish the spreadsheet or place the secret in frontend source.
  */
 var SHEET = 'signatures';
-var ROLES = ['current','overseas','former','family','semi','worker','student','public','shareholder','unaffiliated'];
+var ROLES = ['current','overseas','former','family','semi','worker','student','public','unaffiliated'];
 var SITES = ['','tc','ty','other','us','jp','sg','my','cn','in','abroad'];
 var HEADERS = ['time','name','role','site','message','public','lang','hidden','title','email','publicRole','publicMessage','consent','tokenHash'];
 function sheet_() {
