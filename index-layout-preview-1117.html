@@ -1678,6 +1678,10 @@ document.addEventListener('DOMContentLoaded', () => {
   timelineLink.textContent = '查看行動時間表與紀錄';
   activity.append(timelineLink);
   participation.after(community);
+  const resources = document.createElement('div');
+  resources.className = 'ux-shortcuts';
+  resources.innerHTML = '<a href="Game/fack.html">全民找法克</a><a href="Game/dual-city-1230/">雙城集結令</a><a href="Salary.html">薪情平台</a>';
+  community.append(resources);
   const communityTitle = community.querySelector('.u-kicker');
   if (communityTitle) communityTitle.textContent = '社群交流與匿名心聲';
   community.querySelectorAll('.u-step').forEach(el => el.remove());
