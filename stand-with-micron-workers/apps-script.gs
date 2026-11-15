@@ -6,11 +6,17 @@
 var SHEET = 'signatures';
 var ROLES = ['current','overseas','former','family','semi','worker','student','public','unaffiliated'];
 var SITES = ['','tw','us','jp','sg','my','cn','in','abroad'];
-var HEADERS = ['time','name','role','site','message','public','lang','hidden','title','email','publicRole','publicMessage','consent','tokenHash'];
+var HEADERS = ['time','name','role','site','message','public','lang','hidden','title','email','publicRole','publicMessage','consent','tokenHash','priority'];
 function sheet_() {
-  var ss=SpreadsheetApp.getActive(), sh=ss.getSheetByName(SHEET);
+  var id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+  var ss = id ? SpreadsheetApp.openById(id) : SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error('Set SPREADSHEET_ID in Script properties');
+  var sh = ss.getSheetByName(SHEET);
   if(!sh) sh=ss.insertSheet(SHEET);
+  var existing = sh.getRange(1,1,1,HEADERS.length).getValues()[0];
+  if (existing[0] && HEADERS.some(function (name, index) { return existing[index] && existing[index] !== name; })) throw new Error('Unexpected sheet schema');
   sh.getRange(1,1,1,HEADERS.length).setValues([HEADERS]);
+  sh.setFrozenRows(1);
   return sh;
 }
 function clean_(v,max) {
@@ -37,18 +43,34 @@ function doPost(e) {
     if(rows.some(function(r){return r[13]===tokenHash;})) return json_({ok:false,error:'verification'});
     if(rows.some(function(r){return String(r[9]||'').replace(/^'/,'').toLowerCase()===email;})) return json_({ok:false,error:'duplicate'});
     var pub=d.pub===true;
-    sh.appendRow([new Date(),name,d.role,SITES.indexOf(d.site)>=0?d.site:'',clean_(d.msg,200),pub,clean_(d.lang,8),false,clean_(d.title,80),"'"+email,pub && d.role!=='unaffiliated' && d.pubRole===true,pub && d.pubMsg===true,true,tokenHash]);
+    sh.appendRow([new Date(),name,d.role,SITES.indexOf(d.site)>=0?d.site:'',clean_(d.msg,200),pub,clean_(d.lang,8),false,clean_(d.title,80),"'"+email,pub && d.role!=='unaffiliated' && d.pubRole===true,pub && d.pubMsg===true,true,tokenHash,0]);
     return json_({ok:true});
   } catch(err) {return json_({ok:false,error:'unavailable'});}
   finally {if(locked) lock.releaseLock();}
 }
 function publicRow_(r) {
   var pub=r[5]===true, role=pub && ROLES.indexOf(r[2])>=0 && r[2]!=='unaffiliated' && r[10]===true, msg=pub && r[11]===true;
-  return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:role?normalizeSite_(r[3]):'',pubMsg:msg,msg:msg?r[4]:''};
+  return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:role?normalizeSite_(r[3]):'',pubMsg:msg,msg:msg?r[4]:'',priority:Number(r[14])||0};
 }
 function doGet() {
-  var rows=sheet_().getDataRange().getValues().slice(1).filter(function(r){return r[7]!==true && String(r[7]).toUpperCase()!=='TRUE';});
-  return json_({count:rows.length,signatures:rows.slice(-300).reverse().map(publicRow_)});
+  try {
+    var rows = sheet_().getDataRange().getValues().slice(1).filter(function (row) {
+      return row[0] && row[7] !== true && String(row[7]).toUpperCase() !== 'TRUE';
+    });
+    return json_({ok:true,count:rows.length,signatures:rows.reverse().map(publicRow_),updatedAt:new Date().toISOString()});
+  } catch (error) {
+    return json_({ok:false,error:'unavailable'});
+  }
+}
+
+// Run once from the editor after setting Script properties.
+function setupSignatures() {
+  var sheet = sheet_();
+  var properties = PropertiesService.getScriptProperties();
+  if (!properties.getProperty('ALLOWED_HOSTNAME')) {
+    properties.setProperty('ALLOWED_HOSTNAME', 'micronmonkey.github.io');
+  }
+  return {sheet:sheet.getName(),verificationConfigured:!!properties.getProperty('TURNSTILE_SECRET')};
 }
 function json_(o) {return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);}
 
