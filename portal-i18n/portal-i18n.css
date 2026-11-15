@@ -11,7 +11,7 @@ html[data-portal-lang="en"] #unionEntryReminder .meeting-countdown-copy .u-en { 
 html[data-portal-lang]:not([data-portal-lang^="zh"]) #portalSimpleHeader h1 > span { display: none; }
 
 /* Top bar — same grey palette and logo as the original page header */
-#mmTopbar { position: sticky; top: 0; z-index: 80; margin: 0 0 14px; padding: 8px 16px; background: linear-gradient(110deg, #101820, #1e2835); border-bottom: 1px solid #3d4a59; color: #fff; font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Hiragino Sans", "Malgun Gothic", "Noto Sans Devanagari", sans-serif; }
+#mmTopbar { position: relative; z-index: 80; margin: 0 0 14px; padding: 8px 16px; background: linear-gradient(110deg, #101820, #1e2835); border-bottom: 1px solid #3d4a59; color: #fff; font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Hiragino Sans", "Malgun Gothic", "Noto Sans Devanagari", sans-serif; }
 @media (min-width: 768px) { #mmTopbar { padding: 10px 32px; } }
 #mmTopbar .mm-row { display: flex; align-items: center; gap: 12px; max-width: 80rem; margin: 0 auto; }
 #mmTopbar .mm-brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: #fff; text-decoration: none; font-weight: 900; font-size: 17px; }

@@ -197,9 +197,10 @@
     bar.querySelector('[data-net="ig"]').addEventListener('click', function () { copy(); });
     // keep the floating nav clear of the bar
     function syncHeight() {
-      // span the full width by cancelling the body padding (it differs between phone and desktop)
+      // span the full width and sit at the very top by cancelling the body margin and padding (they differ between phone and desktop)
       var cs = getComputedStyle(document.body);
-      bar.style.marginLeft = '-' + cs.paddingLeft; bar.style.marginRight = '-' + cs.paddingRight; bar.style.marginTop = '-' + cs.paddingTop;
+      function edge(side) { return -(parseFloat(cs['margin' + side]) + parseFloat(cs['padding' + side])) + 'px'; }
+      bar.style.marginLeft = edge('Left'); bar.style.marginRight = edge('Right'); bar.style.marginTop = edge('Top');
       document.documentElement.style.setProperty('--mm-top', bar.offsetHeight + 'px');
     }
     addEventListener('resize', syncHeight); syncHeight();
