@@ -7,7 +7,7 @@
 - 繁體中文文字寫在 `index.html`；English／日本語／한국어在 `i18n.js`；邏輯在 `app.js`。
 - 简体中文 `i18n-zh-hans.js` 由繁中自動轉換，**改完繁中後要重產**：
   `node tools/dump-zh.cjs http://localhost:8000/stand-with-micron-workers/ > zh.json && python3 tools/gen_zh_hans.py zh.json > i18n-zh-hans.js`（需 `pip install opencc` 與 Playwright）。
-- `og-v2.png` 是分享到 LINE／FB／X 時的預覽圖（1200×630）。換圖時請改用新檔名，社群平台才會抓新圖。
+- `og-v3.png` 是分享到 LINE／FB／X 時的預覽圖（1200×630）。換圖時請改用新檔名，社群平台才會抓新圖。
 
 ## 連署目前是「本機測試模式」
 
