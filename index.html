@@ -821,9 +821,40 @@ body { font-size: calc(16px - 1pt); }
 <div class="wa-nov17-content"><div class="wa-nov17-kicker">📣 重要活動｜11/17</div>
 <h3 id="nov17-action-title">美光關工・11/17 記者會與北上聲援</h3>
 <p class="wa-nov17-intro">拒絕黑箱協議、要求資訊透明，聲援桃園工會，呼籲儘速核發「美光關工」登記證書。</p>
-<div class="wa-nov17-list"><div><strong>11/17（二）｜記者會與北上聲援</strong><p>10:00 · 記者會與北上聲援；海報列示民進黨中央黨部及桃園市政府，確切集合與交通資訊以報名通知為準。</p></div></div>
-<p class="wa-nov17-note">報名表請依主辦方最新通知確認集合、交通與搭車資訊。</p>
+<div class="wa-nov17-list">
+  <div><strong>11/17（二）10:00｜民進黨中央黨部記者會</strong><p>臺北市中正區北平東路 30 號（近台北車站、捷運善導寺站）</p></div>
+  <div><strong>11/17（二）14:00｜桃園市政府記者會</strong><p>桃園市桃園區民生路 650 號</p></div>
+  <div><strong>專車上車資訊</strong><p>05:30 台南美光 · 06:00 銅鑼美光<br>07:00 台中美光（后里後站） · 09:00 桃園美光（籃球場）</p></div>
+</div>
+<p class="wa-nov17-note">專車依報名狀況安排，也可自行前往。請留意主辦方發送的行前通知。</p>
+<p id="nov17-registration-status" role="status" style="margin:0 0 15px;font-weight:800;color:#eef2f7">正在讀取報名狀態…</p>
 <a class="wa-btn wa-btn-gold wa-nov17-register" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 立即報名 11/17 北上聲援・爭取關工牌 ↗</a>
+<script>
+(() => {
+  const status = document.getElementById('nov17-registration-status');
+  const fallback = '報名狀態暫時無法取得';
+  const icons = { red: '🔴', yellow: '🟡', green: '🟢' };
+  const request = document.createElement('script');
+  const timer = setTimeout(() => { status.textContent = fallback; }, 12000);
+
+  window.registrationStatusCallback = (data) => {
+    clearTimeout(timer);
+    const icon = data?.ok === true && Object.hasOwn(icons, data.light)
+      ? icons[data.light]
+      : null;
+    status.textContent = icon && typeof data.label === 'string'
+      ? icon + ' ' + data.label
+      : fallback;
+  };
+
+  request.onerror = () => {
+    clearTimeout(timer);
+    status.textContent = fallback;
+  };
+  request.src = 'https://script.google.com/macros/s/AKfycbyVnh0XN2oZMd3udxp_atl_Bfiu7_5kRqEtxBAfmbgY2VGqpSKgfCH8kD3kvCl4ApT0vg/exec?callback=registrationStatusCallback';
+  document.head.append(request);
+})();
+</script>
 </div></article>
   <div class="wa-main">
     <div class="wa-fee-copy">
