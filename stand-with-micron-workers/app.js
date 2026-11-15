@@ -259,12 +259,39 @@
     return li;
   }
 
+  function timeAgo(ms) {
+    var sec = Math.round((ms - Date.now()) / 1000), abs = Math.abs(sec);
+    try {
+      var f = new Intl.RelativeTimeFormat(locale(), { numeric: 'auto', style: 'short' });
+      if (abs < 60) return f.format(sec, 'second');
+      if (abs < 3600) return f.format(Math.round(sec / 60), 'minute');
+      if (abs < 86400) return f.format(Math.round(sec / 3600), 'hour');
+      if (abs < 604800) return f.format(Math.round(sec / 86400), 'day');
+    } catch (e) {}
+    return new Date(ms).toLocaleDateString(locale());
+  }
+  function latestRow(s) {
+    var li = document.createElement('li');
+    var n = document.createElement('span'); n.className = 'nm';
+    n.textContent = (s.pub === true && s.name) ? s.name : t('list.anon');
+    li.appendChild(n);
+    var bits = [];
+    if (s.pub === true && s.title) bits.push(s.title);
+    if (s.pub === true && s.pubRole === true && s.role !== 'unaffiliated' && ROLES.indexOf(s.role) >= 0) bits.push(t('role.' + s.role));
+    var site = ['tc', 'ty', 'other'].indexOf(s.site) >= 0 ? 'tw' : s.site;
+    if (s.pub === true && s.pubRole === true && SITES.indexOf(site) > 0) bits.push(t('site.' + site));
+    var meta = document.createElement('span'); meta.className = 'meta'; meta.textContent = bits.join(' · ');
+    li.appendChild(meta);
+    if (s.t) { var w = document.createElement('time'); w.dateTime = new Date(s.t).toISOString(); w.textContent = timeAgo(Number(s.t)); li.appendChild(w); }
+    return li;
+  }
+
   function renderList() {
     var latest = state.list.slice().sort(function (a, b) { return Number(b.t || 0) - Number(a.t || 0); });
     var recent = $('latestSigs');
     recent.textContent = '';
-    latest.slice(0, 12).forEach(function (s) { recent.appendChild(signatureCard(s)); });
-    if (!latest.length) recent.textContent = t('list.empty');
+    latest.slice(0, 10).forEach(function (s) { recent.appendChild(latestRow(s)); });
+    if (!latest.length) { var none = document.createElement('li'); none.className = 'empty'; none.textContent = t('list.empty'); recent.appendChild(none); }
     var q = state.q.toLocaleLowerCase();
     var items = latest.filter(function (s) {
       return s.pub === true && s.name && String(s.name).toLocaleLowerCase().indexOf(q) >= 0;

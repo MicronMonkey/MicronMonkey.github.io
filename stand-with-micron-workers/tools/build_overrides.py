@@ -179,6 +179,7 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'directory.all': '查看所有簽署 →',
     'directory.latest': '最新簽署', 'ux.lightList': '閱讀每一份聲援 →',
     'letter.p1': '我們是來自世界各地、各行各業的勞工、學生、家屬與社會支持者。今天站在美光員工身邊，也是為所有工作現場守住知情、發聲和協商的空間。',
     'letter.p2': '影響勞工權益的決定，應讓當事人充分知情與參與。勞工提出疑問時，應得到具體回應，也應有安心表達意見的空間。',
@@ -201,6 +202,7 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'directory.all': 'See all signatures →',
     'directory.latest': 'Latest signatures', 'ux.lightList': 'Read the messages of support →',
     'letter.p1': 'We are workers in every line of work around the world, students, families and members of the public. We stand with Micron workers to defend the right to know, speak and negotiate in every workplace.',
     'letter.p2': 'Workers deserve to understand and participate in decisions affecting their rights, to receive concrete responses and to raise concerns without fear.',
@@ -223,6 +225,7 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'directory.all': 'すべての署名を見る →',
     'directory.latest': '最新の署名', 'ux.lightList': '応援メッセージをすべて読む →',
     'letter.p1': '私たちは世界各地のあらゆる職業の労働者、学生、家族、そして市民です。マイクロンの従業員の側に立つことは、すべての職場で知る権利、声を上げる権利、交渉する権利を守ることでもあります。',
     'letter.p2': '労働者の権利に関わる決定には、当事者が十分に知らされ、参加できるべきです。疑問を示した労働者には具体的な回答が返され、安心して意見を述べられる場が必要です。',
@@ -245,6 +248,7 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'directory.all': '모든 서명 보기 →',
     'directory.latest': '최신 서명', 'ux.lightList': '모든 응원 메시지 읽기 →',
     'letter.p1': '우리는 세계 각지, 모든 업종의 노동자, 학생, 가족, 그리고 시민입니다. 마이크론 직원들 곁에 서는 것은 모든 일터에서 알 권리, 말할 권리, 교섭할 권리를 지키는 일이기도 합니다.',
     'letter.p2': '노동자의 권리에 영향을 주는 결정에는 당사자가 충분히 알고 참여할 수 있어야 합니다. 노동자가 질문하면 구체적인 답을 받아야 하고, 안심하고 의견을 말할 수 있어야 합니다.',
