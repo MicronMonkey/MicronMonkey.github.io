@@ -397,3 +397,67 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     keys.forEach(function (key, index) { window.SWMW_I18N[lang][key] = labels[lang][index]; });
   });
 })();
+
+(function () {
+  var labels = {
+  "zh-Hant": [
+    "{n} 人",
+    "人數依簽署名單上公開的所在地統計。廠區名稱僅供參考。",
+    "台中・桃園",
+    "博伊西・馬納薩斯",
+    "廣島",
+    "新加坡",
+    "檳城",
+    "西安",
+    "薩南德"
+  ],
+  "zh-Hans": [
+    "{n} 人",
+    "人数按签署名单上公开的所在地统计。工厂名称仅供参考。",
+    "台中・桃园",
+    "博伊西・马纳萨斯",
+    "广岛",
+    "新加坡",
+    "槟城",
+    "西安",
+    "萨南德"
+  ],
+  "en": [
+    "{n}",
+    "Counts reflect public locations on the signature list. Micron sites are shown for reference.",
+    "Taichung · Taoyuan",
+    "Boise · Manassas",
+    "Hiroshima",
+    "Singapore",
+    "Penang",
+    "Xi’an",
+    "Sanand"
+  ],
+  "ja": [
+    "{n} 人",
+    "署名一覧で公開された所在地を集計しています。工場名は参考情報です。",
+    "台中・桃園",
+    "ボイシ・マナサス",
+    "広島",
+    "シンガポール",
+    "ペナン",
+    "西安",
+    "サナンド"
+  ],
+  "ko": [
+    "{n}명",
+    "서명 명단에 공개된 지역을 집계합니다. 공장명은 참고용입니다.",
+    "타이중 · 타오위안",
+    "보이시 · 매너서스",
+    "히로시마",
+    "싱가포르",
+    "페낭",
+    "시안",
+    "사난드"
+  ]
+};
+  var keys = ['people', 'note', 'tw', 'us', 'jp', 'sg', 'my', 'cn', 'in'];
+  Object.keys(labels).forEach(function (lang) {
+    keys.forEach(function (key, index) { window.SWMW_I18N[lang]['country.' + key] = labels[lang][index]; });
+  });
+})();

@@ -313,6 +313,7 @@ footer p{margin:0;max-width:680px}
 .hero .counter{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;text-align:left;max-width:600px;background:#130e20ee;padding:clamp(16px,4vw,30px)}.counter .total span{display:block;color:#e1d5ed;font-weight:700}.counter #heroCount{display:block;margin-top:8px;color:#dfb8ff;font-size:clamp(42px,10vw,92px);overflow-wrap:anywhere}.counter .bar,.count-breakdown,.count-note{grid-column:1/-1}.count-breakdown{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}.count-breakdown div{display:flex;flex-direction:column-reverse;border-top:1px solid #584465;padding-top:8px}.count-breakdown dd{margin:0;color:#fff;font-size:clamp(22px,5vw,40px);font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.count-breakdown dt,.count-note{color:#d2c3df;font-size:14px}.count-note{margin:0}.latest-signers{padding:24px 0 40px}.latest-signers .panel{border-color:#71568b}.feed-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}.feed-head h2{margin:0;color:#e4c1ff;font-size:clamp(25px,5vw,38px)}#feedStatus{color:#e2c5f5;font-size:13px}#feedStatus::before{content:"";display:inline-block;width:8px;height:8px;margin-inline-end:7px;border-radius:50%;background:#e2c5f5}.latest-signers .sigs li{overflow-wrap:anywhere}.latest-signers .who>span:first-child{font-size:clamp(18px,3vw,24px)}#signature-form .signgrid{grid-template-columns:minmax(0,760px);justify-content:center}
 .hero-photo{opacity:0;transition:opacity .7s ease}.hero-photo.is-active{opacity:1}.hero-photo-controls{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;margin-top:8px}.hero-photo-controls .hero-credit{margin:0}#photoRotation[hidden]{display:none}@media(prefers-reduced-motion:reduce){.hero-photo{transition:none}}
 #feedStatus::before{background:#a79bae}#feedStatus[data-state="live"]::before{background:#62e68a}#feedStatus[data-state="error"]::before{background:#fbbf65}
+.country-stats.sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.country-stats .site{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;min-width:0;padding:clamp(12px,2vw,20px)}.country-stats .site>span{font-size:16px;color:#f1e5fc;font-weight:700}.country-stats strong{color:#dfb8ff;font-size:clamp(23px,4vw,44px);font-variant-numeric:tabular-nums;line-height:1.15;overflow-wrap:anywhere}.country-stats small,.country-note{color:var(--mut);font-size:13px}.country-note{margin:0 0 24px}#global,#solidarity{scroll-margin-top:100px}@media(max-width:700px){.country-stats.sites{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -376,6 +377,22 @@ footer p{margin:0;max-width:680px}
 </header>
 
 <main><nav class="quick-path wrap" aria-label="Quick navigation"><a href="#letter" data-i18n="ux.read">① 了解訴求</a><a href="#sign" data-i18n="ux.sign">② 留下聲援</a><a href="#signers" data-i18n="ux.people">③ 看見團結</a></nav>
+<section id="global" class="alt">
+  <div class="wrap">
+    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">各行各業，都能站在一起</h2><p data-i18n="global.sub">不論你在產線輪班、在門市服務、正在求學或照顧家人，都可以參與。每一次支持，都讓第一線的聲音多一個被聽見的機會。</p></div>
+    <div class="sites country-stats"><div class="site home"><span data-i18n="site.tw">台灣</span><strong id="country-tw"></strong><small data-i18n="country.tw">台中・桃園</small></div><div class="site"><span data-i18n="site.us">美國</span><strong id="country-us"></strong><small data-i18n="country.us">博伊西・馬納薩斯</small></div><div class="site"><span data-i18n="site.jp">日本</span><strong id="country-jp"></strong><small data-i18n="country.jp">廣島</small></div><div class="site"><span data-i18n="site.sg">新加坡</span><strong id="country-sg"></strong><small data-i18n="country.sg">新加坡</small></div><div class="site"><span data-i18n="site.my">馬來西亞</span><strong id="country-my"></strong><small data-i18n="country.my">檳城</small></div><div class="site"><span data-i18n="site.cn">中國</span><strong id="country-cn"></strong><small data-i18n="country.cn">西安</small></div><div class="site"><span data-i18n="site.in">印度</span><strong id="country-in"></strong><small data-i18n="country.in">薩南德</small></div><div class="site"><span data-i18n="site.abroad">其他國家</span><strong id="country-abroad"></strong></div></div><p class="country-note" data-i18n="country.note">人數依簽署名單上公開的所在地統計。廠區名稱僅供參考。</p>
+    <div class="steps3">
+      <div class="panel"><div class="num">1</div><h3 data-i18n="global.a1h">簽下名字，選你的廠區</h3><p data-i18n="global.a1p">簽署人名單會顯示你來自哪個國家。對台灣同事來說，海外同事的一個簽名，就是「你們並不孤單」最直接的證明。</p></div>
+      <div class="panel"><div class="num">2</div><h3 data-i18n="global.a2h">分享到你的團隊群組</h3><p data-i18n="global.a2p">本頁有繁中、简中、English、日本語、한국어五種語言，右上角就能切換。請用私人帳號分享。</p></div>
+      <div class="panel"><div class="num">3</div><h3 data-i18n="global.a3h">用你的語言說一句話</h3><p data-i18n="global.a3p">在簽名留言寫一句聲援，或複製下面的訊息貼到社群，加上 #StandWithMicronWorkers。</p></div>
+    </div>
+    <div class="msgcard">
+      <div class="lab" data-i18n="global.msglab">聲援訊息範本</div>
+      <p id="solMsg" data-i18n="global.msg">我支持台灣美光員工。做出晶片的人，應該得到透明、公平的分潤，也有權組織工會而不被報復。 #StandWithMicronWorkers #戰鬥協商</p>
+      <div class="acts"><button class="btn p sm" type="button" id="copyMsg" data-i18n="global.copy">複製聲援訊息</button><button class="btn g sm" type="button" data-share data-i18n="hero.share">分享</button></div>
+    </div>
+  </div>
+</section>
 <section id="solidarity"><div class="wrap"><div class="sh c">
 <h2 data-i18n="lights.title">每一份聲援，都有光</h2><p data-i18n="lights.note">每個光點代表一份支持，包含匿名簽署。</p></div>
 <div class="light-panel"><p id="lightCount" role="status"></p><canvas id="lightSky" aria-hidden="true"></canvas><p id="lightEmpty" data-i18n="lights.empty">這片光海，等你一起點亮。</p><p class="field-hint" id="lightDensity"></p><a class="light-list-link" href="#signers" data-i18n="ux.lightList">閱讀每一份聲援 →</a><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
@@ -448,30 +465,7 @@ footer p{margin:0;max-width:680px}
   </div>
 </section>
 
-<section id="global" class="alt">
-  <div class="wrap">
-    <div class="sh"><div class="tag" data-i18n="global.tag">Micron colleagues worldwide</div><h2 data-i18n="global.title">各行各業，都能站在一起</h2><p data-i18n="global.sub">不論你在產線輪班、在門市服務、正在求學或照顧家人，都可以參與。每一次支持，都讓第一線的聲音多一個被聽見的機會。</p></div>
-    <div class="sites">
-      <div class="site home"><i></i><span data-i18n="gs.tw"><b>台灣</b>台中・桃園</span></div>
-      <div class="site"><i></i><span data-i18n="gs.us"><b>美國</b>博伊西・馬納薩斯</span></div>
-      <div class="site"><i></i><span data-i18n="gs.jp"><b>日本</b>廣島</span></div>
-      <div class="site"><i></i><span data-i18n="gs.sg"><b>新加坡</b>Singapore</span></div>
-      <div class="site"><i></i><span data-i18n="gs.my"><b>馬來西亞</b>檳城</span></div>
-      <div class="site"><i></i><span data-i18n="gs.cn"><b>中國</b>西安</span></div>
-      <div class="site"><i></i><span data-i18n="gs.in"><b>印度</b>薩南德</span></div>
-    </div>
-    <div class="steps3">
-      <div class="panel"><div class="num">1</div><h3 data-i18n="global.a1h">簽下名字，選你的廠區</h3><p data-i18n="global.a1p">簽署人名單會顯示你來自哪個國家。對台灣同事來說，海外同事的一個簽名，就是「你們並不孤單」最直接的證明。</p></div>
-      <div class="panel"><div class="num">2</div><h3 data-i18n="global.a2h">分享到你的團隊群組</h3><p data-i18n="global.a2p">本頁有繁中、简中、English、日本語、한국어五種語言，右上角就能切換。請用私人帳號分享。</p></div>
-      <div class="panel"><div class="num">3</div><h3 data-i18n="global.a3h">用你的語言說一句話</h3><p data-i18n="global.a3p">在簽名留言寫一句聲援，或複製下面的訊息貼到社群，加上 #StandWithMicronWorkers。</p></div>
-    </div>
-    <div class="msgcard">
-      <div class="lab" data-i18n="global.msglab">聲援訊息範本</div>
-      <p id="solMsg" data-i18n="global.msg">我支持台灣美光員工。做出晶片的人，應該得到透明、公平的分潤，也有權組織工會而不被報復。 #StandWithMicronWorkers #戰鬥協商</p>
-      <div class="acts"><button class="btn p sm" type="button" id="copyMsg" data-i18n="global.copy">複製聲援訊息</button><button class="btn g sm" type="button" data-share data-i18n="hero.share">分享</button></div>
-    </div>
-  </div>
-</section>
+
 
 <section id="facts">
   <div class="wrap">
@@ -558,8 +552,8 @@ footer p{margin:0;max-width:680px}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=10"></script>
-<script src="app.js?v=10"></script>
+<script src="form-i18n.js?v=11"></script>
+<script src="app.js?v=11"></script>
 </body>
 
 </html>

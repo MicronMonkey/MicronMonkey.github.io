@@ -183,7 +183,21 @@
     }
     renderLights();
     renderBreakdown();
+    renderCountries();
   }
+  function renderCountries() {
+    var totals = {};
+    SITES.slice(1).forEach(function (site) { totals[site] = 0; });
+    state.list.forEach(function (signature) {
+      if (signature.pub !== true || signature.pubRole !== true) return;
+      var site = ['tc', 'ty', 'other'].indexOf(signature.site) >= 0 ? 'tw' : signature.site;
+      if (Object.prototype.hasOwnProperty.call(totals, site)) totals[site]++;
+    });
+    Object.keys(totals).forEach(function (site) {
+      $('country-' + site).textContent = t('country.people', { n: totals[site].toLocaleString(locale()) });
+    });
+  }
+
   function renderBreakdown() {
     var totals = { current: 0, former: 0, support: 0, other: 0 };
     state.list.forEach(function (signature) {
