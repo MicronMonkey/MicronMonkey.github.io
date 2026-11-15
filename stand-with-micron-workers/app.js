@@ -18,7 +18,8 @@
   var DEMO_PARAM = new URLSearchParams(location.search).get('demo');
   var DEMO = DEMO_PARAM === '1' || (CONFIG.preview && DEMO_PARAM !== '0');
   var KEY = DEMO ? 'swmw.preview.signatures.v1' : 'swmw.signatures.v1';
-  var SIGNED_KEY = 'swmw.signed.v1';
+  // Duplicate signing is checked by the backend (one signature per email), not per device.
+  try { localStorage.removeItem('swmw.signed.v1'); } catch (e) {}
   var LANG_KEY = 'swmw.lang';
   var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'unaffiliated'];
   var SITES = ['none', 'tw', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
@@ -166,7 +167,6 @@
     try { var v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
   }
   function saveLocal(list) { try { localStorage.setItem(KEY, JSON.stringify(list)); return true; } catch (e) { return false; } }
-  function hasSigned() { try { return localStorage.getItem(SIGNED_KEY) === '1'; } catch (e) { return false; } }
 
   function refresh() {
     if (!LIVE) {
@@ -465,7 +465,6 @@
     if (!$('email').checkValidity() || !$('email').value.trim()) return fieldError($('email'), t('err.email'));
     if (LIVE && (!CONFIG.turnstileSiteKey || !securityToken)) { err.textContent = t('security.required'); return; }
     if (!$('agree').checked) return fieldError($('agree'), t('err.agree'));
-    if (LIVE && hasSigned()) { err.textContent = t('err.dup'); return; }
     err.textContent = '';
     var sig = { title: $('jobTitle').value.trim().slice(0,80), email: $('email').value.trim(), pubRole: pub && role !== 'unaffiliated' && $('pubRole').checked, pubMsg: pub && $('pubMsg').checked, token: securityToken, agree: true, name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
     var form = this, submit = $('submit');
@@ -485,7 +484,6 @@
       .then(function (r) { if (!r.ok) throw new Error('network'); return r.json(); })
       .then(function (d) {
         if (!d.ok) throw new Error(d.error || 'rejected');
-        try { localStorage.setItem(SIGNED_KEY, '1'); } catch (e) {}
         done(); return refresh();
       })
       .catch(function (e) {
