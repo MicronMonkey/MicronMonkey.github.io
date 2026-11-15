@@ -822,6 +822,17 @@ body.emergency-active #u-emergency-hero { min-height:312px !important; padding-b
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #fbd47e!important;outline-offset:4px}
 @media(max-width:600px){.ux-shortcuts{gap:8px}.ux-shortcuts a{flex-basis:40%;padding:12px 8px}#portalFloatingNav{right:8px!important;bottom:12px!important}}
 @media(prefers-reduced-motion:reduce){#u-weekly-announcement a.wa-nov17-register{animation:none!important}}
+</style><style id="ux-second-review">
+#portalFloatingNav:not(.is-collapsed){display:flex;flex-direction:column;padding-bottom:0}
+#portalNavToggle{position:sticky;bottom:0;background:#19232f!important;z-index:2}
+#portalFloatingNav a,#portalFloatingNav .back-top{display:flex;flex-direction:row;gap:9px;align-items:center;justify-content:flex-start}
+#portalFloatingNav .float-icon{font-size:20px!important;flex-shrink:0}
+#portalFloatingNav.is-collapsed>a,#portalFloatingNav.is-collapsed>.back-top{display:none!important}
+@media(max-width:600px){
+ #portalFloatingNav:not(.is-collapsed){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(320px,calc(100vw - 24px));gap:6px}
+ #portalFloatingNav:not(.is-collapsed)>a,#portalFloatingNav:not(.is-collapsed)>button{width:100%!important}
+ #portalFloatingNav:not(.is-collapsed)>#portalNavToggle{grid-column:1/-1;justify-content:center}
+}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -832,11 +843,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #fb
 <div class="space-y-5 rounded-3xl u-v14-stage" id="mode0Container" style="background:var(--u-bg)"><section class="u-hero rounded-[24px] p-6 md:p-11 relative overflow-hidden u-v14-hero" id="u-emergency-hero"><div class="u-kicker u-v14-date">10.21 / 2026 · TAICHUNG · EMPLOYEE RESPONSE</div><h2 class="text-4xl md:text-6xl font-black mt-5 leading-tight u-hero-heading" style="letter-spacing:-.045em"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">以發聲拒絕失望，以行動守住權利</span><span class="u-en" lang="en">Speak out against disappointment. Take action to defend our rights.</span></span></h2><p class="text-lg md:text-xl u-muted mt-4"><span class="u-bilingual" data-u-translated="1"><span class="u-zh">拒絕黑箱協議，要求資訊透明；用參與與行動守護勞動權益。</span><span class="u-en" lang="en">Reject opaque agreements, demand transparency, and protect our rights through collective participation.</span></span></p></section><section id="u-current-strategy" class="u-surface" style="padding:clamp(16px,3vw,28px);margin-bottom:24px;text-align:center;">
   <h2 style="font-size:calc(clamp(1.45rem,4.5vw,2.15rem) - 1pt);font-weight:900;line-height:1.35;margin:0 0 16px;"><span class="u-bilingual"><span class="u-zh">雙線並進｜兩路突破</span><span class="u-en" lang="en">What Are We Doing Now?</span></span></h2>
   <img src="./current-action-overview.jpeg" alt="台中與桃園聯合作戰：原工會內部改革及成立台灣美光關係企業工會，雙線並進、兩路突破" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;max-width:760px;margin:0 auto;border-radius:16px;" />
-  <div class="u-join-actions"><a class="u-button u-join-btn" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🤝</span><span class="u-bilingual"><span class="u-zh">立即加入關工</span><span class="u-en" lang="en">Join the Affiliated Union</span></span><span aria-hidden="true">↗</span></a></div>
+  <div class="u-join-actions" id="ux-membership-start"><a class="u-button u-join-btn" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🤝</span><span class="u-bilingual"><span class="u-zh">立即加入關工</span><span class="u-en" lang="en">Join the Affiliated Union</span></span><span aria-hidden="true">↗</span></a></div>
   <a class="u-button" href="./Connected_Union_QA.html" target="_blank" rel="noopener noreferrer" aria-label="查看美光關係企業工會常見問題 Q&A，另開新分頁" style="display:inline-flex;align-items:center;justify-content:center;max-width:100%;min-height:48px;margin:20px auto 0;padding:12px 24px;border-radius:14px;font-weight:850;text-decoration:none;gap:8px;background:#b83f45;color:#fff;border:1px solid #d26368;box-shadow:0 6px 18px rgba(131,32,42,.28);">
     <span aria-hidden="true">📖</span><span class="u-bilingual"><span class="u-zh">關係企業工會常見問題 Q&amp;A</span><span class="u-en" lang="en">Affiliated Union FAQ</span></span><span aria-hidden="true">↗</span>
   </a>
-<section class="u-surface" id="u-affiliated-union"><div class="flex items-center gap-3"><span class="u-step">01</span><span class="u-kicker">UNION MEMBERSHIP · JOIN THE UNION</span></div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4">
+<section class="u-surface" id="u-affiliated-union"><div class="flex items-center gap-3"><span class="u-kicker">UNION MEMBERSHIP · JOIN THE UNION</span></div><h3 class="u-heading mt-2"><span class="u-bilingual"><span class="u-zh">🤝 台灣美光關係企業工會｜入會申請書</span><span class="u-en" lang="en">🤝 Taiwan Micron Affiliated Enterprises Union · Membership</span></span></h3><p class="u-muted text-sm mt-3"><span class="u-bilingual"><span class="u-zh">有意願加入的同仁，可前往工會網站閱讀申請書；入會資格與程序請依該工會說明為準。</span><span class="u-en" lang="en">Review the application and the union’s membership eligibility and procedures on its website.</span></span></p><div class="u-subtle-info rounded-xl p-4 mt-4">
 <div class="u-muted text-sm">關工追蹤合計 / Union tracking total</div>
 <div class="flex flex-wrap items-baseline gap-2 mt-2"><strong class="block text-4xl" id="affiliatedUnionCombinedCount" style="color:#f7cf53" role="status" aria-live="polite">—</strong><span class="text-sm u-muted">人 · 直接入會與申請合計 / Direct enrollments and applications</span></div>
 
@@ -1232,11 +1243,27 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElement
   });
 })();
 </script>
-<nav id="portalFloatingNav" class="is-collapsed" aria-label="快速導覽"><a href="#u-weekly-announcement" onclick="return portalNavigateTo('u-weekly-announcement')"><span class="float-label-zh">活動報名</span></a><a href="#u-affiliated-union" onclick="return portalNavigateTo('u-affiliated-union')"><span class="float-label-zh">入會與繳費</span></a><a href="#u-participate" onclick="return portalNavigateTo('u-participate')"><span class="float-label-zh">志工與社群</span></a><a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')"><span class="float-label-zh">常見問題</span></a><a href="#u-next" onclick="return portalNavigateTo('u-next')"><span class="float-label-zh">歷程紀錄</span></a><button id="portalNavToggle" type="button" aria-expanded="false" aria-label="展開導覽"><span class="float-icon" aria-hidden="true">☰</span><span class="float-label"><span class="float-label-zh">導覽</span><span class="float-label-en" lang="en">Menu</span></span></button></nav>
+<nav id="portalFloatingNav" class="is-collapsed" aria-label="浮動快速導覽 / Floating quick navigation">
+<a href="#u-affiliated-union" onclick="return portalNavigateTo('u-affiliated-union')" title="美光關工 / Micron Affiliated Union" aria-label="美光關工 / Micron Affiliated Union">
+<span class="float-icon" aria-hidden="true">🧔🏻‍♂️</span><span class="float-label"><span class="float-label-zh">美光關工</span><span class="float-label-en" lang="en">Micron Union</span></span></a>
+<a href="#u-participate" onclick="return portalNavigateTo('u-participate')" title="幹部/志工" aria-label="幹部/志工">
+<span class="float-icon" aria-hidden="true">🤝</span><span class="float-label"><span class="float-label-zh">幹部/志工</span><span class="float-label-en" lang="en">Organizers / Volunteers</span></span></a>
+<a href="#u-next" onclick="return portalNavigateTo('u-next')" title="自救時間線" aria-label="自救時間線">
+<span class="float-icon" aria-hidden="true">📅</span><span class="float-label"><span class="float-label-zh">自救時間線</span><span class="float-label-en" lang="en">Action Timeline</span></span></a>
+<a href="#u-quick-faq" onclick="return portalNavigateTo('u-quick-faq')" title="常見問答 / FAQ" aria-label="常見問答 / FAQ">
+<span class="float-icon" aria-hidden="true">❓</span><span class="float-label"><span class="float-label-zh">常見問答</span><span class="float-label-en" lang="en">FAQ</span></span></a>
+<a href="#u-unsent-letters" onclick="return portalNavigateTo('u-unsent-letters')" title="未寄出的信 / Unsent Letters" aria-label="未寄出的信 / Unsent Letters"><span class="float-icon" aria-hidden="true">✉️</span><span class="float-label"><span class="float-label-zh">未寄出的信</span><span class="float-label-en" lang="en">Unsent Letters</span></span></a>
+<button class="back-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到頂端" aria-label="回到頂端"><span class="float-icon" aria-hidden="true">⬆️</span><span class="float-label"><span class="float-label-zh">回到頂端</span><span class="float-label-en" lang="en">Back to Top</span></span></button>
+<a href="https://micronmonkey.github.io/Game/fack.html" target="_self" title="全民找法克 / Find Fack" aria-label="全民找法克 / Find Fack">
+<span class="float-icon" aria-hidden="true">🎮</span><span class="float-label"><span class="float-label-zh">全民找法克</span><span class="float-label-en" lang="en">Find Fack</span></span></a>
+<a href="https://micronmonkey.github.io/Game/dual-city-1230/" target="_self" title="雙城集結令 / Dual City" aria-label="雙城集結令 / Dual City"><span class="float-icon" aria-hidden="true">🏙️</span><span class="float-label"><span class="float-label-zh">雙城集結令</span><span class="float-label-en" lang="en">Dual City</span></span></a>
+<a href="Salary.html" target="_self" title="去薪情平台 / Salary Platform" aria-label="去薪情平台 / Salary Platform"><span class="float-icon" aria-hidden="true">📊</span><span class="float-label"><span class="float-label-zh">去薪情平台</span><span class="float-label-en" lang="en">Salary Platform</span></span></a>
+<button id="portalNavToggle" type="button" aria-expanded="false" aria-label="展開導覽 / Expand navigation" title="展開導覽 / Expand navigation"><span class="float-icon" aria-hidden="true">☰</span><span class="float-label"><span class="float-label-zh">導覽</span><span class="float-label-en" lang="en">Menu</span></span></button>
+</nav>
 <script id="test1-float-navigation">
 (function(){
  const nav=document.getElementById('portalFloatingNav'),toggle=document.getElementById('portalNavToggle');
- nav.addEventListener('click',e=>{if(e.target.closest('a')&&!nav.classList.contains('is-collapsed'))toggle.click();});
+ nav.addEventListener('click',e=>{if(e.target.closest('a,.back-top')&&!nav.classList.contains('is-collapsed'))toggle.click();});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!nav.classList.contains('is-collapsed')){toggle.click();toggle.focus();}});
  toggle.addEventListener('click',()=>{
   const collapsed=nav.classList.toggle('is-collapsed');
@@ -1658,7 +1685,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const shortcuts = document.createElement('nav');
   shortcuts.className = 'ux-shortcuts';
   shortcuts.setAttribute('aria-label', '依需求找內容');
-  shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\">活動報名</a><a href=\"#u-affiliated-union\" onclick=\"return portalNavigateTo('u-affiliated-union')\">入會與繳費</a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\">志工與社群</a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\">常見問題</a><a href=\"#u-next\" onclick=\"return portalNavigateTo('u-next')\">歷程紀錄</a>";
+  shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\">活動報名</a><a href=\"#ux-membership-start\" onclick=\"return portalNavigateTo('ux-membership-start')\">入會與繳費</a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\">志工與社群</a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\">常見問題</a>";
   strategy.before(shortcuts, activity);
 
   const services = document.createElement('div');
