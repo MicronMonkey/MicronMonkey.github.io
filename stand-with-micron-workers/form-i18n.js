@@ -276,3 +276,69 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     if (language !== 'zh-Hant' && language !== 'zh-Hans') dict['hero.credit'] = 'Photo: Li Hsuan-hsuan / Newtalk';
   });
 })();
+
+(function () {
+  var labels = {
+  "zh-Hant": [
+    "連署總數",
+    "現任員工",
+    "前員工",
+    "支持者",
+    "未分類",
+    "依名單上公開的身分統計，其餘計入未分類。",
+    "最新簽署名單",
+    "更新於 {time}",
+    "等待載入"
+  ],
+  "zh-Hans": [
+    "联署总数",
+    "现任员工",
+    "前员工",
+    "支持者",
+    "未分类",
+    "按名单中公开的身份统计，其余计入未分类。",
+    "最新签署名单",
+    "更新于 {time}",
+    "等待加载"
+  ],
+  "en": [
+    "Total signatures",
+    "Current employees",
+    "Former employees",
+    "Supporters",
+    "Unclassified",
+    "Based on public labels in the list. All other signatures are unclassified.",
+    "Latest signatures",
+    "Updated at {time}",
+    "Waiting for data"
+  ],
+  "ja": [
+    "署名総数",
+    "現職",
+    "元従業員",
+    "支持者",
+    "未分類",
+    "名簿の公開ラベルに基づく集計です。その他は未分類です。",
+    "最新の署名",
+    "更新 {time}",
+    "読み込み待ち"
+  ],
+  "ko": [
+    "총 서명 수",
+    "현직 직원",
+    "전 직원",
+    "지지자",
+    "미분류",
+    "명단에 공개된 분류를 집계하며 나머지는 미분류입니다.",
+    "최신 서명",
+    "업데이트 {time}",
+    "불러오는 중"
+  ]
+};
+  var keys = ['total', 'current', 'former', 'support', 'other', 'note', 'feed', 'updated', 'waiting'];
+  Object.keys(labels).forEach(function (language) {
+    keys.forEach(function (key, index) {
+      window.SWMW_I18N[language]['dash.' + key] = labels[language][index];
+    });
+  });
+})();

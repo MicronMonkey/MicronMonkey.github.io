@@ -21,7 +21,7 @@
   var DICT = window.SWMW_I18N || {};
   var zh = DICT['zh-Hant'] = DICT['zh-Hant'] || {};
   var lang = 'zh-Hant';
-  var state = { list: [], count: 0, q: '', limit: 12 };
+  var state = { list: [], count: 0, q: '', limit: 12, updatedAt: null };
 
   /* ── i18n ─────────────────────────────────────────────── */
   // Read the Traditional Chinese baseline straight from the markup.
@@ -153,10 +153,12 @@
       return Promise.resolve();
     }
     return fetch(CONFIG.endpoint + (CONFIG.endpoint.indexOf('?') < 0 ? '?' : '&') + 'action=list', { cache: 'no-store' })
-      .then(function (r) { return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error('network'); return r.json(); })
       .then(function (d) {
+        if (!d || !Array.isArray(d.signatures) || !Number.isFinite(+d.count)) return;
         state.count = Number.isFinite(+d.count) ? Math.max(0, Math.floor(+d.count)) : 0;
         state.list = Array.isArray(d.signatures) ? d.signatures : [];
+        state.updatedAt = new Date();
         renderCount(true); renderList();
       })
       .catch(function () { /* keep previous state */ });
@@ -178,9 +180,28 @@
       })(start);
     }
     renderLights();
+    renderBreakdown();
     $('goalBar').style.width = Math.min(100, target / CONFIG.goal * 100) + '%';
     $('goalTxt').textContent = t('count.goal', { n: fmt(CONFIG.goal) });
   }
+  function renderBreakdown() {
+    var totals = { current: 0, former: 0, support: 0, other: 0 };
+    state.list.forEach(function (signature) {
+      if (signature.pub !== true || signature.pubRole !== true) return;
+      var role = signature.role;
+      if (role === 'current' || role === 'overseas') totals.current++;
+      else if (role === 'former') totals.former++;
+      else if (['family', 'semi', 'worker', 'student', 'public'].indexOf(role) >= 0) totals.support++;
+    });
+    totals.other = Math.max(0, state.count - totals.current - totals.former - totals.support);
+    Object.keys(totals).forEach(function (key) {
+      $('stat-' + key).textContent = totals[key].toLocaleString(locale());
+    });
+    $('feedStatus').textContent = !LIVE ? t('count.local') : state.updatedAt
+      ? t('dash.updated', { time: state.updatedAt.toLocaleTimeString(locale()) })
+      : t('dash.waiting');
+  }
+
   function setMode() {
     var tag = $('liveTag'), note = $('modeNote');
     $('submit').textContent = t(LIVE ? 'form.submit_live' : 'form.submit');
