@@ -1,0 +1,23 @@
+{
+ "zh-Hant": {
+  "file": "index-lang-v1.html",
+  "img": "portal-i18n/og-zh-hant.png",
+  "locale": "zh_TW",
+  "title": "光光猴守護平台｜美光關工最新消息與 11/17 行動",
+  "desc": "光光猴守護平台：台灣美光員工的最新消息——加入美光關係企業工會、11/17 行動、志工招募與匿名心聲「未寄出的信」。"
+ },
+ "en": {
+  "file": "index-lang-v1-en.html",
+  "img": "portal-i18n/og-en.png",
+  "locale": "en_US",
+  "title": "MicronMonkey Guardian | Micron union updates and the Nov 17 action",
+  "desc": "Updates from Micron workers in Taiwan: join the Micron Affiliated Union, the Nov 17 action, volunteering, and anonymous “Unsent Letters”."
+ },
+ "zh-Hans": {
+  "file": "index-lang-v1-zh-hans.html",
+  "img": "portal-i18n/og-zh-hans.png",
+  "locale": "zh_CN",
+  "title": "光光猴守护平台｜美光关工最新消息与 11/17 行动",
+  "desc": "光光猴守护平台：台湾美光员工的最新消息——加入美光关系企业工会、11/17 行动、志工招募与匿名心声「未寄出的信」。"
+ }
+}
