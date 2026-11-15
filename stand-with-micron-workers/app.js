@@ -91,6 +91,7 @@
     updatePrivacy();
     updateSecurity();
     updateShareLinks();
+    uxLang();
     if (persist) {
       try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
       var u = new URL(location.href);
@@ -201,6 +202,7 @@
     }
     renderBreakdown();
     renderCountries();
+    uxCount();
   }
   function renderCountries() {
     var totals = {};
@@ -665,6 +667,43 @@
   });
   $('copyInstagram').addEventListener('click', copyInstagramLink);
   $('closeInstagram').addEventListener('click', function () { $('instagramDialog').close(); });
+
+  /* ── UX: reading progress, floating sign bar, back to top ── */
+  function uxCount() {
+    var el = $('ctaCount'); if (!el) return;
+    el.innerHTML = t('ux.ctaCount', { n: '<b>' + state.count.toLocaleString(locale()) + '</b>' });
+  }
+  function uxLang() { uxCount(); }
+  (function () {
+    var bar = $('readProgress').firstElementChild, cta = $('ctaBar'), top = $('toTop');
+    var heroGone = false, formSeen = false, footSeen = false, ticking = false;
+    function sync() {
+      ticking = false;
+      var h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')';
+      var showCta = heroGone && !formSeen && !footSeen;
+      cta.classList.toggle('on', showCta);
+      cta.setAttribute('aria-hidden', String(!showCta));
+      cta.querySelector('a').tabIndex = showCta ? 0 : -1;
+      var showTop = scrollY > innerHeight * 1.5;
+      top.classList.toggle('on', showTop);
+      top.classList.toggle('lift', showCta);
+      top.tabIndex = showTop ? 0 : -1;
+    }
+    function queue() { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { heroGone = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; queue(); }).observe($('top'));
+      new IntersectionObserver(function (e) { formSeen = e[0].isIntersecting; queue(); }, { rootMargin: '0px 0px -20% 0px' }).observe($('signature-form'));
+      new IntersectionObserver(function (e) { footSeen = e[0].isIntersecting; queue(); }).observe(document.querySelector('footer'));
+    }
+    top.addEventListener('click', function () {
+      scrollTo({ top: 0, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+      var skip = document.querySelector('.brand'); if (skip) skip.focus({ preventScroll: true });
+    });
+    sync();
+  })();
 
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);

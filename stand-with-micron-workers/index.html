@@ -405,6 +405,20 @@ footer p{margin:0;max-width:680px}
 
 /* consent statement in bold */
 .chk [data-i18n="form.agree"]{font-weight:700;color:var(--fg)}
+
+/* UX round 1: reading progress, floating sign bar, back to top */
+#readProgress{position:fixed;left:0;right:0;top:0;height:3px;z-index:60;pointer-events:none}
+#readProgress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--pu),var(--mag))}
+.cta-bar{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:45;display:flex;align-items:center;gap:14px;width:min(520px,calc(100vw - 24px));padding:10px 10px 10px 18px;border:1px solid var(--line2);border-radius:999px;background:rgba(19,13,32,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 14px 40px #000a;transform:translate(-50%,140%);opacity:0;transition:transform .35s ease,opacity .35s ease}
+.cta-bar.on{transform:translate(-50%,0);opacity:1}
+.cta-bar span{flex:1;min-width:0;font-weight:700;font-size:14px;color:#efe6ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cta-bar span b{color:#dfb8ff;font-size:16px;font-variant-numeric:tabular-nums}
+.cta-bar .btn{flex:none}
+.to-top{position:fixed;right:calc(env(safe-area-inset-right,0px) + 14px);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:44;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line2);background:rgba(19,13,32,.92);color:#efe6ff;cursor:pointer;box-shadow:0 10px 30px #0009;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s,bottom .35s}
+.to-top.on{opacity:1;transform:none;pointer-events:auto}
+.to-top.lift{bottom:calc(env(safe-area-inset-bottom,0px) + 78px)}
+@media(min-width:900px){.to-top.lift{bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}.cta-bar{left:auto;right:76px;transform:translate(0,140%)}.cta-bar.on{transform:none}}
+@media(prefers-reduced-motion:reduce){.cta-bar,.to-top{transition:none}}
 </style>
 </head>
 <body>
@@ -641,12 +655,15 @@ footer p{margin:0;max-width:680px}
   </div>
 </footer>
 
-<dialog id="instagramDialog" aria-labelledby="instagramTitle"><h2 id="instagramTitle" data-i18n="ig.title">分享到 Instagram</h2><p id="instagramStatus" role="status"></p><input id="instagramLink" readonly aria-label="Website link"><div class="acts"><button id="copyInstagram" type="button" class="btn p sm" data-i18n="ig.copy">複製連結</button><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="btn g sm" data-i18n="ig.open">開啟 Instagram</a><button id="closeInstagram" type="button" class="btn g sm" data-i18n="ig.close">關閉</button></div></dialog><div id="toast" role="status" aria-live="polite"></div>
+<dialog id="instagramDialog" aria-labelledby="instagramTitle"><h2 id="instagramTitle" data-i18n="ig.title">分享到 Instagram</h2><p id="instagramStatus" role="status"></p><input id="instagramLink" readonly aria-label="Website link"><div class="acts"><button id="copyInstagram" type="button" class="btn p sm" data-i18n="ig.copy">複製連結</button><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="btn g sm" data-i18n="ig.open">開啟 Instagram</a><button id="closeInstagram" type="button" class="btn g sm" data-i18n="ig.close">關閉</button></div></dialog><div id="readProgress" aria-hidden="true"><i></i></div>
+<div id="ctaBar" class="cta-bar" aria-hidden="true"><span id="ctaCount"></span><a class="btn p sm" href="#signature-form" tabindex="-1" data-i18n="hero.cta">簽署公開信</a></div>
+<button id="toTop" class="to-top" type="button" data-i18n-aria="ux.top" aria-label="回到頂端" tabindex="-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
 <script src="form-i18n.js?v=16"></script>
-<script src="overrides.js?v=4"></script>
-<script src="app.js?v=20"></script>
+<script src="overrides.js?v=5"></script>
+<script src="app.js?v=21"></script>
 </body>
 
 </html>
