@@ -17,3 +17,7 @@
 
 ## 轉成正式版時
 把 `index-lang-v1.html` 換成 `index.html`，並把 `PORTAL_I18N_CONFIG.share`、`hreflang` 與五個語言入口頁的網址改成正式網址（例如 `/en/`、`/ja/`、`/ko/`、`/hi/`、`/zh-hans/`）。
+
+## 字級（`portal-type.css`）
+文字分成 A–H 八類，每類一個大小。在 `type.py` 的 `SIZES` 改「手機 pt, 電腦 pt」，在 `RULES` 調整哪些元素屬於哪一類，然後執行 `python3 portal-i18n/type.py`，再把 `index-lang-v1.html` 裡的 `portal-type.css?v=` 版本號加 1。
+手機以 390px 寬計算，1024px 以上用電腦大小，中間平滑過渡。6 種語言共用同一套大小。
