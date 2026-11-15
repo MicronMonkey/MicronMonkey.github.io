@@ -315,6 +315,7 @@ footer p{margin:0;max-width:680px}
 #feedStatus::before{background:#a79bae}#feedStatus[data-state="live"]::before{background:#62e68a}#feedStatus[data-state="error"]::before{background:#fbbf65}
 .country-stats.sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.country-stats .site{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;min-width:0;padding:clamp(12px,2vw,20px)}.country-stats .site>span{font-size:16px;color:#f1e5fc;font-weight:700}.country-stats strong{color:#dfb8ff;font-size:clamp(23px,4vw,44px);font-variant-numeric:tabular-nums;line-height:1.15;overflow-wrap:anywhere}.country-stats small,.country-note{color:var(--mut);font-size:13px}.country-note{margin:0 0 24px}#global,#solidarity{scroll-margin-top:100px}@media(max-width:700px){.country-stats.sites{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .demo-notice{width:fit-content;padding:8px 12px;border:1px solid #fbbf65;border-radius:8px;color:#ffdd9c;background:#211727;font-weight:700}.demo-notice[hidden]{display:none}
+.brand-wordmark{font-size:15px;line-height:1.25}.brand-wordmark strong{color:#dfb8ff}.social-shortcuts{display:flex;gap:6px;align-items:center}.social-shortcuts a,.social-shortcuts button{display:grid;place-items:center;min-width:34px;height:34px;border:1px solid var(--line);border-radius:7px;background:transparent;color:#fff;font-size:14px;font-weight:700;padding:0 6px;cursor:pointer}.page-menu{position:relative}.page-menu summary{list-style:none;cursor:pointer;padding:9px;border:1px solid var(--line);border-radius:8px}.page-menu summary::-webkit-details-marker{display:none}.menu-links{position:absolute;right:0;top:100%;width:240px;padding:8px;margin:10px 0 0;list-style:none;background:#191021;border:1px solid #705781;border-radius:12px;box-shadow:0 14px 40px #0009;z-index:50}.menu-links a{display:block;padding:12px;border-radius:6px}.menu-links a:hover{background:#ffffff10}.nav .wrap{flex-wrap:wrap;gap:10px}.nav .tools{margin-left:auto}@media(max-width:650px){.nav .brand{flex:1}.social-shortcuts{order:2}.nav .tools{order:3}.nav .tools>.btn{display:none}.nav .wrap{padding-top:10px;padding-bottom:10px}.page-menu summary{font-size:13px}}
 </style>
 </head>
 <body>
@@ -324,14 +325,10 @@ footer p{margin:0;max-width:680px}
   <div class="wrap">
     <a class="brand" href="#top">
       <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#bg1)"/><path d="M16 24c-2-1.6-8.5-5.6-8.5-10.4 0-2.9 2.2-4.8 4.5-4.8 1.7 0 3 .9 4 2.2 1-1.3 2.3-2.2 4-2.2 2.3 0 4.5 1.9 4.5 4.8 0 4.8-6.5 8.8-8.5 10.4z" fill="#fff"/><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs></svg>
-      <span><span data-i18n="brand.name">挺光連署</span><small>Stand with Micron Workers</small></span>
+      <span class="brand-wordmark">Stand with<br><strong>Micron worker</strong></span>
     </a>
-    <ul class="links">
-      <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
-      <li><a href="#global" data-i18n="nav.global">全球夥伴</a></li>
-      <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
-      <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
-    </ul>
+
+    <div class="social-shortcuts" aria-label="Share"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">f</a><a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on LINE">LINE</a><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on X">𝕏</a><button type="button" data-share aria-label="Share link">↗</button></div>
     <div class="tools">
       <a class="btn p sm" href="#sign" data-i18n="nav.sign">簽署</a>
       <div class="lang" id="lang">
@@ -343,13 +340,15 @@ footer p{margin:0;max-width:680px}
         </button>
         <ul id="langMenu" role="menu" aria-labelledby="langBtn"></ul>
       </div>
+      <details id="pageNav" class="page-menu"><summary><span aria-hidden="true">☰</span> <span data-i18n="nav.menu">選單</span></summary>    <ul class="menu-links">
+      <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
+      <li><a href="#global" data-i18n="nav.global">全球夥伴</a></li>
+      <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
+    <li><a href="#solidarity" data-i18n="lights.title">每一份聲援，都有光</a></li><li><a href="#signers" data-i18n="dash.feed">最新簽署名單</a></li><li><a href="#sign" data-i18n="nav.sign">簽署</a></li></ul></details>
     </div>
   </div>
 </nav>
-
-<a class="banner" href="#letter">
-  <span class="wrap"><b data-i18n="banner.tag">最新</b><span data-i18n="banner.text">拒絕黑箱簽署・反對司法打壓・要求誠意協商</span><span class="go" data-i18n="banner.go">閱讀 →</span></span>
-</a>
 
 <header class="hero" id="top">
   <img class="hero-photo is-active" src="https://images.newtalk.tw/resize_action2/1200/album/news/1068/6ada11da67d8f.jpeg" alt="" fetchpriority="high" referrerpolicy="no-referrer">
@@ -369,7 +368,7 @@ footer p{margin:0;max-width:680px}
       </div>
       <div class="acts">
         <a class="btn p" href="#sign" data-i18n="hero.cta">簽署公開信</a>
-        <button class="btn g" type="button" data-share data-i18n="hero.share">分享</button>
+        <a class="btn g" href="#letter" data-i18n="hero.read">閱讀此內容</a>
       </div>
       <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司無隸屬關係，也不代表任何工會發言。數字取自公開新聞報導與工會聲明，見頁尾資料來源。</p>
       <div class="hero-photo-controls"><p class="hero-credit" data-i18n="hero.credit">背景照片：Newtalk 新聞／李宣萱攝</p></div>
@@ -554,8 +553,8 @@ footer p{margin:0;max-width:680px}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=12"></script>
-<script src="app.js?v=12"></script>
+<script src="form-i18n.js?v=13"></script>
+<script src="app.js?v=13"></script>
 </body>
 
 </html>

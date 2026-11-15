@@ -485,6 +485,19 @@
   var demoSignatures = DEMO ? makeDemoSignatures() : [];
   $('demoNotice').hidden = !DEMO;
 
+  each('#pageNav a', function (link) {
+    link.addEventListener('click', function () { $('pageNav').open = false; });
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && $('pageNav').open) {
+      $('pageNav').open = false;
+      $('pageNav').querySelector('summary').focus();
+    }
+  });
+  document.addEventListener('click', function (event) {
+    if (!$('pageNav').contains(event.target)) $('pageNav').open = false;
+  });
+
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
   refresh();

@@ -497,3 +497,11 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     dict['demo.list'] = labels[lang][2];
   });
 })();
+
+(function () {
+  var labels = {'zh-Hant':['選單','閱讀此內容'],'zh-Hans':['菜单','阅读此内容'],en:['Menu','Read the letter'],ja:['メニュー','公開書簡を読む'],ko:['메뉴','공개 서한 읽기']};
+  Object.keys(labels).forEach(function (lang) {
+    window.SWMW_I18N[lang]['nav.menu'] = labels[lang][0];
+    window.SWMW_I18N[lang]['hero.read'] = labels[lang][1];
+  });
+})();
