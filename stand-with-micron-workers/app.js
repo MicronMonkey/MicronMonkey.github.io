@@ -9,12 +9,13 @@
   var CONFIG = { endpoint: '', turnstileSiteKey: '' };
 
   var URL_ = 'https://micronmonkey.github.io/stand-with-micron-workers/';
-  var KEY = 'swmw.signatures.v1';
+  var DEMO = new URLSearchParams(location.search).get('demo') === '1';
+  var KEY = DEMO ? 'swmw.preview.signatures.v1' : 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
   var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'unaffiliated'];
   var SITES = ['none', 'tw', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
-  var LIVE = !!CONFIG.endpoint;
+  var LIVE = !!CONFIG.endpoint && !DEMO;
 
   var $ = function (id) { return document.getElementById(id); };
   var LANGS = window.SWMW_LANGS || [{ code: 'zh-Hant', name: '繁體中文' }];
@@ -148,7 +149,7 @@
 
   function refresh() {
     if (!LIVE) {
-      state.list = loadLocal().slice().reverse();
+      state.list = loadLocal().slice().reverse().concat(demoSignatures);
       state.count = state.list.length;
       renderCount(true); renderList();
       return Promise.resolve();
@@ -218,7 +219,7 @@
     var el = $('feedStatus');
     var time = state.updatedAt && state.updatedAt.toLocaleTimeString(locale());
     el.dataset.state = !LIVE ? 'local' : state.feedError ? 'error' : time ? 'live' : 'waiting';
-    var message = !LIVE ? t('count.local') : time ? t('dash.updated', { time: time }) : t('dash.waiting');
+    var message = !LIVE ? t(DEMO ? 'demo.label' : 'count.local') : time ? t('dash.updated', { time: time }) : t('dash.waiting');
     if (LIVE && state.feedError) message = time ? message + ' · ' + t('dash.reconnecting') : t('dash.reconnecting');
     el.textContent = message;
   }
@@ -228,6 +229,7 @@
     $('submit').textContent = t(LIVE ? 'form.submit_live' : 'form.submit');
     tag.className = 'live ' + (LIVE ? 'on' : 'off');
     tag.textContent = LIVE ? t('count.live') : t('count.local');
+    if (DEMO) $('listSub').textContent = t('demo.list');
     if (LIVE) {
       note.className = 'note info';
       note.lastElementChild.innerHTML = t('form.live');
@@ -244,7 +246,7 @@
         if (hay.indexOf(q) < 0) return false;
       }
       return true;
-    }).slice(0, 300);
+    });
     $('listResults').textContent = t('ux.results', {shown: Math.min(state.limit, items.length), total: items.length});
     $('moreSigners').hidden = items.length <= state.limit;
     $('resetSearch').hidden = !state.q;
@@ -403,7 +405,7 @@
     var sky = $('lightSky');
     sky.hidden = count === 0;
     $('lightEmpty').hidden = count > 0;
-    $('lightMode').textContent = LIVE ? '' : t('lights.demo');
+    $('lightMode').textContent = LIVE ? '' : t(DEMO ? 'demo.list' : 'lights.demo');
     $('lightCount').textContent = t('lights.count', {n: count.toLocaleString(locale())});
     $('lightDensity').textContent = count ? t('ux.oneLight') : '';
     if (!count) return;
@@ -432,16 +434,13 @@
   var resizeFrame;
   window.addEventListener('resize', function () { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(renderLights); });
   var photos = Array.prototype.slice.call(document.querySelectorAll('.hero-photo'));
-  var photoButton = $('photoRotation');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var photoIndex = 0;
   var photoTimer;
-  var rotationPaused = reducedMotion.matches;
 
   function syncPhotoRotation() {
     clearInterval(photoTimer);
-    photoButton.textContent = t(rotationPaused ? 'hero.resume' : 'hero.pause');
-    if (rotationPaused || document.hidden) return;
+    if (reducedMotion.matches || document.hidden) return;
     photoTimer = setInterval(function () {
       for (var offset = 1; offset < photos.length; offset++) {
         var next = (photoIndex + offset) % photos.length;
@@ -454,16 +453,37 @@
     }, 6500);
   }
 
-  photoButton.hidden = photos.length < 2;
-  photoButton.addEventListener('click', function () {
-    rotationPaused = !rotationPaused;
-    syncPhotoRotation();
-  });
   document.addEventListener('visibilitychange', syncPhotoRotation);
-  reducedMotion.addEventListener('change', function () {
-    rotationPaused = reducedMotion.matches;
-    syncPhotoRotation();
-  });
+  reducedMotion.addEventListener('change', syncPhotoRotation);
+
+  function makeDemoSignatures() {
+    var titles = ['設備工程師', '製程工程師', '門市人員', '物流人員', '研究生', '自由工作者', '護理師', '技術員'];
+    var messages = ['跨產業一起聲援，勞工團結是大家的事。', '支持公開透明，也期待有誠意的協商。', '每位勞工都該有安心發聲的空間。', '謝謝你們讓第一線的聲音被聽見。', 'Standing with workers in Taiwan.', '支持平等對話，讓勞工參與影響自己的決定。'];
+    var locations = SITES.slice(1);
+    var seed = 2334;
+    function pick(values) {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      return values[Math.floor(seed / 4294967296 * values.length)];
+    }
+    var now = Date.now();
+    return Array.from({ length: 2334 }, function (_, index) {
+      var role = pick(ROLES);
+      return {
+        name: 'Demo ' + String(index + 1).padStart(4, '0'),
+        title: pick(titles),
+        role: role,
+        site: pick(locations),
+        msg: pick(messages),
+        pub: true,
+        pubRole: role !== 'unaffiliated',
+        pubMsg: true,
+        t: now - index * 60000
+      };
+    });
+  }
+
+  var demoSignatures = DEMO ? makeDemoSignatures() : [];
+  $('demoNotice').hidden = !DEMO;
 
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);

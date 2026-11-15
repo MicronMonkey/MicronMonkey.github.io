@@ -461,3 +461,39 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     keys.forEach(function (key, index) { window.SWMW_I18N[lang]['country.' + key] = labels[lang][index]; });
   });
 })();
+
+(function () {
+  var labels = {
+  "zh-Hant": [
+    "示範模式 · 預載 2,334 筆模擬簽署",
+    "模擬資料",
+    "以下為示範名單，預載 2,334 筆虛構簽署。"
+  ],
+  "zh-Hans": [
+    "演示模式 · 预载 2,334 条模拟签署",
+    "模拟数据",
+    "以下是演示名单，预载 2,334 条虚构签署。"
+  ],
+  "en": [
+    "Demo mode · 2,334 sample signatures",
+    "Sample data",
+    "This demo starts with 2,334 fictional signatures."
+  ],
+  "ja": [
+    "デモモード · 2,334 件のサンプル署名",
+    "サンプルデータ",
+    "このデモには架空の署名が 2,334 件含まれます。"
+  ],
+  "ko": [
+    "데모 모드 · 샘플 서명 2,334건",
+    "샘플 데이터",
+    "데모에는 가상의 서명 2,334건이 포함됩니다."
+  ]
+};
+  Object.keys(labels).forEach(function (lang) {
+    var dict = window.SWMW_I18N[lang];
+    dict['demo.notice'] = labels[lang][0];
+    dict['demo.label'] = labels[lang][1];
+    dict['demo.list'] = labels[lang][2];
+  });
+})();
