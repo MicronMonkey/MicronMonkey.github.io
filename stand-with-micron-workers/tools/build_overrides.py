@@ -179,6 +179,15 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'thanks.title': '謝謝你的聲援！',
+    'thanks.n': '你是第 {n} 位簽署者。',
+    'thanks.ask': '把公開信分享給朋友或同事，讓更多人看見美光勞工的處境。',
+    'thanks.copy': '複製連結',
+    'thanks.wall': '到發聲牆看看 →',
+    'thanks.again': '幫另一個人簽署',
+    'thanks.demo': '測試模式：這份簽署只儲存在此裝置。',
+    'draft.restored': '已恢復你上次未送出的內容（信箱不會被保存）。',
+    'draft.clear': '清除',
     'ux.tlMore': '顯示更早的 {n} 個事件',
     'ux.tlLess': '收合較早的事件',
     'ux.srcMore': '查看全部 {total} 個資料來源',
@@ -215,6 +224,15 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'thanks.title': 'Thank you for your support!',
+    'thanks.n': 'You are signer number {n}.',
+    'thanks.ask': 'Share the open letter with friends and coworkers so more people see what Micron workers are facing.',
+    'thanks.copy': 'Copy link',
+    'thanks.wall': 'See the wall of voices →',
+    'thanks.again': 'Sign for someone else',
+    'thanks.demo': 'Test mode: this signature is saved on this device only.',
+    'draft.restored': 'We restored what you had not submitted yet (your email is never saved).',
+    'draft.clear': 'Clear',
     'ux.tlMore': 'Show {n} earlier events',
     'ux.tlLess': 'Hide earlier events',
     'ux.srcMore': 'See all {total} sources',
@@ -251,6 +269,15 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'thanks.title': 'ご支援ありがとうございます！',
+    'thanks.n': 'あなたは {n} 人目の署名者です。',
+    'thanks.ask': '公開書簡を友人や同僚に共有して、マイクロンの労働者の状況をもっと多くの人に伝えてください。',
+    'thanks.copy': 'リンクをコピー',
+    'thanks.wall': '声の壁を見る →',
+    'thanks.again': '別の人の署名をする',
+    'thanks.demo': 'テストモード：この署名はこの端末にのみ保存されています。',
+    'draft.restored': '前回送信しなかった内容を復元しました（メールアドレスは保存されません）。',
+    'draft.clear': '消去',
     'ux.tlMore': 'それ以前の {n} 件を表示',
     'ux.tlLess': '以前の出来事を閉じる',
     'ux.srcMore': '出典 {total} 件をすべて表示',
@@ -287,6 +314,15 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'thanks.title': '지지해 주셔서 감사합니다!',
+    'thanks.n': '당신은 {n}번째 서명자입니다.',
+    'thanks.ask': '공개서한을 친구와 동료에게 공유해 더 많은 사람이 마이크론 노동자의 상황을 알게 해 주세요.',
+    'thanks.copy': '링크 복사',
+    'thanks.wall': '응원의 목소리 보기 →',
+    'thanks.again': '다른 사람 서명하기',
+    'thanks.demo': '테스트 모드: 이 서명은 이 기기에만 저장됩니다.',
+    'draft.restored': '제출하지 않은 내용을 복원했습니다(이메일은 저장되지 않습니다).',
+    'draft.clear': '지우기',
     'ux.tlMore': '이전 사건 {n}개 보기',
     'ux.tlLess': '이전 사건 접기',
     'ux.srcMore': '출처 {total}개 모두 보기',

@@ -454,21 +454,20 @@
   $('sign').addEventListener('submit', function (ev) {
     ev.preventDefault();
     var err = $('err'), name = $('nm').value.trim(), role = (document.querySelector('input[name="role"]:checked') || {}).value, pub = $('pub').checked;
-    if (!role) { err.textContent = t('err.role'); $('roleChoices').querySelector('input').focus(); return; }
-    if (!$('jobTitle').value.trim()) { err.textContent = t('err.title'); $('jobTitle').focus(); return; }
-    if (!name) { err.textContent = t('err.name'); $('nm').focus(); return; }
-    if (!$('email').checkValidity() || !$('email').value.trim()) { err.textContent = t('err.email'); $('email').focus(); return; }
+    if (!role) return fieldError($('roleChoices'), t('err.role'));
+    if (!$('jobTitle').value.trim()) return fieldError($('jobTitle'), t('err.title'));
+    if (!name) return fieldError($('nm'), t('err.name'));
+    if (!$('email').checkValidity() || !$('email').value.trim()) return fieldError($('email'), t('err.email'));
     if (LIVE && (!CONFIG.turnstileSiteKey || !securityToken)) { err.textContent = t('security.required'); return; }
-    if (!$('agree').checked) { err.textContent = t('err.agree'); $('agree').focus(); return; }
+    if (!$('agree').checked) return fieldError($('agree'), t('err.agree'));
     if (LIVE && hasSigned()) { err.textContent = t('err.dup'); return; }
     err.textContent = '';
     var sig = { title: $('jobTitle').value.trim().slice(0,80), email: $('email').value.trim(), pubRole: pub && role !== 'unaffiliated' && $('pubRole').checked, pubMsg: pub && $('pubMsg').checked, token: securityToken, agree: true, name: name.slice(0, 40), role: role, site: $('site').value, msg: $('msg').value.trim().slice(0, 200), pub: pub, t: Date.now(), lang: lang };
     var form = this, submit = $('submit');
 
     function done() {
-      form.reset(); fillSelects(); updatePrivacy(); resetSecurity();
-      toast(t(LIVE ? 'toast.signed' : 'toast.demo'));
-      $('signers').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      form.reset(); fillSelects(); updatePrivacy(); resetSecurity(); clearDraft();
+      showThanks(LIVE ? state.count + 1 : state.count);
     }
     if (!LIVE) {
       var list = loadLocal(); list.push(publicSignature(sig));
@@ -727,8 +726,89 @@
     sync();
   })();
 
+  /* ── UX: inline field errors ── */
+  function fieldBox(el) {
+    if (el.id === 'roleChoices') return el;
+    if (el.id === 'agree') return el.closest('.chk') || el;
+    return el.closest('.f') || el.parentNode;
+  }
+  function fieldError(el, msg) {
+    $('err').textContent = msg;
+    var box = fieldBox(el), note = box.querySelector(':scope > .field-err');
+    if (!note) { note = document.createElement('p'); note.className = 'field-err'; note.id = 'fe-' + (el.id || 'x'); box.appendChild(note); }
+    note.textContent = msg;
+    box.classList.add('invalid');
+    var input = el.id === 'roleChoices' ? el.querySelector('input') : el;
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', ((input.getAttribute('aria-describedby') || '').replace(note.id, '') + ' ' + note.id).trim());
+    box.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
+    input.focus({ preventScroll: true });
+  }
+  function clearFieldError(target) {
+    var box = target.id === 'agree' ? target.closest('.chk') : (target.name === 'role' ? $('roleChoices') : target.closest('.f'));
+    if (!box || !box.classList.contains('invalid')) return;
+    box.classList.remove('invalid');
+    var note = box.querySelector(':scope > .field-err'); if (note) note.remove();
+    each('[aria-invalid]', function (x) { if (box.contains(x)) x.removeAttribute('aria-invalid'); });
+    if (!$('sign').querySelector('.invalid')) $('err').textContent = '';
+  }
+  $('sign').addEventListener('input', function (e) { clearFieldError(e.target); });
+  $('sign').addEventListener('change', function (e) { clearFieldError(e.target); });
+
+  /* ── UX: thank-you card with sharing ── */
+  function showThanks(n) {
+    $('thanksN').innerHTML = t('thanks.n', { n: '<b>' + Number(n).toLocaleString(locale()) + '</b>' });
+    $('thanksDemo').hidden = LIVE;
+    var u = shareURL(), eu = encodeURIComponent(u), text = encodeURIComponent(t('share.text'));
+    var links = [['LINE', 'https://social-plugins.line.me/lineit/share?url=' + eu], ['WhatsApp', 'https://wa.me/?text=' + text + '%20' + eu],
+                 ['X', 'https://twitter.com/intent/tweet?url=' + eu + '&text=' + text], ['Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + eu]];
+    var box = $('thanksShare'); box.textContent = '';
+    links.forEach(function (l) { var a = document.createElement('a'); a.href = l[1]; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = l[0]; box.appendChild(a); });
+    var copy = document.createElement('button'); copy.type = 'button'; copy.textContent = t('thanks.copy');
+    copy.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(u).then(function () { toast(t('toast.copied')); }, function () { prompt(t('share.prompt'), u); });
+      else prompt(t('share.prompt'), u);
+    });
+    box.appendChild(copy);
+    $('sign').hidden = true; $('thanks').hidden = false;
+    $('thanks').scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
+    $('thanks').focus({ preventScroll: true });
+  }
+  $('signAgain').addEventListener('click', function () {
+    $('thanks').hidden = true; $('sign').hidden = false;
+    $('sign').scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+    $('nm').focus({ preventScroll: true });
+  });
+
+  /* ── UX: keep an unsent draft in this browser (never the email) ── */
+  var DRAFT_KEY = 'swmw.draft.v1', draftTimer;
+  var DRAFT_FIELDS = ['nm', 'jobTitle', 'site', 'msg'], DRAFT_CHECKS = ['pub', 'pubRole', 'pubMsg'];
+  function saveDraft() {
+    var d = { role: (document.querySelector('input[name="role"]:checked') || {}).value || '' };
+    DRAFT_FIELDS.forEach(function (id) { d[id] = $(id).value; });
+    DRAFT_CHECKS.forEach(function (id) { d[id] = $(id).checked; });
+    var empty = !d.role && DRAFT_FIELDS.every(function (id) { return !String(d[id]).trim(); });
+    try { if (empty) localStorage.removeItem(DRAFT_KEY); else localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch (e) {}
+  }
+  function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} $('draftNote').hidden = true; }
+  function restoreDraft() {
+    var d; try { d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) { d = null; }
+    if (!d) return;
+    DRAFT_FIELDS.forEach(function (id) { if (typeof d[id] === 'string') $(id).value = d[id]; });
+    DRAFT_CHECKS.forEach(function (id) { if (typeof d[id] === 'boolean') $(id).checked = d[id]; });
+    if (d.role) { var r = document.querySelector('input[name="role"][value="' + String(d.role).replace(/"/g, '') + '"]'); if (r) r.checked = true; }
+    updatePrivacy();
+    $('draftNote').hidden = false;
+  }
+  $('sign').addEventListener('input', function (e) { if (e.target.id !== 'email') { clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 400); } });
+  $('sign').addEventListener('change', function (e) { if (e.target.id !== 'email' && e.target.id !== 'agree') saveDraft(); });
+  $('draftClear').addEventListener('click', function () {
+    clearDraft(); $('sign').reset(); fillSelects(); updatePrivacy();
+  });
+
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
+  restoreDraft();
   refresh();
   setInterval(function () { if (!document.hidden && !reducedMotion.matches) renderVoices(true); }, 2800);
   if (LIVE) setInterval(function () { if (!document.hidden) refresh(); }, 30000);
