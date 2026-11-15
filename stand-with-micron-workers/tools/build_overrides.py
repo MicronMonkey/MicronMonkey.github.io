@@ -179,6 +179,10 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'form.live': '簽名會送到共用資料庫並顯示在簽署人名單（若你選擇公開稱呼）。',
+    'err.duplicate': '這個信箱已經簽署過了。請確認是否已用此信箱提交，每個信箱只能簽署一次。',
+    'err.verify': '安全驗證未通過或已過期，請重新完成驗證後再送出。',
+    'err.invalid': '有欄位格式不正確，請檢查後再送出。',
     'thanks.close': '關閉',
     'thanks.done': '你已完成簽署，謝謝！',
     'thanks.reshare': '分享公開信',
@@ -226,6 +230,10 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'form.live': 'Your signature is sent to a shared database and shown in the list (if you choose to show your name).',
+    'err.duplicate': 'This email has already been used to sign. Please check whether you already submitted with it; each email can sign once.',
+    'err.verify': 'Security verification failed or expired. Please complete it again and resubmit.',
+    'err.invalid': 'Some fields are not in the right format. Please check and resubmit.',
     'thanks.close': 'Close',
     'thanks.done': 'You have signed. Thank you!',
     'thanks.reshare': 'Share the letter',
@@ -273,6 +281,10 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'form.live': '署名は共有データベースに送信され、（名前の表示を選んだ場合）署名者一覧に表示されます。',
+    'err.duplicate': 'このメールアドレスはすでに署名に使われています。すでに送信済みでないかご確認ください。署名は1つのメールアドレスにつき1回です。',
+    'err.verify': 'セキュリティ認証に失敗したか期限切れです。もう一度認証してから送信してください。',
+    'err.invalid': '入力形式に誤りがあります。確認してから送信してください。',
     'thanks.close': '閉じる',
     'thanks.done': '署名が完了しました。ありがとうございます！',
     'thanks.reshare': '公開書簡を共有',
@@ -320,6 +332,10 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'form.live': '서명은 공유 데이터베이스로 전송되며 (이름 표시를 선택한 경우) 서명자 명단에 표시됩니다.',
+    'err.duplicate': '이미 서명에 사용된 이메일입니다. 이 이메일로 이미 제출했는지 확인해 주세요. 이메일당 한 번만 서명할 수 있습니다.',
+    'err.verify': '보안 인증에 실패했거나 만료되었습니다. 다시 인증한 뒤 제출해 주세요.',
+    'err.invalid': '형식이 올바르지 않은 항목이 있습니다. 확인 후 다시 제출해 주세요.',
     'thanks.close': '닫기',
     'thanks.done': '서명을 완료했습니다. 감사합니다!',
     'thanks.reshare': '공개서한 공유하기',

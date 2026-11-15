@@ -251,6 +251,7 @@
     if (DEMO) $('listSub').textContent = t('demo.list');
     if (LIVE) {
       note.className = 'note info';
+      note.firstElementChild.textContent = 'ℹ️';
       note.lastElementChild.innerHTML = t('form.live');
       $('listSub').textContent = t('list.sub_live');
       $('clear').hidden = true;
@@ -484,7 +485,12 @@
         try { localStorage.setItem(SIGNED_KEY, '1'); } catch (e) {}
         done(); return refresh();
       })
-      .catch(function () { err.textContent = t('err.net'); resetSecurity(); })
+      .catch(function (e) {
+        var code = e && e.message;
+        if (code === 'duplicate') fieldError($('email'), t('err.duplicate'));
+        else err.textContent = t(code === 'verification' ? 'err.verify' : code === 'invalid' ? 'err.invalid' : 'err.net');
+        resetSecurity();
+      })
       .then(function () { submit.disabled = false; submit.textContent = t(LIVE ? 'form.submit_live' : 'form.submit'); });
 
   });
@@ -816,5 +822,9 @@
   restoreDraft();
   refresh();
   setInterval(function () { if (!document.hidden && !reducedMotion.matches) renderVoices(true); }, 2800);
-  if (LIVE) setInterval(function () { if (!document.hidden) refresh(); }, 30000);
+  // Live count and lists refresh every minute, and right away when the visitor comes back to the tab.
+  if (LIVE) {
+    setInterval(function () { if (!document.hidden) refresh(); }, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
+  }
 })();
