@@ -155,7 +155,9 @@
       label.appendChild(input); label.appendChild(text); $('roleChoices').appendChild(label);
     });
     site.length = 0;
-    SITES.forEach(function (s) { site.add(new Option(t('site.' + s), s === 'none' ? '' : s)); });
+    var ph = new Option(t('form.site_ph'), ''); ph.disabled = true; site.add(ph);
+    SITES.slice(1).forEach(function (s) { site.add(new Option(t('site.' + s), s)); });
+    if (!sv) site.selectedIndex = 0;
     site.value = sv;
   }
 
@@ -209,7 +211,7 @@
     var totals = {};
     SITES.slice(1).forEach(function (site) { totals[site] = 0; });
     state.list.forEach(function (signature) {
-      if (signature.pub !== true || signature.pubRole !== true) return;
+      // Every signature counts toward its region, even when name and identity stay private.
       var site = ['tc', 'ty', 'other'].indexOf(signature.site) >= 0 ? 'tw' : signature.site;
       if (Object.prototype.hasOwnProperty.call(totals, site)) totals[site]++;
     });
@@ -457,6 +459,7 @@
     ev.preventDefault();
     var err = $('err'), name = $('nm').value.trim(), role = (document.querySelector('input[name="role"]:checked') || {}).value, pub = $('pub').checked;
     if (!role) return fieldError($('roleChoices'), t('err.role'));
+    if (!$('site').value) return fieldError($('site'), t('err.site'));
     if (!$('jobTitle').value.trim()) return fieldError($('jobTitle'), t('err.title'));
     if (!name) return fieldError($('nm'), t('err.name'));
     if (!$('email').checkValidity() || !$('email').value.trim()) return fieldError($('email'), t('err.email'));
@@ -561,7 +564,7 @@
     }
     if (pub && $('pubMsg').checked && $('msg').value.trim()) lines.push($('msg').value.trim());
     $('publicPreview').textContent = lines.join('\n');
-    var complete = [!!selected, !!$('nm').value.trim(), !!$('jobTitle').value.trim(), !!$('email').value.trim() && $('email').checkValidity(), $('agree').checked].filter(Boolean).length;
+    var complete = [!!selected, !!$('site').value, !!$('nm').value.trim(), !!$('jobTitle').value.trim(), !!$('email').value.trim() && $('email').checkValidity(), $('agree').checked].filter(Boolean).length;
     $('formProgress').value = complete;
     $('formProgressText').textContent = t('ux.progress', {n: complete});
     $('msgCount').textContent = $('msg').value.length + ' / 200';

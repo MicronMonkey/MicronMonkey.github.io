@@ -565,7 +565,7 @@ footer p{margin:0;max-width:680px}
   <div class="wrap">
     <div class="sh c"><div class="tag" data-i18n="sign.tag">Sign the letter</div><h2 data-i18n="sign.title">簽署公開信</h2><p data-i18n="sign.sub">歡迎各行各業、學生、家屬與社會大眾參與。可選擇無所屬標籤，並自行設定公開內容。</p></div>
     <div class="signgrid">
-      <form class="panel" id="sign" novalidate><div class="form-progress"><label for="formProgress" id="formProgressText"></label><progress id="formProgress" max="5" value="0"></progress><p class="field-hint" data-i18n="ux.required">先選身分，再填全名、職稱／機構與信箱，最後確認同意事項。公開資料由你決定。</p></div>
+      <form class="panel" id="sign" novalidate><div class="form-progress"><label for="formProgress" id="formProgressText"></label><progress id="formProgress" max="6" value="0"></progress><p class="field-hint" data-i18n="ux.required">先選身分，再填全名、職稱／機構與信箱，最後確認同意事項。公開資料由你決定。</p></div>
         <h3 data-i18n="form.title">我要簽署</h3>
         <p class="s" data-i18n="form.s">約 30 秒即可完成。請用私人裝置，不要用公司電腦或公司信箱。</p>
         <div class="draft-note" id="draftNote" hidden><span data-i18n="draft.restored">已恢復你上次未送出的內容（信箱不會被保存）。</span><button type="button" id="draftClear" data-i18n="draft.clear">清除</button></div>
@@ -573,8 +573,8 @@ footer p{margin:0;max-width:680px}
         <div class="f"><label for="nm"><span data-i18n="form.name">全名</span> <small data-i18n="form.name_h">必填</small></label><input id="nm" type="text" maxlength="40" autocomplete="name" required data-i18n-ph="form.name_ph" placeholder="請填寫全名"></div>
         <fieldset class="f role-field"><legend data-i18n="form.role">身分類別</legend><div id="roleChoices" class="role-choices"></div></fieldset>
         <div class="row2"><div class="f"><label for="jobTitle" data-i18n="form.job">職稱 / 機構（必填）</label><input id="jobTitle" type="text" maxlength="80" autocomplete="organization-title" required aria-describedby="jobHint"><p id="jobHint" class="field-hint" data-i18n="form.jobhint">職稱或機構擇一即可。也可寫「學生」、「自由工作者」或「待業中」。</p></div>
-          <div class="f"><label for="site"><span data-i18n="form.site">所在地</span> <small data-i18n="form.opt">選填</small></label>
-            <select id="site"></select></div>
+          <div class="f"><label for="site"><span data-i18n="form.site">所在地</span> <small data-i18n="form.name_h">必填</small></label>
+            <select id="site" required></select></div>
         </div>
         <div class="f"><label for="email"><span data-i18n="form.email">電子信箱</span> <small data-i18n="form.private">絕不公開</small></label><input id="email" type="email" maxlength="254" autocomplete="email" required aria-describedby="emailHint"><p class="field-hint" id="emailHint" data-i18n="form.email_hint">請使用私人信箱。僅供連署確認與防止重複使用，不顯示於公開名單。</p></div>
         <div class="f"><label for="msg"><span data-i18n="form.msg">給美光員工的話</span> <small data-i18n="form.msg_h">選填，最多 200 字，可用任何語言</small></label><textarea id="msg" maxlength="200" data-i18n-ph="form.msg_ph" placeholder="寫給第一線夥伴的一句話"></textarea><div class="field-hint counter" id="msgCount">0 / 200</div></div>
@@ -720,8 +720,8 @@ footer p{margin:0;max-width:680px}
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
 <script src="form-i18n.js?v=16"></script>
-<script src="overrides.js?v=9"></script>
-<script src="app.js?v=28"></script>
+<script src="overrides.js?v=10"></script>
+<script src="app.js?v=29"></script>
 </body>
 
 </html>

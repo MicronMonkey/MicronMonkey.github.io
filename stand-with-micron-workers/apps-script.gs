@@ -31,7 +31,7 @@ function doPost(e) {
     if(!e || !e.postData || e.postData.contents.length>12000) return json_({ok:false,error:'invalid'});
     var d=JSON.parse(e.postData.contents);
     var name=clean_(d.name,40), email=String(d.email||'').trim().toLowerCase();
-    if(!clean_(d.title,80) || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length>254 || ROLES.indexOf(d.role)<0 || d.agree!==true) return json_({ok:false,error:'invalid'});
+    if(!clean_(d.title,80) || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length>254 || ROLES.indexOf(d.role)<0 || SITES.indexOf(d.site)<1 || d.agree!==true) return json_({ok:false,error:'invalid'});
     var props=PropertiesService.getScriptProperties(), secret=props.getProperty('TURNSTILE_SECRET'), host=props.getProperty('ALLOWED_HOSTNAME');
     if(!secret || !host || typeof d.token!=='string' || !d.token || d.token.length>2048) return json_({ok:false,error:'verification'});
     var check=JSON.parse(UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify',{
@@ -50,7 +50,7 @@ function doPost(e) {
 }
 function publicRow_(r) {
   var pub=r[5]===true, role=pub && ROLES.indexOf(r[2])>=0 && r[2]!=='unaffiliated' && r[10]===true, msg=pub && r[11]===true;
-  return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:role?normalizeSite_(r[3]):'',pubMsg:msg,msg:msg?r[4]:'',priority:Number(r[14])||0};
+  return {t:new Date(r[0]).getTime(),name:pub?r[1]:'',title:pub?(r[8]||''):'',pub:pub,pubRole:role,role:role?r[2]:'',site:normalizeSite_(r[3]),pubMsg:msg,msg:msg?r[4]:'',priority:Number(r[14])||0};
 }
 function doGet() {
   try {

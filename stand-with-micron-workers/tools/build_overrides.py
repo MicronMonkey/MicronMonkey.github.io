@@ -179,6 +179,10 @@ KO = {
 
 # Letter, form and directory strings that previously existed only in zh-Hant / English.
 ZH.update({
+    'form.site_ph': '請選擇所在地',
+    'err.site': '請選擇你的所在地。',
+    'ux.progress': '必填項目已完成 {n} / 6',
+    'country.note': '依所有簽署者填寫的所在地統計，包含不公開姓名或身分的簽署；地點為美光廠區所在地。',
     'form.live': '簽名會送到共用資料庫並顯示在簽署人名單（若你選擇公開稱呼）。',
     'err.duplicate': '這個信箱已經簽署過了。請確認是否已用此信箱提交，每個信箱只能簽署一次。',
     'err.verify': '安全驗證未通過或已過期，請重新完成驗證後再送出。',
@@ -230,6 +234,10 @@ ZH.update({
     'share.text': '從美光員工的處境出發，邀請全球各行各業一起聲援美光勞工。拒絕黑箱簽署、反對司法打壓、要求誠意協商。',
 })
 EN.update({
+    'form.site_ph': 'Choose your location',
+    'err.site': 'Please choose your location.',
+    'ux.progress': 'Required items completed: {n} / 6',
+    'country.note': 'Counted from every signer’s location, including those who keep their name or identity private; places are Micron site locations.',
     'form.live': 'Your signature is sent to a shared database and shown in the list (if you choose to show your name).',
     'err.duplicate': 'This email has already been used to sign. Please check whether you already submitted with it; each email can sign once.',
     'err.verify': 'Security verification failed or expired. Please complete it again and resubmit.',
@@ -281,6 +289,10 @@ EN.update({
     'share.text': 'Starting from the situation of Micron employees, we invite people in every line of work, around the world, to stand with Micron workers.',
 })
 JA.update({
+    'form.site_ph': '所在地を選択してください',
+    'err.site': '所在地を選択してください。',
+    'ux.progress': '必須項目 {n} / 6 完了',
+    'country.note': '名前や立場を非公開にした署名を含め、すべての署名者の所在地で集計しています。地名はマイクロンの拠点所在地です。',
     'form.live': '署名は共有データベースに送信され、（名前の表示を選んだ場合）署名者一覧に表示されます。',
     'err.duplicate': 'このメールアドレスはすでに署名に使われています。すでに送信済みでないかご確認ください。署名は1つのメールアドレスにつき1回です。',
     'err.verify': 'セキュリティ認証に失敗したか期限切れです。もう一度認証してから送信してください。',
@@ -332,6 +344,10 @@ JA.update({
     'share.text': 'マイクロン従業員の置かれた状況から出発し、世界中のあらゆる職業の人々に、マイクロンの労働者への連帯を呼びかけます。',
 })
 KO.update({
+    'form.site_ph': '위치를 선택하세요',
+    'err.site': '위치를 선택해 주세요.',
+    'ux.progress': '필수 항목 {n} / 6 완료',
+    'country.note': '이름이나 소속을 비공개로 한 서명을 포함해 모든 서명자의 위치로 집계합니다. 지명은 마이크론 사업장 소재지입니다.',
     'form.live': '서명은 공유 데이터베이스로 전송되며 (이름 표시를 선택한 경우) 서명자 명단에 표시됩니다.',
     'err.duplicate': '이미 서명에 사용된 이메일입니다. 이 이메일로 이미 제출했는지 확인해 주세요. 이메일당 한 번만 서명할 수 있습니다.',
     'err.verify': '보안 인증에 실패했거나 만료되었습니다. 다시 인증한 뒤 제출해 주세요.',
