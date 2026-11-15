@@ -15,8 +15,11 @@
 5. 語言入口頁與分享網址：`python3 portal-i18n/pages.py`
 需要：`pip install opencc`、Playwright。
 
-## 轉成正式版時
-把 `index-lang-v1.html` 換成 `index.html`，並把 `PORTAL_I18N_CONFIG.share`、`hreflang` 與五個語言入口頁的網址改成正式網址（例如 `/en/`、`/ja/`、`/ko/`、`/hi/`、`/zh-hans/`）。
+## 正式版
+正式首頁 `index.html` 就是這個語言版（2026/11/16 起）。語言入口：`/zh-hans/`、`/en/`、`/ja/`、`/ko/`、`/hi/`（各自的預覽圖與標題，進入後轉到 `/?lang=xx`）。
+改內容時：直接改 `index.html`；要同步測試版就 `cp index.html index-lang-v1.html && python3 portal-i18n/pages.py`。
+改過入口頁的標題或描述：`python3 portal-i18n/pages.py official`（正式）與 `python3 portal-i18n/pages.py`（測試版）。
+上面「改了首頁文字之後」的步驟，把網址換成 `http://localhost:8000/index.html?lang=zh-Hant` 即可。
 
 ## 字級（`portal-type.css`）
 文字分成 A–H 八類，每類一個大小。在 `type.py` 的 `SIZES` 改「手機 pt, 電腦 pt」，在 `RULES` 調整哪些元素屬於哪一類，然後執行 `python3 portal-i18n/type.py`，再把 `index-lang-v1.html` 裡的 `portal-type.css?v=` 版本號加 1。

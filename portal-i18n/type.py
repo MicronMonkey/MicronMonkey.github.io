@@ -14,7 +14,7 @@ SIZES = {
     'b2': (16, 18),   # NT$100 and step numbers 01/02/03
     'c': (14, 16),    # card titles
     'd': (11, 12),    # subtitles, key lines, buttons
-    'e': (10, 10),    # body text
+    'e': (9, 9),      # body text
     'f': (8, 8),      # small helper text
     'g': (7, 7),      # labels and the smallest text
     'h': (10, 10),    # top bar

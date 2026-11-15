@@ -5,7 +5,7 @@
   --t-b2: clamp(21.33px, calc(21.33px + (100vw - 390px) * 0.00421), 24px);
   --t-c: clamp(18.67px, calc(18.67px + (100vw - 390px) * 0.00421), 21.33px);
   --t-d: clamp(14.67px, calc(14.67px + (100vw - 390px) * 0.00210), 16px);
-  --t-e: 13.33px;
+  --t-e: 12px;
   --t-f: 10.67px;
   --t-g: 9.33px;
   --t-h: 13.33px;
