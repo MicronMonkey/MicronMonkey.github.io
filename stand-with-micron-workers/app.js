@@ -12,7 +12,7 @@
   var KEY = 'swmw.signatures.v1';
   var SIGNED_KEY = 'swmw.signed.v1';
   var LANG_KEY = 'swmw.lang';
-  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'unaffiliated'];
+  var ROLES = ['current', 'overseas', 'former', 'family', 'semi', 'worker', 'student', 'public', 'shareholder', 'unaffiliated'];
   var SITES = ['none', 'tc', 'ty', 'other', 'us', 'jp', 'sg', 'my', 'cn', 'in', 'abroad'];
   var FILTERS = [
     { id: 'all', label: 'filter.all', match: null },
@@ -20,6 +20,7 @@
     { id: 'overseas', label: 'filter.overseas', match: ['overseas'] },
     { id: 'former', label: 'role.former', match: ['former'] },
     { id: 'family', label: 'role.family', match: ['family'] },
+    { id: 'shareholder', label: 'role.shareholder', match: ['shareholder'] },
     { id: 'sup', label: 'filter.sup', match: ['semi', 'worker', 'student', 'public'] }
   ];
   var LIVE = !!CONFIG.endpoint;

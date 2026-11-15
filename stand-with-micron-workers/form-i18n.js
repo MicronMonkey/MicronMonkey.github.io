@@ -189,3 +189,47 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     Object.assign(window.SWMW_I18N[lang],copy[lang]);
   });
 })();
+
+(function () {
+  var labels = {
+  "zh-Hant": [
+    "股東",
+    "台中",
+    "桃園",
+    "這裡只顯示您選擇公開的內容。信箱不會列入公開名單。"
+  ],
+  "zh-Hans": [
+    "股东",
+    "台中",
+    "桃园",
+    "这里只显示您选择公开的内容。邮箱不会列入公开名单。"
+  ],
+  "en": [
+    "Shareholder",
+    "Taichung",
+    "Taoyuan",
+    "Only the details you choose to publish appear here. Your email stays off the public list."
+  ],
+  "ja": [
+    "株主",
+    "台中",
+    "桃園",
+    "公開を選んだ情報だけが表示されます。メールアドレスは公開名簿に載りません。"
+  ],
+  "ko": [
+    "주주",
+    "타이중",
+    "타오위안",
+    "공개를 선택한 정보만 표시됩니다. 이메일은 공개 명단에 포함되지 않습니다."
+  ]
+};
+  Object.keys(labels).forEach(function (language) {
+    var label = labels[language];
+    Object.assign(window.SWMW_I18N[language], {
+      'role.shareholder': label[0],
+      'photo.taichung': label[1] + ' · 11/13',
+      'photo.taoyuan': label[2] + ' · 11/13',
+      'form.preview_note': label[3]
+    });
+  });
+})();
