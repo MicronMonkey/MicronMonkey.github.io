@@ -298,55 +298,106 @@
     renderVoices(false);
   }
 
-  var voiceIndex = 0;
-  var voiceSlot = 0;
-  var voicePoolKey = '';
+  /* ── 發聲牆: 3–4 public messages at random spots, newest brightest,
+   *    one swapped out every tick so the wall keeps rotating. ── */
+  var wall = { slots: [], cursor: 0, key: '', paused: false, zones: 0 };
+  function voiceId(s) { return String(s.t) + '|' + s.name + '|' + s.msg; }
+  function wallLayout() {
+    var w = $('voiceStage').clientWidth;
+    if (w >= 860) return { cols: 3, rows: 2, h: 480, slots: 4, fs: [19, 25], clamp: 4 };
+    if (w >= 560) return { cols: 2, rows: 3, h: 600, slots: 4, fs: [18, 22], clamp: 4 };
+    return { cols: 1, rows: 4, h: 540, slots: 3, fs: [17, 19], clamp: 3 };
+  }
+  function rand(min, max) { return min + Math.random() * (max - min); }
+  function setLevel(slot) {
+    slot.el.classList.remove('lv0', 'lv1', 'lv2', 'lv3');
+    slot.el.classList.add('lv' + Math.min(slot.age, 3));
+  }
+  function nextVoice(messages) {
+    var shown = wall.slots.map(function (x) { return x.text; });
+    for (var i = 0; i < messages.length; i++) {
+      var m = messages[wall.cursor++ % messages.length];
+      if (shown.indexOf(m.msg) < 0) return m;
+    }
+    return messages[wall.cursor++ % messages.length];
+  }
+  function placeVoice(messages, zone, age) {
+    var L = wall.layout, box = $('voiceMessages');
+    var m = nextVoice(messages), el = makeVoice(m);
+    var zw = box.clientWidth / L.cols, zh = box.clientHeight / L.rows;
+    var zx = (zone % L.cols) * zw, zy = Math.floor(zone / L.cols) * zh;
+    el.style.setProperty('--fs', Math.round(rand(L.fs[0], L.fs[1])) + 'px');
+    el.style.setProperty('--clamp', L.clamp);
+    el.style.maxWidth = Math.round(zw * rand(.74, .94) - 20) + 'px';
+    el.style.textAlign = L.cols === 1 ? (Math.random() < .5 ? 'left' : 'right') : (['left', 'center', 'right'])[Math.floor(Math.random() * 3)];
+    box.appendChild(el);
+    var w = el.offsetWidth, h = el.offsetHeight;
+    el.style.left = Math.round(zx + 10 + Math.random() * Math.max(0, zw - w - 20)) + 'px';
+    el.style.top = Math.round(zy + 10 + Math.random() * Math.max(0, zh - h - 20)) + 'px';
+    var slot = { el: el, zone: zone, age: age, text: m.msg };
+    wall.slots.push(slot);
+    void el.offsetWidth; // start the fade-in from the hidden state
+    setLevel(slot);
+    return slot;
+  }
+  function shuffled(n) {
+    var a = []; for (var i = 0; i < n; i++) a.push(i);
+    for (var j = n - 1; j > 0; j--) { var k = Math.floor(Math.random() * (j + 1)); var x = a[j]; a[j] = a[k]; a[k] = x; }
+    return a;
+  }
   function renderVoices(advance) {
     var messages = state.list.filter(function (s) {
       return s.pub === true && s.pubMsg === true && s.msg;
     });
-    var box = $('voiceMessages');
+    var box = $('voiceMessages'), stage = $('voiceStage');
     $('lightEmpty').hidden = messages.length > 0;
     $('lightMode').textContent = LIVE ? '' : t(DEMO ? 'demo.list' : 'lights.demo');
-    var capacity = window.matchMedia('(max-width: 600px)').matches ? 3 : 4;
-    var count = Math.min(capacity, messages.length);
-    var key = JSON.stringify(messages.map(function (s) { return [s.t, s.name, s.msg]; })) + capacity;
-    if (key !== voicePoolKey) {
-      voicePoolKey = key;
+    var L = wallLayout();
+    stage.style.height = (messages.length ? L.h : 220) + 'px';
+    var key = messages.length + '#' + (messages.length ? voiceId(messages[0]) + voiceId(messages[messages.length - 1]) : '') + '#' + L.cols + 'x' + L.rows + '#' + lang;
+    if (key !== wall.key) {
+      wall.key = key; wall.layout = L; wall.slots = []; wall.cursor = 0; wall.zones = L.cols * L.rows;
       box.textContent = '';
-      voiceIndex = 0;
-      voiceSlot = 0;
-      for (var i = 0; i < count; i++) box.appendChild(makeVoice(messages[voiceIndex++], i));
-    } else if (advance && count) {
-      var slot = voiceSlot++ % count;
-      var candidate;
-      for (var attempt = 0; attempt < messages.length; attempt++) {
-        candidate = messages[voiceIndex++ % messages.length];
-        var identity = String(candidate.t) + candidate.name + candidate.msg;
-        var duplicate = Array.prototype.some.call(box.children, function (node, index) {
-          return index !== slot && node.dataset.identity === identity;
-        });
-        if (!duplicate) break;
-      }
-      box.replaceChild(makeVoice(candidate, slot), box.children[slot]);
+      var n = Math.min(L.slots, messages.length), zones = shuffled(wall.zones);
+      for (var i = 0; i < n; i++) placeVoice(messages, zones[i], n - 1 - i);
+      return;
     }
+    if (!advance || !messages.length || wall.paused || !wall.slots.length) return;
+    var oldest = wall.slots.reduce(function (a, b) { return a.age >= b.age ? a : b; });
+    var leaving = oldest.el;
+    leaving.classList.add('out');
+    setTimeout(function () { if (leaving.parentNode) leaving.parentNode.removeChild(leaving); }, 1200);
+    wall.slots.splice(wall.slots.indexOf(oldest), 1);
+    wall.slots.forEach(function (x) { x.age++; setLevel(x); });
+    var used = wall.slots.map(function (x) { return x.zone; });
+    var free = shuffled(wall.zones).filter(function (z) { return used.indexOf(z) < 0; });
+    var fresh = free.filter(function (z) { return z !== oldest.zone; });
+    placeVoice(messages, (fresh.length ? fresh : free)[0], 0);
   }
 
-  function makeVoice(signature, slot) {
+  function makeVoice(signature) {
     var quote = document.createElement('blockquote');
     quote.className = 'voice';
-    quote.dataset.identity = String(signature.t) + signature.name + signature.msg;
-    quote.style.setProperty('--voice-offset', Math.floor(Math.random() * 19) + 'px');
-    quote.style.setProperty('--voice-inset', Math.floor(Math.random() * 10) + '%');
-    quote.style.textAlign = Math.random() > .5 ? 'left' : 'right';
-    quote.style.alignSelf = Math.random() > .5 ? 'start' : 'end';
-    quote.style.order = slot;
-    quote.appendChild(document.createTextNode(signature.msg));
+    var text = document.createElement('span');
+    text.className = 'vt';
+    text.textContent = signature.msg;
+    quote.appendChild(text);
     var name = document.createElement('cite');
-    name.textContent = signature.name || t('list.anon');
+    var role = signature.role ? t('role.' + signature.role) : '';
+    name.textContent = '— ' + (signature.name || t('list.anon')) + (role && role !== 'role.' + signature.role ? ' · ' + role : '');
     quote.appendChild(name);
     return quote;
   }
+  (function () {
+    var stage = $('voiceStage'), timer;
+    var pause = function () { wall.paused = true; }, resume = function () { wall.paused = false; };
+    stage.addEventListener('mouseenter', pause); stage.addEventListener('mouseleave', resume);
+    stage.addEventListener('focusin', pause); stage.addEventListener('focusout', resume);
+    window.addEventListener('resize', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () { var L = wallLayout(); if (!wall.layout || L.cols !== wall.layout.cols) { wall.key = ''; renderVoices(false); } }, 250);
+    });
+  })();
 
   function badge(parent, text, cls) {
     var b = document.createElement('span'); b.className = 'badge ' + cls; b.textContent = text; parent.appendChild(b);
@@ -574,6 +625,6 @@
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
   refresh();
-  setInterval(function () { if (!document.hidden && !reducedMotion.matches) renderVoices(true); }, 3000);
+  setInterval(function () { if (!document.hidden && !reducedMotion.matches) renderVoices(true); }, 2800);
   if (LIVE) setInterval(function () { if (!document.hidden) refresh(); }, 30000);
 })();

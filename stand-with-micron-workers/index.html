@@ -320,6 +320,33 @@ footer p{margin:0;max-width:680px}
 .nav .wrap.header-rows{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;height:auto;min-height:0;align-items:stretch;gap:0;padding-top:0;padding-bottom:0}.header-top,.header-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:10px 0}.header-top{border-bottom:1px solid var(--line)}.header-actions{display:flex;align-items:center;gap:8px;margin-left:auto}.header-top .social-shortcuts{order:0;gap:5px}.header-bottom .brand{flex:0 1 auto}.header-bottom .lang{margin-left:auto}.header-bottom .lname{display:inline!important}.header-bottom .brand-wordmark{font-size:clamp(13px,2vw,17px)}.header-bottom .brand-wordmark br{display:none}.header-bottom .brand-wordmark strong::before{content:" "}.header-top .social-shortcuts a,.header-top .social-shortcuts button{min-width:30px;padding:0 5px;font-size:12px}.header-actions .btn{padding:9px 12px}.header-actions summary{white-space:nowrap}.header-bottom #langBtn{max-width:150px;font-size:13px}.header-bottom .brand svg{flex-shrink:0}#instagramDialog{width:min(480px,90vw);background:#191021;color:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}#instagramDialog::backdrop{background:#000b}#instagramLink{width:100%;margin:10px 0}#instagramDialog .acts{flex-wrap:wrap}#sign,#signers,#letter,#global,#solidarity,#public-signers{scroll-margin-top:150px}@media(max-width:380px){.header-top,.header-bottom{gap:5px}.header-actions{gap:4px}.header-actions .btn{padding:9px}.header-bottom .brand{gap:6px}.header-bottom .brand svg{width:25px}.header-bottom #langBtn{padding:8px 6px}}
 .voice-stage{min-height:430px;background:radial-gradient(ellipse at 30% 20%,#38204388,transparent 65%),linear-gradient(135deg,#181020,#100b18)}#voiceMessages{min-height:430px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px;padding:32px 24px;align-items:center;align-content:stretch}.voice,.voice:nth-child(2){min-width:0;margin:var(--voice-offset,0px) var(--voice-inset,0%) 20px;padding:0;font-size:clamp(17px,2vw,24px);line-height:1.7;overflow-wrap:anywhere;color:#f0ddff;text-shadow:0 0 24px #b084d84d;animation:wall-voice 12s ease-in-out both;animation-delay:0s}.voice:nth-child(odd){color:#ffe6bd}.voice cite{margin-top:14px;line-height:1.5}@keyframes wall-voice{0%{opacity:.12;transform:translateY(8px)}15%,55%{opacity:1;transform:translateY(0)}90%,100%{opacity:.18;transform:translateY(-3px)}}@media(max-width:600px){#voiceMessages{grid-template-columns:minmax(0,1fr);gap:10px;padding:24px 12px;min-height:440px}.voice,.voice:nth-child(2){font-size:18px;margin-top:var(--voice-offset);margin-bottom:16px}}@media(prefers-reduced-motion:reduce){.voice,.voice:nth-child(2){animation:none;opacity:1;transform:none}}
 .nav .header-top{grid-column:1;grid-row:1;min-width:0}.nav .header-bottom{grid-column:1;grid-row:2;min-width:0}.nav .header-actions>.btn.sm{display:inline-flex}.header-bottom .brand-wordmark{white-space:normal}.header-bottom .brand{min-width:0}.header-bottom .lang{flex-shrink:0}
+
+/* ── 發聲牆 (voice wall) ── */
+.voice-stage{position:relative;height:480px;min-height:0;border-radius:18px;overflow:hidden;isolation:isolate;border:1px solid var(--line);background:radial-gradient(ellipse at 18% 12%,#3b1d5c66,transparent 55%),radial-gradient(ellipse at 88% 92%,#5b1a5a40,transparent 55%),#0a0611;transition:height .3s}
+.voice-stage::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:radial-gradient(ellipse at center,#000 25%,transparent 80%);mask-image:radial-gradient(ellipse at center,#000 25%,transparent 80%)}
+.voice-stage #voiceMessages{position:absolute;inset:0;display:block;min-height:0;padding:0;gap:0}
+.voice-stage .voice,.voice-stage .voice:nth-child(2),.voice-stage .voice:nth-child(odd){position:absolute;margin:0;padding:0;animation:none;font:600 var(--fs,21px)/1.6 var(--serif);color:#e7dcfb;text-shadow:none;opacity:0;transform:translateY(12px) scale(.97);transition:opacity 1.1s ease,transform 1.1s ease,color 1.1s ease,text-shadow 1.1s ease,filter 1.1s ease;overflow-wrap:anywhere}
+.voice-stage .voice .vt{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:var(--clamp,4);overflow:hidden}
+.voice-stage .voice cite{display:block;margin-top:8px;font:500 12.5px/1.4 var(--sans);font-style:normal;color:#ad9ccc;letter-spacing:.3px}
+.voice-stage .voice.lv0{opacity:1;transform:none;color:#fff4de;text-shadow:0 0 18px #f5c97a73,0 0 46px #c084fc59}
+.voice-stage .voice.lv0 cite{color:#ead9ff}
+.voice-stage .voice.lv1{opacity:.62;transform:none;color:#e4d5ff}
+.voice-stage .voice.lv2{opacity:.36;transform:none;filter:blur(.2px)}
+.voice-stage .voice.lv3{opacity:.2;transform:none;filter:blur(.6px)}
+.voice-stage .voice.out{opacity:0;transform:translateY(-10px) scale(.97);filter:blur(2px)}
+.wall-empty{position:absolute;inset:0;display:grid;place-content:center;padding:24px;margin:0;text-align:center;color:var(--mut);font-size:16px}
+.wall-empty[hidden]{display:none}
+@media(prefers-reduced-motion:reduce){.voice-stage .voice{transition:none}}
+
+/* header: keep both rows inside the viewport */
+.page-menu summary{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;font-weight:600;white-space:nowrap}
+.page-menu summary::after,.page-menu[open] summary::after{content:none}
+.nav .header-top{flex-wrap:nowrap}
+.nav .header-top .social-shortcuts{min-width:0;flex:0 1 auto;overflow-x:auto;scrollbar-width:none}
+.nav .header-top .social-shortcuts::-webkit-scrollbar{display:none}
+.nav .header-actions{flex:none}
+@media(max-width:420px){.nav .header-top .social-shortcuts a[aria-label="Share on X"],.nav .header-top .social-shortcuts #shareInstagram{display:none}.header-actions .btn{padding:8px 10px}.page-menu summary{padding:8px 10px}}
+@media(max-width:340px){.page-menu summary [data-i18n="nav.menu"]{display:none}}
 </style>
 </head>
 <body>
@@ -389,8 +416,8 @@ footer p{margin:0;max-width:680px}
   </div>
 </section>
 <section id="solidarity"><div class="wrap"><div class="sh c">
-<h2 data-i18n="lights.title">每一份聲援，都有光</h2><p data-i18n="lights.note">讓每一句支持，輪流被看見。</p></div>
-<div class="light-panel"><div class="voice-stage"><div id="voiceMessages"></div></div><p id="lightEmpty" data-i18n="lights.empty">留下公開留言，讓你的聲音出現在這裡。</p><a class="light-list-link" href="#public-signers" data-i18n="ux.lightList">閱讀每一份聲援 →</a><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
+<h2 data-i18n="lights.title">發聲牆</h2><p data-i18n="lights.note">讓每一句支持，輪流被看見。</p></div>
+<div class="light-panel"><div class="voice-stage" id="voiceStage" role="region" data-i18n-aria="lights.title" aria-label="發聲牆"><div id="voiceMessages"></div><p id="lightEmpty" class="wall-empty" data-i18n="lights.empty">留下公開留言，讓你的聲音出現在這裡。</p></div><a class="light-list-link" href="#public-signers" data-i18n="ux.lightList">閱讀每一份聲援 →</a><p id="lightMode" class="field-hint"></p><a class="btn p sm" href="#sign" data-i18n="hero.cta">簽署公開信</a></div>
 </div></section>
 
 <section id="letter">
