@@ -573,3 +573,36 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
  keys.forEach(function (key, index) { window.SWMW_I18N[lang]['ig.' + key] = values[index]; });
  });
 })();
+
+(function () {
+ var labels = {
+  "zh-Hant": [
+    "發聲牆",
+    "讓每一句支持，輪流被看見。",
+    "留下公開留言，讓你的聲音出現在這裡。"
+  ],
+  "zh-Hans": [
+    "发声墙",
+    "让每一句支持，轮流被看见。",
+    "留下公开留言，让你的声音出现在这里。"
+  ],
+  "en": [
+    "Wall of voices",
+    "Every message of support takes its turn.",
+    "Leave a public message to add your voice."
+  ],
+  "ja": [
+    "声の壁",
+    "一人ひとりの応援の言葉を、順番に。",
+    "公開メッセージであなたの声を届けてください。"
+  ],
+  "ko": [
+    "응원의 목소리",
+    "응원의 메시지가 차례로 나타납니다.",
+    "공개 메시지로 여러분의 목소리를 더해주세요."
+  ]
+};
+ Object.keys(labels).forEach(function (lang) {
+ ['title','note','empty'].forEach(function (key, index) { window.SWMW_I18N[lang]['lights.' + key] = labels[lang][index]; });
+ });
+})();

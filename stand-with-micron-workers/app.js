@@ -182,7 +182,6 @@
         if (p < 1) requestAnimationFrame(step); else shown = target;
       })(start);
     }
-    renderLights();
     renderBreakdown();
     renderCountries();
   }
@@ -300,23 +299,55 @@
   }
 
   var voiceIndex = 0;
+  var voiceSlot = 0;
+  var voicePoolKey = '';
   function renderVoices(advance) {
-    var messages = state.list.filter(function (s) { return s.pub === true && s.pubMsg === true && s.msg; });
+    var messages = state.list.filter(function (s) {
+      return s.pub === true && s.pubMsg === true && s.msg;
+    });
     var box = $('voiceMessages');
-    box.textContent = '';
-    if (!messages.length) return;
-    if (advance) voiceIndex += 2;
-    for (var i = 0; i < Math.min(2, messages.length); i++) {
-      var s = messages[(voiceIndex + i) % messages.length];
-      var quote = document.createElement('blockquote');
-      quote.className = 'voice';
-      quote.appendChild(document.createTextNode(s.msg));
-      var name = document.createElement('cite');
-      name.textContent = s.name || t('list.anon');
-      quote.appendChild(name);
-      box.appendChild(quote);
+    $('lightEmpty').hidden = messages.length > 0;
+    $('lightMode').textContent = LIVE ? '' : t(DEMO ? 'demo.list' : 'lights.demo');
+    var capacity = window.matchMedia('(max-width: 600px)').matches ? 3 : 4;
+    var count = Math.min(capacity, messages.length);
+    var key = JSON.stringify(messages.map(function (s) { return [s.t, s.name, s.msg]; })) + capacity;
+    if (key !== voicePoolKey) {
+      voicePoolKey = key;
+      box.textContent = '';
+      voiceIndex = 0;
+      voiceSlot = 0;
+      for (var i = 0; i < count; i++) box.appendChild(makeVoice(messages[voiceIndex++], i));
+    } else if (advance && count) {
+      var slot = voiceSlot++ % count;
+      var candidate;
+      for (var attempt = 0; attempt < messages.length; attempt++) {
+        candidate = messages[voiceIndex++ % messages.length];
+        var identity = String(candidate.t) + candidate.name + candidate.msg;
+        var duplicate = Array.prototype.some.call(box.children, function (node, index) {
+          return index !== slot && node.dataset.identity === identity;
+        });
+        if (!duplicate) break;
+      }
+      box.replaceChild(makeVoice(candidate, slot), box.children[slot]);
     }
   }
+
+  function makeVoice(signature, slot) {
+    var quote = document.createElement('blockquote');
+    quote.className = 'voice';
+    quote.dataset.identity = String(signature.t) + signature.name + signature.msg;
+    quote.style.setProperty('--voice-offset', Math.floor(Math.random() * 19) + 'px');
+    quote.style.setProperty('--voice-inset', Math.floor(Math.random() * 10) + '%');
+    quote.style.textAlign = Math.random() > .5 ? 'left' : 'right';
+    quote.style.alignSelf = Math.random() > .5 ? 'start' : 'end';
+    quote.style.order = slot;
+    quote.appendChild(document.createTextNode(signature.msg));
+    var name = document.createElement('cite');
+    name.textContent = signature.name || t('list.anon');
+    quote.appendChild(name);
+    return quote;
+  }
+
   function badge(parent, text, cls) {
     var b = document.createElement('span'); b.className = 'badge ' + cls; b.textContent = text; parent.appendChild(b);
   }
@@ -456,39 +487,8 @@
   $('sign').addEventListener('input', updatePrivacy);
   $('sign').addEventListener('change', updatePrivacy);
 
-  function renderLights() {
-    var count = Number.isFinite(Number(state.count)) ? Math.max(0, Math.floor(Number(state.count))) : 0;
-    var sky = $('lightSky');
-    sky.hidden = count === 0;
-    $('lightEmpty').hidden = count > 0;
-    $('lightMode').textContent = LIVE ? '' : t(DEMO ? 'demo.list' : 'lights.demo');
-    $('lightCount').textContent = t('lights.count', {n: count.toLocaleString(locale())});
-    $('lightDensity').textContent = count ? t('ux.oneLight') : '';
-    if (!count) return;
-    var scale = Math.min(window.devicePixelRatio || 1, 2);
-    var width = sky.clientWidth, height = sky.clientHeight;
-    sky.width = Math.round(width * scale);
-    sky.height = Math.round(height * scale);
-    var ctx = sky.getContext('2d');
-    if (!ctx) return;
-    ctx.scale(scale, scale);
-    var points = Math.min(count, 2000);
-    $('lightDensity').textContent = count > 2000 ? t('ux.density') : t('ux.oneLight');
-    for (var i = 0; i < points; i++) {
-      var angle = i * 2.3999632297;
-      var radius = Math.sqrt(i / points);
-      var x = width * (.5 + .46 * radius * Math.cos(angle));
-      var y = height * (.5 + .42 * radius * Math.sin(angle));
-      ctx.fillStyle = i % 3 === 0 ? '#e1c8ff' : '#ffe0a2';
-      ctx.shadowColor = ctx.fillStyle;
-      ctx.shadowBlur = points < 400 ? 8 : 0;
-      ctx.beginPath();
-      ctx.arc(x, y, points < 100 ? 2.8 : 1.15, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-  var resizeFrame;
-  window.addEventListener('resize', function () { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(renderLights); });
+  window.addEventListener('resize', function () { renderVoices(false); });
+
   var photos = Array.prototype.slice.call(document.querySelectorAll('.hero-photo'));
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var photoIndex = 0;
@@ -574,6 +574,6 @@
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
   refresh();
-  setInterval(function () { if (!document.hidden && !reducedMotion.matches) renderVoices(true); }, 8000);
+  setInterval(function () { if (!document.hidden && !reducedMotion.matches) renderVoices(true); }, 3000);
   if (LIVE) setInterval(function () { if (!document.hidden) refresh(); }, 30000);
 })();
