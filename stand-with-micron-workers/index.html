@@ -317,22 +317,21 @@ footer p{margin:0;max-width:680px}
 .demo-notice{width:fit-content;padding:8px 12px;border:1px solid #fbbf65;border-radius:8px;color:#ffdd9c;background:#211727;font-weight:700}.demo-notice[hidden]{display:none}
 .brand-wordmark{font-size:15px;line-height:1.25}.brand-wordmark strong{color:#dfb8ff}.social-shortcuts{display:flex;gap:6px;align-items:center}.social-shortcuts a,.social-shortcuts button{display:grid;place-items:center;min-width:34px;height:34px;border:1px solid var(--line);border-radius:7px;background:transparent;color:#fff;font-size:14px;font-weight:700;padding:0 6px;cursor:pointer}.page-menu{position:relative}.page-menu summary{list-style:none;cursor:pointer;padding:9px;border:1px solid var(--line);border-radius:8px}.page-menu summary::-webkit-details-marker{display:none}.menu-links{position:absolute;right:0;top:100%;width:240px;padding:8px;margin:10px 0 0;list-style:none;background:#191021;border:1px solid #705781;border-radius:12px;box-shadow:0 14px 40px #0009;z-index:50}.menu-links a{display:block;padding:12px;border-radius:6px}.menu-links a:hover{background:#ffffff10}.nav .wrap{flex-wrap:wrap;gap:10px}.nav .tools{margin-left:auto}@media(max-width:650px){.nav .brand{flex:1}.social-shortcuts{order:2}.nav .tools{order:3}.nav .tools>.btn{display:none}.nav .wrap{padding-top:10px;padding-bottom:10px}.page-menu summary{font-size:13px}}
 .voice-stage{position:relative;min-height:370px;isolation:isolate;background:radial-gradient(ellipse at center,#38205188,transparent 70%);overflow:hidden;border-radius:18px}.voice-stage #lightSky{position:absolute;inset:0;height:100%;opacity:.6;animation:sky-breathe 7s ease-in-out infinite}#voiceMessages{position:relative;min-height:370px;display:grid;grid-template-columns:1fr 1fr;align-content:center;gap:24px;padding:30px}.voice{margin:0;color:#ffe8bd;font:600 clamp(17px,2.7vw,25px)/1.7 var(--serif);text-shadow:0 0 22px #e3bc7677;animation:voice-breathe 8s ease-in-out infinite;overflow-wrap:anywhere}.voice cite{display:block;font:400 12px var(--sans);color:#ccb9df;margin-top:8px}.voice:nth-child(2){animation-delay:-4s;color:#e2cbff}@keyframes voice-breathe{0%,100%{opacity:.25;transform:translateY(4px)}45%,65%{opacity:1;transform:translateY(0)}}@keyframes sky-breathe{50%{opacity:1;filter:drop-shadow(0 0 5px #f9d99c)}}.latest-twelve{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-height:none}.directory-list{max-height:none!important}.directory-list[data-layout="grid"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.directory-list[data-layout="rows"] .msg,.directory-list[data-layout="grid"] .msg{display:none}.directory-list li{padding:22px!important}.layout-options,.pagination,.page-jump,#pageButtons{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:18px 0}.layout-options button,.pagination button,.page-jump button{padding:10px 16px;background:var(--card);color:#fff;border:1px solid var(--line);cursor:pointer}.layout-options [aria-pressed="true"],.pagination [aria-current="page"]{background:#b68af3;color:#160d25}.pagination button:disabled{opacity:.4;cursor:default}.page-jump input{width:90px!important}.latest-twelve .who{align-items:flex-start}.latest-twelve li,.directory-list li{min-width:0;overflow-wrap:anywhere}@media(max-width:700px){.latest-twelve,.directory-list[data-layout="grid"]{grid-template-columns:1fr 1fr}#voiceMessages{grid-template-columns:1fr;padding:24px;gap:25px}.voice{font-size:19px}.latest-twelve .who>span:first-child{font-size:18px}}@media(prefers-reduced-motion:reduce){.voice,.voice-stage #lightSky{animation:none;opacity:1}}
+.nav .wrap.header-rows{display:flex;flex-direction:column;align-items:stretch;gap:0;padding-top:0;padding-bottom:0}.header-top,.header-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:10px 0}.header-top{border-bottom:1px solid var(--line)}.header-actions{display:flex;align-items:center;gap:8px;margin-left:auto}.header-top .social-shortcuts{order:0;gap:5px}.header-bottom .brand{flex:0 1 auto}.header-bottom .lang{margin-left:auto}.header-bottom .lname{display:inline!important}.header-bottom .brand-wordmark{font-size:clamp(13px,2vw,17px)}.header-bottom .brand-wordmark br{display:none}.header-bottom .brand-wordmark strong::before{content:" "}.header-top .social-shortcuts a,.header-top .social-shortcuts button{min-width:30px;padding:0 5px;font-size:12px}.header-actions .btn{padding:9px 12px}.header-actions summary{white-space:nowrap}.header-bottom #langBtn{max-width:150px;font-size:13px}.header-bottom .brand svg{flex-shrink:0}#instagramDialog{width:min(480px,90vw);background:#191021;color:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}#instagramDialog::backdrop{background:#000b}#instagramLink{width:100%;margin:10px 0}#instagramDialog .acts{flex-wrap:wrap}#sign,#signers,#letter,#global,#solidarity,#public-signers{scroll-margin-top:150px}@media(max-width:380px){.header-top,.header-bottom{gap:5px}.header-actions{gap:4px}.header-actions .btn{padding:9px}.header-bottom .brand{gap:6px}.header-bottom .brand svg{width:25px}.header-bottom #langBtn{padding:8px 6px}}
 </style>
 </head>
 <body>
 <a class="skip" href="#letter" data-i18n="nav.skip">跳到公開信</a>
 
-<nav class="nav" aria-label="Main">
-  <div class="wrap">
-    <a class="brand" href="#top">
+<nav class="nav" aria-label="Main"><div class="wrap header-rows"><div class="header-top"><div class="social-shortcuts" aria-label="Share"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">f</a><a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on LINE">LINE</a><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on X">𝕏</a><button type="button" id="shareInstagram" aria-label="Instagram">IG</button><button type="button" data-share aria-label="Share link">↗</button></div><div class="header-actions"><a class="btn p sm" href="#sign" data-i18n="nav.sign">簽署</a><details id="pageNav" class="page-menu"><summary><span aria-hidden="true">☰</span> <span data-i18n="nav.menu">選單</span></summary>    <ul class="menu-links">
+      <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
+      <li><a href="#global" data-i18n="nav.global">全球夥伴</a></li>
+      <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
+    <li><a href="#solidarity" data-i18n="lights.title">每一份聲援，都有光</a></li><li><a href="#signers" data-i18n="dash.feed">最新簽署名單</a></li><li><a href="#sign" data-i18n="nav.sign">簽署</a></li></ul></details></div></div><div class="header-bottom"><a class="brand" href="#top">
       <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#bg1)"/><path d="M16 24c-2-1.6-8.5-5.6-8.5-10.4 0-2.9 2.2-4.8 4.5-4.8 1.7 0 3 .9 4 2.2 1-1.3 2.3-2.2 4-2.2 2.3 0 4.5 1.9 4.5 4.8 0 4.8-6.5 8.8-8.5 10.4z" fill="#fff"/><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs></svg>
       <span class="brand-wordmark">Stand with<br><strong>Micron worker</strong></span>
-    </a>
-
-    <div class="social-shortcuts" aria-label="Share"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">f</a><a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on LINE">LINE</a><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmicronmonkey.github.io%2Fstand-with-micron-workers%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on X">𝕏</a><button type="button" data-share aria-label="Share link">↗</button></div>
-    <div class="tools">
-      <a class="btn p sm" href="#sign" data-i18n="nav.sign">簽署</a>
-      <div class="lang" id="lang">
+    </a><div class="lang" id="lang">
         <button type="button" id="langBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.8 3 2.8 16 0 19M12 2.5c-2.8 3-2.8 16 0 19"/></svg>
           <span class="lname" id="langName">繁體中文</span>
@@ -340,16 +339,7 @@ footer p{margin:0;max-width:680px}
           <span class="sr" data-i18n="lang.label">選擇語言</span>
         </button>
         <ul id="langMenu" role="menu" aria-labelledby="langBtn"></ul>
-      </div>
-      <details id="pageNav" class="page-menu"><summary><span aria-hidden="true">☰</span> <span data-i18n="nav.menu">選單</span></summary>    <ul class="menu-links">
-      <li><a href="#letter" data-i18n="nav.letter">公開信</a></li>
-      <li><a href="#global" data-i18n="nav.global">全球夥伴</a></li>
-      <li><a href="#facts" data-i18n="nav.facts">事件經過</a></li>
-      <li><a href="#faq" data-i18n="nav.faq">常見問題</a></li>
-    <li><a href="#solidarity" data-i18n="lights.title">每一份聲援，都有光</a></li><li><a href="#signers" data-i18n="dash.feed">最新簽署名單</a></li><li><a href="#sign" data-i18n="nav.sign">簽署</a></li></ul></details>
-    </div>
-  </div>
-</nav>
+      </div></div></div></nav>
 
 <header class="hero" id="top">
   <img class="hero-photo is-active" src="https://images.newtalk.tw/resize_action2/1200/album/news/1068/6ada11da67d8f.jpeg" alt="" fetchpriority="high" referrerpolicy="no-referrer">
@@ -553,11 +543,11 @@ footer p{margin:0;max-width:680px}
   </div>
 </footer>
 
-<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="instagramDialog" aria-labelledby="instagramTitle"><h2 id="instagramTitle" data-i18n="ig.title">分享到 Instagram</h2><p id="instagramStatus" role="status"></p><input id="instagramLink" readonly aria-label="Website link"><div class="acts"><button id="copyInstagram" type="button" class="btn p sm" data-i18n="ig.copy">複製連結</button><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="btn g sm" data-i18n="ig.open">開啟 Instagram</a><button id="closeInstagram" type="button" class="btn g sm" data-i18n="ig.close">關閉</button></div></dialog><div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=14"></script>
-<script src="app.js?v=14"></script>
+<script src="form-i18n.js?v=15"></script>
+<script src="app.js?v=15"></script>
 </body>
 
 </html>

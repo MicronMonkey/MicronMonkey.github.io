@@ -554,6 +554,23 @@
     if (!$('pageNav').contains(event.target)) $('pageNav').open = false;
   });
 
+  function copyInstagramLink() {
+    var input = $('instagramLink');
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(input.value).then(function () {
+        $('instagramStatus').textContent = t('ig.copied');
+      }, function () { input.focus(); input.select(); $('instagramStatus').textContent = t('ig.manual'); });
+    } else { input.focus(); input.select(); $('instagramStatus').textContent = t('ig.manual'); }
+  }
+  $('shareInstagram').addEventListener('click', function () {
+    $('instagramLink').value = URL_ + (lang === 'zh-Hant' ? '' : '?lang=' + lang);
+    $('instagramStatus').textContent = t('ig.help');
+    $('instagramDialog').showModal();
+    copyInstagramLink();
+  });
+  $('copyInstagram').addEventListener('click', copyInstagramLink);
+  $('closeInstagram').addEventListener('click', function () { $('instagramDialog').close(); });
+
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
   refresh();

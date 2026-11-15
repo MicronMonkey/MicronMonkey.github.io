@@ -545,3 +545,31 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
  keys.forEach(function (key, index) { window.SWMW_I18N[lang]['directory.' + key] = values[index]; });
  });
 })();
+
+(function () {
+ var labels = {
+  "zh-Hant": [
+    "分享到 Instagram",
+    "複製連結",
+    "開啟 Instagram",
+    "關閉",
+    "將網址貼到 Instagram 私訊或限時動態連結貼紙。",
+    "連結已複製，可貼到 Instagram 私訊或限時動態連結貼紙。",
+    "請複製下方選取的網址，再貼到 Instagram。"
+  ],
+  "en": [
+    "Share to Instagram",
+    "Copy link",
+    "Open Instagram",
+    "Close",
+    "Paste this URL in an Instagram message or a Story link sticker.",
+    "Link copied. Paste it in an Instagram message or a Story link sticker.",
+    "Copy the selected URL below, then paste it into Instagram."
+  ]
+};
+ var keys = ['title','copy','open','close','help','copied','manual'];
+ Object.keys(window.SWMW_I18N).forEach(function (lang) {
+ var values = labels[lang] || labels.en;
+ keys.forEach(function (key, index) { window.SWMW_I18N[lang]['ig.' + key] = values[index]; });
+ });
+})();
