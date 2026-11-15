@@ -10,6 +10,10 @@
   // preview: show 2,345 labelled sample signatures by default (add ?demo=0 to hide). Set to false before launch.
 
   var URL_ = 'https://micronmonkey.github.io/stand-with-micron-workers/';
+  // Each language has its own address with its own link preview (title, description, image),
+  // because LINE / Facebook / X read the page without running scripts.
+  var LANG_PATHS = { 'zh-Hans': 'zh-hans/', en: 'en/', ja: 'ja/', ko: 'ko/' };
+  function shareURL() { return URL_ + (LANG_PATHS[lang] || ''); }
   var DEMO_PARAM = new URLSearchParams(location.search).get('demo');
   var DEMO = DEMO_PARAM === '1' || (CONFIG.preview && DEMO_PARAM !== '0');
   var KEY = DEMO ? 'swmw.preview.signatures.v1' : 'swmw.signatures.v1';
@@ -54,13 +58,14 @@
     var navs = navigator.languages || [navigator.language || ''];
     for (var i = 0; i < navs.length; i++) {
       var n = (navs[i] || '').toLowerCase();
-      if (/^zh-(cn|sg|hans|my)/.test(n)) return supported('zh-Hans') || 'zh-Hant';
+      if (/^zh-(cn|sg|my|hans)/.test(n) || n === 'zh') return n === 'zh' ? 'zh-Hant' : (supported('zh-Hans') || 'zh-Hant');
       if (n.indexOf('zh') === 0) return 'zh-Hant';
       if (n.indexOf('ja') === 0) return 'ja';
       if (n.indexOf('ko') === 0) return 'ko';
       if (n.indexOf('en') === 0) return 'en';
     }
-    return 'zh-Hant';
+    // Any other browser language (German, Malay, Vietnamese…): English is the most likely to be read.
+    return navs.some(function (x) { return x; }) ? 'en' : 'zh-Hant';
   }
 
   function applyLang(code, persist) {
@@ -85,12 +90,22 @@
     renderList();
     updatePrivacy();
     updateSecurity();
+    updateShareLinks();
     if (persist) {
       try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
       var u = new URL(location.href);
       if (lang === 'zh-Hant') u.searchParams.delete('lang'); else u.searchParams.set('lang', lang);
       history.replaceState(null, '', u.pathname + u.search + u.hash);
     }
+  }
+
+  function updateShareLinks() {
+    var u = encodeURIComponent(shareURL()), text = encodeURIComponent(t('share.text'));
+    var set = function (label, href) { var a = document.querySelector('.social-shortcuts [aria-label="' + label + '"]'); if (a) a.href = href; };
+    set('Share on Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + u);
+    set('Share on LINE', 'https://social-plugins.line.me/lineit/share?url=' + u);
+    set('Share on X', 'https://twitter.com/intent/tweet?url=' + u + '&text=' + text);
+    set('Share on WhatsApp', 'https://wa.me/?text=' + text + '%20' + u);
   }
 
   /* ── language dropdown (top right) ────────────────────── */
@@ -494,7 +509,7 @@
   });
 
   $('copyMsg').addEventListener('click', function () {
-    var txt = $('solMsg').textContent + ' ' + URL_ + (lang === 'zh-Hant' ? '' : '?lang=' + lang);
+    var txt = $('solMsg').textContent + ' ' + shareURL();
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(txt).then(function () { toast(t('toast.msgcopied')); }, function () { prompt(t('share.prompt'), txt); });
     } else prompt(t('share.prompt'), txt);
@@ -508,7 +523,7 @@
   }
   each('[data-share]', function (b) {
     b.addEventListener('click', function () {
-      var link = URL_ + (lang === 'zh-Hant' ? '' : '?lang=' + lang);
+      var link = shareURL();
       var data = { title: document.title, text: t('share.text'), url: link };
       if (navigator.share) { navigator.share(data).catch(function () {}); return; }
       var fallback = function () { prompt(t('share.prompt'), link); };
@@ -643,7 +658,7 @@
     } else { input.focus(); input.select(); $('instagramStatus').textContent = t('ig.manual'); }
   }
   $('shareInstagram').addEventListener('click', function () {
-    $('instagramLink').value = URL_ + (lang === 'zh-Hant' ? '' : '?lang=' + lang);
+    $('instagramLink').value = shareURL();
     $('instagramStatus').textContent = t('ig.help');
     $('instagramDialog').showModal();
     copyInstagramLink();

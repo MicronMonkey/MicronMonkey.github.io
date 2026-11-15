@@ -43,3 +43,9 @@
 ### 本次驗證結果
 Syntax; DOM ID references; 8 privacy combinations; 4 privacy UI transitions; 8 mocked backend scenarios; 5 language overrides passed. Browser screenshots and live service integration unavailable.
 參考站可讀頁面與瀏覽器皆無法取得，因此未完成逐項視覺比較。未新增新聞照片。
+
+## 各語言分享網址與預覽圖
+LINE／Facebook／X 抓預覽時不會執行 JavaScript，所以每種語言有自己的網址：
+`/`（繁中）、`/zh-hans/`、`/en/`、`/ja/`、`/ko/`。這些子資料夾只放該語言的預覽標籤（標題、描述、`og-*.png`），開啟後會立即轉到主頁並切換語言。網站上的分享按鈕會自動使用目前語言的網址。
+進站語言判斷順序：網址的 `?lang=` → 使用者上次選的語言 → 瀏覽器語言（中日韓英以外的語言預設英文）。
+重產預覽圖：`python3 tools/og/build.py && node tools/og/render.cjs`。
