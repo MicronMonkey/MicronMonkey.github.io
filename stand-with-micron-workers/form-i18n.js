@@ -358,3 +358,42 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     dict['hero.credit'] = labels[lang][2];
   });
 })();
+
+(function () {
+  var labels = {
+  "zh-Hant": [
+    "其他",
+    "依名單上公開的身分統計，其餘計入其他。",
+    "致台灣政府、美光公司經營團隊與 Micron Technology 董事會的公開信",
+    "暫時無法更新"
+  ],
+  "zh-Hans": [
+    "其他",
+    "按名单上的公开身份统计，其余计入其他。",
+    "致台湾政府、美光公司经营团队与 Micron Technology 董事会的公开信",
+    "暂时无法更新"
+  ],
+  "en": [
+    "Other",
+    "Counts use public identity labels. All other signatures are grouped under Other.",
+    "An Open Letter to the Taiwan Government, Micron’s Leadership, and the Micron Technology Board",
+    "Refresh unavailable"
+  ],
+  "ja": [
+    "その他",
+    "名簿で公開された区分を集計し、それ以外は「その他」に含めます。",
+    "台湾政府、マイクロン経営陣および Micron Technology 取締役会への公開書簡",
+    "更新できません"
+  ],
+  "ko": [
+    "기타",
+    "명단에 공개된 신분을 집계하며 나머지는 기타에 포함합니다.",
+    "대만 정부, 마이크론 경영진 및 Micron Technology 이사회에 보내는 공개 서한",
+    "업데이트할 수 없음"
+  ]
+};
+  var keys = ['dash.other', 'dash.note', 'letter.title', 'dash.reconnecting'];
+  Object.keys(labels).forEach(function (lang) {
+    keys.forEach(function (key, index) { window.SWMW_I18N[lang][key] = labels[lang][index]; });
+  });
+})();
