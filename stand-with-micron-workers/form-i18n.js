@@ -342,3 +342,19 @@ Object.assign(d.ko,{"form.name":"성명","form.name_h":"필수","form.name_ph":"
     });
   });
 })();
+
+(function () {
+  var labels = {
+    'zh-Hant': ['暫停輪播', '播放輪播', '背景照片：Newtalk 新聞／李宣萱攝'],
+    'zh-Hans': ['暂停轮播', '播放轮播', '背景照片：Newtalk 新闻／李宣萱摄'],
+    en: ['Pause slideshow', 'Play slideshow', 'Background photos: Li Hsuan-hsuan / Newtalk'],
+    ja: ['スライドを停止', 'スライドを再生', '背景写真：李宣萱／Newtalk'],
+    ko: ['슬라이드 일시 정지', '슬라이드 재생', '배경 사진: 리쉬안쉬안 / Newtalk']
+  };
+  Object.keys(labels).forEach(function (lang) {
+    var dict = window.SWMW_I18N[lang];
+    dict['hero.pause'] = labels[lang][0];
+    dict['hero.resume'] = labels[lang][1];
+    dict['hero.credit'] = labels[lang][2];
+  });
+})();

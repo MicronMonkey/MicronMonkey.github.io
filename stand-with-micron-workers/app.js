@@ -72,8 +72,9 @@
     each('[data-i18n-aria]', function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
     each('[data-i18n-content]', function (el) { el.setAttribute('content', t(el.getAttribute('data-i18n-content'))); });
     var cur = LANGS.filter(function (l) { return l.code === lang; })[0];
-    $('langName').textContent = cur ? cur.name + (lang === 'en' ? ' / 繁體中文' : ' / English') : lang;
+    $('langName').textContent = cur ? cur.name : lang;
     each('#langMenu button', function (b) { b.setAttribute('aria-checked', String(b.dataset.lang === lang)); });
+    syncPhotoRotation();
     fillSelects();
     
     setMode();
@@ -410,6 +411,40 @@
   }
   var resizeFrame;
   window.addEventListener('resize', function () { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(renderLights); });
+  var photos = Array.prototype.slice.call(document.querySelectorAll('.hero-photo'));
+  var photoButton = $('photoRotation');
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var photoIndex = 0;
+  var photoTimer;
+  var rotationPaused = reducedMotion.matches;
+
+  function syncPhotoRotation() {
+    clearInterval(photoTimer);
+    photoButton.textContent = t(rotationPaused ? 'hero.resume' : 'hero.pause');
+    if (rotationPaused || document.hidden) return;
+    photoTimer = setInterval(function () {
+      for (var offset = 1; offset < photos.length; offset++) {
+        var next = (photoIndex + offset) % photos.length;
+        if (!photos[next].complete || !photos[next].naturalWidth) continue;
+        photos[photoIndex].classList.remove('is-active');
+        photos[next].classList.add('is-active');
+        photoIndex = next;
+        break;
+      }
+    }, 6500);
+  }
+
+  photoButton.hidden = photos.length < 2;
+  photoButton.addEventListener('click', function () {
+    rotationPaused = !rotationPaused;
+    syncPhotoRotation();
+  });
+  document.addEventListener('visibilitychange', syncPhotoRotation);
+  reducedMotion.addEventListener('change', function () {
+    rotationPaused = reducedMotion.matches;
+    syncPhotoRotation();
+  });
+
   /* ── boot ─────────────────────────────────────────────── */
   applyLang(detect(), false);
   refresh();

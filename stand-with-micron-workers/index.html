@@ -309,8 +309,9 @@ footer p{margin:0;max-width:680px}
 .event-photos figure{background:var(--card);border:1px solid var(--line2);border-radius:14px;overflow:hidden}.event-photos figcaption{padding:10px 14px}
 #turnstile{max-width:100%;overflow:auto}
 .quick-path{display:flex;gap:12px;flex-wrap:wrap;padding-top:20px;padding-bottom:20px}.quick-path a{flex:1;min-width:140px;padding:12px 16px;background:var(--card);border:1px solid var(--line2);border-radius:12px;text-align:center}.form-progress{margin-bottom:22px;padding:16px;background:#ffffff08;border-radius:12px}.form-progress progress{display:block;width:100%;height:8px;margin:12px 0;accent-color:#ba91ff}.list-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.list-tools p{color:var(--mut)}#moreSigners{display:block;margin:24px auto}#moreSigners[hidden],#resetSearch[hidden]{display:none}.light-list-link{display:block;margin:14px 0}.photo-open{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}.photo-open:hover{filter:brightness(1.12)}#photoDialog{width:min(960px,94vw);max-height:92dvh;overflow:auto;background:#171020;color:#fff;border:1px solid #745590;border-radius:16px;padding:18px}#photoDialog::backdrop{background:#000c}#photoFull{display:block;max-width:100%;max-height:72dvh;object-fit:contain;margin:16px auto}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #e7bd71;outline-offset:4px}#sign,#signers,#letter{scroll-margin-top:100px}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media(max-width:600px){.quick-path{gap:6px}.quick-path a{min-width:0;padding:12px 6px;font-size:12px}}
-.hero{isolation:isolate;background:#120d20}.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:saturate(.22);z-index:-2}.hero::before{inset:0;height:auto;z-index:-1;background:linear-gradient(90deg,#100a19f2,#100a19bd 52%,#100a1955),linear-gradient(0deg,#100a19,#100a1922 55%)}.hero-subtitle{font-size:clamp(20px,3vw,33px);font-weight:700;color:#e9dcff;margin:0 0 12px}.hero .sub,.hero .disc,.hero-credit a{color:#e0d7ea}.hero-credit{font-size:12px;margin:8px 0 0}@media(max-width:650px){.hero::before{background:linear-gradient(90deg,#100a19ed,#100a19a6),linear-gradient(0deg,#100a19,transparent)}}
+.hero{isolation:isolate;background:#120d20}.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:saturate(.22);z-index:-2}.hero::before{inset:0;height:auto;z-index:-1;background:linear-gradient(90deg,#100a19f2,#100a19bd 52%,#100a1955),linear-gradient(0deg,#100a19,#100a1922 55%)}.hero-subtitle{font-size:clamp(20px,3vw,33px);font-weight:700;color:#e9dcff;margin:0 0 12px}.hero .sub,.hero .disc,.hero-credit{color:#e0d7ea}.hero-credit{font-size:12px;margin:8px 0 0}@media(max-width:650px){.hero::before{background:linear-gradient(90deg,#100a19ed,#100a19a6),linear-gradient(0deg,#100a19,transparent)}}
 .hero .counter{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;text-align:left;max-width:600px;background:#130e20ee;padding:clamp(16px,4vw,30px)}.counter .total span{display:block;color:#e1d5ed;font-weight:700}.counter #heroCount{display:block;margin-top:8px;color:#dfb8ff;font-size:clamp(42px,10vw,92px);overflow-wrap:anywhere}.counter .bar,.count-breakdown,.count-note{grid-column:1/-1}.count-breakdown{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}.count-breakdown div{display:flex;flex-direction:column-reverse;border-top:1px solid #584465;padding-top:8px}.count-breakdown dd{margin:0;color:#fff;font-size:clamp(22px,5vw,40px);font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.count-breakdown dt,.count-note{color:#d2c3df;font-size:14px}.count-note{margin:0}.latest-signers{padding:24px 0 40px}.latest-signers .panel{border-color:#71568b}.feed-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}.feed-head h2{margin:0;color:#e4c1ff;font-size:clamp(25px,5vw,38px)}#feedStatus{color:#e2c5f5;font-size:13px}#feedStatus::before{content:"";display:inline-block;width:8px;height:8px;margin-inline-end:7px;border-radius:50%;background:#e2c5f5}.latest-signers .sigs li{overflow-wrap:anywhere}.latest-signers .who>span:first-child{font-size:clamp(18px,3vw,24px)}#signature-form .signgrid{grid-template-columns:minmax(0,760px);justify-content:center}
+.hero-photo{opacity:0;transition:opacity .7s ease}.hero-photo.is-active{opacity:1}.hero-photo-controls{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;margin-top:8px}.hero-photo-controls .hero-credit{margin:0}#photoRotation[hidden]{display:none}@media(prefers-reduced-motion:reduce){.hero-photo{transition:none}}
 </style>
 </head>
 <body>
@@ -333,7 +334,7 @@ footer p{margin:0;max-width:680px}
       <div class="lang" id="lang">
         <button type="button" id="langBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.8 3 2.8 16 0 19M12 2.5c-2.8 3-2.8 16 0 19"/></svg>
-          <span class="lname" id="langName">繁體中文 / English</span>
+          <span class="lname" id="langName">繁體中文</span>
           <svg class="chev" width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           <span class="sr" data-i18n="lang.label">選擇語言</span>
         </button>
@@ -348,7 +349,9 @@ footer p{margin:0;max-width:680px}
 </a>
 
 <header class="hero" id="top">
-  <img class="hero-photo" src="https://images.newtalk.tw/resize_action2/1200/album/news/1068/6ada11da67d8f.jpeg" alt="" fetchpriority="high" referrerpolicy="no-referrer">
+  <img class="hero-photo is-active" src="https://images.newtalk.tw/resize_action2/1200/album/news/1068/6ada11da67d8f.jpeg" alt="" fetchpriority="high" referrerpolicy="no-referrer">
+  <img class="hero-photo" src="https://images.newtalk.tw/resize_action2/1200/album/news/1067/6ad9649f2d46a.jpeg" alt="" fetchpriority="low" referrerpolicy="no-referrer">
+  <img class="hero-photo" src="https://images.newtalk.tw/resize_action2/1200/album/news/1068/6ada11def4215.jpeg" alt="" fetchpriority="low" referrerpolicy="no-referrer">
   <div class="wrap">
     <div>
       <span class="kick"><i></i><span data-i18n="hero.kick">Open Letter・公開信</span></span>
@@ -365,7 +368,7 @@ footer p{margin:0;max-width:680px}
         <button class="btn g" type="button" data-share data-i18n="hero.share">分享</button>
       </div>
       <p class="disc" data-i18n="hero.disc">本站由支持者獨立發起，與美光公司無隸屬關係，也不代表任何工會發言。數字取自公開新聞報導與工會聲明，見頁尾資料來源。</p>
-      <p class="hero-credit"><a href="https://newtalk.tw/news/view/2026-10-22/1067124" data-i18n="hero.credit">背景照片：Newtalk 新聞／李宣萱攝</a></p>
+      <div class="hero-photo-controls"><p class="hero-credit" data-i18n="hero.credit">背景照片：Newtalk 新聞／李宣萱攝</p><button id="photoRotation" type="button" class="btn g sm" hidden data-i18n="hero.pause">暫停輪播</button></div>
     </div>
     
   </div>
@@ -554,8 +557,8 @@ footer p{margin:0;max-width:680px}
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="i18n.js?v=2"></script>
 <script src="i18n-zh-hans.js?v=2"></script>
-<script src="form-i18n.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="form-i18n.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 
 </html>
