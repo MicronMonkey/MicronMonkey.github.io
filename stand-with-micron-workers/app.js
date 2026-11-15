@@ -770,14 +770,18 @@
       else prompt(t('share.prompt'), u);
     });
     box.appendChild(copy);
-    $('sign').hidden = true; $('thanks').hidden = false;
+    $('sign').hidden = true; $('signedDone').hidden = true; $('thanks').hidden = false;
     $('thanks').scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
     $('thanks').focus({ preventScroll: true });
   }
-  $('signAgain').addEventListener('click', function () {
-    $('thanks').hidden = true; $('sign').hidden = false;
-    $('sign').scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
-    $('nm').focus({ preventScroll: true });
+  function closeThanks() {
+    $('thanks').hidden = true; $('signedDone').hidden = false;
+    $('thanksReopen').focus({ preventScroll: true });
+  }
+  $('thanksClose').addEventListener('click', closeThanks);
+  $('thanks').addEventListener('keydown', function (e) { if (e.key === 'Escape') closeThanks(); });
+  $('thanksReopen').addEventListener('click', function () {
+    $('signedDone').hidden = true; $('thanks').hidden = false; $('thanks').focus({ preventScroll: true });
   });
 
   /* ── UX: keep an unsent draft in this browser (never the email) ── */
