@@ -829,32 +829,7 @@ body { font-size: calc(16px - 1pt); }
 <p class="wa-nov17-note">專車依報名狀況安排，也可自行前往。請留意主辦方發送的行前通知。</p>
 <p id="nov17-registration-status" role="status" style="margin:0 0 15px;font-weight:800;color:#eef2f7">正在讀取報名狀態…</p>
 <a class="wa-btn wa-btn-gold wa-nov17-register" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 立即報名 11/17 北上聲援・爭取關工牌 ↗</a>
-<script>
-(() => {
-  const status = document.getElementById('nov17-registration-status');
-  const fallback = '報名狀態暫時無法取得';
-  const icons = { red: '🔴', yellow: '🟡', green: '🟢' };
-  const request = document.createElement('script');
-  const timer = setTimeout(() => { status.textContent = fallback; }, 12000);
 
-  window.registrationStatusCallback = (data) => {
-    clearTimeout(timer);
-    const icon = data?.ok === true && Object.hasOwn(icons, data.light)
-      ? icons[data.light]
-      : null;
-    status.textContent = icon && typeof data.label === 'string'
-      ? icon + ' ' + data.label
-      : fallback;
-  };
-
-  request.onerror = () => {
-    clearTimeout(timer);
-    status.textContent = fallback;
-  };
-  request.src = 'https://script.google.com/macros/s/AKfycbyVnh0XN2oZMd3udxp_atl_Bfiu7_5kRqEtxBAfmbgY2VGqpSKgfCH8kD3kvCl4ApT0vg/exec?callback=registrationStatusCallback';
-  document.head.append(request);
-})();
-</script>
 </div></article>
   <div class="wa-main">
     <div class="wa-fee-copy">
@@ -1477,6 +1452,12 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    </div>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">立即申請加入關工 ↗</a>
   </div>
+  <section class="union-entry-card" aria-labelledby="entryNov17Title" style="display:grid;gap:7px;padding:12px 14px;border:1px solid #c3a36e;background:#202936">
+   <h3 id="entryNov17Title" class="union-entry-question" style="margin:0">📣 11/17（二）記者會與北上聲援</h3>
+   <p style="margin:0;color:#eef2f7;font-size:13px;line-height:1.5">10:00 民進黨中央黨部 · 14:00 桃園市政府</p>
+   <p id="entryNov17Status" role="status" style="margin:0;color:#eef2f7;font-size:13px;font-weight:800">正在讀取報名狀態…</p>
+   <a class="union-entry-link" style="grid-area:auto" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 立即報名 11/17 北上聲援 ↗</a>
+  </section>
   <div class="union-entry-card union-entry-card-secondary">
    <div class="union-entry-volunteer-copy"><p class="union-entry-question">🌱 一起當志工</p><p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p></div>
    <button type="button" class="union-entry-link union-entry-volunteer" id="entryVolunteerSignup">志工報名 ↗</button>
@@ -1485,6 +1466,35 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   <button type="button" id="unionEntryLater" class="union-entry-later">進入網站</button>
  </div>
 </div>
+<script>
+(() => {
+  const statuses = document.querySelectorAll('#nov17-registration-status, #entryNov17Status');
+  const showStatus = (message) => {
+    statuses.forEach((status) => { status.textContent = message; });
+  };
+  const fallback = '報名狀態暫時無法取得';
+  const icons = { red: '🔴', yellow: '🟡', green: '🟢' };
+  const request = document.createElement('script');
+  const timer = setTimeout(() => { showStatus(fallback); }, 12000);
+
+  window.registrationStatusCallback = (data) => {
+    clearTimeout(timer);
+    const icon = data?.ok === true && Object.hasOwn(icons, data.light)
+      ? icons[data.light]
+      : null;
+    showStatus(icon && typeof data.label === 'string'
+      ? icon + ' ' + data.label
+      : fallback);
+  };
+
+  request.onerror = () => {
+    clearTimeout(timer);
+    showStatus(fallback);
+  };
+  request.src = 'https://script.google.com/macros/s/AKfycbyVnh0XN2oZMd3udxp_atl_Bfiu7_5kRqEtxBAfmbgY2VGqpSKgfCH8kD3kvCl4ApT0vg/exec?callback=registrationStatusCallback';
+  document.head.append(request);
+})();
+</script>
 <script id="entry-reminder-and-archive-v1">
 (function(){
  const toggle=document.getElementById('completedArchiveToggle');
