@@ -1452,11 +1452,11 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
    </div>
    <a class="union-entry-link" href="https://micron-affiliated-enterprises-union.github.io/membership-form/" target="_blank" rel="noopener noreferrer">立即申請加入關工 ↗</a>
   </div>
-  <section class="union-entry-card" aria-labelledby="entryNov17Title" style="display:grid;gap:7px;padding:12px 14px;border:1px solid #c3a36e;background:#202936">
-   <h3 id="entryNov17Title" class="union-entry-question" style="margin:0">📣 11/17（二）記者會與北上聲援</h3>
-   <p style="margin:0;color:#eef2f7;font-size:13px;line-height:1.5">10:00 民進黨中央黨部 · 14:00 桃園市政府</p>
+  <section class="union-entry-card" aria-labelledby="entryNov17Title" style="display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:none;gap:7px;padding:12px 14px;border:1px solid #c3a36e;background:#202936">
+   <h3 id="entryNov17Title" class="union-entry-question" style="margin:0;grid-area:auto">📣 <span style="font-size:calc(1em + 2pt)">11/17</span>（二）記者會與北上聲援</h3>
+   <p style="margin:0;color:#eef2f7;font-size:13px;line-height:1.5">10:00 民進黨中央黨部 14:00 桃園市政府</p>
    <p id="entryNov17Status" role="status" style="margin:0;color:#eef2f7;font-size:13px;font-weight:800">即時人數: 正在讀取報名狀態…</p>
-   <a class="union-entry-link" style="grid-area:auto" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">🚍 立即報名 11/17 北上聲援 ↗</a>
+   <a class="union-entry-link" style="grid-area:auto" href="https://forms.gle/xUDabwVKTxjwyn7c8" target="_blank" rel="noopener noreferrer">報名</a>
   </section>
   <div class="union-entry-card union-entry-card-secondary">
    <div class="union-entry-volunteer-copy"><p class="union-entry-question">🌱 一起當志工</p><p class="union-entry-count">目前 <strong id="entryVolunteerCount">同步中…</strong> 人報名</p></div>
@@ -1470,7 +1470,12 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 (() => {
   const statuses = document.querySelectorAll('#nov17-registration-status, #entryNov17Status');
   const showStatus = (message) => {
-    statuses.forEach((status) => { status.textContent = '即時人數: ' + message; });
+    statuses.forEach((status) => {
+      const label = status.id === 'entryNov17Status'
+        ? message.split('，', 1)[0]
+        : message;
+      status.textContent = '即時人數: ' + label;
+    });
   };
   const fallback = '報名狀態暫時無法取得';
   const icons = { red: '🔴', yellow: '🟡', green: '🟢' };
