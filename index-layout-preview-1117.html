@@ -816,7 +816,7 @@ body.emergency-active #u-emergency-hero { min-height:312px !important; padding-b
 #portalFloatingNav>a,#portalFloatingNav>button{width:140px!important;min-height:44px!important;height:auto!important;padding:12px!important}
 #portalFloatingNav.is-collapsed>button{width:64px!important}
 #portalFloatingNav .float-label-zh{font-size:14px!important}
-#portalFloatingNav .float-label-en{display:none!important}
+#portalFloatingNav .float-label-en{font-size:13px!important;line-height:1.25;white-space:normal;overflow-wrap:anywhere}
 #mode0Container [id]{scroll-margin-top:84px}
 #meetingCountdownPill[hidden]{display:none!important}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #fbd47e!important;outline-offset:4px}
@@ -1752,11 +1752,6 @@ document.addEventListener('DOMContentLoaded', () => {
   services.append(feeArchive);
   union.after(services);
 
-  const timelineLink = document.createElement('a');
-  timelineLink.className = 'u-button u-secondary';
-  timelineLink.href = '#u-next';
-  timelineLink.textContent = '查看行動時間表與紀錄';
-  activity.append(timelineLink);
   participation.after(community);
   const resources = document.createElement('div');
   resources.className = 'ux-shortcuts';
