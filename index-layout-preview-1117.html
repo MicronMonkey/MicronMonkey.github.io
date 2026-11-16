@@ -886,6 +886,15 @@ body.emergency-active{background:#14181e!important}
 }
 </style><style>
 #mode0Container #ux-membership-services,#mode0Container .u-membership-target{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 0!important}
+</style><style id="ux-section-contrast">
+#mode0Container :is(#u-weekly-announcement,#u-current-strategy,#u-participate){padding:clamp(16px,3vw,32px)!important;border-top:2px solid var(--ux-edge)!important}
+#mode0Container #u-weekly-announcement{--ux-edge:#b89458;background:linear-gradient(155deg,#2c261d,#171b22 66%)!important}
+#mode0Container #u-current-strategy{--ux-edge:#65969b;background:linear-gradient(155deg,#1b3034,#171b22 68%)!important}
+#mode0Container #u-participate{--ux-edge:#8294b3;background:linear-gradient(155deg,#252e3d,#171b22 66%)!important}
+#mode0Container #ux-membership-services{border-top:1px solid #65858c!important;margin-top:22px;text-align:start}
+.ux-dues-title{font-size:clamp(20px,4vw,25px);font-weight:850;margin:8px 0}
+.ux-dues-intro{color:#e0e7ef;margin:8px 0 14px}
+#mode0Container #ux-membership-services .wa-schedule{background:transparent!important;border:0!important;padding:0!important;line-height:1.65}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -940,7 +949,7 @@ body.emergency-active{background:#14181e!important}
       <div class="wa-kicker">01 · MEMBERSHIP DUES / 會費繳納</div>
       <h3><span class="u-bilingual"><span class="u-zh">📍 台中｜后里星巴克會議室</span><span class="u-en" lang="en">📍 Taichung · Houli Starbucks</span></span></h3>
       <div class="wa-price"><strong>NT$100</strong><span><span class="u-bilingual"><span class="u-zh">11、12 月會費各 50 元</span><span class="u-en" lang="en">NT$50 for each of Nov &amp; Dec</span></span></span></div>
-      <div class="wa-schedule"><span class="wa-icon" aria-hidden="true">🗓</span><div><strong>11/9（一）– 11/12（四）</strong><div>12:00–13:00 <em>／</em> 18:00–20:00</div></div></div>
+
       <div class="wa-address"><span aria-hidden="true">📌</span><span>421 臺中市后里區三豐路四段 115 號</span></div>
       <div class="wa-fee-notes"><span class="u-bilingual"><span class="u-zh">現場收取現金，建議備妥百元整鈔；完成資料核對並領取黃色收據。</span><span class="u-en" lang="en">Cash only. Please bring NT$100 and collect your yellow receipt after verification.</span></span></div>
       <div class="wa-buttons">
@@ -1013,13 +1022,13 @@ body.emergency-active{background:#14181e!important}
 </details>
 <div class="u-roadmap u-roadmap-upcoming" id="u-timeline-upcoming">
 
-<div class="u-roadmap-item roadmap-fee" data-timeline-end="2026-11-12T20:00:00+08:00" style="--phase-color:#ebc17d;--phase-panel:#322c29">
- <div class="u-roadmap-date">11/9–11/12<br>每日雙時段</div>
+<div class="u-roadmap-item roadmap-fee" data-timeline-end="2026-11-20T13:00:00+08:00" style="--phase-color:#ebc17d;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/16、18、19<br>中午＋晚間<br>11/20 僅中午</div>
  <div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div>
  <div class="u-roadmap-copy">
   <h4><span class="u-bilingual"><span class="u-zh">關係企業工會｜台中會費繳納</span><span class="u-en" lang="en">Union dues · Taichung</span></span></h4>
-  <p><span class="u-bilingual"><span class="u-zh"><strong>后里星巴克會議室</strong>。12:00–13:00、18:00–20:00；11、12 月會費共 <strong>NT$100</strong>。請於廠外休息或下班時段辦理。</span><span class="u-en" lang="en">Houli Starbucks, noon and evening windows; NT$100 for two months.</span></span></p>
-  <a class="wa-timeline-link" href="#u-weekly-announcement" >查看詳情 ↗</a>
+  <p><span class="u-bilingual"><span class="u-zh"><strong>后里星巴克會議室</strong>。11/16、11/18、11/19：12:00–13:00、18:00–20:00；11/20：12:00–13:00。<strong>11/17 暫停收費</strong>。11、12 月會費共 <strong>NT$100</strong>，請於廠外休息或下班時段辦理。</span><span class="u-en" lang="en">Houli Starbucks: Nov 16, 18 &amp; 19, noon–1 PM and 6–8 PM; Nov 20, noon–1 PM only. Closed Nov 17. NT$100 for Nov–Dec dues.</span></span></p>
+  <a class="wa-timeline-link" href="#ux-membership-services" >查看詳情 ↗</a>
  </div>
 </div>
 
@@ -1687,10 +1696,6 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  const root=document.getElementById('u-weekly-announcement');if(!root)return;
  function update(){
    const now=Date.now();
-   const feeEnd=Date.parse('2026-11-12T20:00:00+08:00');
-   const feeStart=Date.parse('2026-11-09T12:00:00+08:00');
-   const status=document.getElementById('wa-event-status');
-   if(status)status.textContent=now>feeEnd?'本期時段已結束':now>=feeStart?'11/9–11/12 · 繳費期間':'11/9–11/12';
    root.querySelectorAll('[data-wa-expire]').forEach(el=>{
      const t=Date.parse(el.getAttribute('data-wa-expire'));
      if(now>t){el.textContent='已結束';el.classList.add('is-ended')}
@@ -1746,9 +1751,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const feeArchive = document.createElement('details');
   feeArchive.className = 'ux-fee-archive';
   const summary = document.createElement('summary');
-  summary.textContent = '會費繳納方式與聯絡資訊（11/9–11/12 現場場次已結束）';
+  summary.innerHTML = '<span class="u-bilingual"><span class="u-zh">查看地點、繳費流程與聯絡方式</span><span class="u-en" lang="en">Location, payment steps and contact</span></span>';
   feeArchive.append(summary);
   while (event.nextElementSibling) feeArchive.append(event.nextElementSibling);
+  services.innerHTML = "<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p>      <div class=\"wa-schedule\"><span class=\"wa-icon\" aria-hidden=\"true\">🗓</span><div><strong>11/16（一）、11/18（三）、11/19（四）</strong><div>12:00–13:00 <em>／</em> 18:00–20:00</div><strong style=\"display:block;margin-top:6px\">11/20（五）</strong><div>12:00–13:00（僅中午時段）</div><div style=\"margin-top:7px;color:#f7cf53;font-weight:700\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費，支援北上要牌行程；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17 due to the union trip. More sessions to be announced.</span></span></div></div></div>";
   services.append(feeArchive);
   union.after(services);
 
