@@ -894,6 +894,17 @@ body.emergency-active{background:#14181e!important}
 .ux-dues-title{font-size:clamp(20px,4vw,25px);font-weight:850;margin:8px 0}
 .ux-dues-intro{color:#e0e7ef;margin:8px 0 14px}
 #mode0Container #ux-membership-services .wa-schedule{background:transparent!important;border:0!important;padding:0!important;line-height:1.65}
+</style><style id="dues-schedule-table-20261116">
+#mode0Container #ux-membership-services .wa-schedule-table-wrap{width:100%;max-width:700px;margin:12px 0 8px;overflow-x:auto}
+#mode0Container #ux-membership-services .wa-schedule-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #566779;border-radius:12px;overflow:hidden;color:#f0f4f8;font-size:14px;line-height:1.5}
+#mode0Container #ux-membership-services .wa-schedule-table th{background:#354555;color:#f5d9a3;padding:11px 12px;font-weight:850;text-align:left;border-bottom:1px solid #657487}
+#mode0Container #ux-membership-services .wa-schedule-table td{padding:11px 12px;background:#25313d;border-bottom:1px solid #43515f}
+#mode0Container #ux-membership-services .wa-schedule-table tr:last-child td{border-bottom:0}
+#mode0Container #ux-membership-services .wa-schedule-table td:first-child{font-weight:800;white-space:nowrap}
+#mode0Container #ux-membership-services .wa-schedule-table .wa-no-session{color:#97a7b9}
+#mode0Container #ux-membership-services .wa-schedule-table tr.wa-paused td{background:#45392c;color:#ffe0aa}
+#mode0Container #ux-membership-services .wa-dues-notice{max-width:700px;margin:10px 0 0;padding:10px 12px;border-left:3px solid #e9bb6a;background:#393126;border-radius:0 8px 8px 0;color:#ffe4b5;font-size:13px;line-height:1.65}
+@media(max-width:540px){#mode0Container #ux-membership-services .wa-schedule-table{font-size:12px}#mode0Container #ux-membership-services .wa-schedule-table th,#mode0Container #ux-membership-services .wa-schedule-table td{padding:9px 6px}#mode0Container #ux-membership-services .wa-schedule-table td:first-child{white-space:normal;min-width:78px}}
 </style><style id="compact-action-buttons">
 #mode0Container .u-cardgrid .u-button,
 #mode0Container .u-recruit-grid .u-button,
@@ -1815,7 +1826,7 @@ document.addEventListener('DOMContentLoaded', () => {
   summary.innerHTML = '<span class="u-bilingual"><span class="u-zh">查看地點、繳費流程與聯絡方式</span><span class="u-en" lang="en">Location, payment steps and contact</span></span>';
   feeArchive.append(summary);
   while (event.nextElementSibling) feeArchive.append(event.nextElementSibling);
-  services.innerHTML = "<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p>      <div class=\"wa-schedule\"><span class=\"wa-icon\" aria-hidden=\"true\">🗓</span><div><strong>11/16（一）、11/18（三）、11/19（四）</strong><div>12:00–13:00 <em>／</em> 18:00–20:00</div><strong style=\"display:block;margin-top:6px\">11/20（五）</strong><div>12:00–13:00（僅中午時段）</div><div style=\"margin-top:7px;color:#f7cf53;font-weight:700\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費，支援北上要牌行程；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17 due to the union trip. More sessions to be announced.</span></span></div></div></div>";
+  services.innerHTML = "<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p><div class=\"wa-schedule-table-wrap\"><table class=\"wa-schedule-table\" aria-label=\"11月會員會費繳納時間表\"><thead><tr><th scope=\"col\">日期</th><th scope=\"col\">中午</th><th scope=\"col\">晚間</th></tr></thead><tbody><tr><td>11/16（一）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr class=\"wa-paused\"><td>11/17（二）</td><td colspan=\"2\"><strong>暫停收費</strong></td></tr><tr><td>11/18（三）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/19（四）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/20（五）</td><td>12:00–13:00</td><td class=\"wa-no-session\">—</td></tr></tbody></table></div><div class=\"wa-dues-notice\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費，支援北上要牌行程；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17 due to the union trip. More sessions to be announced.</span></span></div>";
   services.append(feeArchive);
   union.after(services);
 
