@@ -906,6 +906,37 @@ body.emergency-active{background:#14181e!important}
   height:auto!important;
   padding-block:8px!important;
 }
+</style><style id="preview-clarity-review">
+#mode0Container .ux-fee-archive>summary .u-bilingual {
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:.22em;
+  color:#ffdfa0;
+}
+#mode0Container nav.ux-shortcuts {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0 12px;
+  border-top:1px solid #ffffff30;
+  padding:0;
+}
+#mode0Container nav.ux-shortcuts a {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+  text-align:start;
+  border-bottom:1px solid #ffffff25;
+  padding:10px 6px;
+}
+#mode0Container nav.ux-shortcuts a:hover {background:#ffffff0b}
+#mode0Container .ux-shortcut-arrow {color:#f5cf86;flex-shrink:0}
+#mode0Container #u-nov17-action .wa-nov17-register {width:auto;max-width:100%}
+@media(max-width:640px){
+  #mode0Container nav.ux-shortcuts {grid-template-columns:repeat(2,minmax(0,1fr))}
+  #mode0Container #u-nov17-action .wa-nov17-content {grid-row:1}
+  #mode0Container #u-nov17-action .wa-nov17-art {grid-row:2}
+}
 </style></head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -1757,13 +1788,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const union = document.getElementById('u-affiliated-union');
   const participation = document.getElementById('u-participate');
   const community = document.getElementById('u-actions');
-  const timeline = document.getElementById('u-next');
   const archive = document.getElementById('u-completed-milestones');
 
   const shortcuts = document.createElement('nav');
   shortcuts.className = 'ux-shortcuts';
   shortcuts.setAttribute('aria-label', '依需求找內容');
-  shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\">活動報名</a><a href=\"#ux-membership-start\" onclick=\"return portalNavigateTo('ux-membership-start')\">入會與繳費</a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\">志工與社群</a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\">常見問題</a>";
+  shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\"><span class=\"u-bilingual\"><span class=\"u-zh\">活動報名</span><span class=\"u-en\" lang=\"en\">Event registration</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#ux-membership-start\" onclick=\"return portalNavigateTo('ux-membership-start')\"><span class=\"u-bilingual\"><span class=\"u-zh\">入會與繳費</span><span class=\"u-en\" lang=\"en\">Membership &amp; dues</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\"><span class=\"u-bilingual\"><span class=\"u-zh\">志工與社群</span><span class=\"u-en\" lang=\"en\">Volunteers &amp; community</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\"><span class=\"u-bilingual\"><span class=\"u-zh\">常見問題</span><span class=\"u-en\" lang=\"en\">FAQ</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a>";
   strategy.before(shortcuts, activity);
 
   const services = document.createElement('div');
@@ -1786,7 +1816,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const communityTitle = community.querySelector('.u-kicker');
   if (communityTitle) communityTitle.textContent = '社群交流與匿名心聲';
   community.querySelectorAll('.u-step').forEach(el => el.remove());
-  timeline.after(archive);
+  document.getElementById('u-quick-faq').closest('section').after(archive);
 
   const pill = document.getElementById('meetingCountdownPill');
   if (pill) pill.hidden = true;
