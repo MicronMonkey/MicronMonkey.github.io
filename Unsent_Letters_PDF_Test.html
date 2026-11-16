@@ -8,7 +8,7 @@
 <meta property="og:title" content="未寄出的信｜光光猴守護平台">
 <meta property="og:description" content="有些話還沒說出口，但值得被聽見。寫一封匿名的信，或拆開別人的故事。">
 <meta property="og:type" content="website">
-<title>未寄出的信｜PDF 測試版｜光光猴守護平台</title>
+<title>未寄出的信｜圖片下載測試版｜光光猴守護平台</title>
 <style>
 :root{color-scheme:dark;--bg:#0d0d13;--surface:#181820;--edge:#34313a;--muted:#aaa5ac;--cream:#f2e7d4;--ink:#332d2c;--gold:#d4ae78;--berry:#d58e9a;--shadow:0 25px 80px #0008}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:#f1ece5;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.7}
@@ -237,6 +237,7 @@ dialog#compose .modal-inner{
 @media(max-width:430px){.letter .controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));justify-content:initial;gap:6px}.letter .letter-top-actions{gap:5px}.letter .bookmark-button{padding:3px 6px;font-size:10px}.letter .letter-topline .category{font-size:9px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 </head>
 <body class="intro-active">
 <div class="arrival" id="arrival" aria-label="三秒信封入場動畫">
@@ -286,7 +287,7 @@ dialog#compose .modal-inner{
 <label class="chkrow"><input id="consent" type="checkbox" required><span>我知道這封信在正式上線後將會公開；我有權發布這些文字，且內容不包含可識別他人的個資、騷擾或未經證實的個人指控。</span></label>
 <div class="modal-action"><button type="button" class="btn ghost" data-close="compose">取消</button><button type="submit" class="btn gold" id="submit-letter">封存並公開這封信 →</button></div></form></div></dialog>
 <dialog id="reader"><div class="modal-top"><b>✉ 你收到一封未寄出的信</b><div class="reader-head-actions"><button type="button" class="btn small ghost music-btn" id="reader-music" aria-pressed="false">♫ 開啟音樂</button><button type="button" class="x" data-close="reader" aria-label="關閉">×</button></div></div><div class="modal-inner"><div class="paper" id="paper"><div class="cat" id="paper-cat"></div><h2 id="paper-title"></h2><div class="translation-progress" id="paper-translation-note" aria-live="polite" hidden></div><div class="body" id="paper-body"></div><div class="tag-row" id="paper-tags"></div><div class="sign" id="paper-sign"></div></div>
-<div class="paper-reader-count" id="paper-read-count">— 人讀過</div><div class="paper-actions"><div class="row"><button id="paper-like" class="btn small">♡ 愛心</button><button id="paper-comments" class="btn small">留言（—）</button><button id="paper-bookmark" class="btn small">☆ 收藏</button></div><div class="row"><button id="paper-pdf" class="btn small ghost" type="button" title="保留信紙風格，列印或儲存為 PDF">⇩ 輸出PDF</button><button id="paper-share" class="btn small">↗ 分享</button><button id="paper-report" class="btn small ghost">檢舉</button></div></div></div></dialog>
+<div class="paper-reader-count" id="paper-read-count">— 人讀過</div><div class="paper-actions"><div class="row"><button id="paper-like" class="btn small">♡ 愛心</button><button id="paper-comments" class="btn small">留言（—）</button><button id="paper-bookmark" class="btn small">☆ 收藏</button></div><div class="row"><button id="paper-pdf" class="btn small ghost" type="button" title="將這封信保存為 PNG 圖片">⇩ 下載信件圖片</button><button id="paper-share" class="btn small">↗ 分享</button><button id="paper-report" class="btn small ghost">檢舉</button></div></div></div></dialog>
 <dialog id="report-dialog"><div class="modal-top"><b>檢舉這封信</b><button type="button" class="x" data-close="report-dialog">×</button></div><div class="modal-inner"><p class="sub">檢舉將交由管理員處理；不會直接因檢舉數而自動下架。</p><form id="report-form"><label for="reason">檢舉原因</label><select id="reason"><option value="personal_data">揭露個人資料</option><option value="harassment">騷擾、辱罵或威脅</option><option value="spam">洗版或廣告</option><option value="other">其他不適當內容</option></select><div class="modal-action"><button class="btn gold" type="submit">送出檢舉</button></div></form></div></dialog>
 <dialog id="comments-dialog" aria-label="匿名留言打氣">
   <div class="modal-top"><b>♡ 留言打氣</b><button type="button" class="x" data-close="comments-dialog" aria-label="關閉留言視窗">×</button></div>
@@ -722,49 +723,55 @@ if(siteLang==='en')visible.forEach(queueLetterTranslation);
 
 /* PDF export test version. The print document is a snapshot of the letter
    currently displayed to the reader; it never fetches another user's data. */
-function exportLetterPdf(){
-  var reader=$('reader');
-  if(!reader||!reader.open||!active)return;
-  var x=pickLetter(active);if(!x)return;
-  function htmlEscape(s){return String(s==null?'':s).replace(/[&<>"']/g,function(ch){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
-  })}
-  var heading=$('paper-title').textContent;
-  var body=$('paper-body').textContent;
-  var cat=$('paper-cat').textContent;
-  var sign=$('paper-sign').textContent;
-  var tags=Array.from($('paper-tags').querySelectorAll('.tag')).map(function(t){return t.textContent}).filter(Boolean);
-  var locale=document.documentElement.lang||'zh-Hant';
-  var doc='<!doctype html><html lang="'+htmlEscape(locale)+'"><head><meta charset="utf-8">'+
-  '<meta name="viewport" content="width=device-width,initial-scale=1"><title>'+
-  htmlEscape(heading)+'｜未寄出的信</title><style>'+
-  '@page{size:A4;margin:17mm 17mm 19mm}*{box-sizing:border-box}html,body{margin:0;padding:0}'+
-  'body{background:#f1e5d1;color:#352c29;font-family:"Noto Serif TC","Songti TC","PMingLiU","PingFang TC","Microsoft JhengHei",serif;'+
-  '-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
-  '.sheet{padding:12mm 10mm;min-height:245mm;background:#f1e5d1;'+
-  'box-shadow:inset 0 0 80px #bfa8872b}'+
-  '.kicker{font-family:"Noto Sans TC","PingFang TC",sans-serif;color:#8f6c63;font-size:10px;letter-spacing:.2em;overflow-wrap:anywhere}'+
-  'h1{font-weight:650;font-size:25px;line-height:1.6;margin:22px 0 26px;overflow-wrap:anywhere}'+
-  '.body{font-size:15px;line-height:2.15;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}'+
-  '.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:22px}'+
-  '.tag{font-family:"Noto Sans TC","PingFang TC",sans-serif;border:1px solid #b9a792;border-radius:99px;padding:2px 9px;font-size:10px;color:#8f6c63}'+
-  '.sign{font-family:"Noto Sans TC","PingFang TC",sans-serif;color:#866f63;text-align:right;font-size:11px;margin-top:35px;overflow-wrap:anywhere}'+
-  '.footer{font-size:10px;color:#9c8675;letter-spacing:.12em;margin-top:30px;border-top:1px solid #cbbca6;padding-top:10px}'+
-  '@media print{html,body{background:#f1e5d1!important}.sheet{padding:0;min-height:0;box-shadow:none}'+
-  'h1,.kicker{break-after:avoid-page}.sign,.footer{break-inside:avoid}'+
-  '.body{orphans:3;widows:3}}'+
-  '@media screen{body{padding:24px;background:#30242a}.sheet{max-width:794px;margin:auto;box-shadow:0 22px 55px #0006}}'+
-  '</style></head><body><article class="sheet"><div class="kicker">'+htmlEscape(cat)+'</div>'+
-  '<h1>'+htmlEscape(heading)+'</h1><div class="body">'+htmlEscape(body)+'</div>'+
-  (tags.length?'<div class="tags">'+tags.map(function(t){return '<span class="tag">'+htmlEscape(t)+'</span>'}).join('')+'</div>':'')+
-  '<div class="sign">'+htmlEscape(sign)+'</div><div class="footer">未寄出的信 · UNSENT LETTERS</div></article></body></html>';
-  var popup=window.open('','_blank');
-  if(!popup){toast('無法開啟 PDF 預覽，請允許瀏覽器開啟新視窗');return}
-  popup.document.open();popup.document.write(doc);popup.document.close();
-  function doPrint(){try{popup.focus();popup.print()}catch(e){toast('請在新視窗選擇列印，再儲存為 PDF')}}
-  if(popup.document.fonts&&popup.document.fonts.ready){
-    popup.document.fonts.ready.then(function(){setTimeout(doPrint,300)}).catch(function(){setTimeout(doPrint,300)});
-  }else{setTimeout(doPrint,500)}
+/* PNG export trial: render just the open letter, never browser print headers. */
+async function exportLetterImage(){
+  if(!$('reader').open||!active)return;
+  var btn=$('paper-pdf'), old=btn.textContent;
+  var stage=null;
+  btn.disabled=true;btn.textContent='圖片製作中…';
+  try{
+    if(typeof html2canvas!=='function')throw new Error('圖片產生工具未載入，請重新整理再試一次');
+    var source=$('paper');
+    stage=document.createElement('div');
+    stage.style.cssText='position:fixed;left:0;top:0;z-index:-10;pointer-events:none;width:760px;background:#f1e5d1;';
+    var sheet=document.createElement('article');
+    sheet.style.cssText='width:760px;min-height:0;padding:58px 65px 44px;background:#f1e5d1;color:#352c29;box-sizing:border-box;font-family:"Noto Serif TC","Songti TC","PMingLiU","PingFang TC",serif;overflow-wrap:anywhere;';
+    function part(tag,css,content){
+      var el=document.createElement(tag);
+      el.style.cssText=css;
+      el.textContent=content;
+      return el;
+    }
+    sheet.appendChild(part('div','font:500 13px/1.8 "PingFang TC","Noto Sans TC",sans-serif;letter-spacing:.18em;color:#8f6c63;', $('paper-cat').textContent));
+    sheet.appendChild(part('h1','font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;font-weight:650;font-size:33px;line-height:1.55;margin:30px 0 36px;color:#352c29;', $('paper-title').textContent));
+    sheet.appendChild(part('div','font-family:"Noto Serif TC","Songti TC","PMingLiU","PingFang TC",serif;font-size:20px;line-height:2.05;white-space:pre-wrap;word-break:break-word;color:#352c29;', $('paper-body').textContent));
+    var tagValues=Array.from($('paper-tags').querySelectorAll('.tag')).map(function(t){return t.textContent}).filter(Boolean);
+    if(tagValues.length){
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;gap:7px;flex-wrap:wrap;margin-top:32px;';
+      tagValues.forEach(function(t){var pill=part('span','font:13px/1.6 "PingFang TC","Noto Sans TC",sans-serif;border:1px solid #bda890;border-radius:999px;padding:4px 10px;color:#8f6c63;',t);row.appendChild(pill)});
+      sheet.appendChild(row);
+    }
+    sheet.appendChild(part('div','font:14px/1.8 "PingFang TC","Noto Sans TC",sans-serif;color:#866f63;text-align:right;margin-top:45px;', $('paper-sign').textContent));
+    var footer=document.createElement('div');footer.style.cssText='border-top:1px solid #cbbca6;margin-top:50px;padding-top:14px;font:12px/1.8 "PingFang TC","Noto Sans TC",sans-serif;color:#a08a77;letter-spacing:.13em;';
+    footer.textContent='未寄出的信 · UNSENT LETTERS';sheet.appendChild(footer);
+    stage.appendChild(sheet);document.body.appendChild(stage);
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    var canvas=await html2canvas(sheet,{backgroundColor:'#f1e5d1',scale:2,useCORS:true,logging:false,scrollX:0,scrollY:0,windowWidth:Math.max(window.innerWidth,760),windowHeight:Math.max(window.innerHeight,sheet.scrollHeight)});
+    var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/png')});
+    if(!blob)throw new Error('圖片轉換失敗');
+    var title=($('paper-title').textContent||'未寄出的信').replace(/[\\/:*?"<>|]/g,'').trim().slice(0,35)||'未寄出的信';
+    var filename='未寄出的信-'+title+'.png';
+    var file=new File([blob],filename,{type:'image/png'});
+    if(/iPad|iPhone|iPod/.test(navigator.userAgent)&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],title:title});return}catch(err){if(err&&err.name==='AbortError')return}
+    }
+    var url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url)},60000);
+    toast('信件圖片已產生，請查看下載項目');
+  }catch(err){console.error('信件圖片輸出失敗',err);toast(err&&err.message||'無法下載圖片，請稍後再試')}
+  finally{if(stage)stage.remove();btn.disabled=false;btn.textContent=old}
 }
 
 function showLetter(id){var x=pickLetter(id);if(!x)return;openedLetters.set(String(x.id),x);readIds.add(String(x.id));save(READ_KEY,Array.from(readIds));active=x.id;$('paper-cat').textContent=label(x.category)+(x.example?' · 情境示範':'');$('paper-title').textContent=x.title;$('paper-body').textContent=x.body;var tags=$('paper-tags');tags.replaceChildren();tagData(x).forEach(function(t){tags.appendChild(create('span','tag',t))});$('paper-sign').textContent='— '+(x.nickname||'匿名來信')+' · '+displayDate(x.created_at);$('paper-like').textContent=(likes.has(String(id))?'♥':'♡')+' '+Number(x.likes_count||0)+' 愛心';$('paper-bookmark').textContent=saved.has(String(id))?'★ 已收藏':'☆ 收藏';$('paper-read-count').textContent=readerCountLabel(x);$('paper-comments').textContent='留言（'+commentTotal(x)+'）';openDialog('reader');markRead(id);render();applyDynamicLanguage();displayOpenLetterTranslation();if(live&&sort==='new')refresh().catch(function(e){console.warn('未讀清單更新失敗',e.message||e)})}
@@ -1151,7 +1158,7 @@ $('comment-form').addEventListener('submit',submitComment);
 $('paper-like').onclick=function(){toggleLike(active)};
 $('paper-comments').onclick=function(){openComments(active,true)};
 $('paper-bookmark').onclick=function(){toggleSaved(active)};
-$('paper-pdf').onclick=exportLetterPdf;
+$('paper-pdf').onclick=exportLetterImage;
 $('paper-share').onclick=shareLetter;
 $('paper-report').onclick=function(){openDialog('report-dialog')};
 }
