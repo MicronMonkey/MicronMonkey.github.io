@@ -985,7 +985,7 @@ body.emergency-active{background:#14181e!important}
 #mm-action-hub .rba-radio-muted{margin-left:18px;color:#84909c}
 #mm-action-hub .rba-hint{font-size:11px;color:#7a8490;line-height:1.6;margin-top:8px}
 #mm-action-hub .rba-privacy{font-size:12px;line-height:1.8;color:#6d6260;background:#fff6e8;border:1px solid #f3e0b7;border-radius:10px;padding:12px;margin:15px 0}
-#mm-action-hub .rba-open-link{display:block;background:#d5a855;color:#182638!important;text-decoration:none!important;text-align:center;border-radius:10px;padding:13px 16px;font-weight:800;font-size:14px}
+#mm-action-hub .rba-open-link{display:block;margin-bottom:14px;background:#d5a855;color:#182638!important;text-decoration:none!important;text-align:center;border-radius:10px;padding:13px 16px;font-weight:800;font-size:14px}
 #mm-action-hub .rba-copy-modal[hidden]{display:none!important}
 #mm-action-hub .rba-copy-modal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;z-index:999999;padding:25px}
 #mm-action-hub .rba-modal-card{width:min(100%,320px);background:#fff;color:#223047;text-align:center;padding:24px;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.22)}
@@ -1023,11 +1023,12 @@ body.emergency-active{background:#14181e!important}
 </section>
 <section id="mm-action-hub" aria-labelledby="rba-action-title">
 <div class="rba-heading"><div class="rba-eyebrow">TAKE ACTION · 目前可以做的事</div><h2 id="rba-action-title">✉️ 一人一封 RBA 申訴信</h2><p>請求 RBA 釐清：先前宣布的全球員工分潤方案，是否因工會協商結果影響台灣員工的資格、金額或發放時間？若不受影響，希望公司正式說明。</p></div>
+<a class="rba-open-link" href="https://www.responsiblebusiness.org/grievance/" target="_blank" rel="noopener noreferrer">🔗 前往 RBA 官方 Grievance Form ↗</a>
 <div class="rba-form-demo">
 <div class="rba-demo-header"><div><span class="rba-mini">RESPONSIBLE BUSINESS ALLIANCE</span><h3>Grievance Form｜填寫示意</h3></div><span class="rba-demo-badge">欄位逐格複製</span></div>
-<p class="rba-info">下方依官方表單欄位順序整理。固定內容已填好，可點擊每一格下方的複製鈕，再貼到 <a href="https://www.responsiblebusiness.org/grievance/" target="_blank" rel="noopener noreferrer">RBA 官方申訴頁</a>。姓名與信箱請自行輸入，本站不儲存個資。</p>
-<div class="rba-form-fields"><div class="rba-field"><label for="rba-name">Name: (*)</label><input id="rba-name" type="text" placeholder="自行填入姓名或依官方匿名規定填寫" autocomplete="off" /><button type="button" class="rba-copy" data-copy="name">📋 複製此欄內容</button></div>
-<div class="rba-field"><label for="rba-email">Contact Email: (*)</label><input id="rba-email" type="email" placeholder="自行填入可收信的電子郵件" autocomplete="off" /><button type="button" class="rba-copy" data-copy="email">📋 複製此欄內容</button></div>
+<p class="rba-info">下方提供可直接複製的主要欄位內容。固定內容已填好，可點擊每一格下方的複製鈕，再貼到 <a href="https://www.responsiblebusiness.org/grievance/" target="_blank" rel="noopener noreferrer">RBA 官方申訴頁</a>。姓名、信箱與匿名選項請至官方表單自行填寫；本站不蒐集個資。</p>
+<div class="rba-form-fields">
+
 <div class="rba-field"><label for="rba-facility">Facility, its specific location and description: (*)</label><div class="rba-value" id="rba-facility">Micron Technology – Taoyuan</div><button type="button" class="rba-copy" data-copy="facility">📋 複製此欄內容</button></div>
 <div class="rba-field"><label for="rba-city">City: (*)</label><div class="rba-value" id="rba-city">Taoyuan</div><button type="button" class="rba-copy" data-copy="city">📋 複製此欄內容</button></div>
 <div class="rba-field"><label for="rba-country">Country: (*)</label><div class="rba-value" id="rba-country">Taiwan</div><button type="button" class="rba-copy" data-copy="country">📋 複製此欄內容</button></div>
@@ -1046,10 +1047,10 @@ Employees should not face uncertainty over previously announced compensation ben
 Thank you for your attention.
 Sincerely,
 A Concerned Micron Employee</textarea><button type="button" class="rba-copy" data-copy="concern">📋 複製 Concern 完整英文內文</button></div>
-<div class="rba-field"><span class="rba-label">Would you like to remain anonymous?: (*)</span><div class="rba-radio"><span aria-hidden="true">🔘</span> Yes <span class="rba-radio-muted">◯ No</span></div><div class="rba-hint">在官方表單自行點選 Yes；匿名範圍依 RBA 實際保密政策為準。</div></div>
+
 </div>
 <p class="rba-privacy">🔒 重要提醒：RBA 的匿名選項不代表不需提供姓名、信箱或保證完全無法識別。請勿在本站填寫公司機密；提交前請確認陳述符合自身所知事實。此示意不會代為送出任何申訴。</p>
-<a class="rba-open-link" href="https://www.responsiblebusiness.org/grievance/" target="_blank" rel="noopener noreferrer">🔗 前往 RBA 官方 Grievance Form ↗</a>
+
 </div>
 <div class="rba-copy-modal" id="rba-copy-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="rba-copy-title"><div class="rba-modal-card"><div class="rba-success-icon">✓</div><h3 id="rba-copy-title">複製成功</h3><p>已複製此欄內容，可貼到 RBA 官方表單。</p><button type="button" id="rba-copy-close">確定</button></div></div>
 </section>
@@ -1873,7 +1874,8 @@ document.addEventListener('DOMContentLoaded', () => {
   shortcuts.className = 'ux-shortcuts';
   shortcuts.setAttribute('aria-label', '依需求找內容');
   shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\"><span class=\"u-bilingual\"><span class=\"u-zh\">活動報名</span><span class=\"u-en\" lang=\"en\">Event registration</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#ux-membership-start\" onclick=\"return portalNavigateTo('ux-membership-start')\"><span class=\"u-bilingual\"><span class=\"u-zh\">入會與繳費</span><span class=\"u-en\" lang=\"en\">Membership &amp; dues</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\"><span class=\"u-bilingual\"><span class=\"u-zh\">志工與社群</span><span class=\"u-en\" lang=\"en\">Volunteers &amp; community</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\"><span class=\"u-bilingual\"><span class=\"u-zh\">常見問題</span><span class=\"u-en\" lang=\"en\">FAQ</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a>";
-  strategy.before(shortcuts, activity);
+  const rbaAction = document.getElementById('mm-action-hub');
+  strategy.before(rbaAction, shortcuts, activity);
 
   const services = document.createElement('div');
   services.id = 'ux-membership-services';
