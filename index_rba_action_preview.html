@@ -1906,7 +1906,7 @@ document.addEventListener('DOMContentLoaded', () => {
   shortcuts.setAttribute('aria-label', '依需求找內容');
   shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\"><span class=\"u-bilingual\"><span class=\"u-zh\">活動報名</span><span class=\"u-en\" lang=\"en\">Event registration</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#ux-membership-start\" onclick=\"return portalNavigateTo('ux-membership-start')\"><span class=\"u-bilingual\"><span class=\"u-zh\">入會與繳費</span><span class=\"u-en\" lang=\"en\">Membership &amp; dues</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\"><span class=\"u-bilingual\"><span class=\"u-zh\">志工與社群</span><span class=\"u-en\" lang=\"en\">Volunteers &amp; community</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\"><span class=\"u-bilingual\"><span class=\"u-zh\">常見問題</span><span class=\"u-en\" lang=\"en\">FAQ</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a>";
   const rbaAction = document.getElementById('mm-action-hub');
-  strategy.before(rbaAction, shortcuts, activity);
+  strategy.before(shortcuts, rbaAction, activity);
 
   const services = document.createElement('div');
   services.id = 'ux-membership-services';
