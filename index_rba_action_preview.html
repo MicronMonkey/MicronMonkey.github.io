@@ -1978,7 +1978,7 @@ const cfg=window.MM_ACTION_REPORT_CONFIG||{};
 const actions=['rba','moea'];
 const configured=!!(cfg.url&&/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(cfg.url)&&cfg.anonKey);
 const base=(cfg.url||'').replace(/\/$/,'');
-const headers={'apikey':cfg.anonKey||'','Authorization':'Bearer '+(cfg.anonKey||''),'Content-Type':'application/json'};
+const headers={'apikey':cfg.anonKey||'','Content-Type':'application/json'};
 const tokenKey='mm_action_report_token_v1';
 function visitorToken(){
  let v=null;
