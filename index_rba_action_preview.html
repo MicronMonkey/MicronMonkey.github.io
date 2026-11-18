@@ -1013,15 +1013,19 @@ body.emergency-active{background:#14181e!important}
 #unionEntryReminder .entry-current-actions-btn:focus-visible{outline:3px solid white;outline-offset:2px}
 </style>
 <style id="mm-action-report-style">
-#mm-action-hub .mm-report-panel{border:1px solid rgba(225,189,111,.5);border-radius:14px;background:linear-gradient(115deg,#293c50,#1e2b3a);padding:16px;margin:16px 0 7px;color:#f8f4e9}
-#mm-action-hub .mm-report-label{font-size:12px;font-weight:800;color:#edc77d;letter-spacing:.04em}
+#mm-action-hub .mm-report-panel{border:1px solid rgba(126,172,195,.35);border-radius:14px;background:linear-gradient(115deg,#23394b,#1a2c3e);padding:16px;margin:15px 0 16px;color:#e9f2f7;box-shadow:inset 3px 0 0 rgba(103,185,196,.55)}
+#mm-action-hub .mm-report-label{font-size:12px;font-weight:800;color:#9cd4dc;letter-spacing:.04em}
 #mm-action-hub .mm-report-count{display:flex;align-items:baseline;gap:8px;margin:7px 0}
-#mm-action-hub .mm-report-count strong{font-size:30px;color:#ffe3aa;line-height:1.2}
-#mm-action-hub .mm-report-count span{color:#d4dce5;font-size:13px}
-#mm-action-hub .mm-report-panel p{font-size:12px;color:#c5d0db;line-height:1.65;margin:3px 0 12px}
-#mm-action-hub .mm-report-button{border:0;background:#dfba73;color:#192537;border-radius:9px;padding:12px 14px;font-size:13px;font-weight:800;cursor:pointer;width:100%}
-#mm-action-hub .mm-report-button:disabled{background:#667484;color:#dbe1e8;cursor:not-allowed}
-#mm-action-hub .mm-report-status{margin-top:8px;font-size:11px;color:#c4d0da;line-height:1.5}
+#mm-action-hub .mm-report-count strong{font-size:32px;color:#adede7;line-height:1.2}
+#mm-action-hub .mm-report-count span{color:#dae6ef;font-size:13px}
+#mm-action-hub .mm-report-panel p{font-size:12px;color:#c5d4e0;line-height:1.65;margin:3px 0 12px}
+#mm-action-hub .mm-report-button{border:1px solid #79b7c1;background:#335b70;color:#f5fbfc;border-radius:9px;padding:12px 14px;font-size:13px;font-weight:800;cursor:pointer;width:100%;transition:background .15s ease,border-color .15s ease}
+#mm-action-hub .mm-report-button:not(:disabled):hover{background:#41758b;border-color:#a3dbe0}
+#mm-action-hub .mm-report-button:focus-visible{outline:3px solid white;outline-offset:3px}
+#mm-action-hub .mm-report-button:disabled{background:#344a59;border-color:#4a6272;color:#b3c3ce;cursor:not-allowed}
+#mm-action-hub .mm-report-status{margin-top:8px;font-size:11px;color:#bad1dc;line-height:1.5}
+#mm-action-hub .rba-open-link{background:linear-gradient(110deg,#f1d293,#dbac52);border:1px solid #ffdfa4;box-shadow:0 4px 12px rgba(194,144,62,.16)}
+#mm-action-hub .rba-open-link:hover{filter:brightness(1.07)}
 </style>
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
@@ -1051,6 +1055,13 @@ body.emergency-active{background:#14181e!important}
 </section>
 <section id="mm-action-hub" aria-labelledby="rba-action-title">
 <div class="rba-heading"><div class="rba-eyebrow">TAKE ACTION · 目前可以做的事</div><h2 id="rba-action-title">✉️ 一人一封 RBA 申訴信</h2><p>請求 RBA 釐清：先前宣布的全球員工分潤方案，是否因工會協商結果影響台灣員工的資格、金額或發放時間？若不受影響，希望公司正式說明。</p></div>
+<div class="mm-report-panel" data-report-panel="rba">
+<div class="mm-report-label">自主回報統計</div>
+<div class="mm-report-count"><strong id="mm-rba-count">—</strong><span>人回報已寄出</span></div>
+<p>請在官方網站完成寄送後，再按下回報。每個瀏覽器每項僅計入一次。</p>
+<button class="mm-report-button" type="button" id="mm-rba-submit" disabled>✓ 我已寄出 RBA 申訴</button>
+<div class="mm-report-status" id="mm-rba-status" role="status" aria-live="polite">尚未連線資料庫</div>
+</div>
 <a class="rba-open-link" href="https://www.responsiblebusiness.org/grievance/" target="_blank" rel="noopener noreferrer">🔗 前往 RBA 官方 Grievance Form ↗</a>
 <div class="rba-form-demo">
 <div class="rba-demo-header"><div><span class="rba-mini">RESPONSIBLE BUSINESS ALLIANCE</span><h3>Grievance Form｜填寫示意</h3></div><span class="rba-demo-badge">欄位逐格複製</span></div>
@@ -1080,15 +1091,16 @@ A Concerned Micron Employee</textarea><button type="button" class="rba-copy" dat
 <p class="rba-privacy">🔒 重要提醒：RBA 的匿名選項不代表不需提供姓名、信箱或保證完全無法識別。請勿在本站填寫公司機密；提交前請確認陳述符合自身所知事實。此示意不會代為送出任何申訴。</p>
 
 </div>
-<div class="mm-report-panel" data-report-panel="rba">
-<div class="mm-report-label">自主回報統計 · 非官方收件數</div>
-<div class="mm-report-count"><strong id="mm-rba-count">—</strong><span>人回報已寄出</span></div>
-<p>請在官方網站完成寄送後，再按下回報。每個瀏覽器每項僅計入一次。</p>
-<button class="mm-report-button" type="button" id="mm-rba-submit" disabled>✓ 我已寄出 RBA 申訴</button>
-<div class="mm-report-status" id="mm-rba-status" role="status" aria-live="polite">尚未連線資料庫</div>
-</div>
+
 <section class="moea-action" id="mm-moea-action" aria-labelledby="mm-moea-title">
 <div class="rba-heading"><div class="rba-eyebrow">02 · MINISTRY OF ECONOMIC AFFAIRS</div><h2 id="mm-moea-title">📮 寫信給經濟部｜詢問關工審核進度</h2><p>向經濟部詢問「美光關係企業工會」籌組成立申請案的審理與回函進度。請以本人名義、依自身了解的情況填寫。</p></div>
+<div class="mm-report-panel" data-report-panel="moea">
+<div class="mm-report-label">自主回報統計</div>
+<div class="mm-report-count"><strong id="mm-moea-count">—</strong><span>人回報已寄出</span></div>
+<p>請在官方網站完成寄送後，再按下回報。每個瀏覽器每項僅計入一次。</p>
+<button class="mm-report-button" type="button" id="mm-moea-submit" disabled>✓ 我已寄出經濟部信件</button>
+<div class="mm-report-status" id="mm-moea-status" role="status" aria-live="polite">尚未連線資料庫</div>
+</div>
 <a class="rba-open-link" href="https://eportal2.moea.gov.tw/EE303/jsp/doms/ac/A002Validate.jsp?lang=zh-Hant-TW" target="_blank" rel="noopener noreferrer">🔗 前往經濟部部長信箱 ↗</a>
 <div class="rba-form-demo">
 <div class="rba-demo-header"><div><span class="rba-mini">MOEA · 部長信箱</span><h3>填寫教學｜先驗證，再寄信</h3></div><span class="rba-demo-badge">標題／內文一鍵複製</span></div>
@@ -1105,15 +1117,9 @@ A Concerned Micron Employee</textarea><button type="button" class="rba-copy" dat
 敬祝 政躬康泰
 在職員工 OOO 敬上</textarea><button class="rba-copy" type="button" data-copy="moea-content">📋 複製完整信件內容</button></div>
 </div>
-<p class="rba-privacy">📌 郵件驗證碼、聯絡資訊與實際寄信都在經濟部官方網站進行。本站不代填官方表單、不蒐集個資。送出前請自行確認申請案受理機關、審查現況及「超過七千位」等內容是否仍準確。</p>
+<p class="rba-privacy">📌 郵件驗證碼、聯絡資訊與實際寄信都在經濟部官方網站進行。本站不代填官方表單、不蒐集個資。</p>
 </div>
-<div class="mm-report-panel" data-report-panel="moea">
-<div class="mm-report-label">自主回報統計 · 非官方收件數</div>
-<div class="mm-report-count"><strong id="mm-moea-count">—</strong><span>人回報已寄出</span></div>
-<p>請在官方網站完成寄送後，再按下回報。每個瀏覽器每項僅計入一次。</p>
-<button class="mm-report-button" type="button" id="mm-moea-submit" disabled>✓ 我已寄出經濟部信件</button>
-<div class="mm-report-status" id="mm-moea-status" role="status" aria-live="polite">尚未連線資料庫</div>
-</div>
+
 </section>
 <div class="rba-copy-modal" id="rba-copy-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="rba-copy-title"><div class="rba-modal-card"><div class="rba-success-icon">✓</div><h3 id="rba-copy-title">複製成功</h3><p>已複製此欄內容，可以貼到對應的官方表單。</p><button type="button" id="rba-copy-close">確定</button></div></div>
 </section>
