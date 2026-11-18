@@ -994,6 +994,16 @@ body.emergency-active{background:#14181e!important}
 #mm-action-hub .rba-success-icon{width:52px;height:52px;border-radius:50%;background:#d9f2df;color:#238a47;font-size:31px;line-height:52px;margin:auto}
 #mm-action-hub #rba-copy-close{padding:10px 32px;border:0;border-radius:9px;background:#273e59;color:#fff;font-weight:800;cursor:pointer}
 @media(max-width:640px){#mm-action-hub .rba-form-fields{grid-template-columns:1fr}#mm-action-hub .rba-concern{grid-column:auto}}
+#mm-action-hub .moea-action{border-top:1px solid rgba(232,193,117,.34);margin-top:27px;padding-top:27px}
+#mm-action-hub .moea-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
+#mm-action-hub .moea-steps>div{background:#eaf0f7;border:1px solid #dce5ef;border-radius:10px;padding:13px}
+#mm-action-hub .moea-steps b{font-size:12px;color:#284765}
+#mm-action-hub .moea-steps p{margin:6px 0 0;font-size:12px;color:#4f6174;line-height:1.7}
+#mm-action-hub .moea-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#mm-action-hub .moea-letter{grid-column:1/-1}
+#mm-action-hub .moea-letter textarea{height:260px;resize:vertical;background:#edf1f5;color:#334252;line-height:1.8}
+#mm-action-hub #rba-moea-subject{background:#edf1f5;color:#334252}
+@media(max-width:640px){#mm-action-hub .moea-steps,#mm-action-hub .moea-fields{grid-template-columns:1fr}#mm-action-hub .moea-letter{grid-column:auto}}
 </style>
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
@@ -1052,7 +1062,28 @@ A Concerned Micron Employee</textarea><button type="button" class="rba-copy" dat
 <p class="rba-privacy">🔒 重要提醒：RBA 的匿名選項不代表不需提供姓名、信箱或保證完全無法識別。請勿在本站填寫公司機密；提交前請確認陳述符合自身所知事實。此示意不會代為送出任何申訴。</p>
 
 </div>
-<div class="rba-copy-modal" id="rba-copy-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="rba-copy-title"><div class="rba-modal-card"><div class="rba-success-icon">✓</div><h3 id="rba-copy-title">複製成功</h3><p>已複製此欄內容，可貼到 RBA 官方表單。</p><button type="button" id="rba-copy-close">確定</button></div></div>
+<section class="moea-action" id="mm-moea-action" aria-labelledby="mm-moea-title">
+<div class="rba-heading"><div class="rba-eyebrow">02 · MINISTRY OF ECONOMIC AFFAIRS</div><h2 id="mm-moea-title">📮 寫信給經濟部｜詢問關工審核進度</h2><p>向經濟部詢問「美光關係企業工會」籌組成立申請案的審理與回函進度。請以本人名義、依自身了解的情況填寫。</p></div>
+<a class="rba-open-link" href="https://eportal2.moea.gov.tw/EE303/jsp/doms/ac/A002Validate.jsp?lang=zh-Hant-TW" target="_blank" rel="noopener noreferrer">🔗 前往經濟部部長信箱 ↗</a>
+<div class="rba-form-demo">
+<div class="rba-demo-header"><div><span class="rba-mini">MOEA · 部長信箱</span><h3>填寫教學｜先驗證，再寄信</h3></div><span class="rba-demo-badge">標題／內文一鍵複製</span></div>
+<div class="moea-steps"><div><b>STEP 1 · 驗證信箱</b><p>開啟上方連結，輸入你的電子信箱與畫面驗證碼，點選「認證信箱」。</p></div><div><b>STEP 2 · 收取確認信</b><p>到自己的電子信箱收信，點擊官方寄來的專屬確認連結。</p></div><div><b>STEP 3 · 填寫並送出</b><p>依官方頁面要求填妥必要資料，貼上以下標題與內文，確認無誤後送出。</p></div></div>
+<p class="rba-info">下方先填姓名，信末署名會即時更新。標題與內文是反灰唯讀欄位，可各自按鈕複製；本頁不會上傳或儲存輸入的姓名。</p>
+<div class="moea-fields">
+<div class="rba-field"><label for="moea-name">你的姓名（用於信末署名）</label><input id="moea-name" type="text" placeholder="請輸入你的署名" autocomplete="off" maxlength="60"/><div class="rba-hint">填寫後自動取代信末的 OOO；請自行確認願意揭露的署名。</div></div>
+<div class="rba-field"><label for="rba-moea-subject">信件主旨（複製貼到官方「信件主旨」）</label><input id="rba-moea-subject" type="text" value="詢問美光關係企業工會審核進度" readonly/><button class="rba-copy" type="button" data-copy="moea-subject">📋 複製信件主旨</button></div>
+<div class="rba-field moea-letter"><label for="rba-moea-content">信件內容（複製貼到官方「信件內容」）</label><textarea id="rba-moea-content" readonly spellcheck="false">部長您好：
+我是台灣美光（Micron）的在職員工。不好意思在您百忙之中打擾，寫這封信是想向貴部查詢「美光關係企業工會」籌組成立申請案的目前審理與回函進度。
+我們一群在桃園與台中廠區工作的同仁，為了能有合法、透明的勞資溝通管道，近期依《工會法》相關規定準備好連署與設立申請文件，並已正式送交主管機關審查（如為經濟部園區管理局或相關權責單位受理）。由於目前超過七千位基層員工都非常關心工會成立的進度，大家每天都在等正式的回函通知，以便進行後續的會員大會與運作程序。
+想懇請部長與貴部相關承辦單位協助確認一下，本案目前的審查進度到哪裡、大約何時能收到正式回函？如果文件上有任何需要我們補件或說明的地方，也請隨時通知我們，我們一定第一時間配合辦理。
+感謝部長與同仁撥冗協助，辛苦了！
+敬祝 政躬康泰
+在職員工 OOO 敬上</textarea><button class="rba-copy" type="button" data-copy="moea-content">📋 複製完整信件內容</button></div>
+</div>
+<p class="rba-privacy">📌 郵件驗證碼、聯絡資訊與實際寄信都在經濟部官方網站進行。本站不代填官方表單、不蒐集個資。送出前請自行確認申請案受理機關、審查現況及「超過七千位」等內容是否仍準確。</p>
+</div>
+</section>
+<div class="rba-copy-modal" id="rba-copy-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="rba-copy-title"><div class="rba-modal-card"><div class="rba-success-icon">✓</div><h3 id="rba-copy-title">複製成功</h3><p>已複製此欄內容，可以貼到對應的官方表單。</p><button type="button" id="rba-copy-close">確定</button></div></div>
 </section>
 <section id="u-weekly-announcement" class="u-surface" aria-labelledby="wa-title">
   <div class="wa-heading">
@@ -1910,6 +1941,10 @@ var lastFocus=null;
 function hide(){modal.hidden=true;if(lastFocus)lastFocus.focus();}
 function success(){lastFocus=document.activeElement;modal.hidden=false;close.focus();}
 function fallbackCopy(text){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.focus();t.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}t.remove();return ok;}
+var nameInput=document.getElementById('moea-name'),moeaContent=document.getElementById('rba-moea-content');
+var moeaTemplate=moeaContent?moeaContent.value:'';
+function refreshMoeaSignature(){if(!moeaContent)return;var n=nameInput.value.trim();moeaContent.value=moeaTemplate.replace(/在職員工 OOO 敬上/g,'在職員工 '+(n||'OOO')+' 敬上');}
+if(nameInput)nameInput.addEventListener('input',refreshMoeaSignature);
 hub.querySelectorAll('[data-copy]').forEach(function(btn){btn.addEventListener('click',async function(){
 var id=btn.getAttribute('data-copy'),el=document.getElementById('rba-'+id);
 if(!el)return;
