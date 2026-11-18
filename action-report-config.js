@@ -1,7 +1,5 @@
-// MicronMonkey action-report database configuration.
-// Only publish your Supabase Project URL and public anon/publishable key here.
-// NEVER place a secret key or service_role key in website source.
+// Supabase public browser connection only. Never put secret/service_role keys here.
 window.MM_ACTION_REPORT_CONFIG = {
-  url: "",
-  anonKey: ""
+  url: "https://srqbvnrkthjwbkyjkbgc.supabase.co",
+  anonKey: "sb_publishable_H8Hab-L05fz-rloMdPm9tg_rJstQ4fM"
 };
