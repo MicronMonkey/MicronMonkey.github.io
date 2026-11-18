@@ -1005,6 +1005,13 @@ body.emergency-active{background:#14181e!important}
 #mm-action-hub #rba-moea-subject{background:#edf1f5;color:#334252}
 @media(max-width:640px){#mm-action-hub .moea-steps,#mm-action-hub .moea-fields{grid-template-columns:1fr}#mm-action-hub .moea-letter{grid-column:auto}}
 </style>
+<style id="mm-entry-actions-reminder-css">
+#unionEntryReminder .entry-current-actions{margin:0 0 15px;padding:14px 16px;border:1px solid #cba866;border-radius:13px;background:linear-gradient(120deg,#41331f,#242d38);color:#f7e4bb;text-align:left}
+#unionEntryReminder .entry-current-actions-kicker{display:block;font-size:15px;font-weight:900;color:#ffe0a0;margin-bottom:5px}
+#unionEntryReminder .entry-current-actions-text{font-size:12px;color:#f2e9d6;line-height:1.6;margin-bottom:10px}
+#unionEntryReminder .entry-current-actions-btn{width:100%;border:1px solid #e8c788;background:#e4c486;color:#1e2b39;border-radius:9px;padding:10px 12px;font-size:13px;font-weight:850;cursor:pointer}
+#unionEntryReminder .entry-current-actions-btn:focus-visible{outline:3px solid white;outline-offset:2px}
+</style>
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -1706,12 +1713,11 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 </script>
 <div id="unionEntryReminder" role="dialog" aria-modal="true" aria-labelledby="unionEntryReminderTitle" hidden>
  <div class="union-entry-dialog">
-  <div id="meetingCountdownPill" class="meeting-countdown-pill" role="status" aria-live="polite">
- <span class="meeting-countdown-icon" aria-hidden="true">⏳</span>
- <span class="meeting-countdown-copy"><span class="u-zh">距離辦理臨時會員大會召集程序，還剩</span><span class="u-en" lang="en">Countdown to extraordinary members’ meeting convening process</span></span>
- <strong id="meetingCountdownDays">— 天</strong>
- <span class="meeting-countdown-date">截至 11/13（五）</span>
-</div>
+  <div class="entry-current-actions">
+   <span class="entry-current-actions-kicker">📣 目前可以做的事</span>
+   <div class="entry-current-actions-text">✉️ RBA 申訴｜📮 寫信給經濟部</div>
+   <button type="button" id="entryGoActions" class="entry-current-actions-btn">查看填寫教學與一鍵複製 ↓</button>
+  </div>
   <button type="button" class="union-entry-close" id="unionEntryClose" aria-label="關閉提醒 / Close">×</button>
   <h2 id="unionEntryReminderTitle" class="union-entry-title">🐵 一起壯大美光關工</h2>
   <div class="union-entry-card union-entry-card-primary">
@@ -1785,6 +1791,11 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  function close(){dialog.hidden=true;document.body.style.overflow='';if(previousFocus&&typeof previousFocus.focus==='function')previousFocus.focus();}
  document.getElementById('unionEntryClose').addEventListener('click',close);
  document.getElementById('unionEntryLater').addEventListener('click',close);
+ document.getElementById('entryGoActions').addEventListener('click',()=>{
+  close();
+  const section=document.getElementById('mm-action-hub');
+  if(section)requestAnimationFrame(()=>section.scrollIntoView({behavior:'smooth',block:'start'}));
+ });
  dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
  document.addEventListener('keydown',e=>{if(!dialog.hidden&&e.key==='Escape')close()});
  function copyCount(sourceId,targetId){
@@ -1829,29 +1840,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  dialog.hidden=false;previousFocus=document.activeElement;focusTarget.focus();
 })();
 </script>
-<script id="meeting-countdown-20261113">
-(function(){
- 'use strict';
- const target=document.getElementById('meetingCountdownDays');
- const pill=document.getElementById('meetingCountdownPill');
- if(!target||!pill)return;
- const deadline=Date.UTC(2026,10,13);
- const formatter=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'numeric',day:'numeric'});
- function update(){
-  const parts=formatter.formatToParts(new Date());
-  const values={};
-  parts.forEach(part=>{if(part.type==='year'||part.type==='month'||part.type==='day')values[part.type]=Number(part.value)});
-  const today=Date.UTC(values.year,values.month-1,values.day);
-  const remaining=Math.round((deadline-today)/86400000);
-  if(remaining>0){target.textContent=remaining+' 天';pill.dataset.state='counting'}
-  else if(remaining===0){target.textContent='今天到期';pill.dataset.state='due'}
-  else{target.textContent='期限已過';pill.dataset.state='past'}
- }
- update();
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});
- setInterval(()=>{if(!document.hidden)update()},60000);
-})();
-</script>
+
 
 <script id="weekly-announcement-expiry-v2">
 (function(){
@@ -1929,9 +1918,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (communityTitle) communityTitle.textContent = '社群交流與匿名心聲';
   community.querySelectorAll('.u-step').forEach(el => el.remove());
   document.getElementById('u-quick-faq').closest('section').after(archive);
-
-  const pill = document.getElementById('meetingCountdownPill');
-  if (pill) pill.hidden = true;
 });
 </script><script id="mm-rba-preview-js">
 (function(){
