@@ -1505,6 +1505,9 @@ body.guardian-v2 #mm-action-hub .mm-report-panel{box-shadow:none!important}
 /* home social buttons: 70% height (36px → 25px) */
 body.guardian-v2 #mmTopbar .mm-share a,body.guardian-v2 #mmTopbar .mm-share button{height:25px!important;min-height:0!important;border-radius:8px!important;font-size:12px}
 body.guardian-v2 #mmTopbar .mm-share svg{width:14px;height:14px}
+/* report panel now sits right under the official link */
+body.guardian-v2 #mm-action-hub .rba-open-link+.mm-report-panel{margin:-4px 0 14px!important}
+body.guardian-v2 #u-weekly-announcement .wa-fee-copy #ux-membership-services{margin:12px 0 14px}
 </style>
 
 </head>
@@ -2793,12 +2796,11 @@ function initA2HS(){
  var standalone=false;try{standalone=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;}catch(e){}
  if(standalone)document.body.classList.add('v2-standalone');
  var KEY='mm_v2_a2hs_banner_closed';
- function closedBefore(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
- function rememberClosed(){try{localStorage.setItem(KEY,'1')}catch(e){}}
+ try{localStorage.removeItem(KEY);}catch(e){} /* older V2 versions remembered a dismissal; the banner now returns on every load */
  var iconEl=document.querySelector('link[rel="apple-touch-icon"]');var ICON=iconEl?iconEl.href:'';
  var deferred=null;
  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;document.body.classList.add('v2-can-install');});
- window.addEventListener('appinstalled',function(){deferred=null;document.body.classList.remove('v2-can-install');rememberClosed();var bn=$('v2-a2hs-banner');if(bn)bn.hidden=true;});
+ window.addEventListener('appinstalled',function(){deferred=null;document.body.classList.remove('v2-can-install');var bn=$('v2-a2hs-banner');if(bn)bn.hidden=true;});
 
  var SHARE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
  var PLUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
@@ -2895,12 +2897,12 @@ function initA2HS(){
   '<button type="button" class="v2-a2hs-start" data-v2-a2hs>'+bi('開始一步一步教學','Show me how, step by step')+'</button>');
  if(pages.more)pages.more.insertBefore(card,pages.more.firstChild);
  /* entry 2: one dismissible banner on Home (phones only) */
- if((isIOS||isAndroid)&&!standalone&&!closedBefore()&&pages.home){
+ if((isIOS||isAndroid)&&!standalone&&pages.home){
   var banner=el('div',{id:'v2-a2hs-banner',class:'v2-a2hs-banner',role:'region','aria-label':'加到主畫面 / Add to Home Screen'},
    '<img alt="" src="'+ICON+'"/><button type="button" class="v2-a2hs-banner-main" data-v2-a2hs><strong>'+bi('📲 把光光猴變成手機 App','📲 Use 光光猴 like an app')+'</strong><span class="v2-a2hs-banner-sub">'+bi('加到主畫面，一鍵開啟、全螢幕使用','Add to your home screen: one tap, full-screen')+'</span><span class="v2-a2hs-banner-cta">'+bi('約 30 秒 · 看教學 ›','About 30 seconds · How ›')+'</span></button>'+
-   '<button type="button" class="v2-a2hs-x" aria-label="不再顯示 / Dismiss">✕</button>');
+   '<button type="button" class="v2-a2hs-x" aria-label="先關閉 / Close for now">✕</button>');
   var q=pages.home.querySelector('.v2-quick-wrap');if(q)q.after(banner);else pages.home.appendChild(banner);
-  banner.querySelector('.v2-a2hs-x').addEventListener('click',function(){banner.hidden=true;rememberClosed();});
+  banner.querySelector('.v2-a2hs-x').addEventListener('click',function(){banner.hidden=true;});
  }
  document.addEventListener('click',function(e){if(e.target.closest('[data-v2-a2hs]')){e.preventDefault();open();}});
  if(CHIPS.more)CHIPS.more.unshift(['v2-a2hs-card','加到主畫面','Install']);
@@ -2908,6 +2910,7 @@ function initA2HS(){
  return standalone;
 }
 
+function placeReport(card,panel){var link=card&&card.querySelector('.rba-open-link');if(link&&panel)link.after(panel);}
 /* report counts sit above the "go to the official site" button; the "I have sent it" button stays after the guide */
 function liftCount(card,panel){
  if(!card||!panel)return;
@@ -2971,14 +2974,14 @@ function init(){
   hub.insertBefore(rbaCard,hub.firstChild);
   var rbaPanel=rbaCard.querySelector('[data-report-panel="rba"]'),rbaHead=rbaCard.querySelector('.rba-heading');
   if(rbaHead)rbaHead.after(flowList([['閱讀下方教學，逐欄複製內容','Read the guide and copy each field'],['前往 RBA 官方網站貼上並提交','Paste and submit on the official RBA site'],['確認已完成寄送','Make sure it was sent'],['回到本站按「我已寄出」回報','Come back and tap “I have sent it”']]));
-  if(rbaPanel)rbaCard.appendChild(rbaPanel);
   liftCount(rbaCard,rbaPanel);
+  placeReport(rbaCard,rbaPanel);
   if(moea){
    hub.insertBefore(moea,$('rba-copy-modal'));
    var mHead=moea.querySelector('.rba-heading'),mPanel=moea.querySelector('[data-report-panel="moea"]'),mDemo=moea.querySelector('.rba-form-demo');
    if(mHead)mHead.after(flowList([['閱讀下方教學，填入署名並複製','Read the guide, add your name and copy'],['前往經濟部信箱驗證後送出','Verify your email on the MOEA site and send'],['確認已完成寄送','Make sure it was sent'],['回到本站按「我已寄出」回報','Come back and tap “I have sent it”']]));
-   if(mPanel&&mDemo)mDemo.after(mPanel);
    liftCount(moea,mPanel);
+   placeReport(moea,mPanel);
    /* The language script rewrites the letter's text node and collapses its line breaks (also on the
       official page). Re-apply the original template through the page's own name-signature handler. */
    var mName=$('moea-name');if(mName)mName.dispatchEvent(new Event('input'));
@@ -2997,7 +3000,8 @@ function init(){
   if(whead)whead.after(status);else weekly.insertBefore(status,weekly.firstChild);
   if(!$('ux-membership-services')){
    var svc=el('div',{id:'ux-membership-services'},DUES_SCHEDULE_HTML);
-   var wmain=weekly.querySelector('.wa-main');if(wmain)wmain.after(svc);else weekly.appendChild(svc);
+   var wbtns=weekly.querySelector('.wa-fee-copy .wa-buttons'),wmain=weekly.querySelector('.wa-main');
+   if(wbtns)wbtns.parentNode.insertBefore(svc,wbtns);else if(wmain)wmain.after(svc);else weekly.appendChild(svc);
   }
   pages.news.appendChild(weekly);
  }
