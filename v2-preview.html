@@ -1071,7 +1071,6 @@ body.guardian-v2{background:var(--v2-bg)!important;color:var(--v2-text)!importan
 body.guardian-v2>.max-w-7xl{max-width:1180px!important;margin:0 auto!important;padding:10px 12px 0!important;min-width:0}
 body.guardian-v2 #portalSimpleHeader,
 body.guardian-v2 #portalFloatingNav,
-body.guardian-v2 #unionEntryReminder,
 body.guardian-v2 .ux-shortcuts,
 body.guardian-v2 #u-actions>.u-kicker,
 body.guardian-v2 #mmTopbar .mm-copy{display:none!important}
@@ -1452,6 +1451,45 @@ html[data-portal-lang] body.guardian-v2 .v2-step-text .u-zh,html[data-portal-lan
 .v2-prev:disabled{opacity:.4;cursor:default}
 .v2-next{border:0;background:var(--v2-text);color:#101820}
 .v2-sheet-foot{font-size:12px;color:#8d9aa7;line-height:1.6;margin:12px 0 0;text-align:center}
+</style>
+
+<style id="guardian-v2-round4">
+/* entry screen: same dialog as the official site, above the tab bar */
+body.guardian-v2 #unionEntryReminder{z-index:1100;padding:16px 14px calc(16px + env(safe-area-inset-bottom))}
+body.guardian-v2 #unionEntryReminder .union-entry-dialog{border-color:#8a7650;background:#16212b}
+/* header: slogan on its own line so it is never cut off */
+.v2-slogan-line{margin:8px 0 0;font-size:12.5px;color:#a9b6c2;line-height:1.5}
+body.guardian-v2:not([data-v2-tab="home"]) .v2-slogan-line{display:none}
+@media(min-width:900px){body.guardian-v2 #mmTopbar .v2-slogan-line{grid-column:1/-1}}
+/* home: numbered four-step shortcuts */
+.v2-quick-wrap{margin:0 0 14px}
+.v2-quick-title{margin:0 0 10px;font-size:14px;font-weight:850;color:var(--v2-text)}
+html[data-portal-lang] body.guardian-v2 .v2-quick-title .u-zh,html[data-portal-lang] body.guardian-v2 .v2-quick-title .u-en{font-size:14px!important}
+ol.v2-quick{list-style:none;margin:0;padding:0 2px}
+ol.v2-quick li{margin:0;min-width:0}
+ol.v2-quick button{width:100%}
+.v2-quick .v2-ico{position:relative}
+.v2-step-badge{position:absolute;top:-6px;left:-6px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--v2-gold);color:#101820;font:900 12px/1 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;border:2px solid var(--v2-bg)}
+/* A2HS banner: clearer title */
+.v2-a2hs-banner{border-color:rgba(231,193,126,.55);background:linear-gradient(135deg,#24323f,#1c2833)}
+.v2-a2hs-banner img{width:46px;height:46px;border-radius:12px}
+.v2-a2hs-banner-main strong{font-size:15.5px;font-weight:900;color:#fff}
+.v2-a2hs-banner-main .v2-a2hs-banner-sub{font-size:12.5px;color:var(--v2-muted);font-weight:600}
+.v2-a2hs-banner-main .v2-a2hs-banner-cta{font-size:12.5px;color:var(--v2-gold);font-weight:800}
+html[data-portal-lang] body.guardian-v2 .v2-a2hs-banner-main strong .u-zh,html[data-portal-lang] body.guardian-v2 .v2-a2hs-banner-main strong .u-en{font-size:15.5px!important}
+/* buttons that clearly look like buttons: filled primary, outlined secondary */
+body.guardian-v2 #mode0Container .v2-page .u-button.u-primary,
+body.guardian-v2 #mode0Container .v2-page a.u-button:not(.u-secondary):not(.u-join-btn),
+body.guardian-v2 #u-weekly-announcement .wa-btn,
+body.guardian-v2 #mode0Container .mm-public-poster .rba-open-link{display:flex!important;align-items:center;justify-content:center;gap:6px;min-height:50px!important;padding:12px 18px!important;border-radius:14px!important;background:var(--v2-gold)!important;border:1px solid #f0d7a6!important;color:#101820!important;font-size:15px!important;font-weight:900!important;text-decoration:none!important;box-shadow:0 2px 0 rgba(0,0,0,.25)!important}
+body.guardian-v2 #mode0Container .v2-page .u-button.u-primary *,body.guardian-v2 #mode0Container .v2-page a.u-button:not(.u-secondary) *,body.guardian-v2 #u-weekly-announcement .wa-btn *{color:#101820!important}
+body.guardian-v2 #mode0Container .v2-page .u-button.u-secondary{display:inline-flex!important;align-items:center;justify-content:center;gap:6px;min-height:46px!important;padding:10px 16px!important;border-radius:14px!important;background:transparent!important;border:1.5px solid #9aabbb!important;color:#fff!important;font-weight:850!important;box-shadow:none!important;text-decoration:none!important}
+body.guardian-v2 #mode0Container #u-participate .u-button.u-secondary{display:flex!important;width:100%}
+body.guardian-v2 #mode0Container .v2-page .u-button:active,body.guardian-v2 #u-weekly-announcement .wa-btn:active{transform:scale(.98)}
+body.guardian-v2 #mm-action-hub .mm-report-button:not(:disabled){background:transparent!important;border:1.5px solid var(--v2-gold)!important;color:var(--v2-gold)!important}
+body.guardian-v2 #mm-action-hub .rba-copy{background:#3a4b5c!important;border:1px solid #7a8ea2!important}
+body.guardian-v2 #u-participate .u-admin-link{border:1px solid #6b7d8f;border-radius:10px;padding:8px 12px;min-height:40px;background:transparent;color:#cdd6de}
+body.guardian-v2 #mode0Container #u-participate .vol-count-public{background:transparent!important;border:0!important;padding:4px 0 0!important;text-align:center;color:var(--v2-muted)!important;font-size:13px}
 </style>
 
 </head>
@@ -2514,8 +2552,8 @@ var TIMELINE_STARTS={'2026-11-20T13:00:00+08:00':'2026-11-16T12:00:00+08:00','20
 var pages={},tabButtons=[],current=null,lastHash=null,scrollMem={},bar=null,chipsEl=null,tabTitleEl=null;
 /* In-page section chips (sticky, with scroll-spy) for the long tabs */
 var CHIPS={
- action:[['u-affiliated-union','入會','Join'],['mm-action-hub','RBA','RBA'],['mm-moea-action','經濟部','MOEA'],['mm-support-news','文章','Articles'],['v2-poster','宣傳圖','Poster'],['u-weekly-announcement','會費','Dues'],['u-participate','志工','Volunteer']],
- news:[['v2-news-notice','公告','Notices'],['u-next','時間表','Timeline'],['u-completed-milestones','已完成','Completed']],
+ action:[['u-affiliated-union','入會','Join'],['mm-action-hub','RBA','RBA'],['mm-moea-action','經濟部','MOEA'],['mm-support-news','文章','Articles'],['v2-poster','宣傳圖','Poster'],['u-participate','志工','Volunteer']],
+ news:[['u-weekly-announcement','會費公告','Dues notice'],['v2-news-notice','其他公告','Other notices'],['u-next','時間表','Timeline'],['u-completed-milestones','已完成','Completed']],
  more:[['v2-tools','平台與工具','Tools'],['v2-faq','常見問答','FAQ']]
 };
 
@@ -2547,6 +2585,13 @@ function show(k,targetId,opts){
   revealTarget(t);
   setChip(targetId);
   requestAnimationFrame(function(){t.scrollIntoView({block:'start',behavior:changed?'auto':'smooth'});setTimeout(spy,changed?50:600);});
+  /* if an image above the target finishes loading right after the jump, re-align once (unless the user scrolled) */
+  var jumpAt=Date.now(),userMoved=false,onUser=function(){userMoved=true;};
+  window.addEventListener('touchstart',onUser,{passive:true,once:true});window.addEventListener('wheel',onUser,{passive:true,once:true});
+  [].slice.call(pages[k].querySelectorAll('img')).forEach(function(img){
+   if(img.complete||!(img.compareDocumentPosition(t)&Node.DOCUMENT_POSITION_FOLLOWING))return;
+   img.addEventListener('load',function(){if(!userMoved&&Date.now()-jumpAt<4000)t.scrollIntoView({block:'start'});},{once:true});
+  });
  }else if(opts.top){window.scrollTo(0,0);spy();}
  else if(changed){window.scrollTo(0,scrollMem[k]||0);spy();}
 }
@@ -2602,7 +2647,8 @@ function buildHeader(shell){
   brand.setAttribute('href','#v2-home');brand.setAttribute('aria-label','回到首頁 / Home');
   var wrap=el('span',{class:'v2-brand-text'});var h1=el('h1');
   title.parentNode.insertBefore(wrap,title);h1.appendChild(title);wrap.appendChild(h1);
-  wrap.appendChild(el('span',{class:'v2-brand-sub'},'GUARDIAN<span class="v2-slogan"> · 我們不生產錢，我們只是香蕉農。</span>'));
+  wrap.appendChild(el('span',{class:'v2-brand-sub'},'GUARDIAN'));
+  var row=bar.querySelector('.mm-row');if(row)row.after(el('p',{class:'v2-slogan-line'},'我們不生產錢，我們只是香蕉農。'));
   tabTitleEl=el('span',{class:'v2-tabtitle',role:'heading','aria-level':'1'});
   brand.appendChild(tabTitleEl);
  }
@@ -2835,9 +2881,9 @@ function initA2HS(){
  /* entry 2: one dismissible banner on Home (phones only) */
  if((isIOS||isAndroid)&&!standalone&&!closedBefore()&&pages.home){
   var banner=el('div',{id:'v2-a2hs-banner',class:'v2-a2hs-banner',role:'region','aria-label':'加到主畫面 / Add to Home Screen'},
-   '<img alt="" src="'+ICON+'"/><button type="button" class="v2-a2hs-banner-main" data-v2-a2hs><strong>'+bi('加到主畫面，像 App 一樣開啟','Add to Home Screen — open it like an app')+'</strong><span>'+bi('約 30 秒 · 看教學 ›','About 30 seconds · How ›')+'</span></button>'+
+   '<img alt="" src="'+ICON+'"/><button type="button" class="v2-a2hs-banner-main" data-v2-a2hs><strong>'+bi('📲 把光光猴變成手機 App','📲 Use 光光猴 like an app')+'</strong><span class="v2-a2hs-banner-sub">'+bi('加到主畫面，一鍵開啟、全螢幕使用','Add to your home screen: one tap, full-screen')+'</span><span class="v2-a2hs-banner-cta">'+bi('約 30 秒 · 看教學 ›','About 30 seconds · How ›')+'</span></button>'+
    '<button type="button" class="v2-a2hs-x" aria-label="不再顯示 / Dismiss">✕</button>');
-  var q=pages.home.querySelector('.v2-quick');if(q)q.after(banner);else pages.home.appendChild(banner);
+  var q=pages.home.querySelector('.v2-quick-wrap');if(q)q.after(banner);else pages.home.appendChild(banner);
   banner.querySelector('.v2-a2hs-x').addEventListener('click',function(){banner.hidden=true;rememberClosed();});
  }
  document.addEventListener('click',function(e){if(e.target.closest('[data-v2-a2hs]')){e.preventDefault();open();}});
@@ -2865,17 +2911,21 @@ function init(){
  });
 
  /* ---- Home: hero, one row of shortcuts, latest status, strategy ---- */
- var quick=el('nav',{class:'v2-quick','aria-label':'快速入口 / Shortcuts'});
- quick.appendChild(quickButton('🤝','加入關工','Join union','u-affiliated-union'));
- quick.appendChild(quickButton('✉️','RBA 申訴','RBA','mm-action-hub'));
- quick.appendChild(quickButton('📮','經濟部寄信','MOEA letter','mm-moea-action'));
- quick.appendChild(quickButton('💳','會費繳納','Dues','u-weekly-announcement'));
+ var quickWrap=el('section',{class:'v2-quick-wrap','aria-labelledby':'v2-quick-title'},'<p class="v2-quick-title" id="v2-quick-title">'+bi('✅ 跟著 4 個步驟一起行動','✅ Four steps to take action')+'</p>');
+ var quick=el('ol',{class:'v2-quick'});
+ [['🤝','加入關工','Join union','u-affiliated-union'],['💳','會費繳納','Pay dues','u-weekly-announcement'],['✉️','RBA 申訴','RBA','mm-action-hub'],['📮','經濟部寄信','MOEA letter','mm-moea-action']].forEach(function(q,i){
+  var li=el('li');var b=quickButton(q[0],q[1],q[2],q[3]);
+  b.querySelector('.v2-ico').appendChild(el('span',{class:'v2-step-badge','aria-hidden':'true'},String(i+1)));
+  b.setAttribute('aria-label',(i+1)+'. '+q[1]+' / '+q[2]);
+  li.appendChild(b);quick.appendChild(li);
+ });
+ quickWrap.appendChild(quick);
  var latest=el('section',{id:'v2-home-latest-card',class:'v2-block','aria-labelledby':'v2-home-latest-title'},'<span class="v2-kicker">'+bi('LATEST · 最新動態','LATEST')+'</span><div class="v2-head"><h2 id="v2-home-latest-title">'+bi('📌 現階段活動','📌 Current events')+'</h2></div><ul class="v2-list" id="v2-home-latest"></ul>');
  var strategy=$('u-current-strategy');
  var qa=strategy?strategy.querySelector('a[href="./Connected_Union_QA.html"]'):null;
  var join=$('ux-membership-start');
  pages.home.appendChild($('u-emergency-hero'));
- pages.home.appendChild(quick);
+ pages.home.appendChild(quickWrap);
  pages.home.appendChild(latest);
  if(strategy)pages.home.appendChild(strategy);
 
@@ -2921,7 +2971,7 @@ function init(){
    var svc=el('div',{id:'ux-membership-services'},DUES_SCHEDULE_HTML);
    var wmain=weekly.querySelector('.wa-main');if(wmain)wmain.after(svc);else weekly.appendChild(svc);
   }
-  pages.action.appendChild(weekly);
+  pages.news.appendChild(weekly);
  }
  if(part){
   var admin=part.querySelector('.u-admin-link');
@@ -2931,10 +2981,9 @@ function init(){
 
  /* ---- News ---- */
  var notice=el('section',{id:'v2-news-notice',class:'v2-block','aria-labelledby':'v2-news-notice-title'},
-  '<span class="v2-kicker">'+bi('ANNOUNCEMENTS · 重要公告','ANNOUNCEMENTS')+'</span><div class="v2-head"><h2 id="v2-news-notice-title">'+bi('📣 目前有效公告','📣 Current notices')+'</h2></div>'+
-  '<ul class="v2-list"><li><button type="button" data-v2-go="u-weekly-announcement"><span id="v2-news-dues-badge"></span><span class="v2-list-main">'+bi('關工入會與繳費公告','Membership & dues notice')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li>'+
-  '<li><button type="button" data-v2-go="u-line-group"><span class="v2-ico-tile" aria-hidden="true">💬</span><span class="v2-list-main">'+bi('LINE 群組已重新開放入群審核','LINE group approvals have reopened')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li></ul>'+
-  '<p class="v2-note">🕒 <span id="v2-tw-time">—</span> · '+bi('依台灣時間自動判斷活動狀態','event status follows Taiwan time')+'</p>');
+  '<span class="v2-kicker">'+bi('ANNOUNCEMENTS · 其他公告','ANNOUNCEMENTS')+'</span><div class="v2-head"><h2 id="v2-news-notice-title">'+bi('📣 其他公告','📣 Other notices')+'</h2></div>'+
+  '<ul class="v2-list"><li><button type="button" data-v2-go="u-line-group"><span class="v2-ico-tile" aria-hidden="true">💬</span><span class="v2-list-main">'+bi('LINE 群組已重新開放入群審核','LINE group approvals have reopened')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li></ul>'+
+  '');
  pages.news.appendChild(notice);
  var next=$('u-next');
  if(next){
@@ -2942,6 +2991,7 @@ function init(){
   if(up){
    [].slice.call(up.querySelectorAll('.u-roadmap-item[data-timeline-end]')).forEach(function(item){var s=TIMELINE_STARTS[item.getAttribute('data-timeline-end')];if(s)item.setAttribute('data-v2-start',s);});
    up.before(el('div',{id:'v2-status-summary',class:'v2-status-summary','aria-label':'活動狀態統計 / Event status counts'}));
+   up.before(el('p',{class:'v2-note'},'🕒 <span id="v2-tw-time">—</span> · '+bi('依台灣時間自動判斷活動狀態','event status follows Taiwan time')));
    up.after(el('p',{id:'v2-upcoming-empty',class:'v2-empty',hidden:''},bi('目前沒有進行中或即將開始的活動。新的活動將依工會正式公告更新。','No ongoing or upcoming events right now. New events follow the union’s official notices.')));
    if(pastBox)$('v2-upcoming-empty').after(pastBox);
   }
@@ -3010,6 +3060,7 @@ function init(){
  [].slice.call(document.querySelectorAll('#mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter) > .rba-copy')).forEach(function(btn){
   btn.setAttribute('aria-label',btn.textContent.trim());btn.innerHTML='<span aria-hidden="true">📋</span> '+bi('複製','Copy');
  });
+ var entryGo=$('entryGoActions');if(entryGo)entryGo.addEventListener('click',function(){go('mm-action-hub');});
  var cm=$('rba-copy-modal'),cmClose=$('rba-copy-close'),cmT=null;
  if(cm&&cmClose&&window.MutationObserver){
   cm.classList.add('v2-toast');
