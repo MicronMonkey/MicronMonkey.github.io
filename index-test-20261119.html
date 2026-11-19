@@ -1860,7 +1860,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
   syncVolunteer();
   new MutationObserver(syncVolunteer).observe(volunteerSource,{childList:true,characterData:true,subtree:true});
  }
- document.getElementById('entryVolunteerSignup').addEventListener('click',()=>{
+ document.getElementById('entryVolunteerSignup')?.addEventListener('click',()=>{
   close();
   if(typeof openVolunteerSignup==='function')openVolunteerSignup();
  });
