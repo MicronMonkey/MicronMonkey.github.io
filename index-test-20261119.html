@@ -1027,6 +1027,16 @@ body.emergency-active{background:#14181e!important}
 #mm-action-hub .rba-open-link{background:linear-gradient(110deg,#f1d293,#dbac52);border:1px solid #ffdfa4;box-shadow:0 4px 12px rgba(194,144,62,.16)}
 #mm-action-hub .rba-open-link:hover{filter:brightness(1.07)}
 </style>
+<style id="entry-action-stat-layout-20261119">
+.entry-action-stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:12px 0 0}
+.entry-action-stat{min-width:0;padding:13px 7px 12px;border:1px solid rgba(244,198,116,.32);border-radius:13px;background:rgba(255,255,255,.065);text-align:center}
+.entry-action-stat-label{display:block;color:#f6cc83;font-size:15px;font-weight:800}
+.entry-action-stat-number{display:flex;align-items:baseline;justify-content:center;gap:5px;margin:7px 0 3px;white-space:nowrap}
+.entry-action-stat-number strong{color:#fff;font-size:clamp(29px,7vw,43px);font-weight:900;line-height:1.1;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.entry-action-stat-number span{color:#e8e7ec;font-size:14px}
+.entry-action-stat-note{color:#d4d6df;font-size:12px}
+.entry-action-stats-footnote{font-size:11px;color:#c8c8d4;margin:9px 0 0;text-align:center}
+</style>
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -1120,7 +1130,7 @@ A Concerned Micron Employee</textarea><button type="button" class="rba-copy" dat
 <p class="rba-privacy">📌 郵件驗證碼、聯絡資訊與實際寄信都在經濟部官方網站進行。本站不代填官方表單、不蒐集個資。</p>
 </div>
 
-<div class="mm-public-poster" style="margin:24px auto 0;max-width:620px;padding:20px;border:1px solid #d2b47c;border-radius:18px;background:rgba(21,27,52,.9);text-align:center"><h3 style="color:#f3c780;margin:0 0 10px">📣 對外宣傳素材</h3><p style="color:#f4f0e9;margin:0 0 16px">這張圖片可以向外公開宣傳，請求更多人關注與協助。</p><img src="assets/IMG_1675.jpeg" alt="救救美光：11,000 多位工會會員自救行動宣傳圖片" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<p style=&quot;color:#f0c888&quot;>宣傳圖片暫時無法載入</p>')"><a href="assets/IMG_1675.jpeg" download="救救美光-公開宣傳圖.jpeg" class="rba-open-link" style="display:inline-block;margin-top:14px">⬇ 下載宣傳圖片</a></div>
+<div class="mm-public-poster" style="margin:24px auto 0;max-width:620px;padding:20px;border:1px solid #d2b47c;border-radius:18px;background:rgba(21,27,52,.9);text-align:center"><h3 style="color:#f3c780;margin:0 0 10px">📣 對外宣傳素材</h3><p style="color:#f4f0e9;margin:0 0 16px">這張圖片可以向外公開宣傳，請求更多人關注與協助。</p><img src="assets/IMG_1675.jpeg?v=20261119-jpg" alt="救救美光：11,000 多位工會會員自救行動宣傳圖片" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<p style=&quot;color:#f0c888&quot;>宣傳圖片暫時無法載入</p>')"><a href="assets/IMG_1675.jpeg?v=20261119-jpg" download="救救美光-公開宣傳圖.jpeg" id="mm-poster-download" class="rba-open-link" style="display:inline-block;margin-top:14px">⬇ 下載宣傳圖片</a></div>
 </section>
 <div class="rba-copy-modal" id="rba-copy-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="rba-copy-title"><div class="rba-modal-card"><div class="rba-success-icon">✓</div><h3 id="rba-copy-title">複製成功</h3><p>已複製此欄內容，可以貼到對應的官方表單。</p><button type="button" id="rba-copy-close">確定</button></div></div>
 </section>
@@ -1747,7 +1757,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
  <div class="union-entry-dialog">
   <div class="entry-current-actions">
    <span class="entry-current-actions-kicker">📣 目前可以做的事</span>
-   <div class="entry-current-actions-text">✉️ RBA 已寄信回報：<strong id="entryRbaCount">讀取中…</strong> 人<br>📮 經濟部已寄信回報：<strong id="entryMoeaCount">讀取中…</strong> 人</div><div style="font-size:12px;color:#c8c8d4;margin:8px 0 0">自主回報統計，非官方收件數</div>
+   <div class="entry-action-stats"><div class="entry-action-stat"><span class="entry-action-stat-label">✉️ RBA</span><div class="entry-action-stat-number"><strong id="entryRbaCount">讀取中…</strong><span>人</span></div><span class="entry-action-stat-note">已寄信回報</span></div><div class="entry-action-stat"><span class="entry-action-stat-label">📮 經濟部</span><div class="entry-action-stat-number"><strong id="entryMoeaCount">讀取中…</strong><span>人</span></div><span class="entry-action-stat-note">已寄信回報</span></div></div><div class="entry-action-stats-footnote">自主回報統計，非官方收件數</div>
    <button type="button" id="entryGoActions" class="entry-current-actions-btn">查看填寫教學與一鍵複製 ↓</button>
   </div>
   <button type="button" class="union-entry-close" id="unionEntryClose" aria-label="關閉提醒 / Close">×</button>
@@ -2032,6 +2042,30 @@ actions.forEach(type=>{
 });
 refresh();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+})();
+</script>
+<script id="mm-poster-download-v2">
+(function(){
+ const link=document.getElementById('mm-poster-download');
+ if(!link)return;
+ link.addEventListener('click',async function(event){
+  event.preventDefault();
+  const original=link.textContent;
+  link.textContent='正在準備 JPG…';
+  try{
+   const response=await fetch(link.href,{cache:'no-store'});
+   if(!response.ok)throw new Error('HTTP '+response.status);
+   const blob=await response.blob();
+   if(!blob.type.startsWith('image/jpeg'))throw new Error('Not JPEG');
+   const blobUrl=URL.createObjectURL(blob);
+   const a=document.createElement('a');a.href=blobUrl;a.download='救救美光-公開宣傳圖.jpeg';
+   document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(blobUrl),10000);
+  }catch(err){
+   const a=document.createElement('a');a.href=link.href;a.download='救救美光-公開宣傳圖.jpeg';
+   document.body.appendChild(a);a.click();a.remove();
+  }finally{link.textContent=original;}
+ });
 })();
 </script>
 </body>
