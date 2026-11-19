@@ -2225,7 +2225,8 @@ function init(){
   ['❤️','支持文章','閱讀、按讚、分享','news','mm-support-news']
  ];
  tasks.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='v2-tile';b.innerHTML='<span class="emoji">'+t[0]+'</span><strong>'+t[1]+'</strong><span>'+t[2]+' →</span>';b.addEventListener('click',()=>show(t[3],t[4]));heroIntro.append(b)});
- views.home.insertBefore(heroIntro,views.home.querySelector('#u-current-strategy'));
+ views.home.insertBefore(heroIntro,views.home.querySelector('#u-emergency-hero'));
+ const homeNote=document.createElement('p');homeNote.className='v2-smallnote';homeNote.textContent='網站功能與官方寄信範本維持原版；RBA、經濟部須完成官方送出後，才使用站內回報。';views.home.insertBefore(homeNote,views.home.querySelector('#u-emergency-hero'));
  const actJump=views.action.querySelector('.v2-sectionhead');const jump=document.createElement('div');jump.className='v2-jumpbar';
  [['🤝 入會與會員數','u-affiliated-union'],['✉️ RBA','mm-action-hub'],['📮 經濟部','mm-moea-action'],['💳 會費與繳費','u-weekly-announcement'],['🤲 志工','u-participate']].forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item[0];b.addEventListener('click',()=>show('action',item[1]));jump.append(b)});actJump.append(jump);
  const note=document.createElement('p');note.className='v2-smallnote';note.textContent='提醒：RBA 與經濟部的回報數是會員自行回報，並非機關正式收件數；必須先完成官方寄件，再按「我已寄出」。';actJump.append(note);
@@ -2235,7 +2236,7 @@ function init(){
  function show(k,target){
   if(!views[k])k='home';
   keys.forEach(id=>{views[id].hidden=id!==k});
-  top.innerHTML='<span class="v2eyebrow">🐵 光光猴守護平台 · V2 TEST</span><h2>'+data[k].title+'</h2><p>'+data[k].sub+'</p>';
+  top.innerHTML='<span class="v2eyebrow">🐵 光光猴守護平台 · V2 TEST</span><h2>'+data[k].title+'</h2><p>'+data[k].sub+'</p><p style="margin-top:8px"><a href="index.html">← 返回正式首頁</a></p>';
   document.querySelectorAll('[data-v2-tab]').forEach(b=>{if(b.dataset.v2Tab===k)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   history.replaceState(null,'','#'+(target||'v2-'+k));
   requestAnimationFrame(()=>{const e=target&&document.getElementById(target);if(e&&!views[k].hidden)e.scrollIntoView({block:'start',behavior:'smooth'});else window.scrollTo({top:0,behavior:'instant'})});
