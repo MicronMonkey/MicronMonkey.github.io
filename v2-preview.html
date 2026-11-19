@@ -6,7 +6,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>光光猴守護平台｜V2 分頁測試版</title>
+<title>光光猴守護平台｜V2 App 測試版</title>
+<meta name="robots" content="noindex,nofollow"/>
 <meta content="光光猴守護平台：台灣美光員工的最新消息——加入美光關係企業工會、志工招募與匿名心聲「未寄出的信」。" name="description"/>
 <meta content="website" property="og:type"/>
 <meta content="zh_TW" property="og:locale"/>
@@ -1055,50 +1056,239 @@ body.emergency-active{background:#14181e!important}
 .mm-support-news-foot{font-size:11px;color:#aeb5c7;line-height:1.7;margin:15px 0 0}
 @media(max-width:650px){.mm-support-news{padding:18px 13px;margin-top:22px}.mm-support-news-grid{grid-template-columns:minmax(0,1fr)}.mm-support-news-head{gap:8px}.mm-support-news-count{font-size:11px}.mm-support-article{padding:14px}}
 </style>
-
 <style id="guardian-v2-styles">
-:root{--v2-bg:#101820;--v2-edge:#405064;--v2-panel:#1c2833;--v2-gold:#e7c17e}
-body.guardian-v2{padding:0!important;background:#0d151e!important;color:#f1f4f7!important;padding-bottom:86px!important}
-body.guardian-v2>.max-w-7xl{max-width:1120px!important;padding:12px clamp(12px,3vw,28px) 35px;margin:auto}
-body.guardian-v2 #portalSimpleHeader{margin:0 auto 14px!important;padding:12px 10px!important}
-body.guardian-v2 #mode0Container{background:transparent!important;padding:0!important;box-shadow:none!important}
-body.guardian-v2 #portalFloatingNav,body.guardian-v2 #unionEntryReminder{display:none!important}
-body.guardian-v2 .v2-hide{display:none!important}
-.v2-view[hidden]{display:none!important}
-.v2-view{animation:v2in .22s ease both;min-width:0}
-@keyframes v2in{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-#guardianV2Head{position:relative;background:linear-gradient(120deg,#283847,#16212b);border:1px solid #4b5965;border-radius:21px;padding:18px 20px;margin-bottom:16px}
-#guardianV2Head .v2eyebrow{font-size:11px;color:#e7c17e;font-weight:850;letter-spacing:.1em}
-#guardianV2Head h2{font-size:clamp(24px,4vw,35px);font-weight:900;color:#fff;margin:6px 0;line-height:1.3}
-#guardianV2Head p{font-size:14px;color:#d2dbe3;line-height:1.8}
-#guardianV2Head a{color:#f2d79e;text-decoration:underline;text-underline-offset:3px}
-.v2-topnav{display:flex;gap:7px;overflow-x:auto;padding:5px 0 12px;scrollbar-width:none}
-.v2-topnav::-webkit-scrollbar{display:none}
-.v2-navitem{flex-shrink:0;border:1px solid #536174;background:#192532;color:#dce5ec;font-size:13px;font-weight:800;padding:10px 15px;border-radius:14px;min-height:44px}
-.v2-navitem[aria-current="page"]{background:#edd2a0;color:#18212b;border-color:#edd2a0}
-.v2-bottom{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(16,24,33,.97);border-top:1px solid #526171;display:flex;justify-content:center;padding:7px max(5px, env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom));box-shadow:0 -8px 28px #050b10a8}
-.v2-bottom button{max-width:125px;flex:1;min-height:52px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;color:#b9c5d0;background:transparent;border:none;border-radius:12px;font-size:11px;font-weight:750;cursor:pointer}
-.v2-bottom button .ico{font-size:21px;line-height:1.25}
-.v2-bottom button[aria-current="page"]{color:#f2cf8b;background:#2d3740}
-.v2-tilegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:15px 0}
-.v2-tile{background:#21303c;border:1px solid #526274;border-radius:17px;padding:18px 14px;min-height:143px;text-align:left;color:#fff;display:flex;flex-direction:column;gap:7px;cursor:pointer}
-.v2-tile strong{font-size:17px;color:#fff;line-height:1.4}.v2-tile .emoji{font-size:26px}.v2-tile span:last-child{color:#cbd3dc;font-size:12px;line-height:1.55}
-.v2-tile:focus-visible,.v2-bottom button:focus-visible,.v2-navitem:focus-visible{outline:3px solid #ffe1a2;outline-offset:2px}
-.v2-sectionhead{background:#1a2732;border:1px solid #445365;border-radius:18px;padding:18px 20px;margin:14px 0 20px}
-.v2-sectionhead h2{font-size:clamp(22px,3.5vw,30px);font-weight:900;color:#fff;margin:0 0 8px}
-.v2-sectionhead p{color:#cbd5df;font-size:14px;line-height:1.8}
-.v2-jumpbar{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
-.v2-jumpbar button{border:1px solid #8f7955;background:#2c3235;color:#ffe0a2;border-radius:10px;padding:10px 13px;font-size:13px;font-weight:750}
-.v2-smallnote{font-size:12px;color:#aebfcf;line-height:1.7;margin:10px 0}
-.v2-view>section,.v2-view>.u-surface,.v2-view>div:not(.v2-sectionhead):not(.v2-tilegrid):not(.v2-smallnote){margin-bottom:18px}
-.v2-view #u-emergency-hero{margin-bottom:14px}
-.v2-view #u-current-strategy{margin-top:15px}
-.v2-view #mm-action-hub,.v2-view #mm-moea-action,.v2-view #mm-support-news{max-width:none;width:100%}
-.v2-view #u-actions .u-cardgrid{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
-.v2-footer{font-size:11px;color:#afbbc6;text-align:center;line-height:1.6;padding:15px 6px 5px}
-@media(min-width:800px){.v2-bottom{max-width:610px;left:50%;transform:translateX(-50%);border:1px solid #526171;border-radius:16px 16px 0 0}.v2-tilegrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:480px){body.guardian-v2>.max-w-7xl{padding:7px 10px 25px}#guardianV2Head{padding:15px}.v2-tile{min-height:133px;padding:14px 12px}.v2-sectionhead{padding:16px 14px}.v2-navitem{padding:9px 12px;font-size:12px}}
+/* ===== Guardian V2 — App-style layer (only in v2-preview.html) ===== */
+:root{--v2-bg:#101820;--v2-block:#1C2833;--v2-card:#24323F;--v2-text:#F3F5F7;--v2-muted:#B8C4CF;--v2-gold:#E7C17E;--v2-border:#435160;--v2-radius:16px;--v2-tabbar-h:60px}
+html{scroll-behavior:auto!important}
+body.guardian-v2{background:var(--v2-bg)!important;color:var(--v2-text)!important;padding:0!important;margin:0!important;padding-bottom:calc(var(--v2-tabbar-h) + 18px + env(safe-area-inset-bottom))!important;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;overflow-x:hidden}
+body.guardian-v2>.max-w-7xl{max-width:1180px!important;margin:0 auto!important;padding:10px 12px 0!important;min-width:0}
+body.guardian-v2 #portalSimpleHeader,
+body.guardian-v2 #portalFloatingNav,
+body.guardian-v2 #unionEntryReminder,
+body.guardian-v2 .ux-shortcuts,
+body.guardian-v2 #u-actions>.u-kicker,
+body.guardian-v2 #mmTopbar .mm-copy{display:none!important}
+.v2-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.guardian-v2 a,body.guardian-v2 button{-webkit-tap-highlight-color:transparent}
+body.guardian-v2 :focus-visible{outline:3px solid #f2d79e;outline-offset:2px}
+
+/* ---------- Unified header ---------- */
+body.guardian-v2 #mmTopbar{display:block!important;position:relative;z-index:80;margin:0 0 12px!important;padding:12px 14px 12px!important;border:1px solid #2f3c49;border-radius:var(--v2-radius);background:linear-gradient(135deg,#0a0f14 0%,#151e27 55%,#1f2a35 100%)!important;color:#fff;box-shadow:none}
+body.guardian-v2 #mmTopbar .mm-row{display:flex!important;align-items:center;gap:10px;max-width:none;margin:0}
+body.guardian-v2 #mmTopbar .mm-brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1;order:0;color:#fff;text-decoration:none}
+body.guardian-v2 #mmTopbar .mm-logo{width:40px;height:40px;border-radius:12px;background:#f3f5f7;color:#101820;font-size:23px;filter:grayscale(1) contrast(1.15);flex:none;border:1px solid #cfd6dc}
+.v2-brand-text{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.v2-brand-text h1{margin:0;font-size:18px;font-weight:900;letter-spacing:.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-portal-lang] body.guardian-v2 #mmTopbar .mm-title{font-size:18px!important;font-weight:900}
+.v2-brand-sub{margin-top:3px;font-size:10.5px;color:#9fadba;letter-spacing:.14em;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v2-brand-sub .v2-slogan{letter-spacing:.02em;font-weight:600;color:#8d9aa7}
+body.guardian-v2 #mmTopbar .mm-lang{order:1;margin-left:auto}
+body.guardian-v2 #mmTopbar .mm-lang-btn{height:40px;padding:0 11px;background:#18222c;border-color:#435160}
+body.guardian-v2 #mmTopbar .mm-lang-menu{z-index:130}
+body.guardian-v2 #mmTopbar .mm-share{display:flex!important;flex-wrap:wrap;gap:8px;margin:12px 0 0!important;max-width:none;order:0}
+body.guardian-v2 #mmTopbar .mm-share a,body.guardian-v2 #mmTopbar .mm-share button{min-width:44px;height:36px;border-radius:10px;border-color:#435160;background:#141d26}
+body.guardian-v2 #mmTopbar .mm-toast{bottom:calc(var(--v2-tabbar-h) + 22px + env(safe-area-inset-bottom))}
+body.guardian-v2 #portalViewStats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0!important}
+body.guardian-v2 #portalViewStats .v2-stat{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid #3a4754;color:#c9d3dc;font-size:12.5px;font-weight:700;line-height:1.3;white-space:nowrap}
+body.guardian-v2 #portalViewStats .v2-stat span{background:none!important;border:0!important;padding:0!important;margin:0!important;font:inherit!important;color:inherit!important;border-radius:0!important}
+body.guardian-v2 #portalViewStats b{color:var(--v2-gold);font-size:14px;font-weight:850;font-variant-numeric:tabular-nums}
+@media(min-width:900px){
+ body.guardian-v2 #mmTopbar{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px;padding:14px 18px!important}
+ body.guardian-v2 #mmTopbar .mm-row{grid-column:1/-1}
+ body.guardian-v2 #mmTopbar .mm-share{grid-column:1;margin-top:12px!important}
+ body.guardian-v2 #portalViewStats{grid-column:2;margin-top:12px!important;justify-content:flex-end}
+}
+
+/* ---------- Layout + tab bar ---------- */
+#v2-layout{min-width:0}
+#mode0Container{min-width:0}
+body.guardian-v2 #mode0Container{background:transparent!important;padding:0!important;box-shadow:none!important;border-radius:0!important}
+body.guardian-v2 #mode0Container>:not(.v2-page):not(footer){margin-top:0}
+.v2-page[hidden]{display:none!important}
+.v2-page{min-width:0}
+.v2-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:100;display:flex;justify-content:space-around;background:#0b1117;border-top:1px solid #26333f;padding:4px max(4px,env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left))}
+.v2-tab{flex:1 1 0;min-width:44px;max-width:140px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px 2px;border:0;border-radius:12px;background:transparent;color:#cdd5dc;font:700 11.5px/1.2 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.v2-tab svg{width:23px;height:23px;flex:none}
+.v2-tab[aria-current="page"]{color:var(--v2-gold)}
+.v2-tab[aria-current="page"] svg{stroke-width:2.4}
+html[data-portal-lang] body.guardian-v2 .v2-tab .u-zh,html[data-portal-lang] body.guardian-v2 .v2-tab .u-en{font-size:11.5px!important}
+@media(min-width:1024px){
+ body.guardian-v2{padding-bottom:28px!important}
+ body.guardian-v2>.max-w-7xl{padding:16px 20px 0!important}
+ #v2-layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:start}
+ .v2-tabbar{position:sticky;top:16px;left:auto;right:auto;bottom:auto;flex-direction:column;justify-content:flex-start;gap:4px;padding:10px;border:1px solid #2f3c49;border-radius:var(--v2-radius);background:#0d141b}
+ .v2-tab{flex:none;max-width:none;flex-direction:row;justify-content:flex-start;gap:12px;min-height:48px;padding:0 14px;font-size:15px}
+ html[data-portal-lang] body.guardian-v2 .v2-tab .u-zh,html[data-portal-lang] body.guardian-v2 .v2-tab .u-en{font-size:15px!important}
+ .v2-tab[aria-current="page"]{background:#1c2833}
+ .v2-tab:hover{background:#151f29}
+}
+
+/* ---------- Shared blocks ---------- */
+body.guardian-v2 #mode0Container .v2-page>section,
+body.guardian-v2 #mode0Container .v2-page>.v2-block,
+body.guardian-v2 #mode0Container .v2-page>div.mm-public-poster{background:var(--v2-block)!important;border:1px solid var(--v2-border)!important;border-radius:var(--v2-radius)!important;padding:18px 16px!important;margin:0 0 14px!important;box-shadow:none!important;max-width:none!important;width:auto!important;color:var(--v2-text)}
+body.guardian-v2 #mode0Container .v2-page>#u-actions{margin:0 0 14px}
+body.guardian-v2 #mode0Container .v2-page [id]{scroll-margin-top:12px}
+body.guardian-v2 .u-muted{color:var(--v2-muted)}
+body.guardian-v2 #mode0Container .v2-page>footer{display:none}
+.v2-head{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.v2-head h2{font-size:20px;font-weight:900;color:#fff;margin:0;line-height:1.35}
+.v2-kicker{display:block;font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--v2-gold);margin-bottom:4px}
+.v2-note .u-bilingual{display:inline!important}
+.v2-note{font-size:13px;color:var(--v2-muted);line-height:1.7;margin:4px 0 0}
+.v2-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:800;line-height:1.4;white-space:nowrap;border:1px solid transparent;vertical-align:middle}
+.v2-badge-live{background:rgba(92,196,137,.14);color:#8fe0b1;border-color:rgba(92,196,137,.4)}
+.v2-badge-soon{background:rgba(231,193,126,.12);color:var(--v2-gold);border-color:rgba(231,193,126,.4)}
+.v2-badge-done{background:rgba(184,196,207,.1);color:#b8c4cf;border-color:#4a5866}
+.v2-badge-ended{background:rgba(226,108,108,.12);color:#f2a7a7;border-color:rgba(226,108,108,.4)}
+.v2-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid var(--v2-border);background:var(--v2-card);color:var(--v2-text);font-size:14px;font-weight:800;text-decoration:none;cursor:pointer}
+.v2-btn:hover{border-color:#6b7b8b}
+
+/* ---------- Home ---------- */
+body.guardian-v2 #mode0Container .v2-page>#u-emergency-hero{padding:22px 18px!important;background:linear-gradient(140deg,#0b1016,#1c2833)!important;border-color:#3a4754!important;overflow:hidden}
+body.guardian-v2 #u-emergency-hero{min-height:0!important}
+body.guardian-v2 #u-emergency-hero::before,body.guardian-v2 #u-emergency-hero::after{display:none!important}
+body.guardian-v2 #u-emergency-hero .u-v14-date{margin:0}
+html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2,html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2 .u-bilingual,html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2 .u-zh,html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2 .u-en{font-size:clamp(25px,6.6vw,38px)!important;line-height:1.3!important}
+body.guardian-v2 #u-emergency-hero h2{margin-top:10px!important;letter-spacing:-.02em!important}
+body.guardian-v2 #u-emergency-hero p{margin-top:10px!important;color:#cdd6de}
+.v2-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px}
+.v2-quick button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:76px;padding:10px 4px;border-radius:14px;border:1px solid var(--v2-border);background:var(--v2-card);color:var(--v2-text);font-size:13px;font-weight:800;line-height:1.25;text-align:center;cursor:pointer}
+.v2-quick button .v2-ico{font-size:22px;line-height:1}
+.v2-quick button:hover{border-color:#6b7b8b}
+html[data-portal-lang] body.guardian-v2 .v2-quick .u-zh,html[data-portal-lang] body.guardian-v2 .v2-quick .u-en{font-size:13px!important}
+.v2-list{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
+.v2-list li{margin:0}
+.v2-list button,.v2-list a{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1px solid var(--v2-border);background:var(--v2-card);color:var(--v2-text);font-size:14px;font-weight:700;line-height:1.45;text-align:left;text-decoration:none;cursor:pointer}
+.v2-list .v2-list-main{flex:1;min-width:0;overflow-wrap:anywhere}
+.v2-list .v2-arrow{color:var(--v2-gold);flex:none}
+.v2-list button:hover,.v2-list a:hover{border-color:#6b7b8b}
+.v2-list h4,.v2-list h4 *{font-size:14px!important;font-weight:750!important;margin:0!important;color:var(--v2-text)!important;display:inline}
+body.guardian-v2 #mode0Container .v2-page>#u-current-strategy{text-align:center}
+body.guardian-v2 #u-current-strategy img{border-radius:12px!important}
+
+/* ---------- Action: membership ---------- */
+body.guardian-v2 #u-affiliated-union .u-join-actions{margin:14px 0 4px}
+body.guardian-v2 #u-affiliated-union .u-join-actions{display:block}
+body.guardian-v2 #mode0Container #u-affiliated-union .u-join-btn{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;padding:12px 18px!important;border-radius:14px!important;background:var(--v2-gold)!important;color:#101820!important;border:1px solid #f0d7a6!important;box-shadow:none!important;font-size:17px!important;font-weight:900!important;text-decoration:none!important}
+body.guardian-v2 #u-affiliated-union .u-join-btn .u-en{color:#3b2c14!important}
+body.guardian-v2 #u-affiliated-union .u-subtle-info{background:var(--v2-card)!important;border:1px solid var(--v2-border);border-radius:14px}
+body.guardian-v2 #affiliatedUnionCombinedCount,body.guardian-v2 #otherApplicationsCount{color:var(--v2-gold)!important}
+.v2-stat-note{margin:10px 0 0;padding:9px 11px;border-radius:10px;background:rgba(231,193,126,.08);border:1px solid rgba(231,193,126,.28);color:#eadcc2;font-size:12.5px;line-height:1.65}
+
+/* ---------- Action: RBA + MOEA ---------- */
+body.guardian-v2 #mode0Container .v2-page>#mm-action-hub{background:transparent!important;border:0!important;padding:0!important;margin:0!important}
+body.guardian-v2 #mm-action-hub .v2-action-card,body.guardian-v2 #mm-action-hub .moea-action{background:var(--v2-block);border:1px solid var(--v2-border);border-radius:var(--v2-radius);padding:18px 16px;margin:0 0 14px;border-top:1px solid var(--v2-border)}
+body.guardian-v2 #mm-action-hub .rba-heading p{margin-bottom:12px}
+html[data-portal-lang] body.guardian-v2 #mm-action-hub h2{font-size:21px!important}
+body.guardian-v2 #mm-action-hub .rba-eyebrow{color:var(--v2-gold)}
+.v2-flow{list-style:none;margin:0 0 14px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;counter-reset:v2flow}
+.v2-flow li{counter-increment:v2flow;display:flex;gap:8px;align-items:flex-start;padding:10px;border-radius:12px;background:var(--v2-card);border:1px solid var(--v2-border);font-size:13px;line-height:1.5;color:var(--v2-text);min-width:0}
+.v2-flow li::before{content:counter(v2flow);flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#33424f;color:var(--v2-gold);font-size:12px;font-weight:900}
+@media(min-width:760px){.v2-flow{grid-template-columns:repeat(4,minmax(0,1fr))}}
+body.guardian-v2 #mm-action-hub .rba-open-link{background:var(--v2-gold)!important;border:1px solid #f0d7a6!important;color:#101820!important;box-shadow:none!important;border-radius:12px;min-height:48px;display:flex!important;align-items:center;justify-content:center;font-size:15px}
+body.guardian-v2 #mm-action-hub .rba-form-demo{background:var(--v2-card)!important;color:var(--v2-text)!important;border:1px solid var(--v2-border);border-radius:14px;padding:14px 12px}
+body.guardian-v2 #mm-action-hub .rba-form-demo h3{color:#fff!important;font-size:18px}
+body.guardian-v2 #mm-action-hub .rba-mini{color:var(--v2-gold)!important}
+body.guardian-v2 #mm-action-hub .rba-demo-badge{background:#33424f!important;color:var(--v2-gold)!important}
+body.guardian-v2 #mm-action-hub .rba-info{color:var(--v2-muted)!important;font-size:13.5px}
+body.guardian-v2 #mm-action-hub .rba-info a{color:#f2d79e!important}
+body.guardian-v2 #mm-action-hub .rba-field{background:var(--v2-block)!important;border:1px solid var(--v2-border)!important}
+body.guardian-v2 #mm-action-hub .rba-field label{color:var(--v2-text)!important;font-size:13px}
+body.guardian-v2 #mm-action-hub .rba-value,body.guardian-v2 #mm-action-hub .rba-field input,body.guardian-v2 #mm-action-hub .rba-field textarea,body.guardian-v2 #mm-action-hub #rba-moea-subject,body.guardian-v2 #mm-action-hub .moea-letter textarea{background:#101820!important;color:var(--v2-text)!important;border:1px solid var(--v2-border)!important;font-size:14px;overflow-wrap:anywhere}
+body.guardian-v2 #mm-action-hub .rba-field input::placeholder{color:#7f8d9a}
+body.guardian-v2 #mm-action-hub .rba-hint{color:var(--v2-muted)!important;font-size:12px}
+body.guardian-v2 #mm-action-hub .rba-copy{background:#33424f!important;color:var(--v2-text)!important;border:1px solid #56687a!important;min-height:44px;font-size:13px;border-radius:10px}
+body.guardian-v2 #mm-action-hub .rba-copy:active{background:#45576a!important}
+body.guardian-v2 #mm-action-hub .rba-privacy{background:rgba(231,193,126,.07)!important;border:1px solid rgba(231,193,126,.28)!important;color:#e6dac4!important;font-size:12.5px}
+body.guardian-v2 #mm-action-hub .moea-steps>div{background:var(--v2-block)!important;border:1px solid var(--v2-border)!important}
+body.guardian-v2 #mm-action-hub .moea-steps b{color:var(--v2-gold)!important}
+body.guardian-v2 #mm-action-hub .moea-steps p{color:var(--v2-muted)!important;font-size:13px}
+body.guardian-v2 #mm-action-hub .mm-report-panel{background:var(--v2-card)!important;border:1px solid var(--v2-border)!important;box-shadow:inset 3px 0 0 var(--v2-gold)!important;margin:14px 0 0}
+body.guardian-v2 #mm-action-hub .mm-report-label{color:var(--v2-gold)!important}
+body.guardian-v2 #mm-action-hub .mm-report-count strong{color:var(--v2-gold)!important}
+body.guardian-v2 #mm-action-hub .mm-report-panel p,body.guardian-v2 #mm-action-hub .mm-report-status{color:var(--v2-muted)!important}
+body.guardian-v2 #mm-action-hub .mm-report-button{background:#2e3f4f!important;border:1px solid #6b7d8f!important;color:#fff!important;min-height:48px;font-size:14px}
+body.guardian-v2 #mm-action-hub .mm-report-button:disabled{background:#26333f!important;border-color:#3e4c59!important;color:#9aa8b4!important}
+
+/* ---------- Action: articles, poster, dues, volunteers ---------- */
+body.guardian-v2 #mm-support-news .mm-support-news-head{flex-wrap:wrap}
+body.guardian-v2 #mm-support-news .mm-support-article{background:var(--v2-card);border-color:var(--v2-border);min-height:48px}
+body.guardian-v2 #mm-support-news .mm-support-news-head p{font-size:13.5px;color:var(--v2-muted)}
+body.guardian-v2 .mm-public-poster{text-align:center}
+body.guardian-v2 .mm-public-poster h3{color:#fff!important;font-size:19px}
+body.guardian-v2 .mm-public-poster p{color:var(--v2-muted)!important}
+body.guardian-v2 .mm-public-poster img{max-width:520px;margin:0 auto;width:100%}
+body.guardian-v2 .mm-public-poster .rba-open-link{display:inline-flex!important;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border-radius:12px;background:#33424f;border:1px solid #56687a;color:#fff!important;text-decoration:none;font-weight:800;font-size:14px}
+body.guardian-v2 #mode0Container .v2-page>#u-weekly-announcement{background:var(--v2-block)!important}
+body.guardian-v2 #u-weekly-announcement .wa-heading{margin-bottom:10px}
+.v2-dues-status{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px;padding:11px 12px;border-radius:12px;border:1px solid var(--v2-border);background:var(--v2-card);font-size:13.5px;line-height:1.6;color:var(--v2-text)}
+.v2-dues-status.is-ended{border-color:rgba(226,108,108,.45);background:rgba(226,108,108,.07)}
+#ux-membership-services{margin:16px 0 4px;padding:14px 12px;border-radius:14px;background:var(--v2-card);border:1px solid var(--v2-border)}
+#ux-membership-services .ux-dues-title{font-size:17px;font-weight:900;color:#fff;margin:0}
+#ux-membership-services .ux-dues-intro{font-size:13px;color:var(--v2-muted);margin:4px 0 0}
+#ux-membership-services .wa-dues-notice{font-size:13px;color:#eadcc2;margin-top:6px}
+#ux-membership-services.is-ended .wa-schedule-table-wrap{opacity:.6}
+body.guardian-v2 .wa-schedule-table-wrap{-webkit-overflow-scrolling:touch}
+body.guardian-v2 .wa-schedule-table{min-width:300px}
+body.guardian-v2 #u-participate .u-recruit-item{background:var(--v2-card)!important;border:1px solid var(--v2-border)!important;border-radius:14px!important}
+.v2-admin{margin-top:12px;font-size:12.5px;color:var(--v2-muted)}
+.v2-admin summary{cursor:pointer;min-height:36px;display:flex;align-items:center;color:#9fadba}
+.v2-admin .u-admin-link{margin-top:6px!important}
+
+/* ---------- News ---------- */
+body.guardian-v2 #u-next .u-roadmap-item .v2-badge{margin:0 0 6px}
+.v2-status-summary{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.v2-empty{padding:12px;border-radius:12px;border:1px dashed var(--v2-border);color:var(--v2-muted);font-size:13.5px;line-height:1.6;margin:10px 0}
+body.guardian-v2 #u-past-timeline{margin-top:14px}
+body.guardian-v2 #u-past-timeline>summary{min-height:44px;display:flex;align-items:center}
+body.guardian-v2 #completedArchiveToggle{min-height:44px}
+
+/* ---------- Community ---------- */
+body.guardian-v2 #mode0Container .v2-page>#u-actions{background:transparent!important;border:0!important;padding:0!important}
+body.guardian-v2 #u-actions .u-cardgrid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))!important;gap:14px!important}
+body.guardian-v2 #u-actions .u-cardgrid>section{background:var(--v2-block)!important;border:1px solid var(--v2-border)!important;border-radius:var(--v2-radius)!important;padding:18px 16px!important;margin:0!important;box-shadow:none!important}
+.v2-games-list{display:grid;gap:8px;margin-top:14px}
+
+/* ---------- More ---------- */
+.v2-chipgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.v2-chipgrid button{min-height:46px;padding:8px 10px;border-radius:12px;border:1px solid var(--v2-border);background:var(--v2-card);color:var(--v2-text);font-size:13.5px;font-weight:750;text-align:left;cursor:pointer;line-height:1.35}
+.v2-chipgrid button:hover{border-color:#6b7b8b}
+@media(min-width:760px){.v2-chipgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.v2-subtitle{font-size:13px;font-weight:800;color:var(--v2-gold);margin:16px 0 0;letter-spacing:.04em}
+body.guardian-v2 #mode0Container #v2-tools a.u-button{display:flex!important;margin:0!important;width:100%;min-height:48px;box-shadow:none!important;background:var(--v2-card)!important;border:1px solid var(--v2-border)!important;color:var(--v2-text)!important;font-size:14px!important;justify-content:flex-start!important;padding:10px 12px!important;border-radius:12px!important}
+body.guardian-v2 #mode0Container .v2-page details>summary{min-height:44px}
+
+/* ---------- Unified buttons / accents ---------- */
+body.guardian-v2 #mode0Container .v2-page .u-button,
+body.guardian-v2 #u-weekly-announcement .wa-btn{background:#2e3f4f!important;border:1px solid #5a6b7c!important;color:#fff!important;box-shadow:none!important;border-radius:12px!important;min-height:46px;text-decoration:none!important}
+body.guardian-v2 #mode0Container .v2-page .u-button:hover,body.guardian-v2 #u-weekly-announcement .wa-btn:hover{border-color:#8597a9!important}
+body.guardian-v2 #mode0Container .v2-page .u-button .u-en,body.guardian-v2 #u-weekly-announcement .wa-btn .u-en{color:inherit!important}
+body.guardian-v2 #mode0Container .v2-page .u-kicker{color:var(--v2-gold)!important}
+body.guardian-v2 #mode0Container #u-participate .u-recruit-item{border-color:var(--v2-border)!important}
+body.guardian-v2 #mode0Container #u-participate .vol-count-public{background:var(--v2-block)!important;border:1px solid var(--v2-border)!important;color:var(--v2-text)!important}
+
+/* ---------- Footer ---------- */
+.v2-footer{font-size:12px;color:#8f9daa;text-align:center;line-height:1.7;padding:6px 8px 4px}
+
+/* ---------- Small screens ---------- */
+@media(max-width:380px){
+ body.guardian-v2>.max-w-7xl{padding:8px 8px 0!important}
+ body.guardian-v2 #mmTopbar{padding:10px 10px!important}
+ .v2-brand-text h1,html[data-portal-lang] body.guardian-v2 #mmTopbar .mm-title{font-size:16px!important}
+ body.guardian-v2 #mmTopbar .mm-logo{width:36px;height:36px;font-size:20px}
+ body.guardian-v2 #mmTopbar .mm-lang-btn{padding:0 8px;gap:4px}
+ body.guardian-v2 #mmTopbar .mm-share{gap:6px}
+ body.guardian-v2 #mmTopbar .mm-share a,body.guardian-v2 #mmTopbar .mm-share button{min-width:40px;padding:0 6px}
+ body.guardian-v2 #portalViewStats .v2-stat{padding:5px 9px;font-size:11.5px}
+ .v2-quick{gap:6px}.v2-quick button{font-size:12px;min-height:70px}
+ body.guardian-v2 #mode0Container .v2-page>section,body.guardian-v2 #mode0Container .v2-page>.v2-block,body.guardian-v2 #mode0Container .v2-page>div.mm-public-poster,body.guardian-v2 #mm-action-hub .v2-action-card,body.guardian-v2 #mm-action-hub .moea-action{padding:16px 12px!important}
+ .v2-tab{font-size:10.5px}
+ .v2-flow{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
+
 </head>
 <body class="p-4 md:p-8 relative emergency-active">
 <div class="max-w-7xl mx-auto">
@@ -1992,46 +2182,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 <script src="portal-i18n/data.js?v=5"></script>
 <script src="portal-i18n/portal-i18n.js?v=5"></script>
 
-<script id="ux-three-rounds">
-document.addEventListener('DOMContentLoaded', () => {
-  const strategy = document.getElementById('u-current-strategy');
-  const activity = document.getElementById('u-weekly-announcement');
-  const event = document.getElementById('u-nov17-action');
-  const union = document.getElementById('u-affiliated-union');
-  const participation = document.getElementById('u-participate');
-  const community = document.getElementById('u-actions');
-  const archive = document.getElementById('u-completed-milestones');
-
-  const shortcuts = document.createElement('nav');
-  shortcuts.className = 'ux-shortcuts';
-  shortcuts.setAttribute('aria-label', '依需求找內容');
-  shortcuts.innerHTML = "<a href=\"#u-weekly-announcement\" onclick=\"return portalNavigateTo('u-weekly-announcement')\"><span class=\"u-bilingual\"><span class=\"u-zh\">活動報名</span><span class=\"u-en\" lang=\"en\">Event registration</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#ux-membership-start\" onclick=\"return portalNavigateTo('ux-membership-start')\"><span class=\"u-bilingual\"><span class=\"u-zh\">入會與繳費</span><span class=\"u-en\" lang=\"en\">Membership &amp; dues</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-participate\" onclick=\"return portalNavigateTo('u-participate')\"><span class=\"u-bilingual\"><span class=\"u-zh\">志工與社群</span><span class=\"u-en\" lang=\"en\">Volunteers &amp; community</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a><a href=\"#u-quick-faq\" onclick=\"return portalNavigateTo('u-quick-faq')\"><span class=\"u-bilingual\"><span class=\"u-zh\">常見問題</span><span class=\"u-en\" lang=\"en\">FAQ</span></span><span class=\"ux-shortcut-arrow\" aria-hidden=\"true\">↓</span></a>";
-  const rbaAction = document.getElementById('mm-action-hub');
-  strategy.before(shortcuts, rbaAction, activity);
-
-  const services = document.createElement('div');
-  services.id = 'ux-membership-services';
-  const feeArchive = document.createElement('details');
-  feeArchive.className = 'ux-fee-archive';
-  const summary = document.createElement('summary');
-  summary.innerHTML = '<span class="u-bilingual"><span class="u-zh">查看地點、繳費流程與聯絡方式</span><span class="u-en" lang="en">Location, payment steps and contact</span></span>';
-  feeArchive.append(summary);
-  while (event.nextElementSibling) feeArchive.append(event.nextElementSibling);
-  services.innerHTML = "<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p><div class=\"wa-schedule-table-wrap\"><table class=\"wa-schedule-table\" aria-label=\"11月會員會費繳納時間表\"><thead><tr><th scope=\"col\">日期</th><th scope=\"col\">中午</th><th scope=\"col\">晚間</th></tr></thead><tbody><tr><td>11/16（一）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr class=\"wa-paused\"><td>11/17（二）</td><td colspan=\"2\"><strong>暫停收費</strong></td></tr><tr><td>11/18（三）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/19（四）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/20（五）</td><td>12:00–13:00</td><td class=\"wa-no-session\">—</td></tr></tbody></table></div><div class=\"wa-dues-notice\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17. More sessions to be announced.</span></span></div>";
-  services.append(feeArchive);
-  union.after(services);
-
-  participation.after(community);
-  const resources = document.createElement('div');
-  resources.className = 'ux-resource-links';
-  resources.innerHTML = '<a href="Game/fack.html">全民找法克 <span aria-hidden="true">↗</span></a><a href="Game/dual-city-1230/">雙城集結令 <span aria-hidden="true">↗</span></a><a href="Salary.html">薪情平台 <span aria-hidden="true">↗</span></a>';
-  community.append(resources);
-  const communityTitle = community.querySelector('.u-kicker');
-  if (communityTitle) communityTitle.textContent = '社群交流與匿名心聲';
-  community.querySelectorAll('.u-step').forEach(el => el.remove());
-  document.getElementById('u-quick-faq').closest('section').after(archive);
-});
-</script><script id="mm-rba-preview-js">
+<!-- V2: production script "ux-three-rounds" replaced by guardian-v2-app (dues table rebuilt there) --><script id="mm-rba-preview-js">
 (function(){
 var hub=document.getElementById('mm-action-hub');if(!hub)return;
 var modal=document.getElementById('rba-copy-modal'),close=document.getElementById('rba-copy-close');
@@ -2172,90 +2323,355 @@ button.addEventListener('click',function(event){
 });
 })();
 </script>
-
-<script id="guardian-v2-navigation">
+<script id="guardian-v2-app">
+/* Guardian V2 — App-style tabs for v2-preview.html only.
+ * Re-homes the ORIGINAL DOM nodes (same IDs, same listeners, same backend scripts) into five tabs.
+ * No content is cloned, no backend endpoint is changed, nothing here writes data. */
 (function(){
 'use strict';
-function init(){
- document.body.classList.add('guardian-v2');
- const root=document.getElementById('mode0Container');
- if(!root)return;
- const oldHeader=document.getElementById('portalSimpleHeader');
- if(oldHeader)oldHeader.setAttribute('aria-label','光光猴守護平台');
- const keys=['home','action','news','community','more'];
- const data={
-  home:{name:'首頁',icon:'⌂',title:'現在，一起做四件事',sub:'重要行動集中在這裡；每個按鈕都會帶你到真正的操作區。'},
-  action:{name:'我要行動',icon:'✊',title:'我要行動',sub:'加入關工、寄信、回報、繳費及志工參與。請先看說明，再到官方頁面完成動作。'},
-  news:{name:'最新消息',icon:'▤',title:'最新消息與紀錄',sub:'公告、活動時間表、支持報導、歷史成果都集中在這裡。活動是否仍有效，請以最新公告為準。'},
-  community:{name:'交流互動',icon:'♡',title:'交流互動',sub:'未寄出的信、LINE 群組，以及平台上的互動內容。請保護自己與他人的隱私。'},
-  more:{name:'更多資訊',icon:'☷',title:'更多資訊與常見問答',sub:'工會程序、臨時會員大會及法律議事說明；不確定怎麼做可以先閱讀。'}
- };
- const top=document.createElement('div');top.id='guardianV2Head';
- const tabs=document.createElement('nav');tabs.className='v2-topnav';tabs.setAttribute('aria-label','V2 分頁導覽');
- const views={}; keys.forEach(k=>{const sec=document.createElement('div');sec.id='v2-page-'+k;sec.className='v2-view';sec.hidden=true;sec.setAttribute('role','region');sec.setAttribute('aria-label',data[k].name);views[k]=sec;});
- root.parentNode.insertBefore(top,root);
- root.parentNode.insertBefore(tabs,root);
- keys.forEach(k=>root.append(views[k]));
- const bottom=document.createElement('nav');bottom.className='v2-bottom';bottom.setAttribute('aria-label','手機底部分頁導覽');document.body.append(bottom);
- const head=(k)=>{const section=document.createElement('div');section.className='v2-sectionhead';section.innerHTML='<h2>'+data[k].title+'</h2><p>'+data[k].sub+'</p>';views[k].append(section);return section};
- keys.forEach(head);
- function move(id,page){
-  const e=document.getElementById(id);
-  if(e && views[page])views[page].append(e);
+if(window.GuardianV2)return;
+var $=function(id){return document.getElementById(id)};
+function bi(zh,en){return '<span class="u-bilingual"><span class="u-zh">'+zh+'</span><span class="u-en" lang="en">'+en+'</span></span>';}
+function el(tag,attrs,html){var e=document.createElement(tag);if(attrs)Object.keys(attrs).forEach(function(k){if(k==='class')e.className=attrs[k];else e.setAttribute(k,attrs[k]);});if(html!=null)e.innerHTML=html;return e;}
+var SVG=function(d){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>';};
+var TABS=[
+ {k:'home',zh:'首頁',en:'Home',icon:SVG('<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>')},
+ {k:'action',zh:'我要行動',en:'Act',icon:SVG('<path d="M7 11V6.5a1.5 1.5 0 0 1 3 0V10"/><path d="M10 10V5.5a1.5 1.5 0 0 1 3 0V10"/><path d="M13 10V6.5a1.5 1.5 0 0 1 3 0V11"/><path d="M16 11V9a1.5 1.5 0 0 1 3 0v4.5A7.5 7.5 0 0 1 11.5 21h-.6A6.9 6.9 0 0 1 5 17.6L3.6 15a1.6 1.6 0 0 1 2.6-1.8L7 14"/>')},
+ {k:'news',zh:'最新消息',en:'News',icon:SVG('<path d="M4 21h15a2 2 0 0 0 2-2V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v14a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-8h5"/><path d="M11 8h6M11 12h6M11 16h4"/>')},
+ {k:'community',zh:'交流互動',en:'Community',icon:SVG('<path d="M19.5 13.6 12 21l-7.5-7.4A5 5 0 1 1 12 7a5 5 0 1 1 7.5 6.6z"/>')},
+ {k:'more',zh:'更多資訊',en:'More',icon:SVG('<path d="M4 6h16M4 12h16M4 18h16"/>')}
+];
+var KEYS=TABS.map(function(t){return t.k});
+var DUES_SCHEDULE_HTML="<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p><div class=\"wa-schedule-table-wrap\"><table class=\"wa-schedule-table\" aria-label=\"11月會員會費繳納時間表\"><thead><tr><th scope=\"col\">日期</th><th scope=\"col\">中午</th><th scope=\"col\">晚間</th></tr></thead><tbody><tr><td>11/16（一）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr class=\"wa-paused\"><td>11/17（二）</td><td colspan=\"2\"><strong>暫停收費</strong></td></tr><tr><td>11/18（三）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/19（四）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/20（五）</td><td>12:00–13:00</td><td class=\"wa-no-session\">—</td></tr></tbody></table></div><div class=\"wa-dues-notice\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17. More sessions to be announced.</span></span></div>";
+/* Start times read from each timeline item's own published text (end times are the items' data-timeline-end). */
+var TIMELINE_STARTS={'2026-11-20T13:00:00+08:00':'2026-11-16T12:00:00+08:00','2026-11-10T23:59:59+08:00':'2026-11-10T00:00:00+08:00','2026-11-11T20:00:00+08:00':'2026-11-11T18:00:00+08:00','2026-11-13T23:59:59+08:00':null};
+
+var pages={},tabButtons=[],current=null,lastHash=null;
+
+function tabOf(node){var p=node&&node.closest?node.closest('.v2-page'):null;return p?p.getAttribute('data-v2-tab'):null;}
+function revealTarget(t){
+ /* open collapsed containers that hold the target */
+ var d=t.closest('details');while(d){d.open=true;d=d.parentElement?d.parentElement.closest('details'):null;}
+ var arch=$('completedArchiveContent'),tog=$('completedArchiveToggle');
+ if(arch&&arch.hidden&&arch.contains(t)&&tog)tog.click();
+}
+function show(k,targetId,opts){
+ opts=opts||{};
+ if(!pages[k])k='home';
+ var changed=current!==k;
+ if(changed){
+  KEYS.forEach(function(x){pages[x].hidden=x!==k;});
+  current=k;
+  tabButtons.forEach(function(b){if(b.dataset.v2Tab===k)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  }
- // Move children before their original parent, preserving all IDs, event listeners and backend logic.
- move('u-affiliated-union','action');
- move('mm-support-news','news');
- move('mm-moea-action','action');
- move('u-emergency-hero','home');
- move('u-current-strategy','home');
- move('mm-action-hub','action');
- move('u-weekly-announcement','action');
- move('u-participate','action');
- move('u-next','news');
- const faqAnchor=document.getElementById('u-quick-faq');
- if(faqAnchor && faqAnchor.closest('section'))views.more.append(faqAnchor.closest('section'));
- move('u-completed-milestones','news');
- move('u-actions','community');
- const heroIntro=document.createElement('div');heroIntro.className='v2-tilegrid';
- const tasks=[
-  ['🤝','加入關工','會員申請與繳費','action','u-affiliated-union'],
-  ['✉️','寄信給 RBA','填寫範本＋寄出後回報','action','mm-action-hub'],
-  ['📮','寄信經濟部','官方信箱＋寄出後回報','action','mm-moea-action'],
-  ['❤️','支持文章','閱讀、按讚、分享','news','mm-support-news']
- ];
- tasks.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='v2-tile';b.innerHTML='<span class="emoji">'+t[0]+'</span><strong>'+t[1]+'</strong><span>'+t[2]+' →</span>';b.addEventListener('click',()=>show(t[3],t[4]));heroIntro.append(b)});
- views.home.insertBefore(heroIntro,views.home.querySelector('#u-emergency-hero'));
- const homeNote=document.createElement('p');homeNote.className='v2-smallnote';homeNote.textContent='網站功能與官方寄信範本維持原版；RBA、經濟部須完成官方送出後，才使用站內回報。';views.home.insertBefore(homeNote,views.home.querySelector('#u-emergency-hero'));
- const actJump=views.action.querySelector('.v2-sectionhead');const jump=document.createElement('div');jump.className='v2-jumpbar';
- [['🤝 入會與會員數','u-affiliated-union'],['✉️ RBA','mm-action-hub'],['📮 經濟部','mm-moea-action'],['💳 會費與繳費','u-weekly-announcement'],['🤲 志工','u-participate']].forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item[0];b.addEventListener('click',()=>show('action',item[1]));jump.append(b)});actJump.append(jump);
- const note=document.createElement('p');note.className='v2-smallnote';note.textContent='提醒：RBA 與經濟部的回報數是會員自行回報，並非機關正式收件數；必須先完成官方寄件，再按「我已寄出」。';actJump.append(note);
- const newsJump=views.news.querySelector('.v2-sectionhead');const nbar=document.createElement('div');nbar.className='v2-jumpbar';[['📰 支持報導','mm-support-news'],['📅 活動時間表','u-next'],['✓ 已完成','u-completed-milestones']].forEach(item=>{const b=document.createElement('button');b.type='button';b.textContent=item[0];b.addEventListener('click',()=>show('news',item[1]));nbar.append(b)});newsJump.append(nbar);
- const moreBack=document.createElement('p');moreBack.className='v2-smallnote';moreBack.textContent='本區為網站既有的程序整理，實際期限、會員資格與法律適用情形，仍應以主管機關及正式公告為準。';views.more.querySelector('.v2-sectionhead').append(moreBack);
- const footer=document.createElement('p');footer.className='v2-footer';footer.textContent='V2 測試版 · 正式網站不受影響 · 請勿散布未經查證的指控、個資或公司機密。';root.parentNode.append(footer);
- function show(k,target){
-  if(!views[k])k='home';
-  keys.forEach(id=>{views[id].hidden=id!==k});
-  top.innerHTML='<span class="v2eyebrow">🐵 光光猴守護平台 · V2 TEST</span><h2>'+data[k].title+'</h2><p>'+data[k].sub+'</p><p style="margin-top:8px"><a href="index.html">← 返回正式首頁</a></p>';
-  document.querySelectorAll('[data-v2-tab]').forEach(b=>{if(b.dataset.v2Tab===k)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
-  history.replaceState(null,'','#'+(target||'v2-'+k));
-  requestAnimationFrame(()=>{const e=target&&document.getElementById(target);if(e&&!views[k].hidden)e.scrollIntoView({block:'start',behavior:'smooth'});else window.scrollTo({top:0,behavior:'instant'})});
+ var hash='#'+(targetId||('v2-'+k));
+ if(opts.push!==false&&location.hash!==hash){history.pushState({v2:k},'',hash);}
+ else if(opts.replace&&location.hash!==hash){history.replaceState({v2:k},'',hash);}
+ lastHash=location.hash;
+ var t=targetId&&$(targetId);
+ if(t&&pages[k].contains(t)){
+  revealTarget(t);
+  requestAnimationFrame(function(){t.scrollIntoView({block:'start',behavior:changed?'auto':'smooth'});});
+ }else if(changed||opts.top){window.scrollTo(0,0);}
+}
+function route(hash,opts){
+ var id='';try{id=decodeURIComponent(String(hash||'').replace(/^#/,''));}catch(e){id='';}
+ if(!id||id==='top')return show('home',null,opts);
+ var m=id.match(/^v2-(home|action|news|community|more)$/);
+ if(m)return show(m[1],null,opts);
+ var t=document.getElementById(id),k=tabOf(t);
+ if(k)return show(k,id,opts);
+ show('home',null,opts);
+}
+function go(target){route('#'+target,{push:true});}
+
+/* ---------------- header ---------------- */
+function buildHeader(shell){
+ var bar=$('mmTopbar');if(!bar)return;
+ shell.insertBefore(bar,shell.firstChild);
+ var brand=bar.querySelector('.mm-brand'),title=bar.querySelector('.mm-title');
+ if(brand&&title){
+  brand.setAttribute('href','#v2-home');brand.setAttribute('aria-label','回到首頁 / Home');
+  var wrap=el('span',{class:'v2-brand-text'});var h1=el('h1');
+  title.parentNode.insertBefore(wrap,title);h1.appendChild(title);wrap.appendChild(h1);
+  wrap.appendChild(el('span',{class:'v2-brand-sub'},'GUARDIAN<span class="v2-slogan"> · 我們不生產錢，我們只是香蕉農。</span>'));
  }
- keys.forEach(k=>{
-  const t=document.createElement('button');t.type='button';t.className='v2-navitem';t.textContent=data[k].name;t.dataset.v2Tab=k;t.addEventListener('click',()=>show(k));tabs.append(t);
-  const b=document.createElement('button');b.type='button';b.dataset.v2Tab=k;b.innerHTML='<span class="ico" aria-hidden="true">'+data[k].icon+'</span><span>'+data[k].name+'</span>';b.addEventListener('click',()=>show(k));bottom.append(b);
+ var stats=$('portalViewStats'),tot=$('pageViewTotal'),tod=$('pageViewToday');
+ if(stats&&tot&&tod){
+  while(stats.firstChild)stats.removeChild(stats.firstChild);
+  var a=el('span',{class:'v2-stat'},'<span>'+bi('👁 累積瀏覽','👁 Total views')+'</span>');a.appendChild(tot);
+  var b=el('span',{class:'v2-stat'},'<span>'+bi('🔥 今日瀏覽','🔥 Today')+'</span>');b.appendChild(tod);
+  stats.appendChild(a);stats.appendChild(b);stats.setAttribute('aria-label','瀏覽人數 / Page views');
+  bar.appendChild(stats);
+ }
+ var old=$('portalSimpleHeader');if(old)old.hidden=true;
+}
+
+/* ---------------- tab bar ---------------- */
+function buildTabs(layout){
+ var nav=el('nav',{id:'v2-tabbar',class:'v2-tabbar','aria-label':'主要分頁 / Main sections'});
+ TABS.forEach(function(t){
+  var b=el('button',{type:'button',class:'v2-tab','data-v2-tab':t.k},t.icon+'<span class="v2-tab-label">'+bi(t.zh,t.en)+'</span>');
+  b.addEventListener('click',function(){
+   if(current===t.k&&location.hash==='#v2-'+t.k){window.scrollTo({top:0,behavior:'smooth'});return;}
+   show(t.k,null,{push:true,top:true});
+  });
+  tabButtons.push(b);nav.appendChild(b);
  });
- // Existing floating navigation is replaced, but other original functionality is preserved.
- const originalFloating=document.getElementById('portalFloatingNav');
- if(originalFloating)originalFloating.setAttribute('aria-hidden','true');
- const originHash=location.hash.slice(1);
- const tabFromTarget=id=>{for(const k of keys){if(views[k].querySelector('#'+CSS.escape(id)))return k}return 'home'};
- window.addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(id&&document.getElementById(id))show(tabFromTarget(id),id);else if(id.startsWith('v2-'))show(id.slice(3))});
- document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const target=a.getAttribute('href').slice(1);const el=document.getElementById(target);if(!el)return; e.preventDefault();show(tabFromTarget(target),target)});
- if(originHash&&document.getElementById(originHash))show(tabFromTarget(originHash),originHash);else show(originHash.startsWith('v2-')?originHash.slice(3):'home');
+ layout.insertBefore(nav,layout.firstChild);
+}
+
+/* ---------------- helpers that build small navigation pieces ---------------- */
+function quickButton(icon,zh,en,target){
+ var b=el('button',{type:'button','data-v2-go':target},'<span class="v2-ico" aria-hidden="true">'+icon+'</span><span>'+bi(zh,en)+'</span>');
+ return b;
+}
+function flowList(items){var ol=el('ol',{class:'v2-flow','aria-label':'操作步驟 / Steps'});items.forEach(function(i){ol.appendChild(el('li',null,'<span>'+bi(i[0],i[1])+'</span>'));});return ol;}
+function blockHead(kickerZh,kickerEn,titleZh,titleEn){return '<span class="v2-kicker">'+bi(kickerZh,kickerEn)+'</span><div class="v2-head"><h2>'+bi(titleZh,titleEn)+'</h2></div>';}
+
+/* ---------------- status (Taiwan time) ---------------- */
+var TW_FMT=null;try{TW_FMT=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});}catch(e){}
+function badge(kind){
+ var map={live:['進行中','Ongoing'],soon:['即將開始','Upcoming'],done:['已完成','Completed']};
+ return el('span',{class:'v2-badge v2-badge-'+kind,'data-v2-status':kind},bi(map[kind][0],map[kind][1]));
+}
+function setBadge(item,kind){
+ var host=item.querySelector('.u-roadmap-copy')||item;var old=host.querySelector(':scope > .v2-badge');
+ if(old&&old.getAttribute('data-v2-status')===kind)return;
+ if(old)old.remove();
+ if(kind==='done'&&item.querySelector('.u-roadmap-done'))return;
+ host.insertBefore(badge(kind),host.firstChild);
+}
+function itemStatus(item,now){
+ var endRaw=item.getAttribute('data-timeline-end'),end=Date.parse(endRaw);
+ if(Number.isFinite(end)&&now>end)return 'done';
+ var startRaw=item.getAttribute('data-v2-start'),start=startRaw?Date.parse(startRaw):NaN;
+ if(Number.isFinite(start)&&now<start)return 'soon';
+ return 'live';
+}
+function refreshStatus(){
+ var now=Date.now();
+ var up=$('u-timeline-upcoming'),past=$('u-past-timeline-events');
+ if(up&&past){
+  /* same rule as the original auto-archive script: expired items move to the past list */
+  [].slice.call(up.querySelectorAll('.u-roadmap-item[data-timeline-end]')).forEach(function(item){
+   if(itemStatus(item,now)==='done'){item.classList.add('roadmap-completed');var a=item.querySelector('a.wa-timeline-link');if(a)a.remove();past.appendChild(item);}
+  });
+  var counts={live:0,soon:0,done:past.querySelectorAll('.u-roadmap-item').length};
+  [].slice.call(up.querySelectorAll('.u-roadmap-item')).forEach(function(item){var s=itemStatus(item,now);counts[s]++;setBadge(item,s);});
+  [].slice.call(past.querySelectorAll('.u-roadmap-item')).forEach(function(item){setBadge(item,'done');});
+  ['u-past-event-count','u-past-event-count-en'].forEach(function(id){var c=$(id);if(c&&c.textContent!==String(counts.done))c.textContent=String(counts.done);});
+  var sum=$('v2-status-summary');
+  if(sum){
+   sum.innerHTML='';
+   [['live',counts.live],['soon',counts.soon],['done',counts.done]].forEach(function(p){var b=badge(p[0]);b.appendChild(document.createTextNode(' '+p[1]));sum.appendChild(b);});
+  }
+  var empty=$('v2-upcoming-empty');if(empty)empty.hidden=(counts.live+counts.soon)>0;
+  var stamp=$('v2-tw-time');if(stamp&&TW_FMT)stamp.textContent=TW_FMT.format(new Date(now));
+  /* home "latest" list: titles only, each jumps to the timeline */
+  var list=$('v2-home-latest');
+  if(list){
+   var items=[].slice.call(up.querySelectorAll('.u-roadmap-item'));
+   var sig=items.map(function(i){return itemStatus(i,now)+(i.getAttribute('data-timeline-end')||'')}).join('|');
+   if(list.getAttribute('data-sig')!==sig){
+    list.setAttribute('data-sig',sig);list.innerHTML='';
+    items.forEach(function(item){
+     var h=item.querySelector('h4 .u-bilingual')||item.querySelector('h4');
+     var btn=el('button',{type:'button','data-v2-go':'u-next'});
+     btn.appendChild(badge(itemStatus(item,now)));
+     var main=el('span',{class:'v2-list-main'});if(h)main.innerHTML=h.innerHTML;btn.appendChild(main);
+     btn.appendChild(el('span',{class:'v2-arrow','aria-hidden':'true'},'›'));
+     var li=el('li');li.appendChild(btn);list.appendChild(li);
+    });
+    if(!items.length){var li=el('li');li.appendChild(el('button',{type:'button','data-v2-go':'u-next'},'<span class="v2-list-main">'+bi('目前沒有進行中或即將開始的活動，查看活動紀錄','No ongoing or upcoming events — view the timeline')+'</span><span class="v2-arrow" aria-hidden="true">›</span>'));list.appendChild(li);}
+   }
+  }
+ }
+ /* dues announcement: driven by the dues timeline item's own end time */
+ var dues=document.querySelector('.u-roadmap-item.roadmap-fee[data-timeline-end]');
+ var box=$('v2-dues-status'),svc=$('ux-membership-services');
+ if(box&&dues){
+  var s=itemStatus(dues,now);
+  if(box.getAttribute('data-state')!==s){
+   box.setAttribute('data-state',s);box.classList.toggle('is-ended',s==='done');if(svc)svc.classList.toggle('is-ended',s==='done');
+   box.innerHTML='';
+   if(s==='done'){box.appendChild(el('span',{class:'v2-badge v2-badge-ended'},bi('已結束｜歷史資訊','Ended · archive')));box.appendChild(el('span',null,bi('本梯次（11/16–11/20）繳費場次已結束，以下時間與地點僅供參考；後續時段以工會最新公告為準。','The Nov 16–20 dues sessions have ended. Details below are for reference; follow the union’s latest notice for new sessions.')));}
+   else if(s==='soon'){box.appendChild(badge('soon'));box.appendChild(el('span',null,bi('本梯次繳費場次 11/16 起開放，時段見下表。','Dues sessions open from Nov 16; see the schedule below.')));}
+   else{box.appendChild(badge('live'));box.appendChild(el('span',null,bi('本梯次繳費場次進行中，至 11/20（五）中午 13:00；時段見下表。','Dues sessions are ongoing until Nov 20, 13:00; see the schedule below.')));}
+  }
+  var nb=$('v2-news-dues-badge');
+  if(nb&&nb.getAttribute('data-state')!==s){nb.setAttribute('data-state',s);nb.innerHTML='';nb.appendChild(s==='done'?el('span',{class:'v2-badge v2-badge-ended'},bi('已結束','Ended')):badge(s));}
+ }
+}
+
+/* ---------------- main ---------------- */
+function init(){
+ var root=$('mode0Container'),shell=document.querySelector('body > .max-w-7xl');
+ if(!root||!shell)return;
+ document.body.classList.add('guardian-v2');
+ try{history.scrollRestoration='manual';}catch(e){}
+ buildHeader(shell);
+
+ var layout=el('div',{id:'v2-layout'});
+ root.parentNode.insertBefore(layout,root);layout.appendChild(root);
+ buildTabs(layout);
+
+ var footer=root.querySelector(':scope > footer');
+ TABS.forEach(function(t){
+  var p=el('div',{id:'v2-page-'+t.k,class:'v2-page','data-v2-tab':t.k,role:'region','aria-label':t.zh+' / '+t.en});
+  p.hidden=true;pages[t.k]=p;root.insertBefore(p,footer||null);
+ });
+
+ /* ---- Home: hero, one row of shortcuts, latest status, strategy ---- */
+ var quick=el('nav',{class:'v2-quick','aria-label':'快速入口 / Shortcuts'});
+ quick.appendChild(quickButton('🤝','加入關工','Join union','u-affiliated-union'));
+ quick.appendChild(quickButton('✉️','RBA 申訴','RBA','mm-action-hub'));
+ quick.appendChild(quickButton('📮','經濟部寄信','MOEA letter','mm-moea-action'));
+ quick.appendChild(quickButton('💳','會費繳納','Dues','u-weekly-announcement'));
+ var latest=el('section',{id:'v2-home-latest-card',class:'v2-block','aria-labelledby':'v2-home-latest-title'},'<span class="v2-kicker">'+bi('LATEST · 最新動態','LATEST')+'</span><div class="v2-head"><h2 id="v2-home-latest-title">'+bi('📌 現階段活動','📌 Current events')+'</h2></div><ul class="v2-list" id="v2-home-latest"></ul>');
+ var strategy=$('u-current-strategy');
+ var qa=strategy?strategy.querySelector('a[href="./Connected_Union_QA.html"]'):null;
+ var join=$('ux-membership-start');
+ pages.home.appendChild($('u-emergency-hero'));
+ pages.home.appendChild(quick);
+ pages.home.appendChild(latest);
+ if(strategy)pages.home.appendChild(strategy);
+
+ /* ---- Take action ---- */
+ var aff=$('u-affiliated-union'),hub=$('mm-action-hub'),moea=$('mm-moea-action'),news=$('mm-support-news');
+ var poster=document.querySelector('.mm-public-poster'),weekly=$('u-weekly-announcement'),part=$('u-participate');
+ if(aff){
+  var desc=aff.querySelector(':scope > p');
+  if(join){if(desc)desc.after(join);else aff.appendChild(join);}
+  [].slice.call(aff.querySelectorAll('p')).forEach(function(p){if(p.textContent.indexOf('非已核准會員數')>=0)p.classList.add('v2-stat-note');});
+  pages.action.appendChild(aff);
+ }
+ if(hub){
+  if(poster)poster.id=poster.id||'v2-poster';
+  var rbaCard=el('div',{id:'v2-rba',class:'v2-action-card'});
+  [].slice.call(hub.children).forEach(function(c){if(c!==moea&&c.id!=='rba-copy-modal')rbaCard.appendChild(c);});
+  hub.insertBefore(rbaCard,hub.firstChild);
+  var rbaPanel=rbaCard.querySelector('[data-report-panel="rba"]'),rbaHead=rbaCard.querySelector('.rba-heading');
+  if(rbaHead)rbaHead.after(flowList([['閱讀下方教學，逐欄複製內容','Read the guide and copy each field'],['前往 RBA 官方網站貼上並提交','Paste and submit on the official RBA site'],['確認已完成寄送','Make sure it was sent'],['回到本站按「我已寄出」回報','Come back and tap “I have sent it”']]));
+  if(rbaPanel)rbaCard.appendChild(rbaPanel);
+  if(moea){
+   hub.insertBefore(moea,$('rba-copy-modal'));
+   var mHead=moea.querySelector('.rba-heading'),mPanel=moea.querySelector('[data-report-panel="moea"]'),mDemo=moea.querySelector('.rba-form-demo');
+   if(mHead)mHead.after(flowList([['閱讀下方教學，填入署名並複製','Read the guide, add your name and copy'],['前往經濟部信箱驗證後送出','Verify your email on the MOEA site and send'],['確認已完成寄送','Make sure it was sent'],['回到本站按「我已寄出」回報','Come back and tap “I have sent it”']]));
+   if(mPanel&&mDemo)mDemo.after(mPanel);
+   /* The language script rewrites the letter's text node and collapses its line breaks (also on the
+      official page). Re-apply the original template through the page's own name-signature handler. */
+   var mName=$('moea-name');if(mName)mName.dispatchEvent(new Event('input'));
+  }
+  pages.action.appendChild(hub);
+ }
+ if(news){
+  var np=news.querySelector('.mm-support-news-head p');
+  if(np)np.innerHTML=bi('閱讀相關報導與公開討論，也歡迎分享你認同的內容，讓更多人了解事件。','Read related coverage and public discussion, and share what you agree with so more people understand what is happening.');
+  pages.action.appendChild(news);
+ }
+ if(poster)pages.action.appendChild(poster);
+ if(weekly){
+  var whead=weekly.querySelector('.wa-heading');
+  var status=el('div',{id:'v2-dues-status',class:'v2-dues-status',role:'status'});
+  if(whead)whead.after(status);else weekly.insertBefore(status,weekly.firstChild);
+  if(!$('ux-membership-services')){
+   var svc=el('div',{id:'ux-membership-services'},DUES_SCHEDULE_HTML);
+   var wmain=weekly.querySelector('.wa-main');if(wmain)wmain.after(svc);else weekly.appendChild(svc);
+  }
+  pages.action.appendChild(weekly);
+ }
+ if(part){
+  var admin=part.querySelector('.u-admin-link');
+  if(admin){var det=el('details',{class:'v2-admin'},'<summary>'+bi('🔒 管理員專用','🔒 Admins only')+'</summary>');admin.parentNode.insertBefore(det,admin);det.appendChild(admin);}
+  pages.action.appendChild(part);
+ }
+
+ /* ---- News ---- */
+ var notice=el('section',{id:'v2-news-notice',class:'v2-block','aria-labelledby':'v2-news-notice-title'},
+  '<span class="v2-kicker">'+bi('ANNOUNCEMENTS · 重要公告','ANNOUNCEMENTS')+'</span><div class="v2-head"><h2 id="v2-news-notice-title">'+bi('📣 目前有效公告','📣 Current notices')+'</h2></div>'+
+  '<ul class="v2-list"><li><button type="button" data-v2-go="u-weekly-announcement"><span id="v2-news-dues-badge"></span><span class="v2-list-main">'+bi('關工入會與繳費公告','Membership & dues notice')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li>'+
+  '<li><button type="button" data-v2-go="u-line-group"><span class="v2-list-main">'+bi('LINE 群組已重新開放入群審核','LINE group approvals have reopened')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li></ul>'+
+  '<p class="v2-note">'+bi('活動狀態依台灣時間自動判斷','Status uses Taiwan time')+'：<span id="v2-tw-time">—</span></p>');
+ pages.news.appendChild(notice);
+ var next=$('u-next');
+ if(next){
+  var up=$('u-timeline-upcoming'),pastBox=$('u-past-timeline');
+  if(up){
+   [].slice.call(up.querySelectorAll('.u-roadmap-item[data-timeline-end]')).forEach(function(item){var s=TIMELINE_STARTS[item.getAttribute('data-timeline-end')];if(s)item.setAttribute('data-v2-start',s);});
+   up.before(el('div',{id:'v2-status-summary',class:'v2-status-summary','aria-label':'活動狀態統計 / Event status counts'}));
+   up.after(el('p',{id:'v2-upcoming-empty',class:'v2-empty',hidden:''},bi('目前沒有進行中或即將開始的活動。新的活動將依工會正式公告更新。','No ongoing or upcoming events right now. New events follow the union’s official notices.')));
+   if(pastBox)$('v2-upcoming-empty').after(pastBox);
+  }
+  pages.news.appendChild(next);
+ }
+ var done=$('u-completed-milestones');if(done)pages.news.appendChild(done);
+
+ /* ---- Community ---- */
+ var acts=$('u-actions');
+ if(acts){
+  acts.querySelectorAll('.u-step').forEach(function(s){s.remove();});
+  var grid=acts.querySelector('.u-cardgrid');
+  var line=grid?[].slice.call(grid.children).filter(function(c){return c.querySelector('a[href="https://reurl.cc/WzKNrk"]');})[0]:null;
+  if(line&&!line.id)line.id='u-line-group';
+  var games=el('section',{id:'v2-games',class:'u-surface u-action-step','aria-labelledby':'v2-games-title'},
+   '<span class="u-kicker">'+bi('MINI GAMES · 小遊戲','MINI GAMES')+'</span><h3 class="text-xl font-black mt-3" id="v2-games-title">'+bi('🎮 小遊戲專區','🎮 Mini games')+'</h3>'+
+   '<p class="u-muted text-sm mt-3">'+bi('本站原有的小遊戲入口集中在這裡。','The site’s original mini-game links, in one place.')+'</p>'+
+   '<ul class="v2-list v2-games-list"><li><a href="https://micronmonkey.github.io/Game/fack.html"><span aria-hidden="true">🎮</span><span class="v2-list-main">'+bi('全民找法克','Find Fack')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li>'+
+   '<li><a href="https://micronmonkey.github.io/Game/dual-city-1230/"><span aria-hidden="true">🏙️</span><span class="v2-list-main">'+bi('雙城集結令','Dual City')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li></ul>');
+  (grid||acts).appendChild(games);
+  pages.community.appendChild(acts);
+ }
+
+ /* ---- More ---- */
+ var tools=el('section',{id:'v2-tools',class:'v2-block','aria-labelledby':'v2-tools-title'},
+  '<span class="v2-kicker">'+bi('TOOLS · 平台與工具','TOOLS')+'</span><div class="v2-head"><h2 id="v2-tools-title">'+bi('🔗 其他平台與工具','🔗 Other platforms & tools')+'</h2></div>'+
+  '<ul class="v2-list" id="v2-tools-list"><li><a href="Salary.html"><span aria-hidden="true">📊</span><span class="v2-list-main">'+bi('去薪情平台（薪資平台）','Salary Platform')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li></ul>'+
+  '<p class="v2-subtitle">'+bi('🧰 全部功能捷徑','🧰 All shortcuts')+'</p>'+
+  '<div class="v2-chipgrid">'+
+  '<button type="button" data-v2-go="u-affiliated-union">'+bi('🧔🏻‍♂️ 美光關工','🧔🏻‍♂️ Micron Union')+'</button>'+
+  '<button type="button" data-v2-go="mm-action-hub">'+bi('✉️ RBA 申訴','✉️ RBA grievance')+'</button>'+
+  '<button type="button" data-v2-go="mm-moea-action">'+bi('📮 經濟部寄信','📮 MOEA letter')+'</button>'+
+  '<button type="button" data-v2-go="u-weekly-announcement">'+bi('💳 入會與繳費','💳 Membership & dues')+'</button>'+
+  '<button type="button" data-v2-go="u-participate">'+bi('🤝 幹部/志工','🤝 Organizers / Volunteers')+'</button>'+
+  '<button type="button" data-v2-go="u-next">'+bi('📅 自救時間線','📅 Action Timeline')+'</button>'+
+  '<button type="button" data-v2-go="u-completed-milestones">'+bi('✓ 已達成任務','✓ Completed milestones')+'</button>'+
+  '<button type="button" data-v2-go="u-unsent-letters">'+bi('✉️ 未寄出的信','✉️ Unsent Letters')+'</button>'+
+  '<button type="button" data-v2-go="v2-games">'+bi('🎮 小遊戲專區','🎮 Mini games')+'</button>'+
+  '<button type="button" data-v2-go="u-quick-faq">'+bi('❓ 常見問答','❓ FAQ')+'</button>'+
+  '</div>');
+ if(qa){var li=el('li');qa.removeAttribute('style');qa.className='u-button';li.appendChild(qa);tools.querySelector('#v2-tools-list').appendChild(li);}
+ pages.more.appendChild(tools);
+ var faqAnchor=$('u-quick-faq');var faq=faqAnchor?faqAnchor.closest('section'):null;
+ if(faq){faq.id=faq.id||'v2-faq';pages.more.appendChild(faq);}
+
+ /* anything left directly in the container would be orphaned content: keep it visible on Home */
+ [].slice.call(root.children).forEach(function(c){if(!c.classList.contains('v2-page')&&c.tagName!=='FOOTER'&&c.tagName!=='SCRIPT'&&c.tagName!=='STYLE'){pages.home.appendChild(c);if(window.console)console.warn('[V2] unplaced block moved to Home:',c.id||c.className);}});
+ if(footer){footer.appendChild(el('div',{class:'v2-footer'},bi('V2 App 測試版｜正式網站不受影響','V2 app preview · the official site is unchanged')));}
+
+ /* ---- navigation wiring ---- */
+ document.addEventListener('click',function(e){
+  var g=e.target.closest('[data-v2-go]');
+  if(g){e.preventDefault();go(g.getAttribute('data-v2-go'));return;}
+  var a=e.target.closest('a[href^="#"]');
+  if(!a||a.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey)return;
+  var id=a.getAttribute('href').slice(1);
+  if(id===''||id==='top'||/^v2-(home|action|news|community|more)$/.test(id)||tabOf(document.getElementById(id))){e.preventDefault();route('#'+id,{push:true});}
+ });
+ window.portalNavigateTo=function(id){go(id);return false;};
+ window.addEventListener('popstate',function(){route(location.hash,{push:false});});
+ window.addEventListener('hashchange',function(){if(location.hash!==lastHash)route(location.hash,{push:false});});
+
+ refreshStatus();
+ setInterval(function(){if(!document.hidden)refreshStatus();},60000);
+ document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshStatus();});
+
+ route(location.hash,{push:false});
+ window.GuardianV2={show:show,route:route,go:go,current:function(){return current;},refreshStatus:refreshStatus};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+
 </body>
 </html>
