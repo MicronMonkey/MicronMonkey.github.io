@@ -1130,7 +1130,7 @@ A Concerned Micron Employee</textarea><button type="button" class="rba-copy" dat
 <p class="rba-privacy">📌 郵件驗證碼、聯絡資訊與實際寄信都在經濟部官方網站進行。本站不代填官方表單、不蒐集個資。</p>
 </div>
 
-<div class="mm-public-poster" style="margin:24px auto 0;max-width:620px;padding:20px;border:1px solid #d2b47c;border-radius:18px;background:rgba(21,27,52,.9);text-align:center"><h3 style="color:#f3c780;margin:0 0 10px">📣 對外宣傳素材</h3><p style="color:#f4f0e9;margin:0 0 16px">這張圖片可以向外公開宣傳，請求更多人關注與協助。</p><img src="assets/IMG_1675.jpeg?v=20261119-jpg" alt="救救美光：11,000 多位工會會員自救行動宣傳圖片" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<p style=&quot;color:#f0c888&quot;>宣傳圖片暫時無法載入</p>')"><a href="assets/IMG_1675.jpeg?v=20261119-jpg" download="救救美光-公開宣傳圖.jpeg" id="mm-poster-download" class="rba-open-link" style="display:inline-block;margin-top:14px">⬇ 下載宣傳圖片</a></div>
+<div class="mm-public-poster" style="margin:24px auto 0;max-width:620px;padding:20px;border:1px solid #d2b47c;border-radius:18px;background:rgba(21,27,52,.9);text-align:center"><h3 style="color:#f3c780;margin:0 0 10px">📣 對外宣傳素材</h3><p style="color:#f4f0e9;margin:0 0 16px">這張圖片可以向外公開宣傳，請求更多人關注與協助。</p><img src="assets/IMG_1675.jpeg?v=20261119-jpg" alt="救救美光：11,000 多位工會會員自救行動宣傳圖片" loading="lazy" style="display:block;width:100%;height:auto;border-radius:10px" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<p style=&quot;color:#f0c888&quot;>宣傳圖片暫時無法載入</p>')"><a href="assets/IMG_1675.jpeg?v=20261119-jpg" download="救救美光-公開宣傳圖.jpeg" id="mm-poster-download" class="rba-open-link" style="display:inline-block;margin-top:14px">⬇ 下載宣傳圖片</a><p id="mm-poster-save-hint" role="status" aria-live="polite" style="margin:10px 0 0;color:#d5d9e8;font-size:12px">手機可透過系統分享選單儲存到相簿；電腦下載原始 JPG。</p></div>
 </section>
 <div class="rba-copy-modal" id="rba-copy-modal" hidden role="alertdialog" aria-modal="true" aria-labelledby="rba-copy-title"><div class="rba-modal-card"><div class="rba-success-icon">✓</div><h3 id="rba-copy-title">複製成功</h3><p>已複製此欄內容，可以貼到對應的官方表單。</p><button type="button" id="rba-copy-close">確定</button></div></div>
 </section>
@@ -2044,28 +2044,57 @@ refresh();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 })();
 </script>
-<script id="mm-poster-download-v2">
+<script id="mm-poster-smart-save-v3">
 (function(){
- const link=document.getElementById('mm-poster-download');
- if(!link)return;
- link.addEventListener('click',async function(event){
-  event.preventDefault();
-  const original=link.textContent;
-  link.textContent='正在準備 JPG…';
-  try{
-   const response=await fetch(link.href,{cache:'no-store'});
-   if(!response.ok)throw new Error('HTTP '+response.status);
-   const blob=await response.blob();
-   if(!blob.type.startsWith('image/jpeg'))throw new Error('Not JPEG');
-   const blobUrl=URL.createObjectURL(blob);
-   const a=document.createElement('a');a.href=blobUrl;a.download='救救美光-公開宣傳圖.jpeg';
-   document.body.appendChild(a);a.click();a.remove();
-   setTimeout(()=>URL.revokeObjectURL(blobUrl),10000);
-  }catch(err){
-   const a=document.createElement('a');a.href=link.href;a.download='救救美光-公開宣傳圖.jpeg';
-   document.body.appendChild(a);a.click();a.remove();
-  }finally{link.textContent=original;}
- });
+'use strict';
+const button=document.getElementById('mm-poster-download');
+if(!button)return;
+const url=new URL('assets/IMG_1675.jpeg?v=20261119-original',document.baseURI).href;
+const fileName='救救美光-公開宣傳圖.jpeg';
+const isMobile=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Macintosh/i.test(navigator.userAgent));
+const hint=document.getElementById('mm-poster-save-hint');
+const message=(text)=>{if(hint)hint.textContent=text};
+button.textContent=isMobile?'📲 儲存圖片到相簿':'⬇ 下載 JPG 原圖';
+button.href=url;
+button.download=fileName;
+let preparedFile=null;
+let pending=null;
+async function getFile(){
+ if(preparedFile)return preparedFile;
+ if(!pending)pending=fetch(url,{cache:'force-cache'}).then(async response=>{
+  if(!response.ok)throw new Error('Image unavailable');
+  const blob=await response.blob();
+  if(!blob.type.startsWith('image/jpeg'))throw new Error('Not a JPEG');
+  preparedFile=new File([blob],fileName,{type:'image/jpeg'});
+  return preparedFile;
+ }).catch(error=>{pending=null;throw error});
+ return pending;
+}
+if(isMobile){getFile().catch(()=>{});}
+function downloadFile(file){
+ const blobUrl=URL.createObjectURL(file);
+ const a=document.createElement('a');a.href=blobUrl;a.download=fileName;
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(blobUrl),15000);
+}
+button.addEventListener('click',function(event){
+ event.preventDefault();
+ if(!isMobile){
+  getFile().then(downloadFile).catch(()=>{window.location.href=url});
+  return;
+ }
+ // Calling navigator.share without awaiting fetch preserves browser user activation on iOS.
+ if(preparedFile&&navigator.share&&navigator.canShare&&navigator.canShare({files:[preparedFile]})){
+  message('請在分享選單中選擇「儲存影像」，照片就會出現在相簿。');
+  navigator.share({files:[preparedFile],title:'救救美光｜公開宣傳圖片'}).catch(error=>{
+   if(error.name!=='AbortError'){message('無法使用分享選單，請長按圖片，選擇「儲存到照片」或「下載圖片」。');}
+  });
+  return;
+ }
+ // In-app browsers may lack File Share API; display the original picture for long-press saving.
+ message('請長按開啟的原圖，選擇「儲存到照片」；部分 Android 手機會顯示「下載圖片」。');
+ window.open(url,'_blank','noopener');
+});
 })();
 </script>
 </body>
