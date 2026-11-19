@@ -1495,6 +1495,16 @@ body.guardian-v2 #mode0Container #u-participate .vol-count-public{background:tra
 #ux-membership-services .wa-cancelled strong{color:#f2a7a7}
 #ux-membership-services .wa-updated td:last-child strong{color:#8fe0b1}
 #ux-membership-services .wa-dues-update{margin-top:8px;padding:9px 11px;border-radius:10px;border:1px solid rgba(92,196,137,.45);background:rgba(92,196,137,.1);color:#d4f3e0!important;font-weight:750}
+/* report count above the official-site button */
+body.guardian-v2 #mm-action-hub .v2-report-stat{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:10px;margin:0 0 12px;padding:12px 14px;border-radius:14px;background:var(--v2-card);border:1px solid var(--v2-border);box-shadow:inset 3px 0 0 var(--v2-gold)}
+body.guardian-v2 #mm-action-hub .v2-report-stat .mm-report-label{grid-column:1/-1;margin:0 0 2px}
+body.guardian-v2 #mm-action-hub .v2-report-stat .mm-report-count{grid-column:1/-1;margin:0}
+body.guardian-v2 #mm-action-hub .v2-report-stat .mm-report-count strong{font-size:34px}
+body.guardian-v2 #mm-action-hub .v2-report-stat-note{grid-column:1/-1;font-size:11.5px;color:var(--v2-muted);margin-top:2px}
+body.guardian-v2 #mm-action-hub .mm-report-panel{box-shadow:none!important}
+/* home social buttons: 70% height (36px → 25px) */
+body.guardian-v2 #mmTopbar .mm-share a,body.guardian-v2 #mmTopbar .mm-share button{height:25px!important;min-height:0!important;border-radius:8px!important;font-size:12px}
+body.guardian-v2 #mmTopbar .mm-share svg{width:14px;height:14px}
 </style>
 
 </head>
@@ -2897,6 +2907,16 @@ function initA2HS(){
  return standalone;
 }
 
+/* report counts sit above the "go to the official site" button; the "I have sent it" button stays after the guide */
+function liftCount(card,panel){
+ if(!card||!panel)return;
+ var link=card.querySelector('.rba-open-link'),label=panel.querySelector('.mm-report-label'),count=panel.querySelector('.mm-report-count');
+ if(!link||!count)return;
+ var box=el('div',{class:'v2-report-stat',role:'group','aria-label':'自主回報統計 / Self-reported count'});
+ if(label)box.appendChild(label);box.appendChild(count);
+ box.appendChild(el('span',{class:'v2-report-stat-note'},bi('自主回報，非官方收件數','Self-reported, not an official count')));
+ link.parentNode.insertBefore(box,link);
+}
 /* ---------------- main ---------------- */
 function init(){
  var root=$('mode0Container'),shell=document.querySelector('body > .max-w-7xl');
@@ -2951,11 +2971,13 @@ function init(){
   var rbaPanel=rbaCard.querySelector('[data-report-panel="rba"]'),rbaHead=rbaCard.querySelector('.rba-heading');
   if(rbaHead)rbaHead.after(flowList([['閱讀下方教學，逐欄複製內容','Read the guide and copy each field'],['前往 RBA 官方網站貼上並提交','Paste and submit on the official RBA site'],['確認已完成寄送','Make sure it was sent'],['回到本站按「我已寄出」回報','Come back and tap “I have sent it”']]));
   if(rbaPanel)rbaCard.appendChild(rbaPanel);
+  liftCount(rbaCard,rbaPanel);
   if(moea){
    hub.insertBefore(moea,$('rba-copy-modal'));
    var mHead=moea.querySelector('.rba-heading'),mPanel=moea.querySelector('[data-report-panel="moea"]'),mDemo=moea.querySelector('.rba-form-demo');
    if(mHead)mHead.after(flowList([['閱讀下方教學，填入署名並複製','Read the guide, add your name and copy'],['前往經濟部信箱驗證後送出','Verify your email on the MOEA site and send'],['確認已完成寄送','Make sure it was sent'],['回到本站按「我已寄出」回報','Come back and tap “I have sent it”']]));
    if(mPanel&&mDemo)mDemo.after(mPanel);
+   liftCount(moea,mPanel);
    /* The language script rewrites the letter's text node and collapses its line breaks (also on the
       official page). Re-apply the original template through the page's own name-signature handler. */
    var mName=$('moea-name');if(mName)mName.dispatchEvent(new Event('input'));
