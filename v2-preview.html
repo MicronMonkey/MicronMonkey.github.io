@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta http-equiv="Pragma" content="no-cache"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>光光猴守護平台｜V2 App 測試版</title>
 <meta name="robots" content="noindex,nofollow"/>
 <meta content="光光猴守護平台：台灣美光員工的最新消息——加入美光關係企業工會、志工招募與匿名心聲「未寄出的信」。" name="description"/>
@@ -198,7 +198,7 @@
 #mode0Container #u-completed-milestones #u-nov3-briefing .u-step{background:#64748b;color:#fff}
 </style>
 <link href="manifest.webmanifest" rel="manifest"/>
-<meta content="#0f172a" name="theme-color"/>
+<meta content="#101820" name="theme-color"/>
 <style id="chart-tooltip-readability-v20">
 /* Long bilingual Chart.js tooltip content: keep enough vertical room and prevent clipped HTML tooltip text. */
 .chartjs-tooltip, .chart-tooltip, [role="tooltip"] {
@@ -1106,12 +1106,6 @@ body.guardian-v2 #mode0Container{background:transparent!important;padding:0!impo
 body.guardian-v2 #mode0Container>:not(.v2-page):not(footer){margin-top:0}
 .v2-page[hidden]{display:none!important}
 .v2-page{min-width:0}
-.v2-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:100;display:flex;justify-content:space-around;background:#0b1117;border-top:1px solid #26333f;padding:4px max(4px,env(safe-area-inset-right)) calc(4px + env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left))}
-.v2-tab{flex:1 1 0;min-width:44px;max-width:140px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px 2px;border:0;border-radius:12px;background:transparent;color:#cdd5dc;font:700 11.5px/1.2 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
-.v2-tab svg{width:23px;height:23px;flex:none}
-.v2-tab[aria-current="page"]{color:var(--v2-gold)}
-.v2-tab[aria-current="page"] svg{stroke-width:2.4}
-html[data-portal-lang] body.guardian-v2 .v2-tab .u-zh,html[data-portal-lang] body.guardian-v2 .v2-tab .u-en{font-size:11.5px!important}
 @media(min-width:1024px){
  body.guardian-v2{padding-bottom:28px!important}
  body.guardian-v2>.max-w-7xl{padding:16px 20px 0!important}
@@ -1128,7 +1122,7 @@ body.guardian-v2 #mode0Container .v2-page>section,
 body.guardian-v2 #mode0Container .v2-page>.v2-block,
 body.guardian-v2 #mode0Container .v2-page>div.mm-public-poster{background:var(--v2-block)!important;border:1px solid var(--v2-border)!important;border-radius:var(--v2-radius)!important;padding:18px 16px!important;margin:0 0 14px!important;box-shadow:none!important;max-width:none!important;width:auto!important;color:var(--v2-text)}
 body.guardian-v2 #mode0Container .v2-page>#u-actions{margin:0 0 14px}
-body.guardian-v2 #mode0Container .v2-page [id]{scroll-margin-top:12px}
+body.guardian-v2 #mode0Container .v2-page [id]{scroll-margin-top:calc(var(--v2-sticky-h,0px) + 12px)!important}
 body.guardian-v2 .u-muted{color:var(--v2-muted)}
 body.guardian-v2 #mode0Container .v2-page>footer{display:none}
 .v2-head{display:flex;align-items:center;gap:8px;margin:0 0 10px}
@@ -1152,18 +1146,6 @@ body.guardian-v2 #u-emergency-hero .u-v14-date{margin:0}
 html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2,html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2 .u-bilingual,html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2 .u-zh,html[data-portal-lang] body.guardian-v2 #u-emergency-hero h2 .u-en{font-size:clamp(25px,6.6vw,38px)!important;line-height:1.3!important}
 body.guardian-v2 #u-emergency-hero h2{margin-top:10px!important;letter-spacing:-.02em!important}
 body.guardian-v2 #u-emergency-hero p{margin-top:10px!important;color:#cdd6de}
-.v2-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 14px}
-.v2-quick button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:76px;padding:10px 4px;border-radius:14px;border:1px solid var(--v2-border);background:var(--v2-card);color:var(--v2-text);font-size:13px;font-weight:800;line-height:1.25;text-align:center;cursor:pointer}
-.v2-quick button .v2-ico{font-size:22px;line-height:1}
-.v2-quick button:hover{border-color:#6b7b8b}
-html[data-portal-lang] body.guardian-v2 .v2-quick .u-zh,html[data-portal-lang] body.guardian-v2 .v2-quick .u-en{font-size:13px!important}
-.v2-list{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
-.v2-list li{margin:0}
-.v2-list button,.v2-list a{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1px solid var(--v2-border);background:var(--v2-card);color:var(--v2-text);font-size:14px;font-weight:700;line-height:1.45;text-align:left;text-decoration:none;cursor:pointer}
-.v2-list .v2-list-main{flex:1;min-width:0;overflow-wrap:anywhere}
-.v2-list .v2-arrow{color:var(--v2-gold);flex:none}
-.v2-list button:hover,.v2-list a:hover{border-color:#6b7b8b}
-.v2-list h4,.v2-list h4 *{font-size:14px!important;font-weight:750!important;margin:0!important;color:var(--v2-text)!important;display:inline}
 body.guardian-v2 #mode0Container .v2-page>#u-current-strategy{text-align:center}
 body.guardian-v2 #u-current-strategy img{border-radius:12px!important}
 
@@ -1287,6 +1269,105 @@ body.guardian-v2 #mode0Container #u-participate .vol-count-public{background:var
  .v2-flow{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* =====================================================================
+   App patterns (round 2): morphing header, M3 tab bar, chips, grouped
+   lists, toast, copy rows, press feedback
+   ===================================================================== */
+/* --- Compact sticky app bar on every tab except Home (iOS inline title) --- */
+.v2-tabtitle{display:none;font-size:19px;font-weight:850;color:#fff;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+html[data-portal-lang] body.guardian-v2 .v2-tabtitle .u-zh,html[data-portal-lang] body.guardian-v2 .v2-tabtitle .u-en{font-size:19px!important}
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar{position:sticky;top:0;z-index:90;margin:-10px -12px 12px!important;padding:calc(8px + env(safe-area-inset-top)) 14px 8px!important;border-radius:0;border-width:0 0 1px;border-color:transparent;background:rgba(16,24,32,.86)!important;-webkit-backdrop-filter:saturate(160%) blur(16px);backdrop-filter:saturate(160%) blur(16px)}
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar.is-scrolled{border-color:#2a3744}
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar .mm-share,
+body.guardian-v2:not([data-v2-tab="home"]) #portalViewStats,
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar .v2-brand-text{display:none!important}
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar .v2-tabtitle{display:block}
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar .mm-logo{width:32px;height:32px;border-radius:10px;font-size:18px}
+body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar .mm-lang-btn{height:34px}
+.v2-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:10px -14px 0;padding:0 14px 2px;scroll-padding:0 14px}
+.v2-chips::-webkit-scrollbar{display:none}
+.v2-chips[hidden]{display:none!important}
+body.guardian-v2[data-v2-tab="home"] .v2-chips{display:none!important}
+.v2-chip{flex:none;height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--v2-border);background:var(--v2-card);color:#cdd6de;font-size:13.5px;font-weight:750;white-space:nowrap;cursor:pointer}
+.v2-chip[aria-current="true"]{background:var(--v2-text);border-color:var(--v2-text);color:#101820}
+html[data-portal-lang] body.guardian-v2 .v2-chip .u-zh,html[data-portal-lang] body.guardian-v2 .v2-chip .u-en{font-size:13.5px!important}
+@media(min-width:1024px){
+ body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar{top:8px;margin:0 0 16px!important;border-radius:var(--v2-radius);border:1px solid #2f3c49;display:block!important;padding:10px 16px!important}
+ .v2-chips{margin:10px 0 0;padding:0 0 2px}
+ .v2-tabbar{top:calc(var(--v2-sticky-h,0px) + 24px)!important}
+}
+
+/* --- Bottom navigation: Material 3 style pill indicator, translucent --- */
+.v2-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:100;display:flex;justify-content:space-around;background:rgba(11,17,23,.9);-webkit-backdrop-filter:saturate(160%) blur(18px);backdrop-filter:saturate(160%) blur(18px);border-top:1px solid #222e3a;padding:6px max(4px,env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left))}
+.v2-tab{flex:1 1 0;min-width:44px;max-width:120px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0 2px;border:0;background:transparent;color:#aeb9c4;font:700 11.5px/1.15 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.v2-tab svg{padding:4px 0;flex:none;box-sizing:content-box;width:58px;height:22px;border-radius:999px;transition:background-color .15s ease}
+.v2-tab[aria-current="page"]{color:var(--v2-gold)}
+.v2-tab[aria-current="page"] svg{background:rgba(231,193,126,.16);stroke-width:2.3}
+html[data-portal-lang] body.guardian-v2 .v2-tab .u-zh,html[data-portal-lang] body.guardian-v2 .v2-tab .u-en{font-size:11.5px!important}
+@media(min-width:1024px){
+ .v2-tabbar{position:sticky;left:auto;right:auto;bottom:auto;flex-direction:column;justify-content:flex-start;gap:4px;padding:10px;border:1px solid #2f3c49;border-radius:var(--v2-radius);background:#0d141b}
+ .v2-tab{flex:none;max-width:none;flex-direction:row;justify-content:flex-start;gap:10px;min-height:48px;padding:0 10px 0 4px;border-radius:12px;font-size:15px}
+ .v2-tab svg{width:40px;height:22px}
+ .v2-tab[aria-current="page"]{background:#1c2833}
+ .v2-tab[aria-current="page"] svg{background:none}
+ .v2-tab:hover{background:#151f29}
+ html[data-portal-lang] body.guardian-v2 .v2-tab .u-zh,html[data-portal-lang] body.guardian-v2 .v2-tab .u-en{font-size:15px!important}
+}
+
+/* --- Home quick actions: icon tiles with labels (banking-app style) --- */
+.v2-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:4px 0 16px;padding:0 2px}
+.v2-quick button{display:flex;flex-direction:column;align-items:center;gap:7px;padding:4px 0;border:0;background:none;color:var(--v2-text);font-size:12.5px;font-weight:750;line-height:1.25;text-align:center;cursor:pointer}
+.v2-quick .v2-ico{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:27px;line-height:1;background:var(--v2-card);border:1px solid var(--v2-border)}
+html[data-portal-lang] body.guardian-v2 .v2-quick .u-zh,html[data-portal-lang] body.guardian-v2 .v2-quick .u-en{font-size:12.5px!important}
+@media(min-width:760px){.v2-quick{max-width:520px}}
+
+/* --- iOS inset-grouped lists --- */
+.v2-list{list-style:none;margin:10px 0 0;padding:0;display:block;background:var(--v2-card);border:1px solid var(--v2-border);border-radius:14px;overflow:hidden}
+.v2-list li{margin:0;border-bottom:1px solid #35434f}
+.v2-list li:last-child{border-bottom:0}
+.v2-list button,.v2-list a{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:10px 14px;border:0;border-radius:0;background:transparent;color:var(--v2-text);font-size:14.5px;font-weight:700;line-height:1.45;text-align:left;text-decoration:none;cursor:pointer}
+.v2-list .v2-list-main{flex:1;min-width:0;overflow-wrap:anywhere}
+.v2-list .v2-arrow{color:#7d8b98;flex:none;font-size:18px}
+.v2-list h4,.v2-list h4 *{font-size:14.5px!important;font-weight:700!important;margin:0!important;color:var(--v2-text)!important;display:inline}
+.v2-ico-tile{flex:none;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:17px;line-height:1;background:#33424f}
+.v2-games-list{margin-top:14px}
+
+/* --- Support articles as one grouped list --- */
+body.guardian-v2 #mm-support-news .mm-support-news-grid{display:block!important;background:var(--v2-card);border:1px solid var(--v2-border);border-radius:14px;overflow:hidden}
+body.guardian-v2 #mm-support-news .mm-support-article{border:0!important;border-bottom:1px solid #35434f!important;border-radius:0!important;background:transparent!important;padding:13px 14px!important;transform:none!important;align-items:center}
+body.guardian-v2 #mm-support-news .mm-support-article:last-child{border-bottom:0!important}
+body.guardian-v2 #mm-support-news .mm-support-article-arrow{color:#7d8b98}
+
+/* --- Copy feedback: auto-dismissing toast instead of a blocking dialog --- */
+body.guardian-v2 #mm-action-hub .rba-copy-modal.v2-toast{inset:auto 0 calc(var(--v2-tabbar-h) + 22px + env(safe-area-inset-bottom)) 0;padding:0 16px;background:transparent;pointer-events:none;align-items:flex-end}
+body.guardian-v2 #mm-action-hub .v2-toast .rba-modal-card{display:flex;align-items:center;gap:10px;width:auto;max-width:100%;padding:10px 18px 10px 10px;border-radius:999px;background:#f3f5f7;color:#101820;box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:auto}
+body.guardian-v2 #mm-action-hub .v2-toast .rba-success-icon{width:28px;height:28px;line-height:28px;font-size:16px;margin:0;background:#1f8a4c;color:#fff}
+body.guardian-v2 #mm-action-hub .v2-toast h3{font-size:15px!important;margin:0!important;color:#101820!important}
+body.guardian-v2 #mm-action-hub .v2-toast p,body.guardian-v2 #mm-action-hub .v2-toast #rba-copy-close{display:none}
+@media(min-width:1024px){body.guardian-v2 #mm-action-hub .rba-copy-modal.v2-toast{bottom:28px}}
+
+/* --- Copy fields as "value + copy" rows (like account-number rows) --- */
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter){display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:8px;align-items:center}
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>label{grid-column:1/-1;margin:0!important}
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>.rba-value,
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>input{grid-column:1;grid-row:2;min-width:0}
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>input#moea-name{grid-column:1/-1}
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>.rba-copy{grid-column:2;grid-row:2;width:auto!important;margin:0!important;padding:0 12px!important;white-space:nowrap;align-self:stretch}
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>.rba-info,
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>.rba-hint{grid-column:1/-1;grid-row:3;margin:0!important}
+
+body.guardian-v2 #mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter)>.rba-copy{display:inline-flex!important;align-items:center;justify-content:center;gap:4px}
+/* --- Row links in tools list (original Q&A anchor) --- */
+.v2-list a.v2-row-link .u-bilingual{display:inline}
+
+/* --- Press feedback (short, no decorative motion) --- */
+.v2-quick button:active .v2-ico,.v2-chip:active,.v2-tab:active svg{transform:scale(.94)}
+.v2-list button:active,.v2-list a:active,body.guardian-v2 #mm-support-news .mm-support-article:active{background:rgba(255,255,255,.06)!important}
+body.guardian-v2 .rba-copy:active,body.guardian-v2 .mm-report-button:active,body.guardian-v2 .v2-chipgrid button:active{transform:scale(.98)}
+@media(hover:hover){.v2-list button:hover,.v2-list a:hover{background:rgba(255,255,255,.035)}}
+@media(max-width:380px){body.guardian-v2:not([data-v2-tab="home"]) #mmTopbar{margin:-8px -8px 10px!important;padding-left:10px!important;padding-right:10px!important}.v2-chips{margin:10px -10px 0;padding:0 10px 2px}.v2-quick .v2-ico{width:52px;height:52px;font-size:24px}.v2-quick button{font-size:11.5px}.v2-tab svg{width:50px}}
+@media(prefers-reduced-motion:reduce){.v2-tab svg{transition:none}}
 </style>
 
 </head>
@@ -2346,7 +2427,13 @@ var DUES_SCHEDULE_HTML="<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\">
 /* Start times read from each timeline item's own published text (end times are the items' data-timeline-end). */
 var TIMELINE_STARTS={'2026-11-20T13:00:00+08:00':'2026-11-16T12:00:00+08:00','2026-11-10T23:59:59+08:00':'2026-11-10T00:00:00+08:00','2026-11-11T20:00:00+08:00':'2026-11-11T18:00:00+08:00','2026-11-13T23:59:59+08:00':null};
 
-var pages={},tabButtons=[],current=null,lastHash=null;
+var pages={},tabButtons=[],current=null,lastHash=null,scrollMem={},bar=null,chipsEl=null,tabTitleEl=null;
+/* In-page section chips (sticky, with scroll-spy) for the long tabs */
+var CHIPS={
+ action:[['u-affiliated-union','入會','Join'],['mm-action-hub','RBA','RBA'],['mm-moea-action','經濟部','MOEA'],['mm-support-news','文章','Articles'],['v2-poster','宣傳圖','Poster'],['u-weekly-announcement','會費','Dues'],['u-participate','志工','Volunteer']],
+ news:[['v2-news-notice','公告','Notices'],['u-next','時間表','Timeline'],['u-completed-milestones','已完成','Completed']],
+ more:[['v2-tools','平台與工具','Tools'],['v2-faq','常見問答','FAQ']]
+};
 
 function tabOf(node){var p=node&&node.closest?node.closest('.v2-page'):null;return p?p.getAttribute('data-v2-tab'):null;}
 function revealTarget(t){
@@ -2360,9 +2447,12 @@ function show(k,targetId,opts){
  if(!pages[k])k='home';
  var changed=current!==k;
  if(changed){
+  if(current)scrollMem[current]=window.scrollY;
   KEYS.forEach(function(x){pages[x].hidden=x!==k;});
   current=k;
+  document.body.setAttribute('data-v2-tab',k);
   tabButtons.forEach(function(b){if(b.dataset.v2Tab===k)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+  paintAppBar();
  }
  var hash='#'+(targetId||('v2-'+k));
  if(opts.push!==false&&location.hash!==hash){history.pushState({v2:k},'',hash);}
@@ -2371,8 +2461,42 @@ function show(k,targetId,opts){
  var t=targetId&&$(targetId);
  if(t&&pages[k].contains(t)){
   revealTarget(t);
-  requestAnimationFrame(function(){t.scrollIntoView({block:'start',behavior:changed?'auto':'smooth'});});
- }else if(changed||opts.top){window.scrollTo(0,0);}
+  setChip(targetId);
+  requestAnimationFrame(function(){t.scrollIntoView({block:'start',behavior:changed?'auto':'smooth'});setTimeout(spy,changed?50:600);});
+ }else if(opts.top){window.scrollTo(0,0);spy();}
+ else if(changed){window.scrollTo(0,scrollMem[k]||0);spy();}
+}
+
+/* ---------------- compact app bar (non-home tabs) + chips ---------------- */
+function stickyH(){return current&&current!=='home'&&bar?bar.offsetHeight:0;}
+function syncSticky(){document.documentElement.style.setProperty('--v2-sticky-h',stickyH()+'px');}
+function paintAppBar(){
+ if(!bar)return;
+ var t=TABS.filter(function(x){return x.k===current})[0];
+ if(tabTitleEl&&t)tabTitleEl.innerHTML=bi(t.zh,t.en);
+ if(chipsEl){
+  chipsEl.innerHTML='';
+  (CHIPS[current]||[]).forEach(function(c){
+   var b=el('button',{type:'button',class:'v2-chip','data-v2-go':c[0],'data-v2-chip':c[0]},bi(c[1],c[2]));
+   chipsEl.appendChild(b);
+  });
+  chipsEl.hidden=!(CHIPS[current]||[]).length;
+ }
+ syncSticky();
+}
+function setChip(id){
+ if(!chipsEl)return;
+ var hit=null;
+ [].slice.call(chipsEl.children).forEach(function(b){var on=b.getAttribute('data-v2-chip')===id;if(on){b.setAttribute('aria-current','true');hit=b;}else b.removeAttribute('aria-current');});
+ if(hit){var l=hit.offsetLeft-16,r=hit.offsetLeft+hit.offsetWidth+16;if(l<chipsEl.scrollLeft)chipsEl.scrollTo({left:l,behavior:'smooth'});else if(r>chipsEl.scrollLeft+chipsEl.clientWidth)chipsEl.scrollTo({left:r-chipsEl.clientWidth,behavior:'smooth'});}
+}
+var spyLock=0;
+function spy(){
+ var list=CHIPS[current];if(!list||!chipsEl)return;
+ var th=stickyH()+28,act=list[0][0];
+ list.forEach(function(c){var e=$(c[0]);if(e&&pages[current].contains(e)&&e.getBoundingClientRect().top<=th)act=c[0];});
+ if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)act=list[list.length-1][0];
+ setChip(act);
 }
 function route(hash,opts){
  var id='';try{id=decodeURIComponent(String(hash||'').replace(/^#/,''));}catch(e){id='';}
@@ -2387,7 +2511,7 @@ function go(target){route('#'+target,{push:true});}
 
 /* ---------------- header ---------------- */
 function buildHeader(shell){
- var bar=$('mmTopbar');if(!bar)return;
+ bar=$('mmTopbar');if(!bar)return;
  shell.insertBefore(bar,shell.firstChild);
  var brand=bar.querySelector('.mm-brand'),title=bar.querySelector('.mm-title');
  if(brand&&title){
@@ -2395,6 +2519,8 @@ function buildHeader(shell){
   var wrap=el('span',{class:'v2-brand-text'});var h1=el('h1');
   title.parentNode.insertBefore(wrap,title);h1.appendChild(title);wrap.appendChild(h1);
   wrap.appendChild(el('span',{class:'v2-brand-sub'},'GUARDIAN<span class="v2-slogan"> · 我們不生產錢，我們只是香蕉農。</span>'));
+  tabTitleEl=el('span',{class:'v2-tabtitle',role:'heading','aria-level':'1'});
+  brand.appendChild(tabTitleEl);
  }
  var stats=$('portalViewStats'),tot=$('pageViewTotal'),tod=$('pageViewToday');
  if(stats&&tot&&tod){
@@ -2404,6 +2530,12 @@ function buildHeader(shell){
   stats.appendChild(a);stats.appendChild(b);stats.setAttribute('aria-label','瀏覽人數 / Page views');
   bar.appendChild(stats);
  }
+ chipsEl=el('nav',{class:'v2-chips',id:'v2-chips','aria-label':'本頁區塊 / On this page'});chipsEl.hidden=true;
+ bar.appendChild(chipsEl);
+ if(window.ResizeObserver)new ResizeObserver(syncSticky).observe(bar);
+ window.addEventListener('resize',syncSticky);
+ var ticking=false;
+ window.addEventListener('scroll',function(){if(ticking)return;ticking=true;requestAnimationFrame(function(){ticking=false;spy();bar.classList.toggle('is-scrolled',window.scrollY>4);});},{passive:true});
  var old=$('portalSimpleHeader');if(old)old.hidden=true;
 }
 
@@ -2413,8 +2545,8 @@ function buildTabs(layout){
  TABS.forEach(function(t){
   var b=el('button',{type:'button',class:'v2-tab','data-v2-tab':t.k},t.icon+'<span class="v2-tab-label">'+bi(t.zh,t.en)+'</span>');
   b.addEventListener('click',function(){
-   if(current===t.k&&location.hash==='#v2-'+t.k){window.scrollTo({top:0,behavior:'smooth'});return;}
-   show(t.k,null,{push:true,top:true});
+   if(current===t.k){if(location.hash!=='#v2-'+t.k)history.replaceState({v2:t.k},'','#v2-'+t.k);lastHash=location.hash;window.scrollTo({top:0,behavior:'smooth'});return;}
+   show(t.k,null,{push:true});
   });
   tabButtons.push(b);nav.appendChild(b);
  });
@@ -2591,8 +2723,8 @@ function init(){
  var notice=el('section',{id:'v2-news-notice',class:'v2-block','aria-labelledby':'v2-news-notice-title'},
   '<span class="v2-kicker">'+bi('ANNOUNCEMENTS · 重要公告','ANNOUNCEMENTS')+'</span><div class="v2-head"><h2 id="v2-news-notice-title">'+bi('📣 目前有效公告','📣 Current notices')+'</h2></div>'+
   '<ul class="v2-list"><li><button type="button" data-v2-go="u-weekly-announcement"><span id="v2-news-dues-badge"></span><span class="v2-list-main">'+bi('關工入會與繳費公告','Membership & dues notice')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li>'+
-  '<li><button type="button" data-v2-go="u-line-group"><span class="v2-list-main">'+bi('LINE 群組已重新開放入群審核','LINE group approvals have reopened')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li></ul>'+
-  '<p class="v2-note">'+bi('活動狀態依台灣時間自動判斷','Status uses Taiwan time')+'：<span id="v2-tw-time">—</span></p>');
+  '<li><button type="button" data-v2-go="u-line-group"><span class="v2-ico-tile" aria-hidden="true">💬</span><span class="v2-list-main">'+bi('LINE 群組已重新開放入群審核','LINE group approvals have reopened')+'</span><span class="v2-arrow" aria-hidden="true">›</span></button></li></ul>'+
+  '<p class="v2-note">🕒 <span id="v2-tw-time">—</span> · '+bi('依台灣時間自動判斷活動狀態','event status follows Taiwan time')+'</p>');
  pages.news.appendChild(notice);
  var next=$('u-next');
  if(next){
@@ -2617,8 +2749,8 @@ function init(){
   var games=el('section',{id:'v2-games',class:'u-surface u-action-step','aria-labelledby':'v2-games-title'},
    '<span class="u-kicker">'+bi('MINI GAMES · 小遊戲','MINI GAMES')+'</span><h3 class="text-xl font-black mt-3" id="v2-games-title">'+bi('🎮 小遊戲專區','🎮 Mini games')+'</h3>'+
    '<p class="u-muted text-sm mt-3">'+bi('本站原有的小遊戲入口集中在這裡。','The site’s original mini-game links, in one place.')+'</p>'+
-   '<ul class="v2-list v2-games-list"><li><a href="https://micronmonkey.github.io/Game/fack.html"><span aria-hidden="true">🎮</span><span class="v2-list-main">'+bi('全民找法克','Find Fack')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li>'+
-   '<li><a href="https://micronmonkey.github.io/Game/dual-city-1230/"><span aria-hidden="true">🏙️</span><span class="v2-list-main">'+bi('雙城集結令','Dual City')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li></ul>');
+   '<ul class="v2-list v2-games-list"><li><a href="https://micronmonkey.github.io/Game/fack.html"><span class="v2-ico-tile" aria-hidden="true">🎮</span><span class="v2-list-main">'+bi('全民找法克','Find Fack')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li>'+
+   '<li><a href="https://micronmonkey.github.io/Game/dual-city-1230/"><span class="v2-ico-tile" aria-hidden="true">🏙️</span><span class="v2-list-main">'+bi('雙城集結令','Dual City')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li></ul>');
   (grid||acts).appendChild(games);
   pages.community.appendChild(acts);
  }
@@ -2626,7 +2758,7 @@ function init(){
  /* ---- More ---- */
  var tools=el('section',{id:'v2-tools',class:'v2-block','aria-labelledby':'v2-tools-title'},
   '<span class="v2-kicker">'+bi('TOOLS · 平台與工具','TOOLS')+'</span><div class="v2-head"><h2 id="v2-tools-title">'+bi('🔗 其他平台與工具','🔗 Other platforms & tools')+'</h2></div>'+
-  '<ul class="v2-list" id="v2-tools-list"><li><a href="Salary.html"><span aria-hidden="true">📊</span><span class="v2-list-main">'+bi('去薪情平台（薪資平台）','Salary Platform')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li></ul>'+
+  '<ul class="v2-list" id="v2-tools-list"><li><a href="Salary.html"><span class="v2-ico-tile" aria-hidden="true">📊</span><span class="v2-list-main">'+bi('去薪情平台（薪資平台）','Salary Platform')+'</span><span class="v2-arrow" aria-hidden="true">›</span></a></li></ul>'+
   '<p class="v2-subtitle">'+bi('🧰 全部功能捷徑','🧰 All shortcuts')+'</p>'+
   '<div class="v2-chipgrid">'+
   '<button type="button" data-v2-go="u-affiliated-union">'+bi('🧔🏻‍♂️ 美光關工','🧔🏻‍♂️ Micron Union')+'</button>'+
@@ -2640,7 +2772,9 @@ function init(){
   '<button type="button" data-v2-go="v2-games">'+bi('🎮 小遊戲專區','🎮 Mini games')+'</button>'+
   '<button type="button" data-v2-go="u-quick-faq">'+bi('❓ 常見問答','❓ FAQ')+'</button>'+
   '</div>');
- if(qa){var li=el('li');qa.removeAttribute('style');qa.className='u-button';li.appendChild(qa);tools.querySelector('#v2-tools-list').appendChild(li);}
+ if(qa){var li=el('li');qa.removeAttribute('style');qa.className='v2-row-link';
+  var spans=[].slice.call(qa.children);if(spans[0])spans[0].className='v2-ico-tile';if(spans[1])spans[1].classList.add('v2-list-main');if(spans[2])spans[2].className='v2-arrow';
+  li.appendChild(qa);tools.querySelector('#v2-tools-list').appendChild(li);}
  pages.more.appendChild(tools);
  var faqAnchor=$('u-quick-faq');var faq=faqAnchor?faqAnchor.closest('section'):null;
  if(faq){faq.id=faq.id||'v2-faq';pages.more.appendChild(faq);}
@@ -2662,6 +2796,15 @@ function init(){
  window.addEventListener('popstate',function(){route(location.hash,{push:false});});
  window.addEventListener('hashchange',function(){if(location.hash!==lastHash)route(location.hash,{push:false});});
 
+ /* short copy buttons beside single-line values (the full label stays as the accessible name) */
+ [].slice.call(document.querySelectorAll('#mm-action-hub .rba-field:not(.rba-concern):not(.moea-letter) > .rba-copy')).forEach(function(btn){
+  btn.setAttribute('aria-label',btn.textContent.trim());btn.innerHTML='<span aria-hidden="true">📋</span> '+bi('複製','Copy');
+ });
+ var cm=$('rba-copy-modal'),cmClose=$('rba-copy-close'),cmT=null;
+ if(cm&&cmClose&&window.MutationObserver){
+  cm.classList.add('v2-toast');
+  new MutationObserver(function(){if(!cm.hidden){clearTimeout(cmT);cmT=setTimeout(function(){if(!cm.hidden)cmClose.click();},1600);}}).observe(cm,{attributes:true,attributeFilter:['hidden']});
+ }
  refreshStatus();
  setInterval(function(){if(!document.hidden)refreshStatus();},60000);
  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshStatus();});
