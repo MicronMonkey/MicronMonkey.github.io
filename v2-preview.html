@@ -1490,6 +1490,11 @@ body.guardian-v2 #mm-action-hub .mm-report-button:not(:disabled){background:tran
 body.guardian-v2 #mm-action-hub .rba-copy{background:#3a4b5c!important;border:1px solid #7a8ea2!important}
 body.guardian-v2 #u-participate .u-admin-link{border:1px solid #6b7d8f;border-radius:10px;padding:8px 12px;min-height:40px;background:transparent;color:#cdd6de}
 body.guardian-v2 #mode0Container #u-participate .vol-count-public{background:transparent!important;border:0!important;padding:4px 0 0!important;text-align:center;color:var(--v2-muted)!important;font-size:13px}
+#ux-membership-services .wa-updated td{background:#2d3a2f}
+#ux-membership-services .wa-cancelled s{color:#8d9aa7}
+#ux-membership-services .wa-cancelled strong{color:#f2a7a7}
+#ux-membership-services .wa-updated td:last-child strong{color:#8fe0b1}
+#ux-membership-services .wa-dues-update{margin-top:8px;padding:9px 11px;border-radius:10px;border:1px solid rgba(92,196,137,.45);background:rgba(92,196,137,.1);color:#d4f3e0!important;font-weight:750}
 </style>
 
 </head>
@@ -1689,12 +1694,12 @@ A Concerned Micron Employee</textarea><button type="button" class="rba-copy" dat
 </details>
 <div class="u-roadmap u-roadmap-upcoming" id="u-timeline-upcoming">
 
-<div class="u-roadmap-item roadmap-fee" data-timeline-end="2026-11-20T13:00:00+08:00" style="--phase-color:#ebc17d;--phase-panel:#322c29">
- <div class="u-roadmap-date">11/16、18、19<br>中午＋晚間<br>11/20 僅中午</div>
+<div class="u-roadmap-item roadmap-fee" data-timeline-end="2026-11-20T20:00:00+08:00" style="--phase-color:#ebc17d;--phase-panel:#322c29">
+ <div class="u-roadmap-date">11/16、18、19<br>中午＋晚間<br>11/20 僅晚間</div>
  <div class="u-roadmap-marker" aria-hidden="true"><span>01</span></div>
  <div class="u-roadmap-copy">
   <h4><span class="u-bilingual"><span class="u-zh">關係企業工會｜台中會費繳納</span><span class="u-en" lang="en">Union dues · Taichung</span></span></h4>
-  <p><span class="u-bilingual"><span class="u-zh"><strong>后里星巴克會議室</strong>。11/16、11/18、11/19：12:00–13:00、18:00–20:00；11/20：12:00–13:00。<strong>11/17 暫停收費</strong>。11、12 月會費共 <strong>NT$100</strong>，請於廠外休息或下班時段辦理。</span><span class="u-en" lang="en">Houli Starbucks: Nov 16, 18 &amp; 19, noon–1 PM and 6–8 PM; Nov 20, noon–1 PM only. Closed Nov 17. NT$100 for Nov–Dec dues.</span></span></p>
+  <p><span class="u-bilingual"><span class="u-zh"><strong>后里星巴克會議室</strong>。11/16、11/18、11/19：12:00–13:00、18:00–20:00；<strong>11/20：中午場取消，晚間 17:30–20:00</strong>。<strong>11/17 暫停收費</strong>。11、12 月會費共 <strong>NT$100</strong>，請於廠外休息或下班時段辦理。</span><span class="u-en" lang="en">Houli Starbucks: Nov 16, 18 &amp; 19, noon–1 PM and 6–8 PM; Nov 20: noon session cancelled, evening 5:30–8 PM. Closed Nov 17. NT$100 for Nov–Dec dues.</span></span></p>
   <a class="wa-timeline-link" href="#ux-membership-services" >查看詳情 ↗</a>
  </div>
 </div>
@@ -2545,9 +2550,9 @@ var TABS=[
  {k:'more',zh:'更多資訊',en:'More',icon:SVG('<path d="M4 6h16M4 12h16M4 18h16"/>')}
 ];
 var KEYS=TABS.map(function(t){return t.k});
-var DUES_SCHEDULE_HTML="<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p><div class=\"wa-schedule-table-wrap\"><table class=\"wa-schedule-table\" aria-label=\"11月會員會費繳納時間表\"><thead><tr><th scope=\"col\">日期</th><th scope=\"col\">中午</th><th scope=\"col\">晚間</th></tr></thead><tbody><tr><td>11/16（一）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr class=\"wa-paused\"><td>11/17（二）</td><td colspan=\"2\"><strong>暫停收費</strong></td></tr><tr><td>11/18（三）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/19（四）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/20（五）</td><td>12:00–13:00</td><td class=\"wa-no-session\">—</td></tr></tbody></table></div><div class=\"wa-dues-notice\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17. More sessions to be announced.</span></span></div>";
+var DUES_SCHEDULE_HTML="<h3 class=\"ux-dues-title\"><span class=\"u-bilingual\"><span class=\"u-zh\">會費繳納</span><span class=\"u-en\" lang=\"en\">Membership dues</span></span></h3><p class=\"ux-dues-intro\"><span class=\"u-bilingual\"><span class=\"u-zh\">后里星巴克會議室 · 11–12 月會費 NT$100（現金）</span><span class=\"u-en\" lang=\"en\">Houli Starbucks meeting room · Nov–Dec dues: NT$100 (cash)</span></span></p><div class=\"wa-schedule-table-wrap\"><table class=\"wa-schedule-table\" aria-label=\"11月會員會費繳納時間表\"><thead><tr><th scope=\"col\">日期</th><th scope=\"col\">中午</th><th scope=\"col\">晚間</th></tr></thead><tbody><tr><td>11/16（一）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr class=\"wa-paused\"><td>11/17（二）</td><td colspan=\"2\"><strong>暫停收費</strong></td></tr><tr><td>11/18（三）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr><td>11/19（四）</td><td>12:00–13:00</td><td>18:00–20:00</td></tr><tr class=\"wa-updated\"><td>11/20（五）</td><td class=\"wa-cancelled\"><s>12:00–13:00</s> <strong>取消</strong></td><td><strong>17:30–20:00</strong></td></tr></tbody></table></div><div class=\"wa-dues-notice wa-dues-update\"><span class=\"u-bilingual\"><span class=\"u-zh\">🔔 11/20（五）時段更新：中午場取消；晚上 17:30–20:00 開放繳費。</span><span class=\"u-en\" lang=\"en\">🔔 Nov 20 (Fri) update: the noon session is cancelled; dues can be paid 5:30–8 PM.</span></span></div><div class=\"wa-dues-notice\"><span class=\"u-bilingual\"><span class=\"u-zh\">⚠️ 11/17（二）暫停收費；後續時段另行公告。</span><span class=\"u-en\" lang=\"en\">⚠️ No dues collection on Nov 17. More sessions to be announced.</span></span></div>";
 /* Start times read from each timeline item's own published text (end times are the items' data-timeline-end). */
-var TIMELINE_STARTS={'2026-11-20T13:00:00+08:00':'2026-11-16T12:00:00+08:00','2026-11-10T23:59:59+08:00':'2026-11-10T00:00:00+08:00','2026-11-11T20:00:00+08:00':'2026-11-11T18:00:00+08:00','2026-11-13T23:59:59+08:00':null};
+var TIMELINE_STARTS={'2026-11-20T20:00:00+08:00':'2026-11-16T12:00:00+08:00','2026-11-10T23:59:59+08:00':'2026-11-10T00:00:00+08:00','2026-11-11T20:00:00+08:00':'2026-11-11T18:00:00+08:00','2026-11-13T23:59:59+08:00':null};
 
 var pages={},tabButtons=[],current=null,lastHash=null,scrollMem={},bar=null,chipsEl=null,tabTitleEl=null;
 /* In-page section chips (sticky, with scroll-spy) for the long tabs */
@@ -2759,7 +2764,7 @@ function refreshStatus(){
    box.innerHTML='';
    if(s==='done'){box.appendChild(el('span',{class:'v2-badge v2-badge-ended'},bi('已結束｜歷史資訊','Ended · archive')));box.appendChild(el('span',null,bi('本梯次（11/16–11/20）繳費場次已結束，以下時間與地點僅供參考；後續時段以工會最新公告為準。','The Nov 16–20 dues sessions have ended. Details below are for reference; follow the union’s latest notice for new sessions.')));}
    else if(s==='soon'){box.appendChild(badge('soon'));box.appendChild(el('span',null,bi('本梯次繳費場次 11/16 起開放，時段見下表。','Dues sessions open from Nov 16; see the schedule below.')));}
-   else{box.appendChild(badge('live'));box.appendChild(el('span',null,bi('本梯次繳費場次進行中，至 11/20（五）中午 13:00；時段見下表。','Dues sessions are ongoing until Nov 20, 13:00; see the schedule below.')));}
+   else{box.appendChild(badge('live'));box.appendChild(el('span',null,bi('本梯次繳費場次進行中，最後一場為 11/20（五）晚上 17:30–20:00（當天中午場取消）；時段見下表。','Dues sessions are ongoing. Last session: Nov 20 (Fri) 5:30–8 PM (the noon session that day is cancelled). See the schedule below.')));}
   }
   var nb=$('v2-news-dues-badge');
   if(nb&&nb.getAttribute('data-state')!==s){nb.setAttribute('data-state',s);nb.innerHTML='';nb.appendChild(s==='done'?el('span',{class:'v2-badge v2-badge-ended'},bi('已結束','Ended')):badge(s));}
