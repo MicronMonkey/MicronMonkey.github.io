@@ -2594,9 +2594,9 @@ function show(k,targetId,opts){
   tabButtons.forEach(function(b){if(b.dataset.v2Tab===k)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   paintAppBar();
  }
- var hash='#'+(targetId||('v2-'+k));
- if(opts.push!==false&&location.hash!==hash){history.pushState({v2:k},'',hash);}
- else if(opts.replace&&location.hash!==hash){history.replaceState({v2:k},'',hash);}
+ var hash=targetId?'#'+targetId:tabHash(k),url=hash||(location.pathname+location.search);
+ if(opts.replace){if(location.hash!==hash)history.replaceState({v2:k},'',url);}
+ else if(opts.push!==false&&location.hash!==hash){history.pushState({v2:k},'',url);}
  lastHash=location.hash;
  var t=targetId&&$(targetId);
  if(t&&pages[k].contains(t)){
@@ -2645,11 +2645,16 @@ function spy(){
  if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)act=list[list.length-1][0];
  setChip(act);
 }
+/* Tab addresses: Home = plain URL; other tabs = #action #news #community #more.
+   Older #v2-… addresses (saved shortcuts, shared links) still work and are tidied in place. */
+function tabHash(k){return k==='home'?'':'#'+k;}
+var TAB_RE=/^(?:v2-)?(home|action|news|community|more)$/;
 function route(hash,opts){
+ opts=opts||{};
  var id='';try{id=decodeURIComponent(String(hash||'').replace(/^#/,''));}catch(e){id='';}
- if(!id||id==='top')return show('home',null,opts);
- var m=id.match(/^v2-(home|action|news|community|more)$/);
- if(m)return show(m[1],null,opts);
+ if(!id||id==='top')return show('home',null,id?{replace:true}:opts);
+ var m=id.match(TAB_RE);
+ if(m){if('#'+id!==tabHash(m[1])&&opts.push===false)opts={replace:true};return show(m[1],null,opts);}
  var t=document.getElementById(id),k=tabOf(t);
  if(k)return show(k,id,opts);
  show('home',null,opts);
@@ -2662,7 +2667,7 @@ function buildHeader(shell){
  shell.insertBefore(bar,shell.firstChild);
  var brand=bar.querySelector('.mm-brand'),title=bar.querySelector('.mm-title');
  if(brand&&title){
-  brand.setAttribute('href','#v2-home');brand.setAttribute('aria-label','回到首頁 / Home');
+  brand.setAttribute('href','#home');brand.setAttribute('aria-label','回到首頁 / Home');
   var wrap=el('span',{class:'v2-brand-text'});var h1=el('h1');
   title.parentNode.insertBefore(wrap,title);h1.appendChild(title);wrap.appendChild(h1);
   wrap.appendChild(el('span',{class:'v2-brand-sub'},'GUARDIAN'));
@@ -2693,7 +2698,7 @@ function buildTabs(layout){
  TABS.forEach(function(t){
   var b=el('button',{type:'button',class:'v2-tab','data-v2-tab':t.k},t.icon+'<span class="v2-tab-label">'+bi(t.zh,t.en)+'</span>');
   b.addEventListener('click',function(){
-   if(current===t.k){if(location.hash!=='#v2-'+t.k)history.replaceState({v2:t.k},'','#v2-'+t.k);lastHash=location.hash;window.scrollTo({top:0,behavior:'smooth'});return;}
+   if(current===t.k){if(location.hash!==tabHash(t.k))history.replaceState({v2:t.k},'',tabHash(t.k)||(location.pathname+location.search));lastHash=location.hash;window.scrollTo({top:0,behavior:'smooth'});return;}
    show(t.k,null,{push:true});
   });
   tabButtons.push(b);nav.appendChild(b);
@@ -3081,7 +3086,7 @@ function init(){
   var a=e.target.closest('a[href^="#"]');
   if(!a||a.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey)return;
   var id=a.getAttribute('href').slice(1);
-  if(id===''||id==='top'||/^v2-(home|action|news|community|more)$/.test(id)||tabOf(document.getElementById(id))){e.preventDefault();route('#'+id,{push:true});}
+  if(id===''||id==='top'||TAB_RE.test(id)||tabOf(document.getElementById(id))){e.preventDefault();route('#'+id,{push:true});}
  });
  window.portalNavigateTo=function(id){go(id);return false;};
  window.addEventListener('popstate',function(){route(location.hash,{push:false});});
@@ -3102,7 +3107,7 @@ function init(){
  document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshStatus();});
 
  var isApp=initA2HS();
- if(isApp&&/^#v2-(action|news|community|more)$/.test(location.hash))history.replaceState(null,'',location.pathname+location.search+'#v2-home');
+ if(isApp&&/^#(?:v2-)?(home|action|news|community|more)$/.test(location.hash))history.replaceState(null,'',location.pathname+location.search);
  route(location.hash,{push:false});
  window.GuardianV2={show:show,route:route,go:go,current:function(){return current;},refreshStatus:refreshStatus};
 }

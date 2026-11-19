@@ -3,7 +3,7 @@
   "short_name": "光光猴",
   "description": "光光猴守護平台 V2 App 測試版：美光關工入會、RBA 與經濟部寄信、最新消息與交流互動。",
   "id": "./v2-preview.html",
-  "start_url": "./v2-preview.html#v2-home",
+  "start_url": "./v2-preview.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#101820",
