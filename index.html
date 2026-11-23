@@ -196,7 +196,7 @@
 #mode0Container #u-completed-milestones #u-nov3-briefing{margin-top:22px;padding:20px;border:1px solid #657080;border-radius:14px;background:#1a2028}
 #mode0Container #u-completed-milestones #u-nov3-briefing .u-step{background:#64748b;color:#fff}
 </style>
-<link href="manifest.webmanifest?v=1" rel="manifest"/>
+<link href="manifest.webmanifest?v=20261123" rel="manifest"/>
 <link rel="icon" type="image/png" sizes="192x192" href="assets/v2-app-icon-192.png?v=1"/>
 <meta content="#101820" name="theme-color"/>
 <link rel="apple-touch-icon" href="assets/v2-app-icon-180.png?v=1"/>
@@ -2702,6 +2702,10 @@ function buildHeader(shell){
   stats.appendChild(a);stats.appendChild(b);stats.setAttribute('aria-label','瀏覽人數 / Page views');
   bar.appendChild(stats);
  }
+ var refreshButton=el('button',{type:'button',class:'v2-refresh-button','aria-label':'重新整理取得最新公告 / Refresh latest notices'},'↻ '+bi('更新公告','Refresh'));
+ refreshButton.style.cssText='margin:5px 10px 8px auto;padding:7px 12px;border-radius:10px;border:1px solid #657487;background:#253444;color:#f7d294;font-size:12px;font-weight:800;cursor:pointer';
+ refreshButton.addEventListener('click',function(){var u=new URL(location.href);u.searchParams.set('refresh',Date.now().toString());location.replace(u.toString());});
+ bar.appendChild(refreshButton);
  chipsEl=el('nav',{class:'v2-chips',id:'v2-chips','aria-label':'本頁區塊 / On this page'});chipsEl.hidden=true;
  bar.appendChild(chipsEl);
  if(window.ResizeObserver)new ResizeObserver(syncSticky).observe(bar);
