@@ -1,0 +1,23 @@
+{
+  "name": "光光猴守護平台 V3 測試版",
+  "short_name": "光光猴 V3",
+  "id": "/v3-preview/",
+  "start_url": "/v3-preview/index.html",
+  "scope": "/v3-preview/",
+  "display": "standalone",
+  "background_color": "#101820",
+  "theme_color": "#101820",
+  "lang": "zh-Hant",
+  "icons": [
+    {
+      "src": "/assets/v2-app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/v2-app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
