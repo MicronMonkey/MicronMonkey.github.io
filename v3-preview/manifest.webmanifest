@@ -1,6 +1,6 @@
 {
-  "name": "光光猴守護平台 V3 測試版",
-  "short_name": "光光猴 V3",
+  "name": "光光猴",
+  "short_name": "光光猴",
   "id": "/v3-preview/",
   "start_url": "/v3-preview/index.html",
   "scope": "/v3-preview/",
