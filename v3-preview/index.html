@@ -4,7 +4,7 @@
 <head>
 <base href="/">
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/v3-preview/guardian.css">
+<link rel="stylesheet" href="/v3-preview/guardian.css?v=2">
 <meta charset="utf-8"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta http-equiv="Pragma" content="no-cache"/>
@@ -2350,6 +2350,7 @@ function portalNavigateTo(id){requestAnimationFrame(()=>requestAnimationFrame(()
 <div class="c-action-list"><button type="button" id="entryGoActions"><span class="c-icon">✉</span><span>寄信教學與一鍵複製</span><span class="c-arrow">↗</span></button>
 <a href="Unsent_Letters.html" target="_blank" rel="noopener noreferrer"><span class="c-icon">♡</span><span>寫一封未寄出的信</span><span class="c-arrow">↗</span></a><button type="button" id="entryGoSupport"><span class="c-icon">☆</span><span>替支持文章點讚、分享</span><span class="c-arrow">↗</span></button>
 <a href="https://www.threads.com/@mutc_fight" target="_blank" rel="noopener noreferrer"><span class="c-icon">＠</span><span>自救會官方脆 Threads</span><span class="c-arrow">↗</span></a></div></div>
+<section id="g3-entry-promo" class="g3-push-promo" aria-label="手機 App 與即時通知"><div class="g3-promo-copy"><strong>📢 最新消息，即時通知</strong><small>將光光猴加到手機主畫面，開啟訂閱，不錯過重要公告。</small></div><div class="g3-promo-buttons"><button type="button" id="g3-entry-install">📲 加到主畫面</button><button type="button" id="g3-entry-sub">🔔 開啟訂閱通知</button></div></section>
 <button type="button" id="unionEntryLater" class="union-entry-later">進入網站 ↓</button></div></div>
 <script>
 (() => {
@@ -3213,5 +3214,5 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script id="mm-preview-actions-v3">
 (function(){var support=document.getElementById('entryGoSupport');if(support)support.addEventListener('click',function(){document.getElementById('unionEntryClose').click();if(typeof window.portalNavigateTo==='function')window.portalNavigateTo('mm-support-news');else{document.getElementById('mm-support-news').scrollIntoView({behavior:'smooth'});}});document.querySelectorAll('.mm-live-preview').forEach(function(btn){btn.addEventListener('click',function(){var slot=btn.nextElementSibling;if(!slot.hidden){slot.hidden=true;slot.replaceChildren();btn.setAttribute('aria-expanded','false');btn.textContent='載入 Facebook 原文預覽';return;}slot.hidden=false;btn.setAttribute('aria-expanded','true');btn.textContent='收合原文預覽';var frame=document.createElement('iframe');frame.title='Facebook 原文嵌入預覽';frame.src='https://www.facebook.com/plugins/post.php?href='+encodeURIComponent(btn.dataset.post)+'&show_text=true&width=350';frame.loading='lazy';frame.referrerPolicy='no-referrer';slot.appendChild(frame);var p=document.createElement('p');p.textContent='若 Facebook 不允許嵌入或要求登入，請點上方原文連結。';slot.appendChild(p);});});})();
 </script>
-<script>document.addEventListener("click",function(e){const a=e.target.closest("a[href]");if(!a)return;const h=a.getAttribute("href");if(h&&h.startsWith("#")&&window.GuardianV2){e.preventDefault();window.GuardianV2.route(h,{push:true});}},true);</script><script src="/v3-preview/guardian.js"></script></body>
+<script>document.addEventListener("click",function(e){const a=e.target.closest("a[href]");if(!a)return;const h=a.getAttribute("href");if(h&&h.startsWith("#")&&window.GuardianV2){e.preventDefault();window.GuardianV2.route(h,{push:true});}},true);</script><script src="/v3-preview/guardian.js?v=2"></script></body>
 </html>
