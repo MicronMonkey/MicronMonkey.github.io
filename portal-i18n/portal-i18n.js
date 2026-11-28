@@ -158,12 +158,7 @@
       '<span class="mm-lang-name"></span><svg width="11" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/></svg></button>' +
       '<ul class="mm-lang-menu" role="menu"></ul></div></div>' +
       '<div class="mm-share" role="group">' +
-      '<a data-net="fb" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><b>f</b></a>' +
-      '<a data-net="line" target="_blank" rel="noopener noreferrer" aria-label="LINE"><b>LINE</b></a>' +
-      '<a data-net="x" target="_blank" rel="noopener noreferrer" aria-label="X"><b>𝕏</b></a>' +
-      '<button type="button" data-net="ig" aria-label="Instagram"><b>IG</b></button>' +
-      '<a data-net="wa" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="mm-wa">' + icon('M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z', true) + '</a>' +
-      '<button type="button" data-net="copy" class="mm-copy">' + icon('M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1') + '<span class="mm-copy-label"></span></button>' +
+      '<a data-net="threads" href="https://www.threads.com/@mutc_fight" target="_blank" rel="noopener noreferrer" aria-label="自救會官方脆 / Official Threads"><b>＠ 自救會官方脆 Threads ↗</b></a>' +
       '</div><div class="mm-toast" role="status" aria-live="polite"></div>';
     document.body.insertBefore(bar, document.body.firstChild);
     var menu = bar.querySelector('.mm-lang-menu'), btn = bar.querySelector('.mm-lang-btn');
@@ -183,18 +178,6 @@
       else if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
       else if (e.key === 'Escape') { close(); btn.focus(); }
     });
-    var toastT;
-    function toast(msg) { var t = bar.querySelector('.mm-toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('on'); }, 2200); }
-    function copy() {
-      var u = shareURL();
-      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(u).then(function () { toast(ui('ui.copied')); }, function () { prompt('', u); });
-      else prompt('', u);
-    }
-    bar.querySelector('[data-net="copy"]').addEventListener('click', function () {
-      if (navigator.share && matchMedia('(pointer: coarse)').matches) { navigator.share({ title: document.title, url: shareURL() }).catch(function () {}); return; }
-      copy();
-    });
-    bar.querySelector('[data-net="ig"]').addEventListener('click', function () { copy(); });
     // keep the floating nav clear of the bar
     function syncHeight() {
       // span the full width and sit at the very top by cancelling the body margin and padding (they differ between phone and desktop)
@@ -212,13 +195,9 @@
     bar.querySelector('.mm-title').textContent = ui('ui.title');
     bar.querySelector('.mm-lang-name').textContent = LANGS.filter(function (l) { return l.code === lang; })[0].name;
     bar.querySelector('.mm-lang-btn').setAttribute('aria-label', ui('ui.lang'));
-    bar.querySelector('.mm-share').setAttribute('aria-label', ui('ui.share'));
-    bar.querySelector('.mm-copy-label').textContent = ui('ui.share');
+    bar.querySelector('.mm-share').setAttribute('aria-label', 'Official Threads');
     bar.querySelectorAll('.mm-lang-menu button').forEach(function (b) { b.setAttribute('aria-checked', String(b.dataset.lang === lang)); });
-    var u = encodeURIComponent(shareURL()), txt = encodeURIComponent(ui('ui.title'));
-    var href = { fb: 'https://www.facebook.com/sharer/sharer.php?u=' + u, line: 'https://social-plugins.line.me/lineit/share?url=' + u,
-                 x: 'https://twitter.com/intent/tweet?url=' + u + '&text=' + txt, wa: 'https://wa.me/?text=' + txt + '%20' + u };
-    Object.keys(href).forEach(function (k) { bar.querySelector('[data-net="' + k + '"]').href = href[k]; });
+
   }
 
   function boot() { bar = buildBar(); apply(detect(), false); }
